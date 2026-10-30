@@ -9,5 +9,6 @@
 ## 2. Outputs
 
 - [x] 2.1 Certainty score and next-change window
-- [ ] 2.2 Example days with a change and an 18 closure in `web/public/forecasts/`
+- [x] 2.2 Example days with a change and an 18 closure in `web/public/forecasts/`
+  October 2, 7 and 28 have direction changes. No October runway-18 weather closure exists in the available METAR or archived forecast offsets.
 - [ ] 2.3 Jury test days as soon as they're known
