@@ -56,7 +56,7 @@
   #veil { position: absolute; inset: 0; pointer-events: none; }
   #veil .layer { position: absolute; inset: 0; opacity: 0; transition: opacity 0.9s var(--ease); }
   #veil .left { background: linear-gradient(90deg, rgba(246,246,251,0.97) 0%, rgba(246,246,251,0.9) 30%, rgba(246,246,251,0) 58%); }
-  #veil .full { background: rgba(255,255,255,0.97); }
+  #veil .full { background: #ffffff; }
   #veil .top { background: linear-gradient(180deg, rgba(246,246,251,0.95) 0%, rgba(246,246,251,0.6) 22%, rgba(246,246,251,0) 40%); }
   [data-veil="left"] #veil .left, [data-veil="full"] #veil .full, [data-veil="top"] #veil .top { opacity: 1; }
 
@@ -157,13 +157,15 @@
   .foot span { color: var(--muted); }
 
   /* 7 · accuracy */
-  .acc { display: flex; align-items: flex-end; gap: 110px; margin-top: 40px; }
-  .acc .hero .n { font-size: 250px; line-height: 0.85; font-weight: 300; color: var(--accent); letter-spacing: -0.04em; }
+  .acc { display: flex; align-items: flex-end; gap: 90px; margin-top: 110px; }
+  .acc .hero { flex: none; white-space: nowrap; }
+  .acc ul { flex: 1; min-width: 0; }
+  .acc .hero .n { font-size: 220px; line-height: 0.85; font-weight: 300; color: var(--accent); letter-spacing: -0.04em; }
   .acc .hero .t { font-size: 40px; margin-top: 26px; }
   .acc ul { list-style: none; padding-bottom: 10px; }
-  .acc li { display: flex; align-items: baseline; gap: 20px; font-size: 30px; color: var(--ink-2); }
+  .acc li { display: grid; grid-template-columns: 350px 1fr; align-items: baseline; font-size: 28px; color: var(--ink-2); }
   .acc li + li { margin-top: 26px; }
-  .acc li b { font-weight: 300; font-size: 66px; color: var(--ink); min-width: 230px; letter-spacing: -0.02em; }
+  .acc li b { font-weight: 300; font-size: 60px; color: var(--ink); letter-spacing: -0.02em; white-space: nowrap; }
   .detail { position: absolute; left: 140px; right: 140px; bottom: 64px; border-top: 1px solid var(--line); padding-top: 24px; }
   .detail table { border-collapse: collapse; font-size: 21px; color: var(--ink-2); }
   .detail td, .detail th { padding: 3px 34px 3px 0; text-align: left; font-weight: 400; white-space: nowrap; }
@@ -480,7 +482,7 @@
         frame.contentWindow.addEventListener("keydown", function (e) {
           if (e.key === "PageDown" || e.key === "PageUp" || ((e.key === "ArrowRight" || e.key === "ArrowLeft") && !e.defaultPrevented)) onKey(e);
         });
-      } catch (e) { /* another origin: it loaded, leave it */ }
+      } catch (e) { screen.classList.add("failed"); /* the app is same-origin; a throw means an error page */ }
     });
     frame.src = appUrl(screen.dataset.frame);
   }
