@@ -97,6 +97,13 @@ Four people and several agents work in parallel branches and worktrees. Nobody s
 
 `NOTICES.md` has one line per open problem: time (Berlin), severity (`STOP`, `FIX` or `FYI`), what is wrong, where, who acts. Delete the line once it is fixed. A guardian checks all branches and worktrees every 10 minutes until 16:30 and keeps the file current.
 
+## Skills and delegated work
+
+- Work from the assigned worktree. Read this file, the relevant work package, and its producer briefs/contracts before starting; interfaces and worker briefs must be checked together.
+- Read the matching repository `SKILL.md` in full: investigate → `openspec-explore`; propose → `openspec-propose`; revise planning artifacts → `openspec-update-change`; implement approved tasks → `openspec-apply-change`; reconcile durable specs → `openspec-sync-specs`; archive completed work → `openspec-archive-change`. The adapters live in `.agents/skills/` and `.claude/skills/`; use the directory supported by your runner, without copying skills globally.
+- Every delegated prompt must include the absolute worktree path, task and allowed files, work package, exact skill path, producer briefs/contracts, and required evidence. Each receiving agent reads these files itself and reports its inspected commit and skill used. A session started outside the repo must receive explicit paths; inherited conversation is not evidence that the skill was loaded.
+- Check `openspec --version` and run `openspec list --json` from the worktree before using a workflow. If the CLI is unavailable, report the missing prerequisite and continue unaffected investigation; never claim CLI validation or initialize a second project as a workaround. Validate changed artifacts with `openspec validate <change-name> --strict --no-interactive`.
+
 ## Team notes
 
 - Kai Detmers: ML and data pipeline co-lead (`ml/`).
