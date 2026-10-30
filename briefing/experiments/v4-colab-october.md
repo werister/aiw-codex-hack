@@ -44,7 +44,7 @@ A different classifier or naive averaging is not enough on this slice. The more 
 - Forecast windows overlap; no independent-row significance or confidence claim is made.
 - Public labels and weather publication-lag assumptions were inherited; runway-18 alternatives were not evaluated.
 - Existing training exclusions are computed by the inherited pipeline and may use full-history information. The strict time-purge assertion does not establish that every preprocessing decision is causal. F20 requests that separate check.
-- Answers to F17–F22 remain pending. The submitted v5 model is unchanged.
+- Owner answers F17–F23 were added later in commit `139f51a`. They identify Brier at 6/24/48 hours as primary and document remaining label/publication-time assumptions. This experiment made no production-model change.
 
 ## Reproduction and evidence
 
