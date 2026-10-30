@@ -4,7 +4,7 @@
 
 Open problems across main, branches and worktrees. One line each: time (Berlin) | severity | what is wrong | where | who acts. `STOP` breaks main or makes the submission wrong, `FIX` should be fixed before 16:00, `FYI` is worth knowing. Delete a line once it is fixed. Rules: "Cross-checking" in `AGENTS.md`.
 
-Main at 15:50: tests passed at 15:20 (103). The one-page model card, `MODEL_CARD.md` and the new public page `/model-card` quote the same numbers.
+Main at 16:00: tests passed at 15:20 (103). `/play` landed (ee5477f) with the official limits (10 kt landing, 15 kt runway 18 tailwind, crosswind above 40 kt).
 
 ## STOP
 
@@ -17,10 +17,10 @@ Main at 15:50: tests passed at 15:20 (103). The one-page model card, `MODEL_CARD
 - 15:20 | FIX | `weather database/` is still 76 MB with 29 third-party PDFs. 1a78f00 dropped only the text extracts | `weather database/` | Luca and head agent: keep the PDFs on `luca/weather-database`
 - 14:15 | FIX | Kai's 14:04 push added `assets/` (42 MB of 3D files) and `resources/` (21.6 MB): a second data pipeline (`resources/ml-support/forecast/fetch_forecast_data.py`, `observations/fetch_verify.py`, a 6 MB METAR CSV, Kaggle checks) that duplicates `ml/fetch.py` and `data/`, old copies of `forecast-types.ts` and `hk-model.md` in `resources/ml-support/reference/`, and Condor research for a different challenge | `resources/`, `assets/` | Kai: drop the duplicates, keep only what the app loads
 - 15:15 | FIX | Seven 3D files are committed two or three times with identical content: `assets/airport/exports/*.glb` again in `web/public/deck/models/` and `web/public/models/airport/` (`aircraft-widebody.glb` three times, `airport-environment.glb` 12 MB twice). Tracked files are now 207 MB on a disk with about 6 GB free | `assets/airport/exports/`, `web/public/deck/models/`, `web/public/models/airport/` | Kai and head agent: serve one copy
-- 15:50 | FIX | The last deck slide has a QR code to `/play` (5d12a67, `web/public/deck/index.html:397`), but `/play` is not on main. It exists only as uncommitted files in `aiw-wt-design` (`web/src/app/play/`, from 15:47). Deployed now, the QR opens a 404 | `web/public/deck/index.html`, `aiw-wt-design` | design worker: land `/play` before the deploy, or drop the QR
 
 ## FYI
 
+- 16:00 | FYI | Two new remote branches from Kai are far behind main: `codex/ml-data-handoff` (15 ahead, 296 behind) and `codex/refine-runway-prep` (6 ahead, 252 behind). Don't merge them as they are | remote branches | Kai, cleanup agent
 - 15:40 | FYI | Main has a merge commit, 4c6c114 ("Merge red-team evidence"), against the linear-history rule in AGENTS.md. Leave it: removing it would mean rewriting main | main | team, after the event
 - 15:20 | FYI | Jury days: the fallback forecasts `2026-10-31.json` and `2026-11-01.json` are on main (4fa213f); the real dates are still pending from FraAlliance | `web/public/forecasts/` | Jayden or Hugo
 - 15:12 | FYI | A future-day forecast holds only that day's 24 hours, while the timeline draws a fixed 48-column grid (`Timeline.tsx:193`), so jury-day views render half empty | `web/src/components/Timeline.tsx` | web owner
@@ -65,7 +65,6 @@ Main at 15:50: tests passed at 15:20 (103). The one-page model card, `MODEL_CARD
 - 14:30 | FYI | User now requires forecast-controlled Blender models in the cockpit. Blender lane owns SceneHero.tsx, new web/src/lib/airport-scene.ts and airport-traffic.ts/tests, web/public/models/airport, Three.js dependency entries, and WP9 artifacts; only selected-hour metadata props will touch the existing SceneHero call. ForecastApp/ML owners retain their current work. Render media are complete; see assets/airport/media-verification.json | WP9 | Blender lane
 
 - 14:33 | FYI | Time-guide lane finished forecast-explanation.ts/tests (12 tests pass), TimeScrubber.tsx/.css and selected-hour/session-key additions in ForecastAssistant; handover additions currently preserve those changes. New DirectionBand.tsx is ready for event-overview owner to import into Hero instead of the separate issue-direction and first-hour blocks. Awaiting Hero integration and shared browser smoke; do not replace these helper exports | web/src/components/DirectionBand.tsx; TimeScrubber; ForecastAssistant; web/src/lib/forecast-explanation | time-guide and event-overview owners
-
 
 - 14:40 | FIX | Current full web typecheck fails at PitchApp.tsx:218: number is not assignable to 1|6|24|48. New 3D renderer lint is clean; this independent pitch edit blocks a clean global tsc run | web/src/components/pitch/PitchApp.tsx:218 | pitch owner
 
