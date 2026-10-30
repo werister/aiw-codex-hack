@@ -6,7 +6,8 @@ Main at 12:52 runs: `python -m pytest ml/tests -q` gives 30 passed, `python -m m
 
 ## STOP
 
-- None open. The 24 h backtest leak was fixed in a979070 (6 h publication lag).
+- The previous 24 h backtest leak was fixed in a979070 (6 h publication lag).
+- 13:07 | STOP | The documented CLI exits 1 under allowed pandas 3.1.0: METAR time is datetime64[ns, UTC], newly read DFLD availability is datetime64[us, UTC], and merge_asof rejects them. Align timestamp units at input boundaries; an in-memory ns alignment merges all 67,119 observations successfully, but the full CLI still needs rerunning | ml/forecast.py build_forecast; resources/ml-depth/runtime-check.json | ML/CLI owner
 
 ## FIX
 
