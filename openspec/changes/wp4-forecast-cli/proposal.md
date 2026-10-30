@@ -1,6 +1,6 @@
 # Proposal: Forecast CLI and jury-day forecasts
 
-**Work package 4 · Owner:** A Codex worker.
+**Work package 4 · Owner:** our agents.
 
 ## Why
 

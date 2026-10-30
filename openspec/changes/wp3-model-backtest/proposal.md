@@ -1,6 +1,6 @@
 # Proposal: Model and held-out backtest
 
-**Work package 3 · Owner:** Kai Detmers with a Codex worker.
+**Work package 3 · Owner:** Kai Detmers, with our agents.
 
 ## Why
 

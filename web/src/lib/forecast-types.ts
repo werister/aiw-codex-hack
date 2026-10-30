@@ -1,4 +1,4 @@
-// Contract between the ML pipeline (ml/: Codex workers, Kai) and the UI (web/: head agent).
+// Contract between the ML pipeline (ml/: Kai and our agents) and the UI (web/: head agent).
 // The CLI writes ForecastResponse JSON (`python -m ml.forecast --day ... --json`),
 // the web app reads it from web/public/forecasts/. Change shapes only together.
 
