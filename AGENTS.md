@@ -46,6 +46,8 @@ git push --force-with-lease # on your own branch only
 - Land branches on `main` via fast-forward (rebase first, then `git merge --ff-only` or a PR with "Rebase and merge").
 - If a rebase conflict is non-trivial and touches someone else's code, stop and ask instead of guessing.
 
+**No AI agents in the commit history.** Never mention any AI agent or model in commit messages, trailers (no `Co-Authored-By:` agent lines, no session links) or author fields. Commits are authored by the human who runs the agent.
+
 Commit message format (keep it short, imperative):
 
 ```
