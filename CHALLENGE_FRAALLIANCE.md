@@ -4,6 +4,30 @@
 
 Source: FraAlliance's pitch at the kick-off on 30 Oct 2026, transcribed from a recording. The official one-pager and slides are on the **team dashboard**. Download them and treat the one-pager as the source of truth for the rules.
 
+## What FraAlliance wants from us, exactly
+
+1. **A machine learning model, not just a rule lookup.** In their words: "build a machine learning model that forecasts 48 hours ahead".
+2. **Two predictions, for the next 48 hours:**
+   - **A. Runway 18 closed for departures?** (yes/no). This is their first task.
+   - **B. Will the operating direction change?** BR25 west vs BR07 east. This is their second task.
+3. **Input: open source data only.** Wind and weather forecasts plus the historical operating direction. "You can use all data available open source."
+4. **The labels follow their rule set.** The one-pager defines the tailwind limits for runway 18 and when the direction is changed. Our model has to reproduce **their** rules, not physics we invent.
+5. **The value is planning ahead:**
+   - repositioning ground handling staff and equipment in time
+   - protecting transfer passengers' connections
+   - fewer reschedules and delays for all airport partners
+
+**What we show at 17:00:**
+- the live 48 h forecast for FRA, starting from now
+- a backtest that proves accuracy against persistence ("same as now") and against the plain rule-on-forecast baseline
+- the ops view: what changes, when, and how sure we are
+
+## WAITING FOR: the FraAlliance slides and one-pager
+
+werister commits them to this repo. As soon as they land:
+- Copy the **exact thresholds** into the "Rules" section below: tailwind limit for 18, crosswind and tailwind limits for 07/25, any hysteresis or minimum duration, and gust handling.
+- Check everything above against them. If anything differs, **the slides win**.
+
 ## The task
 
 FraAlliance is a joint venture of Lufthansa and Fraport. They want a model that forecasts **48 hours ahead**:
