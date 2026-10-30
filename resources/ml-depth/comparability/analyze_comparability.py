@@ -292,6 +292,8 @@ def main():
                         help='support package root (default: resources/ml-support or weather)')
     parser.add_argument('--bootstrap-replicates', type=int, default=2000)
     parser.add_argument('--seed', type=int, default=20261030)
+    parser.add_argument('--output', type=Path,
+                        help='JSON output path (default: report.json beside this script)')
     args = parser.parse_args()
     support = args.support_dir
     if support is None:
@@ -394,11 +396,15 @@ def main():
             'This is valid-time pairing with the latest METAR at or before the target hour (normally 10 min old), not a forecast issue-time backtest.',
             'Model grid (50.000 N, 8.625 E, 105 m) and EDDF observations differ spatially; sampling methods also differ.',
             'The monthly previous-runs archive does not prove the issue-time availability of each forecast value.',
+            'Direction sectors include only DIRECTIONAL METAR reports; calm, VRB and variable-range reports are excluded. Local-hour bins combine repeated Europe/Berlin DST fold hours.',
             'No calibration, feature selection, or model comparison was performed; the direction-specific and strength-specific strata are diagnostic and selected on observed conditions.',
             'The support archive requested ICON Global. Current ml/fetch.py requests best_match; metrics here do not characterize the model currently trained by the app.',
         ],
     }
-    output = HERE / 'report.json'
+    output = args.output if args.output is not None else HERE / 'report.json'
+    if not output.is_absolute():
+        output = Path.cwd() / output
+    output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(report, indent=2, allow_nan=False) + '\n')
     print(output)
     print(json.dumps({

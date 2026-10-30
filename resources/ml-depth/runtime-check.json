@@ -1,0 +1,27 @@
+{
+  "checked_at_utc": "2026-10-30T12:07:31.727509+00:00",
+  "python": "3.13.13",
+  "pandas": "3.1.0",
+  "reviewed_commit": "33a784721b7e0643c1e3bb8195da952e0a1a215d",
+  "cli_command": "python -m ml.forecast --day 2026-10-31 --out /tmp/forecast-smoke.json",
+  "cli_exit_code": 1,
+  "obs_time_dtype": "datetime64[ns, UTC]",
+  "dfld_available_dtype": "datetime64[us, UTC]",
+  "location": "ml/forecast.py: build_forecast merge_asof",
+  "isolated_error": "MergeError: incompatible merge keys [0] datetime64[ns, UTC] and datetime64[us, UTC], must be the same type",
+  "in_memory_unit_alignment_merge_rows": 67119,
+  "in_memory_unit_alignment_merge_pass": true,
+  "limits": "Only the merge is verified after in-memory alignment; the complete CLI is not verified working. No application edit or model training.",
+  "follow_up_shared_main": {
+    "checked_at_utc": "2026-10-30T12:14:09.256308+00:00",
+    "base_commit": "c0c1d662931714a6048ef657bfa41d46ba36a093",
+    "forecast_py_sha256": "100cfd8c08e7538cc7b9b1be5b9c3444d09f9f2f95529ea40d3fcf1acda287a2",
+    "forecast_fix_state": "Uncommitted integration-owner timestamp alignment observed; not edited by this audit",
+    "sklearn_runtime": "1.9.1",
+    "serialized_estimator_version_in_warning": "1.7.2",
+    "cli_exit_code": 1,
+    "error": "ModuleNotFoundError: No module named '_loss'",
+    "progress": "Timestamp join passed; failure now occurs in joblib.load of fitted artifact",
+    "scope": "Recorded runtime compatibility blocker; no dependency installation or retraining by this audit"
+  }
+}

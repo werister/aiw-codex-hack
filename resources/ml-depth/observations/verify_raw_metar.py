@@ -4,12 +4,14 @@ from __future__ import annotations
 
 import argparse
 import csv
+from bisect import bisect_right
 import json
 import math
 import re
+import tempfile
 import zipfile
 from collections import Counter
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 WIND = re.compile(r"(?<![A-Z0-9])(?P<dir>VRB|\d{3})(?P<speed>\d{2,3})(?:G(?P<gust_p>P)?(?P<gust>\d{2,3}))?(?P<unit>KT|MPS|KMH)(?![A-Z0-9])")
@@ -126,7 +128,7 @@ def load_normalized(path: Path):
     return by_key
 
 
-def iem_raw_audit(source: Path, rules: dict) -> dict:
+def iem_raw_audit(source: Path, rules: dict, repo: Path, truth_path: Path | None = None) -> dict:
     manifest = json.loads((source / "manifest.json").read_text(encoding="utf-8"))
     normalized = load_normalized(source / "eddf_metar_observations.csv")
     stats = Counter()
@@ -141,6 +143,7 @@ def iem_raw_audit(source: Path, rules: dict) -> dict:
     normalized_seen = set()
     type_counts = Counter()
     direct_samples = []
+    observation_rows = []
     for request in manifest.get("requests", []):
         raw_path = source / "raw" / "iem" / request["file"]
         body = raw_path.read_bytes()
@@ -153,11 +156,15 @@ def iem_raw_audit(source: Path, rules: dict) -> dict:
             for raw_row in csv.DictReader(stream):
                 chunk_rows += 1
                 type_counts[str(report_type)] += 1
+                if raw_row.get("station") != "EDDF":
+                    mismatches["raw_station_not_EDDF"] += 1
                 stamp = iso_utc(raw_row["valid"])
                 key = (stamp, report_type)
                 if key not in normalized:
                     mismatches["normalized_key_missing"] += 1
                     continue
+                if key in normalized_seen:
+                    mismatches["duplicate_raw_key"] += 1
                 normalized_seen.add(key)
                 row = normalized[key]
                 raw_metar = (raw_row.get("metar") or "").strip()
@@ -169,6 +176,7 @@ def iem_raw_audit(source: Path, rules: dict) -> dict:
                 if "AUTO" in raw_metar.split():
                     stats["auto_reports"] += 1
                 if parsed["state"] == "VALID":
+                    observation_rows.append((datetime.fromisoformat(stamp.replace("Z", "+00:00")), parsed, raw_metar))
                     stats["main_wind_valid"] += 1
                     if parsed["extra_wind_tokens"]:
                         stats["later_trend_wind_groups_not_primary"] += len(parsed["extra_wind_tokens"])
@@ -198,8 +206,12 @@ def iem_raw_audit(source: Path, rules: dict) -> dict:
                         mismatches["direction_status"] += 1
                     if numeric(row.get("wind_speed_kt")) != parsed["speed"]:
                         mismatches["speed_vs_raw_group"] += 1
+                    if numeric(raw_row.get("sknt")) != parsed["speed"]:
+                        mismatches["iem_sknt_vs_raw_group"] += 1
                     if numeric(row.get("wind_gust_kt")) != parsed["gust"]:
                         mismatches["gust_vs_raw_group"] += 1
+                    if numeric(raw_row.get("gust")) != parsed["gust"]:
+                        mismatches["iem_gust_vs_raw_group"] += 1
                     if parsed["gust"] is None and row.get("wind_gust_status") != "NOT_ENCODED":
                         mismatches["absent_gust_status"] += 1
                     if parsed["gust"] is not None and row.get("wind_gust_status") != "REPORTED":
@@ -208,6 +220,8 @@ def iem_raw_audit(source: Path, rules: dict) -> dict:
                         mismatches["unknown_direction_has_value"] += 1
                     if parsed["direction_class"] in ("DIRECTIONAL", "VARIABLE_RANGE") and numeric(row.get("wind_direction_deg")) is None:
                         mismatches["coded_direction_lost"] += 1
+                    if parsed["direction_class"] in ("DIRECTIONAL", "VARIABLE_RANGE") and numeric(raw_row.get("drct")) != int(parsed["direction_token"]):
+                        mismatches["iem_direction_vs_raw_group"] += 1
                     # The old normalizer searches the entire report for dddVddd;
                     # compare that behavior with the group immediately after the
                     # primary wind token to detect trend-group contamination.
@@ -239,6 +253,9 @@ def iem_raw_audit(source: Path, rules: dict) -> dict:
                         stats["decoded_crosswind_component_cannot_exceed_limit_by_wind_speed_bound"] += 1
                     else:
                         stats["crosswind_rule_not_proven_by_speed_bound"] += 1
+
+        if chunk_rows != request.get("rows"):
+            mismatches["chunk_rows_vs_manifest"] += abs(chunk_rows - request.get("rows", 0)) or 1
 
     if len(normalized_seen) != len(normalized):
         mismatches["normalized_rows_without_raw_key"] += len(normalized) - len(normalized_seen)
@@ -281,6 +298,44 @@ def iem_raw_audit(source: Path, rules: dict) -> dict:
         if not clockwise_contains(direction_from, direction_to, mean_dir):
             prevailing_direction_range_disagreements.append(stamp)
 
+    # Mirror train.py's as-of label join (tolerance one hour) only to quantify
+    # how many DFLD target hours select a wind class affected by these findings.
+    target_alignment = {"status": "DFLD hourly file unavailable in this checkout"}
+    truth_path = truth_path or (repo / "data" / "ground_truth" / "dfld_hourly.csv")
+    if truth_path.exists():
+        observation_rows.sort(key=lambda item: item[0])
+        obs_times = [item[0] for item in observation_rows]
+        truth_rows = 0
+        matched_targets = 0
+        vrb_targets = 0
+        range_uncertain_targets = 0
+        for truth in csv.DictReader(truth_path.open(encoding="utf-8", newline="")):
+            truth_rows += 1
+            target_time = datetime.fromisoformat(truth["time"].replace("Z", "+00:00"))
+            position = bisect_right(obs_times, target_time) - 1
+            if position < 0 or target_time - obs_times[position] > timedelta(hours=1):
+                continue
+            matched_targets += 1
+            _, parsed, raw_metar = observation_rows[position]
+            if parsed["direction_class"] == "VARIABLE_VRB":
+                vrb_targets += 1
+            elif parsed.get("variation"):
+                f = parsed["variation"]
+                lo, hi = int(f.group("from")), int(f.group("to"))
+                mean_dir = int(parsed["direction_token"])
+                speed = parsed["speed"]
+                mean_tailwind = speed * math.cos(math.radians(mean_dir))
+                maximum_range_component = max_tailwind_in_range(speed, lo, hi)
+                if mean_tailwind < tailwind_limit <= maximum_range_component:
+                    range_uncertain_targets += 1
+        target_alignment = {
+            "truth_rows": truth_rows,
+            "matched_target_hours_within_one_hour": matched_targets,
+            "matched_target_hours_selecting_VRB": vrb_targets,
+            "matched_target_hours_where_mean_tailwind_below_15_but_encoded_direction_range_reaches_15": range_uncertain_targets,
+            "interpretation": "These are row counts under train.py's as-of join, not validation against actual runway closures. VRB rows are rule-inferable as usable for R18 under the current sample's wind/gust bounds; range rows mark a possible sensitivity only.",
+        }
+
     dwd = inspect_dwd(source)
     return {
         "dataset": {"period_utc": manifest.get("requested_period"), "raw_chunks": len(manifest.get("requests", [])),
@@ -298,6 +353,7 @@ def iem_raw_audit(source: Path, rules: dict) -> dict:
             "example_rows": examples["range_threshold"],
             "caveat": "A direction range and a separate 10-minute mean speed do not establish that the directional extreme and the mean speed occurred simultaneously; these counts identify ambiguity, not a realized closure label.",
         },
+        "dfld_target_alignment": target_alignment,
         "vrb_review": {"rows": len(vrb_speeds), "mean_speed_max_kt": max(vrb_speeds) if vrb_speeds else None,
                        "tailwind_threshold_kt": tailwind_limit,
                        "all_vrb_mean_speeds_below_tailwind_threshold": bool(vrb_speeds and max(vrb_speeds) < tailwind_limit),
@@ -366,8 +422,10 @@ def inspect_dwd(source: Path) -> dict:
         "gust_devices_over_interval": active_devices(gust_devices),
         "airport_reference_point_from_Fraport": {"latitude": arp_lat, "longitude": arp_lon},
         "distance_station_to_airport_reference_point_km": round(distance, 3) if distance is not None else None,
+        "location_interpretation": "DWD identifies 01420 as Frankfurt/Main at these coordinates. The distance is from the published EDDF airport reference point; it does not establish that 01420 lies outside airport grounds or that its sensor is the EDDF METAR reference wind sensor.",
+        "hourly_wind_interval_interpretation": "The DWD CDC dataset description says hourly mean; embedded F/D station metadata says UTC hours and that hourly products are generated from 10-minute means. The reviewed DWD product description and embedded metadata do not define the exact averaging-window boundaries for each MESS_DATUM. Do not assume it is an aligned METAR 10-minute sample.",
         "product_caveats": ["F/D are a separate DWD CDC hourly-mean product; the official dataset description identifies hourly mean processing, not the airport METAR's 10-minute wind window.",
-                            "FX_911 is described in the station metadata as the highest wind peak of the last hour; it is a coarser maximum window than METAR G, which uses a 10-minute (or shorter after a marked change) wind peak.",
+                            "The embedded parameter metadata describes FX_911 as the highest wind peak of the last hour; it is a coarser maximum window than METAR G, which uses a 10-minute (or shorter after a marked change) wind peak.",
                             recent_note,
                             "Station coordinates and sensor metadata do not prove that DWD 01420 is the designated airport METAR reference wind sensor; do not silently substitute or timestamp-align as if identical."],
     }
@@ -377,22 +435,40 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--source", required=True, type=Path,
                         help="Read-only observations handoff folder containing manifest.json, raw/, and normalized CSVs")
-    parser.add_argument("--output", type=Path, default=Path(__file__).with_name("audit.json"))
+    parser.add_argument("--rules", type=Path,
+                        help="Optional rules.json; defaults to checkout ml/rules.json or packaged ../reference/rules.json")
+    parser.add_argument("--truth", type=Path,
+                        help="Optional DFLD hourly truth CSV; defaults to checkout data/ground_truth/dfld_hourly.csv if present")
+    parser.add_argument("--output", type=Path,
+                        default=Path(tempfile.gettempdir()) / "ml-depth-observations-audit.json",
+                        help="JSON output path (defaults outside the package in the system temp directory)")
     args = parser.parse_args()
     parser_self_check()
     repo = Path(__file__).resolve().parents[3]
-    rules = json.loads((repo / "ml" / "rules.json").read_text(encoding="utf-8"))
+    rules_path = args.rules
+    if rules_path is None:
+        candidates = [args.source.resolve().parent / "reference" / "rules.json",
+                      repo / "ml" / "rules.json",
+                      Path(__file__).resolve().parents[1] / "reference" / "rules.json"]
+        rules_path = next((path for path in candidates if path.exists()), candidates[0])
+    if not rules_path.exists():
+        parser.error("rules.json not found; pass --rules or include ../reference/rules.json")
+    truth_path = args.truth.resolve() if args.truth else repo / "data" / "ground_truth" / "dfld_hourly.csv"
+    if not truth_path.exists():
+        truth_path = None
+    rules = json.loads(rules_path.read_text(encoding="utf-8"))
     report = {"created_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
               "rules_version": rules["version"],
               "r18_rule_limits": {"tailwind_ge_kt_closes": rules["departure_tailwind_limit_kt"],
                                   "crosswind_including_gust_gt_kt_closes": rules["crosswind_limit_kt_incl_gusts"]},
-              "source_audit": iem_raw_audit(args.source.resolve(), rules)}
+              "source_audit": iem_raw_audit(args.source.resolve(), rules, repo, truth_path)}
     args.output.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     summary = report["source_audit"]["raw_verification"]
     print(json.dumps({"output": str(args.output), "rows": summary["counts"]["reports"],
                       "mismatch_total": summary["mismatch_total"],
                       "variable_range_r18": report["source_audit"]["direction_range_r18_review"],
                       "vrb": report["source_audit"]["vrb_review"],
+                      "dfld_target_alignment": report["source_audit"]["dfld_target_alignment"],
                       "dwd_location_km_from_arp": report["source_audit"]["dwd_review"].get("distance_station_to_airport_reference_point_km")},
                      indent=2, ensure_ascii=False))
     if summary["mismatch_total"]:
