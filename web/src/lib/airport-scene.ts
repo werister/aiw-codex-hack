@@ -264,13 +264,22 @@ export function mount(host: HTMLElement, options: Options) {
       if (!response.ok) throw new Error(`Airport model unavailable: ${name}`);
       return (await loader.parseAsync(await response.arrayBuffer(), MODEL_ROOT)).scene;
     }
-    const [environment, narrowbody, widebody, layout] = await Promise.all([
+    const loaded = await Promise.allSettled([
       model("airport-environment.glb"), model("aircraft-narrowbody.glb"), model("aircraft-widebody.glb"),
       fetch(MODEL_ROOT + "manifest.json", { signal: abort.signal }).then((r) => {
         if (!r.ok) throw new Error("Airport layout unavailable");
         return r.json();
       }),
-    ]);
+    ] as const);
+    const failed = loaded.find((entry) => entry.status === "rejected");
+    if (failed) {
+      release(loaded.slice(0, 3).flatMap((entry) => entry.status === "fulfilled" ? [entry.value as THREE.Object3D] : []));
+      throw failed.reason;
+    }
+    const environment = (loaded[0] as PromiseFulfilledResult<THREE.Group>).value;
+    const narrowbody = (loaded[1] as PromiseFulfilledResult<THREE.Group>).value;
+    const widebody = (loaded[2] as PromiseFulfilledResult<THREE.Group>).value;
+    const layout = (loaded[3] as PromiseFulfilledResult<Parameters<typeof buildTrafficPlan>[0]>).value;
     if (disposed) { release([environment, narrowbody, widebody]); return; }
     manifest = layout;
     environment.traverse((o) => {
@@ -293,7 +302,7 @@ export function mount(host: HTMLElement, options: Options) {
       aircraft.traverse((o) => { if (o instanceof THREE.Mesh) o.castShadow = true; });
       planes.set(role, aircraft); scene.add(aircraft);
     });
-    ["north", "center", "south", "west"].forEach((key, index) => {
+    (["north", "center", "south", "west"] as const).forEach((key, index) => {
       const runway = layout.runways[key];
       const [x, y] = runway.center;
       const offset = index === 3 ? new THREE.Vector3(28, 0, 0) : new THREE.Vector3(-Math.cos(70 * Math.PI / 180) * 27, 0, -Math.sin(70 * Math.PI / 180) * 27);
@@ -319,7 +328,7 @@ export function mount(host: HTMLElement, options: Options) {
       if (reset) elapsed = 0;
       applyState(); updateTraffic(); dirty = true;
     },
-    setPaused(value: boolean) { paused = value; previousTime = 0; canvas.dataset.paused = String(paused); dirty = true; },
+    setPaused(value: boolean) { paused = value; previousTime = 0; lastStatsAt = 0; statsFrames = 0; canvas.dataset.paused = String(paused); dirty = true; },
     reset() { elapsed = 0; updateTraffic(); dirty = true; },
     destroy() {
       if (disposed) return;
