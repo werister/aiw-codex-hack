@@ -280,6 +280,8 @@ Which source commit, data hashes, fitted artifact and quality/backtest files are
 
 **Answer:** Pending.
 
+**Independent experiment completed (Hugo, 30 October):** [Executed Colab notebook and matched v4 October results](experiments/v4-colab-october.md). Unchanged tests: **50 passed**. Extra Trees and a fixed 50/50 combination did not improve accuracy over the original blend on any reported lead. Muse independently recomputed **72/72 metric rows**; the coordinator reran its 29 checks and Opus's 15 focused leakage/rules tests. The constructed full-history exclusion leak exists, but the observed flagged run crosses no current fold boundary. This is exploratory v4 evidence, not a v5 result or promotion. F17–F22 still require the owners' answers.
+
 ### F23 — Should the next Colab variants calibrate probabilities or learn wind correction? (Kai + Jayden + ML implementer)
 
 Two additional candidates were not found in the inspected v5 training path or E1–E16 at [376faa8](https://github.com/werister/aiw-codex-hack/tree/376faa8f81bf4396f7d3f7df04fa0995a663d076). Please confirm whether either exists in unpublished work before assigning it. These are optional experiments after the R0–R2 comparison in F17, not new submission commitments.
