@@ -342,3 +342,35 @@ Two additional candidates were not found in the inspected v5 training path or E1
 ## New-data review round requested by Hugo
 
 The [Kai data and NASA/prior-work review packet](reviews/kai-data-round2.md) links the newly committed data packages, audits, literature, completed Colab evidence and three independent reviewer assignments. Opus checks data eligibility/leakage, Muse specifies a new learning experiment, and Kiro checks package integrity/integration. Review snapshot: `5aed997313b78678d11fa23b808c2a9835a1d91a`. New review results and any additional training remain pending; downloaded literature and US delay data are not automatically FRA training labels.
+
+
+### F24 — Four-minute finals pitch: support for Jayden's existing deck (Jayden + head agent)
+
+**Requested by Hugo, 30 October 2026:** the pitch slot is **four minutes**. Jayden leads the existing pitch; this is supporting research and copy review only. Please decide what to adopt in your deck. No parallel deck or changes to presentation code were made by this support lane.
+
+**Reviewed:** [deck snapshot abd8438](https://github.com/werister/aiw-codex-hack/blob/abd8438d7d73b0de1abead5669773921fd3fead2/web/public/deck/index.html), its [presenter notes](https://github.com/werister/aiw-codex-hack/blob/abd8438d7d73b0de1abead5669773921fd3fead2/web/public/deck/NOTES.md), [existing script](https://github.com/werister/aiw-codex-hack/blob/abd8438d7d73b0de1abead5669773921fd3fead2/web/public/deck/presentation-script.md), [model card](https://github.com/werister/aiw-codex-hack/blob/abd8438d7d73b0de1abead5669773921fd3fead2/MODEL_CARD.md) and [quality data](https://github.com/werister/aiw-codex-hack/blob/abd8438d7d73b0de1abead5669773921fd3fead2/web/public/data/quality.json). Later commits may supersede individual findings.
+
+**Timing:** the latest ten slides total **210 seconds (3:30)** in their `data-time` attributes: 15 / 20 / 30 / 20 / 20 / 30 / 25 / 15 / 20 / 15. That leaves 30 seconds inside the confirmed slot. Preserve the structure and rehearse it with the actual clicks. `NOTES.md` still describes nine slides / 3:40; the companion script offers 2-, 3- and 5-minute variants. Please reconcile those instructions to one four-minute version. Attribute totals are not a measured rehearsal.
+
+**Research applied to this deck:** Devpost recommends a brief problem setup, a working demonstration that resolves that problem, then a short impact/next-step close. YC recommends a few memorable points, clear language and repeated timed rehearsal. For this deck: explain one preparation decision, show one saved case, state one headline result, and end with the proposed operational validation. These are presentation recommendations, not this hackathon's scoring rules. Sources: [Devpost demo guidance](https://info.devpost.com/blog/how-to-present-a-successful-hackathon-demo), [YC presentation guidance](https://www.ycombinator.com/blog/guide-to-demo-day-pitches/).
+
+**Targeted suggestions for the current slides and notes:**
+
+| Existing location | Suggested copy or treatment | Evidence boundary |
+|---|---|---|
+| Title: “48 hours earlier” | “Hourly runway forecasts, up to 48 hours ahead.” | Forecast horizon does not establish 48 hours of usable preparation time. Wind constrains operations; the responsible operational team decides. |
+| Day example: “Warned a day ahead”; notes: “as it was issued” | “A historical forecast reconstruction, compared with recorded direction.” | The saved hindcast uses archived-weather availability assumptions. Exact publication/reporting times remain unverified; do not present it as a contemporaneously issued warning or a measured operational success. |
+| Results / people: “82% of direction changes” | Label the 82.1% as direction accuracy on the evaluated change-conditioned hourly rows, or keep it in Q&A. | This is not recall of 156 distinct annual switches. Use the separate next-change timing metric for timing, with its issue-window denominator. |
+| People: “350 more hours a year planned right” and “24 h to set rosters, equipment, stands” | Present as a proposed use to validate with a shift lead. | More correct classified hours do not prove correctly planned hours, staffing gains or a full day's actionable notice. |
+| Value: annual euro scenario | Keep assumptions beside the figure; consider moving the annual range to Q&A and using this time for the pilot request. | No savings were measured. Do not convert the change-conditioned hourly score into additional distinct annual switches. The existing companion script already records this denominator problem. |
+| Presenter notes: “chance this is luck below one in a thousand” | Remove this interpretation. If needed, quote the reported day-bootstrap interval for the score difference. | A p-value is not the probability that an effect is “luck”; hourly dependence also matters. This wording has disappeared from the latest slide renderer but remains in the notes. [ASA explanation](https://www.amstat.org/asa/files/pdfs/p-valuestatement.pdf). |
+
+**One result worth saying slowly:** “At 24 hours, the model gets the direction right in 91.7% of scored hours, compared with 87.7% for the challenge-rule forecast and 75.1% for keeping the current direction.” This covers **1,383 scored hourly predictions** in the historical monthly evaluation; the model–rule margin is **4.0 percentage points**, with a reported day-bootstrap 95% interval of **2.4–5.6 points**. At one hour the methods effectively tie. If retaining the deck's 48-hour headline, use **89.2% versus 84.0%**, about **32% fewer wrong hourly classifications**, and keep the horizon visible. These figures concern direction, not runway-18 closure skill.
+
+**Short spoken qualification:** “Each monthly model trained on earlier data. We selected features using these evaluations, so an untouched final test is still ahead. Runway-18 labels come from weather rules; actual closure records are needed for validation.” DFLD is a public direction proxy, not a certified movement log. The existing script has the fuller explanation and stronger corrected-wind baseline for Q&A.
+
+**Suggested final sentence:** “With FraAlliance, we want to test whether these warnings give shift teams useful preparation time, using the airport's operational records.” This gives the closing slide a concrete next step beyond the feature roadmap.
+
+**Demo coordination:** a separate active UI lane is removing synthetic values at Hugo's request. Do not build the spoken sequence around the old synthetic opening of `/pitch`. Freeze one actual saved forecast and its version, then rehearse the deployed `/deck` path and its fallback. This review inspected deck source and the locally running pitch views; it did not validate the final deployed deck or measure a human rehearsal.
+
+**Answer requested from Jayden's head agent:** please confirm the final four-minute running order, selected replay and which wording changes you adopt or revise. Reply here so there remains one shared handoff. **Status:** supporting input delivered; deck ownership and final decisions remain with Jayden.
