@@ -3,9 +3,12 @@
 from __future__ import annotations
 
 import argparse
+import asyncio
 import importlib
 import json
 import math
+import os
+import re
 import sys
 from datetime import date, datetime
 from pathlib import Path
@@ -190,7 +193,68 @@ def observed_overlay(issue, history):
     return output
 
 
-def build_forecast(day=None, *, now=None, include_observed=True):
+def briefing_settings():
+    values = {}
+    for path in (live.ROOT / "web/.env.local", live.ROOT / ".env.local"):
+        try:
+            lines = path.read_text(encoding="utf-8").splitlines()
+        except OSError:
+            continue
+        for line in lines:
+            name, separator, value = line.strip().removeprefix("export ").partition("=")
+            name = name.strip()
+            if separator and name in ("OPENAI_API_KEY", "OPENAI_MODEL"):
+                value = value.strip()
+                if value.startswith(("'", '"')):
+                    end = value.find(value[0], 1)
+                    if end < 0:
+                        continue
+                    value = value[1:end]
+                else:
+                    value = value.split(" #", 1)[0].strip()
+                values.setdefault(name, value)
+    return tuple(os.environ.get(name, values.get(name, "")).strip()
+                 for name in ("OPENAI_API_KEY", "OPENAI_MODEL"))
+
+
+def tower_briefing(result):
+    """Optional narration; failures never affect the computed forecast."""
+    try:
+        key, model = briefing_settings()
+        if not key or not model:
+            return None
+        from openai import AsyncOpenAI
+
+        certainties = [hour["certainty"] for hour in result["hours"]]
+        summary = {"current_od": result["current_od"], "next_change": result["next_change"],
+                   "runway": "18", "closures_18": result["closures_18"],
+                   "certainty_percent_range": [min(certainties), max(certainties)]}
+        prompt = json.dumps(summary, separators=(",", ":"), allow_nan=False)
+
+        async def request():
+            async with asyncio.timeout(8):
+                async with AsyncOpenAI(api_key=key, timeout=8.0, max_retries=0) as client:
+                    return await client.responses.create(
+                        model=model, store=False, input=prompt,
+                        instructions="Brief tower staff in at most 2 sentences of plain English. "
+                        "Use only the given values. Never invent numbers, times, probabilities or facts; "
+                        "do not convert or calculate new numbers or spell out new quantities. "
+                        "Summarize current OD, the next change and its window/probability if present, "
+                        "runway 18 inferred weather closures, and certainty. Preserve uncertainty. "
+                        "Do not give operational clearance or instructions. Return only the briefing.")
+
+        response = asyncio.run(request())
+        text = response.output_text.strip()
+        numbers = lambda value: set(re.findall(r"\d+(?:\.\d+)?", value))
+        if (not text or key in text or not numbers(text).issubset(numbers(prompt))
+                or len(re.split(r"(?<=[.!?])\s+", text)) > 2):
+            return None
+        return text
+    except Exception:
+        return None
+
+
+def build_forecast(day=None, *, now=None, include_observed=True, include_briefing=True):
     issue, mode, now = issue_time(day, now=now)
     cutoff = min(issue, now.floor("h"))
     obs = live.metar_until(cutoff)
@@ -222,6 +286,7 @@ def build_forecast(day=None, *, now=None, include_observed=True):
         result["note"] = note
     if mode == "hindcast" and include_observed:
         result["observed"] = observed_overlay(issue, history)
+    result["briefing"] = tower_briefing(result) if include_briefing else None
     return result
 
 
@@ -245,7 +310,7 @@ def score_forecasts(start, end):
               for scope in ("clean", "all")}
     days = excluded = 0
     for day in pd.date_range(start, end, freq="D"):
-        result = build_forecast(day.date(), include_observed=False)
+        result = build_forecast(day.date(), include_observed=False, include_briefing=False)
         if "fallback" in result["model_version"]:
             raise ValueError(f"Cannot score {day.date()}: trained model unavailable")
         matched = 0
@@ -326,6 +391,8 @@ def print_table(result):
         print(f"  {closure['local_start']} to {closure['local_end']}; minimum P(usable) {closure['min_p_usable']:.1%}")
     if not result["closures_18"]:
         print("  None in 48 hours")
+    if result.get("briefing"):
+        print(result["briefing"])
 
 
 def main(argv=None):

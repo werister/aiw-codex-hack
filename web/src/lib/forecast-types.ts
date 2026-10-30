@@ -45,6 +45,7 @@ export interface ForecastResponse {
   current_od: OD; // OD at issue time, from the latest observations (METAR + rules)
   nwp: string; // weather-model source, e.g. "Open-Meteo previous runs (best_match)"
   model_version: string;
+  briefing?: string | null; // optional plain-language summary after forecast computation
   rules_version: string; // ml/rules.json version
   hours: HourForecast[]; // 48, lead 1..48
   next_change: NextChange | null;
