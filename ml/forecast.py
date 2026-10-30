@@ -33,6 +33,8 @@ def issue_time(day=None, *, now=None):
     if day is None:
         return now.floor("h"), "live", now
     issue = pd.Timestamp(datetime.combine(day, datetime.min.time(), tzinfo=BERLIN)).tz_convert("UTC")
+    if issue > now.floor("h"):
+        return now.floor("h"), "live", now
     return issue, "hindcast" if day < now.tz_convert(BERLIN).date() else "live", now
 
 
@@ -85,23 +87,28 @@ def fallback_predict(issue, obs, nwp, current_od):
 
 
 def predict(issue, obs, nwp, current_od):
+    def unavailable(error):
+        print(f"WARNING: TRAINED MODEL UNAVAILABLE: {error}. Using rules-fallback; "
+              "probabilities are uncalibrated.", file=sys.stderr)
+        return fallback_predict(issue, obs, nwp, current_od), "rules-fallback"
+
     try:
         module = importlib.import_module("ml.predict")
     except ModuleNotFoundError as error:
         if error.name != "ml.predict":
             raise
-        return fallback_predict(issue, obs, nwp, current_od), "rules-fallback"
+        return unavailable(error)
     try:
         frame = module.predict_48h(issue, obs, nwp, current_od)
-    except FileNotFoundError:
-        return fallback_predict(issue, obs, nwp, current_od), "rules-fallback"
+    except FileNotFoundError as error:
+        return unavailable(error)
     except ValueError as error:
-        unavailable = str(error).startswith("No model trained before this issue time")
+        missing_fit = str(error).startswith("No model trained before this issue time")
         future = (str(error) == "No METAR within two hours before issue"
                   and issue > pd.Timestamp.now(tz="UTC").floor("h"))
-        if not (unavailable or future):
+        if not (missing_fit or future):
             raise
-        return fallback_predict(issue, obs, nwp, current_od), "rules-fallback"
+        return unavailable(error)
     version = frame.attrs.get("model_version", "trained-forecast")
     return frame, version
 
@@ -186,7 +193,7 @@ def build_forecast(day=None, *, now=None):
     cutoff = min(issue, now.floor("h"))
     obs = live.metar_until(cutoff)
     history = live.recorded_history()
-    current_od, provenance = current_direction(obs, history if mode == "hindcast" else history.iloc[:0], cutoff)
+    current_od, provenance = current_direction(obs, history, cutoff)
     nwp, source = live.archived_weather(issue) if mode == "hindcast" else live.live_weather(issue, now)
     if (obs.time > issue).any() or (pd.to_datetime(nwp.available_at, utc=True) > issue).any():
         raise ValueError("Input availability exceeds issue time")
@@ -195,12 +202,22 @@ def build_forecast(day=None, *, now=None):
     if len(known):
         obs = pd.merge_asof(obs.sort_values("time"), known.rename(columns={"time": "od_time"}),
                             left_on="time", right_on="available_at", direction="backward")
+    obs.attrs["od_history"] = known.copy()
     frame, version = predict(issue, obs, nwp, current_od)
     hours = format_hours(frame, issue)
+    note = None
+    if day is not None and day > issue.tz_convert(BERLIN).date():
+        hours = [hour for hour in hours if pd.Timestamp(hour["time"]).tz_convert(BERLIN).date() == day]
+        if not hours:
+            raise ValueError("Requested day is outside the current 48-hour forecast horizon")
+        note = (f"Requested {day}; issued at the current hour using the latest METAR and live forecast. "
+                f"Showing {len(hours)} available hours for that day within the 48-hour horizon.")
     result = {"issued_at": utc_text(issue), "issued_local": local_text(issue), "mode": mode,
               "current_od": current_od, "nwp": source + "; " + provenance + "; runway 18 usability inferred",
               "model_version": version, "rules_version": RULES["version"], "hours": hours,
               "next_change": next_change(hours, current_od), "closures_18": closures(hours)}
+    if note:
+        result["note"] = note
     if mode == "hindcast":
         result["observed"] = observed_overlay(issue, history)
     return result
@@ -209,6 +226,8 @@ def build_forecast(day=None, *, now=None):
 def print_table(result):
     print(f"EDDF | issued {result['issued_local']} Europe/Berlin | {result['mode']} | {result['model_version']}")
     print(result["nwp"])
+    if result.get("note"):
+        print(f"Note: {result['note']}")
     print("Local time        | OD | P(OD25) | P(18 usable) | certainty | rule OD | rule 18 | wind deg/kt/gust")
     for hour in result["hours"]:
         direction = "VRB" if hour["wind_dir_deg"] is None else f"{hour['wind_dir_deg']:.0f}"
