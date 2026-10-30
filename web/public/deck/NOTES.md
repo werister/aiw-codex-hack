@@ -29,19 +29,22 @@ This is the live dashboard, running inside the slide. The top line is the planni
 Every column is a day, every row an hour, eight years of directions actually flown at Frankfurt: blue is west, berry is east. That's what we learn from and what we test against, all public data.
 
 ## 7 · What we tried, and who checked it · 1:51–2:03
-17 experiments in our pipeline. The comparison was rerun independently in Colab, a red team's leakage tests pass 15 of 15, and an independent data audit hash-checked every raw weather file.
+23 experiments in our pipeline. The comparison was rerun independently in Colab, a red team's leakage tests pass 15 of 15, and an independent data audit hash-checked every raw weather file.
+
 
 ## 8 · Warned a day ahead · 2:03–2:28
 A real day, 28 to 29 October. The line is our model's chance of west, the thin step is the official rules, the strip below is what was actually flown. The switch came at 10:00 on the 29th: the shift lead could plan staff and equipment for it a day ahead instead of reacting on the spot.
 
 ## 9 · A third fewer mistakes than the rules · 2:28–2:53
-Tested on 12 months the model never saw. Six hours ahead we're right 92.8% of the time, against 88.1% for the official rules and 88.8% for keeping today's direction; two days ahead it's 89.2% against 84.0% and 64.2%. The whiskers show the lead holds in every 95% range.
+Tested on 12 months the model never saw. The bars are wrong hours per 100. A day ahead we're wrong 8.2 times in 100, the official rules 12.3, assuming it stays like now 24.9; two days ahead 11.1 against 16.0 and 35.8. That's about a third fewer mistakes than the rules. And of 193 direction changes, we caught 115 within plus or minus 3 hours.
+
 
 ## 10 · Value · 2:53–3:08
 Verbatim: "Estimated value: about €0.4M a year at Frankfurt (range €0.13M to €3.2M), plus a similar amount in passengers' time. Based on EUROCONTROL delay costs and published studies of runway direction changes."
 
 ## 11 · For the people doing the work · 3:08–3:23
-82% of direction changes flagged a day ahead, instead of 28% if you assume nothing changes. About 350 more hours a year planned with the right direction than with the official rules. A day to set rosters, equipment and stands instead of reshuffling on the spot.
+Planning a day ahead with this, about 1,450 fewer hours a year are planned for the wrong direction than when you assume it stays like now, and about 350 fewer than with the official rules. That's a day to set rosters, equipment and stands instead of reshuffling on the spot.
+
 
 ## 12 · Next · 3:23–3:29
 Next: fleet-wide planning.
@@ -51,19 +54,19 @@ Thank you. Hugo, Kai, Luca and Jayden.
 
 ## Numbers you can say out loud
 
-All from `web/public/data/quality.json` (12-month walk-forward), `RESULTS.md` and Kai's verification reports. They get a final check at 15:40; the deck re-reads `quality.json` on its own.
+All from `web/public/data/quality.json` (walk-forward-v6, 12-month walk-forward), `RESULTS.md` and Kai's verification reports. They get a final check at 15:40; the deck re-reads `quality.json` on its own.
 
-| Ahead | Model | 95% range | Official rules | Same as now |
-|---|---|---|---|---|
-| 6 h | 92.8% | 90.9–94.5 | 88.1% | 88.8% |
-| 24 h | 91.7% | 89.7–93.5 | 87.7% | 75.1% |
-| 48 h | 89.2% | 87.0–91.2 | 84.0% | 64.2% |
+| Ahead | Model | 95% range | Official rules | Same as now | Wrong hours per 100 (model / rules / same as now) |
+|---|---|---|---|---|---|
+| 6 h | 92.7% | 90.9–94.4 | 88.1% | 88.8% | 7.3 / 11.9 / 11.2 |
+| 24 h | 91.8% | 89.8–93.6 | 87.7% | 75.1% | 8.2 / 12.3 / 24.9 |
+| 48 h | 88.9% | 86.5–91.0 | 84.0% | 64.2% | 11.1 / 16.0 / 35.8 |
 
-- Lead over the rules: +4.7, +4.0 and +5.2 points at 6, 24 and 48 h; the 95% range never touches zero, and the chance it's luck is below 1 in 1,000.
-- 1 h ahead all three tie at about 96%. Say so if asked: in the first hour, keeping the current direction is hard to beat.
-- Changes seen 24 h ahead: model 82.1%, rules 80.2%, same as now 28.1%. The rules catch about as many changes; our edge is accuracy and sharper probabilities.
-- Timing: 52.5% of changes timed within 3 hours, 12.8% false alarms. When you quote accuracy, give these too (they're under the chart).
-- Data: 76,588 hours of flown directions since 2018, rebuilt exactly from 154,752 half-hour records; 46 of 46 raw weather files hash-checked; 144,072 forecast wind values re-checked (Kai's verification).
+- Lead over the rules: +4.6, +4.1 and +4.9 points at 6, 24 and 48 h; the 95% range never touches zero, and the chance it's luck is below 1 in 1,000.
+- 1 h ahead: model 95.7%, rules 93.1%, same as now 95.9%. In the first hour, keeping the current direction is hard to beat; say so if asked.
+- Direction changes, event-based: 115 of 193 caught within ±3 h; 14.7% false alarms in quiet windows. Hour-based: when the direction will be different 24 h later, the model predicts the new direction in 82.3% of those hours (rules 80.2%, same as now 28.1%). Never say 82% of changes are known a day ahead.
+- Planning hours: about 1,450 fewer wrong-direction hours a year than "same as now", about 350 fewer than the rules (accuracy gap at 24 h × 8,760 h).
+- Data: 76,588 hours of flown directions since 2018, rebuilt exactly from 154,752 half-hour records; 46 of 46 raw weather files hash-checked; 144,072 forecast wind values re-checked.
 - FraAlliance's own numbers: 156 changes a year, about 3 a week; 6 of 10 departures on runway 18; westbound about 61% of the time.
 
 Terms, if asked: "direction" = operating direction 25 (west) or 07 (east). "Same as now" = persistence, assuming today's direction holds. "Mistakes" = hours with the wrong direction. "95% range" = confidence interval from resampling whole days. Certainty already uses the spread across three weather models.
