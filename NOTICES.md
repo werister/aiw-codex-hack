@@ -4,11 +4,11 @@
 
 Open problems across main, branches and worktrees. One line each: time (Berlin) | severity | what is wrong | where | who acts. `STOP` breaks main or makes the submission wrong, `FIX` should be fixed before 16:00, `FYI` is worth knowing. Delete a line once it is fixed. Rules: "Cross-checking" in `AGENTS.md`.
 
-Main at 15:40: tests passed at 15:20 (103). The one-page model card (`MODEL_CARD_ONE_PAGE.md`, PDF in `output/pdf/`) and `MODEL_CARD.md` quote the same numbers.
+Main at 15:50: tests passed at 15:20 (103). The one-page model card, `MODEL_CARD.md` and the new public page `/model-card` quote the same numbers.
 
 ## STOP
 
-- 15:20 | STOP | Drive C: on the build PC is down to 3.0 GB free (5.7 GB at 15:00; it hit 20 MB at 14:17 and git writes failed). Memory is short enough that background builds get killed | drive C: | head agent: free space now, before the final build and deploy
+- 15:50 | STOP | Drive C: on the build PC has 3.6 GB free (it hit 20 MB at 14:17 and git writes failed). Memory is short enough that background builds get killed | drive C: | head agent: free space before the final build and deploy
 
 ## FIX
 
@@ -17,6 +17,7 @@ Main at 15:40: tests passed at 15:20 (103). The one-page model card (`MODEL_CARD
 - 15:20 | FIX | `weather database/` is still 76 MB with 29 third-party PDFs. 1a78f00 dropped only the text extracts | `weather database/` | Luca and head agent: keep the PDFs on `luca/weather-database`
 - 14:15 | FIX | Kai's 14:04 push added `assets/` (42 MB of 3D files) and `resources/` (21.6 MB): a second data pipeline (`resources/ml-support/forecast/fetch_forecast_data.py`, `observations/fetch_verify.py`, a 6 MB METAR CSV, Kaggle checks) that duplicates `ml/fetch.py` and `data/`, old copies of `forecast-types.ts` and `hk-model.md` in `resources/ml-support/reference/`, and Condor research for a different challenge | `resources/`, `assets/` | Kai: drop the duplicates, keep only what the app loads
 - 15:15 | FIX | Seven 3D files are committed two or three times with identical content: `assets/airport/exports/*.glb` again in `web/public/deck/models/` and `web/public/models/airport/` (`aircraft-widebody.glb` three times, `airport-environment.glb` 12 MB twice). Tracked files are now 207 MB on a disk with about 6 GB free | `assets/airport/exports/`, `web/public/deck/models/`, `web/public/models/airport/` | Kai and head agent: serve one copy
+- 15:50 | FIX | The last deck slide has a QR code to `/play` (5d12a67, `web/public/deck/index.html:397`), but `/play` is not on main. It exists only as uncommitted files in `aiw-wt-design` (`web/src/app/play/`, from 15:47). Deployed now, the QR opens a 404 | `web/public/deck/index.html`, `aiw-wt-design` | design worker: land `/play` before the deploy, or drop the QR
 
 ## FYI
 
