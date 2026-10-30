@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Brand } from "@/components/Brand";
 import { Arrow, Panel, cx } from "@/components/ui";
 
-export const metadata: Metadata = { title: "Liftoff · How we built it" };
+export const metadata: Metadata = { title: "Lift-off · How we built it" };
 
 // The iteration log, newest last. Mirrors EXPERIMENTS.md; numbers are held-out operating-direction accuracy.
 const STEPS: { id: string; title: string; did: string; result: string; tone: "win" | "lesson" | "honest" }[] = [
@@ -108,7 +108,7 @@ const FOLDS = ["Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "A
 export default function Approach() {
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-[1200px] flex-col gap-3 px-4 pb-10 sm:px-5">
-      <header className="flex h-[72px] items-center gap-3">
+      <header className="flex min-h-[72px] flex-wrap items-center gap-3 py-3">
         <Brand subtitle="How we built the forecast" />
         <nav className="ml-auto">
           <Link href="/" className="pill-btn bg-accent text-accent-ink [--btn-ring:var(--accent)]">
