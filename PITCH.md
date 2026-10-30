@@ -1,4 +1,4 @@
-# Pitch · Runway Outlook (FraAlliance challenge)
+# Pitch · Liftoff (FraAlliance challenge)
 
 Draft for Hugo (presenter) and Luca (backup). Numbers come from `web/public/data/quality.json`; final numbers land at 15:30.
 
@@ -6,7 +6,7 @@ Draft for Hugo (presenter) and Luca (backup). Numbers come from `web/public/data
 At Frankfurt the wind alone decides which way aircraft land and take off. Frankfurt changes its operating direction about 156 times a year, three times a week. Six in ten departures use runway 18, and a strong north wind closes it. When the direction changes, everyone reacts at once: ground handling repositions, transfer passengers miss connections, flights are rescheduled. Today that reaction starts when the decision is made. We want it to start a day earlier.
 
 ## 2. What we built (20 s)
-**Runway Outlook**: a 48-hour, hour-by-hour forecast of the operating direction (25 west or 07 east) and of runway 18. Every hour carries a probability and a certainty score, and the next likely change comes with a time window. It's built for the people in the tower. The first thing they see is one planning recommendation, such as "prepare for a switch to 07 East around 07:00, 79% likely", with the evidence one click away.
+**Liftoff**: a 48-hour, hour-by-hour forecast of the operating direction (25 west or 07 east) and of runway 18. Every hour carries a probability and a certainty score, and the next likely change comes with a time window. It's built for the people in the tower. The first thing they see is one planning recommendation, such as "prepare for a switch to 07 East around 07:00, 79% likely", with the evidence one click away.
 
 ## 3. Live demo (60 s)
 See `DEMO_SCRIPT.md`.
