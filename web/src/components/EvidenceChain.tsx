@@ -31,7 +31,6 @@ export function EvidenceChain({
         ["Issued", `${dayLabel(f.issued_local)} ${hhmm(f.issued_local)}`],
         ["OD at issue", `${f.current_od} ${OD_LABEL[f.current_od]}`],
         ["Inputs", f.nwp],
-        ["Observations", "EDDF METAR, recorded directions from DFLD.de"],
       ],
     },
     {
