@@ -96,6 +96,11 @@ jedoch von 50 auf 138; je abgedecktem Tag von 0,416 auf 1,148. Die Trefferrate
 innerhalb von drei Stunden in Fenstern mit einem Wechsel sinkt von 55,4 % auf
 45,0 %. Auch diesen Kandidaten übernehmen wir deshalb nicht.
 
+In 15 dieser 467 Fenster unterschied sich die bei Ausgabe bekannte Richtung
+von der später aufgezeichneten Richtung zu diesem Zeitpunkt. Diese schwierigen
+Fälle bleiben enthalten. Aktuellere Betriebsdaten sind deshalb ein sinnvoller
+nächster Versuch; ihr Nutzen ist damit noch nicht gemessen.
+
 Bei 6, 24 und 48 Stunden hat seine Ereigniswahrscheinlichkeit einen geringeren
 Brier-Fehler als die konstante, nur aus dem jeweiligen Training berechnete
 Wechselhäufigkeit. Bei 24 Stunden sind es 0,122 gegenüber 0,230. Das zeigt ein

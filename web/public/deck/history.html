@@ -1,0 +1,706 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Model history · Lift-off</title>
+  <style>
+    @font-face {
+      font-family: "Inter Tight";
+      src: url("fonts/inter-tight-latin-wght-normal.woff2") format("woff2");
+      font-weight: 100 900;
+      font-display: swap;
+    }
+
+    :root {
+      color-scheme: light;
+      --scene: #f6f6fb;
+      --panel: #fff;
+      --panel-2: #f1f1f8;
+      --line: #dcdcea;
+      --ink: #1d1a78;
+      --ink-2: #3b3990;
+      --muted: #5d5b94;
+      --accent: #3c36da;
+      --ok: #15803d;
+      --bad: #b42318;
+      --radius: 10px;
+    }
+
+    * { box-sizing: border-box; }
+    html { background: var(--scene); scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--scene);
+      font: 400 16px/1.55 "Inter Tight", system-ui, sans-serif;
+      letter-spacing: .005em;
+      -webkit-font-smoothing: antialiased;
+      font-variant-numeric: tabular-nums;
+    }
+    a { color: var(--accent); text-underline-offset: 3px; }
+    a:hover { text-decoration-thickness: 2px; }
+    a:focus-visible, [tabindex="0"]:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
+    .page { width: min(1160px, calc(100% - 40px)); margin: 0 auto; }
+    .topbar {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      border-bottom: 1px solid var(--line);
+    }
+    .brand { display: inline-flex; align-items: center; min-width: 0; }
+    .brand img { display: block; width: 120px; height: auto; }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .back-link::before { content: "←"; font-size: 20px; line-height: 1; }
+    main { padding: 54px 0 80px; }
+    .hero { max-width: 850px; }
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.2;
+      font-weight: 600;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { color: var(--ink); }
+    h1 { margin-bottom: 14px; font-size: clamp(36px, 5.3vw, 58px); line-height: 1.05; font-weight: 300; letter-spacing: -.025em; }
+    h2 { margin-bottom: 8px; font-size: clamp(25px, 3.1vw, 34px); line-height: 1.18; font-weight: 400; letter-spacing: -.015em; }
+    h3 { margin-bottom: 10px; font-size: 19px; line-height: 1.3; font-weight: 500; }
+    .lede { max-width: 740px; margin-bottom: 24px; color: var(--ink-2); font-size: 18px; }
+    .generated { color: var(--muted); font-size: 14px; }
+    .summary-card, .panel, .compare-card, .version-card, .rejected-item {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+    }
+    .summary-card { margin-top: 24px; padding: 22px 24px; }
+    .summary-card p:last-child { margin-bottom: 0; }
+    .summary-card .headline { margin-bottom: 8px; color: var(--ink); font-size: 20px; font-weight: 500; }
+    .summary-card .description { margin-bottom: 0; color: var(--ink-2); }
+    .count-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .count-chip, .status {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 4px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--ink-2);
+      background: var(--panel-2);
+      font-size: 13px;
+      line-height: 1.2;
+      font-weight: 500;
+    }
+    .contents {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 28px 0 52px;
+      padding: 0;
+      list-style: none;
+    }
+    .contents a {
+      display: inline-flex;
+      padding: 7px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--panel);
+      font-size: 14px;
+      text-decoration: none;
+    }
+    .section { margin-top: 54px; scroll-margin-top: 20px; }
+    .section-intro { max-width: 850px; margin-bottom: 18px; color: var(--muted); }
+    .panel { padding: 20px 22px; }
+    .plain-note { margin: 0; color: var(--ink-2); }
+    .table-wrap {
+      max-width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      scrollbar-color: var(--muted) var(--panel-2);
+    }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    caption { padding: 13px 16px; color: var(--muted); text-align: left; font-size: 14px; }
+    th, td { padding: 13px 15px; border-top: 1px solid var(--line); vertical-align: top; }
+    th { color: var(--muted); background: #fafaff; font-size: 12px; font-weight: 600; letter-spacing: .055em; text-transform: uppercase; white-space: nowrap; }
+    td { color: var(--ink-2); }
+    tbody tr:first-child td { border-top: 1px solid var(--line); }
+    td strong { color: var(--ink); font-weight: 500; }
+    .nowrap { white-space: nowrap; }
+    .version-table { min-width: 1030px; }
+    .version-title { min-width: 145px; }
+    .version-change { min-width: 260px; max-width: 390px; }
+    .version-change p { margin: 0; }
+    .secondary-line { display: block; margin-top: 6px; color: var(--muted); font-size: 13px; }
+    .accuracy-cell { min-width: 74px; white-space: nowrap; }
+    .status { margin-top: 7px; min-height: 23px; padding: 3px 8px; font-size: 12px; }
+    .status.adopted { color: var(--ok); border-color: #b9ddc5; background: #f2fbf4; }
+    .status.rejected { color: var(--bad); border-color: #f0c8c5; background: #fff7f6; }
+    .compare-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .compare-card { padding: 20px; }
+    .compare-card h3 { margin-bottom: 4px; }
+    .compare-lead { margin: 0 0 16px; color: var(--muted); font-size: 14px; }
+    .compare-values { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 12px; }
+    .value-block { min-width: 0; }
+    .value-label { display: block; color: var(--muted); font-size: 13px; }
+    .value-number { display: block; margin-top: 3px; color: var(--ink); font-size: 28px; line-height: 1.2; font-weight: 400; overflow-wrap: anywhere; }
+    .compare-arrow { color: var(--accent); font-size: 22px; }
+    .delta { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--line); color: var(--ink-2); font-size: 14px; font-weight: 500; }
+    .compare-note { margin: 8px 0 0; color: var(--muted); font-size: 14px; }
+    .explain { margin-top: 16px; padding: 14px 16px; border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; background: var(--panel-2); color: var(--ink-2); }
+    .experiment-table { min-width: 740px; }
+    .experiment-title { min-width: 170px; }
+    .experiment-outcome { min-width: 300px; }
+    .challenger-table { min-width: 710px; }
+    .rejected-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .rejected-item { padding: 15px 17px; }
+    .rejected-item p { margin-bottom: 0; color: var(--ink-2); }
+    .rejected-item .status { margin-top: 0; margin-bottom: 8px; }
+    .limits-list { display: grid; gap: 10px; margin: 0; padding-left: 20px; color: var(--ink-2); }
+    .sources-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 24px; margin: 0; padding: 0; list-style: none; }
+    .sources-list li { padding: 12px 0; border-top: 1px solid var(--line); }
+    .sources-list .source-label { display: block; color: var(--ink); font-weight: 500; }
+    .sources-list a { display: inline-block; margin-top: 3px; overflow-wrap: anywhere; font-size: 14px; }
+    .footer { margin-top: 70px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+    .load-error {
+      margin-top: 26px;
+      padding: 20px 22px;
+      border: 1px solid #e6bdb9;
+      border-radius: var(--radius);
+      background: #fff7f6;
+      color: #6f211b;
+    }
+    .load-error h2 { color: #6f211b; font-size: 21px; }
+    .load-error p { margin-bottom: 0; }
+    [hidden] { display: none !important; }
+
+    @media (max-width: 760px) {
+      .page { width: min(100% - 28px, 600px); }
+      .topbar { min-height: 64px; }
+      .brand img { width: 106px; }
+      .back-link { gap: 5px; font-size: 14px; }
+      main { padding: 38px 0 56px; }
+      .lede { font-size: 16px; }
+      .summary-card, .panel { padding: 17px; }
+      .contents { margin: 22px 0 38px; }
+      .section { margin-top: 42px; }
+      .compare-grid, .rejected-list, .sources-list { grid-template-columns: 1fr; }
+      .compare-card { padding: 17px; }
+      .compare-values { gap: 8px; }
+      .value-number { font-size: 24px; }
+      th, td { padding: 11px 12px; }
+      .footer { margin-top: 48px; }
+    }
+    @media (max-width: 390px) {
+      .page { width: calc(100% - 24px); }
+      .back-link { font-size: 13px; }
+      .compare-values { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 6px; }
+      .value-number { font-size: 21px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+    @media print {
+      html, body { background: #fff; }
+      .page { width: 100%; }
+      .contents, .back-link { display: none; }
+      .section { break-inside: avoid; }
+      .table-wrap { overflow: visible; }
+      table { min-width: 0 !important; font-size: 10px; }
+      th, td { padding: 5px; }
+      a { color: inherit; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <nav class="topbar" aria-label="Site">
+      <a class="brand" href="index.html" aria-label="Lift-off deck home">
+        <img src="../brand/lift-off-wordmark.png" alt="Lift-off">
+      </a>
+      <a class="back-link" href="index.html#7">Back to the deck</a>
+    </nav>
+
+    <main>
+      <header class="hero">
+        <p class="eyebrow">Research appendix</p>
+        <h1>How the model changed</h1>
+        <p class="lede">A plain-language record of the versions, comparisons and experiments behind the runway forecast. Each score stays with its own test group and source.</p>
+        <p class="generated" id="generated-at">Loading the history record…</p>
+        <div class="summary-card" id="summary-card" aria-live="polite"></div>
+      </header>
+
+      <div class="load-error" id="load-error" role="alert" hidden>
+        <h2>Model history could not be loaded</h2>
+        <p id="load-error-message">The history data is unavailable, so no figures are shown. Serve this page with the deck files and check that <code>history.data.json</code> is present next to it.</p>
+      </div>
+
+      <div id="history-content" hidden>
+        <nav aria-label="On this page">
+          <ul class="contents">
+            <li><a href="#versions">Version history</a></li>
+            <li><a href="#comparisons">Comparisons</a></li>
+            <li><a href="#experiments">All experiments</a></li>
+            <li><a href="#rejected">Not adopted</a></li>
+            <li><a href="#challengers">Challengers</a></li>
+            <li><a href="#limits">Limits</a></li>
+            <li><a href="#sources">Sources</a></li>
+          </ul>
+        </nav>
+
+        <section class="section" id="versions" aria-labelledby="versions-title">
+          <h2 id="versions-title">Version history</h2>
+          <p class="section-intro">Read across a row to see what changed and how that version scored at each forecast lead. A lead is how far ahead the forecast is made.</p>
+          <div id="versions-content"></div>
+        </section>
+
+        <section class="section" id="comparisons" aria-labelledby="comparisons-title">
+          <h2 id="comparisons-title">Measured comparisons</h2>
+          <p class="section-intro">These cards show the values recorded for each comparison. The note and test group matter: scores from different test rows are not one continuous trend.</p>
+          <div class="compare-grid" id="comparisons-content"></div>
+          <p class="explain"><strong>Percentage points:</strong> when both values are percentages, subtract the before percentage from the after percentage. For example, a change from 80% to 82% is +2 percentage points. That is different from saying it improved by 2%.</p>
+        </section>
+
+        <section class="section" id="experiments" aria-labelledby="experiments-title">
+          <h2 id="experiments-title">Every recorded experiment</h2>
+          <p class="section-intro" id="experiment-count">The complete log is shown below, including work that was not adopted.</p>
+          <div id="experiments-content"></div>
+        </section>
+
+        <section class="section" id="rejected" aria-labelledby="rejected-title">
+          <h2 id="rejected-title">Ideas not adopted</h2>
+          <p class="section-intro">This short view is drawn from experiment rows whose recorded status or outcome says “rejected,” “failed,” or “not adopted.” The full record remains in the experiment log above.</p>
+          <div id="rejected-content"></div>
+        </section>
+
+        <section class="section" id="challengers" aria-labelledby="challengers-title">
+          <h2 id="challengers-title">Event-warning challengers</h2>
+          <p class="section-intro">These counts describe event tests. They are not hourly direction-accuracy scores.</p>
+          <div id="challengers-content"></div>
+        </section>
+
+        <section class="section" id="limits" aria-labelledby="limits-title">
+          <h2 id="limits-title">How to read these results</h2>
+          <div class="panel" id="limits-content"></div>
+        </section>
+
+        <section class="section" id="sources" aria-labelledby="sources-title">
+          <h2 id="sources-title">Sources</h2>
+          <p class="section-intro">Links below point to the records used for this appendix. The page does not fetch model or forecast data from those sites.</p>
+          <div class="panel" id="sources-content"></div>
+        </section>
+      </div>
+
+      <footer class="footer">Lift-off · Frankfurt Airport runway forecast · Research history</footer>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var leads = ["1", "6", "24", "48"];
+      var errorBox = document.getElementById("load-error");
+      var errorMessage = document.getElementById("load-error-message");
+      var historyContent = document.getElementById("history-content");
+
+      function node(tag, className, text) {
+        var element = document.createElement(tag);
+        if (className) element.className = className;
+        if (text !== undefined && text !== null) element.textContent = String(text);
+        return element;
+      }
+
+      function valueOrUnavailable(value) {
+        return value === null || value === undefined || value === "" ? "Not available" : String(value);
+      }
+
+      function fraction(value) {
+        return typeof value === "number" && Number.isFinite(value) && value >= 0 && value <= 1;
+      }
+
+      function formatAccuracy(value) {
+        return fraction(value) ? (value * 100).toFixed(1) + "%" : "Not available";
+      }
+
+      function finiteNumber(value) {
+        if (typeof value === "number" && Number.isFinite(value)) return value;
+        if (typeof value === "string" && value.trim() !== "" && Number.isFinite(Number(value))) return Number(value);
+        return null;
+      }
+
+      function formatMetric(value) {
+        var parsed = finiteNumber(value);
+        if (parsed === null) return valueOrUnavailable(value);
+        return parsed >= 0 && parsed <= 1 ? (parsed * 100).toFixed(1) + "%" : new Intl.NumberFormat("en").format(parsed);
+      }
+
+      function formatCount(value) {
+        var parsed = finiteNumber(value);
+        return parsed === null ? "Not available" : new Intl.NumberFormat("en", { maximumFractionDigits: 2 }).format(parsed);
+      }
+
+      function formatTime(value) {
+        var parsed = value ? new Date(value) : null;
+        if (!parsed || Number.isNaN(parsed.getTime())) return valueOrUnavailable(value);
+        return new Intl.DateTimeFormat("en", {
+          dateStyle: "medium",
+          timeStyle: "short",
+          timeZone: "Europe/Berlin"
+        }).format(parsed) + " Berlin time";
+      }
+
+      function safeLink(label, href) {
+        var text = valueOrUnavailable(label || "Source");
+        if (typeof href !== "string" || !href.trim()) return node("span", "secondary-line", text + " · link unavailable");
+        try {
+          var resolved = new URL(href, window.location.href);
+          if (resolved.protocol !== "https:" && resolved.protocol !== "http:") throw new Error("Unsupported link protocol");
+          var link = node("a", "", text);
+          link.href = resolved.href;
+          if (resolved.origin !== window.location.origin) {
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+          }
+          return link;
+        } catch (error) {
+          return node("span", "secondary-line", text + " · link unavailable");
+        }
+      }
+
+      function statusClass(value) {
+        var status = String(value || "").toLowerCase();
+        if (/reject|fail|not adopted|not used|discard/.test(status)) return "status rejected";
+        if (/adopt|promot|shipped|current|baseline/.test(status)) return "status adopted";
+        return "status";
+      }
+
+      function appendCell(row, text, className) {
+        var cell = node("td", className || "", text);
+        row.appendChild(cell);
+        return cell;
+      }
+
+      function sectionEmpty(message) {
+        return node("div", "panel", message);
+      }
+
+      function renderSummary(data) {
+        var summary = document.getElementById("summary-card");
+        summary.replaceChildren();
+        var headline = node("p", "headline", valueOrUnavailable(data.summary.headline));
+        var description = node("p", "description", valueOrUnavailable(data.summary.description));
+        summary.append(headline, description);
+        var counts = node("div", "count-row");
+        counts.append(
+          node("span", "count-chip", data.versions.length + (data.versions.length === 1 ? " version" : " versions")),
+          node("span", "count-chip", data.experiments.length + (data.experiments.length === 1 ? " experiment" : " experiments")),
+          node("span", "count-chip", data.sources.length + (data.sources.length === 1 ? " source" : " sources"))
+        );
+        summary.appendChild(counts);
+        document.getElementById("generated-at").textContent = "History prepared " + formatTime(data.generated_at) + ".";
+      }
+
+      function renderVersions(data) {
+        var host = document.getElementById("versions-content");
+        host.replaceChildren();
+        if (!data.versions.length) {
+          host.appendChild(sectionEmpty("No version records are available in the history file."));
+          return;
+        }
+
+        var versions = data.versions.map(function (item, index) { return { item: item, index: index }; });
+        versions.sort(function (a, b) {
+          var aTime = Date.parse(a.item.time);
+          var bTime = Date.parse(b.item.time);
+          aTime = Number.isNaN(aTime) ? Infinity : aTime;
+          bTime = Number.isNaN(bTime) ? Infinity : bTime;
+          return aTime === bTime ? a.index - b.index : aTime - bTime;
+        });
+
+        var wrap = node("div", "table-wrap");
+        wrap.tabIndex = 0;
+        wrap.setAttribute("role", "region");
+        wrap.setAttribute("aria-label", "Scrollable version history table");
+        var table = node("table", "version-table");
+        var caption = node("caption", "", "Versions are listed oldest to newest. Accuracy is the share of scored direction predictions that matched the recorded direction.");
+        table.appendChild(caption);
+        var thead = node("thead");
+        var header = node("tr");
+        ["Version", "When", "What changed", "1 h", "6 h", "24 h", "48 h", "Test group / status"].forEach(function (label) {
+          var th = node("th", "", label);
+          th.scope = "col";
+          header.appendChild(th);
+        });
+        thead.appendChild(header);
+        table.appendChild(thead);
+        var tbody = node("tbody");
+        versions.forEach(function (entry) {
+          var item = entry.item || {};
+          var row = node("tr");
+          var titleCell = node("td", "version-title");
+          titleCell.appendChild(node("strong", "", valueOrUnavailable(item.label || item.id)));
+          if (item.id && item.label && item.id !== item.label) titleCell.appendChild(node("span", "secondary-line", item.id));
+          row.appendChild(titleCell);
+          appendCell(row, formatTime(item.time), "nowrap");
+          var changeCell = node("td", "version-change");
+          changeCell.appendChild(node("p", "", valueOrUnavailable(item.change)));
+          if (item.source_url) changeCell.appendChild(safeLink("Open source", item.source_url));
+          row.appendChild(changeCell);
+          leads.forEach(function (lead) { appendCell(row, formatAccuracy(item.accuracy && item.accuracy[lead]), "accuracy-cell"); });
+          var cohortCell = node("td", "");
+          cohortCell.appendChild(node("span", "", valueOrUnavailable(item.cohort)));
+          if (item.status) cohortCell.appendChild(node("span", statusClass(item.status), String(item.status)));
+          row.appendChild(cohortCell);
+          tbody.appendChild(row);
+        });
+        table.appendChild(tbody);
+        wrap.appendChild(table);
+        host.appendChild(wrap);
+      }
+
+      function renderComparisons(data) {
+        var host = document.getElementById("comparisons-content");
+        host.replaceChildren();
+        if (!data.comparisons.length) {
+          host.appendChild(sectionEmpty("No recorded comparisons are available."));
+          return;
+        }
+        data.comparisons.forEach(function (item) {
+          item = item || {};
+          var card = node("article", "compare-card");
+          card.appendChild(node("h3", "", valueOrUnavailable(item.title)));
+          card.appendChild(node("p", "compare-lead", item.lead_h === null || item.lead_h === undefined ? "Forecast lead not stated" : "At " + item.lead_h + "-hour lead"));
+          var values = node("div", "compare-values");
+          var before = node("div", "value-block");
+          before.append(node("span", "value-label", valueOrUnavailable(item.before_label)), node("strong", "value-number", formatMetric(item.before)));
+          var arrow = node("span", "compare-arrow", "→");
+          arrow.setAttribute("aria-hidden", "true");
+          var after = node("div", "value-block");
+          after.append(node("span", "value-label", valueOrUnavailable(item.after_label)), node("strong", "value-number", formatMetric(item.after)));
+          values.append(before, arrow, after);
+          card.appendChild(values);
+
+          var beforeNumber = finiteNumber(item.before);
+          var afterNumber = finiteNumber(item.after);
+          var deltaText = "Change not calculated because one or both values are unavailable.";
+          if (beforeNumber !== null && afterNumber !== null) {
+            if (fraction(beforeNumber) && fraction(afterNumber)) {
+              var pp = (afterNumber - beforeNumber) * 100;
+              deltaText = "Difference: " + (pp > 0 ? "+" : "") + pp.toFixed(1) + " percentage points.";
+            } else {
+              var delta = afterNumber - beforeNumber;
+              deltaText = "Difference: " + (delta > 0 ? "+" : "") + new Intl.NumberFormat("en", { maximumFractionDigits: 3 }).format(delta) + " in the recorded values.";
+            }
+          }
+          card.appendChild(node("p", "delta", deltaText));
+          if (item.note) card.appendChild(node("p", "compare-note", item.note));
+          if (item.source_url) card.appendChild(safeLink("Open source", item.source_url));
+          host.appendChild(card);
+        });
+      }
+
+      function renderExperiments(data) {
+        var host = document.getElementById("experiments-content");
+        host.replaceChildren();
+        document.getElementById("experiment-count").textContent = "All " + data.experiments.length + " recorded experiment" + (data.experiments.length === 1 ? " is" : "s are") + " shown, including work that was not adopted.";
+        if (!data.experiments.length) {
+          host.appendChild(sectionEmpty("No experiment records are available in the history file."));
+          return;
+        }
+        var wrap = node("div", "table-wrap");
+        wrap.tabIndex = 0;
+        wrap.setAttribute("role", "region");
+        wrap.setAttribute("aria-label", "Scrollable experiment history table");
+        var table = node("table", "experiment-table");
+        var caption = node("caption", "Every experiment row in the supplied history file is included; this table does not filter by result.");
+        table.appendChild(caption);
+        var thead = node("thead");
+        var header = node("tr");
+        ["Experiment", "Outcome", "Status", "Source"].forEach(function (label) {
+          var th = node("th", "", label);
+          th.scope = "col";
+          header.appendChild(th);
+        });
+        thead.appendChild(header);
+        table.appendChild(thead);
+        var tbody = node("tbody");
+        data.experiments.forEach(function (item) {
+          item = item || {};
+          var row = node("tr");
+          var titleCell = node("td", "experiment-title");
+          titleCell.appendChild(node("strong", "", valueOrUnavailable(item.title || item.id)));
+          if (item.id && item.title && item.id !== item.title) titleCell.appendChild(node("span", "secondary-line", item.id));
+          row.appendChild(titleCell);
+          appendCell(row, valueOrUnavailable(item.outcome));
+          var statusCell = node("td", "");
+          if (item.status) statusCell.appendChild(node("span", statusClass(item.status), String(item.status)));
+          else statusCell.textContent = "Not available";
+          row.appendChild(statusCell);
+          var sourceCell = node("td", "");
+          if (item.source_url) sourceCell.appendChild(safeLink("Open source", item.source_url));
+          else sourceCell.textContent = "Not available";
+          row.appendChild(sourceCell);
+          tbody.appendChild(row);
+        });
+        table.appendChild(tbody);
+        wrap.appendChild(table);
+        host.appendChild(wrap);
+      }
+
+      function renderRejected(data) {
+        var host = document.getElementById("rejected-content");
+        host.replaceChildren();
+        var rejected = data.experiments.filter(function (item) {
+          var words = String((item && item.status) || "") + " " + String((item && item.outcome) || "");
+          return /reject|fail|not adopted|not used|discard/i.test(words);
+        });
+        if (!rejected.length) {
+          host.appendChild(sectionEmpty("No experiment row is explicitly marked rejected, failed, discarded, or not adopted. Check the full log for every recorded outcome."));
+          return;
+        }
+        var list = node("div", "rejected-list");
+        rejected.forEach(function (item) {
+          var card = node("article", "rejected-item");
+          card.appendChild(node("span", statusClass(item.status || item.outcome), valueOrUnavailable(item.status || "Not adopted")));
+          card.appendChild(node("h3", "", valueOrUnavailable(item.title || item.id)));
+          card.appendChild(node("p", "", valueOrUnavailable(item.outcome)));
+          list.appendChild(card);
+        });
+        host.appendChild(list);
+      }
+
+      function renderChallengers(data) {
+        var host = document.getElementById("challengers-content");
+        host.replaceChildren();
+        if (!data.challengers.length) {
+          host.appendChild(sectionEmpty("No event-warning challenger records are available."));
+          return;
+        }
+        var wrap = node("div", "table-wrap");
+        wrap.tabIndex = 0;
+        wrap.setAttribute("role", "region");
+        wrap.setAttribute("aria-label", "Scrollable event-warning challenger table");
+        var table = node("table", "challenger-table");
+        var caption = node("caption", "Counts are shown as recorded. “Hits” means matched events; false counts are false-alarm clusters as defined by each source note.");
+        table.appendChild(caption);
+        var thead = node("thead");
+        var header = node("tr");
+        ["Candidate", "Baseline hits", "Candidate hits", "Events", "Baseline false", "Candidate false", "What to know"].forEach(function (label) {
+          var th = node("th", "", label);
+          th.scope = "col";
+          header.appendChild(th);
+        });
+        thead.appendChild(header);
+        table.appendChild(thead);
+        var tbody = node("tbody");
+        data.challengers.forEach(function (item) {
+          item = item || {};
+          var row = node("tr");
+          appendCell(row, valueOrUnavailable(item.label));
+          appendCell(row, formatCount(item.baseline_hits), "nowrap");
+          appendCell(row, formatCount(item.candidate_hits), "nowrap");
+          appendCell(row, formatCount(item.events), "nowrap");
+          appendCell(row, formatCount(item.baseline_false), "nowrap");
+          appendCell(row, formatCount(item.candidate_false), "nowrap");
+          var noteCell = node("td", "");
+          noteCell.textContent = valueOrUnavailable(item.note);
+          if (item.source_url) noteCell.appendChild(safeLink("Open source", item.source_url));
+          row.appendChild(noteCell);
+          tbody.appendChild(row);
+        });
+        table.appendChild(tbody);
+        wrap.appendChild(table);
+        host.appendChild(wrap);
+      }
+
+      function renderLimits(data) {
+        var host = document.getElementById("limits-content");
+        host.replaceChildren();
+        var list = node("ul", "limits-list");
+        list.appendChild(node("li", "", "Compare accuracy only when the target, forecast lead and scored test rows match. A different cohort can produce a different score even when the model is unchanged."));
+        list.appendChild(node("li", "", "Direction accuracy and event-warning counts answer different questions. One should not be read as proof of the other."));
+        if (Array.isArray(data.limits)) {
+          data.limits.forEach(function (limit) {
+            var item = typeof limit === "string" ? limit : (limit && limit.text);
+            if (item) {
+              var li = node("li", "", item);
+              if (limit && typeof limit === "object" && limit.source_url) {
+                li.appendChild(document.createTextNode(" "));
+                li.appendChild(safeLink("Source", limit.source_url));
+              }
+              list.appendChild(li);
+            }
+          });
+        }
+        host.appendChild(list);
+      }
+
+      function renderSources(data) {
+        var host = document.getElementById("sources-content");
+        host.replaceChildren();
+        if (!data.sources.length) {
+          host.appendChild(node("p", "plain-note", "No source links were supplied."));
+          return;
+        }
+        var list = node("ul", "sources-list");
+        data.sources.forEach(function (source) {
+          source = source || {};
+          var item = node("li");
+          item.appendChild(node("span", "source-label", valueOrUnavailable(source.label)));
+          item.appendChild(safeLink("Open source", source.url));
+          list.appendChild(item);
+        });
+        host.appendChild(list);
+      }
+
+      function validateData(data) {
+        var arrays = ["sources", "versions", "comparisons", "experiments", "challengers"];
+        if (!data || typeof data !== "object" || !data.summary || typeof data.summary !== "object") return false;
+        return arrays.every(function (key) { return Array.isArray(data[key]); });
+      }
+
+      fetch("./history.data.json", { cache: "no-store" })
+        .then(function (response) {
+          if (!response.ok) throw new Error("history.data.json returned HTTP " + response.status + ".");
+          return response.json();
+        })
+        .then(function (data) {
+          if (!validateData(data)) throw new Error("The history file is missing a required section. No partial figures are shown.");
+          renderSummary(data);
+          renderVersions(data);
+          renderComparisons(data);
+          renderExperiments(data);
+          renderRejected(data);
+          renderChallengers(data);
+          renderLimits(data);
+          renderSources(data);
+          historyContent.hidden = false;
+        })
+        .catch(function (error) {
+          errorMessage.textContent = "No history figures are shown. " + (error && error.message ? error.message + " " : "") + "Serve this page with the deck files and check that history.data.json is present next to it.";
+          errorBox.hidden = false;
+          document.getElementById("summary-card").replaceChildren(node("p", "description", "History data unavailable; no metrics have been assumed."));
+          document.getElementById("generated-at").textContent = "History data unavailable.";
+        });
+    }());
+  </script>
+</body>
+</html>

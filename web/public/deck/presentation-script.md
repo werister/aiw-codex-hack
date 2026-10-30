@@ -40,11 +40,11 @@ Core claim: an hourly runway outlook for ground-handling planning, with measured
 
 **Say:** “We combine public recorded directions from DFLD, airport weather observations from IEM, and archived forecasts from Open-Meteo. The direction archive reaches back to 2018; the joined forecast inputs start in 2024. These public records are proxies for operations, not certified movement logs.”
 
-## 7 · How we tested it · 1:51–2:01
+## 7 · How the forecast improved · 1:51–2:01
 
-**Show:** Monthly walk-forward evaluation and its development caveat. Each fit uses earlier labels; the full evaluation informed feature choices.
+**Show:** Point to the matched twelve-month comparison. The left pair is the rounded E12 experiment-log result (earlier features versus v5); the separate right score is current v6. The full history link is for questions, outside the timed pitch. These test months informed development.
 
-**Say:** “We test on successive months, training each model on earlier data. Those months also informed development; a frozen prospective test is still needed.”
+**Say:** “Better weather inputs raised our logged forty-eight-hour score from 84.9 to 89.2 percent. The current, corrected version scores 88.9 percent.”
 
 ## 8 · A historical example · 2:01–2:26
 

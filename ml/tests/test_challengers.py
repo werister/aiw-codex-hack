@@ -58,6 +58,14 @@ def test_output_path_cannot_target_production_artifacts(tmp_path: Path):
 
     in_repo_research = root / "verification/challengers"
     assert safe_output(in_repo_research, root) == in_repo_research
+    in_repo_research.mkdir(parents=True)
+    sentinel = in_repo_research / "report.json"
+    sentinel.write_text("keep this report")
+    with pytest.raises(ValueError, match="already exists; use --rescore"):
+        safe_output(in_repo_research, root)
+    assert sentinel.read_text() == "keep this report"
+    assert safe_output(in_repo_research, root, allow_existing=True) == in_repo_research
+    assert sentinel.read_text() == "keep this report"
 
     link = tmp_path / "repo-link"
     link.symlink_to(root / "verification", target_is_directory=True)

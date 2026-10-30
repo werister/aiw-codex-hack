@@ -5,6 +5,7 @@ Use one **3:35 target** story: planning problem → baseline and model → forec
 - **Slides:** `/deck/index.html`.
 - **Canonical spoken text and exact demo clicks:** [presentation-script.md](../web/public/deck/presentation-script.md).
 - **Printable cue sheet:** `/deck/presenter-cues.html`.
+- **Full model history for questions:** `/deck/history.html` (versions, all logged experiments, external reruns and the three latest rejected candidates).
 - **Historical reveal and separate evaluation:** `/pitch`. Select **2026-10-28** explicitly; the earliest published date opens by default.
 - **Dashboard / iPad view:** `/` and `/widget`, optional during questions.
 
@@ -17,6 +18,8 @@ An hourly runway outlook for ground-handling planning. The challenge has two tar
 At 24 h, published v6 direction accuracy is **91.8%**, versus **87.7%** for the base-wind challenge rules, **75.1%** for keeping the current direction, and **89.2%** for the stronger corrected-ensemble rule variant. The twelve monthly folds informed development, so they are not an untouched final validation set.
 
 The October 28 replay illustrates behavior. It is a historical reconstruction with availability limitations, not evidence of a forecast actually issued on that date. Reveal the recorded outcome, read the displayed shared-hour counts, then open **Evaluation** for the separate overall result.
+
+The development-history slide separates the logged, matched twelve-month feature gain (**84.9% → 89.2% at 48 h; +4.3 percentage points**, earlier features versus v5) from current v6 (**88.9%**). The earlier pair is rounded evidence from `EXPERIMENTS.md`, not a newly replayed before/after run. v6 improves state handling and evaluation; it did not produce a broad accuracy jump. Keep the complete history appendix for questions.
 
 ## Limits that belong in the spoken pitch
 

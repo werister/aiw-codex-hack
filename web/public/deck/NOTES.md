@@ -40,11 +40,11 @@ Sources on this slide: [DFLD](https://www.dfld.de/Mess/StatWetter.php?R=1) suppl
 
 Windy is only a separate connection test. Its Testing-tier values are excluded from forecasts, training and evaluation.
 
-### 7 · 1:51–2:01 · How we tested it
+### 7 · 1:51–2:01 · How the forecast improved
 
-**Say:** “We test on successive months, training each model on earlier data. Those months also informed development; a frozen prospective test is still needed.”
+**Say:** “Better weather inputs raised our logged forty-eight-hour score from 84.9 to 89.2 percent. The current, corrected version scores 88.9 percent.”
 
-**Show:** 12 monthly folds, three archived weather-model inputs, two baselines and 1-, 6- and 24-hour scores. Do not reuse older audit counts as v6 results.
+**Show:** Point to the matched twelve-month comparison. The left pair is the rounded E12 experiment-log result (earlier features versus v5); the separate right score is current v6. The full history link is for questions, outside the timed pitch. These test months informed development.
 
 ### 8 · 2:01–2:26 · Historical forecast against the record
 

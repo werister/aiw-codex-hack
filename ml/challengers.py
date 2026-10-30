@@ -23,7 +23,7 @@ LEADS = (1, 6, 24, 48)
 GRID = np.round(np.linspace(0, 1, 11), 1)
 
 
-def safe_output(path, root=ROOT):
+def safe_output(path, root=ROOT, allow_existing=False):
     """Resolve symlinks before rejecting production artifact destinations."""
     requested = Path(path).expanduser().absolute()
     output = requested.resolve()
@@ -39,6 +39,9 @@ def safe_output(path, root=ROOT):
         allowed = ((root / "resources/raw").resolve(), (root / "verification").resolve())
         if not any(base in output.parents and output != base for base in allowed):
             raise ValueError("In-repository research output is limited to a new subfolder of resources/raw or verification")
+    if output.exists() and not allow_existing:
+        if not output.is_dir() or any(output.iterdir()):
+            raise ValueError("Research output already exists; use --rescore to update it")
     return output
 
 
@@ -304,7 +307,7 @@ def _rescore(output, report, rows, candidate):
 
 
 def run(args):
-    output = safe_output(args.out)
+    output = safe_output(args.out, allow_existing=args.rescore)
     if args.rescore:
         report, rows = _read_report_predictions(output, args.candidate)
         report = _rescore(output, report, rows, args.candidate)
