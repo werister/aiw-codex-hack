@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { ForecastResponse } from "@/lib/forecast-types";
 import { EvidenceChain } from "./EvidenceChain";
 import { HourDetail } from "./HourDetail";
+import { PlanningPriorities } from "./PlanningPriorities";
 import { ForecastAssistant } from "./ForecastAssistant";
 import { HowItWorks } from "./HowItWorks";
 import { Numbers } from "./Numbers";
@@ -31,7 +32,7 @@ export async function loadOptions(): Promise<Option[]> {
     for (const d of idx.days ?? []) opts.push({ label: `${dayLabel(d + "T00:00")} (past day)`, file: `${d}.json` });
     if (opts.length) return opts;
   } catch {}
-  return [{ label: "Sample forecast", file: "sample.json" }];
+  return [{ label: "Latest forecast · published-day list unavailable", file: "latest.json" }];
 }
 
 export function useForecast() {
@@ -162,6 +163,12 @@ export function ForecastApp() {
             </summary>
 
             <div className="mt-8 flex flex-col gap-2.5">
+              <section id="planning-priorities" className="scroll-mt-4">
+                <PlanningPriorities f={f} file={file} onSelectHour={(index) => {
+                  setSel(index);
+                  document.getElementById("timeline")?.scrollIntoView({ block: "start" });
+                }} />
+              </section>
               <div className="py-2">
                 <Provenance f={f} />
               </div>

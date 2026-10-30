@@ -50,13 +50,18 @@
 .forecast-scrubber-status-dot { width: 8px; height: 8px; flex: 0 0 auto; border-radius: 50%; }
 .forecast-scrubber-west-dot { background: var(--west); }
 .forecast-scrubber-east-dot { background: var(--east); }
-.forecast-scrubber-usable { color: var(--ok); }
-.forecast-scrubber-closed { color: var(--bad); }
+.forecast-scrubber-usable,
+.forecast-scrubber-closed { color: var(--ink); }
 .forecast-scrubber-usable .forecast-scrubber-status-dot { background: var(--ok); }
 .forecast-scrubber-closed .forecast-scrubber-status-dot { background: var(--bad); }
 .forecast-scrubber-certainty { color: var(--muted); white-space: nowrap; }
 
-.forecast-scrubber-controls { min-width: 0; gap: 10px; }
+.forecast-scrubber-controls {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  min-width: 0;
+  gap: 7px 10px;
+}
 .forecast-scrubber-step-button {
   width: 44px;
   height: 44px;
@@ -139,10 +144,12 @@
 
 .forecast-scrubber-change-button {
   min-height: 44px;
-  flex: 0 0 auto;
+  max-width: 100%;
+  grid-column: 1 / -1;
+  justify-self: end;
   justify-content: center;
   gap: 6px;
-  padding: 0 11px;
+  padding: 8px 11px;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--panel);
@@ -150,7 +157,8 @@
   cursor: pointer;
   font-size: 12px;
   line-height: 1.2;
-  white-space: nowrap;
+  flex-wrap: wrap;
+  white-space: normal;
   transition: background-color 0.15s ease-out, box-shadow 0.15s ease-out;
 }
 
@@ -167,8 +175,8 @@
 @media (max-width: 520px) {
   .forecast-scrubber-selection { align-items: flex-start; flex-direction: column; gap: 8px; }
   .forecast-scrubber-metrics { gap: 6px 12px; }
-  .forecast-scrubber-controls { display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; gap: 7px; }
-  .forecast-scrubber-change-button { grid-column: 1 / -1; justify-self: end; gap: 4px; padding: 0 12px; font-size: 13px; }
+  .forecast-scrubber-controls { gap: 7px; }
+  .forecast-scrubber-change-button { gap: 4px; padding: 8px 12px; font-size: 13px; }
   .forecast-scrubber-change-full-label { display: none; }
   .forecast-scrubber-change-mobile-label { display: inline; }
   .forecast-scrubber-range-labels { font-size: 9px; }

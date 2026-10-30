@@ -1,6 +1,8 @@
 "use client";
 
 import type { ForecastResponse, HourForecast } from "@/lib/forecast-types";
+import { forecastHourOffset, formatForecastHour, nextDirectionChangeAfter } from "@/lib/forecast-explanation";
+import { dayLabel } from "./ui";
 import "./TimeScrubber.css";
 
 export function TimeScrubber({
@@ -18,10 +20,7 @@ export function TimeScrubber({
     ? Math.min(lastIndex, Math.max(0, Number.isFinite(selected) ? Math.trunc(selected) : 0))
     : 0;
   const hour = hours[activeIndex];
-  const changeIndex = f.next_change
-    ? hours.findIndex((item) => item.time === f.next_change?.time)
-    : -1;
-  const change = f.next_change;
+  const change = hour ? nextDirectionChangeAfter(f, hour) : null;
 
   return (
     <section className="forecast-scrubber-root" aria-label="Forecast hour selector">
@@ -31,6 +30,7 @@ export function TimeScrubber({
             <div className="forecast-scrubber-when">
               <span className="forecast-scrubber-date">{fullLocalDate(hour.local)}</span>
               <span className="forecast-scrubber-time">{hour.local.slice(11, 16)}</span>
+              <span className="forecast-scrubber-date">Europe/Berlin · {forecastHourOffset(hour)}</span>
             </div>
             <div className="forecast-scrubber-metrics">
               <span className="forecast-scrubber-direction">
@@ -70,8 +70,8 @@ export function TimeScrubber({
                   aria-valuetext={rangeValueText(hour)}
                 />
                 <div className="forecast-scrubber-range-labels" aria-hidden="true">
-                  <span>{fullLocalDate(hours[0].local)} · {hours[0].local.slice(11, 16)}</span>
-                  <span>{fullLocalDate(hours[lastIndex].local)} · {hours[lastIndex].local.slice(11, 16)}</span>
+                  <span>{dayLabel(hours[0].local)} · {hours[0].local.slice(11, 16)} {forecastHourOffset(hours[0])}</span>
+                  <span>{dayLabel(hours[lastIndex].local)} · {hours[lastIndex].local.slice(11, 16)} {forecastHourOffset(hours[lastIndex])}</span>
                 </div>
               </div>
 
@@ -89,18 +89,12 @@ export function TimeScrubber({
                 <button
                   type="button"
                   className="forecast-scrubber-change-button"
-                  onClick={() => changeIndex >= 0 && onSelect(changeIndex)}
-                  disabled={changeIndex < 0}
-                  aria-label={
-                    changeIndex >= 0
-                      ? `Jump to next likely direction change: ${change.from} to ${change.to}, ${fullLocalDate(change.local)} at ${change.local.slice(11, 16)}, ${percent(change.p)} probability.`
-                      : "Next direction change is outside the displayed forecast hours."
-                  }
-                  title={changeIndex < 0 ? "The predicted change is outside the displayed hours." : undefined}
+                  onClick={() => onSelect(change.index)}
+                  aria-label={`Jump to next hourly direction change after the selected hour: ${change.from} to ${change.hour.od}, ${formatForecastHour(change.hour)}.`}
                 >
                   <span className="forecast-scrubber-change-full-label">Next change</span>
                   <span className="forecast-scrubber-change-mobile-label">Change</span>
-                  <span className="forecast-scrubber-change-time">{change.from} to {change.to} · {change.local.slice(11, 16)}</span>
+                  <span className="forecast-scrubber-change-time">{change.from} to {change.hour.od} · {dayLabel(change.hour.local)} {change.hour.local.slice(11, 16)} {forecastHourOffset(change.hour)}</span>
                 </button>
               )}
             </div>
@@ -135,7 +129,7 @@ function percent(value: number) {
 function rangeValueText(hour: HourForecast) {
   const usability = hour.p_18_usable >= 0.5 ? "likely usable" : "likely closed";
   const direction = hour.od === "25" ? "25 west" : "07 east";
-  return `${fullLocalDate(hour.local)} at ${hour.local.slice(11, 16)}, direction ${direction}, runway 18 ${usability} with ${percent(hour.p_18_usable)} probability of being usable, certainty score ${Math.round(hour.certainty)} out of 100.`;
+  return `${formatForecastHour(hour)}, direction ${direction}, runway 18 ${usability} with ${percent(hour.p_18_usable)} probability of being usable, certainty score ${Math.round(hour.certainty)} out of 100.`;
 }
 
 function Chevron({ direction }: { direction: "left" | "right" }) {

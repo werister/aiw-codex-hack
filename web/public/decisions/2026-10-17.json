@@ -1,0 +1,558 @@
+{
+  "schema_version": 1,
+  "policy_version": "planning-priorities-v1",
+  "generated_at": "2026-10-30T13:35:18.459370+00:00",
+  "forecast_basis": {
+    "issued_at": "2026-10-16T22:00Z",
+    "current_od": "25",
+    "model_version": "walk-forward-v5",
+    "rules_version": "fraalliance-brief-2026-10-30",
+    "nwp": "Open-Meteo previous runs (best_match; day1/day2/day3; six-hour publication lag); recorded DFLD OD; completed hourly bins, reporting delay unknown; runway 18 usability inferred",
+    "hours": [
+      {
+        "time": "2026-10-16T23:00Z",
+        "lead_h": 1,
+        "od": "25",
+        "p_od25": 0.9882713624573294,
+        "p_18_usable": 0.9998432885694813,
+        "rule_od": "25",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-17T00:00Z",
+        "lead_h": 2,
+        "od": "25",
+        "p_od25": 0.9899870244576713,
+        "p_18_usable": 0.999903284422833,
+        "rule_od": "25",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-17T01:00Z",
+        "lead_h": 3,
+        "od": "25",
+        "p_od25": 0.9949824823138507,
+        "p_18_usable": 0.9999020230553609,
+        "rule_od": "25",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-17T02:00Z",
+        "lead_h": 4,
+        "od": "25",
+        "p_od25": 0.9951130592493156,
+        "p_18_usable": 0.9997044446983478,
+        "rule_od": "25",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-17T03:00Z",
+        "lead_h": 5,
+        "od": "25",
+        "p_od25": 0.9945005729154817,
+        "p_18_usable": 0.9998809162219378,
+        "rule_od": "25",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-17T04:00Z",
+        "lead_h": 6,
+        "od": "25",
+        "p_od25": 0.9871792425663642,
+        "p_18_usable": 0.9998928969564789,
+        "rule_od": "25",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-17T05:00Z",
+        "lead_h": 7,
+        "od": "25",
+        "p_od25": 0.8123578572283919,
+        "p_18_usable": 0.9996813599733867,
+        "rule_od": "25",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-17T06:00Z",
+        "lead_h": 8,
+        "od": "07",
+        "p_od25": 0.41167051354398065,
+        "p_18_usable": 0.9998787250547544,
+        "rule_od": "25",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-17T07:00Z",
+        "lead_h": 9,
+        "od": "07",
+        "p_od25": 0.273074262816888,
+        "p_18_usable": 0.9998963902239575,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-17T08:00Z",
+        "lead_h": 10,
+        "od": "07",
+        "p_od25": 0.2977005575648321,
+        "p_18_usable": 0.9998686273703181,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-17T09:00Z",
+        "lead_h": 11,
+        "od": "07",
+        "p_od25": 0.1697603822789224,
+        "p_18_usable": 0.9998291030539155,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-17T10:00Z",
+        "lead_h": 12,
+        "od": "07",
+        "p_od25": 0.07314395383162355,
+        "p_18_usable": 0.9997794736503606,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-17T11:00Z",
+        "lead_h": 13,
+        "od": "07",
+        "p_od25": 0.018075708800588258,
+        "p_18_usable": 0.999498753964155,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-17T12:00Z",
+        "lead_h": 14,
+        "od": "07",
+        "p_od25": 0.012687712743921196,
+        "p_18_usable": 0.9987435032661099,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-17T13:00Z",
+        "lead_h": 15,
+        "od": "07",
+        "p_od25": 0.007090477688603089,
+        "p_18_usable": 0.9991193214539269,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-17T14:00Z",
+        "lead_h": 16,
+        "od": "07",
+        "p_od25": 0.010724271285334623,
+        "p_18_usable": 0.9959408242560762,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-17T15:00Z",
+        "lead_h": 17,
+        "od": "07",
+        "p_od25": 0.020243727055865874,
+        "p_18_usable": 0.9991439651747113,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-17T16:00Z",
+        "lead_h": 18,
+        "od": "07",
+        "p_od25": 0.06870606676304389,
+        "p_18_usable": 0.9991815310790286,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-17T17:00Z",
+        "lead_h": 19,
+        "od": "07",
+        "p_od25": 0.13245190700428172,
+        "p_18_usable": 0.9991917199770319,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-17T18:00Z",
+        "lead_h": 20,
+        "od": "07",
+        "p_od25": 0.4116380037584319,
+        "p_18_usable": 0.9993673636766718,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-17T19:00Z",
+        "lead_h": 21,
+        "od": "07",
+        "p_od25": 0.30296128317788695,
+        "p_18_usable": 0.9996709419190465,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-17T20:00Z",
+        "lead_h": 22,
+        "od": "07",
+        "p_od25": 0.3236995521741471,
+        "p_18_usable": 0.9998098844765267,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-17T21:00Z",
+        "lead_h": 23,
+        "od": "07",
+        "p_od25": 0.3407253682073994,
+        "p_18_usable": 0.9997374738406032,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-17T22:00Z",
+        "lead_h": 24,
+        "od": "07",
+        "p_od25": 0.35405817011834556,
+        "p_18_usable": 0.9998268009585367,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-17T23:00Z",
+        "lead_h": 25,
+        "od": "07",
+        "p_od25": 0.20822020422005025,
+        "p_18_usable": 0.9999178047391662,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-18T00:00Z",
+        "lead_h": 26,
+        "od": "07",
+        "p_od25": 0.2607082168954518,
+        "p_18_usable": 0.9999563036081434,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-18T01:00Z",
+        "lead_h": 27,
+        "od": "07",
+        "p_od25": 0.18396137710429444,
+        "p_18_usable": 0.9999573620437474,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-18T02:00Z",
+        "lead_h": 28,
+        "od": "07",
+        "p_od25": 0.10720537661103331,
+        "p_18_usable": 0.9999589418344821,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-18T03:00Z",
+        "lead_h": 29,
+        "od": "07",
+        "p_od25": 0.1548494980238214,
+        "p_18_usable": 0.9999492771849486,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-18T04:00Z",
+        "lead_h": 30,
+        "od": "07",
+        "p_od25": 0.048936311603776754,
+        "p_18_usable": 0.9999252007121082,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-18T05:00Z",
+        "lead_h": 31,
+        "od": "07",
+        "p_od25": 0.046470307747284875,
+        "p_18_usable": 0.9999252007121082,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-18T06:00Z",
+        "lead_h": 32,
+        "od": "07",
+        "p_od25": 0.01564313839067419,
+        "p_18_usable": 0.9999489981288899,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-18T07:00Z",
+        "lead_h": 33,
+        "od": "07",
+        "p_od25": 0.022674106781733833,
+        "p_18_usable": 0.999919899225932,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-18T08:00Z",
+        "lead_h": 34,
+        "od": "07",
+        "p_od25": 0.010364272005214205,
+        "p_18_usable": 0.999942094331792,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-18T09:00Z",
+        "lead_h": 35,
+        "od": "07",
+        "p_od25": 0.007570564840445429,
+        "p_18_usable": 0.9999297610574128,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-18T10:00Z",
+        "lead_h": 36,
+        "od": "07",
+        "p_od25": 0.006698279770377832,
+        "p_18_usable": 0.9999297610574128,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-18T11:00Z",
+        "lead_h": 37,
+        "od": "07",
+        "p_od25": 0.007177387435867076,
+        "p_18_usable": 0.9999279804998973,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-18T12:00Z",
+        "lead_h": 38,
+        "od": "07",
+        "p_od25": 0.007651235190052256,
+        "p_18_usable": 0.9999297610574128,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-18T13:00Z",
+        "lead_h": 39,
+        "od": "07",
+        "p_od25": 0.011561812168082667,
+        "p_18_usable": 0.9999162025882555,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-18T14:00Z",
+        "lead_h": 40,
+        "od": "07",
+        "p_od25": 0.017425835790435055,
+        "p_18_usable": 0.9997850212371453,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-18T15:00Z",
+        "lead_h": 41,
+        "od": "07",
+        "p_od25": 0.02254227896737007,
+        "p_18_usable": 0.9998824100424594,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-18T16:00Z",
+        "lead_h": 42,
+        "od": "07",
+        "p_od25": 0.02847204714906219,
+        "p_18_usable": 0.9998622199115029,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-18T17:00Z",
+        "lead_h": 43,
+        "od": "07",
+        "p_od25": 0.022629156143021224,
+        "p_18_usable": 0.9998743503720169,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-18T18:00Z",
+        "lead_h": 44,
+        "od": "07",
+        "p_od25": 0.2847060781206736,
+        "p_18_usable": 0.9998225872437163,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-18T19:00Z",
+        "lead_h": 45,
+        "od": "07",
+        "p_od25": 0.23318133863748433,
+        "p_18_usable": 0.9999108213130606,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-18T20:00Z",
+        "lead_h": 46,
+        "od": "07",
+        "p_od25": 0.28153796536772163,
+        "p_18_usable": 0.999881002606486,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-18T21:00Z",
+        "lead_h": 47,
+        "od": "07",
+        "p_od25": 0.06506102248912142,
+        "p_18_usable": 0.9997681101369913,
+        "rule_od": "07",
+        "rule_18_usable": true
+      },
+      {
+        "time": "2026-10-18T22:00Z",
+        "lead_h": 48,
+        "od": "07",
+        "p_od25": 0.25271125988396714,
+        "p_18_usable": 0.9998585706739156,
+        "rule_od": "07",
+        "rule_18_usable": true
+      }
+    ],
+    "next_change": {
+      "time": "2026-10-17T06:00Z",
+      "local": "2026-10-17T08:00",
+      "from": "25",
+      "to": "07",
+      "p": 0.5883294864560193,
+      "window_local": [
+        "2026-10-17T08:00",
+        "2026-10-17T08:00"
+      ]
+    },
+    "closures_18": [],
+    "evidence": {
+      "run_id": "8e90f3f14109",
+      "model_artifact": {
+        "version": "walk-forward-v5",
+        "file": "fold-2026-10.joblib",
+        "sha256": "faebe52aefa624b9406505b728e454ea553b4f2e9ee6d5a6562fedcac690ffe5",
+        "trained_through": "2026-09-30T23:00:00+00:00"
+      },
+      "feature_set": "base+ensemble+synoptic",
+      "rules_version": "fraalliance-brief-2026-10-30",
+      "publication_lag_h": 6,
+      "issue_inputs": {
+        "metar_time": "2026-10-16T21:50Z",
+        "metar_wind_dir_deg": null,
+        "metar_wind_kt": 2.0,
+        "metar_gust_kt": 2.0,
+        "od_at_issue": "25",
+        "od_source": "recorded DFLD OD; completed hourly bins, reporting delay unknown",
+        "hours_since_change": 99.0
+      },
+      "sources": [
+        {
+          "name": "Open-Meteo best_match",
+          "available_at": "2026-10-16T22:00Z"
+        },
+        {
+          "name": "Open-Meteo ecmwf_ifs025",
+          "available_at": "2026-10-16T22:00Z",
+          "missing": false
+        },
+        {
+          "name": "Open-Meteo gfs_seamless",
+          "available_at": "2026-10-16T22:00Z",
+          "missing": false
+        },
+        {
+          "name": "Open-Meteo icon_seamless",
+          "available_at": "2026-10-16T22:00Z",
+          "missing": false
+        },
+        {
+          "name": "Open-Meteo pressure boxes N/S/W/E",
+          "available_at": "2026-10-16T22:00Z",
+          "missing": false
+        },
+        {
+          "name": "IEM EDDF METAR",
+          "available_at": "2026-10-16T21:50Z"
+        },
+        {
+          "name": "DFLD recorded OD",
+          "available_at": "2026-10-16T22:00Z"
+        }
+      ]
+    }
+  },
+  "candidates": [
+    {
+      "id": "direction-7",
+      "kind": "direction",
+      "action": "review",
+      "title": "Review the forecast change to OD 07",
+      "detail": "The hourly forecast changes from 25 to 07. The rule baseline disagrees at this hour. This is a predicted state transition, not an operational switch instruction.",
+      "hour_indices": [
+        7
+      ],
+      "time": "2026-10-17T06:00Z"
+    },
+    {
+      "id": "disagreement-7",
+      "kind": "disagreement",
+      "action": "review",
+      "title": "Check where model and rules disagree",
+      "detail": "At least one direction or runway-18 call differs from the rule baseline. Compare the source hours before choosing a preparation response.",
+      "hour_indices": [
+        7
+      ],
+      "time": "2026-10-17T06:00Z"
+    },
+    {
+      "id": "monitor",
+      "kind": "monitor",
+      "action": "monitor",
+      "title": "Monitor the next forecast update",
+      "detail": "Keep the forecast under review. This does not confirm that runway conditions will remain unchanged.",
+      "hour_indices": [
+        0
+      ],
+      "time": "2026-10-16T23:00Z"
+    }
+  ],
+  "selections": {
+    "ground_operations": {
+      "candidate_id": "direction-7"
+    },
+    "forecast_review": {
+      "candidate_id": "disagreement-7"
+    }
+  },
+  "status": "fallback",
+  "status_reason": "offline"
+}
