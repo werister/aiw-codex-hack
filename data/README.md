@@ -1,14 +1,14 @@
 # EDDF weather data
 
-Requested observation range: 2024-01-01 through 2026-10-30. All timestamps are UTC. Data retrieval times and exact request URLs are recorded per file in [inventory.json](inventory.json).
+Most recent requested observation range: 2018-01-01 through 2022-12-31. METAR backfills append to existing reports; the inventory gives each file's full retained period. All timestamps are UTC. Data retrieval times and exact request URLs are recorded per file in [inventory.json](inventory.json).
 
-Rebuild with `python -m ml.fetch --since 2023-01-01`. Raw responses and retrieval metadata are cached in ignored `data/raw/`. Completed calendar chunks are reused; current chunks expire after one hour and DWD recent archives/listings after six hours. `--refresh` explicitly redownloads. Use `--sources metar previous` to select sources, or `--until YYYY-MM-DD` for an inclusive end date. Live snapshots reuse the current UTC hour. No credentials or accounts are used.
+Rebuild METAR history with `python -m ml.fetch --since 2018-01-01 --sources metar`. Backfill only the older years with `python -m ml.fetch --since 2018-01-01 --until 2022-12-31 --sources metar`; existing reports win on duplicate observation timestamp and raw METAR. Other weather sources can be fetched with `python -m ml.fetch --since 2023-01-01`. Raw responses and retrieval metadata are cached in ignored `data/raw/`. Completed calendar chunks are reused; current chunks expire after one hour and DWD recent archives/listings after six hours. `--refresh` explicitly redownloads. Use `--sources metar previous` to select sources, or `--until YYYY-MM-DD` for an inclusive end date. Live snapshots reuse the current UTC hour. No credentials or accounts are used.
 
 ## Inventory
 
 | File | Source | Rows | UTC period | Size MB | Retrieved UTC | Columns and units | Terms |
 |---|---|---:|---|---:|---|---|---|
-| [eddf_metar.parquet](eddf_metar.parquet) | IEM | 67,119 | 2023-01-01 00:20:00+00:00 to 2026-10-30 10:20:00+00:00 | 1.536 | 2026-10-30T10:56:42.481236+00:00 to 2026-10-30T10:56:47.716128+00:00 | station; valid UTC; drct degrees; sknt/gust kn; raw METAR | Public domain |
+| [eddf_metar.parquet](eddf_metar.parquet) | IEM | 154,718 | 2018-01-01 00:20:00+00:00 to 2026-10-30 10:20:00+00:00 | 3.429 | 2026-10-30T10:56:42.481236+00:00 to 2026-10-30T11:50:03.622330+00:00 | station; valid UTC; drct degrees; sknt/gust kn; raw METAR | Public domain |
 | [eddf_taf.parquet](eddf_taf.parquet) | IEM | 0 | No records returned | 0.009 | 2026-10-30T10:56:48.495112+00:00 to 2026-10-30T10:56:51.808405+00:00 | station; issuance/validity UTC; raw TAF; IEM schema detailed below | Public domain |
 | [openmeteo_previous_runs.parquet](openmeteo_previous_runs.parquet) | Open-Meteo | 24,816 | 2024-01-01 00:00:00+00:00 to 2026-10-30 23:00:00+00:00 | 0.963 | 2026-10-30T11:29:32.406070+00:00 to 2026-10-30T11:30:15.598151+00:00 | time UTC; 10/80 m speed and 10 m gust kn; direction degrees; MSL hPa; 2 m temperature Celsius | CC BY 4.0 |
 | [openmeteo_historical_forecast.parquet](openmeteo_historical_forecast.parquet) | Open-Meteo | 33,576 | 2023-01-01 00:00:00+00:00 to 2026-10-30 23:00:00+00:00 | 0.551 | 2026-10-30T10:57:33.909668+00:00 to 2026-10-30T10:58:27.765632+00:00 | time UTC; 10/80 m speed and 10 m gust kn; direction degrees; MSL hPa; 2 m temperature Celsius | CC BY 4.0 |
@@ -39,9 +39,9 @@ Rebuild with `python -m ml.fetch --since 2023-01-01`. Raw responses and retrieva
 
 ## Coverage and sanity
 
-METAR has 67,119 reports across 33,563 UTC hours. Missing complete hours in the requested period: 0/24,803. Current incomplete hour is excluded. First missing hours: none.
+METAR has 154,718 reports across 77,380 UTC hours. Missing complete hours in the requested period: 7/43,824. Current incomplete hour is excluded. First missing hours: 2018-03-26 07:00:00+00:00, 2018-11-23 14:00:00+00:00, 2018-11-23 15:00:00+00:00, 2020-04-03 00:00:00+00:00, 2021-10-04 17:00:00+00:00, 2022-03-02 19:00:00+00:00, 2022-03-02 20:00:00+00:00.
 
-Among 58,900 reports with known direction and nonzero speed, wind from a westerly component, 180 < direction < 360 degrees: 51.96%; easterly component, 0 < direction < 180: 41.52%. Exactly north/south directions are neither. Missing/variable directions: 8,055. Max reported gust: 45 knots; max mean wind: 30 knots. Gusts are only populated when reported.
+Among 135,136 reports with known direction and nonzero speed, wind from a westerly component, 180 < direction < 360 degrees: 51.13%; easterly component, 0 < direction < 180: 42.27%. Exactly north/south directions are neither. Missing/variable directions: 19,244. Max reported gust: 54 knots; max mean wind: 35 knots. Gusts are only populated when reported.
 
 - `eddf_metar.parquet`: Types 3 and 4 retain routine and additional METARs, including half-hour reports. Missing direction includes VRB; missing gust means no gust reported, not zero.
 - `eddf_taf.parquet`: IEM returned no EDDF TAF records for the requested archive. Empty parquet preserves the returned schema; it is not training data. Live NOAA TAF is saved separately.
@@ -97,6 +97,13 @@ Historical forecast day 0 stitches recent forecast leads and must not be used as
 - DWD: CDC terms, May 2024: CC BY 4.0. https://opendata.dwd.de/climate_environment/CDC/Terms_of_use.txt ; https://www.dwd.de/copyright . Older descriptions refer to GeoNutzV.
 - NOAA: US government weather data; https://www.weather.gov/disclaimer ; https://aviationweather.gov/data/api/
 
+## Recorded operational history
+
+[DFLD recorded history](ground_truth/README.md) has 76,588 stable OD hours, from 2017-12-31T23:00:00Z through 2026-10-29T22:00:00Z. Rebuild with `python -m ml.dfld --since 2018-01-01 --until 2026-10-29`. Labels describe whole hours and are available only after hour end; the original 2024+ rows are retained.
+
+Runway-18 display history has 28,140 known hours from 2017-12-31T23:00:00Z through 2022-05-26T11:00:00Z, with gaps. `r18_in_use` describes the published operational display, not weather closure. Transparent and unknown bins are excluded, not classified as non-use. All requested monthly pages were inspected, including later months without known status.
+
+
 ## Needs an account
 
 None of the requested endpoints needs an account or key. No sign-up was attempted.
@@ -104,7 +111,3 @@ None of the requested endpoints needs an account or key. No sign-up was attempte
 ## Retrieval failures
 
 None. Source coverage gaps are recorded above.
-
-## Recorded operational history
-
-DFLD history is in [ground_truth/](ground_truth/README.md). It contains 76,588 stable OD hours from local 2018-01-01 through 2026-10-29, plus 28,140 known runway-18 display hours with gaps through May 2022. All 106 monthly pages were checked. Transparent and unknown status bins are excluded, not classified as non-use. Rebuild with `python -m ml.dfld --since 2018-01-01 --until 2026-10-29`.

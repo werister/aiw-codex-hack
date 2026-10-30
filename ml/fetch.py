@@ -121,6 +121,9 @@ def save(frame, name, provider, downloads, time_column, notes=""):
 
 def fetch_metar(dl, since, stop):
     frames = []
+    existing = DATA / "eddf_metar.parquet"
+    if existing.exists():
+        frames.append(pd.read_parquet(existing))
     for start, end in intervals(since, stop):
         params = iem_params(start, end) | {"data": ["drct", "sknt", "gust", "metar"],
             "format": "onlycomma", "latlon": "no", "missing": "M", "report_type": [3, 4]}
@@ -131,6 +134,12 @@ def fetch_metar(dl, since, stop):
             frame[col] = pd.to_numeric(frame[col], errors="coerce")
         frames.append(frame)
     frame = pd.concat(frames, ignore_index=True).drop_duplicates(["valid", "metar"]).sort_values("valid")
+    # A backfill must retain existing reports and their download provenance.
+    inventory_path = DATA / "inventory.json"
+    if existing.exists() and inventory_path.exists():
+        previous = json.loads(inventory_path.read_text(encoding="utf-8")).get("eddf_metar", {})
+        downloads = previous.get("downloads", []) + dl.used
+        dl.used = list({item["url"]: item for item in downloads}.values())
     save(frame, "eddf_metar", "IEM", dl, "valid",
          "Types 3 and 4 retain routine and additional METARs, including half-hour reports. Missing direction includes VRB; missing gust means no gust reported, not zero.")
 
@@ -249,8 +258,8 @@ def fetch_live(dl, since, stop):
 
 def write_readme(since, stop, failures):
     inventory = json.loads((DATA / "inventory.json").read_text(encoding="utf-8"))
-    lines = ["# EDDF weather data", "", f"Requested observation range: {since} through {stop - timedelta(days=1)}. All timestamps are UTC. Data retrieval times and exact request URLs are recorded per file in [inventory.json](inventory.json).", "",
-        "Rebuild with `python -m ml.fetch --since 2023-01-01`. Raw responses and retrieval metadata are cached in ignored `data/raw/`. Completed calendar chunks are reused; current chunks expire after one hour and DWD recent archives/listings after six hours. `--refresh` explicitly redownloads. Use `--sources metar previous` to select sources, or `--until YYYY-MM-DD` for an inclusive end date. Live snapshots reuse the current UTC hour. No credentials or accounts are used.", "",
+    lines = ["# EDDF weather data", "", f"Most recent requested observation range: {since} through {stop - timedelta(days=1)}. METAR backfills append to existing reports; the inventory gives each file's full retained period. All timestamps are UTC. Data retrieval times and exact request URLs are recorded per file in [inventory.json](inventory.json).", "",
+        "Rebuild METAR history with `python -m ml.fetch --since 2018-01-01 --sources metar`. Backfill only the older years with `python -m ml.fetch --since 2018-01-01 --until 2022-12-31 --sources metar`; existing reports win on duplicate observation timestamp and raw METAR. Other weather sources can be fetched with `python -m ml.fetch --since 2023-01-01`. Raw responses and retrieval metadata are cached in ignored `data/raw/`. Completed calendar chunks are reused; current chunks expire after one hour and DWD recent archives/listings after six hours. `--refresh` explicitly redownloads. Use `--sources metar previous` to select sources, or `--until YYYY-MM-DD` for an inclusive end date. Live snapshots reuse the current UTC hour. No credentials or accounts are used.", "",
         "## Inventory", "", "| File | Source | Rows | UTC period | Size MB | Retrieved UTC | Columns and units | Terms |", "|---|---|---:|---|---:|---|---|---|"]
     for info in inventory.values():
         dates = [d["retrieved_at"] for d in info["downloads"]]
@@ -304,6 +313,14 @@ def write_readme(since, stop, failures):
     lines += ["", "Historical forecast day 0 stitches recent forecast leads and must not be used as an archived 24/48-hour forecast. Previous-day fields are lead offsets relative to valid time; preserve them separately and check availability at the evaluation issue time. Raw retrieval time is not a forecast initialization time.", "",
               "## Licences and attribution", ""]
     lines += [f"- {provider}: {terms}" for provider, terms in TERMS.items()]
+    truth = DATA / "ground_truth"
+    if (truth / "dfld_hourly.csv").exists():
+        directions = pd.read_csv(truth / "dfld_hourly.csv", dtype={"od": str})
+        lines += ["", "## Recorded operational history", "",
+                  f"[DFLD recorded history](ground_truth/README.md) has {len(directions):,} stable OD hours, from {directions.time.min()} through {directions.time.max()}. Rebuild with `python -m ml.dfld --since 2018-01-01 --until 2026-10-29`. Labels describe whole hours and are available only after hour end; the original 2024+ rows are retained.", ""]
+        if (truth / "dfld_r18_hourly.csv").exists():
+            runway = pd.read_csv(truth / "dfld_r18_hourly.csv")
+            lines += [f"Runway-18 display history has {len(runway):,} known hours from {runway.time.min()} through {runway.time.max()}, with gaps. `r18_in_use` describes the published operational display, not weather closure. Transparent and unknown bins are excluded, not classified as non-use. All requested monthly pages were inspected, including later months without known status.", ""]
     lines += ["", "## Needs an account", "", "None of the requested endpoints needs an account or key. No sign-up was attempted.", "", "## Retrieval failures", ""]
     lines += failures or ["None. Source coverage gaps are recorded above."]
     (DATA / "README.md").write_text("\n".join(lines) + "\n", encoding="utf-8")

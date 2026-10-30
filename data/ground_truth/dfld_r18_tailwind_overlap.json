@@ -1,0 +1,13 @@
+{
+  "alignment": "latest METAR at or before UTC hour start, maximum age 1 hour",
+  "tailwind_threshold_kt": 15,
+  "r18_known_status_hours": 28140,
+  "r18_not_in_use_hours": 2251,
+  "matched_known_wind_hours": 24655,
+  "not_in_use_with_known_wind": 1900,
+  "tailwind_closure_hours_on_status_overlap": 89,
+  "not_in_use_and_tailwind_closure_hours": 1,
+  "metar_rows": 154718,
+  "metar_start": "2018-01-01 00:20:00+00:00",
+  "metar_end": "2026-10-30 10:20:00+00:00"
+}

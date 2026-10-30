@@ -27,6 +27,12 @@ There are 28,140 retained status hours, from local January 2018 through May 2022
 
 This is the published operational display, not a movement count, a certified closure log, or a weather-usability label. Non-use may reflect maintenance, demand, night restrictions, other operational decisions or reporting limitations. Coincidence with a METAR tailwind threshold does not prove the cause. Never relabel every `False` hour as a wind closure or every `True` hour as weather-safe.
 
+### Comparison with inferred tailwind closure
+
+Run `python -m ml.dfld --compare-metar` after fetching METAR history. This writes `dfld_r18_tailwind_overlap.json`. As in the training target alignment, use the most recent METAR at or before the UTC hour start with a maximum age of one hour. Use mean wind, the official 180-degree runway heading, and signed tailwind of at least 15 kt. This comparison concerns the tailwind threshold alone, not the separate gust/crosswind rule. Variable or missing non-calm direction is unknown; it is not counted as weather-safe.
+
+Of 28,140 known runway-18 display hours, 24,655 have known aligned wind. Of 2,251 displayed non-use hours, 1,900 have known aligned wind and **1** coincides with inferred tailwind closure. There are 89 inferred tailwind-closure hours in the known-status/known-wind overlap; the other 88 display in-use status. These are distinct labels, and the display does not validate the weather-closure rule. This count establishes coincidence only, not the cause of non-use.
+
 ## Source and meaning
 
 The keyless monthly URL is `https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.MM.YYYY`, with a two-digit month. Region `1` is Frankfurt. For example, [January 2025](https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.01.2025) and [October 2026](https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.10.2026).
