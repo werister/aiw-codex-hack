@@ -1,0 +1,12 @@
+V6_SOURCE_AND_DATA_VERIFIED 4c6c1143ee69cd131b1d4c1fe5593a18a0ffa756 31 6
+........................................................................ [ 69%]
+...............................                                          [100%]
+=============================== warnings summary ===============================
+ml/tests/test_forecast_state.py::test_all_explicit_availability_fields_must_be_valid_and_preissue
+  /content/fra-v6-verify/ml/features.py:143: UserWarning: Could not infer format, so each element will be parsed individually, falling back to `dateutil`. To ensure parsing is consistent and as-expected, please specify a format.
+    source[stamp] = pd.to_datetime(source[stamp], utc=True, errors="coerce")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+103 passed, 1 warning in 3.98s
+ 
+V6_TEST_SUITE_COMPLETE
