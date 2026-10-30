@@ -1,202 +1,125 @@
-# ml/ · data, labels, model, backtest, forecast CLI (Python 3.13)
+# ML pipeline
 
-Owners: Kai (co-lead) and our agents. Rules: `ml/rules.json` (from the official FraAlliance brief). Never hard-code a threshold anywhere else.
+Python 3.13 data, training, evaluation, and 48-hour forecast CLI for the
+Frankfurt Airport runway-direction challenge.
 
 ```bash
 python -m pip install -r ml/requirements.txt
-python -m ml.fetch            # raw data into data/raw/ (cached)
-python -m ml.train            # models -> ml/models/, metrics -> web/public/data/
-python -m ml.forecast --day 2026-10-31            # 48 h hourly table from 00:00 local that day
-python -m ml.forecast --day 2026-10-31 --json     # same, as ForecastResponse JSON (web/src/lib/forecast-types.ts)
-python -m pytest ml/tests -q                      # rule and leakage tests
+python -m ml.fetch
+python -m ml.train                         # monthly walk-forward; default 12 months
+python -m ml.train --compare-label-policy # optional OD label-policy sensitivity
+python -m ml.forecast --day 2026-10-31
+python -m ml.forecast --now               # issue at the current floored hour
+python -m ml.forecast --day 2026-10-31 --json
+python -m pytest ml/tests -q
 ```
 
-## Sources (cite all of them in the model card)
-- **EDDF METAR**, Iowa Environmental Mesonet ASOS archive: `https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py?station=EDDF&...` (half-hourly wind direction, speed, gusts).
-- **Archived weather-model forecasts**, Open-Meteo Previous Runs API: `https://previous-runs-api.open-meteo.com/v1/forecast` at EDDF (50.033 N, 8.570 E). `<var>_previous_day1`, `<var>_previous_day2` and `<var>_previous_day3` give values from forecasts about 1, 2 and 3 days before target time. Evaluation adds a six-hour publication lag.
-- **Live forecast**, Open-Meteo Forecast API: `https://api.open-meteo.com/v1/forecast`, same variable names.
-- **Flown operating directions**, if found (DFLD, UNH/Fraport statistics, OpenSky): used to validate the METAR-derived labels. See `ml/SOURCES.md`.
+`ml/rules.json` is the source for official operating limits. Training writes
+model artifacts under `ml/models/` and evaluation JSON under
+`web/public/data/`. The UI contract is `web/src/lib/forecast-types.ts`.
 
-## Forecast inputs and features
+## Data and issue-time inputs
 
-`ml.features.FEATURES` = base + ensemble + synoptic + state groups:
-- **Base:** recorded OD at issue, hours since change, METAR wind now and its 3 h trend, best-match forecast wind, runway tailwinds and the rule states, hour and season, lead.
-- **Ensemble:** ECMWF IFS, GFS and ICON previous runs (`data/openmeteo_previous_runs_multimodel.parquet`), each scaled to METAR level with `WIND_SCALE` (fitted on 2024 only, before every test month). Per-model tailwind on 25 and 18, the ensemble mean and spread of those tailwinds, direction spread (1 minus mean resultant length), share of models favouring 25, 80 m tailwinds, and the official state machine rerun on the corrected ensemble-mean wind (`rule_od25_ens`, `rule_18_ens`).
-- **Synoptic:** forecast pressure about 200 km north, south, west and east of FRA (`ml/synoptic.py`), as north-south and east-west differences and their geostrophic tailwind on 25 and 18.
-- **State:** observed tailwind on the direction in use now, how many hours it has stayed positive (max 5), the ensemble tailwind on the current direction, and the METAR direction.
+- **Observed wind:** EDDF METAR from the Iowa Environmental Mesonet ASOS archive.
+- **Archived forecasts:** Open-Meteo Previous Runs at EDDF, with day 1, 2, and
+  3 offsets.
+- **Live forecasts:** Open-Meteo Forecast API.
+- **OD reference:** recorded DFLD stable-hour directions; see
+  `data/ground_truth/README.md` for source and clock assumptions.
 
-All forecast inputs use the same day1/day2/day3 offsets and six-hour lag. Live runs
-take separate models and pressure from a pre-issue snapshot, otherwise from a dated
-run with a 12 h publication proxy. A missing model stays missing; it is never filled
-with another model. The ICON-D2 ensemble spread (Zinkhan et al. 2023) has no archive
-before 29 Jul 2026, so it cannot be backtested and is not used.
+Every forecast has an issue time T. Any explicit `issued_at` and `retrieved_at`
+timestamp supplied with archive or live forecasts must each be no later than T;
+observation availability is also bounded by T. Archived forecasts use day 1 for
+leads 1–18, day 2 for 19–42, and day 3 for 43–48. Their exact publication time
+is unavailable, so the conservative six-hour availability proxy must be no
+later than T. Future observations and newer runs are excluded.
 
-## Labels
-The official rules run as a state machine over the half-hourly METARs:
-- A tailwind of 10 kt or more on the landing direction switches the OD immediately.
-- A tailwind between 0 and 10 kt switches it after more than 30 minutes.
-- Calm or variable wind keeps the current OD.
-- Runway 18 is unusable when its tailwind is 15 kt or more, or its crosswind including gusts is over 40 kt.
+`ml.features.FEATURES` has 45 columns across three groups: base, model
+ensemble, and synoptic pressure features. There is no separate state-feature
+group. The ensemble combines ECMWF IFS, GFS, and ICON forecasts after wind-speed
+scaling constants fitted on 2024 data and held fixed across walk-forward folds;
+the synoptic group derives pressure differences and geostrophic tailwinds.
+Missing model inputs remain missing.
 
-The weather-rule hourly label is the state at the full hour. OD training targets
-instead use recorded DFLD stable-hour directions in `data/ground_truth/dfld_hourly.csv`.
-Read that folder's README for source and clock assumptions. The current recorded
-state becomes an input only after its full hour has ended. Runway 18 usability is
-always inferred from METAR and the official rules, not recorded closure history.
+For OD rule updates, `tailwind_since_issue()` carries the duration of the
+observed positive landing-tailwind run into both the base-wind and ensemble-wind
+state machines. The forecast fallback uses the same timer logic. It is
+operational state, not an additional learned feature or an R18 timer.
 
-## Honest evaluation
-- Issue time T. The model only uses what was known at T:
-  - observations up to T
-  - archived forecast offsets with a six-hour publication lag: `previous_day1` for leads 1-18 h, `previous_day2` for 19-42 h and `previous_day3` for 43-48 h
-- Train and test split by time. The test period comes after the training period and is never used for fitting.
-- Report accuracy and Brier score at lead 1, 6, 24 (and 48) h against two baselines:
-  - persistence
-  - the official rules applied to the forecast wind
+## Labels and fitting
 
-An offset N is eligible only when `lead_h <= 24*N - 6`. Buffered availability
-is `target_time - N days + 6 hours` and must be no later than T. At leads 18
-and 42 the buffered availability equals T; leads 24 and 48 now use older runs.
-The archive does not supply exact publication timestamps, so the six-hour lag
-remains a conservative availability assumption. Day 3 is required for leads
-43-48; missing fields raise an error rather than substituting a newer run.
-Live forecasts with explicit issuance or retrieval metadata are rejected if
-that timestamp exceeds T.
+OD targets use all recorded DFLD stable-hour labels in the primary fit. A
+rule-derived suspected-run flag is a review signal, not independent proof of a
+bad recording; `--compare-label-policy` reports the flagged-row sensitivity
+separately. It does not remove those labels from the primary fit.
 
-Training uses 6-hourly issues on the Europe/Berlin clock (00:00, 06:00, 12:00,
-18:00 local, like the jury days), each with all 48 hourly leads, and the
-last twelve calendar months as expanding walk-forward folds. Change this with
-`--issue-stride` and `--months`. Training labels must end before the fold starts.
-Early stopping is disabled to avoid a random internal validation split.
-OD probabilities blend the classifier with persistence. For each fold, a separate
-fit and the final 60 days of its training period select the blend by Brier score.
-The inner fit excludes labels crossing that validation boundary. Weights are
-selected per lead bucket (1, 2–6, 7–24, 25–48 h) and target regime: `night`
-(23:00–05:00 local, the night-flight restriction), `calm` (forecast 10 m wind
-below 2.5 kt, about 4 kt METAR) or `active`. A regime with fewer than 50
-validation rows uses its lead bucket's weight. Keys look like `6:night` in
-`od_model_weight`. The classifier is then refitted on the full pre-test history. The held-out month never selects weights.
-Saved monthly fits allow hindcasts to select a model trained before issue time;
-the final fit uses all available targets for future forecasts.
+Runway 18 targets are inferred from METAR using the official wind limits.
+Unknown or variable wind remains unlabelled rather than being treated as usable.
 
-### Stuck recorded OD
+Training uses time-ordered monthly walk-forward folds, with the most recent
+12 months by default. Labels that extend across a test boundary are purged from
+training. Held-out months never select blend weights.
 
-A tailwind of 10 kt or more on the landing runways forces an immediate change.
-`ml.quality.suspect_od_runs` flags a recorded OD run with three or more METAR
-hours at or above that limit as a stuck feed. In 2018–2026 it flags one run:
-OD 07 from 8 Oct 2026 12:00 to 12 Oct 18:00 local (103 hours), against 8–17 kt
-westerlies that DWD station 01420 also measured. Fitting and blend selection
-leave out OD rows whose target or issue-time state comes from that run.
-Headline scores (`od`, `out_of_sample`, `rows` in `october.json`) still count
-those hours as recorded. The `*_stuck_feed_excluded` fields drop them, which
-favours both the model and the rules; report both.
+The OD classifier blends with persistence using lead and weather-regime weights
+selected on the preceding 60-day validation block. R18 similarly blends its raw
+classifier with the issue-time persistence state, with weights selected on the
+preceding 60 days by horizon only. Sparse or closure-free validation horizons,
+unknown current R18 state, and artifacts without saved R18 weights use the raw
+R18 probability.
 
-### Runway 18 events
+## Evaluation and denominators
 
-`r18_events` in `backtest.json` and `quality.json` scores closures per issue: an
-event is any inferred closure within the next 1, 6 or 24 h, and a forecast event
-is any forecast closure in the same window. For each of `model`
-(`p_18_usable < 0.5`), `rule` (official rule on raw forecast wind),
-`rule_corrected` (official rule on the METAR-scaled ensemble wind) and
-`persistence` it gives hits, misses, false alarms, recall, precision and false
-alarm rate, plus the model's hourly Brier score.
+Lead scores report accuracy and Brier score at 1, 6, 24, and 48 hours against
+persistence and the official rule forecast. The corrected multimodel-weather
+rule (`rule_od25_ens` / `rule_18_ens`) is a separate comparator on the same
+eligible rows. Accuracy, Brier, and difference confidence intervals use 1-day,
+3-day, and 7-day block resampling. A block-length interval is null unless all
+scored days are covered by complete contiguous blocks of that length. The
+significance output also reports paired McNemar and Diebold–Mariano comparisons.
+McNemar p-values are nominal despite dependence in the data and are not adjusted
+for multiple comparisons. Undefined rates, scores, and intervals are JSON
+`null`.
 
-Inferred closures are rare. METAR 2018–2026 has 109 closure events (181 hours):
-30, 9, 15, 0, 10, 17, 9, 15 and 4 per year from 2018 to 2026. Forecast inputs
-start in 2024, so only the 12 walk-forward test months are scored. There, the
-raw-wind rule never closes 18. The corrected rule closes it about as often as
-METAR does, but at the wrong times: 1 hit and 64 false alarms for 24 events
-at 24 h. The model gets 3 hits with no false alarms. A closure now persists into
-the next hour 40% of the time, so persistence catches the events already under
-way.
+OD change timing requires a complete 48-hour hourly forecast and 97 half-hour
+DFLD bins including the issue-time state. Actual changes are counted strictly
+after issue time. `within_1h` and `within_3h` divide direction-correct timing
+hits by issue windows that contain an actual change; missing predictions and
+wrong-direction predictions are misses. The no-change false-alarm rate divides
+warned no-change windows by all complete no-change windows. These issue windows
+overlap and are not independent events.
 
-## Prediction interface
+The separate OD event metric deduplicates actual half-hour transitions across
+complete overlapping windows and uses only the first forecast change per issue.
+Directional warnings match unique actual events one to one within three hours.
+Event recall is matched unique events / unique actual events; precision is
+matched warnings / matched warnings plus false-alert clusters. False alerts per
+exposure day use the union of valid 48-hour issue windows, so overlapping
+forecasts do not inflate exposure. Timing error and warning lead are summarized
+over matched pairs.
 
-`ml.predict.predict_48h(issue_time_utc, obs, nwp, od_at_issue)` returns the 48-row
-DataFrame described in its docstring, with probabilities and both rule baselines.
-It accepts the data lane's METAR and previous-runs columns directly. Live NWP
-needs `issued_at` or `retrieved_at`. Attach the full recorded state history as
-`obs.attrs['od_history']`, with `time`, `od` and `available_at`, to supply time
-since change even during long holds or changes after the latest METAR. An `od`
-column in `obs` is a fallback; without history that feature is missing. Future observations are
-filtered. Dates before the earliest saved walk-forward fit are rejected.
+R18 event scores are issue-window outcomes, not unique closure episodes. For
+each horizon (1, 6, or 24 hours), only issues with every target hour labelled
+and every compared prediction valid enter the shared cohort. A positive window
+means any target hour is inferred closed. Counts and recall/precision therefore
+use complete issue windows as their denominator.
 
-## Runtime quality files
+## Runtime outputs
 
-Both outputs are runtime assets in `web/public/data/`, served as
-`/data/backtest.json` and `/data/quality.json`.
-`backtest.json` follows `BacktestResult`, with extra change-case metrics and an
-explicit `r18_label_type: "inferred"`. Scores report `raw_model_*`, `blend_*`,
-`rule_*` and `persistence_*` accuracy, Brier and change-case accuracy. Existing
-`model_*` fields alias the served blend for compatibility. For runway 18 the
-classifier is served directly, so its raw and blend scores are identical.
+`web/public/data/backtest.json` and `quality.json` include out-of-sample skill,
+significance, reliability, event metrics, and coverage/exclusion counts.
+`p_18_usable` is the served R18 probability; raw scores remain separately
+available when blending applies. `next_change` preserves its existing UI fields
+and adds direction-error and per-reason exclusion counts. `quality.json` is typed
+by `web/src/lib/forecast-types.ts`.
 
-`quality.json` has this shape, for the UI owner to add as `QualityResult`:
+For CLI inputs, `ml.predict.predict_48h(issue_time_utc, obs, nwp, od_at_issue)`
+returns 48 hourly rows. Supply observed direction history through
+`obs.attrs['od_history']` with `time`, `od`, and `available_at`; otherwise a
+recorded `od` column may be used with its availability time. Saved hindcast
+models must have training labels ending before the requested issue time.
 
-```typescript
-type Period = { start: string; end: string };
-type Score = {
-  lead_h: 1 | 6 | 24 | 48; n: number; change_n: number;
-  model_acc: number | null; rule_acc: number | null; persistence_acc: number | null;
-  model_brier: number | null; rule_brier: number | null; persistence_brier: number | null;
-  model_change_acc: number | null; rule_change_acc: number | null;
-  persistence_change_acc: number | null;
-  raw_model_acc: number | null; raw_model_brier: number | null;
-  raw_model_change_acc: number | null;
-  blend_acc: number | null; blend_brier: number | null; blend_change_acc: number | null;
-};
-type Scores = { od: Score[]; r18: Score[] };
-type Bin = {
-  lower: number; upper: number; n: number;
-  mean_predicted: number | null; observed_frequency: number | null;
-};
-type QualityResult = {
-  schema_version: number; evaluation: string; r18_label_type: "inferred";
-  issue_stride_h: number; publication_lag_h: number;
-  forecast_offsets: { lead_start: number; lead_end: number; previous_day: number }[];
-  folds: {
-    month: string; train_period: Period; train_target_end: string;
-    test_period: Period; train_n: number; test_n: number;
-    od_model_weight: Record<string, number>; od_blend_validation_period: Period;
-    in_sample: Scores; out_of_sample: Scores;
-  }[];
-  in_sample: Scores; out_of_sample: Scores;
-  reliability: { od: Bin[]; r18: Bin[] };
-  confidence_reliability: { od: Bin[]; r18: Bin[]; combined: Bin[] };
-  certainty_reliability: Bin[];
-  next_change: {
-    n_actual_change_windows: number; within_1h: number | null; within_3h: number | null;
-    n_no_change_windows: number; false_alarm_rate: number | null;
-    n_predicted_changes: number; excluded_incomplete_windows: number;
-    mean_absolute_error_h_when_predicted: number | null; truth: string;
-  };
-  drivers: { feature: string; importance: number }[];
-  rule_label_comparison: { n: number; agreement: number };
-  data_sources: { name: string; url: string; file: string }[];
-  coverage: {
-    feature_rows: number; skipped_issue_times: number;
-    observed_base_rates: { od25_share: number; changes_per_year: number; r18_closed_share: number };
-  };
-  limitations: string[];
-};
-```
-
-Reliability bins compare predicted event probability with observed frequency.
-Confidence bins compare the probability of the selected class with correctness.
-Combined confidence uses the smaller of the two class confidences, and its
-observed frequency requires both calls to be correct. Missing metrics use null.
-`certainty_reliability` checks the CLI's displayed score, which is the smaller
-absolute probability margin `abs(2*p - 1)` on a 0..1 scale. That margin is not a
-calibrated probability; its observed hit rate is reported without relabeling it.
-In-sample aggregates repeat rows across expanding fits; out-of-sample folds do
-not overlap. Timing scores count missed actual changes as misses and report
-false alarms on no-change windows separately. Half-hour clock ambiguities and
-incomplete truth windows are excluded.
-
-In `backtest.json`, `train_period` describes the last fold's training issues,
-while `test_period` spans all six held-out months. Those summary periods overlap
-because earlier test months become training data in later folds. Each individual
-fold remains separated in time. Inferred runway 18 targets require a METAR no
-more than one hour old, matching the CLI's observed overlay.
-Fold sizes count feature rows, including unlabelled transition-hour targets;
-each score's `n` counts usable labelled targets. Permutation importance measures
-the blended forecast's Brier score on the final held-out month.
+For a past or today's `--day`, the issue is that date's 00:00 Europe/Berlin;
+today runs in live mode. A future `--day` and `--now` use the current floored
+hour as issue time. A future requested date must intersect that 48-hour horizon;
+the CLI returns the complete 48-hour trajectory and identifies the requested
+date in the response. It never fetches future observations.

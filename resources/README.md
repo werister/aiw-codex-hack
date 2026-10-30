@@ -61,11 +61,13 @@ assumptions. Sources: [wind archive](https://opendata.dwd.de/climate_environment
   retrieval. Its Testing tier modifies/shuffles data; service-specific API keys
   are distinct. [Plans](https://api.windy.com/point-forecast/pricing),
   [documentation](https://api.windy.com/point-forecast/docs)
-- A single Point Forecast request using the supplied key returned HTTP 400,
-  `Invalid API key`. This establishes rejection by this endpoint only; it does
-  not establish whether the key works for Map Forecast. See
-  [redacted access check](windy-access-check.json). This check contains no key;
-  configure credentials locally using `.env.example` and the ignored `.env`.
+- The original key belonged to Windy Plugins and was rejected by Point Forecast.
+  A new Point Forecast Testing key succeeded with HTTP 200 on 30 October 2026:
+  80 three-hourly timestamps and complete wind, gust and pressure arrays. Repeat
+  the check with `python -m ml.windy --json`; configure the key in the environment
+  or ignored root `.env.local` (see [instructions](../ml/README.md#optional-windy-connection-check)).
+  The [access check](windy-access-check.json) contains only response metadata.
+  Testing values are not used by the operational forecast or model evaluation.
 - Historical DWD wind records include missing values and changes between MEZ
   and UTC. The embedded station parameter metadata identifies continuous UTC
   reporting from September 2003. Retain the original metadata when normalizing;
