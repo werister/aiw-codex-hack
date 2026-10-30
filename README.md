@@ -53,7 +53,6 @@ The full product helps the tower controller / shift supervisor plan across airpo
 ```bash
 python -m pip install -r ml/requirements.txt
 python -m ml.fetch                              # data into data/ (cached)
-python -m ml.labels                             # labels from METAR + official rules
 python -m ml.train                              # model + backtest
 python -m ml.forecast --day 2026-10-31          # 48 h hourly table for any day
 python -m ml.forecast --day 2026-10-31 --json   # same as JSON for the UI
