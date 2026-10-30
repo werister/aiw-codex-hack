@@ -94,13 +94,11 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-/* Their .hl--small / .pill label: small uppercase, Buch weight. */
+/* Small label, sentence case. No caps: labels only where they add information. */
 .eyebrow {
-  font-size: 12px;
-  line-height: 14px;
+  font-size: 13px;
+  line-height: 16px;
   font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
 }
 
 /* Runway 18 closed: stripes as a second cue next to the red. */

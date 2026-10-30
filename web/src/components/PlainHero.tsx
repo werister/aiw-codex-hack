@@ -5,10 +5,12 @@ import { forecastCoverage, formatForecastInstant } from "@/lib/forecast-events";
 import { RunwayMap } from "./RunwayMap";
 import { SceneHero } from "./SceneHero";
 import { useTower } from "./ThemeToggle";
-import { cx, hhmm, pct } from "./ui";
+import { cx, dayLabel, hhmm, isUnsure, pct, unsureReason } from "./ui";
 
 const WAY: Record<OD, string> = { "25": "west", "07": "east" };
 const WD = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+// Plain local time for the first screen, e.g. "Thu 29 Oct 07:00".
+const when = (local: string) => `${dayLabel(local)} ${hhmm(local)}`;
 
 export function PlainHero({
   f,
@@ -28,6 +30,8 @@ export function PlainHero({
   const nc = f.next_change;
   const directionProbability = hour && (hour.od === "25" ? hour.p_od25 : 1 - hour.p_od25);
   const coverage = forecastCoverage(f.hours);
+  // Plain bar title; the exact coverage text stays for incomplete files.
+  const barTitle = coverage.count === 48 && !coverage.hasTimestampGaps ? "Next 2 days" : coverage.label;
   const wind = hour?.wind_dir_deg == null ? undefined : { dir: hour.wind_dir_deg, kt: hour.wind_kt };
 
   return (
@@ -65,54 +69,48 @@ export function PlainHero({
 
       <div className={cx("pointer-events-none contents md:relative md:flex md:h-full md:flex-col md:justify-between md:gap-10 md:p-10", "min-h-[inherit]")}>
         <div className="pointer-events-auto order-1 max-w-[760px] md:max-w-[44%]">
-          <p className="eyebrow text-muted">Operating direction at issue · {formatForecastInstant(f.issued_at, f.issued_local)}</p>
+          <p className="text-[17px] text-ink">
+            Frankfurt Airport <span className="text-muted">· forecast issued {when(f.issued_local)}</span>
+          </p>
           <h2
             className={cx(
-              "mt-3 font-light leading-[1.02] tracking-[-0.025em]",
-              compact ? "text-[44px]" : "text-[44px] sm:text-[64px] xl:text-[80px]",
+              "mt-4 font-light leading-[1.04] tracking-[-0.025em]",
+              compact ? "text-[40px]" : "text-[40px] sm:text-[56px] xl:text-[68px]",
             )}
           >
-            <span className={f.current_od === "25" ? "text-west" : "text-east"}>{WAY[f.current_od]} {f.current_od}</span>
+            {f.mode === "live" ? "Planes land toward the " : "Planes landed toward the "}
+            <span className={f.current_od === "25" ? "text-west" : "text-east"}>{WAY[f.current_od]}</span>.
           </h2>
 
           {hour ? (
-            <div className="mt-5 space-y-2">
-              <p className="text-[15px] leading-snug text-muted tabular">
-                Forecast for {formatForecastInstant(hour.time, hour.local)} · T+{hour.lead_h} h
+            <div className="mt-6 space-y-3">
+              <p className={cx("font-light leading-tight", compact ? "text-[24px]" : "text-[24px] sm:text-[32px]")}>
+                {when(hour.local)}:{" "}
+                <span className={hour.od === "25" ? "text-west" : "text-east"}>{WAY[hour.od]}</span>, {pct(directionProbability!)} sure
               </p>
-              <p className={cx("font-light leading-tight", compact ? "text-[24px]" : "text-[24px] sm:text-[34px]")}>
-                Direction {WAY[hour.od]} ({hour.od})
-                <span className="text-muted"> · </span>
-                Runway 18 likely {r18Open ? "usable" : "unusable"}
-              </p>
-              <p className="text-[14px] font-medium tabular">
-                P(OD {hour.od} at this hour) · {pct(directionProbability!)}
-                <span className="mx-2 text-muted">·</span>
-                P(RWY 18 usable at this hour) · {pct(hour.p_18_usable)}
-              </p>
+              <div className="flex flex-wrap gap-2.5">
+                <Chip tone={r18Open ? "plain" : "alarm"}>Runway 18 {r18Open ? "open" : "closed"}</Chip>
+                {isUnsure(hour) && <Chip tone="outline">Unsure: {unsureReason(hour)}</Chip>}
+              </div>
             </div>
           ) : (
             <p className="mt-5 text-[15px] text-muted">Hourly forecast unavailable.</p>
           )}
 
-          <div className="mt-6">
-            <p className="eyebrow text-muted">Next forecast change</p>
+          <p className="mt-6 text-[20px] leading-snug">
             {nc ? (
-              <p className="mt-2 text-[15px] leading-snug">
-                {WAY[nc.to]} ({nc.to}) · {formatForecastInstant(nc.time, nc.local)}
-                <span className="mx-2 text-muted">·</span>
-                P(OD {nc.to} at this hour) {pct(nc.p)}
-              </p>
+              <>
+                Next change: <span className={nc.to === "25" ? "text-west" : "text-east"}>{WAY[nc.to]}</span> from{" "}
+                {when(nc.local)}, {pct(nc.p)} sure
+              </>
             ) : (
-              <p className="mt-2 text-[15px] leading-snug text-muted">
-                No change window in this forecast. See hourly changes below.
-              </p>
+              <span className="text-muted">No change expected in this forecast.</span>
             )}
-          </div>
+          </p>
 
           {f.mode === "hindcast" && (
             <div className="mt-4 flex flex-wrap gap-2.5">
-              <Chip tone="outline">Historical forecast</Chip>
+              <Chip tone="outline">Past day, replayed</Chip>
             </div>
           )}
         </div>
@@ -121,7 +119,7 @@ export function PlainHero({
           hours={f.hours}
           selectedIndex={selectedIndex}
           selectedHour={hour}
-          coverage={coverage.label}
+          coverage={barTitle}
           onSelectHour={onSelectHour}
         />
       </div>
@@ -160,22 +158,22 @@ function DayBar({
   return (
     <div className="pointer-events-auto order-3 rounded-card bg-bg/90 p-4 backdrop-blur sm:p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 text-[13px] text-muted">
-        <span className="eyebrow text-ink">Forecast · {coverage}</span>
+        <span className="text-[15px] text-ink">{coverage}</span>
         <span className="flex items-center gap-4">
           <Dot cls="bg-west" label="west" />
           <Dot cls="bg-east" label="east" />
         </span>
         {selectedHour && (
           <span className="w-full tabular">
-            Selected · {formatForecastInstant(selectedHour.time, selectedHour.local)}
+            Showing {when(selectedHour.local)}
           </span>
         )}
       </div>
       <div className="relative mt-3">
-        <div className="flex h-9 overflow-hidden rounded-[6px]" role={onSelectHour ? undefined : "img"} aria-label={onSelectHour ? undefined : `Operating direction by hour · ${coverage}`}>
+        <div className="flex h-9 overflow-hidden rounded-[6px]" role={onSelectHour ? undefined : "img"} aria-label={onSelectHour ? undefined : `Landing direction by hour · ${coverage}`}>
           {hours.map((hour, index) => {
             const segment = <span className={cx("block h-full w-full", hour.od === "25" ? "bg-west" : "bg-east")} />;
-            const label = `${formatForecastInstant(hour.time, hour.local)}: OD ${hour.od} ${WAY[hour.od]}; P(OD ${hour.od} at this hour) ${pct(hour.od === "25" ? hour.p_od25 : 1 - hour.p_od25)}; runway 18 ${hour.p_18_usable >= 0.5 ? "likely usable" : "likely unusable"}, P(usable) ${pct(hour.p_18_usable)}`;
+            const label = `${when(hour.local)}: ${WAY[hour.od]}, ${pct(hour.od === "25" ? hour.p_od25 : 1 - hour.p_od25)} sure; runway 18 ${hour.p_18_usable >= 0.5 ? "open" : "closed"}${isUnsure(hour) ? "; unsure" : ""}`;
             return onSelectHour ? (
               <button
                 key={hour.time}

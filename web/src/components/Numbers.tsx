@@ -1,11 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import type { QualityResult } from "@/lib/forecast-types";
+import { useEffect, useRef, useState } from "react";
+import type { QualityResult, ReliabilityBin, SkillAtLead } from "@/lib/forecast-types";
 
-// Held-out scores, read from web/public/data/quality.json at runtime.
+// RESULTS.md money line (12363f8), word for word. An estimate, not a number from quality.json.
+const MONEY_LINE =
+  "Estimated value: about €0.4M a year at Frankfurt (range €0.13M to €3.2M), plus a similar amount in passengers' time. Based on EUROCONTROL delay costs and published studies of runway direction changes.";
+
+// quality.json also carries certainty-score reliability; only the fields read here are typed.
+type Quality = QualityResult & { certainty_reliability?: ReliabilityBin[] };
+
+// The scores in plain words, then what they are worth. Read from web/public/data/quality.json at runtime.
 export function Numbers() {
-  const [q, setQ] = useState<QualityResult | null>(null);
+  const [q, setQ] = useState<Quality | null>(null);
   const [missing, setMissing] = useState(false);
 
   useEffect(() => {
@@ -15,41 +22,145 @@ export function Numbers() {
       .catch(() => setMissing(true));
   }, []);
 
-  const two = q?.out_of_sample.od.find((x) => x.lead_h === 48);
-  const modelScore = measuredPercentage(two?.model_acc, two?.n);
-  const ruleScore = measuredPercentage(two?.rule_acc, two?.n);
+  // Only rows with samples and scores in range count (guard from the quality review).
+  const valid = (r?: SkillAtLead) => (r && r.n > 0 && [r.model_acc, r.rule_acc].every((v) => Number.isFinite(v) && v >= 0 && v <= 1) ? r : undefined);
+  const two = valid(q?.out_of_sample.od.find((x) => x.lead_h === 48));
+  const day = valid(q?.out_of_sample.od.find((x) => x.lead_h === 24));
+  const inTen = two ? Math.round(two.model_acc * 10) : null;
+  // Share of the rulebook's wrong hours that the forecast gets right, two days ahead.
+  const fewer = two && two.rule_acc < 1 ? Math.round((1 - (1 - two.model_acc) / (1 - two.rule_acc)) * 100) : null;
+  const sure = q?.certainty_reliability?.find((b) => b.lower >= 0.9 && b.observed_frequency != null);
+  const caught = day?.model_change_acc;
+  const today = day?.persistence_change_acc;
+  // Extra hours a year with the right direction against the rules, 24 h ahead, rounded to 50.
+  const hours = day ? Math.round(((day.model_acc - day.rule_acc) * 8760) / 50) * 50 : null;
 
   return (
-    <section className="py-16 sm:py-24" aria-label="Held-out forecast accuracy">
-      <div className="grid gap-12 md:grid-cols-2 md:gap-8">
-        <Item
-          big={modelScore == null ? null : <>{modelScore}%</>}
-          line="Model accuracy, 48 hours ahead"
-          missing={missing || (!!q && modelScore == null)}
-        />
-        <Item
-          big={ruleScore == null ? null : <>{ruleScore}%</>}
-          line="Official rules accuracy, 48 hours ahead"
-          missing={missing || (!!q && ruleScore == null)}
-        />
-      </div>
-      {q && <p className="mt-10 text-[13px] text-muted">Measured on {q.folds.length} held-out months.</p>}
-    </section>
+    <>
+      <section className="py-16 sm:py-24" aria-label="How good it is">
+        <div className="grid gap-12 md:grid-cols-3 md:gap-8">
+          <Item big={inTen == null ? null : <><Count to={inTen} /> in 10</>} line="hours called right, 2 days ahead" missing={missing} />
+          <Item
+            big={fewer == null ? null : <><Count to={fewer} />%</>}
+            line="fewer mistakes than the official rulebook, 2 days ahead"
+            missing={missing}
+          />
+          <Item
+            big={sure ? <><Count to={Math.round((sure.observed_frequency as number) * 100)} /> in 100</> : null}
+            line="right when it says it is very sure"
+            missing={missing}
+          />
+        </div>
+        <p className="mt-10 text-[13px] text-muted">
+          Measured on {q ? `${q.folds.length} months` : "past months"} the forecast had never seen.
+        </p>
+      </section>
+
+      <section className="border-t border-line py-16 sm:py-20" aria-label="What it is worth">
+        <h2 className="text-[28px] font-light sm:text-[36px]">What it means for the people doing the work</h2>
+        <div className="mt-10 grid gap-2.5 md:grid-cols-3">
+          <Tile icon={ICON.bell} big={caught == null ? null : <><Count to={Math.round(caught * 100)} />%</>} missing={missing}>
+            24-hour heads-up for {caught == null ? "most" : `${Math.round(caught * 5)} of 5`} direction changes
+            {today != null && <span className="text-muted"> (about 1 in {Math.round(1 / today)} today)</span>}
+          </Tile>
+          <Tile icon={ICON.clock} big={hours == null ? null : <>about <Count to={hours} /> h</>} missing={missing}>
+            more hours a year planned with the right direction than with the official rules
+          </Tile>
+          <Tile icon={ICON.euro} big={<>~€0.4M</>}>
+            {MONEY_LINE}
+          </Tile>
+        </div>
+      </section>
+    </>
   );
 }
 
-function measuredPercentage(value: number | null | undefined, n: number | null | undefined) {
-  if (!Number.isInteger(n) || n! <= 0 || typeof value !== "number" || !Number.isFinite(value) || value < 0 || value > 1) return null;
-  return (value * 100).toFixed(1);
+const ICON = {
+  bell: <path d="M24 10a9 9 0 0 0-9 9v7l-3 5h24l-3-5v-7a9 9 0 0 0-9-9ZM21 35a3 3 0 0 0 6 0" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />,
+  clock: (
+    <>
+      <circle cx="24" cy="24" r="13" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M24 16v8l5 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </>
+  ),
+  euro: <path d="M31 15a10 10 0 1 0 0 18M14 21h12M14 27h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />,
+};
+
+function Tile({
+  icon,
+  big,
+  note,
+  missing,
+  children,
+}: {
+  icon: React.ReactNode;
+  big: React.ReactNode;
+  note?: string;
+  missing?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="rounded-card bg-panel-2 p-6 sm:p-7">
+      <svg viewBox="0 0 48 48" className="size-11 text-accent" fill="none" aria-hidden>
+        {icon}
+      </svg>
+      <div className="mt-5 text-[40px] font-light leading-none tracking-[-0.02em] tabular sm:text-[48px]">
+        {big ?? <span className="text-muted">{missing ? "unavailable" : "…"}</span>}
+      </div>
+      <p className="mt-3 text-[17px] leading-snug">{children}</p>
+      {note && <p className="mt-3 text-[12px] leading-snug text-muted">{note}</p>}
+    </div>
+  );
 }
 
-function Item({ big, line, missing }: { big: React.ReactNode; line: string; missing?: boolean }) {
+function Item({ big, line, note, missing }: { big: React.ReactNode; line: string; note?: string; missing?: boolean }) {
   return (
     <div>
       <div className="text-[56px] font-light leading-none tracking-[-0.03em] tabular sm:text-[72px]">
         {big ?? <span className="text-muted">{missing ? "unavailable" : "…"}</span>}
       </div>
       <p className="mt-4 max-w-[28ch] text-[20px] leading-snug">{line}</p>
+      {note && <p className="mt-3 max-w-[48ch] text-[13px] leading-snug text-muted">{note}</p>}
     </div>
   );
+}
+
+// Counts from 0 to `to` when scrolled into view. Starts on the final value, so a page that never animates is still right.
+function Count({ to }: { to: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [shown, setShown] = useState(to);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    let raf = 0;
+    let done = 0;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        io.disconnect();
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        const t0 = performance.now();
+        const step = (t: number) => {
+          const k = Math.min(1, (t - t0) / 1200);
+          setShown(Math.round(to * (1 - Math.pow(1 - k, 3))));
+          if (k < 1) raf = requestAnimationFrame(step);
+        };
+        raf = requestAnimationFrame(step);
+        done = window.setTimeout(() => {
+          cancelAnimationFrame(raf);
+          setShown(to);
+        }, 1600);
+      },
+      { threshold: 0.5 },
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      cancelAnimationFrame(raf);
+      clearTimeout(done);
+    };
+  }, [to]);
+
+  return <span ref={ref}>{shown}</span>;
 }

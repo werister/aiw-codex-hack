@@ -156,14 +156,13 @@ export function ForecastApp() {
       {f && h && (
         <>
           <PlainHero f={f} selected={sel} onSelectHour={setSel} />
-          <ForecastEvents f={f} onSelectHour={inspectHour} />
           <Numbers />
           <HowItWorks />
 
           <details ref={expertRef} className="group border-t border-line py-8">
             <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
               <span>
-                <span className="block text-[24px] font-light">Forecast details</span>
+                <span className="block text-[24px] font-light">For experts</span>
                 <span className="text-[15px] text-muted">Hourly data, model results and sources</span>
               </span>
               <svg viewBox="0 0 12 8" className="h-2.5 w-4 shrink-0 transition-transform duration-300 group-open:rotate-180" fill="none" aria-hidden>
@@ -172,6 +171,7 @@ export function ForecastApp() {
             </summary>
 
             <div className="mt-8 flex flex-col gap-2.5">
+              <ForecastEvents f={f} onSelectHour={inspectHour} />
               <section id="planning-priorities" className="scroll-mt-4">
                 <PlanningPriorities f={f} file={file} onSelectHour={inspectHour} />
               </section>

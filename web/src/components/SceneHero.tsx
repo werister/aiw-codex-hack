@@ -135,7 +135,7 @@ export function SceneHero({
 
   const r18Probability = forecastHour ? Math.round(forecastHour.p_18_usable * 100) : null;
   const forecastLabel = forecastHour
-    ? `Berlin ${forecastHour.local.replace("T", " ")} (+${forecastHour.lead_h} h)`
+    ? `Forecast for ${forecastHour.local.slice(11, 16)} (Frankfurt time)`
     : "Current forecast";
   const accessibleCaption = forecastHour
     ? `${forecastLabel}; model OD ${od}; runway 18 probability ${r18Probability}% usable, shown ${r18Open ? "open" : "closed"} at the 50% threshold; model certainty ${forecastHour.certainty}%; traffic is illustrative, not an aircraft assignment.`
@@ -162,9 +162,9 @@ export function SceneHero({
         )}
 
         <p aria-live="polite" className="absolute bottom-2 left-3 right-3 rounded-lg bg-panel/95 px-3 py-2 text-xs leading-5 text-ink">
-          <span className="block">{forecastLabel} · model OD {od}</span>
+          <span className="block">{forecastLabel} · planes toward the {od === "25" ? "west" : "east"}</span>
           <span className="block">
-            {forecastHour ? `R18 ${r18Probability}% usable` : "R18"} · {r18Open ? "open" : "closed"} at 50% · traffic illustrative
+            Runway 18 {r18Open ? "open" : "closed"} · aircraft shown for illustration
           </span>
         </p>
 

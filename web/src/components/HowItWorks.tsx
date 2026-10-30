@@ -34,7 +34,7 @@ const STEPS = [
 export function HowItWorks() {
   return (
     <section className="border-t border-line py-16 sm:py-20" aria-label="How it works">
-      <p className="eyebrow text-muted">How it works</p>
+      <h2 className="text-[28px] font-light sm:text-[36px]">How it works</h2>
       <ol className="mt-8 grid gap-10 md:grid-cols-[1fr_auto_1fr_auto_1fr] md:items-start md:gap-6">
         {STEPS.map((s, i) => (
           <li key={s.title} className="contents">

@@ -19,7 +19,7 @@ export function odSoft(od: OD) {
   return od === "25" ? "bg-west-soft" : "bg-east-soft";
 }
 
-// FraAlliance card: flat, 10 px radius, hairline edge, small uppercase label on top.
+// FraAlliance card: flat, 10 px radius, hairline edge, short title on top.
 export function Panel({
   title,
   aside,
