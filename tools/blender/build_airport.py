@@ -6,7 +6,6 @@ Optional arguments after --: --no-render, --preview-only, --samples 32
 import argparse
 import json
 import math
-import random
 import sys
 from pathlib import Path
 
@@ -16,8 +15,7 @@ from mathutils import Vector
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-from geometry import (palette, root, box, cylinder, sphere, beam, line, text,
-                      mesh, aircraft, tower, runway, pavement)
+from geometry import palette, box, aircraft, tower, runway
 
 OUT = HERE.parents[1] / 'assets' / 'airport'
 EXPORT = OUT / 'exports'
@@ -44,7 +42,7 @@ def scene(name):
     s.render.resolution_percentage=100
     s.render.image_settings.file_format='PNG'
     s.view_settings.view_transform='AgX'
-    s.view_settings.exposure=.45
+    s.view_settings.exposure=0
     s.world=bpy.data.worlds.new(name+' World')
     s.world.use_nodes=True
     s.world.node_tree.nodes['Background'].inputs[0].default_value=(.73,.80,.86,1)
@@ -113,12 +111,12 @@ def camera(name,position,target,scale):
 def lighting(s,size):
     bpy.ops.object.light_add(type='AREA', location=(-size*.3,-size*.5,size*.9))
     o=bpy.context.object;o.name='Studio softbox'
-    o.data.energy=size*size*4
+    o.data.energy=size*size*2.5
     o.data.shape='DISK';o.data.size=size*.7
     o.rotation_euler=(Vector((0,0,0))-o.location).to_track_quat('-Z','Y').to_euler()
     bpy.ops.object.light_add(type='SUN',location=(0,0,size))
     o=bpy.context.object;o.name='Soft afternoon sun'
-    o.data.energy=1.5;o.data.angle=math.radians(14)
+    o.data.energy=1.8;o.data.angle=math.radians(6)
     o.rotation_euler=(math.radians(25),math.radians(-18),math.radians(-30))
 
 

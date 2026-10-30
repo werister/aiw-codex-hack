@@ -32,10 +32,10 @@ def palette():
         'asphalt': material('Runway · charcoal', (.115, .143, .157), .94),
         'shoulder': material('Shoulder · slate', (.26, .30, .30), .96),
         'concrete': material('Architecture · limestone', (.70, .73, .70), .73),
-        'roof': material('Roof · pale zinc', (.47, .56, .56), .58, .22),
+        'roof': material('Roof · pale zinc', (.35, .43, .46), .64, .15),
         'apron': material('Apron · warm concrete', (.52, .56, .53), .91),
-        'grass': material('Landscape · sage', (.34, .46, .34), 1),
-        'grass2': material('Landscape · light sage', (.43, .54, .40), 1),
+        'grass': material('Landscape · sage', (.44, .54, .35), 1),
+        'grass2': material('Landscape · light sage', (.49, .59, .38), 1),
         'tree': material('Trees · eucalyptus', (.19, .34, .24), .98),
         'tree2': material('Trees · olive', (.27, .40, .26), .98),
         'base': material('Diorama · edge', (.53, .62, .54), .83),
@@ -214,6 +214,13 @@ def aircraft(name, m, wide=False):
     loft_y('Fuselage',[(y*length,rx*radius,rx*radius,h+dz*radius) for y,rx,dz in profile],m['ivory'],r)
     wing_stations=[(.6,3.9*k,8.0*k,h-.8),(.18*span,1.6*k,5.9*k,h-.45),
                    (.39*span,-3.6*k,2.5*k,h+.5),(.5*span,-5.8*k,1.15*k,h+1.25)]
+    def wing_top(station, sign, chord_fraction):
+        x, y, chord, z = station
+        thick=.20*k*(1-x/span)
+        angle = math.acos(1-2*chord_fraction)
+        skin_z = thick*math.sin(angle)*(.85-.4*chord_fraction)
+        return (sign*x, y-chord*chord_fraction, z+skin_z+.003*k)
+
     for s in (-1,1):
         wing('Wing.L' if s<0 else 'Wing.R',[(x,y,c,z,.20*k*(1-x/span)) for x,y,c,z in wing_stations],m['wing'],r,s)
         tip=wing_stations[-1]
@@ -221,8 +228,12 @@ def aircraft(name, m, wide=False):
                         (tip[0]+.6*k,tip[1]-.5*k,.65*k,tip[3]+1.7*k,.06*k)],m['navy'],r,s)
         wing('Horizontal stabilizer',[(.6,-12.2*k,4.5*k,h+.6,.18*k),
              (6.2*k,-15.4*k,1.2*k,h+1.4,.08*k)],m['wing'],r,s)
-        # Flap seams and track fairings make close-up geometry legible.
-        line('Flap seam',[(s*x,y-c*.73,z+.14*k) for x,y,c,z in wing_stations[:-1]],.018*k,m['metal'],r)
+        # Panel boundaries follow the curved airfoil skin instead of hovering
+        # above it. The outer line distinguishes the aileron from the flaps.
+        line('Flap boundary',[wing_top(station,s,.72) for station in wing_stations[1:3]],
+             .010*k,m['metal'],r)
+        line('Aileron boundary',[wing_top(station,s,.58) for station in wing_stations[2:]],
+             .010*k,m['metal'],r)
         for x,y,c,z in wing_stations[1:3]:
             sphere('Flap track',(s*x,y-c+.15*k,z-.23*k),(.18*k,1.35*k,.20*k),m['ivory'],r)
         ex,ey,ez=s*5.65*k,1.35*k,h-1.65*k
@@ -315,7 +326,13 @@ def tower(m):
     box('Shaft',(0,0,30),(7.8,7.8,51),m['concrete'],r,.6)
     box('Service spine',(3.9,0,29),(1.4,4.1,49),m['roof'],r,.2)
     for z in range(10,53,5):
-        box('Shaft slit',(0,-3.94,z),(.65,.12,1.6),m['glass'],r,.12)
+        # Narrow glazing catches light on all faces. Each pane stands just
+        # proud of the concrete skin to avoid coplanar flicker.
+        box('Shaft slit · south',(0,-3.94,z),(.70,.12,1.35),m['glass'],r,.12)
+        box('Shaft slit · north',(0,3.94,z),(.70,.12,1.35),m['glass'],r,.12)
+        for side in (-1,1):
+            for y in (-2.7,2.7):
+                box('Shaft slit · side',(side*3.94,y,z),(.12,.66,1.35),m['glass'],r,.12)
     # Exterior switchback stair on the west face, like the Frankfurt landmark.
     for j in range(12):
         z=6+j*3.8
@@ -324,7 +341,14 @@ def tower(m):
             t=i/18
             box('Stair tread',(-5.3,y0+(y1-y0)*t,z+3.8*t),(2.5,.49,.15),m['metal'],r,.03)
         box('Stair landing',(-5.3,y1,z+3.8),(2.8,2,.24),m['concrete'],r,.08)
-        for x in (-6.65,-4):
+        door_y=math.copysign(3.25,y1)
+        door_z=z+5.12
+        box('Landing door surround',(-3.97,door_y,door_z),(.13,1.02,2.36),m['roof'],r,.07)
+        box('Landing door',(-4.055,door_y,door_z),(.06,.82,2.16),m['concrete'],r,.045)
+        box('Door vision panel',(-4.095,door_y,door_z+.35),(.035,.30,.48),m['glass'],r,.04)
+        sphere('Landing light',(-4.12,door_y,door_z+1.3),(.045,.11,.07),m['light'],r)
+        # The shaft wall is the inner guard; the exposed outer edge keeps its rail.
+        for x in (-6.65,):
             beam('Stair handrail',(x,y0,z+1),(x,y1,z+4.8),.045,m['metal'],r)
             for i in range(6):
                 t=i/5

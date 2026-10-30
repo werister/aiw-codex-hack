@@ -1,3 +1,7 @@
+## Mandatory main workflow — user decision, 30 October 2026
+
+All agents and ALL worktrees must do further work and commits on `main`. Do not continue a feature or coordination branch. Use the single `main` worktree listed by `git worktree list` (currently `/private/tmp/aiw-commit-integration`), with disjoint file ownership and serialized Git operations. This replaces older branch instructions below. Preserve pending work in old worktrees for consolidation; never discard it or force-checkout `main` in multiple worktrees. See the current `main:AGENTS.md` and `main:INTEGRATION.md`.
+
 # AGENTS.md
 
 Instructions for Codex (and any other coding agent) working in this repo.
