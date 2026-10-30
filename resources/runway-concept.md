@@ -1,26 +1,36 @@
 # FRA Runway Outlook
 
-**Bei der Schichtübergabe wissen, welche Änderung des Bahnbetriebs in den nächsten
-48 Stunden vorbereitet werden muss.**
+**Lernen, wann eine Wetterprognose die entscheidenden Bahngrenzen zu früh,
+zu spät oder fälschlich überschreiten lässt – damit die Planung Vorlauf gewinnt.**
 
-Stand: 30. Oktober 2026. Geschärfte Produktidee zur FraAlliance-Challenge;
-Präsentation und verbindliches Regelwerk stehen noch aus.
+Stand: 30. Oktober 2026. Die inzwischen im Team-Repository eingegangene
+[offizielle Aufgabenstellung](../frankfurt-airport-operating-direction-forecast.md)
+und [Regeldatei](../ml/rules.json) ersetzen die früher offenen Grenzwerte. Dieses
+Konzept präzisiert den gewählten Modell-/UI-Ansatz; es ist kein Implementierungsnachweis.
 
 ## Der geschärfte Auftrag
 
-Entwickle eine Frühwarnung für die operative Planung in Frankfurt: Prognostiziere
-für die nächsten 48 Stunden die Verfügbarkeit von Bahn 18 für Abflüge und die
-Betriebsrichtung 07/25. Zeige insbesondere bevorstehende Änderungen, ihr
-Zeitfenster und ihre Unsicherheit. Prüfe anhand tatsächlich beobachteter
-Betriebszustände, ob die Warnungen früheres Planen ermöglichen und einfache
-Vergleichsverfahren übertreffen.
+Entwickle ein Modell, das für jede Stunde der nächsten 48 Stunden die
+Nutzungswahrscheinlichkeit von Bahn 18, die Richtung 07/25, die Sicherheit der
+Prognose und den nächsten Wechselzeitpunkt liefert. Lerne aus dem Unterschied
+zwischen früheren Wetterprognosen und späteren Beobachtungen. Zeige bevorstehende
+Änderungen mit begründetem Zeitfenster und einer bedingten Planungsmarke. Vergleiche
+die Prognose bei 1, 6 und 24 Stunden mit Regeln und Persistenz; prüfe zusätzlich
+48 Stunden und die rechtzeitige Erkennung von Änderungen. Unterscheide die
+Bewertung gegen wetterbasierte Zielzustände von der gegen echten Flugbetrieb.
 
 ## Eine Person, eine Entscheidung
 
 Unsere **zu prüfende Nutzerhypothese** ist die Schichtleitung im Ground Handling.
-Sie entscheidet bei der Übergabe, ob sie für ein bestimmtes Zeitfenster eine
-alternative Einsatzverteilung vorbereiten muss. Wie diese Verteilung aussieht,
-bestimmt das Betriebsteam. Das Produkt liefert Anlass, Zeitraum und Begründung.
+Sie prüft bei der Übergabe, ob für ein bestimmtes Zeitfenster eine alternative
+Einsatzverteilung vorbereitet werden sollte. Handlung und Zuständigkeit bestimmt
+das Betriebsteam. Es gibt außerdem seine benötigte Vorbereitungszeit vor.
+
+Die bedingte Planungsmarke lautet: **frühester Beginn im gewählten Szenario minus
+Vorbereitungszeit**. Sie macht die Annahmen sichtbar und bezeichnet den Zeitpunkt
+einer Planprüfung, keine garantierte Einsatzfrist. Ohne betriebliche Zeitvorgabe
+wird keine solche Marke erfunden. Eine Prognoseänderung verschiebt oder entfernt
+sie mit sichtbarer Begründung.
 
 Die erste Nutzerprüfung braucht nur einen konkreten vergangenen Fall: Was musste
 umgeplant werden, wann erfuhr das Team davon, welcher zusätzliche Vorlauf hätte
@@ -41,11 +51,12 @@ Regel bzw. Modellbeitrag, Ausgabezeit der Wetterprognose und Abweichung vom
 vorherigen Prognoselauf. Stundenwerte begründen keine minutengenaue Wechselzeit.
 Ein fehlender oder alter Betriebsstatus wird als unbekannt sichtbar.
 
-**Beispieltext, ausdrücklich fiktiv:** „Bahn 18: wetterbedingtes
-Einschränkungsrisiko morgen 14–18 Uhr. Parallelbahnen: voraussichtlich weiter
-25. Der Beginn verschiebt sich zwischen den letzten beiden Läufen um zwei
-Stunden.“ Das beschreibt beobachtbare Prognosestabilität; eine Prozentangabe
-braucht zusätzlich Kalibrierung gegen echte Ereignisse.
+**Beispiel, vollständig fiktiv:** „Bahn 18: Einschränkung könnte morgen zwischen
+14 und 16 Uhr beginnen und zwei bis vier Stunden dauern. Richtung weiter 25.
+Bei eurer angegebenen Vorbereitungszeit von 60 Minuten: Plan bis 13 Uhr prüfen.“
+Verschiebt sich der früheste Beginn auf 16 Uhr, wird die Planungsmarke auf 15 Uhr
+aktualisiert. Stabilität zwischen Wetterläufen ist sichtbar, aber kein Ersatz
+für eine empirisch geprüfte Eintrittswahrscheinlichkeit.
 
 Eine Betriebsrichtungsprognose existiert bereits öffentlich, mit achtstündigen
 Intervallen. Unsere Differenzierungshypothese ist die für die Planung nutzbare
@@ -55,23 +66,41 @@ Aktualisierungen. Sie ist noch kein belegter Wettbewerbsvorteil.
 
 ## Was das Modell lernen soll
 
-Vorhandene Wettermodelle liefern den Wind. Wir berechnen daraus bahnbezogene
-Gegen-, Rücken- und Seitenwindkomponenten und prognostizieren **zwei verschiedene
-Betriebszustände**. Der aktuelle Zustand, Verlauf und Prognosehorizont können
-zusätzliche Merkmale sein, sofern sie zum Ausgabezeitpunkt bekannt waren.
+Die Team-Architektur bleibt ein kleines Klassifikationsmodell auf archivierten
+Wetterprognosen, Windkomponenten, Horizont und damals bekanntem Ausgangszustand.
+Sein Mehrwert liegt besonders in der Nähe der Grenzen: Bei fast gleichem
+vorhergesagtem Rückenwind können Horizont, Böen und Windverlauf zu unterschiedlicher
+späterer Nutzbarkeit führen. Ob das Modell diese Unterschiede nützlich lernt,
+muss der Vergleich auf zurückgehaltenen Tagen zeigen.
 
-Zuerst entsteht nach Erhalt des Regelwerks eine nachvollziehbare Regel-Baseline.
-Ein kleines Klassifikationsmodell, etwa Gradient Boosting, muss dann anhand
-echter Betriebsdaten einen messbaren Zusatznutzen zeigen. Aus Wettergrenzwerten
-erzeugte Trainingslabels würden nur die vorgegebenen Regeln reproduzieren.
-Wetterbedingte Nutzbarkeit und tatsächliche Freigabe bleiben unterscheidbar;
-ungeplante nichtmeteorologische Sperrungen sind aus Winddaten allein nicht
-ableitbar.
+**Wichtige Präzisierung der bisherigen Idee:** Regeln auf künftig **gemessenen**
+Winden ergeben brauchbare Ersatzlabels für Regeln auf früher **vorhergesagten**
+Winden. So kann das ML Vorhersagefehler lernen und die Regel-Baseline übertreffen.
+Zirkulär wäre es, Ein- und Zielwerte lediglich aus derselben Wetterinformation
+abzuleiten. Die Ersatzlabels belegen jedoch weder eine tatsächliche Freigabe
+noch eine geflogene Richtung. Diese zweite Behauptung braucht Betriebsdaten.
 
-Die veröffentlichte Fünf-Knoten-Regel betrifft die Parallelbahnen. Sie ist keine
-bestätigte Sperrschwelle für Bahn 18. Auch Höhenwind und Prognosen beeinflussen
-die Richtungsentscheidung.
-[Fraport](https://www.fraport.com/en/sustainability/dialog-with-neighbors/noise-and-air/flight-operations/operation-direction.html)
+Der Brief macht den Zustand zeitabhängig: Bahn 18 schließt bei Rückenwind
+**≥15 kt** oder Seitenwind einschließlich Böen **>40 kt**. Die Richtung wechselt
+bei Landungs-Rückenwind **≥10 kt** sofort; kleinerer positiver Rückenwind darf
+höchstens **30 Minuten** bestehen. Eine Stunde mit Rückenwind allein belegt keine
+30-minütige Persistenz. Für Labels braucht es passende Beobachtungsfolgen und
+einen definierten Umgang mit Lücken; unterstündliche Interpolation bleibt eine
+Modellannahme. Beide Zustände werden unabhängig ausgegeben, die zeitlichen
+Übergänge müssen aber konsistent sein. [Verbindliche Regeln](../ml/rules.json)
+
+Ein synthetisches Gegenbeispiel wurde nachgerechnet, jeweils mit Ausgangsrichtung
+25: 20 Minuten Ostwind mit 6 kt und danach 40 Minuten Windstille behalten 25 bei;
+eine ganze Stunde Ostwind mit 2 kt führt nach Ablauf der Toleranz zu 07. Beide
+haben denselben mittleren Windvektor von 2 kt aus Ost. Der Zeitverlauf enthält
+hier entscheidende Information, die im Stundenmittel verloren geht.
+
+Die verlangten Wahrscheinlichkeiten werden gegen die benannte Labelart bewertet
+und nach Möglichkeit kalibriert. Ein Wert weit weg von 0,5 beschreibt zunächst
+die Entschiedenheit des Modells. Er beweist weder Zuverlässigkeit noch eine
+gemeinsame Sicherheit beider Bahnaussagen. Ebenso ergibt eine stündliche
+Zustandswahrscheinlichkeit noch keine Wahrscheinlichkeit für den nächsten
+Wechselzeitpunkt. Zeitfenster brauchen eine eigene Überdeckungs-/Breitenprüfung.
 
 ## Woran die Idee bestehen muss
 
@@ -86,8 +115,20 @@ den Ablauf; mehrere zeitlich getrennte Ereignisse müssen die Prognosegüte trag
 - Richtung: übersehene/falsch angekündigte Wechsel und Fehler des Wechselzeitfensters.
 - Für beide: Vorwarnzeit und Ergebnisse nach Prognosehorizont, insbesondere +48 h.
   Die Güte auf langen unveränderten Zeitabschnitten genügt nicht.
+- Wahrscheinlichkeiten: Brier-Score und Kalibrierung, getrennt für beide Ziele.
+- Jede Warnung wird höchstens einem tatsächlichen Ereignis zugeordnet. Ein
+  ganztägiges Warnfenster zählt nicht automatisch als hilfreicher Treffer:
+  zulässige Fensterbreite und Mindestvorlauf werden vorher festgelegt.
+- Für die Planprüfung zählt eine Warnung nur dann als rechtzeitig, wenn sie vor
+  der tatsächlichen Änderung minus benötigter Vorbereitungszeit verfügbar war.
+  Verschiebungen, Rücknahmen und dauerhaft aktive Warnstunden werden mitgezählt.
 - Zeitliche Trennung von Training und Prüfung, ohne überlappende Zielzeiträume;
   aktuelle Zustände und Prognose-Updates dürfen nicht aus der Zukunft einfließen.
+
+Bei echten Betriebslabels bleiben bekannte nichtwetterbedingte Sperrungen im
+Gesamtergebnis sichtbar; nach Ursache wird zusätzlich ausgewertet. Unbekannte
+Ursache ist kein Grund, einen bekannten Zustand auszusortieren. Fehlender Zustand
+ist nicht bewertbar und wird als fehlende Abdeckung ausgewiesen.
 
 Wenn die Warnung gegenüber den Baselines keinen hilfreichen Vorlauf bringt oder
 zu viele unnötige Vorbereitungen auslöst, ist der angenommene Planungsnutzen
@@ -113,11 +154,19 @@ ausbleibende Abflüge beweisen keine Sperrung von Bahn 18.
 [Fraport-Statusquelle](https://sslapps.fraport.de/betriebsrichtung/betriebsrichtungsvg.js),
 [DFLD-Datenhinweise](https://www.dfld.de/Mess/Language/MessHelpG.html)
 
-Die Konzeptprüfung deckt vier Gegenbeispiele ab: Richtungswechsel bei weiter
-nutzbarer Bahn 18; Einschränkung von Bahn 18 bei unveränderter Richtung; zwischen
-Prognoseläufen schwankender Beginn; fehlender Betriebsstatus. Die getrennten
-Ziele und explizite Unsicherheit bilden alle vier ab. Prognosegüte und
-Disponenten-Nutzen sind noch ungeprüft.
+Die Konzeptprüfung findet drei Schein-Erfolge, die die Bewertung ausschließen
+muss: „immer unverändert“ mit hoher Stunden-Accuracy; ein 48 Stunden breites
+Warnfenster, das jedes Ereignis trifft; richtiges Warnen erst nach Ablauf der
+Vorbereitungszeit. Ereignis-Erkennung, Fensterbreite und nutzbarer Vorlauf machen
+alle drei sichtbar. Rücknahmen und unbekannte Zustände bleiben im Bericht.
+
+Die vorhandene +48-h-Stichprobe enthält 72 Zeitpunkte mit jeweils einem passenden,
+vollständigen Windmesswert. Das belegt den Datenanschluss. Standort, Einheiten und
+Mittelungsfenster müssen vor einem Gütevergleich angeglichen werden; Böen und
+Betriebszustände sind dadurch noch nicht vollständig abgedeckt. Die zwei
+Windbeispiele aus dem Brief wurden nachgerechnet: 330°/20 kt ergibt 17,32 kt
+Rückenwind auf 18; 090°/20 kt ergibt 18,79 kt auf 25. Modellgüte, Kalibrierung,
+Wechselzeitfenster und Disponenten-Nutzen sind weiterhin ungeprüft.
 
 Für die sechs Stunden konzentriert sich die Umsetzung auf diese Zeitleiste,
 die Begründung eines Ereignisses und den historischen Vergleich. Flugtracking,
