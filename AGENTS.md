@@ -5,11 +5,12 @@ Context: 6 hour hackathon (AI Week Codex hack). Speed matters, but `main` must a
 
 ## Project
 
-- **What we are building:** _TBD, fill in one or two sentences once the idea is locked_
-- **Stack:** _TBD (language, framework, package manager)_
-- **Entry point:** _TBD_
-- **Run locally:** _TBD, e.g. `npm run dev` or `uv run main.py`_
-- **Demo path:** _TBD, the exact click/command sequence we show the judges_
+- **What we are building:** A 48 h hourly forecast for Frankfurt Airport (FraAlliance challenge). For every hour it gives the operating direction (25 or 07), the probability that runway 18 is usable, a certainty score and the next likely direction change. It is trained on public data (EDDF METAR, archived Open-Meteo model runs) and evaluated against the official rule baseline and persistence at 1, 6 and 24 h.
+- **Stack:** Python 3.13 in `ml/` (pandas, scikit-learn) for data, labels, model, backtest and the forecast CLI. Next.js 16 + TypeScript + Tailwind 4 in `web/` (npm) for the ops timeline UI, deployed on Vercel from `web/`.
+- **Entry point:** `python -m ml.forecast --day YYYY-MM-DD` (CLI, first-class deliverable). Web: `web/src/app/page.tsx`.
+- **Run locally:** `python -m pip install -r ml/requirements.txt` then `python -m ml.forecast --day 2026-10-31`. Web: `cd web && npm install && npm run dev` (http://localhost:3000).
+- **Demo path:** open the web app, read the next 48 h (OD per hour, runway 18, certainty, next change), switch to a jury test day, open the backtest panel (skill at 1/6/24 h vs rules and persistence), show the model card (`MODEL_CARD.md`).
+- **Rules:** `ml/rules.json` holds the official FraAlliance limits. Contract between ML and UI: `web/src/lib/forecast-types.ts`.
 
 Keep this section current. If you change the stack, the run command or the entry point, update it in the same commit.
 
@@ -85,4 +86,7 @@ docs: update run instructions
 
 ## Team notes
 
-_Add who owns what, decisions made, and the demo script here as the day goes on._
+- Kai Detmers: ML and data pipeline co-lead (`ml/`).
+- Jayden Bruck (as head agent, with Codex workers): Codex workers `hk-data` (branch `jayden/data`) and `hk-model` (branch `jayden/model`) build `ml/`; the head agent owns `web/` and integration. Leaves at 16:45.
+- Hugo Hader: pitch and demo at 17:00. Luca Schultz: data review, sanity checks, business-case numbers, backup presenter.
+- Decision 11:40: labels come from the official rules on EDDF METAR, validated against flown ODs if a public source exists. The model must beat the rule baseline on held-out days.
