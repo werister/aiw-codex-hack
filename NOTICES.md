@@ -1,5 +1,35 @@
 # Notices
 
+## Final guardian summary, 16:30
+
+Main runs at 1099fac: `python -m pytest ml/tests -q` gives 111 passed, and `python -m ml.forecast --day 2026-10-31` gives `walk-forward-v6`.
+
+**Found and fixed today:**
+- the 24 h backtest leak (a979070, 6 h publication lag)
+- future days quietly falling back to the rules (95cb916)
+- forecasts published as rules-only, now `walk-forward-v6`
+- the model below persistence at 1 h (persistence blend)
+- stale numbers across the model card, pitch and submission. They now share one 12-month walk-forward set, with day-bootstrap intervals and the test-fold caveat.
+- the missing model card. There is now a one-page card, a technical card and `/model-card`.
+- an AI co-author trailer, amended before it was pushed
+- the `/pitch` clash (the deck moved to `/deck`)
+- the lint failure from vendored three.js
+- the `/play` QR pointing at a missing page
+- two spellings of the product name
+- the Windows symlink test failure
+- a full disk at 14:17. The guardian freed 4 GB of its own scratch copies.
+
+**Still open:**
+- STOP: drive C: has 3.3 GB free.
+- FIX: the jury dates are still pending; the fallback days 31 Oct and 1 Nov are on main.
+- FIX: the live site is private until sharing is switched on (not verified).
+- FIX: `weather database/` is 76 MB with 29 third-party PDFs.
+- FIX: `assets/` and `resources/` bloat. That covers a second data pipeline and seven 3D files in two or three copies; tracked files are about 207 MB.
+- FIX: AI model names in `resources/`, `shared-skills/` and `briefing/`.
+- FIX: `BASELINES.md` still quotes v5 numbers.
+- Lane-reported FIX lines further down, which the guardian did not re-verify: the hero "Now" label, the deck change-catch wording, the production build port bind. The `PitchApp.tsx:218` typecheck item looks stale, since the file changed after it was reported.
+
+
 **Review here:** https://fraalliance-runway-forecast.statworx-par-2884.chatgpt.site (`/` dashboard, `/deck/` slides, `/pitch` replay, `/approach`, `/widget`). Republished from main every 15 min, 15:02 to 16:47. Only origin/main reaches the team; everything builds with `STATIC_EXPORT=1`; test each page at its site path.
 
 Open problems across main, branches and worktrees. One line each: time (Berlin) | severity | what is wrong | where | who acts. `STOP` breaks main or makes the submission wrong, `FIX` should be fixed before 16:00, `FYI` is worth knowing. Delete a line once it is fixed. Rules: "Cross-checking" in `AGENTS.md`.
