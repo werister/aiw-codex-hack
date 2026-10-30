@@ -1,0 +1,128 @@
+[
+  {
+    "file": "previous-best_match.json",
+    "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day1%2Cwind_direction_10m_previous_day2%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day1%2Cwind_gusts_10m_previous_day2%2Cwind_gusts_10m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2026-10-28&end_date=2026-10-28",
+    "retrieved_at_utc": "2026-10-30T11:59:47.984414+00:00",
+    "http_status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "bytes": 2193,
+    "sha256": "dce9bd143c94fb8a9c6fe66f7834e7f5ad34ad0d4660ab8ba7f0c858e089f9fc"
+  },
+  {
+    "file": "previous-icon_global.json",
+    "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day1%2Cwind_direction_10m_previous_day2%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day1%2Cwind_gusts_10m_previous_day2%2Cwind_gusts_10m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=icon_global&start_date=2026-10-28&end_date=2026-10-28",
+    "retrieved_at_utc": "2026-10-30T11:59:49.288628+00:00",
+    "http_status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "bytes": 2191,
+    "sha256": "e15a6150ab5425fd9530ad4158b43d30662bacf54ee76b02ba1aa0f0c558ddde"
+  },
+  {
+    "file": "single-icon_global-20261027T00.json",
+    "url": "https://single-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m&wind_speed_unit=kn&timezone=UTC&models=icon_global&run=2026-10-27T00%3A00&forecast_days=5",
+    "retrieved_at_utc": "2026-10-30T11:59:50.597426+00:00",
+    "http_status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "bytes": 4014,
+    "sha256": "6118cdccbf06f7c300aa8084bd4aa05c217ab4e9b59aa53404087b45b0eeaf8b"
+  },
+  {
+    "file": "single-icon_global-20261027T06.json",
+    "url": "https://single-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m&wind_speed_unit=kn&timezone=UTC&models=icon_global&run=2026-10-27T06%3A00&forecast_days=5",
+    "retrieved_at_utc": "2026-10-30T11:59:51.900043+00:00",
+    "http_status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "bytes": 4018,
+    "sha256": "b4744ee0dfc0e812407ffb4467166edfeb4a3809079fe83d7916f8257c358b6b"
+  },
+  {
+    "file": "single-icon_global-20261027T12.json",
+    "url": "https://single-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m&wind_speed_unit=kn&timezone=UTC&models=icon_global&run=2026-10-27T12%3A00&forecast_days=5",
+    "retrieved_at_utc": "2026-10-30T11:59:53.209928+00:00",
+    "http_status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "bytes": 4006,
+    "sha256": "d426b5b7c8c3771828af380865c57a64c365027617523d46fd7060bc811c8bb9"
+  },
+  {
+    "file": "single-icon_global-20261027T18.json",
+    "url": "https://single-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m&wind_speed_unit=kn&timezone=UTC&models=icon_global&run=2026-10-27T18%3A00&forecast_days=5",
+    "retrieved_at_utc": "2026-10-30T11:59:54.508591+00:00",
+    "http_status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "bytes": 4000,
+    "sha256": "93e78b241bfa490438ab3e754a9a4626ee5066fab902e3308a4eac744615137d"
+  },
+  {
+    "file": "single-icon_global-20261026T00.json",
+    "url": "https://single-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m&wind_speed_unit=kn&timezone=UTC&models=icon_global&run=2026-10-26T00%3A00&forecast_days=5",
+    "retrieved_at_utc": "2026-10-30T11:59:55.828002+00:00",
+    "http_status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "bytes": 4055,
+    "sha256": "7949247381ddba2197aa84d8300768060c73571edbedf4d1cf47250b49ac67e0"
+  },
+  {
+    "file": "single-icon_global-20261026T06.json",
+    "url": "https://single-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m&wind_speed_unit=kn&timezone=UTC&models=icon_global&run=2026-10-26T06%3A00&forecast_days=5",
+    "retrieved_at_utc": "2026-10-30T11:59:57.127124+00:00",
+    "http_status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "bytes": 4028,
+    "sha256": "cc89b2faa5afefb761d92212355afae1efb5e2bbe013b1d19082df8da592e339"
+  },
+  {
+    "file": "single-icon_global-20261026T12.json",
+    "url": "https://single-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m&wind_speed_unit=kn&timezone=UTC&models=icon_global&run=2026-10-26T12%3A00&forecast_days=5",
+    "retrieved_at_utc": "2026-10-30T11:59:58.458605+00:00",
+    "http_status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "bytes": 4024,
+    "sha256": "ef819cdb485556ff02639fa644584839976eeb99a5e9fe5446774ac89584a637"
+  },
+  {
+    "file": "single-icon_global-20261026T18.json",
+    "url": "https://single-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m&wind_speed_unit=kn&timezone=UTC&models=icon_global&run=2026-10-26T18%3A00&forecast_days=5",
+    "retrieved_at_utc": "2026-10-30T11:59:59.742756+00:00",
+    "http_status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "bytes": 4028,
+    "sha256": "402831ae15cf5c3b0cab04061a0cecd8b57bf703f6069bc495fa1b0b5856a2a1"
+  },
+  {
+    "file": "single-icon_global-20261025T00.json",
+    "url": "https://single-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m&wind_speed_unit=kn&timezone=UTC&models=icon_global&run=2026-10-25T00%3A00&forecast_days=5",
+    "retrieved_at_utc": "2026-10-30T12:00:01.166721+00:00",
+    "http_status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "bytes": 4110,
+    "sha256": "3f5b8aae387e17f0025a086fd54970e0453759eeba8233416115d006dcc1e811"
+  },
+  {
+    "file": "single-icon_global-20261025T06.json",
+    "url": "https://single-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m&wind_speed_unit=kn&timezone=UTC&models=icon_global&run=2026-10-25T06%3A00&forecast_days=5",
+    "retrieved_at_utc": "2026-10-30T12:00:03.275279+00:00",
+    "http_status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "bytes": 4094,
+    "sha256": "3e07d1f8e83a6d5110c5ce8265efb1cacb95d31568e2f37ca358c06705216d9d"
+  },
+  {
+    "file": "single-icon_global-20261025T12.json",
+    "url": "https://single-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m&wind_speed_unit=kn&timezone=UTC&models=icon_global&run=2026-10-25T12%3A00&forecast_days=5",
+    "retrieved_at_utc": "2026-10-30T12:00:05.358134+00:00",
+    "http_status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "bytes": 4077,
+    "sha256": "9863b2bfd848fcfa34128c7611ff83edf3b5dd96268af63be9b3fd198efcb133"
+  },
+  {
+    "file": "single-icon_global-20261025T18.json",
+    "url": "https://single-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m&wind_speed_unit=kn&timezone=UTC&models=icon_global&run=2026-10-25T18%3A00&forecast_days=5",
+    "retrieved_at_utc": "2026-10-30T12:00:07.061656+00:00",
+    "http_status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "bytes": 4065,
+    "sha256": "414dd4c58ba97f335261ba123379cedfac344e7863cc3717fcbf1bce8084f911"
+  }
+]

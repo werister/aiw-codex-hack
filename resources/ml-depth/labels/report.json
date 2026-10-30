@@ -1,0 +1,45 @@
+{
+  "source_files": {
+    "README.md": "75862eb9a5170365a08917e195b084ba8b588b561323d645523815382ebac446",
+    "dfld_excluded_hours.csv": "abb614d4e9139d49f746a865ea56055872fcf56c92cfb563fbbfa97bf5a979c3",
+    "dfld_half_hourly.csv.gz": "2d6ea521ff1ecd8982a709a234236b7c644d4047d969ffe6c157ac79ddae2b71",
+    "dfld_hourly.csv": "4383e3afd68f23c26aeef55df0f036ec2d4c8c7d15673b8991928f2ce5863cd7",
+    "dfld_manifest.json": "857d403083097a4e21c82066db6432e7c1d35c0a74dc66f26c93d6593592afd8",
+    "dfld_r18_excluded_hours.csv": "cda761415ca3746d0c455447c738a925c8def168dac73a2ff7ee18749c424e0e",
+    "dfld_r18_hourly.csv": "68caa908871be0fce09edd99c4fb652228b073833e1beb1514e07c5c42aa61f3"
+  },
+  "half_hour_rows": 154752,
+  "hourly_rows": 76588,
+  "hourly_rebuild_exact_match_including_order_and_source": true,
+  "excluded_hours": 788,
+  "excluded_hour_keys_match": true,
+  "exclusion_reasons": {
+    "direction differs between half hours": 770,
+    "ambiguous or nonexistent local hour": 18
+  },
+  "contiguous_half_hour_direction_changes": 1681,
+  "change_bin_start_minutes": {
+    "30": 770,
+    "0": 911
+  },
+  "warning": "Half-hour bin starts are not exact movement-event times. DST-ambiguous bins are excluded from transition counts.",
+  "raw_html_samples": [
+    {
+      "file": "2025-01.html",
+      "retained_bins": 1488,
+      "fresh_bins_in_frozen_period": 1488,
+      "unique_fresh_bins": 1488,
+      "exact_match": true,
+      "sha256": "85f76ae9dcfe864515f35624136154906a89c52d439ca9dc33760d459083192a"
+    },
+    {
+      "file": "2026-10.html",
+      "retained_bins": 1392,
+      "fresh_bins_in_frozen_period": 1392,
+      "unique_fresh_bins": 1392,
+      "exact_match": true,
+      "sha256": "9dd11ae7e9d4a474ab2c1d2d5382825d5a09fa51a199f0529b9f8f0260c4cfb4"
+    }
+  ],
+  "passed": true
+}
