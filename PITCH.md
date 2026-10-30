@@ -27,6 +27,8 @@ See `DEMO_SCRIPT.md`.
   | 48 h | 88.9% | 84.0% | 64.2% |
 
   At 1 h it ties with keep-current and beats the rules. From 6 h it wins by +4 to +5 points over the rules (95% intervals, resampled by day, all above +2) and up to +25 over keep-current. Its probability error (Brier) is about half the rules'. When it says 85%, it happens about 85% of the time. When it's unsure, the screen says so.
+  - It caught 115 of 193 direction changes within ±3 h, warning before each one.
+  - That is about 1,450 fewer hours a year planned for the wrong direction than "same as now" (about 350 fewer than the official rules).
 - **All public data:** DFLD.de recorded directions, EDDF METAR, and archived forecasts from three weather models (ECMWF, GFS, ICON) plus pressure about 200 km around FRA, all through Open-Meteo. Cited in `MODEL_CARD.md`.
 
 ## 5. Built with Codex (15 s)
