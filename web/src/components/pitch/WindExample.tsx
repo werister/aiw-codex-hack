@@ -61,11 +61,11 @@ export function WindExample({ onContinue }: { onContinue?: () => void }) {
   return (
     <Panel
       title="Runway 18 · a separate wind restriction"
-      aside={<span className="rounded-full border border-warn/40 bg-panel-2 px-2.5 py-1 text-[11px] font-semibold text-warn">Synthetic rule demo</span>}
+      aside={<span className="rounded-full border border-ink px-3 py-1 text-[13px] text-ink">Synthetic rule demo</span>}
     >
       <div className="space-y-4">
-        <div className="rounded-lg border border-warn/40 bg-panel-2 p-3 sm:p-4">
-          <p className="text-sm font-bold text-warn">SIMULATION · six synthetic hourly wind inputs</p>
+        <div className="rounded-card border border-line bg-panel-2 p-4 sm:p-5">
+          <p className="text-[17px] text-ink">Simulation · six synthetic hourly wind inputs</p>
           <p className="mt-1 text-sm leading-5 text-ink-2">
             Choose a rule scenario and select an hour. This is not an airport status, model probability, observed closure, or evaluation sample.
           </p>
@@ -104,7 +104,7 @@ export function WindExample({ onContinue }: { onContinue?: () => void }) {
                       <td>from {hour.windFromDeg}° · {hour.windKt} kt / {hour.gustKt} kt</td>
                       <td>{hour.tailwindKt.toFixed(1)} kt</td>
                       <td>{hour.gustCrosswindKt.toFixed(1)} kt</td>
-                      <td className={hour.unusableByChallengeRule ? "font-semibold text-bad" : "text-ok"}>
+                      <td className={hour.unusableByChallengeRule ? "font-semibold text-bad" : "text-ink"}>
                         {hour.unusableByChallengeRule ? "Limit crossed" : "Within limits"}
                       </td>
                     </tr>
@@ -126,12 +126,12 @@ export function WindExample({ onContinue }: { onContinue?: () => void }) {
             <div
               className={cx(
                 "rounded-lg border p-4",
-                weatherUsable ? "border-ok/50 bg-ok-soft" : "border-bad/60 bg-bad-soft",
+                weatherUsable ? "border-line bg-panel-2" : "border-bad/60 bg-bad-soft",
               )}
               aria-live="polite"
             >
-              <div className="text-xs font-semibold uppercase tracking-wider text-ink-2">Challenge weather-rule result · Runway 18</div>
-              <div className={cx("mt-1 text-2xl font-bold tracking-tight", weatherUsable ? "text-ok" : "text-bad")}>
+              <div className="text-[13px] font-medium text-ink-2">Challenge weather-rule result · Runway 18</div>
+              <div className={cx("mt-1 text-2xl font-bold tracking-tight", weatherUsable ? "text-ink" : "text-bad")}>
                 {weatherUsable ? "WITHIN WEATHER LIMITS" : "RULE LIMIT CROSSED"}
               </div>
               <p className="mt-1 text-sm leading-5 text-ink-2">
@@ -262,8 +262,8 @@ function Metric({
 }) {
   return (
     <div className="min-w-0 rounded-lg border border-line bg-panel p-3">
-      <div className="text-xs font-semibold uppercase tracking-wider text-muted">{label}</div>
-      <div className={cx("mt-2 break-words text-lg font-bold tabular", tone === "west" && "text-west", tone === "ok" && "text-ok", tone === "bad" && "text-bad")}>
+      <div className="text-[13px] font-medium text-muted">{label}</div>
+      <div className={cx("mt-2 break-words text-lg font-bold tabular", tone === "west" && "text-west", tone === "ok" && "text-ink", tone === "bad" && "text-bad")}>
         {value}
       </div>
       <div className="mt-1 text-xs leading-4 text-ink-2">{detail}</div>

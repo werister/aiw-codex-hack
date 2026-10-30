@@ -41,7 +41,7 @@ export function PitchApp() {
         <div>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
             <BrandLogo />
-            <span className="text-xs uppercase tracking-widest text-muted">Frankfurt · Runway Outlook</span>
+            <span className="text-[15px] text-muted">Frankfurt Airport</span>
           </div>
           <h1 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">Runway forecast for Frankfurt</h1>
         </div>

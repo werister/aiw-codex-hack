@@ -139,7 +139,7 @@ export default function Approach() {
               <span
                 className={cx(
                   "h-fit w-fit rounded-full px-2 py-0.5 text-xs font-semibold",
-                  s.tone === "win" && "bg-ok-soft text-ok",
+                  s.tone === "win" && "bg-select text-ink",
                   s.tone === "lesson" && "bg-select text-ink",
                   s.tone === "honest" && "bg-east-soft text-east",
                 )}
