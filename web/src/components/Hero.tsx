@@ -95,7 +95,7 @@ export function Hero({
         )}
       </div>
 
-      <div className="min-w-0 overflow-hidden rounded-card bg-panel-2 p-2">
+      <div className={cx("min-w-0 overflow-hidden rounded-card bg-panel-2 p-2", compact && "w-full max-w-[460px] lg:max-w-none")}>
         {scene}
       </div>
     </section>
