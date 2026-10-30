@@ -1,6 +1,6 @@
 # Pitch · Liftoff (FraAlliance challenge)
 
-Draft for Hugo (presenter) and Luca (backup). Numbers come from `web/public/data/quality.json` (walk-forward-v5). The approach story is on the app's `/approach` page.
+Draft for Hugo (presenter) and Luca (backup). Numbers come from `web/public/data/quality.json` (walk-forward-v6, the served model). The approach story is on the app's `/approach` page.
 
 ## 1. Problem (20 s)
 At Frankfurt the wind alone decides which way aircraft land and take off. Frankfurt changes its operating direction about 156 times a year, three times a week. Six in ten departures use runway 18, and a strong north wind closes it. When the direction changes, everyone reacts at once: ground handling repositions, transfer passengers miss connections, flights are rescheduled. Today that reaction starts when the decision is made. We want it to start a day earlier. Across Europe, 8.0 of the 17.5 minutes of average departure delay are knock-on delay from earlier flights (EUROCONTROL CODA 2024), and weather causes 32% of air-traffic-flow delay minutes (EUROCONTROL NOR 2025), so a change you see coming early stops a chain, not just one flight.
@@ -21,12 +21,12 @@ See `DEMO_SCRIPT.md`.
 
   | Lead | Model | Official rules | Keep current |
   |---|---|---|---|
-  | 1 h | 96.0% | 95.9% | 95.9% |
-  | 6 h | 92.8% | 88.1% | 88.8% |
-  | 24 h | 91.7% | 87.7% | 75.1% |
-  | 48 h | 89.2% | 84.0% | 64.2% |
+  | 1 h | 95.7% | 93.1% | 95.9% |
+  | 6 h | 92.7% | 88.1% | 88.8% |
+  | 24 h | 91.8% | 87.7% | 75.1% |
+  | 48 h | 88.9% | 84.0% | 64.2% |
 
-  1 h is a tie. From 6 h it wins by +4 to +5 points over the rules (95% intervals, resampled by day, all above +2) and up to +25 over keep-current. Its probability error (Brier) is about half the rules'. When it says 85%, it happens about 85% of the time. When it's unsure, the screen says so.
+  At 1 h it ties with keep-current and beats the rules. From 6 h it wins by +4 to +5 points over the rules (95% intervals, resampled by day, all above +2) and up to +25 over keep-current. Its probability error (Brier) is about half the rules'. When it says 85%, it happens about 85% of the time. When it's unsure, the screen says so.
 - **All public data:** DFLD.de recorded directions, EDDF METAR, and archived forecasts from three weather models (ECMWF, GFS, ICON) plus pressure about 200 km around FRA, all through Open-Meteo. Cited in `MODEL_CARD.md`.
 
 ## 5. Built with Codex (15 s)

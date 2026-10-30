@@ -16,7 +16,7 @@ Site: https://fraalliance-runway-forecast.statworx-par-2884.chatgpt.site (Jayden
 - **Backup video if the site fails:** `assets/airport/previews/airport-demo.mp4` (60 s airport scene).
 
 ## Hard questions, short answers
-- **Runway 18?** Closures are rare (about 0.2% of hours) and have no public record. Our label is inferred from the official 15 kt rule. In 12 test months the model caught 3 of 24 closure events a day ahead, with no false alarms. That is honest but weak. A pilot with DFS wind-sensor data is the fix.
+- **Runway 18?** Closures are rare (about 0.2% of hours) and have no public record. Our label is inferred from the official 15 kt rule. In 12 test months the model caught none of the 12 closure windows a day ahead; keeping the current state caught 3. With public data, runway 18 isn't predictable beyond persistence. A pilot with DFS wind-sensor data is the fix.
 - **Why not just the rules?** On the measured wind, the official rules match what was flown only about 90% of the time. From 6 h ahead the model beats them by 4 to 5 points, and it beats keeping the current direction by up to 25 points.
 - **Is the test fair?**
   - Every test month is predicted only from earlier data.

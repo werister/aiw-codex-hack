@@ -25,11 +25,11 @@ It is built for tower and apron staff: one planning recommendation first, the ev
 
 ## Quality (12 held-out months, walk-forward, six-hour publication lag)
 Operating direction at 1 / 6 / 24 / 48 h:
-- **model:** 96.0 / 92.8 / 91.7 / 89.2%
-- **official rules:** 95.9 / 88.1 / 87.7 / 84.0%
+- **model:** 95.7 / 92.7 / 91.8 / 88.9%
+- **official rules:** 93.1 / 88.1 / 87.7 / 84.0%
 - **keep-current:** 95.9 / 88.8 / 75.1 / 64.2%
 
-From 6 h the model beats both baselines by margins whose 95% day-bootstrap intervals stay above +2 points (vs rules: +4.7 / +4.0 / +5.2 at 6 / 24 / 48 h), with a Brier score about half the rules'. The feature set was chosen on these months; today's live forecasts are the untouched test. Runway 18 is inferred from METAR and still weak: 3 of 24 closure events caught at 24 h, with no false alarms.
+From 6 h the model beats both baselines by margins whose 95% day-bootstrap intervals stay above +2 points (vs rules: +4.6 / +4.1 / +4.9 at 6 / 24 / 48 h), with a Brier score about half the rules'. The feature set was chosen on these months; today's live forecasts are the untouched test. Runway 18 is inferred from METAR and isn't predictable beyond persistence with these public inputs: the model catches none of the 12 closure windows at 24 h.
 
 ## Jury test days
 `python -m pip install -r ml/requirements.txt`, then `python -m ml.forecast --day YYYY-MM-DD` (add `--json` for machine-readable output). Forecasts for the jury days: `web/public/forecasts/<day>.json`.
