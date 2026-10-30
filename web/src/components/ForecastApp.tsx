@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Brand } from "./Brand";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { ForecastResponse } from "@/lib/forecast-types";
 import { EvidenceChain } from "./EvidenceChain";
@@ -78,10 +79,7 @@ export function ForecastApp() {
   return (
     <div className="mx-auto flex min-h-screen w-full min-w-0 max-w-[1440px] flex-col gap-2.5 overflow-x-clip px-4 pb-8 sm:px-5">
       <header className="flex h-[72px] items-center gap-3">
-        <div className="flex min-w-0 items-baseline gap-3">
-          <h1 className="text-[19px] font-medium tracking-tight">Runway Outlook</h1>
-          <span className="hidden truncate text-[15px] text-muted sm:inline">FraAlliance · Frankfurt Airport</span>
-        </div>
+        <Brand subtitle="Runway direction forecast · FraAlliance · Frankfurt Airport" />
         <nav className="ml-auto flex items-center gap-2">
           <ThemeToggle />
           <Link href="/widget" className="pill-btn bg-accent text-accent-ink [--btn-ring:var(--accent)]">

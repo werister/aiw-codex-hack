@@ -9,7 +9,7 @@ const brand = Inter_Tight({
 });
 
 export const metadata: Metadata = {
-  title: "FRA Runway Outlook",
+  title: "Liftoff · Frankfurt runway direction forecast",
   description:
     "48 h hourly forecast of the Frankfurt Airport operating direction and runway 18.",
 };
