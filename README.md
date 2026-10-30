@@ -2,7 +2,7 @@
 
 **Live app:** https://fraalliance-runway-forecast.statworx-par-2884.chatgpt.site (private until sharing is switched on; the pitch deck will be at `/pitch` after the next redeploy)
 
-**Finals deck:** [/pitch](https://fraalliance-runway-forecast.statworx-par-2884.chatgpt.site/pitch) (`web/public/pitch/index.html`, notes in `web/public/pitch/NOTES.md`); its 3D scene `web/public/pitch/scene.js` is shared with the dashboard hero.
+**Finals deck:** [/deck](https://fraalliance-runway-forecast.statworx-par-2884.chatgpt.site/deck/index.html) (`web/public/deck/index.html`, notes in `web/public/deck/NOTES.md`); its 3D scene `web/public/deck/scene.js` is shared with the dashboard hero.
 
 ## Work packages (OpenSpec: `openspec/changes/`)
 
