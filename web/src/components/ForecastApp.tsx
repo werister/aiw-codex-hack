@@ -82,6 +82,9 @@ export function ForecastApp() {
         <Brand subtitle="Runway direction forecast · FraAlliance · Frankfurt Airport" />
         <nav className="ml-auto flex items-center gap-2">
           <ThemeToggle />
+          <Link href="/approach" className="pill-btn border border-line text-ink">
+            How we built it
+          </Link>
           <Link href="/widget" className="pill-btn bg-accent text-accent-ink [--btn-ring:var(--accent)]">
             iPad widget <Arrow />
           </Link>
