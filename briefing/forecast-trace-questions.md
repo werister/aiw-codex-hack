@@ -227,3 +227,55 @@ Who owns candidate/evaluation export, decision API, panel integration and indepe
 **Follow-up:** name an owner, reviewer, realistic delivery time and acceptance command for each slice. The demonstration should include two situations with different winners if supported, a case where retaining the current model is correct, and a failure/fallback case. If measured evidence does not justify different winners, show that honestly and keep any scripted routing demonstration separate. Which claim can Hugo make at submission, and which remains a proposed next step?
 
 **Answer:** **Decision:** defer past the 16:00 submission. Today's system is one task-specific model per target (P(OD 25), P(runway 18 usable)) plus a frozen blend policy by horizon × regime (night, calm, active). The policy is selected on earlier validation data and evaluated on later held-out months, so a pre-registered, deterministic choice already exists inside one task. There is no multi-model router and no delay specialist: FRA hourly delay data is not public, and a delay signal must never stand in for the direction or runway probabilities. **Consequence:** the demo shows one model with its blend and evidence; routing appears only as a next step in the pitch. **Owner if picked up later:** Kai, with the ML lane.
+
+### F17 — Which learning approaches have not been tried yet? (Kai + Jayden + ML implementer)
+
+Hugo requests an independent Colab red-team experiment using the same source files, tests and evaluation rows with a different learning method. This is an experiment, not a request to change the submission model or build the deferred router in F7–F16.
+
+Have you already tried Extra Trees/random forests, calibrated linear models, change/no-change learning, or a learned combination of predictor and persistence? Link the branches, notebooks, parameters and results, including unsuccessful attempts, so we do not duplicate your work.
+
+**Proposed experiment versions:** R0 reproduces the current raw and served predictor; R1 uses Extra Trees on the same ordered features and labelled rows; R2 uses a fixed 50/50 probability average of R1 and the served predictor; R3 would learn direction-change risk using an explicitly agreed target and chronological validation. R1/R2 are the first controlled comparison. R3 needs the label clarification in F19. These are experiment names, not production version numbers or claims of improvement.
+
+**Snapshot:** the first Colab inputs were frozen at `44d5abd3363248b1de0a3ed96ff32982aafdd7b3` (v4). F1–F6 now report v5 and trace capture at `ccba644`; therefore the pinned experiment must be labelled a v4 comparison, not a comparison against current v5. Identify the exact v5 source/data/artifact snapshot for a subsequent matched rerun.
+
+**Answer:** Pending.
+
+### F18 — Which data sources actually reach the estimator? (Kai + data owner)
+
+For the selected training version, provide a compact source → loader/join → feature names → estimator table. Which of the following are connected in both training and inference: the single previous-runs file, ECMWF/GFS/ICON disagreement, DWD wind, TAF, pressure gradients and bias-corrected wind? Which are only downloaded or proposed?
+
+At the pinned v4 snapshot, `ml.train.dataset()` reads `openmeteo_previous_runs.parquet`. Please identify any additional source loaded inside feature construction, join key/timezone, missing-data treatment, availability timestamp and fallback. Link the actual ordered feature manifest rather than only a data inventory. Which connections changed in v5?
+
+**Answer:** Pending.
+
+### F19 — What can we safely use as the direction-change target? (Kai + label owner)
+
+Are DFLD hour-end availability (`time + 1h`), upstream reporting delay and summer-time conversion verified or assumed? Do weather runs have actual publication timestamps, or only the six-hour availability proxy? Which transition and missing-label hours are removed by the current dataset?
+
+For R3, distinguish “target-hour OD differs from current OD” from “at least one change occurs within the horizon”: two changes can return to the initial direction. Which target matches the intended use? Should change-event learning use the half-hour source so that stable-hour filtering does not remove the very events being learned? State the label construction, censoring/missing-window rules and tests before training it.
+
+**Answer:** Pending.
+
+### F20 — Can exclusions use information from after a fold boundary? (ML implementer + independent reviewer)
+
+At the pinned v4 snapshot, `dataset()` computes `suspect_od_runs()` on the full history before splitting; the flag marks an entire direction run using its METAR violations. Has a test established that later observations cannot change which pre-boundary training rows are excluded? This is a potential mechanism, not a claim that the documented October 8–12 interval crosses the current folds.
+
+**Proposed answer:** preserve all-recorded headline scores and report retrospective stuck-feed exclusion as a sensitivity analysis. For a strict chronological experiment, derive any training exclusions from information available before the relevant training/validation cutoff. Confirm whether v5 changes this and link the check.
+
+**Answer:** Pending.
+
+### F21 — Which tests, holdouts and metrics decide whether an experiment wins? (Kai + evaluation owner)
+
+Name the existing test commands and validation artifacts we must reproduce, the unchanged monthly split/issue schedule and label purge, and any untouched jury/final holdout dates. October has already informed development; an October comparison is exploratory, not a pristine final evaluation.
+
+Which objective is primary: Brier score, accuracy, missed changes, false alarms or next-change timing? What tradeoff would reject a candidate? Report raw and blended results, matched row counts, lead/regime slices and change-event counts; do not select a method or blend weight using the final test outcomes. How should uncertainty account for overlapping 48-hour forecast windows?
+
+**Answer:** Pending.
+
+### F22 — Which baseline and evidence should the Colab run freeze? (Jayden + Kai)
+
+Which source commit, data hashes, fitted artifact and quality/backtest files are authoritative now? At pinned v4, committed one-hour blend accuracy was 94.64% versus persistence 95.20%, while the model card quoted an earlier result. These are artifact reads, not our independent rerun, and should not be carried forward as v5 findings. Please link the reconciled v5 figures and their producer command.
+
+**Proposed evidence bundle:** source and input hashes; environment versions; unchanged-test output; training/validation/test cutoffs; feature order; model parameters and fitted artifacts; per-row raw, blended and combined probabilities; matched metrics and exclusions. Colab's Drive quota prevented a saved notebook in Hugo's account, so the current attempt uses an unsaved runtime and a verified upload; it must be exported before being treated as a durable result. Who reviews that bundle, and which result warrants a subsequent full walk-forward rerun?
+
+**Answer:** Pending.
