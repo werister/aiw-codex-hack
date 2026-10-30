@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useForecast } from "./ForecastApp";
 import { Hero } from "./Hero";
 import { RunwayMap } from "./RunwayMap";
+import { SceneHero } from "./SceneHero";
 import { ThemeToggle } from "./ThemeToggle";
 import { Timeline } from "./Timeline";
 import { Arrow, Panel, hhmm } from "./ui";
@@ -30,12 +31,20 @@ export function Widget() {
         f={f}
         compact
         scene={
-          <RunwayMap
+          <SceneHero
             od={f.hours[0].od}
             r18Open={f.hours[0].p_18_usable >= 0.5}
-            windDir={f.hours[0].wind_dir_deg}
-            windKt={f.hours[0].wind_kt}
-            label={`Forecast for ${hhmm(f.hours[0].local)} (+1 h)`}
+            wind={f.hours[0].wind_dir_deg == null ? undefined : { dir: f.hours[0].wind_dir_deg, kt: f.hours[0].wind_kt }}
+            className="h-[330px]"
+            fallback={
+              <RunwayMap
+                od={f.hours[0].od}
+                r18Open={f.hours[0].p_18_usable >= 0.5}
+                windDir={f.hours[0].wind_dir_deg}
+                windKt={f.hours[0].wind_kt}
+                label={`Forecast for ${hhmm(f.hours[0].local)} (+1 h)`}
+              />
+            }
           />
         }
       />
