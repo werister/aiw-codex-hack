@@ -7,7 +7,7 @@
 // Options: od "25" | "07", r18Open, wind { dir, kt } (optional, derived from od/r18 when left out),
 // story (true: keyframed 12 s loop 25 -> 07 -> 25, ignores setState), intro (tiles settle into runways),
 // labels, view (name in VIEWS or { position: [x,y,z], target: [x,y,z] }), aircraftScale, pixelRatio (number or function),
-// theme "light" | "tower" (the app's dark mode), onChange({ od, r18Open, wind }).
+// theme "light" | "tower" (the app's dark mode), drift (radians of slow camera sway, 0 = still), onChange({ od, r18Open, wind }).
 // fog: a CSS colour (the host background) to fade the far field; leave it out on a transparent hero.
 // The canvas is transparent, so the host page owns the background. Three.js loads from ./vendor,
 // aircraft and runway models (exported from the team's Blender kit) from ./models; primitives stand in until they load.
@@ -46,6 +46,7 @@ const TAIL = "#1d1a78";
 const D = new T.Vector3(Math.sin(rad(70)), 0, -Math.cos(rad(70)));
 const L = new T.Vector3(-Math.cos(rad(70)), 0, -Math.sin(rad(70)));
 const SOUTH = new T.Vector3(0, 0, 1);
+const UP = new T.Vector3(0, 1, 0);
 const P = (along, left) => D.clone().multiplyScalar(along).add(L.clone().multiplyScalar(left));
 const R18_NORTH = P(-20, 0).add(new T.Vector3(-6.1, 0, -2));
 
@@ -175,7 +176,7 @@ function labelSprite(text) {
 }
 
 export function mount(container, options = {}) {
-  const opts = { od: "25", r18Open: true, story: false, intro: true, labels: true, view: "hero", aircraftScale: 1.5, theme: "light", ...options };
+  const opts = { od: "25", r18Open: true, story: false, intro: true, labels: true, view: "hero", aircraftScale: 1.5, theme: "light", drift: 0, ...options };
   let pal = PALETTE[opts.theme] || PALETTE.light;
   if (opts.story) Object.assign(opts, STORY[0]);
 
@@ -599,6 +600,10 @@ export function mount(container, options = {}) {
       if (k >= 1) camTween = null;
     }
     camera.position.copy(camPos);
+    if (opts.drift) {
+      // Slow sway around the target: one cycle every 40 s, eased by the sine itself.
+      camera.position.sub(camTgt).applyAxisAngle(UP, Math.sin((t / 40) * Math.PI * 2) * opts.drift).add(camTgt);
+    }
     camera.lookAt(camTgt);
 
     renderer.render(scene, camera);

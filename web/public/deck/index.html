@@ -330,7 +330,7 @@
   var VIEWS = {
     title: { position: [-34, 78, 100], target: [-34, 0, 10] },
     problem: { position: [-4, 80, 96], target: [-4, 0, 8] },
-    built: { position: [-30, 70, 86], target: [-30, 0, 4] },
+    built: { position: [-34, 82, 100], target: [-34, 0, 6] },
     next: { position: [-30, 50, 92], target: [-36, 0, 4] }
   };
   var SCENE_SLIDES = { title: 1, built: 1, next: 1 };
@@ -580,6 +580,7 @@
       story: true,
       fog: "#f6f6fb",
       aircraftScale: 2.2,
+      drift: 0.05,
       view: VIEWS[name] || VIEWS.title,
       pixelRatio: function () { return (window.devicePixelRatio || 1) * stageScale; },
       onChange: updateHud
