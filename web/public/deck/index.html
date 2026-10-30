@@ -404,7 +404,7 @@
 
   // Camera per slide for the shared scene (scene.js).
   var VIEWS = {
-    title: { position: [-18, 30, 106], target: [-18, 3, -8] },
+    title: { position: [-36, 34, 120], target: [-36, 3, -6] },
     next: { position: [-4, 104, 30], target: [-30, 0, 8] },
     team: { position: [-30, 30, 106], target: [-44, 3, -8] }
   };
@@ -696,6 +696,8 @@
       story: true,
       fog: "#f6f6fb",
       aircraftScale: 2.2,
+      aircraft: "widebody",
+      mood: "golden",
       drift: 0.05,
       view: VIEWS[name] || VIEWS.title,
       pixelRatio: function () { return (window.devicePixelRatio || 1) * stageScale; },
