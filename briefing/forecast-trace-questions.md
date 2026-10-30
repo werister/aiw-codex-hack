@@ -55,3 +55,70 @@ Please confirm:
 For one selected hour, resolve the retained source inputs, exact ordered feature values and model/rules identities; follow the raw-to-published probability calculation; and confirm that the evidence belongs to the displayed forecast bytes. Show unavailable details explicitly. Per-feature attribution is optional and must not be invented from the final score.
 
 Start from the [trace output wishlist](forecast-trace-wishlist.md) and [fleet-planning handoff](fleet-planning.md). This handoff requests evidence capture and integration decisions; it does not request a new model, frontend redesign or fleet-impact estimate.
+
+## Follow-up round: decisions, delivery and proof
+
+Added at Hugo's request on 30 October 2026. The recommendations below are proposals for discussion, not approved scope or delivery commitments. Preserve the answers above; answer each numbered item below and link any implementation that supersedes the inspected snapshot.
+
+### How to answer usefully
+
+Reply under each item using this compact format:
+
+- **Decision:** accept the proposal, revise it (state the replacement), or defer it (state the consequence).
+- **Status:** proposed / assigned / implemented / verified / blocked. A type declaration alone is not implemented capture; a code link alone is not a verified end-to-end run.
+- **Owner:** one named person or identifiable worker responsible for delivery; list a reviewer separately. Confirm Kai's ownership rather than assuming it.
+- **Evidence:** commit SHA + code path, generated forecast/run ID + selected UTC hour, and the check actually run with its result. If not available, say what is missing.
+- **Delivery:** target date/time in Europe/Berlin, dependency, and fallback if it misses the demo.
+- **Next step:** the smallest concrete action and who performs it.
+
+Short answers are best. Avoid only saying "supported", "no blocker" or "will work". Separate what exists now from what is planned. Do not invent evidence, test results or dates to fill the template.
+
+### F1 — What does the evidence panel promise? (Hugo + Jayden; ML owner confirms feasibility)
+
+Is the first deliverable inspection of the exact saved inputs, transformations, rules, model identity and raw-to-published probability calculation, or does it also require a measured contribution from each feature?
+
+**Proposed answer:** the first deliverable is **Prediction evidence**. Per-feature attribution is optional and shown only if actually computed by an identified method. Input values alone do not establish how much a feature changed the probability. Confirm the scope and the wording the demo may use.
+
+**Answer:** Pending.
+
+### F2 — Who delivers one verified run, and when? (Jayden + named ML implementer; Hugo confirms demo fallback)
+
+The current answer postpones capture until model work lands by 15:30; submission is at 16:00. What time remains for generation, UI connection, verification and rehearsal? Name the implementer and reviewer, not only the lane.
+
+**Proposed answer:** aim for one captured historical run before 15:00, subject to owner confirmation. Verify that fixed example before deciding whether to regenerate with a newer model. Keep its model version visible. If capture is late, show the existing forecast with evidence explicitly unavailable; do not fabricate a trace. State whether this schedule is feasible and what work it depends on.
+
+**Answer:** Pending.
+
+### F3 — How do we distinguish the recommendation time from the inspected hour? (Hugo + Jayden)
+
+If the recommendation remains fixed while the user selects a different forecast hour, how will the screen prevent that hour's evidence from appearing to justify a different event?
+
+**Proposed answer:** show **Recommendation for [event time]** separately from **Inspecting [selected UTC/local time]**, with a **Return to recommendation evidence** action. If a different design is preferred, describe the interaction. Verify by opening recommendation evidence, selecting another hour, and returning.
+
+**Answer:** Pending.
+
+### F4 — Which model actually produced the historical example? (Kai + ML implementer)
+
+For `2026-10-28.json`, issued `2026-10-27T23:00Z`, will capture record the selected fold artifact's path, SHA-256 and training cutoff, rather than copying metadata from the final fitted model? Will it retain the complete ordered estimator inputs with names, values, missingness and transform version, plus raw probabilities, blend key/weight, persistence input and published probabilities?
+
+At inspected snapshot [b6b3b0](https://github.com/werister/aiw-codex-hack/tree/b6b3b0a1d4fd0f41489114f4bca4b97efe48e052), [model selection](https://github.com/werister/aiw-codex-hack/blob/b6b3b0a1d4fd0f41489114f4bca4b97efe48e052/ml/predict.py) should reject the final fit trained after this issue time and select an eligible historical fold. The [published example](https://github.com/werister/aiw-codex-hack/blob/b6b3b0a1d4fd0f41489114f4bca4b97efe48e052/web/public/forecasts/2026-10-28.json) does not record the artifact identity, so its actual generation provenance has not been proved by that file. A regenerated example must be identified as a new captured run, not retroactively claimed as original instrumentation.
+
+**Answer:** Pending.
+
+### F5 — What exactly makes one run's identity different? (ML implementer + Jayden)
+
+Specify the canonical fields/serialization and hash used for run identity. How are selected model artifact, rules content, input snapshot contents, feature/inference-code revision and output-affecting blend/regime configuration bound to the result? Does a code-only change with identical inputs produce a distinguishable record? How do we resolve the retained values behind a snapshot hash?
+
+**Proposed answer:** document one canonical identity contract and bind the serialized forecast and inline evidence consistently. Do not rely only on issue time or a mutable version label, and do not try to hash a payload including its own hash. State whether identical-input repeat executions share a content identity or receive distinct invocation IDs. Explain the choice.
+
+**Answer:** Pending.
+
+### F6 — What proves the optional types are actually connected? (Jayden + ML implementer)
+
+Please link the producer serialization and UI consumption, not only the interface definitions. Where is the claimed run-ID match checked, what are its two operands, and what happens when capture is absent, inconsistent or from a different run?
+
+The read-only audit at [b6b3b0](https://github.com/werister/aiw-codex-hack/tree/b6b3b0a1d4fd0f41489114f4bca4b97efe48e052) found optional [ForecastEvidence/HourInputs types](https://github.com/werister/aiw-codex-hack/blob/b6b3b0a1d4fd0f41489114f4bca4b97efe48e052/web/src/lib/forecast-types.ts), but no evidence/run ID/hourly inputs in the example; [the producer](https://github.com/werister/aiw-codex-hack/blob/b6b3b0a1d4fd0f41489114f4bca4b97efe48e052/ml/forecast.py) did not emit them and [EvidenceChain](https://github.com/werister/aiw-codex-hack/blob/b6b3b0a1d4fd0f41489114f4bca4b97efe48e052/web/src/components/EvidenceChain.tsx) did not consume or compare them. HourInputs also did not describe the full ordered estimator vector. These are snapshot findings; link a later commit if they have changed.
+
+**Requested proof:** one generated file with resolvable evidence; a selected hour whose displayed values match capture; and observed UI behavior for missing/mismatched capture. Explicitly distinguish a new run with the same issue time from the previous run.
+
+**Answer:** Pending.
