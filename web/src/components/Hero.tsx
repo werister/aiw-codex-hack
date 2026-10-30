@@ -27,7 +27,7 @@ export function Hero({
     <section
       className={cx(
         "grid items-center gap-6",
-        compact ? "md:grid-cols-[1fr_1fr]" : "py-4 lg:min-h-[520px] lg:grid-cols-[1fr_1.1fr] lg:gap-10",
+        compact ? "lg:grid-cols-[1fr_1fr]" : "py-4 lg:min-h-[520px] lg:grid-cols-[1fr_1.1fr] lg:gap-10",
       )}
       aria-label="Now and next"
     >
@@ -41,10 +41,9 @@ export function Hero({
             compact ? "text-[40px]" : "text-[44px] sm:text-[60px] xl:text-[68px]",
           )}
         >
-          <span className={cx(odText(f.current_od), !compact && "block")}>
+          <span className={cx("block", odText(f.current_od))}>
             {OD_LABEL[f.current_od]} {f.current_od}
           </span>
-          {compact && <span className="text-muted"> · </span>}
           <span className="whitespace-nowrap">
             Runway 18 <span className={r18Open ? "" : "text-bad"}>{r18Open ? "open" : "closed"}</span>
           </span>
