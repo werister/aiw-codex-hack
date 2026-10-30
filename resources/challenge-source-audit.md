@@ -14,13 +14,14 @@ Arbeitsgrundlage, aber noch kein seitengetreuer Quellenbeleg.
 
 Die [Registrierungs-Mitschrift](../briefing/transcripts/03_registration.md) nennt
 das Teilnehmer-Dashboard als Downloadort der Firmenbriefings, enthält aber weder
-Dashboard-URL noch den erwähnten Kurzlink. Dieser Link ist beim Nutzer angefragt.
+Dashboard-URL noch den erwähnten Kurzlink. Der Nutzer kennt den Link ebenfalls
+nicht (Rückmeldung am 30.10.); der Originalabgleich bleibt offen.
 
 Gesucht wurde nach passenden Dateinamen in Downloads, Desktop, Documents und dem
 Haupt-Checkout; zusätzlich nach heute geänderten PDF/PPT/PPTX-Dateien in Downloads
 und Desktop bis eine Unterordnerebene. Die Suche in verbundenen Pages nach
-„FraAlliance“ ergab keinen Treffer. Öffentliche Suchen bei AI Week, statworx und
-OpenAI sowie die Prüfung der verlinkten Skripte der
+„FraAlliance“ ergab keinen Treffer. Öffentliche Suchen bei den Veranstaltern sowie
+die Prüfung der verlinkten Skripte der
 [Veranstalterseite](https://ai-week-frankfurt.com/hack) ergaben keinen direkten
 Download- oder Teilnehmer-Dashboard-Link. Das ist ein begrenztes Suchergebnis,
 kein Nachweis, dass die Unterlagen nicht existieren.
