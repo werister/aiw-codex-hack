@@ -55,4 +55,8 @@ Operating direction, accuracy on held-out hours (Brier score in brackets):
 - **Wind bias:** the forecast 10 m wind averages 0.59× the METAR wind at the airport. A correction is in progress.
 - **Label quality:** DFLD is a public proxy, not a certified movement log. Hours containing a change are excluded from the stable-hour accuracy, and the summer clock offset is unverified.
 
+**Prior work:**
+- Zinkhan et al. (2023), DWD Offenbach with a university group: "Intrinsic Explainable Self-Enforcing Networks Using the ICON-D2-Ensemble Prediction System for Runway Configurations", *Engineering Proceedings* 39, 41 (CC BY). They forecast FRA's runway configuration from ensemble weather forecasts.
+- Puranik et al. (2023), NASA Ames: "Predicting airport runway configurations for decision-support using supervised learning". METAR-derived features, 93% accuracy at CLT and 73% at DEN.
+
 **Reproduce:** `python -m pip install -r ml/requirements.txt`, `python -m ml.train`, then `python -m ml.forecast --day YYYY-MM-DD`.
