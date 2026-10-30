@@ -1771,6 +1771,11 @@
       "r18_usable": true
     },
     {
+      "time": "2026-10-08T10:00Z",
+      "od": "07",
+      "r18_usable": null
+    },
+    {
       "time": "2026-10-08T11:00Z",
       "od": "07",
       "r18_usable": true

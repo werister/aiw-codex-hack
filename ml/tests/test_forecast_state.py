@@ -250,3 +250,23 @@ def test_future_requested_day_keeps_full_horizon_and_change_timing(monkeypatch):
 
     with pytest.raises(ValueError, match="does not intersect"):
         forecast.build_forecast(date(2026, 11, 2), now=now, include_briefing=False)
+
+
+@pytest.mark.parametrize("has_metar", [True, False])
+def test_observed_overlay_keeps_od_when_r18_weather_label_is_unavailable(tmp_path, monkeypatch, has_metar):
+    times = live.target_hours(ISSUE)[:3]
+    history = pd.DataFrame({"time": times, "od": ["25", "07", "25"]})
+    data_path = tmp_path if has_metar else tmp_path / "missing-weather"
+    data_path.mkdir(exist_ok=True)
+    if has_metar:
+        pd.DataFrame({"time": [times[0] - pd.Timedelta(minutes=5)], "wind_dir_deg": [250.0],
+                      "wind_kt": [5.0], "gust_kt": [5.0]}).to_parquet(data_path / "eddf_metar.parquet")
+    monkeypatch.setattr(live, "DATA", data_path)
+
+    observed = forecast.observed_overlay(ISSUE, history)
+
+    assert [row["od"] for row in observed] == ["25", "07", "25"]
+    if has_metar:
+        assert [row["r18_usable"] for row in observed] == [True, None, None]
+    else:
+        assert [row["r18_usable"] for row in observed] == [None, None, None]

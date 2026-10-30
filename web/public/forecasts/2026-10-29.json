@@ -1611,6 +1611,16 @@
       "r18_usable": true
     },
     {
+      "time": "2026-10-29T01:00Z",
+      "od": "25",
+      "r18_usable": null
+    },
+    {
+      "time": "2026-10-29T02:00Z",
+      "od": "25",
+      "r18_usable": null
+    },
+    {
       "time": "2026-10-29T03:00Z",
       "od": "25",
       "r18_usable": true

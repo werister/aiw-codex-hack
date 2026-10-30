@@ -232,23 +232,29 @@ def evidence(frame, hours, issue, obs, known, nwp, current_od, provenance):
 
 
 def observed_overlay(issue, history):
-    """Future observations are loaded only after prediction, solely for evaluation."""
+    """Keep each recorded OD; unavailable independent runway 18 labels stay null."""
     selected = history.loc[history.time.isin(live.target_hours(issue))]
     if selected.empty:
         return []
     path = live.DATA / "eddf_metar.parquet"
-    if not path.exists():
-        return []
-    weather = live.normalize_metar(pd.read_parquet(path))
+    if path.exists():
+        weather = live.normalize_metar(pd.read_parquet(path))
+    else:
+        weather = pd.DataFrame({
+            "time": pd.Series(dtype="datetime64[ns, UTC]"),
+            "wind_kt": pd.Series(dtype=float),
+            "wind_dir_deg": pd.Series(dtype=float),
+            "gust_kt": pd.Series(dtype=float),
+        })
     output = []
     for row in selected.itertuples():
         reports = weather.loc[weather.time <= row.time]
-        if reports.empty or row.time - reports.time.iloc[-1] > pd.Timedelta(hours=1):
-            continue
-        latest = reports.iloc[-1]
-        usable = r18_usable(latest.wind_kt, latest.wind_dir_deg, latest.gust_kt)
-        if usable is not None:
-            output.append({"time": utc_text(row.time), "od": row.od, "r18_usable": bool(usable)})
+        usable = None
+        if not reports.empty and row.time - reports.time.iloc[-1] <= pd.Timedelta(hours=1):
+            latest = reports.iloc[-1]
+            usable = r18_usable(latest.wind_kt, latest.wind_dir_deg, latest.gust_kt)
+        output.append({"time": utc_text(row.time), "od": row.od,
+                       "r18_usable": None if usable is None else bool(usable)})
     return output
 
 

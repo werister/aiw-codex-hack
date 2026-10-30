@@ -47,6 +47,10 @@ das gesamte untersuchte Zeitfenster bekannt sein. Fehlende Daten gelten nicht
 als „alles offen“. Die Zahlen beschreiben überlappende Prognosefenster, keine
 Anzahl voneinander unabhängiger Flughafenschließungen.
 
+Fehlt nur die Information zu Bahn 18, bleibt eine vorhandene Beobachtung der
+Betriebsrichtung trotzdem sichtbar. Beim Testtag 28. Oktober sind dadurch
+wieder alle 47 aufgezeichneten Richtungswerte enthalten; vorher waren es nur 40.
+
 Außerdem kann die kurzfristige Prognose den zuletzt beobachteten Zustand stärker
 berücksichtigen. Wie stark, wird nur mit älteren Trainingsdaten festgelegt.
 Fehlen dort Schließungsfälle, bleibt die ursprüngliche Modellwahrscheinlichkeit.

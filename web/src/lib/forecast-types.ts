@@ -89,7 +89,7 @@ export interface ForecastResponse {
   hours: HourForecast[]; // 48, lead 1..48
   next_change: NextChange | null;
   closures_18: Closure18[];
-  observed?: { time: string; od: OD; r18_usable: boolean }[]; // hindcast only: what the rules say happened
+  observed?: { time: string; od: OD; r18_usable: boolean | null }[]; // hindcast OD; null R18 label if weather unavailable
   evidence?: ForecastEvidence; // absent in files written before evidence capture
 }
 
