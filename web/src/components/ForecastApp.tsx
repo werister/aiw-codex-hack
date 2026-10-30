@@ -1,11 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { ForecastResponse } from "@/lib/forecast-types";
+import { EvidenceChain } from "./EvidenceChain";
 import { HourDetail } from "./HourDetail";
 import { NowPanel } from "./NowPanel";
 import { QualityPanel } from "./QualityPanel";
+import { Recommendation, planFrom } from "./Recommendation";
 import { RunwayMap } from "./RunwayMap";
 import { Timeline } from "./Timeline";
 import { ThemeToggle } from "./ThemeToggle";
@@ -61,6 +63,8 @@ export function useForecast() {
 export function ForecastApp() {
   const { options, file, setFile, f, error } = useForecast();
   const [sel, setSel] = useState(0);
+  const [evidenceOpen, setEvidenceOpen] = useState(false);
+  const evidenceRef = useRef<HTMLDivElement>(null);
   const h = f?.hours[Math.min(sel, (f?.hours.length ?? 1) - 1)];
   const hits = useMemo(() => {
     if (!f?.observed?.length) return null;
@@ -74,7 +78,7 @@ export function ForecastApp() {
     <div className="mx-auto flex min-h-screen w-full min-w-0 max-w-[1440px] flex-col gap-2.5 overflow-x-clip px-4 pb-8 sm:px-5">
       <header className="flex h-[72px] items-center gap-3">
         <div className="flex min-w-0 items-baseline gap-3">
-          <span className="text-[19px] font-medium tracking-tight">Runway Outlook</span>
+          <h1 className="text-[19px] font-medium tracking-tight">Runway Outlook</h1>
           <span className="hidden truncate text-[15px] text-muted sm:inline">FraAlliance · Frankfurt Airport</span>
         </div>
         <nav className="ml-auto flex items-center gap-2">
@@ -85,13 +89,8 @@ export function ForecastApp() {
         </nav>
       </header>
 
-      <section className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4 pb-4 pt-3 sm:pt-6">
-        <div>
-          <p className="eyebrow mb-3 text-ink">Frankfurt Airport · next 48 hours</p>
-          <h1 className="max-w-[22ch] text-[28px] font-light leading-[1.15] tracking-[-0.01em] sm:text-[40px]">
-            Operating direction and runway&nbsp;18, hour by hour.
-          </h1>
-        </div>
+      <section className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 pb-3">
+        <p className="eyebrow text-ink">Operating direction and runway 18 · next 48 hours</p>
         <div className="flex flex-wrap items-center gap-2">
           {f && (
             <span className="eyebrow inline-flex items-center gap-2 rounded-full border border-ink px-3.5 py-2.5 tabular">
@@ -128,6 +127,16 @@ export function ForecastApp() {
 
       {f && h && (
         <>
+          <Recommendation
+            f={f}
+            onShowEvidence={() => {
+              const i = f.hours.findIndex((x) => x.time === planFrom(f).time);
+              setSel(Math.max(0, i));
+              setEvidenceOpen(true);
+              evidenceRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+            }}
+          />
+
           <NowPanel f={f} />
 
           <Panel
@@ -140,6 +149,10 @@ export function ForecastApp() {
           >
             <Timeline f={f} selected={sel} onSelect={setSel} />
           </Panel>
+
+          <div ref={evidenceRef} className="scroll-mt-4">
+            <EvidenceChain f={f} h={h} open={evidenceOpen} onToggle={() => setEvidenceOpen((o) => !o)} />
+          </div>
 
           <div className="grid gap-2.5 lg:grid-cols-[3fr_2fr]">
             <Panel title={`Ops view at ${dayLabel(h.local)} ${hhmm(h.local)}`}>

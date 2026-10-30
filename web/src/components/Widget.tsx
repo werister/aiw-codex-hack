@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useForecast } from "./ForecastApp";
 import { NowPanel } from "./NowPanel";
+import { Recommendation } from "./Recommendation";
 import { ThemeToggle } from "./ThemeToggle";
 import { Timeline } from "./Timeline";
 import { Arrow, Panel, dayLabel, hhmm } from "./ui";
@@ -29,6 +30,7 @@ export function Widget() {
           </Link>
         </nav>
       </header>
+      <Recommendation f={f} compact />
       <NowPanel f={f} compact />
       <Panel title="Next 48 hours">
         <Timeline f={f} selected={sel} onSelect={setSel} rows={["od", "r18", "conf"]} />
