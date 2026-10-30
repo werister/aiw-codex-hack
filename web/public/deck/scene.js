@@ -7,7 +7,7 @@
 // Options: od "25" | "07", r18Open, wind { dir, kt } (optional, derived from od/r18 when left out),
 // story (true: keyframed 12 s loop 25 -> 07 -> 25, ignores setState), intro (tiles settle into runways),
 // labels, view (name in VIEWS or { position: [x,y,z], target: [x,y,z] }), aircraftScale, pixelRatio (number or function),
-// theme "light" | "tower" (the app's dark mode), drift (radians of slow camera sway, 0 = still), onChange({ od, r18Open, wind }).
+// skyline (Frankfurt towers on the horizon, default true), theme "light" | "tower" (the app's dark mode), drift (radians of slow camera sway, 0 = still), onChange({ od, r18Open, wind }).
 // fog: a CSS colour (the host background) to fade the far field; leave it out on a transparent hero.
 // The canvas is transparent, so the host page owns the background. Three.js loads from ./vendor,
 // aircraft and runway models (exported from the team's Blender kit) from ./models; primitives stand in until they load.
@@ -37,8 +37,8 @@ const easeOut = (k) => 1 - Math.pow(1 - k, 3);
 
 // FraAlliance tokens (web/DESIGN.md, web/src/app/globals.css). west = OD 25, east = OD 07.
 const PALETTE = {
-  light: { west: "#3c36da", east: "#9d2f7f", ink: "#1d1a78", tile: "#e3e4fd", grey: "#d3d4e2", label: "#5d5b94", shadow: 0.1 },
-  tower: { west: "#7a75ff", east: "#c24fae", ink: "#d9dafd", tile: "#2a2790", grey: "#2e2b8a", label: "#adb0f9", shadow: 0.35 },
+  light: { west: "#3c36da", east: "#9d2f7f", ink: "#1d1a78", tile: "#e3e4fd", grey: "#d3d4e2", label: "#5d5b94", shadow: 0.1, city: "#c9cbe9" },
+  tower: { west: "#7a75ff", east: "#c24fae", ink: "#d9dafd", tile: "#2a2790", grey: "#2e2b8a", label: "#adb0f9", shadow: 0.35, city: "#24216a" },
 };
 const TAIL = "#1d1a78";
 
@@ -176,7 +176,7 @@ function labelSprite(text) {
 }
 
 export function mount(container, options = {}) {
-  const opts = { od: "25", r18Open: true, story: false, intro: true, labels: true, view: "hero", aircraftScale: 1.5, theme: "light", drift: 0, ...options };
+  const opts = { od: "25", r18Open: true, story: false, intro: true, labels: true, view: "hero", aircraftScale: 1.5, theme: "light", drift: 0, skyline: true, ...options };
   let pal = PALETTE[opts.theme] || PALETTE.light;
   if (opts.story) Object.assign(opts, STORY[0]);
 
@@ -211,6 +211,40 @@ export function mount(container, options = {}) {
   catcher.rotation.x = -Math.PI / 2;
   catcher.receiveShadow = true;
   scene.add(catcher);
+
+  // Cool rim light from behind the field: lifts aircraft edges off the pale ground.
+  const rim = new T.DirectionalLight(0xdfe3ff, 1.1);
+  rim.position.set(30, 25, -60);
+  scene.add(rim);
+
+  // Frankfurt on the horizon, north-east of the airport: Europaturm, Messeturm, Commerzbank Tower, Main Tower
+  // and a few plain blocks. Simple shapes, no logos; distance and fog keep it a silhouette.
+  const cityMat = new T.MeshBasicMaterial({ color: pal.city, fog: false });
+  const city = new T.Group();
+  if (opts.skyline) {
+    const add = (geo, x, y, z) => { const m = new T.Mesh(geo, cityMat); m.position.set(x, y, z); city.add(m); return m; };
+    // Europaturm: thin shaft, pod near the top, mast.
+    add(new T.CylinderGeometry(0.45, 0.7, 17, 20), -14, 8.5, 2);
+    add(new T.CylinderGeometry(1.9, 1.3, 1.4, 24), -14, 13.4, 2);
+    add(new T.CylinderGeometry(0.12, 0.2, 4.5, 8), -14, 19.2, 2);
+    // Messeturm: square shaft with a pyramid cap.
+    add(new T.BoxGeometry(2.6, 13, 2.6), -2, 6.5, 0);
+    add(new T.ConeGeometry(1.84, 2.8, 4).rotateY(Math.PI / 4), -2, 14.4, 0);
+    // Commerzbank Tower: triangular shaft, mast.
+    add(new T.CylinderGeometry(2.0, 2.0, 15, 3), 6, 7.5, -2);
+    add(new T.CylinderGeometry(0.1, 0.16, 3, 8), 6, 16.5, -2);
+    // Main Tower: round shaft beside a square block, mast.
+    add(new T.CylinderGeometry(1.5, 1.5, 12, 24), 10.5, 6, 1);
+    add(new T.BoxGeometry(2.2, 9, 2.2), 12.2, 4.5, 0.2);
+    add(new T.CylinderGeometry(0.08, 0.14, 2.6, 8), 10.5, 13.3, 1);
+    // Plain blocks to give the skyline its width.
+    [[-8, 6, 2.4], [1.8, 8, 2], [-5, 4.5, 3], [15.5, 7, 2.2], [18.5, 4, 3.2], [3.5, 5, 2.6], [-19, 3.5, 3.5], [22, 3, 4]].forEach(([x, h, w]) => {
+      add(new T.BoxGeometry(w, h, w * 0.8), x, h / 2, (x * 7) % 3);
+    });
+    city.position.set(48, 0, -128);
+    city.rotation.y = -0.35;
+    scene.add(city);
+  }
 
   // ---- state ----
   const initWind = opts.wind || defaultWind(opts.od, opts.r18Open);
@@ -649,6 +683,7 @@ export function mount(container, options = {}) {
       for (const sp of labels) sp.material.color.set(pal.label);
       arrowMat.color.set(pal.ink);
       catcher.material.opacity = pal.shadow;
+      cityMat.color.set(pal.city);
     },
     replayIntro() { introStart = t; halfStart = null; for (const f of flights) f.fade = 0; },
     getState: () => ({ od: state.od, r18Open: state.r18Open, wind: { ...state.wind } }),
