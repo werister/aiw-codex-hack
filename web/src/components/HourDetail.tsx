@@ -6,19 +6,19 @@ export function HourDetail({ h }: { h: HourForecast }) {
   const agree = h.od === h.rule_od && h.p_18_usable >= 0.5 === h.rule_18_usable;
   return (
     <Panel title={`${dayLabel(h.local)} ${hhmm(h.local)} · +${h.lead_h} h`}>
-      <div className="grid grid-cols-2 gap-x-6 gap-y-3 text-sm">
+      <div className="grid grid-cols-2 gap-x-6 gap-y-5 text-[17px] leading-snug">
         <Field k="Direction (model)">
-          <span className={cx("font-bold", odText(h.od))}>
+          <span className={cx("font-medium", odText(h.od))}>
             {h.od} {OD_LABEL[h.od]}
           </span>{" "}
-          <span className="text-muted">P(25) {pct(h.p_od25)}</span>
+          <span className="text-[15px] text-muted">P(25) {pct(h.p_od25)}</span>
         </Field>
         <Field k="Direction (rules)">
-          <span className={odText(h.rule_od)}>{h.rule_od}</span>
+          <span className={cx("font-medium", odText(h.rule_od))}>{h.rule_od}</span>
         </Field>
         <Field k="Runway 18 (model)">
           <span className={h.p_18_usable >= 0.5 ? "text-ok" : "text-bad"}>{h.p_18_usable >= 0.5 ? "usable" : "closed"}</span>{" "}
-          <span className="text-muted">{pct(h.p_18_usable)}</span>
+          <span className="text-[15px] text-muted">{pct(h.p_18_usable)}</span>
         </Field>
         <Field k="Runway 18 (rules)">
           <span className={h.rule_18_usable ? "text-ok" : "text-bad"}>{h.rule_18_usable ? "usable" : "closed"}</span>
@@ -28,15 +28,15 @@ export function HourDetail({ h }: { h: HourForecast }) {
         </Field>
         <Field k="Confidence">{h.certainty}%</Field>
         <Field k="Tailwind on 25">
-          <span className={h.tailwind_25_kt >= 10 ? "text-bad" : ""}>{h.tailwind_25_kt.toFixed(1)} kt</span>
-          <span className="text-muted"> (limit 10)</span>
+          <span className={h.tailwind_25_kt >= 10 ? "font-semibold" : ""}>{h.tailwind_25_kt.toFixed(1)} kt</span>
+          <span className="text-[15px] text-muted"> {h.tailwind_25_kt >= 10 ? "over limit 10" : "(limit 10)"}</span>
         </Field>
         <Field k="Tailwind on 18">
-          <span className={h.tailwind_18_kt >= 15 ? "text-bad" : ""}>{h.tailwind_18_kt.toFixed(1)} kt</span>
-          <span className="text-muted"> (limit 15)</span>
+          <span className={h.tailwind_18_kt >= 15 ? "font-semibold text-bad" : ""}>{h.tailwind_18_kt.toFixed(1)} kt</span>
+          <span className="text-[15px] text-muted"> {h.tailwind_18_kt >= 15 ? "over limit 15" : "(limit 15)"}</span>
         </Field>
       </div>
-      <p className={cx("mt-3 text-xs", agree ? "text-muted" : "text-warn")}>
+      <p className={cx("mt-5 text-[13px] leading-snug", agree ? "text-muted" : "rounded-[8px] border-[0.5px] border-ink px-3 py-2 text-ink")}>
         {agree ? "Model and official rules agree for this hour." : "Model and official rules disagree here. The model has learned from what was actually flown."}
       </p>
     </Panel>
@@ -46,7 +46,7 @@ export function HourDetail({ h }: { h: HourForecast }) {
 function Field({ k, children }: { k: string; children: React.ReactNode }) {
   return (
     <div>
-      <div className="text-xs text-muted">{k}</div>
+      <div className="mb-1 text-[12px] text-muted">{k}</div>
       <div className="tabular">{children}</div>
     </div>
   );

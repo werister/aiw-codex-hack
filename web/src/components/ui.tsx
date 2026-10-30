@@ -19,6 +19,7 @@ export function odSoft(od: OD) {
   return od === "25" ? "bg-west-soft" : "bg-east-soft";
 }
 
+// FraAlliance card: flat, 10 px radius, hairline edge, small uppercase label on top.
 export function Panel({
   title,
   aside,
@@ -31,15 +32,24 @@ export function Panel({
   className?: string;
 }) {
   return (
-    <section className={cx("rounded-xl border border-line bg-panel p-4", className)}>
+    <section className={cx("rounded-card border border-line bg-panel p-5 sm:p-6", className)}>
       {(title || aside) && (
-        <header className="mb-3 flex items-center justify-between gap-3">
-          {title && <h2 className="text-xs font-semibold uppercase tracking-wider text-muted">{title}</h2>}
+        <header className="mb-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+          {title && <h2 className="eyebrow text-ink">{title}</h2>}
           {aside}
         </header>
       )}
       {children}
     </section>
+  );
+}
+
+// Thin outline arrow in the style of their link arrows.
+export function Arrow({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 17 8" className={cx("h-2 w-[17px] shrink-0", className)} fill="none" aria-hidden>
+      <path d="M0 4h16M12.5 0.5 16 4l-3.5 3.5" stroke="currentColor" />
+    </svg>
   );
 }
 

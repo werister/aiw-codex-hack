@@ -8,7 +8,8 @@ import { NowPanel } from "./NowPanel";
 import { QualityPanel } from "./QualityPanel";
 import { RunwayMap } from "./RunwayMap";
 import { Timeline } from "./Timeline";
-import { Panel, cx, dayLabel, hhmm } from "./ui";
+import { ThemeToggle } from "./ThemeToggle";
+import { Arrow, Panel, cx, dayLabel, hhmm } from "./ui";
 
 type Option = { label: string; file: string };
 
@@ -70,45 +71,60 @@ export function ForecastApp() {
   }, [f]);
 
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-[1400px] flex-col gap-4 px-4 py-4 sm:px-6">
-      <header className="flex flex-wrap items-center gap-x-4 gap-y-2">
-        <div>
-          <h1 className="text-lg font-bold tracking-tight">Runway Outlook · Frankfurt</h1>
-          <div className="text-xs text-muted">Operating direction and runway 18, hour by hour, 48 h ahead</div>
+    <div className="mx-auto flex min-h-screen w-full min-w-0 max-w-[1440px] flex-col gap-2.5 overflow-x-clip px-4 pb-8 sm:px-5">
+      <header className="flex h-[72px] items-center gap-3">
+        <div className="flex min-w-0 items-baseline gap-3">
+          <span className="text-[19px] font-medium tracking-tight">Runway Outlook</span>
+          <span className="hidden truncate text-[15px] text-muted sm:inline">FraAlliance · Frankfurt Airport</span>
         </div>
-        <div className="ml-auto flex flex-wrap items-center gap-2 text-xs">
-          {f && (
-            <span
-              className={cx(
-                "rounded-full px-2.5 py-1 font-semibold",
-                f.mode === "live" ? "bg-ok-soft text-ok" : "bg-panel-2 text-ink-2",
-              )}
-            >
-              {f.mode === "live" ? "LIVE" : "HINDCAST"} · issued {dayLabel(f.issued_local)} {hhmm(f.issued_local)}
-            </span>
-          )}
-          <select
-            value={file ?? ""}
-            onChange={(e) => {
-              setFile(e.target.value);
-              setSel(0);
-            }}
-            className="rounded-lg border border-line bg-panel px-2 py-1.5 text-ink"
-            aria-label="Forecast day"
-          >
-            {options.map((o) => (
-              <option key={o.file} value={o.file}>
-                {o.label}
-              </option>
-            ))}
-          </select>
-          <Link href="/widget" className="rounded-lg border border-line px-2.5 py-1.5 text-ink-2 hover:text-ink">
-            iPad widget
+        <nav className="ml-auto flex items-center gap-2">
+          <ThemeToggle />
+          <Link href="/widget" className="pill-btn bg-accent text-accent-ink [--btn-ring:var(--accent)]">
+            iPad widget <Arrow />
           </Link>
-        </div>
+        </nav>
       </header>
 
-      {error && <p className="rounded-lg bg-bad-soft px-3 py-2 text-sm text-bad">This forecast file could not be loaded.</p>}
+      <section className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4 pb-4 pt-3 sm:pt-6">
+        <div>
+          <p className="eyebrow mb-3 text-ink">Frankfurt Airport · next 48 hours</p>
+          <h1 className="max-w-[22ch] text-[28px] font-light leading-[1.15] tracking-[-0.01em] sm:text-[40px]">
+            Operating direction and runway&nbsp;18, hour by hour.
+          </h1>
+        </div>
+        <div className="flex flex-wrap items-center gap-2">
+          {f && (
+            <span className="eyebrow inline-flex items-center gap-2 rounded-full border border-ink px-3.5 py-2.5 tabular">
+              <span className={cx("size-2 rounded-full", f.mode === "live" ? "bg-accent" : "border border-ink")} />
+              {f.mode === "live" ? "Live" : "Hindcast"} · issued {dayLabel(f.issued_local)} {hhmm(f.issued_local)}
+            </span>
+          )}
+          <label className="relative">
+            <span className="sr-only">Forecast day</span>
+            <select
+              value={file ?? ""}
+              onChange={(e) => {
+                setFile(e.target.value);
+                setSel(0);
+              }}
+              className="appearance-none rounded-[8px] border-[0.5px] border-ink bg-panel py-2 pl-4 pr-10 text-[15px] text-ink"
+            >
+              {options.map((o) => (
+                <option key={o.file} value={o.file}>
+                  {o.label}
+                </option>
+              ))}
+            </select>
+            <svg viewBox="0 0 12 8" className="pointer-events-none absolute right-4 top-1/2 h-2 w-3 -translate-y-1/2" fill="none" aria-hidden>
+              <path d="m1 1.5 5 5 5-5" stroke="currentColor" />
+            </svg>
+          </label>
+        </div>
+      </section>
+
+      {error && (
+        <p className="rounded-card border border-line bg-panel-2 px-4 py-3 text-[15px]">This forecast file could not be loaded.</p>
+      )}
 
       {f && h && (
         <>
@@ -117,7 +133,7 @@ export function ForecastApp() {
           <Panel
             title="Next 48 hours"
             aside={
-              <span className="text-xs text-muted">
+              <span className="text-[13px] text-muted">
                 {hits ? `Flown vs forecast: ${hits.ok}/${hits.n} hours right · ` : ""}click an hour for details
               </span>
             }
@@ -125,7 +141,7 @@ export function ForecastApp() {
             <Timeline f={f} selected={sel} onSelect={setSel} />
           </Panel>
 
-          <div className="grid gap-4 lg:grid-cols-[3fr_2fr]">
+          <div className="grid gap-2.5 lg:grid-cols-[3fr_2fr]">
             <Panel title={`Ops view at ${dayLabel(h.local)} ${hhmm(h.local)}`}>
               <RunwayMap
                 od={h.od}
@@ -140,10 +156,19 @@ export function ForecastApp() {
 
           <QualityPanel />
 
-          <footer className="pb-4 text-[11px] leading-relaxed text-muted">
-            Model {f.model_version} · rules {f.rules_version} · weather {f.nwp}. Sources: recorded operating directions from
-            DFLD.de, EDDF METAR from the Iowa Environmental Mesonet, weather-model forecasts from Open-Meteo, DWD Open Data.
-            Rules from the FraAlliance challenge brief. The ops view is a schematic simulation.
+          <footer className="mt-8 grid gap-4 border-t border-line pt-6 text-[13px] leading-relaxed text-muted md:grid-cols-[1fr_2fr]">
+            <div className="tabular">
+              Model {f.model_version}
+              <br />
+              Rules {f.rules_version}
+              <br />
+              Weather {f.nwp}
+            </div>
+            <p>
+              Sources: recorded operating directions from DFLD.de, EDDF METAR from the Iowa Environmental Mesonet, weather-model
+              forecasts from Open-Meteo, DWD Open Data. Rules from the FraAlliance challenge brief. The ops view is a schematic
+              simulation.
+            </p>
           </footer>
         </>
       )}
