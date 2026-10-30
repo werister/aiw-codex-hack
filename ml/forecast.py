@@ -188,7 +188,7 @@ def observed_overlay(issue, history):
     return output
 
 
-def build_forecast(day=None, *, now=None):
+def build_forecast(day=None, *, now=None, include_observed=True):
     issue, mode, now = issue_time(day, now=now)
     cutoff = min(issue, now.floor("h"))
     obs = live.metar_until(cutoff)
@@ -218,9 +218,57 @@ def build_forecast(day=None, *, now=None):
               "next_change": next_change(hours, current_od), "closures_18": closures(hours)}
     if note:
         result["note"] = note
-    if mode == "hindcast":
+    if mode == "hindcast" and include_observed:
         result["observed"] = observed_overlay(issue, history)
     return result
+
+
+def score_forecasts(start, end):
+    """Score midnight local issues on matched DFLD hours, without future inputs."""
+    if start > end:
+        raise ValueError("--from must be on or before --to")
+    today = datetime.now(tz=BERLIN).date()
+    if end >= today:
+        raise ValueError("Scoring requires past issue days")
+    truth = live.recorded_history().set_index("time").od
+    totals = {label: {"model": 0, "rules": 0, "persistence": 0, "n": 0}
+              for label in ("1-6", "7-24", "25-48")}
+    days = 0
+    for day in pd.date_range(start, end, freq="D"):
+        result = build_forecast(day.date(), include_observed=False)
+        if "fallback" in result["model_version"]:
+            raise ValueError(f"Cannot score {day.date()}: trained model unavailable")
+        matched = 0
+        for hour in result["hours"]:
+            observed = truth.get(pd.Timestamp(hour["time"]))
+            if observed not in ("25", "07"):
+                continue
+            label = "1-6" if hour["lead_h"] <= 6 else "7-24" if hour["lead_h"] <= 24 else "25-48"
+            bucket = totals[label]
+            bucket["model"] += int(hour["od"] == observed)
+            bucket["rules"] += int(hour["rule_od"] == observed)
+            bucket["persistence"] += int(result["current_od"] == observed)
+            bucket["n"] += 1
+            matched += 1
+        if not matched:
+            raise ValueError(f"No recorded DFLD hours for issue day {day.date()}")
+        days += 1
+    rows = []
+    for lead, counts in totals.items():
+        if not counts["n"]:
+            raise ValueError(f"No recorded DFLD hours for leads {lead}")
+        rows.append({"lead": lead, **{name: counts[name] / counts["n"]
+                                     for name in ("model", "rules", "persistence")}, "n": counts["n"]})
+    return {"days": days, "rows": rows}
+
+
+def print_score(result):
+    print(f"Hourly OD hit rate against recorded DFLD | {result['days']} daily issues at 00:00 Europe/Berlin")
+    print("Leads | model | rules | persistence | matched hours")
+    for row in result["rows"]:
+        print(f"{row['lead']:>5} | {row['model']:6.1%} | {row['rules']:6.1%} | "
+              f"{row['persistence']:11.1%} | {row['n']}")
+    print("Only recorded target hours are scored; overlapping daily forecast windows count separately.")
 
 
 def print_table(result):
@@ -249,16 +297,29 @@ def main(argv=None):
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--day", type=date.fromisoformat)
     group.add_argument("--now", action="store_true")
+    group.add_argument("--score", action="store_true")
+    parser.add_argument("--from", type=date.fromisoformat, dest="start")
+    parser.add_argument("--to", type=date.fromisoformat, dest="end")
     parser.add_argument("--json", action="store_true", dest="as_json")
     parser.add_argument("--out", type=Path)
     args = parser.parse_args(argv)
+    if args.score and (args.start is None or args.end is None):
+        parser.error("--score requires --from and --to")
+    if not args.score and (args.start is not None or args.end is not None):
+        parser.error("--from and --to require --score")
     try:
-        result = build_forecast(args.day)
+        result = score_forecasts(args.start, args.end) if args.score else build_forecast(args.day)
         payload = json.dumps(result, indent=2, allow_nan=False) + "\n"
-        if args.out:
-            args.out.parent.mkdir(parents=True, exist_ok=True)
-            args.out.write_text(payload, encoding="utf-8")
-        print(payload, end="") if args.as_json else print_table(result)
+        destination = args.out or (live.ROOT / "web/public/data/october.json" if args.score else None)
+        if destination:
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            destination.write_text(payload, encoding="utf-8")
+        if args.as_json:
+            print(payload, end="")
+        elif args.score:
+            print_score(result)
+        else:
+            print_table(result)
     except (ValueError, KeyError, OSError, requests.RequestException) as error:
         print(f"Forecast unavailable: {error}", file=sys.stderr)
         return 1
