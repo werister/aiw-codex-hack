@@ -1,4 +1,4 @@
-# Submission · Liftoff (FraAlliance challenge)
+# Submission · Lift-off (FraAlliance challenge)
 
 **Team:** Jayden Bruck, Kai Detmers, Hugo Hader, Luca Schultz
 **Repo:** [Source code](https://github.com/werister/aiw-codex-hack)
@@ -13,7 +13,7 @@
 A 48-hour, hour-by-hour forecast of Frankfurt's operating direction (25 or 07) and runway-18 weather usability, with probabilities, a certainty score and the next likely change, trained on publicly recorded operating directions and observed weather.
 
 ## What it does
-For each of the next 48 hours, Liftoff predicts:
+For each of the next 48 hours, Lift-off predicts:
 
 - the probability that the airport operates west (25) or east (07)
 - the probability that runway 18 is usable for departures under the weather rules

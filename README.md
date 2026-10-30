@@ -93,7 +93,7 @@ Published so far: `web/public/forecasts/index.json`. Fallback if no dates arrive
 1. Open the web app: the next 48 h, with OD per hour, runway 18, certainty and the next change.
 2. Switch to a jury test day and show the forecast against the directions actually flown (DFLD records).
 3. Open the backtest: skill at 1, 6 and 24 h against the rule baseline and persistence.
-4. Show `MODEL_CARD.md`.
+4. Show the one-page model card (`MODEL_CARD_ONE_PAGE.md`, PDF in `output/pdf/liftoff-model-card.pdf`); the technical detail is in `MODEL_CARD.md`.
 
 ## Data
 

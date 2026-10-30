@@ -4,7 +4,7 @@
 
 Open problems across main, branches and worktrees. One line each: time (Berlin) | severity | what is wrong | where | who acts. `STOP` breaks main or makes the submission wrong, `FIX` should be fixed before 16:00, `FYI` is worth knowing. Delete a line once it is fixed. Rules: "Cross-checking" in `AGENTS.md`.
 
-Main at 15:20 runs: `python -m pytest ml/tests -q` gives 103 passed. The served model is `walk-forward-v6`, and the model card, pitch and submission quote the same numbers (95.7 / 92.7 / 91.8 / 88.9% at 1/6/24/48 h).
+Main at 15:40: tests passed at 15:20 (103). The one-page model card (`MODEL_CARD_ONE_PAGE.md`, PDF in `output/pdf/`) and `MODEL_CARD.md` quote the same numbers.
 
 ## STOP
 
@@ -16,13 +16,12 @@ Main at 15:20 runs: `python -m pytest ml/tests -q` gives 103 passed. The served 
 - 13:55 | FIX | The live URL is in `SUBMISSION.md` and README (1a2f59f), but README says the site is private until sharing is switched on. The jury can't open it until then | `SUBMISSION.md:5`, README | Jayden: switch sharing on before 16:00 and check it in a private window
 - 15:20 | FIX | `weather database/` is still 76 MB with 29 third-party PDFs. 1a78f00 dropped only the text extracts | `weather database/` | Luca and head agent: keep the PDFs on `luca/weather-database`
 - 14:15 | FIX | Kai's 14:04 push added `assets/` (42 MB of 3D files) and `resources/` (21.6 MB): a second data pipeline (`resources/ml-support/forecast/fetch_forecast_data.py`, `observations/fetch_verify.py`, a 6 MB METAR CSV, Kaggle checks) that duplicates `ml/fetch.py` and `data/`, old copies of `forecast-types.ts` and `hk-model.md` in `resources/ml-support/reference/`, and Condor research for a different challenge | `resources/`, `assets/` | Kai: drop the duplicates, keep only what the app loads
-- 14:50 | FIX | Two spellings of the product name: the app says "Lift-off" (`web/src/app/layout.tsx`, `widget/page.tsx`, `approach/page.tsx`, `BrandLogo.tsx`, from 1355f91), while the deck, `PITCH.md` and `SUBMISSION.md` say "Liftoff" | `web/src/`, `web/public/deck/index.html`, `PITCH.md`, `SUBMISSION.md` | head agent and Kai: pick one
 - 15:15 | FIX | Seven 3D files are committed two or three times with identical content: `assets/airport/exports/*.glb` again in `web/public/deck/models/` and `web/public/models/airport/` (`aircraft-widebody.glb` three times, `airport-environment.glb` 12 MB twice). Tracked files are now 207 MB on a disk with about 6 GB free | `assets/airport/exports/`, `web/public/deck/models/`, `web/public/models/airport/` | Kai and head agent: serve one copy
 
 ## FYI
 
+- 15:40 | FYI | Main has a merge commit, 4c6c114 ("Merge red-team evidence"), against the linear-history rule in AGENTS.md. Leave it: removing it would mean rewriting main | main | team, after the event
 - 15:20 | FYI | Jury days: the fallback forecasts `2026-10-31.json` and `2026-11-01.json` are on main (4fa213f); the real dates are still pending from FraAlliance | `web/public/forecasts/` | Jayden or Hugo
-- 15:20 | FYI | `web/public/forecasts/__airport_qa.json` is a 3D test fixture ("TEST FIXTURE") in the public forecasts folder, so the live site serves it. It is not in `index.json` | `web/public/forecasts/` | Kai: move it out of `public/`
 - 15:12 | FYI | A future-day forecast holds only that day's 24 hours, while the timeline draws a fixed 48-column grid (`Timeline.tsx:193`), so jury-day views render half empty | `web/src/components/Timeline.tsx` | web owner
 - 14:15 | FYI | The static deck moved to `web/public/deck/` (3beb4b5), so `/pitch` is Kai's React route only. Check README and `PITCH.md` link the deck you present from. Hugo's static prototype `web/prototypes/dfs-forecast/` is also on main | `web/public/deck/`, `web/src/app/pitch/`, README | head agent, Hugo
 - 15:31 | FYI | Deck source attribution committed as 996fc33: data slide links Open-Meteo live/Previous Runs, IEM EDDF METAR, DFLD and CC BY 4.0; slide and notes exclude Windy from forecasts/training/evaluation. Current 13-slide data view and link keyboard access checked in browser; two inline scripts pass node --check. Preserve source block/styles/keyboard guard and source-note paragraphs during the concurrent deck refresh. Publication awaits shared integration (main ahead 4, behind 1 at check); no rebase of active edits | web/public/deck/index.html, NOTES.md | deck and integration lanes
