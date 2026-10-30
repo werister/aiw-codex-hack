@@ -89,7 +89,6 @@ export interface ForecastResponse {
   closures_18: Closure18[];
   observed?: { time: string; od: OD; r18_usable: boolean }[]; // hindcast only: what the rules say happened
   evidence?: ForecastEvidence; // absent in files written before evidence capture
-  briefing?: string | null; // optional plain-language summary for tower staff
 }
 
 export interface SkillAtLead {
