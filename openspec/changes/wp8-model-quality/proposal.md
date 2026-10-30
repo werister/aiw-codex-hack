@@ -8,7 +8,7 @@ The team and the jury want to see how good the model is and on what it was train
 
 ## What Changes
 
-- `web/src/data/quality.json` holds the training and test periods, the data used, and the walk-forward folds. It also has per-lead accuracy and Brier score for the model, the rules and persistence, in-sample vs out-of-sample.
+- `web/public/data/quality.json` holds the training and test periods, the data used, and the walk-forward folds. It also has per-lead accuracy and Brier score for the model, the rules and persistence, in-sample vs out-of-sample.
 - A reliability (calibration) table, so the confidence score can be checked: when we say 80%, are we right about 80% of the time?
 - How often the next-change time lands within ±1 h and ±3 h.
 

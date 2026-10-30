@@ -61,6 +61,10 @@ export interface SkillAtLead {
   model_brier: number;
   rule_brier: number;
   persistence_brier: number;
+  model_change_acc?: number; // accuracy on the hours where the OD changed within the lead window
+  rule_change_acc?: number;
+  persistence_change_acc?: number;
+  change_n?: number;
 }
 
 export interface BacktestResult {
@@ -72,4 +76,28 @@ export interface BacktestResult {
   od: SkillAtLead[];
   r18: SkillAtLead[];
   drivers: { feature: string; importance: number }[]; // top features, for the model card
+}
+
+// web/public/data/quality.json, written by ml/quality.py (schema documented in ml/README.md).
+// Only the fields the UI reads are typed here.
+export interface ReliabilityBin {
+  lower: number;
+  upper: number;
+  n: number;
+  mean_predicted: number | null;
+  observed_frequency: number | null;
+}
+
+export interface QualityResult {
+  schema_version: number;
+  evaluation: string; // "expanding monthly walk-forward"
+  r18_label_type: string; // "inferred"
+  folds: { month: string; train_n: number; test_n: number }[];
+  in_sample: { od: SkillAtLead[]; r18: SkillAtLead[] };
+  out_of_sample: { od: SkillAtLead[]; r18: SkillAtLead[] };
+  reliability: { od: ReliabilityBin[]; r18?: ReliabilityBin[] };
+  next_change: { within_1h: number; within_3h: number; false_alarm_rate: number; n_actual_change_windows: number };
+  rule_label_comparison: { n: number; agreement: number };
+  data_sources: { name: string; url: string; file?: string }[];
+  limitations: string[];
 }
