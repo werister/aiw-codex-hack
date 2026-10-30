@@ -1,6 +1,6 @@
 // Shared FRA runway scene, used by the pitch deck and the dashboard hero.
 //
-//   import { mount } from "/pitch/scene.js";
+//   import { mount } from "/deck/scene.js";
 //   const fra = mount(element, { od: "25", r18Open: true });
 //   fra.setState({ od: "07", r18Open: false, wind: { dir: 20, kt: 18 } });
 //

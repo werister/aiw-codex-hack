@@ -1,6 +1,6 @@
 """Copy the deck's results snapshot from web/public/data/quality.json into index.html.
 
-Run from the repo root: python web/public/pitch/snapshot.py
+Run from the repo root: python web/public/deck/snapshot.py
 """
 import json
 import pathlib
