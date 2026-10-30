@@ -23,7 +23,7 @@ This is the live dashboard, running inside the slide. The top line is the planni
 Every column is a day, every row an hour, eight years of directions actually flown at Frankfurt: blue is west, berry is east. That's what we learn from and what we test against, all public data, independently verified by Kai.
 
 ## 5 · The model · 1:25–1:45
-This is one real tree from our model, the first three levels in plain words. It starts with the direction flown now and the forecast wind on each runway, the same things a shift lead looks at, but it weighs them across eighty trees and every hour.
+This is one real tree from our model, the first three levels in plain words. Its first question is the forecast tailwind on runway 25, averaged over three weather models; its second is what the official rules would say. The model weighs eighty trees like this one for every hour.
 
 ## 6 · A day in practice · 1:45–2:15
 A real day, 28 to 29 October. The line is our model's chance of west, the thin step is the official rules, the strip below is what was actually flown. The switch came at 10:00 on the 29th: with this, the shift lead plans staff and equipment for it a day ahead instead of reacting on the spot.
