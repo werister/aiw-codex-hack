@@ -32,6 +32,12 @@ The model learns from public data: EDDF METAR, archived weather-model forecasts 
 
 Official brief: `frankfurt-airport-operating-direction-forecast.md`. Background: `CHALLENGE_FRAALLIANCE.md`, `briefing/`.
 
+### Product direction: fleet-wide planning
+
+The full product helps the tower controller / shift supervisor plan across airport traffic: anticipate direction changes and runway-18 restrictions, identify exposed arrival/departure periods, and make uncertainty visible early enough to prepare. The current model already predicts airport-wide runway conditions; the next layer connects those predictions to flight demand and downstream disruption. A single-flight example is only a demo entry point.
+
+**Team handoff: [Fleet-wide planning, required data and model outputs](briefing/fleet-planning.md).** This records the intended recommendation view, expandable visual evidence, model-validation handoff, and the additional flight data needed. It is product direction, not a claim that fleet-impact prediction is implemented or that the weather database contains Frankfurt flight schedules.
+
 ## Stack
 
 - `ml/`: Python 3.13, pandas, scikit-learn. Data download, labels, model, backtest and the forecast CLI.
