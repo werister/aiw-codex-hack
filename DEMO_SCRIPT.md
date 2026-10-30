@@ -1,35 +1,33 @@
-# Demo script · 2 minutes · Hugo presents, Luca is backup
+# Live demo · 60 to 90 seconds inside the finals talk
 
-**Before you go on:** open the live URL in Chrome, zoom to 110%, and close other tabs. Have `MODEL_CARD.md` open in a second tab. If the venue Wi-Fi fails, run it locally: `cd web && npm install && npm run build && npx next start`, then open http://localhost:3000.
+The talk itself runs on the slides at `/deck/` (script and timings: `web/public/deck/NOTES.md`). This is only the live part, on the dashboard at `/`.
 
-## 0:00 · The recommendation (20 s)
+**Before you go on:**
+- Open the site in Chrome and zoom to 110%.
+- Have `/deck/` in a second tab.
+- If the venue Wi-Fi fails, run it locally: `python -m http.server 8000 -d web/public` gives the slides, or `cd web && npm install && npm run build && npx next start` gives the full app.
+- Backup video: `assets/airport/previews/airport-demo.mp4`.
+
+## 1 · Today (20 s)
 The page opens on the latest forecast.
-> "This is what the shift supervisor sees first: one recommendation. Here it says prepare for a switch to 07 East, with the time window and how likely it is. It's a planning aid. DFS still decides."
+> "This is what someone in the tower sees. One sentence: which way planes are landing right now and how sure we are. Below it, whether runway 18 is open, and when the next change is likely."
 
-Point at the issue line under the header: issue time, model version, rules version.
+Point at the 3D airport: the arrows show arrivals and departures in the forecast direction.
 
-## 0:20 · The three answers (15 s)
-> "Below it, three answers you can read from two metres away: the direction now, whether runway 18 is open, and when the next change comes."
+## 2 · A real past day (30 s)
+Top right, open the day picker and choose **Wed 28 Oct (past day)**.
+> "This is a day that already happened, forecast at midnight with only what we knew then. The bar shows the next two days: blue is west, magenta is east. The change to east came early the next morning, and the forecast saw it coming, at 51%. It said it wasn't sure, and when it isn't sure, it tells you."
 
-## 0:35 · The 48 hours (25 s)
-Pick **Wed 28 Oct (hindcast)** in the day picker (top right).
-> "This is a past day, forecast exactly as it would have been at midnight, with only what was known then. Each column is one hour. Blue is west, magenta is east, green is runway 18 open. The bottom row is what was actually flown, from DFLD's records. Pale cells mean less sure."
+Click **Replay** on the 3D view to show the switch.
 
-Point at the yellow line: the predicted change, and where the recorded switch happened.
+## 3 · How good is it (20 s)
+Scroll down to the large numbers.
+> "Tested on twelve months it never saw. From six hours ahead it beats FraAlliance's own rules by four to five points, and keeping the current direction by up to twenty-five."
 
-## 1:00 · Why (20 s)
-Click the hour just before the change. Then click **Show evidence**.
-> "Every forecast can explain itself: the wind for that hour, the tailwind on each runway against its limit, what the official rules say, and what the model says."
-
-## 1:20 · Is it any good? (25 s)
-Scroll to **Model quality**.
-> "Tested on twelve months the model never saw. From 6 hours ahead it beats FraAlliance's own rules by 4 to 5 points and keeping the current direction by up to 25, and that's statistically significant. At 48 hours it's 89% against 84% and 64%. When it says 85%, it happens 85% of the time, and when it's unsure, it says so."
-
-## 1:45 · Close (15 s)
-Click **iPad widget** (top right).
-> "The same answers on an iPad for apron and ground staff. Built today on public data, and ready to pilot next to the shift supervisor."
+## 4 · For the experts, if asked (10 s)
+Open **For experts** at the bottom: the inputs for any hour, the official rules next to the model, and the held-out test results.
 
 ## If something breaks
-- The page is blank: open `/?day=2026-10-28` directly.
-- No internet: use the local build above. All forecast files are in `web/public/forecasts/`.
-- Asked about runway 18: "Its closures are rare, about 0.2% of hours, and there is no public record of weather closures, so its label is inferred from the official 15 kt rule. That's what a pilot with DFS data would fix."
+- **Blank page:** reload, or open `/?day=2026-10-28`.
+- **No internet:** use the local options above. Every forecast file is in `web/public/forecasts/`.
+- **"What about runway 18?":** "It closes in about 0.2% of hours, and there's no public record of closures. With public data it isn't predictable beyond keeping the current state, and we say so on the model card. A pilot with DFS wind-sensor data is the next step."
