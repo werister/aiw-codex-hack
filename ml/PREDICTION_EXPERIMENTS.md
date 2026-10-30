@@ -1,6 +1,6 @@
 # Was bringt eine andere Art der Vorhersage?
 
-**Ergebnis vom 30. Oktober 2026: Beide bisher abgeschlossenen Kandidaten verfehlen
+**Ergebnis vom 30. Oktober 2026: Alle drei Kandidaten verfehlen
 unsere Verbesserungskriterien. Die laufende Prognose bleibt bei v6.**
 Wir haben die Alternativen implementiert und gemessen. Ein anderer Modellansatz
 allein ist noch kein Fortschritt.
@@ -74,6 +74,36 @@ historischer Abdeckung. Daher sind jeweils nur die beiden Werte **innerhalb**
 einer Vergleichszeile unmittelbar vergleichbar. Die Stundenmetriken verwenden
 in beiden Versuchen dieselbe zeitliche Grenze.
 
+## Dritter Versuch: den ersten Wechsel direkt lernen
+
+Dieses Modell fragt ausdrücklich: „Hat bis zu dieser Stunde mindestens ein
+Wechsel stattgefunden?“ Seine Wahrscheinlichkeit darf mit längerem Vorlauf nur
+steigen. Eine feste Korrektur entfernt fallende Abschnitte; ab 50 % gilt ein
+Wechsel als vorhergesagt. Das ist eine Wahrscheinlichkeit für ein Ereignis,
+**keine Wahrscheinlichkeit für Richtung 25**.
+
+Der Unterschied ist in unseren Daten relevant: In 894 vollständigen historischen
+Prognosefenstern gab es mindestens zwei Wechsel, bevor wieder dieselbe Richtung
+galt. Diese Fenster zählen weiterhin als „Wechsel vorhanden“. Die Zielbildung
+wurde mit einem solchen Beispiel geprüft. Unvollständige Halb-Stunden-Historien
+bleiben unbeschriftet. Weil die Aufnahme eines Beispiels die gesamten 48 Stunden
+voraussetzt, gelten alle zugehörigen Zielwerte erst nach 49 Stunden als verfügbar;
+die Trainings- und Validierungsgrenzen berücksichtigen das.
+
+Auf 467 vollständigen Testfenstern erkennt v6 44 von 67 tatsächlichen Wechseln.
+Der dritte Kandidat erkennt ebenfalls 44. Seine falschen Warnungsgruppen steigen
+jedoch von 50 auf 138; je abgedecktem Tag von 0,416 auf 1,148. Die Trefferrate
+innerhalb von drei Stunden in Fenstern mit einem Wechsel sinkt von 55,4 % auf
+45,0 %. Auch diesen Kandidaten übernehmen wir deshalb nicht.
+
+Bei 6, 24 und 48 Stunden hat seine Ereigniswahrscheinlichkeit einen geringeren
+Brier-Fehler als die konstante, nur aus dem jeweiligen Training berechnete
+Wechselhäufigkeit. Bei 24 Stunden sind es 0,122 gegenüber 0,230. Das zeigt ein
+lernbares Signal gegenüber dieser einfachen Referenz. Es beweist keine bessere
+Richtungsprognose gegenüber v6: Dessen Wahrscheinlichkeiten beantworten eine
+andere Frage und wurden nicht als Ereigniswahrscheinlichkeiten ausgegeben.
+Die gemessene Warnfunktion mit fester 50-Prozent-Schwelle ist deutlich schlechter.
+
 ## Was diese Ergebnisse nicht beweisen
 
 Juli bis Oktober wurden bereits während der Entwicklung von v6 betrachtet.
@@ -83,10 +113,10 @@ abhängig. Kleine Unterschiede sind kein nachgewiesener allgemeiner Vorteil.
 Die Zielrichtung stammt aus einer öffentlichen Betriebsaufzeichnung; die
 Einschränkungen stehen im [Modellbericht](../MODEL_CARD.md).
 
-Die geänderte Lernaufgabe zeigt insbesondere nicht, dass eine echte Vorhersage
-des **ersten** Wechselzeitpunkts unmöglich wäre. Sie untersucht nur, ob die
-Zielrichtung anders ist. Ein eigener Versuch für das erste Ereignis muss auch
-zwei Wechsel sowie fehlende historische Abschnitte korrekt behandeln.
+Diese Versuche zeigen nicht, dass alle Modelle für den ersten Wechsel schlechter
+sein müssen. Sie prüfen drei konkrete Varianten mit den vorhandenen Daten.
+Andere Zielmodelle oder Schwellen brauchen wieder eine frühere Validierung und
+einen späteren, bis dahin unberührten Testzeitraum.
 
 ## Was wir aus anderen Projekten übernehmen können
 
@@ -140,3 +170,14 @@ dieselben Punkt- und Ereigniswerte. Das ist ein Paritätscheck für diesen Lauf;
 die vollständigen Vier-Monats-Werte oben stammen aus den ursprünglichen
 Versuchsläufen. Ein selbst mitgebrachter Cache ohne geprüfte Referenz wird im
 Bericht ausdrücklich als ungeprüfte Eingabe markiert.
+
+
+Der dritte Versuch ist ebenfalls getrennt ausführbar:
+
+```bash
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 python -m ml.first_event_experiment \
+  --out /tmp/runway-first-event
+```
+
+Er erzeugt einen eigenen Bericht und speichert die Prognosezeilen. Er ersetzt
+weder die stündliche Richtungsvorhersage noch die angezeigte Wechselwarnung.

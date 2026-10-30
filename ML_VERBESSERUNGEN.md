@@ -93,6 +93,6 @@ Entwicklungsentscheidungen beeinflusst. Ein späterer, bisher unberührter Zeitr
 bleibt deshalb der nächste wichtige Praxistest.
 
 
-Zwei zusätzlich trainierte Modellideen und ihre Grenzen sind im
+Drei zusätzlich trainierte Modellideen und ihre Grenzen sind im
 [Vergleich der Prognoseansätze](ml/PREDICTION_EXPERIMENTS.md) erklärt. Die
 Messwerte rechtfertigen bisher keinen Austausch des bestehenden Modells.

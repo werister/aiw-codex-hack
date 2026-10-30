@@ -9,6 +9,7 @@ The interaction checks below were run against the browser development app; CDP s
 - Browser UI selection exercised all four model states: OD 25/07 × Runway 18 open/closed. The renderer reported the matching `data-od`, `data-center-runway` and `data-flex-runway` values; the flexible departure uses Runway 18 when open and the selected centre runway when closed.
 - A deliberately conflicting fixture set `rule_od` and `rule_18_usable` opposite to the model. The scene followed the model fields.
 - On the real 2026-10-02 forecast, selecting 08:00 changed OD 25 to 07 and updated the selected-time and Runway 18 probability caption.
+- The `/widget` view also loaded the same scene at 542 × 330 pixels; its 08:00 event button updated the model direction to 07 and the caption to the selected hour.
 - Pause and replay controls worked. WebGL antialiasing reported `true`; the scene rendered at 118 draw calls and about 120 fps without concurrent Blender work. Frame rate was lower while Blender was rendering, so these are device observations, not a general performance guarantee.
 - The 1280 × 720 browser capture is [25-closed-test.png](previews/web-verification/25-closed-test.png). Nine anti-aliased native Blender preview images are in [previews](previews/). Offline route checks are recorded in [runtime-verification.json](runtime-verification.json).
 - With `prefers-reduced-motion: reduce` enabled before reload, the scene reached `ready` paused and exposed Play; activating Play changed the renderer's paused state to false.
