@@ -6,10 +6,13 @@ Main at 12:30 runs: `python -m pytest ml/tests -q` gives 27 passed, `python -m m
 
 ## STOP
 
+- 12:17 | STOP | Rule baseline drops the mild-tailwind timer known at issue time: 5 kt tailwind at T-20m and T with OD25 still predicts OD25 at T+1h instead of OD07; reproduced against the same state machine with the known timer | `ml/features.py:129-132`; the fallback in `ml/forecast.py` also starts with forecast rows only | model and cli owners: carry the observed hysteresis state into the forecast
 - 12:16 | STOP | Backtest leak at the 24 h headline lead. `_previous_day1` is used up to lead 24 and `_previous_day2` up to lead 48, and availability is taken as `time - offset` with no publication lag. Leads of about 19-24 h and 43-48 h can see model runs that were not out at issue time | `ml/features.py:61-65,79`, same in `ml/live.py` | model owner: switch to day2 from about lead 18, or state the limit in the model card In progress: hk-model2.
 
 ## FIX
 
+- 12:17 | FIX | Archived offset inputs bypass explicit `issued_at`/`retrieved_at` filtering: a fixture issued at T+2h is accepted for all 48 forecast rows at T despite the function contract | `ml/features.py:43-58` | model owner: enforce explicit availability metadata on archived inputs too
+- 12:17 | FIX | Changing forecast days can display the previous day's data under the new selection: an older slow fetch can overwrite the current response; the effect has no cancellation or request identity check | `web/src/components/ForecastApp.tsx:46-55` | web owner: discard superseded responses and clear stale loading/error state
 - 12:16 | FIX | `MODEL_CARD.md` does not exist. It is a required deliverable, and the demo path in README and AGENTS.md points to it | repo root | Hugo, Luca (wp6)
 - 12:16 | FIX | The jury test days are not written down anywhere, so nobody can generate them | `openspec/changes/wp4-forecast-cli/tasks.md` 2.3 | Jayden or Hugo: put the dates in README
 - 12:16 | FIX | Open-Meteo 10 m wind at the airport grid cell averages 0.59x the METAR wind (3.97 vs 6.95 kt). On it, the rules never close runway 18 (0.0% of hours vs 0.21% in METAR), so the rules fallback and the rule baseline understate closures | rule features in `ml/features.py`, `ml/forecast.py:68-84` | model owner: bias-correct or use `wind_speed_80m`
