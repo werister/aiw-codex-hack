@@ -1,0 +1,3382 @@
+
+
+===== PDF PAGE 1 / 46 =====
+
+NLR-TP-2001-217 
+
+Safety a Safety a Safety a Safety aspects of aircraft operations i spects of aircraft operations i spects of aircraft operations i spects of aircraft operations in n n n
+
+crosswind crosswind crosswind crosswind 
+
+G.W.H. van Es, P.J. van der Geest and T. M.H. Nieuwpoort 
+
+===== PDF PAGE 2 / 46 =====
+
+Nationaal Nationaal Nationaal Nationaal Lucht- en Ruimtevaartlaboratorium Lucht- en Ruimtevaartlaboratorium Lucht- en Ruimtevaartlaboratorium Lucht- en Ruimtevaartlaboratorium 
+
+National Aerospace Laboratory NLR
+
+NLR-TP-2001-217 
+
+Safety aspects of aircraft operations in Safety aspects of aircraft operations in Safety aspects of aircraft operations in Safety aspects of aircraft operations in
+
+crosswind crosswind crosswind crosswind 
+
+G.W.H. van Es, P.J. van der Geest and T. M.H. Nieuwpoort 
+
+This report is based on a presentation held at the Flight Safety Foundation FSF, 11th
+
+Annual European Aviation Safety Seminar, Amsterdam on March 8-10, 1999.
+
+The presented study was conducted for the Dutch Ministry of Transportation, Public
+
+Works and Water Management.
+
+The contents of this report may be cited on condition that full credit is given to NLR and
+
+the authors.
+
+Division:   Air Transport
+
+Issued:   May 2001
+
+Classification of title:   Unclassified 
+
+===== PDF PAGE 3 / 46 =====
+
+-3-
+
+NLR-TP-2001-217 
+
+Summary 
+
+In the next decades, airline operations will continue to grow. It is expected that the number of
+
+departures will almost double by 2016. This increase in departures requires an increase of the
+
+capacity of many airports worldwide. An important aspect, which affects the potential growth of
+
+airport capacity, as well as the optimal layout of new airports, is the crosswind limit imposed on
+
+runway availability.
+
+In order to assess the safety margins inherent to current operational crosswind limitations, and
+
+to get an impression of the impact on safety margins, if crosswind limitations would be relaxed,
+
+this reports gives a broad overview of all safety aspects related to operations in crosswind
+
+conditions.
+
+The report presents first some background on the flight mechanics involved in crosswind
+
+operations. Further the wind climate around airports, as well as the measurement and reporting
+
+procedures of wind conditions are discussed.
+
+Next an inventory is given of certification rules and operational guidelines for crosswind
+
+operations. Results of a survey among a large number of operators, concerning applied
+
+operational limitations for the aircraft types in use are presented. Also current crosswind
+
+limitations used by particular airports for runway assignment are provided.
+
+Subsequently an analysis of historical accident and incident data is presented, focusing on
+
+quantification of the risk associated with crosswind operations.
+
+Finally, based on the results of this report, a number of conclusions and recommendations are
+
+given.
+
+One of the main conclusions drawn, is that crosswind operations in general are surrounded with
+
+substantial uncertainty, warranting substantial margins relative to theoretical limitations when
+
+operating in crosswind conditions.
+
+Supported by statistical analysis of historical data it is concluded, that general crosswind
+
+limitation recommended by ICAO (15 Kt. incl. gust), cannot be relaxed without compromising
+
+safety unless additional measures are taken. 
+
+===== PDF PAGE 4 / 46 =====
+
+-4-
+
+NLR-TP-2001-217 
+
+Contents
+
+1   Introduction   5
+
+2   Background on flight mechanics of crosswind operations   6 
+
+2.1   Airborne part   6
+
+2.2   Ground roll part   8 
+
+3   Wind climate and measurement of wind conditions   10 
+
+3.1   Factors affecting the wind speed around an airport   10
+
+3.2   Observing and reporting of surface wind   10
+
+3.2.1   ICAO ANNEX 3 recommendations   10
+
+3.2.2   Weather reports   11
+
+3.3   Mean wind speed and gust   12
+
+3.4   Sources for uncertainty in wind reports   14 
+
+4   Inventory of certification rules and operational guidelines   18 
+
+4.1   Certification rules   18
+
+4.2   Crosswind demonstration according to FAA AC 25-7A   20
+
+4.3   Use of crosswind limitations by operators   22
+
+4.4   Use of crosswind criteria for runway selection by airports   25
+
+4.5   Use of crosswinds in relation to the design of an airport   31 
+
+5   Analysis of historical accident and incident data   32 
+
+5.1   Definitions   32
+
+5.2   Accident data sources   32
+
+5.3   Accident selection criteria   33
+
+5.4   Exposure data   33
+
+5.5   Discussion and results   33 
+
+6   Conclusions and recommendations   42 
+
+6.1   Conclusions   42
+
+6.2   Recommendations   43 
+
+7   References   45
+
+8   Acknowledgements   46 
+
+(46 pages in total) 
+
+===== PDF PAGE 5 / 46 =====
+
+-5-
+
+NLR-TP-2001-217 
+
+1   Introduction 
+
+In the next decades, airline operations will continue to grow. It is expected that the number of
+
+departures will almost double by 2015. This increase in departures requires an increase of the
+
+capacity of many airports worldwide. An important aspect, which affects the potential growth of
+
+airport capacity, as well as the optimal layout of new airports, is the use of the maximum
+
+crosswind criteria for runway selection and itís effect on runway availability. It is therefore
+
+opportune to raise the question whether it is possible to increase maximum crosswind values for
+
+runway selection without compromising safety.
+
+In about 10% off all accidents weather is identified as a causal factor 
+1 
+. These weather related
+
+aviation accidents are most often caused by wind (Ref. 1). A literature review showed that there
+
+are no studies available which systematically analyse these safety aspects. The present study
+
+will focus on the safety aspects of takeoff and landing operations in crosswind.
+
+The objective of this current study is to explore the safety aspects of aircraft operations in
+
+crosswinds. Wind reporting practice, certification aspects, operational aspects and historical
+
+accident/incident data will be analysed in this study 
+2 
+.
+
+This paper is outlined as follows. In section 2 the basic flight mechanical aspects of crosswind
+
+operations are discussed. Wind climate and measurement are discussed in section 3. In section 4
+
+certification rules and operational guidelines are presented. A systematic analysis of historical
+
+accident and incident data regarding crosswind is given in section 5. Finally conclusions and
+
+recommendations are given in section 6.
+
+1  
+Based on data from the NLR Air Safety Database.
+
+2  
+During the time between the initial presentation of the study and the publication of the NLR Technical Paper, a number of
+
+airports and operators have revised their crosswind policy as a result of the presented facts and findings. These facts and findings
+
+are still considered up-to-date by the time of publishing it in the present form of a NLR Technical Paper. 
+
+===== PDF PAGE 6 / 46 =====
+
+-6-
+
+NLR-TP-2001-217 
+
+2   Background on flight mechanics of crosswind operations
+
+2.1   Airborne part 
+
+A successful landing in crosswind conditions begins with a carefully flown final approach with
+
+the aircraft established on the glide path and the aircraft ground speed vector lined up with the
+
+centreline of the runway before the initiation of the flare.
+
+Two procedures are possible to compensate for crosswind during an approach. First there is the
+
+ìdriftî or ìcrabî technique in which the aircraft is headed slightly into the wind and second the
+
+ìwing-downî technique in which the aircraft is put into a steady sideslip such that it
+
+compensates the drift caused by the crosswind. Both techniques are illustrated in Figure 1 and
+
+Figure 2. In practice usually a composite approach pattern is adopted which combines both drift
+
+and sideslip in degrees which may vary during the course of the approach 
+3 
+. However with
+
+conventional aircraft this compromise usually is a close approximation to the idealised ìcrabî or
+
+ìdriftî technique. 
+
+CROSSWIND
+
+CROSSWIND
+
+Crabbed approach
+
+AIRSPEED
+
+DIRECTION OF TRAVEL 
+
+Figure 1:Crabbed approach for a crosswind landing. 
+
+3  
+Generally pilots prefer the crabbed technique to the wing-down technique as it relieves them of flight with crossed controls.
+
+However it may be necessary to combine crab and sideslip during strong crosswinds. For crosswinds in excess of say 20 Kt.
+
+sideslip only landings are not recommended due to limited aileron capacity and bank angle limits. 
+
+===== PDF PAGE 7 / 46 =====
+
+-7-
+
+NLR-TP-2001-217 
+
+CROSSWIND
+
+DIRECTION OF TRAVEL
+
+CROSSWIND
+
+Wing-down   approach 
+
+Figure 2: Wind-down approach for crosswind landing. 
+
+Usually before the landing the aircraft is ìdecrabbedî which yields a transition from the ìdriftî
+
+technique to the ìwing-downî technique. This means that at a certain height above ground level
+
+selected by the pilot or programmed in the autoland computer a rudder input is given which
+
+yaws the aircraft towards the runway heading. In addition a roll input is given such that the
+
+aircraft banks into the wind. In the ideal situation the aircraft is aligned accurately with the
+
+runway centreline to touchdown with negligible lateral drift. However in practice aircraft are
+
+frequently landed with an appreciable residual drift, in particular when high crosswind
+
+components are present and when roll angle becomes the limiting factor. The latter is the case
+
+for large aircraft with wing mounted engines where wing tip and/or engine pods strikes are
+
+already possible at relatively small roll angles. Certain of these aircraft therefore are landed in
+
+the ìdriftî technique without ìdecrabbingî at all. Certain modern aircraft are now equipped with
+
+a GPWS mode that generates a roll angle audio warning when exceeding a combination of a
+
+pre-programmed roll angle and a roll rate at low height to limit the chances of tip or pod strikes.
+
+The reduction in the accuracy of the ìdecrabî manoeuvre lessens the demands on the control
+
+capacity at the expense of the undercarriage, which must absorb the resulting side loads.
+
+Although frequently steady crosswinds are considered it is clear that in day to day operations
+
+aircraft also have to cope with vertical wind gradients and random gusts superimposed on the
+
+steady conditions. Turbulence intensities usually are related to the strength of the total wind.
+
+Because crosswind is only a component of the total wind vector the gust effects may be even
+
+stronger than the crosswind component itself. Also during strong crosswinds the wind direction
+
+veers. In particular these effects substantially contribute to the control effort in the final stage of 
+
+===== PDF PAGE 8 / 46 =====
+
+-8-
+
+NLR-TP-2001-217
+
+the approach. It may force the pilot to use quick and large control deflections. This in return
+
+may lead to less controlled landings and increased risk of a hard landing and/or tip/pod strikes. 
+
+2.2   Ground roll part 
+
+Following the crosswind approach the touch down and the landing ground roll ensues. General
+
+considerations indicate three factors, which may limit the sustainable crosswind on the ground.
+
+First there is the tendency to drift side ways with the wind across the runway. Second the
+
+possibility of the aircraft turning of the runway by weather cocking into the wind as a result of
+
+inadequate directional control and finally the danger of overturning. Although the latter is small
+
+for larger aircraft in particular aircraft with wing mounted engines are limited in roll angle (pod
+
+or tip strike danger).
+
+Crosswinds have their maximum effect on the aircraft just after touchdown when the aircraft is
+
+still flyable. Directional control can be maintained with rudder inputs, which in many aircraft
+
+also steer the nose wheel to a maximum of approximately 7 to 10 degrees. To cope with severe
+
+turbulence and gusts also on the ground pilots will give sometimes large and abrupt steering
+
+inputs with the pedals. However if possible they must be avoided because this may lead to over
+
+control and/or skidding of the nose wheel resulting in less grip on the runway.
+
+Equilibrium conditions during a crosswind ground roll are determined by a complex balance
+
+between the aerodynamic forces acting on the aircraft and the mechanical forces generated by
+
+its undercarriage and tires (see Figure 3). The magnitude of the reaction sideforces acting on the
+
+tires are a function of yaw angle, ground speed and runway condition. On wet and contaminated
+
+runways, the magnitude of the sideforces of the tires are reduced significantly. Compared to a
+
+dry runway the sideforces can be reduced by 50-90%. Therefore wet and contaminated runway
+
+conditions will limit the sustainable crosswind during the ground roll.
+
+The use of reverse thrust in crosswind conditions on wet and contaminated runways can
+
+aggravate directional control problems during the ground roll. Whenever the aircraft is allowed
+
+to weathervane into the wind, the reverse thrust force component perpendicular to the runway
+
+centreline adds to the crosswind force component. The reverse thrust will then pull the aircraft
+
+to the downwind side of the runway. The tire sideforces are too low to counteract this drift for
+
+the existing runway conditions. The only way for the pilot to overcome this situation is to
+
+release the brakes, deselect reverse thrust or even apply some forward thrust and steer the
+
+aircraft back onto the runway centreline before reapplying any braking force. 
+
+===== PDF PAGE 9 / 46 =====
+
+-9-
+
+NLR-TP-2001-217 
+
+CROSSWIND COMPONENT
+
+SIDE FORCE DUE TO RUDDER
+
+SIDEFORCE DUE TO CROSSWIND
+
+NOSE GEAR SIDEFORCE REACTION
+
+MAIN GEAR SIDEFORCE REACTION 
+
+Figure 3: Forces acting on an aircraft during the ground run in crosswind. 
+
+===== PDF PAGE 10 / 46 =====
+
+-10-
+
+NLR-TP-2001-217 
+
+3   Wind climate and measurement of wind conditions
+
+3.1   Factors affecting the wind speed around an airport 
+
+At the Earth's surface, ground forces induced by obstacles, are exerted on the wind causing it to
+
+slow down. The effects of these ground forces decrease with increasing altitude up to a height of
+
+500-3000 meters where there is no influence anymore. This height is called the gradient height.
+
+The region between the Earth's surface and the gradient height is known as the atmospheric
+
+boundary layer. The typical parameters, which affect the wind speed in this boundary layer at an
+
+airport, are: 
+
+•   Surface roughness 
+
+•   Geographical location 
+
+•   Surrounding topography (e.g. hills and mountains)
+
+For instance an airport surrounded by open fields will have a different wind climate than an
+
+airport surrounded by mountains. 
+
+3.2   Observing and reporting of surface wind
+
+3.2.1   ICAO ANNEX 3 recommendations 
+
+International standards and recommended practices for observing and reporting of surface wind
+
+characteristics have been laid down in ICAO Annex 3, ìMeteorological service for international
+
+air navigationî. Section 4.5 of Annex 3 states the following: " The mean direction and the mean
+
+speed of the surface wind should be measured, as well as significant variations in speed and
+
+direction". 
+
+In general, there are a number of devices for measuring the surface wind. Normally a cup
+
+anemometer is used for measuring the wind speed. The wind direction can be measured using a
+
+weather vane. In practice, the surface winds cannot be measured directly on the runway.
+
+Therefore, Annex 3 recommends that the wind sensors should be located at those sites, which
+
+best represent the surface winds along the runway. If there are significant differences in wind
+
+along the different runways or landing paths (e.g. when due to terrain they are significantly
+
+different from that along the runway), additional wind sensors should be used. Annex 3 further
+
+states that " the wind should be measured at a height of 6 to 10 meters" . The average period for
+
+wind observations used for reports at the airport for takeoff and landing, and for wind indicators
+
+for air traffic services, should be 2 minutes according to Annex 3. 
+
+===== PDF PAGE 11 / 46 =====
+
+-11-
+
+NLR-TP-2001-217
+
+Significant variations in wind speed and direction should only be considered when: 
+
+•   The total variation in wind direction is 60 °   or more with a mean speed of 3 Kt. or more,
+
+and/or 
+
+•   The variation in wind speed is more than 10 Kt. relative to the mean wind speed 
+
+•   When actual winds are reported as part of the takeoff and landing clearance by the tower.
+
+Such variations should be expressed as the two extreme directions for the wind direction and as
+
+minimum and maximum speeds attained for the wind speed. Note that these variations are
+
+usually based on a 10-minute report. There are also weather reports used in which the mean
+
+wind and direction are also based on a 10-minute period, rather than a 2-minute period.
+
+The attainable accuracy of the surface wind measurements is according to ICAO Annex 3: 
+
+•   Wind direction:   ±   5 °
+
+•   Wind speed:   ±   1 Kt up to wind speeds of 20 Kt., above 20 Kt. the accuracy is   ± 5% 
+
+3.2.2   Weather reports 
+
+Basically the following types of aviation weather reports, giving pertinent information
+
+concerning the governing wind-speed and ñdirection, are used: 
+
+•   Actual reports, consisting of
+
+1.   En-route METAR reports
+
+2.   Take-off and landing (Tower and ATIS) reports 
+
+•   Forecast reports 
+
+METAR reports 
+
+The METAR reports are normally compiled each half-hour for an airport, or at shorter intervals
+
+when the weather is changing rapidly. METAR reports contain information about wind,
+
+visibility, temperature etc. The mean surface wind speed given in the METAR reports, is
+
+measured over a ten-minute period preceding the given observation time.
+
+Gusts are computed using a 3 seconds moving average window. Gusts are included when the
+
+maximum wind speed within the preceding ten-minute period exceeds the mean speed by 10 Kt.
+
+Depending on the capabilities of the meteorological staff on the airport, the METARs may be
+
+supplemented by a 2-hour trend forecast, the validity period of which starts at the end of the
+
+observation time.
+
+Special reports are supplemented to the METAR reports when certain abrupt changes occur in
+
+the weather. 
+
+===== PDF PAGE 12 / 46 =====
+
+-12-
+
+NLR-TP-2001-217 
+
+Take-off and landing reports 
+
+For takeoff and landing operations pilots use actual weather reports. Before landing the pilot can
+
+obtain the weather information for the airport from the Automatic Terminal Information Service
+
+(ATIS). The ATIS message is updated every half-hour unless significant changes occur (See
+
+ICAO Annex 3). It contains information on: wind, ceiling, visibility, altimeter setting, runways
+
+in use, and other important airport information. The wind data in the ATIS is similar to that
+
+reported in the METAR. The wind data given in the ATIS are used to calculate the cross- and
+
+tailwind for the runway on which the pilot will land. On short final the pilot may obtain a final
+
+wind report from the tower. This wind report is more accurate than the ATIS report since it is
+
+based on the two-minute period preceding his contact with the tower. This wind reported by the
+
+tower is known as the "tower wind". Gust is included in the tower wind when it exceeds the
+
+mean wind by 10 Kt. or more. This gust speed is based on a ten-minute sample period. Note that
+
+this wind is not measured at the tower itself! The same measuring devices are used as for any
+
+other wind report. For takeoff it is normal to use initially the wind information obtained from
+
+the ATIS. Before actual takeoff the tower will normally provide the pilot with the tower wind.
+
+However, in some occasions the pilots use only the ATIS. ICAO Annex 3 states that for both
+
+takeoff, and landing the wind should be based on a two minutes sample period. This
+
+recommendation therefore implies that the ATIS wind data, which is based on a 10 minute
+
+sample period, should not be used for takeoff and landing. Some current cockpit procedures
+
+however may require some calculations to be performed before commencing the take-off, in
+
+which the wind is used from the ATIS. To avoid delay at the runway holding position, these are
+
+carried out while the aircraft is still parked at the gate.
+
+The wind reported in the ATIS report is valid for the main runway in use. The tower wind is
+
+valid for the runway on which the pilot is cleared to land or to takeoff. If only the ATIS is used
+
+to calculate the crosswind and another runway than the main runway is used, the calculated
+
+crosswind may differ from the actual crosswind during takeoff. 
+
+Forecast Reports 
+
+Forecast reports are known as TAF reports. TAF reports contain the forecast of the weather
+
+conditions at an airport for a period from 9 or 24 hours. 
+
+3.3   Mean wind speed and gust 
+
+The instantaneous wind speed, V(t) is given by
+
+) t ( u V ) t ( V   
+m   
++ = 
+
+===== PDF PAGE 13 / 46 =====
+
+-13-
+
+NLR-TP-2001-217
+
+In which Vm is the mean wind speed over time period T and u(t) is the amount of turbulence
+
+around the mean speed. An example of the variation of the wind speed over a time period T is
+
+given in Figure 4. 
+
+5.0
+
+10.0
+
+15.0
+
+20.0
+
+25.0
+
+30.0
+
+0   10   20   30   40   50   60 
+
+Time (sec)
+
+Windspeed (kt) 
+
+Maximum Reported Windspeed
+
+Maximum Actual Windspeed
+
+Mean Windspeed (Vm)
+
+Actual Measured Windspeed
+
+(sample rate 4/s)
+
+Windspeed, moving averaged
+
+over a 3 seconds time window
+
+u (t) 
+
+Figure 4: Wind speed versus time. 
+
+Substantial deviations of the mean wind speed over a time period T, are called gusts. The gust
+
+speed itself is usually the instantaneous maximum wind speed that occurred in the period T. In
+
+order to filter out the higher frequency components of turbulence, which are less relevant for
+
+aircraft performance, in general gust reports are based on the maximum value of a moving
+
+average of the wind measurements within a given time period T.
+
+As mentioned in the previous section, ICAO Annex 3 recommends to use for this purpose a 3
+
+seconds moving average window over a time period of 2 or 10 minutes.
+
+Figure 4 also illustrates the effects of using such a moving average on wind measurements.
+
+Clearly substantial differences can occur between the instantaneous maximum wind speed in a
+
+given time period and the moving averaged maximum wind speed. .
+
+In general, the ratio of the maximum gust speed and the mean speed is called the gust factor G.
+
+This factor is given as: 
+
+===== PDF PAGE 14 / 46 =====
+
+-14-
+
+NLR-TP-2001-217
+
+m
+
+gust
+
+V
+
+V
+
+G   = 
+
+A simple statistical model has been developed by Wieringa (Ref. 2) to calculate the expected
+
+gust factor G as function of e.g. surface roughness and height. For an airport this factor is
+
+typically about 1.3-1.6 at a height of 10 meters. As a rule-of-thumb a gust factor of 1.5 can be
+
+used. Note that gusts that occur in thunderstorms cannot be calculated using the gust factor
+
+presented in Ref. 2. Further details about thunderstorms and gusts can be found in Ref. 2. 
+
+3.4   Sources for uncertainty in wind reports 
+
+Amongst others, wind reports are used by pilots to assess whether crosswind conditions for the
+
+intended take-off and landing runway are within the operational limits for the aircraft at hand.
+
+In general there can be several sources for uncertainty in the wind reports, as conveyed to the
+
+pilot. One of the main sources is obviously the stochastic character of the wind phenomenon,
+
+due to which the wind may change since the last report to the pilot. Other sources are, as
+
+stipulated in the previous two sections, the way the wind measurements are processed and the
+
+reporting procedures to the pilot, according ICAO Annex 3.
+
+The most crucial report to the pilot, on which he has to base his decision, to commence his
+
+takeoff or to continue/abort his landing, is obviously the wind report from the Tower.
+
+However due to the mentioned sources of uncertainty, the actual crosswind encountered during
+
+landing or take-off can substantially deviate from the latest Tower report.
+
+In order to illustrate to which deviations this can lead, in the following a representative example
+
+is given. For this purpose wind measurements have been simulated, according to a turbulence
+
+model as specified in the JAR-AWO (All Weather Operations), and which is used in the process
+
+of certification of auto-land systems. This turbulence model yields wind-velocities, with a
+
+Gaussian distribution, according to a so-called Dryden model. Parameters of this model have
+
+been set to provide wind measurements at 10 meters height above the ground and for a mean
+
+wind speed of 18 Kt, with a mean wind-direction of 50 degrees relative to the runway centre-
+
+line. Nominally this would lead to 14 Kt crosswind for the runway in use, which is in general
+
+within the operational limitations for a dry runway, and well within the operational crosswind
+
+capabilities of aircraft.
+
+The simulated wind velocity and wind directions have been processed to generate METAR as
+
+well as Tower reports, according the procedures of ICAO Annex 3.
+
+In general results show that METAR reports and Tower reports are well in agreement. 
+
+===== PDF PAGE 15 / 46 =====
+
+-15-
+
+NLR-TP-2001-217
+
+Two METAR reports, taken over an hour of simulated wind measurements, show a mean wind
+
+velocity of 18 Kt. No gusts are reported, because they did not exceed 10 Kt difference with the
+
+mean speed. Wind-direction showed a mean of 50 degrees, with variations between 20 and 80
+
+degrees.
+
+Thirty Tower reports, with 2 minutes time interval, show for the same data set reports of wind
+
+speed between 18 and 20 Kt. For the majority of time no gusts were reported, although some
+
+reports included gusts up to 30 Kt incidentally. Wind-direction showed a mean of 50 degrees,
+
+with variations between 20 and 90 degrees.
+
+The agreement between METAR and Tower reports is not surprising, because the wind
+
+measurements were simulated with invariant parameters.
+
+The real statistic properties of the simulated wind measurements over a one-hour period are
+
+summarised in Table 1. 
+
+Table 1: Statistic properties of simulated wind measurements over a one-hour period. 
+
+Mean   Min   Max   Stand.
+
+Dev.
+
+Exceedance
+
+Time
+
+Actual wind speed (Kt)   18.4   3.4   35.5   4.2   >25 Kt:
+
+228 s
+
+>30 Kt:
+
+15 s 
+
+Moving averaged wind speed
+
+(Kt) 
+
+18.4   7.4   31.1   3.4   >25 Kt:
+
+106 s
+
+>30 Kt:
+
+2 s 
+
+Wind direction (deg)   50   -5   114   14   >80 dg
+
+73 s
+
+<20 dg
+
+69 s 
+
+Crosswind   13.8   -1.3   30.4   4.2   >20 Kt:
+
+262 s
+
+>25 Kt
+
+16 s
+
+From Table 1 it is clear that substantial deviations from the reported wind characteristics can
+
+occur due to the stochastic nature of wind phenomena. It is anticipated that in reality
+
+discrepancies may be even larger than illustrated here, because the simulation was carried out
+
+with time-invariant parameters, while in practice mean wind velocity and direction may vary
+
+over time, decreasing the accuracy of the wind reports. Moreover, the simulated measurements
+
+were modelled according to a Gaussian process, while in practice wind measurements will have
+
+a non-Gaussian (patchy) character, increasing the probabilities of substantial deviations from the
+
+mean.
+
+Overall it can be concluded from the example, as presented here, that a reasonable probability
+
+does exist, that while wind reports to the pilot do indicate that crosswind is not exceeding 15 Kt, 
+
+===== PDF PAGE 16 / 46 =====
+
+-16-
+
+NLR-TP-2001-217
+
+in reality the actual encountered crosswind during the landing phase can deviate 10 Kt or even
+
+more from the reported wind.
+
+For even higher reported crosswinds, deviations may increase accordingly.
+
+To which situations this uncertainty may lead is illustrated in Figure 5. A part of the simulated
+
+wind measurement is taken, as an example for an aircraft during final approach. It is shown how
+
+wind speed and direction behaves, and which Tower report is given to the pilot some 1.5
+
+minutes before landing. Based on this report the pilot would expect a crosswind of around 15 Kt
+
+during the landing phase. In reality it is shown that during the landing a patch of crosswind is
+
+encountered of around 22 Kt over a period of 10 seconds, with a peak crosswind of 28 Kt.
+
+The situation described in this section clearly illustrates that a substantial margin has to be
+
+adopted with respect to the maximum demonstrated crosswind during the certification process. 
+
+===== PDF PAGE 17 / 46 =====
+
+-17-
+
+NLR-TP-2001-217 
+
+Simulated wind measurements and reports 
+
+5
+
+10
+
+15
+
+20
+
+25
+
+30
+
+35
+
+0   50   100   150 Time (sec)
+
+Wind velocity (kt) 
+
+Measured windspeed [kt]
+
+Moving averaged (3s window)
+
+Tower report: wind 19 kt
+
+METAR report: wind 18 kt
+
+Flare and touchdown 
+
+Simulated wind direction measurement and reports 
+
+0
+
+30
+
+60
+
+90
+
+0   50   100   150 
+
+Wind-direction 
+
+Measured wind-direction
+
+Tower Report: Mean direction 50/varying 20-80 deg 
+
+Actual Cross-wind 
+
+0
+
+5
+
+10
+
+15
+
+20
+
+25
+
+30
+
+0   50   100   150 Time (sec)
+
+Cross-wind (kt) 
+
+Flare and touchdown 
+
+Figure 5: Illustration of wind reported and actually encountered during the landing 
+
+===== PDF PAGE 18 / 46 =====
+
+-18-
+
+NLR-TP-2001-217 
+
+4   Inventory of certification rules and operational guidelines
+
+4.1   Certification rules 
+
+The type of aircraft considered in this study are certified according to JAR 25 or FAR 25. Both
+
+FAR and JAR state the following regarding crosswind: 
+
+JAR/FAR 25.237 Wind velocities.
+
+For landplanes and amphibians, a 90-degree cross component of wind velocity,
+
+demonstrated to be safe for takeoff and landing, must be established for dry runways and
+
+must be at least 20 knots or 0.2 VS0, whichever is greater, except that it need not exceed 25
+
+knots 
+4 
+. 
+
+It is also stated that the wind velocity must be measured at a height of 10 meters above the
+
+surface, or corrected for the difference between the height at which the wind velocity is
+
+measured and the 10-meter height. An additional rule is that there also may be no uncontrollable
+
+ground-looping tendency in 90∫ crosswinds (JAR/FAR 25.233). When JAR/FAR 25.237 is
+
+examined carefully, the following can be noticed: 
+
+•   Only dry runways have to be considered. 
+
+•   It is not clear if the wind speed includes gusts or not. 
+
+•   No crosswind limits have to be established, only demonstrated values.
+
+The maximum demonstrated crosswind is the value that was demonstrated to the certifying
+
+authority during the certification flight test trials. Pilot judgement based on flight handling then
+
+is included in order to establish if this value is also the limiting crosswind for that aircraft.
+
+An overview of demonstrated crosswinds of western-built passenger transport aircraft is given
+
+in Table 2. The overall average demonstrated crosswind of these aircraft is 30 Kt. For some
+
+aircraft different crosswinds are demonstrated for takeoff and landing.
+
+4  
+In which VSO means the stall speed or the minimum steady flight speed in the landing configuration. 
+
+===== PDF PAGE 19 / 46 =====
+
+-19-
+
+NLR-TP-2001-217 
+
+Table 2: Overview of demonstrated crosswinds of western-built aircraft. 
+
+M a nu fa ctu re r 
+  
+M ode l 
+  
+D em o n s tra te d Cro s sw in d 
+M a nu fa ctu re r 
+  
+M ode l 
+  
+D em o n s tra te d Cro s sw in d 
+M a nu fa ctu re r 
+  
+M ode l 
+  
+D em o n s tra te d Cro s sw i
+
+kn o ts 
+  
+kn o ts 
+  
+kn o ts 
+
+A er os pa tiale 
+  
+A TR -4 2 
+  
+45 (Ta ke off) 
+  
+B ritis h A eros pa ce 
+  
+B A e 
+  1 46 - 1 00 
+  
+25 (Ta ke off) 
+  
+D ou g las 
+  
+D C- 10 -10 /30 
+  
+29
+
+A er os pa tiale 
+  
+A T R -4 2 
+  
+38 (L an d in g) 
+  
+B r itis h A er os pa ce 
+  
+B A e 
+  1 46 -1 00 
+  
+30 (L an d in g) 
+  
+D ou glas 
+  
+D C- 10 -4 0 
+  
+23 .5
+
+A er o s pa tial e 
+  
+A TR -7 2 
+  
+35 
+  
+B ritis h A ero s pa ce 
+  
+B A e 1 46 -2 00 
+  
+30 (T a ke off ) 
+  
+D ou g las 
+  
+M D -1 1 
+  
+35
+
+A irb us 
+  
+A 30 0- 60 0 
+  
+3 2 
+  
+B ritis h A er os p a ce 
+  
+B A e 
+  1 46 -2 0 0 
+  
+3 5 (L an din g) 
+  
+D ou glas 
+  
+M D -80 
+  
+2 8
+
+A irb us 
+  
+A 31 0- 20 0/ 3 00 
+  
+28 
+  
+B riti s h A er os pa ce 
+  
+J ets tr ea m 4 10 0 
+  
+35 
+  
+D ou glas 
+  
+M D - 87 
+  
+28
+
+A irb us 
+  
+A 32 0- 1 0 0/2 00 
+  
+2 9 (Ta ke off) 
+  
+C an ad air 
+  
+C L-6 5 R J 
+  
+2 4 
+  
+D ou gla s 
+  
+M D -90 
+  
+3 0
+
+A irb us 
+  
+A 32 0- 10 0 /2 00 
+  
+33 (L an di n g) 
+  
+C a n ad air 
+  
+C L -6 00 /60 1/60 4 
+  
+24 
+  
+E m br ae r 
+  
+E M B -1 20 
+  
+30
+
+A irb us 
+  
+A 32 1 
+  
+27 (Ta ke off) 
+  
+C es sn a 
+  
+50 0 
+  
+25 
+  
+E m br a e r 
+  
+E M B -1 45 
+  
+30
+
+A irb us 
+  
+A 3 2 1 
+  
+28 (L an d in g) 
+  
+C e s sn a 
+  
+55 0 
+  
+23 
+  
+Fo kk er 
+  
+F2 8-a ll s e rie s 
+  
+30
+
+A irb u s 
+  
+A 33 0 - 30 0 
+  
+17 (T a ke off) 
+  
+C es s n a 
+  
+56 0 
+  
+20 
+  
+Fo kk e r 
+  
+F1 00 
+  
+30
+
+A irb us 
+  
+A 33 0- 30 0 
+  
+22 (L an d in g) 
+  
+C es sn a 
+  
+65 0 
+  
+25 
+  
+F o kk er 
+  
+F 7 0 
+  
+35
+
+A irb u s 
+  
+A 34 0 - 20 0/3 00 
+  
+27 
+  
+C es s n a 
+  
+75 0 
+  
+21 
+  
+Fo kk er 
+  
+F5 0 
+  
+33
+
+B oe ing 
+  
+7 0 7-30 0B A D V /C 
+  
+3 3 
+  
+D as sa u lt 
+  
+F a lco n 20 
+  
+2 3 .5 
+  
+F o kk er 
+  
+F 2 7-a ll se rie s 
+  
+2 5
+
+B oe ing 
+  
+72 7 -10 0/2 00 
+  
+29 
+  
+D as sa ult 
+  
+Fa lc o n 50 
+  
+24 .7 
+  
+Gu l fstre am 
+  
+II 
+  
+24 .5
+
+B oe ing 
+  
+73 7-10 0/2 00 
+  
+29 
+  
+D as sa ult 
+  
+Fa lco n 90 0 
+  
+30 
+  
+Gu lfstre am 
+  
+III 
+  
+21
+
+B o e ing 
+  
+73 7 -30 0/4 00 /5 0 0 
+  
+35 
+  
+D a s sa ult 
+  
+Fa lco n 20 00 
+  
+35 
+  
+Gu lfstre am 
+  
+IV 
+  
+24
+
+B oe in g 
+  
+74 7-1 0 0/2 00 
+  
+28 
+  
+de H av illa nd 
+  
+D HC - 8 -10 0/2 00 /3 0 0 
+  
+36 
+  
+Le arje t 
+  
+24 
+  
+26
+
+B o e ing 
+  
+74 7 S P 
+  
+34 (Ta ke off) 
+  
+D o rn ier 
+  
+D o 32 8-1 0 0 
+  
+21 
+  
+Le arjet 
+  
+25 
+  
+33
+
+B oe in g 
+  
+74 7 S P 
+  
+32 (L an din g ) 
+  
+D ou g las 
+  
+D C- 8 -6 1 
+  
+17 
+  
+Le arj et 
+  
+31 
+  
+30
+
+B oe ing 
+  
+7 4 7-40 0 
+  
+3 0 
+  
+D ou glas 
+  
+D C- 8-6 2 
+  
+3 2 
+  
+L e arjet 
+  
+3 5 /36 
+  
+2 6 .5
+
+B oe ing 
+  
+75 7- 20 0 
+  
+30 
+  
+D ou glas 
+  
+D C- 8-6 3 
+  
+23 .5 
+  
+Le ar jet 
+  
+55 
+  
+27
+
+B oe ing 
+  
+7 6 7-20 0 
+  
+2 9 
+  
+D ou gla s 
+  
+D C- 8-7 1/7 2/7 3 
+  
+2 8 
+  
+L e arjet 
+  
+6 0 
+  
+2 9
+
+B oe ing 
+  
+76 7 -30 0 
+  
+33 
+  
+D ou glas 
+  
+D C - 9-3 0/3 4/40 
+  
+36 
+  
+Lo c kh ee d 
+  
+L1 0 1 1- 1 
+  
+33
+
+B oe ing 
+  
+77 7-20 0 
+  
+38 
+  
+D ou gl as 
+  
+D C- 9- 5 0 
+  
+28 
+  
+Lo c kh ee d 
+  
+L1 01 1 - 50 0 
+  
+28
+
+S A A B 
+  
+34 0 
+  
+35
+
+S ou rc e:Fa a 
+  an d m a nu fa c tu re rs 
+
+===== PDF PAGE 20 / 46 =====
+
+-20-
+
+NLR-TP-2001-217 
+
+4.2   Crosswind demonstration according to FAA AC 25-7A 
+
+JAR/FAR 25.237 does not give details on the actual crosswind demonstration itself. The FAA
+
+has published a flight test guide for the certification of transport category aircraft in the form of
+
+an Advisory Circular (AC 25-7A). This Advisory Circular contains guidelines about the
+
+crosswind demonstration flight tests. These guidelines are: 
+
+25.237 - Wind Velocities.
+
+Explanation. 
+
+•   There must be a 90-degree crosswind component established that is shown to be safe for
+
+takeoff and landing on dry runways. 
+
+•   The airplane must exhibit satisfactory controllability and handling characteristics in 90-
+
+degree crosswinds at any ground speed at which the airplane is expected to operate.
+
+Crosswind Demonstration.
+
+A 90-degree crosswind component at 10 meters of at least 20 knots or 0.2 VS0, whichever is
+
+greater, except that it need not exceed 25 knots, must be demonstrated during type certification
+
+tests. There are two results possible: 
+
+•   A crosswind component value may be established which meets the minimum
+
+requirements but is not considered to be a limiting value for airplane handling
+
+characteristics. This "demonstrated" value should be included as information in the
+
+AFM. 
+
+•   A crosswind component value may be established which is considered to be a
+
+maximum limiting value up to which it is safe to operate for takeoff and landing. This
+
+"limiting" value should be shown in the Operating Limitations section of the AFM.
+
+Procedures.
+
+(i) Configuration. These tests should be conducted in the following configurations: 
+
+•   At light weight and aft CG (this is desirable; however, flexibility should be
+
+permitted). 
+
+•   Normal takeoff and landing flap configurations using the recommended
+
+procedures. 
+
+•   Normal usage of thrust reversers. Particular attention should be paid to any
+
+degradation of rudder effectiveness due to thrust reverser airflow effects. 
+
+•   Yaw dampers/turn co-ordinator On, or Off, whichever is applicable. 
+
+===== PDF PAGE 21 / 46 =====
+
+-21-
+
+NLR-TP-2001-217 
+
+(ii) Test Procedure and Required Data. Three takeoffs and three landings, with at least
+
+one landing to a full stop, should be conducted in a 90-degree crosswind component of at
+
+least 20 knots or 0.2 VS0, whichever is greater, except that for Amendment 25-42 only it
+
+need not exceed 25 knots. For each test condition, a qualitative evaluation by the pilot of
+
+airplane control capability, forces, airplane dynamic reaction in gusty crosswinds (if
+
+available), and general handling characteristics should be conducted. The airplane must
+
+be satisfactorily controllable without requiring exceptional piloting skill or strength.
+
+Wind data from the INS systems, tower, or portable ground recording stations should be
+
+corrected to a 90-degree crosswind component and to a height of 10 meters. 
+
+Regarding this AC the following comments can be made. First there are two possibilities on
+
+how to note crosswinds in the AFM. If the demonstrated crosswind is not considered to be a
+
+limiting value for aircraft handling characteristics, this demonstrated value can be placed as
+
+information in the AFM. Higher crosswinds are then allowed when the applicable operational
+
+requirements and the airline specification allow it. If the demonstrated crosswind is considered
+
+to be a maximum limiting value up to which it is safe to operate the aircraft, the demonstrated
+
+crosswind value will appear as a limiting value in the AFM. It is not allowed to operate the
+
+aircraft beyond this crosswind. For practically all aircraft certified by the FAA the demonstrated
+
+crosswind is not regarded as limiting by the FAA test pilots. Some other certification authorities
+
+always consider the demonstrated crosswind as limiting. For instance, for all Fokker aircraft
+
+certified by the Dutch Civil Aviation Authorities (RLD), the demonstrated crosswind is
+
+considered to be a limit. This last approach avoids any subjectivity on the fact whether or not
+
+the demonstrated crosswind is limiting. In fact, Fokker 100 flight testing at wind speeds up to
+
+43 knots crosswind component during takeoff, manual and autolands showed that the airplane
+
+was not the limiting factor. However, because these flights were not part of an official test
+
+campaign these values never appeared in the AFM.
+
+In the test procedure and required data section, it is stated that wind data can be obtained from
+
+the INS system, the tower or a portable ground station. The tower wind contains a mean wind
+
+based on a two minute sample and (if high enough) a gusting wind value. The AC does not
+
+clearly state which wind should be used. Crosswind derived from the INS system can include
+
+gust depending on for instance the way the data is analysed. Fokker tests showed that between
+
+the mean INS derived wind and the mean tower wind, differences of up to 10 Kt. or more are
+
+possible. Boeing (See Ref. 5) for instance uses the INS data to derive a crosswind by plotting
+
+the crosswind component as function of time. The crosswind at the time the aircraft is 10 meters
+
+above the ground is then read off the plot. Engineering judgement is used in fairing the data.
+
+Fokker Aircraft on the other hand has a different approach (See Ref. 4). During the test flights
+
+with Fokker aircraft the tower wind is requested when the aircraft is close to a height of 10
+
+meters from the ground. The mean wind given is then used to compute the crosswind. From 
+
+===== PDF PAGE 22 / 46 =====
+
+-22-
+
+NLR-TP-2001-217
+
+information provided by Fokker, concerning the crosswind demonstration flight tests with the
+
+Fokker 70, it can be deduced that had Fokker chosen to apply the same methodology as Boeing,
+
+the demonstrated crosswind capability would have been at least 10 Kt higher than presently
+
+mentioned in the aircraftís AFM. 
+
+4.3   Use of crosswind limitations by operators 
+
+Operators normally have wind limitations noted in their Aircraft Operating Manuals (AOM). A
+
+survey was taken of a number of (large) operators worldwide. These operators were requested to
+
+send the crosswind limits for the aircraft they operated as published in their AOMs. The
+
+operators were also asked to provide information about any additional limitation posed on
+
+crosswind operations. From this survey the following facts are identified for the operators
+
+surveyed: 
+
+•   Most of the operators include gusts in their crosswind limits. 
+
+•   All operators adjust the crosswind limits for wet and contaminated runways. 
+
+•   Some of the operators adjust the crosswind limits for visibility. 
+
+•   Most of the operators have reduced crosswind limits for less experienced pilots.
+
+FAR part 121.438 demands that first officers that have less than 100 hrs currency on type
+
+are not allowed to make crosswind landing in excess of 15kts. 
+
+•   Most operators use crosswind limits that do not exceed the demonstrated crosswinds. 
+
+•   Most operators account for runway width. 
+
+•   Most operators have a separate (lower) maximum crosswind for autoland operations.
+
+Autoland certification under crosswind conditions is established primarily through ìMonte-
+
+Carloî simulations of automatic landings of that particular aircraft. The simulations must show
+
+that under varying conditions the touch down performance complies with the criteria set by the
+
+FAR/JAR requirements. By means of a specific set of flight tests it must be demonstrated that
+
+the actual touch down performance falls within the footprint of the performed simulations. Due
+
+to system constraints maximum crosswind values for autoland operations are less than the
+
+manually demonstrated crosswind landings. However, it is likely that most autoland systems
+
+can handle higher crosswinds. It is the opinion of the authors that when the visibility is good
+
+and the crosswind is high, preference should be given to conduct an autoland rather than a
+
+manual landing.
+
+The adjustments of crosswinds on wet and contaminated runway conditions are normally based
+
+on advisory information obtained from the manufacturers. An example of the impact of runway
+
+condition on crosswind limits is presented in Table 3 for a number of Boeing aircraft (Ref. 5).
+
+The crosswind limits presented in Table 3, are recently revised values. Some operators use the
+
+older guidelines provided by Boeing. Boeing derives crosswind guidelines for wet and 
+
+===== PDF PAGE 23 / 46 =====
+
+-23-
+
+NLR-TP-2001-217
+
+contaminated runways using piloted simulations and engineering analyses. No flight tests are
+
+conducted. It appears that the majority of the development is based on piloted evaluations in the
+
+757 engineering simulator in order to develop an analytical model that is then used as a basis for
+
+the other aircraft types (Ref. 6). In fact this is remarkable because (engineering) simulators are
+
+not a good tool to explore the ground part of a landing or takeoff, dry or wet/contaminated. This
+
+because the quality of the mathematical ground model in combination with the motion and
+
+visual ques of a simulator is usually not high enough to allow sufficient confidence in the
+
+evaluation results. Therefore limits based on pilot evaluations in a simulator may prove
+
+significantly different (optimistic in most cases) from realistic values. Also it is remarkable that
+
+Boeing has concluded in this process that turbulence is not a real factor for the determination the
+
+operational crosswind limitations. According to Boeing turbulence does increase workload to
+
+some extent, but is not the limiting factor for crosswind up to 40 Kt. The limiting factor appears
+
+to be mainly directional control capability. This is in sharp contrast with Fokker experience with
+
+crosswind demonstration flight tests with the Fokker 70, carried out on Keflavik, Iceland, where
+
+real crosswind up to 40 Kt. was encountered. Clearly during these tests it was shown, that the
+
+extreme turbulence associated with the heavy wind, caused specifically lateral-directional
+
+controllability problems, which limited the crosswind capability.
+
+Note also that because the demonstrated crosswinds of the Boeing aircraft are not considered to
+
+be limiting, Boeing is allowed to advice higher crosswinds than demonstrated to the operators as
+
+shown in Table 3. Because the crosswind limits on wet and contaminated runways are advisory
+
+information only, the operators can use different crosswind limits for the same aircraft and
+
+runway condition. It can be noted that the interaction between aircraft tires and a non-dry
+
+runway varies between different runways. Some factors that play an important role here are
+
+surface texture, contamination, grooving and the ability to spill water. The result is that the
+
+measurements on one non-dry runway cannot be used to predict the behaviour on another non-
+
+dry runway. As the airframe manufacturer is responsible for valid legal certification data, it is
+
+usually their policy to provide only non-legal information.
+
+Figure 6 shows an example of crosswind limits used by three different operators for the Boeing
+
+747-400. Operator A uses the revised crosswind values which are significantly higher than those
+
+imposed by the other operators. 
+
+===== PDF PAGE 24 / 46 =====
+
+-24-
+
+NLR-TP-2001-217 
+
+Table 3: Revised Operations Manual Landing Crosswind* Guidelines for Boeing aircraft (Kt.). 
+
+Runway Condition   737   747   757   767   777 
+
+Dry   40   36   40   40   45
+
+Wet   40   32   40   40   40
+
+Standing
+
+Water/Slush
+
+20   20   20   20   20
+
+Snow - No Melting   35   25   35   35   35
+
+Ice - No Melting   17   15   17   17   17 
+
+* Note: These crosswinds are derived using piloted simulations and engineering analyses. These
+
+are not demonstrated values. 
+
+0
+
+5
+
+10
+
+15
+
+20
+
+25
+
+30
+
+35
+
+40
+
+Dry   Wet   Ice, slush, water etc.
+
+(braking action
+
+) 
+
+Runway condition
+
+Maximum crosswind incl. gusts (kts) 
+
+Demonstrated
+
+crosswind 
+
+B-747-400
+
+A
+
+B
+
+C 
+
+operator 
+
+Figure 6: Maximum crosswind of a B-747-400 for landing as function of runway condition for
+
+three different operators. 
+
+===== PDF PAGE 25 / 46 =====
+
+-25-
+
+NLR-TP-2001-217 
+
+4.4   Use of crosswind criteria for runway selection by airports 
+
+Airports can also set crosswind maxima. These are general maxima valid for all commercial
+
+aircraft, which use the airport. gives an overview of crosswind maxima used by a number of
+
+airports obtained from the relevant AIP's. When analysing table 4, the following can be noticed: 
+
+•   Gusts are not included in the crosswind maxima except for one airport. 
+
+•   There are differences in the actual crosswind maxima used varying from 10 to 25 Kt. One
+
+airport uses different crosswind maxima for day and night hours. The vast majority of
+
+airports use a maximum of 15 Kt. (according to ICAO recommendations but without gust
+
+included). 
+
+•   Most airports consider the impact of runway surface condition on crosswind maxima.
+
+Some additional notes should be made regarding table 4. Heathrow has the highest crosswind
+
+(25 Kt.) maximum of all airports considered in table 4 
+5 
+. However, if the wind climate around
+
+Heathrow is analysed it becomes clear that crosswinds of 25 Kt. or more, occur less than 0.2%
+
+of the time per year (17 hours per year). Most airports in table 4 use a crosswind maximum of
+
+15 Kt. for the preferential runway(s). This rule is adopted from ICAO which states that   "Noise
+
+abatement should not be the determining factor in runway nomination when the crosswind
+
+component, including gusts exceeds 15 Kt." . Note that ICAO clearly states that gusts are
+
+included. No additional information is available in which the 15 Kt. maximum is explained. It
+
+should be clear that ICAO only gives recommendations, and does not constitute regulations.
+
+When the 15 Kt. including gusts maximum is compared to the wind reporting methods
+
+recommended by ICAO (see section 3.2 and ANNEX 3), the following interesting fact can be
+
+found. With a typical gust factor of 1.5 (see section 3.3), the mean wind speed associated with a
+
+wind of 15 Kt. including gust, is 10 Kt. The difference between the mean wind and the
+
+maximum wind is then 5 Kt. According to ICAO ANNEX 3, gusts should only be reported
+
+when the difference between maximum wind and mean wind is 10 Kt. or more. This means that
+
+gust is only reported when the mean wind speed is about 20 Kt. (again assuming a gust factor of
+
+1.5). So opposed to the guideline of ICAO regarding a crosswind maximum of 15 Kt. including
+
+gusts, in practice a crosswind limit of 15 Kt excluding gusts is used as a result of the
+
+recommended reporting procedures. It is likely that minimal reported gust values in general can
+
+only be reached whenever the mean wind speed is in excess of 15 Kt. In this case the wind
+
+speed including gust can be around 22.5 Kt. (see also section 3.3). This can be a hazardous
+
+situation since the pilot uses in this example, only the mean wind speed for evaluating the
+
+crosswind maximum stated in the AOM.
+
+5  
+Note that Schiphol has the same crosswind limit of 25 kts during the night hours in combination with CAT I operations and
+
+good braking action. 
+
+===== PDF PAGE 26 / 46 =====
+
+-26-
+
+NLR-TP-2001-217
+
+The AIP Canada gives recommendations about the maximum crosswind in relation to the
+
+braking friction of a runway. Figure 7 gives the recommended crosswind maximum as function
+
+of the James brake index (JBI). This brake index is determined using a friction tester known as
+
+the James Brake Decelerometer. Typical JBI values for different runway conditions are: 
+
+•   JBI >0.7 for dry runways 
+
+•   JBI = 0.6-0.7 for damp runways 
+
+•   JBI = 0.3-0.6 for wet runways 
+
+•   JBI = 0.2-0.4 for snow covered runways 
+
+•   JBI < 0.3 for water/slush (>1 in.) covered runways 
+
+•   JBI <0.2 for icy runways
+
+According to the AIP Canada approach runway conditions could occur on which crosswinds are
+
+not allowed at all. It is not clear from the AIP Canada if gusts are considered or not in the
+
+recommended maximum crosswind. 
+
+0
+
+5
+
+10
+
+15
+
+20
+
+25
+
+30
+
+35
+
+40
+
+45
+
+50
+
+0.2   0.3   0.4   0.5   0.6   0.7   0.8
+
+James brake index
+
+Recommended maximum crosswind (kts) 
+
+source: AIP Canada 
+
+Figure 7: Maximum crosswind as function of the James brake index. 
+
+===== PDF PAGE 27 / 46 =====
+
+-27-
+
+NLR-TP-2001-217 
+
+Table 4: Overview of crosswind limits used by a number of airports (survey of 1998). 
+
+ICAO CODE   Airport   Preferential runway and wind limitations 
+
+EGLL   London/Heathrow   a) When tailwind component is not greater than 5 kts on 27R/L these runways
+
+will be used in preference to 9R/L when surface is dry.
+
+b) When crosswind component on 27/09 exceeds   25 kts , runway 23 will
+
+normally made available if there is a lesser crosswind component affecting it.
+
+Pilots asking permission to use the runway in the wind when 27L/R are in use
+
+should understand that their arrival or departure may be delayed.
+
+EDDL   Dusseldorf   Jet and other aircraft of more than 8t AUW are not permitted to land/depart on
+
+runways 15/33. Permission may be granted for aircraft with higher AUW, if
+
+crosswind component on main runways 05R/23L does not allow safe landings,
+
+or when unavoidable due to traffic conditions.
+
+LEBL   Barcelona/ElPrat   Whenever the runway is dry, or wet with braking action good, and the wind
+
+components do not exceed 8 kts tail and/or   20 kts   cross, use the following
+
+runway configuration: 
+
+See AIP for details. 
+
+Pilots could ask for the use of a runway other than the described system, but
+
+should assume possible delays.
+
+EBBR   Brussels/National   When the runways 25L/R are dry and when meteorological conditions are such
+
+that the cross- and/or tailwind components do not exceed 15/8 kts surface
+
+wind, runways 25 L/R will be used for landing/takeoff.
+
+When these runways are wet, covered with snow or slush, the maximum cross-
+
+and/or tailwind components are   10 kts   and 5 kts.
+
+When the components exceed the values stated above, a runway more nearly
+
+into the wind will be assigned. However, 7L/R shall not be used for landing and
+
+25L for takeoff except when no other suitable runway is available. ATC will on
+
+pilotís request assign another runway, runway-, traffic and weather conditions
+
+permitting.
+
+EKCH   Copenhagen/Kastrup   All jets and prop > 11t MTOW: Runways 04/22 L/R are preferential and shall be
+
+used to the greatest possible extent.
+
+Between 0600-2300LT:
+
+Runway 12 & 30 may be used when:
+
+- crosswind component on preferential runway exceeds   15 kts .
+
+- friction coefficient is below .3 on any part of the preferential runway.
+
+- preferential runway cannot be used due snow clearance, disabled aircraft,
+
+work on the runway, meteorological & runway conditions.
+
+When wind conditions permit, runway 12 shall be used for takeoff in preference
+
+to runway 30. 
+
+===== PDF PAGE 28 / 46 =====
+
+-28-
+
+NLR-TP-2001-217 
+
+Between 2300-0600LT:
+
+Runways 12 & 30 are closed for takeoff and landing. Runway 30 may, however,
+
+be used for landing when:
+
+- crosswind component on preferential runway exceeds   15 kts .
+
+- preferential runway cannot be used due snow clearance, disabled aircraft,
+
+work on the runway, meteorological & runway conditions.
+
+EHAM   Amsterdam Schiphol   In selecting RWY combination, ATC will apply the following limits of wind
+
+components: 
+
+•   If RWY is dry: tailwind 5 kts and crosswind   15 kts   (gust included). 
+
+•   If RWY is wet: no tailwind and 10 kts crosswind (gust included).
+
+During the night hours wind criteria for the selection of RWYs will be   25 kts 
+
+crosswind and 5 kts tailwind. In bad weather the selection will be made on the
+
+following table: 
+
+Operation:   CAT I   CAT II/III
+
+RWY friction coefficient:   ≥ ≥ ≥ ≥   0.5   ≥ ≥ ≥ ≥   0.5   < 0.5
+
+Crosswind:   25 kts   15 kts   5 kts
+
+Tailwind:   5 kts   5 kts   0 kts 
+
+Reykjavik   During the hours of 2330-0700 (2330-0730 Sat., Sun., and public holidays)
+
+runway 14/32 is designated noise as the preferential runway as far as practical.
+
+Takeoff from Runway 07 is not permitted, unless crosswind component on
+
+other runways exceeds   10 kts .
+
+CYVR   Vancouver   Limiting Factors when selecting a preferential runway
+
+a) physical condition of surface
+
+b) effective crosswind component not to exceed   25 knots 
+
+c) effective tailwind component not to exceed 5 knots
+
+Jandakot Airport, Perth   Jandakot Tower will select the duty runway on the basis of prevailing wind,
+
+with preference to 06/24 up to a crosswind maximum of   10 kts :
+
+Ferihegy Budapest   According to the prevailing surface wind, normally runway 31R is used for
+
+landing and runway 31L for takeoff. Noise abatement should not be the
+
+determining factor in runway nomination when 
+
+•   The runway is not clear and dry, i.e. it is adversely affected by snow,
+
+slush, ice or water, or by mud, rubber, oil or other substances. 
+
+•   When the crosswind component, including gusts, exceed   15 kt 
+
+===== PDF PAGE 29 / 46 =====
+
+-29-
+
+NLR-TP-2001-217 
+
+CYYC   Calgary International   Night Restrictions (2300-0700) local time Monday-Friday,
+
+2300-0900, Saturday and Sunday:
+
+Taking into consideration the following conditions and except
+
+as authorised by Air Traffic Control, aircraft will depart
+
+on Runway 34 and land on Runway 16 or 28.
+
+1. Physical condition of surface.
+
+2. Effective crosswind component not to exceed   15 knots   for
+
+arrivals,   20 knots   for departures.
+
+3. Effective tailwind component not to exceed   15 knots .
+
+4. Other Safety considerations declared by the Captain of
+
+the aircraft.
+
+KANC   Anchorage International   Conditions that allow selection of next preferential runway:
+
+Selection of the next preferential runway based on the priorities established
+
+in Section A ( See AIP ). are allowed under the following conditions: 
+
+•   If the runway is not clear and dry, i.e. it is adversely affected by snow,
+
+slush, ice or water, or by mud, rubber, oil or other substances. 
+
+•   When winds, including gusts, as recorded by airport wind sensors,
+
+exceed: 
+
+•   crosswind components of   28 km/hour (15 knots ), or 
+
+•   tailwind components of 9KM/hour (5 knots) 
+
+•   When wind shear has been reported or forecast, or thunderstorms are
+
+expected to affect the departure or approach. 
+
+•   When the combined traffic levels at Elmendorf AFB and Anchorage
+
+International Airport result in excessive traffic congestion and cause
+
+unacceptable departure delays. 
+
+•   Consistent with Airport Bulletin 95-06, Runway 32 Extension Departure
+
+Policies, delay alone does not constitute a reason for heavy aircraft pilots
+
+to request a Runway 6R departure. 
+
+===== PDF PAGE 30 / 46 =====
+
+-30-
+
+NLR-TP-2001-217 
+
+KMSN   Dane County Regional   Conditions for preferential use:
+
+Tailwind - 5 knots or less
+
+Crosswind -   15 knots   or less
+
+Runway Conditions - Clear and dry i.e. there is no ice, slush
+
+or other conditions in which the use of the preferential runway
+
+may compromise aircraft safety.
+
+CYXD   Edmonton Municipal   Limiting factors for preferential runway : (affecting order of preference)* 
+
+•   Wet, snow covered or icy runway surface conditions. 
+
+•   Strong winds favouring non-preferential runways which are beyond safety
+
+limits of aircraft being operated with an effective crosswind exceeding   15
+
+knots   for arrivals and departures or tailwind exceeding 5 knots. 
+
+•   Use of a less preferred runway is acceptable if a backlog of aircraft traffic
+
+builds up on the airport due to aircraft waiting for departure. For example
+
+when runway 30 is active, north and eastbound departures may be
+
+assigned runway 34. 
+
+•   Preferential runway out of service due to airfield maintenance reasons,
+
+or an aircraft halted on the runway due to mechanical problems, which
+
+preclude its immediate removal. 
+
+•   Medivac aircraft may deviate from the preferred runway system as
+
+circumstances require.
+
+*Note: These procedures shall not limit the decretion of either the air traffic
+
+controller or the pilot with respect to the full utilisation of the
+
+airport in the event of an unusual situation.
+
+KOMA   Eppley Airport   Runway 32L is designated as the preferential use runway for turbojet
+
+aircraft under the following conditions: 
+
+•   Crosswind component within 90 degrees of runway heading and
+
+crosswind velocity not exceeding   15 knots . 
+
+•   Tailwind component not exceeding 5 knots 
+
+•   Runway conditions clear and dry. 
+
+===== PDF PAGE 31 / 46 =====
+
+-31-
+
+NLR-TP-2001-217 
+
+4.5   Use of crosswinds in relation to the design of an airport 
+
+ICAO Annex 14, " Aerodrome Design and Operations " provides guidelines for designing
+
+airports. One of its recommendations deals with the number and orientation of runways. It is
+
+stated in Annex 14 that the number and orientation of the runways should be such that the
+
+usability factor of the airport is not less than 95%. ICAO Annex 14 also provides guidelines for
+
+the maximum permissible crosswind components which should be used when analysing the
+
+usability of the airport. Table 5 presents the recommended maximum crosswinds as function of
+
+the reference field length. The reference field length is equal to the minimum required take-off
+
+field length. Most medium sized aircraft and larger aircraft have field lengths of 1500 meter and
+
+more. There are factors which may require that a reduction of the maximum crosswinds listed in
+
+Table 5 be taken into account. These factors are for instance runway surface conditions,
+
+handling characteristics among the different types of aircraft, width of runway etc. 
+
+Table 5: Maximum crosswind recommended for usability analysis. 
+
+Reference field length 
+
+Meters 
+
+Maximum crosswind 
+
+Kt. (mean wind, excl. gust)
+
+1500 or more   20 (13 for poor braking
+
+condition)
+
+1200 up to but not including
+
+1500
+
+13
+
+less than 1200   10 
+
+===== PDF PAGE 32 / 46 =====
+
+-32-
+
+NLR-TP-2001-217 
+
+5   Analysis of historical accident and incident data 
+
+In order to quantify the risk of crosswind operations and to get a better understanding of the
+
+contributing/causal factors, historical accident/incident data are analysed. The analysis is limited
+
+to aircraft operations of transport aircraft in the United States only. The main reason for this
+
+limitation is the availability of a virtually complete listing of all reported accidents and incidents
+
+that occurred in the US. Especially a complete listing of all incidents is very difficult to obtain
+
+for other regions in the world. The types of aircraft considered for this study are representative
+
+for most of the large commercial airports around the world. Also the different types of climate
+
+at the US airports are representative as an average for other non-US airports.
+
+The following approach is applied: 
+
+•   Identification of a sample of takeoff and landing accidents/incidents, including background
+
+information for each accident/incident (e.g. runway condition, crosswind, gusts etc.). 
+
+•   Compilation of exposure data (e.g. number of flights). 
+
+•   Analysis of the data. 
+
+5.1   Definitions 
+
+The following definitions are used in this study for an aircraft accident and an aircraft incident,
+
+which are based on the definitions used by the NTSB and FAA: 
+
+•   Aircraft accident is an occurrence associated with the operation of an aircraft which takes
+
+place between the time any person boards the aircraft with the intention of flight and all
+
+such persons have disembarked, and in which any person suffers death or serious injury, or
+
+in which the aircraft receives substantial damage. 
+
+•   Aircraft incident is an occurrence other than an accident, associated with the operation of an
+
+aircraft, which affects or could affect the safety of operations. 
+
+5.2   Accident data sources 
+
+Searches are conducted in the NLR Air Safety Database, which consists of several databases
+
+including those from the FAA, NTSB, ALPA and others. These sources provide sufficient data
+
+to enable compilation of a virtually complete listing of reported accidents and incidents
+
+fulfilling the selection criteria presented in section 5.3. 
+
+===== PDF PAGE 33 / 46 =====
+
+-33-
+
+NLR-TP-2001-217 
+
+5.3   Accident selection criteria 
+
+The following selection criteria are used in selecting the accidents and incidents: 
+
+•   Crosswind or gusting winds are contributing factors in the accidents/incidents. 
+
+•   The accident/incident flights occurred in the U.S. 
+
+•   Time period, in which the accident/ incident flights occurred, runs from 1983 through 1995. 
+
+•   The accident/incident flights are conducted by U.S. Air Carriers, Operating under regulation
+
+14 CFR 121, scheduled or non-scheduled service. 
+
+•   Accidents/incidents occurred during takeoff or landing. 
+
+•   Accidents/incidents due to sabotage, terrorism, and military action are excluded. 
+
+5.4   Exposure data 
+
+Exposure data are obtained from the FAA and are listed in Table 6. In the period 1983-1995
+
+more than 96 million flights have been conducted under regulation 14 CFR 121. 
+
+Table 6: Exposure data for U.S. Air Carriers operating under regulation 14 CFR 121, Scheduled
+
+and Non-scheduled Service.
+
+Year   Flight Hours   Flights 
+
+1983   7,298,799   5,444,374
+
+1984   8,165,124   5,898,852
+
+1985   8,709,894   6,306,759
+
+1986   9,976,104   7,202,027
+
+1987   10,645,192   7,601,373
+
+1988   11,140,548   7,716,061
+
+1989   11,274,543   7,645,494
+
+1990   12,150,116   8,092,306
+
+1991   11,780,610   7,814,875
+
+1992   12,359,715   7,880,707
+
+1993   12,706,206   8,073,173
+
+1994   13,124,315   8,242,327
+
+1995   13,510,066   8,465,203 
+
+TOTAL   142,841,232   96,383,531 
+
+5.5   Discussion and results 
+
+The total accident sample fulfilling the criteria stated in section 5.3 consists of 69 accidents and
+
+incidents of which 15 are classified as accidents. From the exposure data in Table 6 it follows
+
+that one crosswind related accident/incident occurs per 1.4 million flights. Of the 69 identified
+
+accidents/incidents, 58 (84%) occurred during landing and 11 (16%) during takeoff. Using the 
+
+===== PDF PAGE 34 / 46 =====
+
+-34-
+
+NLR-TP-2001-217
+
+exposure data it follows that for landings 1 crosswind related accident/incident will occur per
+
+1.7 million landings and for takeoffs 1 crosswind related accident/incident will occur per 8.8
+
+million takeoffs. Standard statistical tests show that this difference between takeoff and landing
+
+rates is statistically significant.
+
+Figure 8 shows the distribution of a number of factors in the accident/incident sample. For each
+
+accident/incident it is determined if the aircraft was on the ground or airborne during the event.
+
+Both phases have a different relation to crosswind performance (see section 2). Of all
+
+accidents/incidents, 52 % occurred during the ground roll and 48% occurred during the airborne
+
+phase (e.g. the landing flare). Of all the accidents/incidents that occurred during the airborne
+
+phase, 32 (97%) occurred during landing and only one during takeoff. In 70% of these
+
+accidents/incidents a wingtip or engine struck the ground and in 58% of the accidents/incidents
+
+in which a wingtip or engine strike occurred there was also a gusty wind present. Of all
+
+accidents/incidents that occurred during the ground run, 26 (72%) occurred during landing and
+
+10 (28%) during takeoff.
+
+Figure 9 shows the distribution of factors in those accidents/incidents, which occurred during
+
+the ground roll. Gusty wind in combination with a wet or contaminated runway is the most
+
+frequent combination that occurs. It is realised that the significance of these factors can only be
+
+established when the number of non-accident flights, under identical circumstances, is known.
+
+On average, about 24% of the takeoffs and landings are conducted on a wet or contaminated
+
+runway. Therefore the probability of a crosswind related accident/incident during the ground
+
+roll on a wet or contaminated runway is 3.5 times higher than on a dry runway, based on the
+
+current accident/incident sample. This clearly indicates that runway condition is a very
+
+important contributing factor. As discussed in section 4, operators correct the maximum
+
+allowable crosswind for runway condition using reports about the braking friction conditions on
+
+the runway. Braking friction devices or pilot reports are used to determine the braking
+
+conditions. As discussed in Ref. 3, good correlations cannot always be found between a braking
+
+friction device and an aircraft. This could be a factor causing the significantly higher probability
+
+of a crosswind-related accident on a wet or contaminated runway. However, also the fact that
+
+crosswind capability has to be demonstrated on dry runways only could be causing the higher
+
+incident/accident rate and higher probability of occurrence. Also there is the possibility that the
+
+method that was used to determine the crosswind limit on a wet or contaminated runway could
+
+be significantly wrong. 
+
+===== PDF PAGE 35 / 46 =====
+
+-35-
+
+NLR-TP-2001-217 
+
+0%
+5%
+
+10%
+15%
+20%
+25%
+30%
+
+no
+no
+
+airborne
+
+yes
+no
+
+airborne
+
+no
+yes
+
+airborne
+
+yes
+yes
+
+airborne
+
+no
+no
+
+ground
+
+yes
+no
+
+ground
+
+no
+yes
+
+ground
+
+yes
+yes
+
+ground 
+
+Percentage of
+
+complete sample 
+wingtip/engine strike
+gusty winds
+phase 
+
+Figure 8: Distribution of a number of factors in the accident/incident sample. 
+
+===== PDF PAGE 36 / 46 =====
+
+-36-
+
+NLR-TP-2001-217 
+
+0%
+
+5%
+
+10%
+
+15%
+
+20%
+
+25%
+
+30%
+
+35%
+
+40%
+
+45%
+
+wet/contaminated
+
+no
+
+dry
+
+no
+
+wet/contaminated
+
+yes
+
+dry
+
+yes 
+
+Percentage of all
+
+ground occurences 
+
+runway condition
+
+gusty winds 
+
+Figure 9: Distribution of factors for ground occurrences. 
+
+The general causes of the accident/incident sample as identified by the accident investigators are
+
+shown in Figure 10. The factor "improper level off" is identified as the most frequent occurring
+
+factor followed by "improper operation of brake or flight controls on the ground" and "improper
+
+alignment with the runway". Most of the factors identified in Figure 10 are pilot related. In only
+
+less than 21% of the crosswind related accidents and incidents other than pilot induced causes
+
+were identified. Such numbers are common for other types of accidents and incidents and thus
+
+not unique for crosswind-related accidents and incidents. What is unique to crosswind-related
+
+accidents and incidents identified for this study, is that most of the pilot related events are
+
+dealing with flight control or handling. Indeed crosswind operations can be quite demanding for
+
+the pilot at the controls. Certification flights conducted in heavy gusting crosswinds indeed
+
+showed a significant increase in the pilot workload (Ref. 4).
+
+In all accidents/incidents in which an improper alignment with the runway was identified,
+
+visibility was poor. In general, visibility can be a factor in most of the crosswind-related
+
+accidents and incidents. Figure 11 shows the frequency distribution of the actual visibility in the
+
+crosswind related accidents and incidents compared to the distribution for all takeoff and
+
+landing accidents and incidents of aircraft operating under regulation 14 CFR 121. It becomes
+
+clear that a significant higher number of crosswind related accidents and incidents occurred in a
+
+visibility of less than 1 mile compared the overall number of accidents and incidents. About 4% 
+
+===== PDF PAGE 37 / 46 =====
+
+-37-
+
+NLR-TP-2001-217
+
+of the landings in the US are conducted with a visibility of less than 1 mile 
+6 
+. If this is combined
+
+with the accident and incident data during landing, it becomes clear that the probability of a
+
+crosswind related accident or incident is 6 times higher in visibility conditions of less than 1
+
+mile than for visibility of 1 mile or higher. One of the contributing factors hereby may be the
+
+fact that although crews receive simulator training under crosswind conditions usually the on
+
+line experience with strong crosswinds is low. Consequently when a crew is confronted with
+
+maximum crosswind the margin for mistakes deteriorates fast certainly when low visual
+
+conditions prevail and runway contamination is present. 
+
+FAILED TO CORRECT
+
+FOR DRIFT
+
+2%
+
+FAILURE TO AVOID
+
+COLLISION W ITH
+
+GROUND
+
+7%
+
+AIRCRAFT
+
+IMPROPERLY
+
+ALIGNED W ITH
+
+RUNW AY
+
+12%
+
+OTHER
+
+21%
+
+POOR PREFLIGHT
+
+PLANNING / AIRCRAFT
+
+PERFORMANCE
+
+10%
+
+IMPROPER
+
+OPERATION OF
+
+FLIGHT CONTROLS IN
+
+AIR
+
+7%
+
+IMPROPER
+
+OPERATING BRAKE /
+
+FLIGHT CONTROLS ON
+
+GROUND
+
+14%
+
+IMPROPER LEVEL
+
+OFF
+
+27% 
+
+Figure 10: General causal factors. 
+
+6  
+Based on climate data of airports in the US. 
+
+===== PDF PAGE 38 / 46 =====
+
+-38-
+
+NLR-TP-2001-217 
+
+Crosswind related accidents/incidents 
+
+21%
+
+10%
+
+8%
+
+6%
+
+2%
+
+6%
+
+4%
+
+6%
+
+2%
+
+6%
+
+10%
+
+21%
+
+0% 
+  
+10% 
+  
+20% 
+  
+30% 
+  
+40% 
+  
+50%
+
+LESS THAN 1
+
+MILE
+
+1 MILE
+
+2 MILES
+3 MILES
+4 MILES
+5 MILES
+6 MILES
+7 MILES
+8 MILES
+9 MILES
+
+10 MILES
+
+GREATER THAN
+
+10 MILES 
+
+Visibility (nm)
+
+All takeoff and landing accidents/incidents 
+
+8%
+
+5%
+5%
+
+4%
+
+4%
+4%
+
+3%
+
+10%
+
+3%
+
+1%
+
+10%
+
+43%
+
+0% 
+  
+10% 
+  
+20% 
+  
+30% 
+  
+40% 
+  
+50%
+
+LESS THAN 1 MILE
+
+1 MILE
+
+2 MILES
+3 MILES
+4 MILES
+5 MILES
+6 MILES
+7 MILES
+8 MILES
+9 MILES
+
+10 MILES
+
+GREATER THAN 10
+
+MILES 
+
+Figure 11: Visibility in crosswind related accidents/incidents compared to all takeoff and landing
+
+accidents/incidents. 
+
+===== PDF PAGE 39 / 46 =====
+
+-39-
+
+NLR-TP-2001-217
+
+In order to quantify the risk associated with crosswind operations, the number of takeoffs and
+
+landings in a particular crosswind condition must be known. An engineering approach is used in
+
+order to determine the number of takeoffs and landings conducted with a certain crosswind. In
+
+JAR ACJ AWO-131, probabilities of exceeding a mean crosswind condition are presented.
+
+These values are shown in Figure 12 and are based on historical data of UK airlines from
+
+airports worldwide. These values are assumed to be representative as an average for U.S.
+
+airports. It is further assumed that the probability of exceeding a particular crosswind is equal to
+
+the relative number of takeoff and landings conducted with this crosswind or higher. Of course
+
+this will result in some overestimation of the actual number of takeoffs and landings conducted,
+
+especially for very high crosswinds, resulting in an underestimation of the associated risk.
+
+However, the high gusts associated with high winds have a de-stabilising effect on the approach
+
+and landing and thus increase the risk. Therefore, it is believed that as a rough estimation of the
+
+associated risk, this approach will be accurate enough. 
+
+0.1
+
+1
+
+10
+
+100
+
+0   5   10   15   20   25   30
+
+crosswind (kts)
+
+probability of exceedance (%) 
+
+Figure 12: Percent probability of mean crosswinds equalling or exceeding given values. 
+
+The bivariate analysis is limited to accidents only because there is not sufficient information
+
+available about the actual crosswind conditions for all the incidents in the sample. To compare
+
+the different crosswind conditions, a risk ratio is introduced defined as: 
+
+===== PDF PAGE 40 / 46 =====
+
+-40-
+
+NLR-TP-2001-217 
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+<
+
+<
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+≥
+
+≥
+
+= 
+
+V V with flights of number
+
+V V with accidents related crosswind of number
+
+V V with flights of number
+
+V V with accidents related crosswind of number
+
+Ratio Risk
+
+cross
+
+cross
+
+cross
+
+cross
+
+In which V is a chosen crosswind value. For instance if V=10 Kt., the risk ratio represents the
+
+associated risk of crosswind operations equal or above 10 Kt. compared to crosswind operations
+
+below 10 Kt. A risk ratio of 1 shows no increase in risk whereas a risk ratio above 1 shows a
+
+higher risk associated with the crosswind condition under consideration. Figure 13 shows for a
+
+number of crosswind values (incl. gust), the risk ratio for the current accident sample (incidents
+
+are excluded from the sample). To obtain the crosswind including gust, the mean values
+
+presented in Figure 12 are multiplied with a gust factor of 1.5 (see section 3.3). 
+
+0
+
+5
+
+10
+
+15
+
+20
+
+25
+
+30
+
+6 kts or more   10 kts or more   15 kts or more   20 kts or more   25 kts or more 
+
+crosswind (incl. gust)
+
+Risk increase compared to lower crosswind
+
+operations
+
+Note:
+
+- Only crosswind related accidents. 
+
+Figure 13: Risk ratio for different crosswind conditions. 
+
+As can be expected higher crosswind conditions show an increase in the probability of a
+
+crosswind-related accident compared to lower crosswind conditions. Especially operations with
+
+crosswinds equal or above 25 Kt. (incl. gusts) show a very significant increase in the probability
+
+of a crosswind related accident compared to operations below a crosswind of 25 Kt. (incl. gust). 
+
+===== PDF PAGE 41 / 46 =====
+
+-41-
+
+NLR-TP-2001-217
+
+It is important to realise that although the associate risk increases with higher crosswinds, the
+
+probability that such a crosswind condition exists decreases as shown in Figure 12. For instance
+
+the probability that the crosswind is equal to or exceeding 25 Kt. (incl. gust), is less than 2%. 
+
+0
+
+0.05
+
+0.1
+
+0.15
+
+0.2
+
+less than 5 kts
+less than 10 kts
+less than 15 kts
+less than 20 kts
+less than 25 kts
+less than 30 kts 
+
+crosswind incl. gust
+
+accident rate per million flights 
+  
+Note:
+
+- Only crosswind related accidents. 
+
+Figure 14: Rate of crosswind related accidents for given crosswind conditions. 
+
+Figure 14 shows the accident rate of crosswind related accidents for a number of crosswind
+
+conditions. It becomes clear that the probability of a crosswind related accident increases with
+
+increasing crosswind condition. For every 5 Kt. increase in the maximum crosswind (incl.
+
+gusts), the accident probability increases approximately with 0.025 per million flights. The
+
+accident rates presented in Figure 14 should be compared to the overall accident rate, which is
+
+about 2 accidents per million flights. This rate is computed using the selection criteria specified
+
+in section 5.3, except that all take-off and landing accidents are considered. Note that only the
+
+accidents from the sample are considered and not the incidents. 
+
+===== PDF PAGE 42 / 46 =====
+
+-42-
+
+NLR-TP-2001-217 
+
+6   Conclusions and recommendations
+
+6.1   Conclusions 
+
+Based on the results of this study the following conclusions are made: 
+
+•   The current certification rules stated in FAR/JAR 25 regarding crosswinds are very limited
+
+and are only directed to satisfy a minimum requirement for demonstrating safe operation.
+
+Furthermore, it is not clear if and how gusts should be considered during the certification. 
+
+•   FAR advisory material concerning the establishment of demonstrated crosswind capability
+
+describes two different procedures, which may lead to substantially different results. 
+
+•   The demonstrated crosswinds for the currently operated transport aircraft certified under
+
+FAR/JAR 25, can be a limiting value or an advisory value, depending on whether the test
+
+pilot found it limiting or not and/or the certifying authority involved. 
+
+•   In the current way of reporting wind speeds recommended by ICAO, gusts are not always
+
+given. This may result in substantial discrepancies between reported and actually
+
+encountered crosswind. Consequently, this may lead to reduced safety margins when
+
+operating under relatively benign crosswind conditions, as perceived by the pilot. 
+
+•   The crosswind maximum of 15 Kt. including gusts as a criterion for the selection of a noise
+
+preferential runway as recommended by ICAO, can not always be properly used due to the
+
+recommended practices on the reporting of gusts, as given by ICAO Annex 3. 
+
+•   Most operators have more or less the same policy regarding crosswind limits. However,
+
+some significant differences in the actual crosswind limits used, are found in this study. 
+
+•   Landing is the flight phase in which most of the crosswind related accidents and incidents
+
+occur. In general it is a far more demanding task (high gain loop) to perform a landing out
+
+of the open space into a very small strip of the earth than it is leaving the small strip into the
+
+open space (low gain task). 
+
+•   The probability of a crosswind related accident/incident during the ground roll on a wet or
+
+contaminated runway in both takeoff and landing, is 3.5 times higher than on a dry runway. 
+
+•   A significant higher number of crosswind related accidents and incidents occurred in a
+
+visibility of less than 1 mile compared to non-crosswind-related accidents and incidents. 
+
+===== PDF PAGE 43 / 46 =====
+
+-43-
+
+NLR-TP-2001-217 
+
+•   Most crosswind related accidents and incidents are related to improper or incorrect aircraft
+
+control or handling. The reason for this has not been determined, but this can to a certain
+
+point be explained by the low currency of most pilots on strong crosswind landings. 
+
+•   Gusty wind is the most important contributing factor in crosswind-related accidents and
+
+incidents. It can be noted that the strength of the gustiness depends mainly on the total wind,
+
+which can be much stronger than the crosswind component itself. 
+
+•   The probability of the occurrence of a crosswind related accident increases with increasing
+
+crosswind conditions. Statistical evidence, based on historic accident data, shows that the
+
+accident risk increases exponentially when operating in conditions with crosswind
+
+exceeding 20 Kt, including gust. 
+
+6.2   Recommendations 
+
+•   In light of the significant variations in wind speed that can exists between the reported wind
+
+and wind encountered during e.g. the landing flare and the fact that most aircraft are
+
+demonstrated for crosswinds of 30 Kt., the recommendation of 15 Kt. maximum crosswind
+
+including gusts stated by ICAO, cannot be increased without significant reductions in
+
+operational safety margins, unless additional measures are taken, which reduce the
+
+uncertainties inherent in the current wind measurement and reporting system. 
+
+•   Reported wind velocities should include gust, if the gust velocity exceeds 5 Kt, as opposed
+
+to the current value of 10 Kt. 
+
+•   Pilot assessment of the actual crosswind conditions in relation to the operational limits of
+
+the aircraft should always be based on the reported wind, including gust. 
+
+•   Separate crosswind limits for takeoff and landing could be considered since this study
+
+shows that there is a significant difference between the accident/incident probabilities in
+
+both flight phases. At this moment the adjustment to a higher maximum crosswind for
+
+selection of a preferential runway for takeoff at an equivalent safety level as has been
+
+accepted for landing, has not yet been evaluated. 
+
+•   Runway conditions such as wet and contaminated should be considered in a more formal
+
+way during the certification of crosswind operations of an aircraft. It is recommended to
+
+publish such information in the form of a FAA AC and JAA AMJ. 
+
+===== PDF PAGE 44 / 46 =====
+
+-44-
+
+NLR-TP-2001-217 
+
+•   The actual crosswind for a runway should be provided to the pilot in addition to the wind
+
+direction in combination with wind speed. This avoids miscalculation of the crosswind by
+
+the pilot. 
+
+•   Establishment of demonstrated crosswind capability of an aircraft should always be based
+
+on actual reported wind by the control tower (according the procedures of ICAO Annex 3)
+
+during the flight test. This corresponds best to the way the aircraft is operated under
+
+practical crosswind conditions, and avoids discrepancies with alternative procedures, as
+
+currently allowed by FAR advisory material. 
+
+•   Maximum demonstrated crosswind capability should always be considered as limiting and
+
+should therefore be placed in the Operations Limitations section of the AFM. 
+
+•   It should not be allowed to advice operational crosswind limitations in excess of the
+
+demonstrated capability, based on simulator investigations. Simulators in general lack
+
+fidelity in modelling of turbulence phenomena near the ground, and modelling of lateral-
+
+directional control characteristics in ground-effect to provide sufficiently reliable results for
+
+this purpose. Furthermore the quality of the mathematical ground model in combination
+
+with the motion and visual ques of a simulator is usually not high enough to allow sufficient
+
+confidence in the evaluation results. 
+
+•   It should be more clear in both FAR and JAR how the wind is defined, e.g. as mean wind
+
+based on a 2-minute period or wind including gust. In determining the maximum allowable
+
+crosswind for takeoff and landing, all airports should formally address runway friction
+
+coefficients and gusts. 
+
+•   It is recommended to analyse crosswind limits in combination with low visibility
+
+conditions. 
+
+•   It is recommended to analyse the possibilities of landing in strong crosswind conditions in
+
+combination with good visibility using an autoland system, to explore the use of higher
+
+crosswinds than normally defined by standard FAR/JAR autoland certification. 
+
+===== PDF PAGE 45 / 46 =====
+
+-45-
+
+NLR-TP-2001-217 
+
+7   References 
+
+1.   Anon. ,"Aviation Safety, FAA has not Fully Implemented Weather-Related
+
+Recommendations," GAO/RCED-98-30, 1998.
+
+2.   Wieringa, J., "Gust Factors over Open Water and Built-up Country,", Boundary-Layer
+
+Meteorology, 1973 (pages 424-441).
+
+3.   Van Es, G.W.H. et. al., "Safety Aspects of Aircraft Performance on Wet and Contaminated
+
+Runways", paper presented at the 10 
+th  
+annual European Aviation Safety Seminar (FSF),
+
+Amsterdam, March 16-18, 1998.
+
+4.   Anon. , "Fokker flight test certification reports", Fokker Aircraft.
+
+5.   "Private communication with Boeing Commercial Airplane Group", Dept. of Flight
+
+Operations Engineering", 1998.
+
+6.   Fender, C.,"Published Crosswind Values," FAA, 1996. 
+
+===== PDF PAGE 46 / 46 =====
+
+-46-
+
+NLR-TP-2001-217 
+
+8   Acknowledgements 
+
+The authors gratefully acknowledge the support of the Boeing Commercial Airplane Group. The
+
+authors would also like to thank all operators who provided information about their crosswind
+
+operations procedures. Furthermore, the authors thank Mr. Colin Fender of the FAA for
+
+providing information on crosswind and certification aspects. Finally the authors would like to
+
+thank the Dutch Civil Aviation Authority RLD, for reviewing this report. 

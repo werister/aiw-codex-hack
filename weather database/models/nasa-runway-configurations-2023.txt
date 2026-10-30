@@ -1,0 +1,1629 @@
+
+
+===== PDF PAGE 1 / 9 =====
+
+Predicting airport runway configurations for
+
+decision-support using supervised learning 
+
+Tejas G. Puranik 
+
+USRA, NASA Ames Research Center 
+
+Moffett Field, 94035, CA, USA
+
+tejas.puranik@nasa.gov 
+
+Milad Memarzadeh 
+
+USRA, NASA Ames Research Center 
+
+Moffett Field, 94035, CA, USA
+
+milad.memarzadeh@nasa.gov 
+
+Krishna M. Kalyanam 
+
+NASA Ames Research Center 
+
+Moffett Field, 94035, CA, USA
+
+krishna.m.kalyanam@nasa.gov 
+
+Abstract —One of the most challenging tasks for air traffic
+
+controllers is runway configuration management (RCM). It deals
+
+with   the   optimal   selection   of   runways   on   which   to   operate
+
+(for   arrivals   and   departures)   based   on   current   and   forecast
+
+traffic, surface wind speed, wind direction, other environmental
+
+variables, noise constraints, and several other airport-specific
+
+factors. In this paper, a methodology using supervised learning
+
+is developed to build a predictive model for RCM decision-
+
+support from large volumes of historical data. Data from two full
+
+years (2018 and 2019) related to current and forecast weather,
+
+demand/capacity, etc. is collected, analyzed, and fused together. A
+
+variety of supervised learning algorithms are tested for predicting
+
+runway   configuration,   and   hyperparameter   tuning   is   carried
+
+out to select the best performing model. The validation process
+
+involves two airports of low (Charlotte Douglas International
+
+Airport, CLT) and high (Denver International Airport, DEN)
+
+complexity of configuration decision-making. The results show
+
+significant promise for the two airports with test accuracy of
+
+93% (CLT) and 73% (DEN). The methodology is scalable and
+
+generalizable to other airports across the U.S. National Airspace
+
+System. 
+
+Index Terms —air traffic management, runway configuration
+
+management, machine learning 
+
+I. I NTRODUCTION 
+
+One of the key tenets of the next generation air transporta-
+
+tion system (NextGen) is deploying automation capabilities
+
+through decision-support tools (DST) to aid air traffic con-
+
+trollers. Among such automation capabilities is the application
+
+of data-driven machine learning approaches to solve complex
+
+problems in air traffic management (ATM). One of the most
+
+challenging tasks for air traffic controllers is runway configu-
+
+ration management (RCM). It deals with the optimal selection
+
+of runways on which to operate (for arrivals and departures)
+
+based on traffic, surface wind speed, wind direction, other
+
+environmental variables, noise constraints, and several other
+
+airport-specific factors. RCM affects the efficiency of the Na-
+
+tional Airspace System (NAS) and both surface and airspace
+
+operations can benefit from a robust and accurate prediction
+
+of runway configurations.
+
+There are two main types of analyses around RCM – 
+
+prescriptive   and   predictive   approaches. The main goal of pre-
+
+scriptive approach is to recommend the most optimal runway
+
+configuration for a given situation based on prevailing and/or
+
+forecast meteorological conditions, traffic load, intended sys-
+
+tem goals, and constraints. A sub-optimal selection of the
+
+runway configuration, or poor timing of configuration changes,
+
+can result in increase in taxi times for aircraft on the surface
+
+of the airport, excessive fuel burn due to holding patterns
+
+or increased taxi-times, and go-arounds for arriving traffic
+
+(e.g., due to excessive tail winds). The techniques in this type
+
+of application include heuristic search [1], [2], optimization
+
+and dynamic queuing theory [3]–[7], dynamic programming
+
+[8], and reinforcement learning [9]. Air traffic controllers and
+
+front-line managers are generally the intended stakeholders for
+
+prescriptive models.
+
+Predictive models do not aim to improve existing decision-
+
+making rationale but rather try to learn it from historical data
+
+and mimic it with least amount of error. These models try to
+
+capture existing heuristics typically through supervised learn-
+
+ing models [10]–[13]. Both air traffic management personnel
+
+and operators can benefit from predictive models through
+
+reduction of uncertainty in the prediction of airport capacity,
+
+better management of the traffic flow, and better utilization of
+
+resources. These two family of models are important and have
+
+received significant attention in literature, with more diverse
+
+applications seen in the prescriptive models [14].
+
+Both prescriptive and predictive approaches generally in-
+
+volve building a model using historical operations data. This
+
+model is either based purely on the data (no site-specific adap-
+
+tation required) or requires detailed airport-specific adaptation
+
+(such as a queuing network model [4], [5], [7]). Purely data-
+
+driven models have the advantage of not requiring airport-
+
+specific adaptation and tend to be extensible to other airports.
+
+On   the   other   hand,   a   model   that   takes   into   account   the
+
+dynamics of the airport movement can use simulation to
+
+optimize for the runway configuration selection or prediction.
+
+While both predictive and prescriptive approaches have
+
+their own advantages and limitations as well as different
+
+applicability, this work focuses on predictive models. Recent
+
+literature in runway configuration prediction have used prob-
+
+abilistic approaches [3], [15] and/or supervised learning [12],
+
+[13] using limited number of variables such as the weather
+
+conditions, time of the day, and time of year. Other studies
+
+have developed a recursive multi-step forecasting model using
+
+supervised   learning   to   predict   the   best   choice   of   runway
+
+configuration given all the factors such as weather and future
+
+traffic [10]. Such methods use a vast amount of historical
+
+data to imitate the decision-making made by the controller 
+
+===== PDF PAGE 2 / 9 =====
+
+in the past with least amount of error. Other approaches
+
+have attempted to predict the arrival and departure runway
+
+assignments rather than airport configurations [11]. While
+
+these approaches present promise in the predictive setting,
+
+there is room for improvement in the prediction accuracy by
+
+incorporating other relevant features and/or developing more
+
+capable models.
+
+There are several challenges associated with RCM pre-
+
+dictive models due to which it is the subject of ongoing
+
+research. Air traffic controllers set the runway configuration
+
+based on relevant information and forecasting available at the
+
+time, including weather, traffic, noise abatement procedures,
+
+and safety bounds. This makes the process subjective due to
+
+potential biases in human decision-making as the same or
+
+similar conditions can lead to a different action by a different
+
+controller. There is also the challenge of inherent uncertainty
+
+in   the   accuracy   of   the   available   information,   particularly
+
+weather forecast models and demand forecasts. An automated
+
+approach based on data mining can make use of the abundance
+
+of available historical data/decisions and learn through many
+
+more possible scenarios under uncertainty to provide the best
+
+estimate of runway configuration in the future.
+
+In this paper, we present a comprehensive implementation
+
+of predictive models for runway configuration prediction from
+
+large volumes of historical data. Specifically, operational data
+
+from two full years (2018 and 2019) are collected, analyzed,
+
+and fused together to build the data product used in this
+
+work. The data set differs from prior work in the literature in
+
+terms of its scope, resolution, and variety of factors collected
+
+and considered. Meteorological data is collected from two
+
+different sources: current weather conditions from METAR
+
+(METeorological Aerodrome Reports) and forecast weather
+
+conditions from Localized Aviation Model Output Statistics
+
+(MOS) Program (LAMP). Operational data from the Federal
+
+Aviation Administration (FAA) Aviation System Performance
+
+Metrics (ASPM) related to scheduled and actual number of
+
+arrivals and departures, and average taxi time are collected.
+
+NASA’s Sherlock Data Warehouse is used to identify other
+
+critical information such as go-arounds, and other events that
+
+might impact RCM decision-making. The overall goal is to
+
+learn, as closely as possible, decision-making in the historical
+
+data to predict for runway configuration for the future.
+
+II. M ETHODOLOGY 
+
+Figure 1 shows an overview of the different elements of
+
+the methodology developed in this work. The remainder of
+
+this section details the elements of the methodology and how
+
+they are connected. One important objective of this work is
+
+to use relevant data from various NAS-wide sources and to
+
+train predictive RCM models that are purely data-driven, in
+
+that they do not require any airport-specific adaptation (e.g.,
+
+geometry, procedural information, etc.). The methodology is
+
+setup in such a way as to make it repeatable and adaptable to
+
+other similar settings.
+
+The methodology consists of three main parts which are
+
+expanded in this section – (1) Data Sources Identification and 
+
+Fig. 1.   High-level schematic of the methodology. 
+
+Extraction, (2) Data Processing and Transformation, and (3)
+
+ML Model Training, Validation, Testing. 
+
+A. Data Sources Identification and Extraction 
+
+Four main data sources are used in this work, based on a
+
+survey of prior work. The data has been obtained from these
+
+sources and fused together using GMT time. The following
+
+subsections describe details of each data source utilized, the
+
+characteristics of the data, and the specific fields from the
+
+data that are used in this work. The four sources of data are:
+
+(1) METAR (METeorological Aerodrome Reports)
+
+(2) LAMP (Localized Aviation MOS Program)
+
+(3) Sherlock Data Warehouse
+
+(4) ASPM (Aviation System Performance Metrics).
+
+Two types of meteorological data are used in this work
+
+which provide information about current weather conditions
+
+and forecast weather over the next several hours. 
+
+1)   METAR :   Prevailing weather conditions at an airport are
+
+available through the METeorological Aerodrome Reports 
+1 
+.
+
+Weather   stations   from   around   the   world   report   weather
+
+conditions every hour using the METAR format. The data
+
+available   in   the   database   includes:   temperature,   dewpoint,
+
+wind speed, wind direction, visibility, clouds and ceiling, and
+
+any reported weather conditions. 
+
+2)   LAMP :   Weather forecast data is obtained from the
+
+LAMP system. LAMP is a statistical system that provides
+
+forecast   guidance   for   sensible   weather   elements.   LAMP
+
+updates MOS on an hourly basis, is run on National Oceanic
+
+and   Atmospheric   Administration   (NOAA)   Weather   and
+
+Climate   Operational   Supercomputer   Systems   (WCOSS)
+
+computers and disseminated centrally, and provides guidance
+
+for over 1600 stations as well as gridded observation and
+
+forecast   guidance   on   the   NDFD   continental   U.S.   2.5-km
+
+grid   out   to   25   hours 
+2 
+.   LAMP   provides   station   guidance
+
+for the following weather elements: temperature, dewpoint,
+
+wind speed, direction, and gusts, probability of precipitation,
+
+precipitation type and characteristics, lightning, convection,
+
+ceiling height, opaque sky cover, visibility, and obstruction to 
+
+1 https://www.aviationweather.gov/metar 
+
+2 https://vlab.noaa.gov/web/mdl/lamp 
+
+===== PDF PAGE 3 / 9 =====
+
+vision. 
+
+3)   Sherlock   Data   Warehouse :   NASA’s   Sherlock   Data
+
+Warehouse   
+3   
+contains information about flight events (such
+
+as go-around or missed approaches) that are useful for RCM
+
+prediction purposes. A go-around (or multiple go-arounds)
+
+could   lead   to   a   change   of   runway   configuration   and   are
+
+therefore extracted from Sherlock and used in this work. 
+
+4)   ASPM :   The   FAA’s   Aviation   System   Performance
+
+Metrics database 
+4   
+provides data on flights to and from the
+
+ASPM airports, and all flights by ASPM carriers, including
+
+flights by those carriers to international and domestic non-
+
+ASPM airports. All IFR and some VFR flights are included.
+
+ASPM reports also provide data on airport weather, runway
+
+configuration, and airport arrival and departure rates. While
+
+ASPM   contains   a   large   amount   of   detailed   information
+
+and reports, in this work, the individual flight level data
+
+is   downloaded   for   each   airport.   This   contains   detailed
+
+information on scheduled and actual times and delays for
+
+individual flights as well as the specific runway that the flight
+
+landed on. The information can then be aggregated up to the
+
+required time period (e.g. quarter hourly, hourly, etc.) to get
+
+the scheduled/actual counts of arrivals and departures and the
+
+average transit times during that time period. 
+
+5)   Runway   configuration   (ASPM) :   From   the   ASPM
+
+individual flight report, another important piece of information
+
+is derived: the actual runway configuration in use for each
+
+time period. This is obtained by first identifying the runways
+
+that are in use during the time period of interest based on the
+
+flights that landed and then aggregating them into standard
+
+configurations for use as labels in a machine learning model.
+
+The derivation of the different configurations is described
+
+here. It is noted that the runway configurations might be
+
+directly available from certain ASPM reports, however, in a
+
+small instance of cases, these reported configurations were
+
+found to be inaccurate for various reasons. Using the data of
+
+each of the individual flights that landed during a time period
+
+provides the highest level of fidelity around which runways
+
+or configurations were actually used.
+
+There are two major configurations at Charlotte Douglas
+
+International Airport (CLT), the North-bound flow and the
+
+South-bound flow. In the North flow, runways 36L, 36C, and
+
+36R are the primary runways for arrival and departure, while
+
+in the South flow, the opposite directions of these runways,
+
+i.e., runways 18R, 18C, and 18L, are the primary runways.
+
+A visual representation of the airport geometry is depicted in
+
+Figure 2 (left panel).
+
+Denver International Airport (DEN) is an example of an
+
+airport   with   more   complex   runway   configuration   settings.
+
+As depicted in Figure 2 (right panel), it has six runways, 
+
+3 https://sherlock.opendata.arc.nasa.gov/ 
+
+4 https://aspm.faa.gov/apm/sys/main.asp 
+
+Fig. 2.   Airport runway diagrams for CLT (left panel) and DEN (right panel). 
+
+among which four of them (34L/16R, 34R,16Lm 35L/17R,
+
+and 35R/17L) are North/South bound while the other two
+
+runways (7/25 and 8/26) are East/West bound. As a result,
+
+there are more combinations of runways that can be used for
+
+arrival/departure by the controller. Based on our comprehen-
+
+sive analysis of the data for years 2018 and 2019, and feed-
+
+back from subject matter experts, eleven major configurations
+
+are identified, as reported in Table I. For example, for the
+
+configuration named N/NEW, North-bound runways (34R/L
+
+and 35R/L) are used for both arrival and departure, while
+
+runways 8 (East-bound) and 25 (West-bound) are used only
+
+for departure. 
+
+TABLE I
+
+M AJOR RUNWAY CONFIGURATIONS FOR   CLT   AND   DEN   AIRPORTS . 
+
+Configuration
+
+[Arr/Dep]
+
+Arrival
+
+Runways
+
+Departure
+
+Runways
+
+Usage
+
+Frequency
+
+[ % ]
+
+CLT 
+
+N/N   36C/L/R   36C/R   60.8
+
+S/S   18C/L/R   18C/L   39.2 
+
+DEN 
+
+SE/SE   16R/L, 17R/L,
+
+7, 8
+
+16R/L, 17R/L,
+
+7, 8
+
+18.8
+
+S/S   16R/L, 17R/L   16R/L, 17R/L   15
+
+N/NEW   34R/L, 35R/L   34R/L, 35R/L,
+
+8, 25
+
+14.5
+
+S/SEW   16R/L, 17R/L   16R/L, 17R/L,
+
+8, 25
+
+12.6
+
+N/N   34R/L, 35R/L   34R/L, 35R/L   12.3
+
+NE/NE   34R/L, 35R/L,
+
+7, 8
+
+34R/L, 35R/L,
+
+7, 8
+
+11.7
+
+NW/NW   34R/L, 35R/L,
+
+25, 26
+
+34R/L, 35R/L,
+
+25, 26
+
+8.6
+
+SW/SW   16R/L, 17R/L,
+
+25, 26
+
+16R/L, 17R/L,
+
+25, 26
+
+3.4
+
+E/E   7, 8   7, 8   1.6
+
+NS/EW   34R/L, 35R/L,
+
+16R/L, 17R/L
+
+8, 25   1.2
+
+W/W   25, 26   25, 26   0.3 
+
+B. Data Processing and Transformation 
+
+From among the data sources identified, there are several
+
+parameters available for use in the machine learning models. 
+
+===== PDF PAGE 4 / 9 =====
+
+The first step is to identify and retain any parameter that
+
+might   impact   runway   configuration   decision-making   and
+
+discard the other parameters. This selection is a conservative
+
+filtering   and   many   of   the   parameters   are   retained.   The
+
+next   step   is   to   identify   and   mitigate   data   quality   issues,
+
+perform   data   transformations,   and   convert   text   data   into
+
+numeric   values.   Data   transformation   is   an   important   step
+
+as   it translates the   raw   data   into   features and   labels for
+
+use in a machine learning model. Data processing involves
+
+several key steps such as aggregation of data to the frequency
+
+being considered (15-minutes intervals in this work), filling
+
+missing data, and encoding categorical variables. Variables
+
+deemed important, but that are unavailable or missing in
+
+most of the data need to be excluded. Data processing and
+
+transformation thus convert the raw data from various sources
+
+into features that can be used for machine learning. Through
+
+the data processing and transformation step, each 15-minute
+
+interval in the data available   is   associated with a set of
+
+features and a unique runway configuration. The following
+
+two subsections identify the features used in the final model
+
+(including the rationale) and the labels for supervised learning. 
+
+1) Features:   Table II shows various features used in the
+
+machine learning (ML) model for predicting runway config-
+
+uration. The table contains the feature name, the data source
+
+used for building this feature, and the feature type (categorical,
+
+continuous). The first set of features are derived from the
+
+METAR data. The wind speed is a continuous feature and
+
+wind direction is discretized into eight distinct categories,
+
+which are then encoded using one-hot encoding. Wind speed
+
+and direction are important variables that affect the airport
+
+configuration as high tailwinds and crosswinds are opera-
+
+tionally unsafe and can render certain configurations unusable.
+
+Temperature, ceiling, and visibility are other weather features
+
+that are included from the METAR data and are continuous
+
+variables. The meteorological condition is a binary variable
+
+having two possible states: Visual Meteorological Conditions
+
+(VMC) and Instrument Meteorological Conditions (IMC). It
+
+indicates the prevailing conditions based on the combination
+
+of visibility and the cloud ceiling.
+
+The next set of features are those derived from the ASPM
+
+data. This includes the scheduled arrivals and departures,
+
+which give a sense of the demand at the airport. Demand is an
+
+important factor that affects possible airport configurations as
+
+high-demand situations would require high-capacity configu-
+
+rations to be used. The capacity of arrivals and departures is
+
+the next feature used from ASPM and it provides information
+
+about the number of arrivals that a configuration can ac-
+
+commodate. Capacity is also typically correlated with various
+
+weather conditions (particularly VMC versus IMC). ASPM
+
+also contains the count of actual arrivals and departures,
+
+however, those are not used in this work. Similarly, averaged
+
+taxi-in and taxi-out times are also available from ASPM but
+
+these are not used because they are an aggregated metric that
+
+would typically not be available in real time during operations.
+
+The scheduled arrivals and departures over a 1-hour window
+
+following the current time interval are generated and used as
+
+features rather than the scheduled operations in the current
+
+time interval. The local hour and quarter hour is also available
+
+and is encoded as one-hot categorical variables in order to
+
+account for variations during the day. 
+
+TABLE II
+
+V ARIABLES USED IN FEATURES IN THE FUSED DATA PRODUCT USED FOR
+
+MACHINE LEARNING MODEL . 
+
+Feature   Type   Source 
+
+Wind Speed   Continuous   METAR
+
+Wind Direction   Categorical   METAR
+
+Ceiling, Visibility, Temperature   Continuous   METAR
+
+Meteorological condition   Binary   METAR
+
+Scheduled arrivals and departures   Continuous   ASPM
+
+Capacity of arrivals and departures   Continuous   ASPM
+
+Local hour   Categorical   ASPM
+
+Quarter hour   Categorical   ASPM
+
+Number of go-arounds   Continuous   Sherlock
+
+Multiple go-arounds   Binary   Sherlock
+
+Wind Speed Forecast   Continuous   LAMP
+
+Wind Direction Forecast   Categorical   LAMP
+
+Forecasts of Ceiling, Visibility, Temperature   Continuous   LAMP
+
+Precipitation Forecast   Categorical   LAMP
+
+Convection Forecast   Categorical   LAMP
+
+Lightning Forecast   Categorical   LAMP
+
+Meteorological Condition Forecast   Binary   LAMP 
+
+Two features are created from event data extracted from
+
+the Sherlock data warehouse: the total number of go-arounds
+
+in a time period and the presence of multiple go-arounds in
+
+a time period. This could be an important feature, because
+
+high tailwinds or crosswinds could be one of the reasons
+
+for a go-around and one or more go-arounds could prompt
+
+the controller to change the runway configuration earlier than
+
+planned.
+
+The final set of features is obtained from the LAMP mete-
+
+orological forecast data. LAMP features contain forecasts for
+
+wind speed, wind direction, ceiling, visibility, temperature, and
+
+meteorological condition. Additionally, LAMP also provides
+
+forecasts of precipitation, convective weather, and lightning
+
+as categorical variables whose values range from 0 to 4,
+
+with increasing numerical value indicating higher probability.
+
+Forecast weather elements are an important part of predictive
+
+runway configuration models, as they can provide insight
+
+into future weather changes and potential for switches in
+
+configurations. Inclement weather forecast can lead to reduced
+
+capacity and changes in schedule as well as the exclusion of
+
+certain runway configurations. The LAMP data features help
+
+account for these scenarios and other implicit decision-making
+
+strategies that may be employed by controllers when they
+
+review the forecast. Since the LAMP data is available at an
+
+hourly interval, the data product in this work will utilize the
+
+most recently available forecast for each 15-minute interval.
+
+While the forecast data is available up to 25 hours in the
+
+future, only the next 2 hours are currently utilized in the ML 
+
+===== PDF PAGE 5 / 9 =====
+
+model, as these are seen as the most relevant to the prediction
+
+of configurations in the immediate next 15-minutes interval.
+
+As is evident from the description of the features as well
+
+as their impact on the runway configuration management
+
+problem,   there   exist   correlations   and   coupling   between
+
+different features used in the ML models. Dimensionality
+
+reduction techniques such as Principal Component Analysis
+
+(PCA) are explored in the implementation section to improve
+
+performance. 
+
+2) Labels/Targets:   The labels or targets for the machine
+
+learning model are the unique runway configurations for each
+
+airport. Thus, CLT has 2 unique labels (N or S) and DEN
+
+has 11 unique labels (identified in Table I). The runway
+
+configuration   in   the   next   15-minutes   time   interval   is   the
+
+label associated with the current interval. In this way, during
+
+operations, the model is using features available at the current
+
+time to make the prediction for the future without any leakage
+
+of data. 
+
+C. ML Model Training, Validation, Testing 
+
+The end product generated from data processing and trans-
+
+formation is used to setup and train the machine learning
+
+models. The overall setup of the model is shown in Figure 3.
+
+At   any   point   in   time,   the   model   uses   features   from   the
+
+current step to predict the runway configuration for the next
+
+step (next 15-minutes interval). Once trained, the model runs
+
+continuously to provide predictions for the next time step
+
+(dashed box and arrows). It is noted here that features in
+
+the current time step might include future estimates of some
+
+quantities (such as weather forecast from LAMP), but these
+
+data are available or collected at the current time step or earlier. 
+
+Fig. 3.   High-level schematic of the methodology. 
+
+Several   different   machine   learning   classification   models
+
+were considered as candidate models for this work including
+
+Random Forest, Gradient Boosting, Support Vector Machine,
+
+etc. Among these models considered, Random Forest had the
+
+best overall performance at both airports and therefore, in
+
+this paper, results from the best performing (after tuning the
+
+hyperparameters) Random Forest model are shown. Standard
+
+machine learning practice is used for training, validation,
+
+and testing of the models. The overall data set is randomly
+
+divided into two sets for training (80%) and testing (20%).
+
+The model hyperparameters are tuned using an off-the-shelf
+
+python package called   GridSearchCV 
+5   
+that finds the optimal
+
+hyperparameters and performs 5-fold cross validation based
+
+on the training set. For the Random Forest algorithm, the
+
+following hyperparameters are varied   based on   review   of
+
+literature [16] and prior usage of this algorithm – the number
+
+of estimators, maximum depth, minimum number of samples
+
+per leaf. For details on each of the hyperparameters and their
+
+impact on the model, readers are referred to the documentation
+
+of Random Forest model implementation used in this work
+
+(from the python library scikit-learn 
+6 
+)
+
+III. R ESULTS AND   D ISCUSSION 
+
+In this section, the described methodology is implemented
+
+and the results are reported for the two airports of interest
+
+(CLT and DEN). 
+
+A. Data Description and Exploration 
+
+The data used in this work is collected from the data sources
+
+described earlier for two full years (2018 and 2019) at CLT
+
+and DEN airports. The data product is created using data
+
+processing and transformation to produce one row for each
+
+15-minutes interval during the two years. The sources that are
+
+available at a lower frequency are up-sampled by using data
+
+from the closest past instance. Thus, each row in the final
+
+data product is one instance of the 15-minutes interval and the
+
+columns are the features identified from previous sections. The
+
+final data product is stored and used as a   DataFrame   object in
+
+the pandas library in python 
+7 
+. The DataFrame for each of the
+
+two airports consists of 70,056 rows. For each airport, 69,480
+
+rows ( ≈   99.1%) do not contain any missing data or features
+
+and are thus used in the model training, validation, and testing.
+
+The total number of columns available from the raw data set
+
+is 212, however, only a subset of these columns are used as
+
+features in the ML model. A total of   84   features are used in the
+
+final ML models in this work. These   84   features correspond
+
+to   30   variables derived from Table II (the higher number of
+
+features than variables is due to the encoding of categorical
+
+features that leads to multiple features for each variable). The
+
+data is then divided into training (80%) and testing (20%)
+
+sets based on random splits. In each of the following sections,
+
+the scores or metrics are all reported on the test set unless
+
+explicitly stated otherwise. 
+
+B. Optimal ML models 
+
+Random Forest with grid search is then implemented for
+
+each data set (CLT and DEN) to obtain the best performing
+
+models. Typically, grid search will select the best hyperparam-
+
+eter set based on a scoring criteria such as accuracy, precision, 
+
+5 https://scikit-learn.org/stable/modules/generated/sklearn.model selection.
+
+GridSearchCV.html 
+
+6 https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.
+
+RandomForestClassifier.html. 
+
+7 https://pandas.pydata.org/ 
+
+===== PDF PAGE 6 / 9 =====
+
+and/or recall. In cases where the data is balanced (approx-
+
+imately similar number instances of each class), accuracy
+
+is a sufficient score. However, in cases such as the current
+
+work, the data labels are unbalanced. For example, some
+
+configurations might be used more than others at an airport
+
+(see Table I). Therefore, in this work, the F-1 score (harmonic
+
+mean of precision and recall) is used as the scoring metric in
+
+grid search as it explicitly accounts for class imbalance. Five-
+
+fold cross validation is used in the hyperparameter tuning, and
+
+the folds are made by preserving the percentage of samples for
+
+each class (called stratified folds). Dimensionality reduction
+
+through the PCA method was tested but did not yield any
+
+significant performance improvements. 
+
+1) Hyperparameters:   The   hyperparameters   for   the   best
+
+performing models after tuning and their ranges are reported
+
+in Table III for both airports. A short description of the
+
+parameters is provided here, and readers are referred to scikit-
+
+learn 
+7   
+documentation. The number of estimators is among the
+
+main hyperparameters in the model, and it controls the number
+
+of decision trees in the forest. The next hyperparameter is
+
+maximum depth of a decision tree. It controls how far down
+
+the nodes are expanded for each tree. The third hyperparameter
+
+is the max samples. It controls the maximum number of
+
+samples to draw to train each decision tree. Values lower
+
+than one (the max value for this hyperparameter) ensure that
+
+the different decision trees trained have different strengths
+
+that can help with model performance. All three of these
+
+hyperparameters help to achieve the desired trade-off between
+
+model performance and generalizability. It is noted that the
+
+optimal values of the hyperparameters can vary when the data
+
+is changed, even for the same airport. The values provided in
+
+the table gave the best performance for the available data. 
+
+TABLE III
+
+O PTIMAL HYPERPARAMETER VALUES FOR   R ANDOM   F OREST MODELS . 
+
+Hyperparameter   CLT Value   DEN Value   Min   Max 
+
+Number of estimators   300   400   50   500
+
+Max. depth   25   50   25   200
+
+Max. samples   0.7   0.8   0.7   1.0 
+
+2) Model Performance Metrics:   Table IV shows the overall
+
+performance of the best models from Table III for each airport.
+
+The training and test accuracy are provided along with the F-1
+
+score for each model. For multi-label classification (such as
+
+the case with DEN airport here), the F-1 score is obtained for
+
+each label individually and is generally averaged to obtain
+
+a single score for the model. The averaging can be done
+
+in various ways; in this work,   weighted   averaging is used.
+
+For   weighted   averaging, the metrics needed to calculate F-1
+
+score (precision, recall) are calculated for each label, and their
+
+average is computed weighted by the number of true instances
+
+for each label.
+
+As evident from the table, the optimal ML model performs
+
+well for both airports, with CLT performing better than DEN.
+
+This is an expected outcome, as the level of operational
+
+complexity at CLT is lower and the ML model only has to 
+
+TABLE IV
+
+O VERALL MODEL PERFORMANCE . 
+
+Airport   Training
+
+Accuracy %
+
+Test Accuracy
+
+%
+
+Test F-1 Score
+
+(weighted) % 
+
+CLT   98.94   93.94   93.96
+
+DEN   96.45   73.49   74.05 
+
+predict from among   two   configurations as opposed to   eleven 
+
+for DEN. The metrics obtained using the trained ML models
+
+are also compared against a baseline that is based on air
+
+traffic controllers’ past decisions. This baseline is obtained by
+
+selecting the most common action taken by the controllers in
+
+the past for each similar state (unique combination of wind
+
+direction, wind speed, hour of the day, meteorological condi-
+
+tion, etc.). The average accuracy for this baseline model that
+
+mimics the most frequent controller action is 81.6 %   for CLT
+
+and 53.7 %   for DEN, which shows the considerable variations
+
+in the controllers’ decision-making. If the controllers always
+
+made the same decision in the same specific state in the
+
+historical data, these numbers would be 100 % . 
+
+3) Confusion   Matrix   and   Feature   Importance:   Figures
+
+4   and   5   show   the   confusion   matrix   for   the   performance
+
+of the ML model at CLT and DEN airports. The actual
+
+class/configuration represents the historical decisions made by
+
+the controllers and is shown on the y-axis, while the predicted
+
+class/configuration by the ML model is shown on the x-axis.
+
+Diagonal elements of the matrix show correct predictions,
+
+while the off-diagonal elements depict errors made by the ML
+
+model. The color of each box in the matrix represents the
+
+amount of samples that belong in that box with darker color
+
+indicating more samples. 
+
+Fig. 4.   Confusion matrix for CLT model. 
+
+For CLT, the model does a good job of identifying the right
+
+configuration in a majority of cases. Because North flow is
+
+preferred in the operations and is thus better represented in
+
+the data, it has a better performance in the model. In the case
+
+of DEN, it can be seen that a majority of the disagreements are
+
+among very similar configurations. For example, in the case
+
+of S/S configuration, majority of the times that the ML model
+
+disagrees with the historical decisions is in prediction of SE/SE
+
+instead of S/S, which are very similar configurations. Another
+
+example is the confusion of the algorithm between NE/NE
+
+and N/NEW configurations. Some of these disagreements are 
+
+===== PDF PAGE 7 / 9 =====
+
+Fig. 5.   Confusion matrix for DEN model. 
+
+due to the presence of class imbalance in the data as noted in
+
+Table I and can be improved by additional data collection and
+
+training of the model with a larger amount of data. Moreover,
+
+the use of class balancing techniques such as over-sampling
+
+and/or under-sampling can potentially improve performance of
+
+the model, however, it is out of the scope of this paper and
+
+will be investigated in the future. On the other hand, some
+
+of the disagreements happen because factors other than those
+
+represented in the feature space might be playing a role in the
+
+decision-making around configurations. This might lead to two
+
+states in the feature space that are very similar to each other
+
+to have different actual configuration in the historical data.
+
+Additionally, for ensuring appropriate behavior in edge-
+
+cases, a metric for violation of obvious decisions is defined.
+
+For this metric, decisions that are obvious to the subject matter
+
+experts are defined as cases. Then, the percentage of times the
+
+model violates these defined cases is identified. For example,
+
+in the case study of CLT, if the wind is blowing strongly (more
+
+than 15 knots) from North, if the model suggests the South
+
+configuration, it is considered a violation. For both models,
+
+very low percentages of violation metric (below 0.07 %   and
+
+0.7 %   for CLT and DEN) are observed.
+
+Figures 6 and 7 provide an overview of the most important
+
+features as perceived by the Random Forest algorithm. This
+
+feature importance is calculated by a method known as mean
+
+decrease in impurity. In simple terms, it counts the times a
+
+feature is used to split a node, weighted by the number of
+
+samples it splits. One of the drawbacks of this method is that
+
+the importances can be high even for features that are not
+
+predictive of the target variable, as long as the model has the
+
+capacity to use them to overfit 
+8 
+. Therefore, these importances 
+
+8 https://scikit-learn.org/stable/auto examples/inspection/plot permutation
+
+importance.html 
+
+should be examined from the perspective of understanding
+
+the algorithm’s high-level behavior rather than drawing any
+
+detailed inferences from them. 
+
+Fig. 6.   Feature importance for CLT model. 
+
+For   CLT   airport,   current   wind   direction   dominates   the
+
+feature importance chart followed closely by the current wind
+
+speed indicating that the North/South configuration choice is
+
+heavily influenced by wind. Among other important factors
+
+are forecasts of wind direction over the next 1 and 2 hours.
+
+Current and forecast temperature is an unexpected parameter
+
+among the top ones with no clear explanation and is likely an
+
+artifact of the way the feature importance is calculated rather
+
+than any insightful reason.
+
+For DEN airport, the feature importances are more spread
+
+out over the top few factors as opposed to a single dominating
+
+factor in CLT. The scheduled arrivals and departures in the
+
+next hour (demand) and the wind direction are among the top
+
+factors. The local hour is also among the top three indicating
+
+that there are perhaps preferred configurations for specific
+
+times of the day. Wind speed and other forecast variables are
+
+also of higher importance than in CLT.
+
+Forecasts of other variables, meteorological conditions, and
+
+go-arounds seem to surprisingly play little role in the ML
+
+model for both airports. 
+
+C. Discussion 
+
+It is observed that the Random Forest model generally
+
+performs well for both CLT and DEN airports. Based on
+
+the metrics and feature importances, it is evident that the
+
+performance of the model depends on the airport complexity
+
+and operational constraints at each airport. The benefits of 
+
+===== PDF PAGE 8 / 9 =====
+
+Fig. 7.   Feature importance for DEN model. 
+
+using a large number of features is evident from the two
+
+feature importance figures where the most important features
+
+are quite different across two airports. As the methodology
+
+is expanded to other airports with more diverse operating
+
+conditions, other features might play an elevated role. The
+
+data sources used in this work are easily available for a
+
+majority of large airports across the NAS and therefore the
+
+methodology lends itself easily to expansion at other airports.
+
+The extraction of labels (actual runway configurations in use)
+
+is an important and time-consuming step that was essential
+
+to ensure most accurate information. Performing this at each
+
+airport might require some amount of initial offline work.
+
+Possible alternative data sources or streams might need to be
+
+explored to scale this methodology. Additionally, the drop in
+
+performance of the model without performing this step can
+
+be explored to gauge the quantitative benefits of doing this
+
+step. This will enable making a decision on whether there is
+
+added value in performing this time-consuming offline analy-
+
+sis. Hyperparameter tuning, while important only marginally
+
+improves a baseline model built with default hyperparameters
+
+from scikit-learn. This indicates that the model is performing
+
+as well as it can with the features that have been provided to it.
+
+Further improvement might require a different model type or
+
+additional features that cover other aspects of operations. Fi-
+
+nally, it was observed that there is a variability in the historical
+
+decisions by controllers when the system is in the exact same
+
+state (weather, forecast, traffic, etc.). This variability can be
+
+captured using a measure known as entropy from information
+
+theory. Entropy allows quantifying how much variability exists
+
+in the controllers’ decisions in any given state and thereby
+
+provides some context on the supervised learning model’s
+
+predictions.
+
+IV. C ONCLUSION 
+
+In this paper, a methodology for predicting airport runway
+
+configurations using machine learning algorithms trained on
+
+data collected from various sources was demonstrated. A
+
+detailed description of data sources and processing required
+
+for the methodology was provided along with a description
+
+for obtaining labels for the ML model. Various ML models
+
+were explored and the best performing algorithms and hyper-
+
+parameters were reported for two representative airports of low
+
+and high operational complexity (CLT and DEN respectively).
+
+There are some identified avenues of future work that would
+
+improve the methodology further. The first avenue identified
+
+is the inclusion of other weather forecast data called Terminal
+
+Aerodrome Forecast (TAF). This is a popular aviation weather
+
+data that is frequently used by air traffic personnel in the
+
+decision-making process. The comparison of using LAMP
+
+versus TAF data will be explored. The second avenue is
+
+expansion of the methodology to other airports. This would
+
+enable learning how the methodology scales and identify gaps
+
+in the current data or model setup, which might help models
+
+at existing airports as well as new ones. The third avenue
+
+of future work is exploring more complex machine learning
+
+models such as deep learning or long short-term memory
+
+(LSTM) networks that can explicitly account for the temporal
+
+nature of the data and potentially help realize additional gains
+
+in the model performance.
+
+A CKNOWLEDGMENTS 
+
+The authors acknowledge the invaluable support and feed-
+
+back from collaborators and subject matter experts affiliated
+
+with the Federal Aviation Administration’s (FAA) Office of
+
+NextGen.
+
+R EFERENCES
+
+[1]   C. Provan, S. Atkins, Tactical airport configuration management, 2011
+
+Integrated Communications, Navigation, and Surveillance Conference
+
+Proceedings, Herndon, VA, USA (2011).   doi:10.1109/ICNSURV.
+
+2011.5935346 .
+
+[2]   R. Oseguera-Lohr, N. Phojanamongkolkij, G. Lohr, J. Fenber, Benefits
+
+assessment for tactical runway configuration management tool, 2013
+
+Aviation Technology, Integration, and Operations Conference, Los An-
+
+geles, CA (2013).   doi:10.2514/6.2013-4395 .
+
+[3]   J. Avery, H. Balakrishnan, Data-driven modeling and prediction of the
+
+process for selecting runway configurations, Transportation Research
+
+Record 2600 (2016).   doi:10.3141/2600-01 .
+
+[4]   A.   Jacquillat,   A.   Odoni,   M.   Webster,   Dynamic   control   of   runway
+
+configurations and of arrival and departure service rates at JFK airport
+
+under stochastic queue conditions, Transportation Science 51 (1) (2016)
+
+155–176.   doi:10.1287/trsc.2015.0644 .
+
+[5]   S. Badrinath, M. Li, H. Balakrishnan, Integrated surface–airspace model
+
+of airport departures, Journal of Guidance, Control, and Dynamics 42 (5)
+
+(2019) 1049–1063.
+
+[6]   D. Bertsimas, M. Frankovich, O. A., Optimal selection of airport runway
+
+configurations, Operations Research 59 (6) (2011) 1407–1419.
+
+[7]   X. Bai, P. Menon, Decision support for optimal runway reconfiguration,
+
+2013 Aviation Technology, Integration, and Operations Conference, Los
+
+Angeles, CA (2013).   doi:10.2514/6.2013-4397 . 
+
+===== PDF PAGE 9 / 9 =====
+
+[8]   L. Li, J. Clarke, H. Chien, T. Melconian, A probabilistic decision-
+
+making model for runway configuration planning under stochastic wind
+
+conditions,   IEEE/AIAA   28th   Digital   Avionics   Systems   Conference
+
+(2009).   doi:10.1109/DASC.2009.5347528 .
+
+[9]   M. Memarzadeh, T. Puranik, K. Kalyanam, W. Ryan, Airport runway
+
+configuration management with offline model-free reinforcement learn-
+
+ing, AIAA SciTech 2023 Forum, p. 0504 (2023).   doi:10.2514/6.
+
+2023-0504 .
+
+[10]   S. Khater, J. Rebollo, W. Coupe, A recursive multi-step machine learning
+
+approach for airport configuration prediction, AIAA Aviation Forum
+
+(2021).   doi:10.2514/6.2021-2406 .
+
+[11]   A. Churchill, W. Coupe, Y. Jung, Predicting arrival and departure
+
+runway assignments with machine learning, AIAA Aviation Forum
+
+(2021) 10.2514/6.2021–2400.
+
+[12]   M. Ahmed, S. Alam, M. Barlow, A multi-layer artificial neural network
+
+approach for runway configuration prediction, Proceedings of the ICRAT
+
+2018, 8th International Conference on Research in Air Transportation,
+
+Castelldefels, Catalonia, Spain (2018).
+
+[13]   R. Raju, R. Mital, B. Wilson, K. Shetty, M. Albert, Predicting runway
+
+configurations and arrival and departure rates at airports: Comparing the
+
+accuracy of multiple machine learning models, 2021 IEEE/AIAA 40th
+
+Digital Avionics Systems Conference (DASC), San Antonio, TX, USA
+
+(2021).   doi:10.1109/DASC52595.2021.9594389 .
+
+[14]   P. Razzaghi, A. Tabrizian, W. Guo, S. Chen, A. Taye, E. Thompson,
+
+A. Bregeon, A. Baheri, P. Wei, A survey on reinforcement learning in
+
+aviation applications, arXiv (2022).   doi:10.48550/arXiv.2211.
+
+02147 .
+
+[15]   S. Khater, J. Rebollo, W. Coupe, Predicting runway configurations at
+
+airports, Transportation Research Board (TRB) Annual Meeting (2012)
+
+12–3682.
+
+[16]   L. Breiman, Random forests, Machine Learning 45 (2001) 5–32. 

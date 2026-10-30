@@ -1,0 +1,320 @@
+
+
+===== PDF PAGE 1 / 5 =====
+
+INDUSTRY COMMON DEMAND vs CAPACITY PROTOCOL 
+
+1. Introduction 
+
+The industry focus is to operate a full schedule on time each and every day providing the best possible
+
+service to the consumer. Predictable stable operations for all the users. 
+
+As runways and airspace, particularly in the South East, operate closer to capacity the ability to fly the full
+
+schedule safely within the operating day when events restrict capacity becomes increasingly challenging
+
+and evidence from recent events suggest increasingly less likely. 
+
+The industry has an interest to explore how to avoid short notice cancellations and terminal crowding to
+
+reduce flight operations over running into the night and to explore how recovery can be made as quickly
+
+as possible. 
+
+A culture change is required to achieve this as there are currently no legal powers to compel airlines to
+
+cancel flights in advance of a weather event, airlines are operating in a competitive market and different
+
+airlines have different business models and schedule issues. 
+
+To avoid large scale short notice cancellations a voluntary Demand Vs Capacity protocol is suggested. 
+
+Events may be forecast or may occur without notice. The objective is to fly as much of the schedules as is
+
+possible whilst minimising disruption, keeping all stakeholders informed. The DvC process should
+
+encourage fairness whilst allowing airlines to make their own operational decisions where possible. 
+
+2. Triggers 
+
+The objective of the protocol is to minimise disruption in a planned environment in advance of the
+
+operational day, normally the day before (Day -1). In all cases the first response to an event (where
+
+demand is expected to exceed capacity) would be to recover capacity through the effective deployment
+
+of mitigating measures and inbuilt business resilience. The level of mitigation will vary accordingly and a
+
+two level approach is proposed. 
+
+The   first   level of mitigation will involve Air Traffic Flow Management (ATFM) by the local ANSP to align
+
+demand with capacity on the airfield and where necessary a fixed response from the airline community in
+
+line with their existing internal processes, such as operational cancellations, consolidation of services and
+
+managing a late running program. 
+
+The   second   level of mitigation will only be implemented where a tactical response by the ANSP and the
+
+airlines would not achieve the required balance between capacity and demand because of the scale and
+
+duration of the capacity loss. The   second   level of mitigation will be decided by the DvC group at the
+
+Airport following the established DvC process and using DvC triggers. An example of an event requiring
+
+second level mitigation including demand reduction would be the high risk of prolonged fog forecast for
+
+the following day. 
+
+3. Process 
+
+The DvC focal point is likely to be the Airport Duty Manager (ADM),   Airfield Operations Duty Manager 
+
+(AODM) or equivalent ,   for th e purposes of this common protocol   the focal point will be   described as the 
+
+===== PDF PAGE 2 / 5 =====
+
+AODM. 
+
+An assessment will be made by the AODM on forecasted issues such as Weather, Major assets failure, Air
+
+Traffic Control restrictions and other contributing factors. The AODM will need to be informed by
+
+suitable quality forecasting and modeling tools. A risk-based approach using measures of likelihood and
+
+impact will assess the   risk of possible disruption and support the decision   on intervention. 
+
+Depending on the severity of the event and level of capacity available, the airport will recommend to
+
+Airlines schedule intervention based on previous events of a similar nature. Clearly, the event may not
+
+always materialise, and reviews will take place to learn from each decision. 
+
+The timings of all conference calls and intervention decisions will be described in local process. Due to
+
+the nature of certain weather phenomena on occasions it may be prudent to delay the final intervention
+
+decision until later in the day to allow further model re-runs to be interrogated. In all events the final
+
+decision must be promulgated by 17.00(L). 
+
+For example an event could be – 
+
+   ATM intervention or Departure restriction for the Airports indicating significant schedule slippage
+
+resulting in excess number of night movements (typically 10 or more). 
+
+   An arrival flow rate set 25% below the declared arrival schedule for 4 hours or more. 
+
+   High/Medium High forecast risk of fog for more than 3 hours during operating hours 
+
+   Snow forecast with accumulations and airfield resources activated. 
+
+   Combination of the above 
+
+The airlines that are required to adhere to the capacity reduction, will be agreed at the individual airports
+
+dependent upon their schedule profile. Eg It could be airlines operating 5 or more runway movements
+
+per day, an agreed profile across the top 20 operators, or indeed all operators 
+
+In order to maintain flow, stand availability and respective aircraft and crew positioning, Airlines will be
+
+EXPECTED to adhere to the resulting revised operating plan. 
+
+It could be that if airlines don’t adhere to the voluntary intervention then the airport could consider
+
+operational priorities or variable charging schemes within their conditions of use to encourage positive
+
+behaviors and fairness. 
+
+When appropriate, airlines may request consideration to re-time arrivals and/or departures outside the
+
+window of schedule intervention. The number (if any) of re-times available will depend on: 
+
+1. the window of the schedule intervention & recovery period; 
+
+2. the confidence in the weather forecast; 
+
+3. the availability of Night Jet Movements at the designated Airport. 
+
+4. the airlines schedule as of 06.30(L) on the day before the event (MAYFLY sheet). 
+
+The airlines will make requests for retimes to the AODM who will consider these as part of the proposal
+
+for reducing the demand. The AODM will use a fair and transparent process to review and any accepted
+
+requests should be followed up with written confirmation to the airline from the AODM. The airline
+
+would then be expected to delay the arrival or departure time of the flights in question on the day of
+
+operation to meet the agreed retime(s). ACL will provide oversight to this process to ensure compliance
+
+with any relevant slot legislation. 
+
+4. Responsibilities 
+
+   The AODM shall be the Chair and act as the group co-ordinator. The AODM shall brief the DvC group so
+
+that they may understand all relevant data on planned flows, timings, predicted delays and any other 
+
+===== PDF PAGE 3 / 5 =====
+
+information relevant to the forecast event on which to base decisions on capacity reductions or revisions.
+
+The AODM shall present various proposals with different reduction levels that they have assessed to
+
+achieve the required outcome. The AODM shall support the group in coming to a consensus view of the
+
+overall actions to be taken. They will work with individual airlines and record all actions taken, e.g.
+
+cancellation, re-time etc. They shall provide the CAA with a list of cancelled flights and any other actions
+
+taken by the airlines including retimes. 
+
+   Local ANSP and NATS (En Route) shall advise the group on the status of inbound flow to the Airport, NATS
+
+(En Route) will also take direction from the group on any alternate action required. 
+
+   CAA shall provide a point of reference via their own website for airlines to publish cancellations
+
+undertaken to support a DvC schedule intervention. This is required as a central record to support airlines
+
+and the airport in any follow up activities. They may also be able to provide guidance when developing
+
+the process to ensure that consumer protection principles and obligations are maintained . 
+
+   Met Office shall provide the latest weather forecast information as well as an interpretation of all
+
+available weather information to the group where this could have a material impact on the quality of the
+
+group’s decisions. 
+
+   ACL will review cancellations after the event and determine if alleviation would fall within the EU Slot
+
+Regulation. Alleviation is not guaranteed and if alleviation is not granted then the cancellation will need
+
+to be within the 20% afforded to airlines for such events. ACL shall be provided the list of cancellations
+
+and any retime requests made at the close of play on the day before a DvC event by the AODM. 
+
+   Network Manager although not playing an active role in decision making, can provide participants with an
+
+update of any pan European network factors or events that might be worth considering for the group. 
+
+   Airline members shall make every effort to attend the DvC conference calls and play an active role in the
+
+decision making. All airlines will be bound by the DvC decision whether participating in the call or absent
+
+from it. The airlines are expected to review the information and proposals provided by the Airport and
+
+agree on the necessary course of action collectively. The airline representatives are accountable for
+
+communicating decisions made to their customers and shall ensure that whatever decisions are made,
+
+their airline uses best endeavors to comply including the cancellation of both flight plans and slots for
+
+operations that will no longer take place. Airlines can cooperate within their alliances and joint ventures
+
+on cancellations and retimes to meet any requirement for demand reduction. The AODM should be
+
+informed of any cooperation and such groups plan to meet any requested action. 
+
+Where a demand reduction is required a NOTAM shall be published, which is the notification that the CAA
+
+require. The NOTAM will specify the time for cancellations and the percentage required. For flights cancelled
+
+within the time boundaries and percentage requirements set out in the NOTAM, the CAA will support the
+
+position that flights cancelled proactively as part of the DvC process are done so based on expected airport
+
+congestion and therefore fall under the “extraordinary circumstances” exemption for the purposes of EU261. 
+
+NOTAM example; 
+
+Due to extraordinary events the Airport recommends a reduction of (percentage) in the flying
+
+programme for period (date) (Time UTC) 
+
+===== PDF PAGE 4 / 5 =====
+
+5. Supporting Clarifications 
+
+CAA – 
+
+Heathrow has an operational resilience licence condition placed upon it by the CAA. The purpose of the 
+
+licence condition is to secure the availability and continuity of airport operation services at the Airport, 
+
+particularly in times of disruption, to furt her the interests of users of air transport services in accordance with 
+
+best practice and in a timely, efficient and economical manner. Gatwick has similar commitments set out in its 
+
+conditions of use, as it has moved to a commitments based economic regula tory approach. 
+
+The CAA supports reductions in capacity where flights can continue to operate safely and airlines can give 
+
+advance notice to their passengers. Where flights are cancelled early based on the expected weather 
+
+conditions, and where it would n ot be considered safe to operate a full schedule, it is our view that these 
+
+would be considered to be an extraordinary circumstance and not subject to compensation. It should be 
+
+noted that this view has not been tested in the Courts. 
+
+The CAA is involved i n the capacity reduction process at Heathrow as it monitors it’s licence condition, and it 
+
+publishes flights that have been cancelled early as a result of expected weather conditions on its website. This 
+
+is intended to support the compensation claim proces s.   and does not include flights cancelled on the day. 
+
+The CAA would encourage the adoption of standard practices across airports that are not subject to economic 
+
+licence conditions. Airports will need suitable tools to provide certainty of weather forecast s and schedule 
+
+reduction requirements across the day. In addition before the CAA could publish a list of flight cancellations it 
+
+would also require the airport operator to provide evidence that it could support the cancellation. 
+
+ACL   - 
+
+Air carriers are   required to operate 80% of the slots in a series held at 31 January or 31 August, as cleared by 
+
+the Coordinator, in order to qualify for their entitlement to the same series of slots in the next equivalent 
+
+season. Unless the air carrier can demonstrate to   the satisfaction of the Coordinator that a series of slots has 
+
+been operated, as cleared by the Coordinator, for at least 80% of the time for which it has been allocated, all 
+
+the slots in that series will be placed in the slot pool, unless the non - utilisa tion can be justified. Justification 
+
+can only take place for the specific reason consistent with EU Slot Regulation. 
+
+The EU Regulation allows 20% cancellations after 31 January for a summer season and 31 August for the
+
+winter season. This 20% is made available to cover cancellations that are not covered by the alleviation
+
+afforded under the EU Slot Regulation. It is for the carrier to determine how much of the 20% should be
+
+protected for unforeseen events, however ACL will not flex its interpretation of force majeure to
+
+accommodate commercial cancellations or events that can be reasonably expected to occur. Alleviation will
+
+only be granted if the carrier demonstrates it has taken all reasonable steps to mitigate i.e. the cancellations
+
+could not have been avoided if all reasonable measures had been taken and in any case only after the event
+
+has occurred and the decision taken will be on a case by case basis. 
+
+Nonetheless, a regular and transparent dialogue and exchange of information between the air carriers
+
+concerned and the Coordinator, as well as with other relevant stakeholders when applicable is strongly
+
+advised for the clarity of the process regarding the interpretation of ‘force majeure’. 
+
+ACL offers full guidance of the application of force majeure with examples on their website. 
+
+===== PDF PAGE 5 / 5 =====
+

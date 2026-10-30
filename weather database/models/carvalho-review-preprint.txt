@@ -1,0 +1,1728 @@
+
+
+===== PDF PAGE 1 / 17 =====
+
+A R eview on   F light   D elay   P rediction 
+
+Alice Sternberg 
+
+CEFET / RJ 
+
+Jorge Soares 
+
+CEFET / RJ 
+
+jorge.soares@cefet-rj.br 
+
+Diego Carvalho 
+
+CEFET / RJ 
+
+dcarvalho@ieee.org 
+
+Eduardo Ogasawara 
+
+CEFET / RJ 
+
+eogasawara@ieee.org 
+
+A bstract 
+
+Flight delays hurt airlines, airports, and passengers. Their prediction is crucial during the decision-
+
+making process for all players of commercial aviation.   Moreover, the development of accurate
+
+prediction models for flight delays became cumbersome due to the complexity of air transportation
+
+system, the number of methods for prediction, and the deluge of flight data. In this context, this paper
+
+presents a thorough literature review of approaches used to build flight delay prediction models from
+
+the Data Science perspective. We propose a taxonomy and summarize the initiatives used to address
+
+the flight delay prediction problem, according to scope, data, and computational methods, giving
+
+particular attention to an increased usage of machine learning methods. Besides, we also present a
+
+timeline of significant works that depicts relationships between flight delay prediction problems and
+
+research trends to address them.
+
+The published version of this paper is made available at   https://doi.org/10.1080/01441647.
+
+2020.1861123 .
+
+Please cite as:
+
+L. Carvalho, A. Sternberg, L. Maia Gonc ¸alves, A. Beatriz Cruz, J.A. Soares, D. Brand˜ ao, D. Car-
+
+valho, e E. Ogasawara, 2020, On the relevance of data science for flight delay research: a systematic
+
+review, Transport Reviews 
+
+K eywords   Flight delays   ·   Commercial aviation   ·   Brazilian system 
+
+1   Introduction 
+
+Delay is one of the most remembered performance indicators of any transportation system. Notably, commercial avia-
+
+tion players understand delay as the period by which a flight is late or postponed. Thus, a delay may be represented by
+
+the di ff erence between scheduled and real times of departure or arrival of a plane [117]. Country regulator authorities
+
+have a multitude of indicators related to tolerance thresholds for flight delays. Indeed, flight delay is an essential sub-
+
+ject in the context of air transportation systems. In 2013, 36% of flights delayed by more than five minutes in Europe,
+
+31.1% of flights delayed by more than 15 minutes in the United States, and 16.3% of flights were canceled or su ff ered
+
+delays greater than 30 minutes in Brazil [45, 5]. This indicates how relevant this indicator is and how it a ff ects no
+
+matter the scale of airline meshes.
+
+Flight delays have negative impacts, mainly economic, for passengers, airlines, and airports. Given the uncertainty
+
+of their occurrence, passengers usually plan to travel many hours earlier for their appointments, increasing their trip
+
+costs, to ensure their arrival on time [11, 55]. On the other hand, airlines su ff er penalties, fines and additional operation
+
+costs, such as crew and aircrafts retentions in airports [25, 112, 51, 62]. Furthermore, from the sustainability point of
+
+view, delays may also cause environmental damage by increasing fuel consumption and gas emissions [95, 105, 102,
+
+75, 8, 125]. 
+
+arXiv:1703.06118v3 [cs.CY] 4 Apr 2021 
+
+===== PDF PAGE 2 / 17 =====
+
+preprint 
+
+Delays also jeopardize airlines marketing strategies, since carriers rely on customers’ loyalty to support their frequent-
+
+flyer programs and the consumer’s choice is also a ff ected by reliable performance. There is a identified relationship
+
+between levels of delays and fares, aircraft sizes, flight frequency and complaints about airline service [39, 83, 21,
+
+93, 133]. The estimation of flight delays can improve the tactical and operational decisions of airports and airlines
+
+managers and warn passengers so that they can rearrange their plans [40].
+
+To better understand the entire flight ecosystems, vast volumes of data from commercial aviation are collected every
+
+moment and stored in databases. Submerged in this massive amount of data produced by sensors and IoT [86, 29, 90],
+
+analysts and data scientists are intensifying their computational and data management skills to extract useful informa-
+
+tion from each datum. In this context, the procedure of comprehending the domain, managing data and applying a
+
+model is known as Data Science, a trend in solving challenging problems related to Big Data.
+
+Under this data deluge scenario, this paper contributes by presenting an analysis of the available literature on flight de-
+
+lay prediction from Data Science perspective. It seeks to summarize the most researched trends in this field, describing
+
+how this problem is addressed and comparing methods that have been used to build prediction models. This becomes
+
+more relevant as we observe an increasing presence of machine learning methods to model flight delays predictions.
+
+This analysis is conducted by establishing a flight delay research taxonomy, which organizes approaches according
+
+to the type of problem, scope, data issues, and computational methods. The paper also contributes by presenting a
+
+timeline of major works grouped by the kind of flight delay prediction problem.
+
+Besides this introduction, the rest of this paper is structured as follows. Section 2 introduces the flight delay scenario,
+
+describing a typical operation of a commercial flight, kinds of delays and their impacts.   It also structures three
+
+di ff erent ways for treating the prediction problem. In Section 3, a taxonomic analysis of the prediction is presented,
+
+showing the most researched topics, the scope of application, data and methods that authors are using to predict flight
+
+delays. Section 4 discusses the main results based on a timeline of publications grouped by the types of problems and
+
+their intersections. Finally, Section 5 concludes our analysis by presenting major highlights and trends about delay
+
+prediction problem. 
+
+2   The flight delay scenario 
+
+Commercial aviation is a complex distributed transportation system. It deals with valuable resources, demand fluctu-
+
+ations, and a sophisticated origin-destination matrix that need orchestration to provide smooth and safety operations.
+
+Furthermore, individual passenger follows her itineraries while airlines plan various schedules for aircrafts, pilots and
+
+flight attendants.   Figure 1 illustrates a typical operation of a commercial flight.   Stages can take place at terminal
+
+boundaries, airports, runways, and airspace, being susceptible to di ff erent kinds of delays. Some examples include
+
+mechanical problems, weather conditions, ground delays, air tra ffi c control, runway queues and capacity constraints
+
+[103, 63, 3]. 
+Boarding
+
+procedures 
+
+Taxi out
+
+Gate
+
+out
+
+Wheels
+
+off 
+
+En route
+
+flight
+
+Flight time 
+
+Wheels
+
+on
+
+Gate
+
+in
+
+Taxi in 
+
+Disembark
+
+procedures 
+
+Resources
+
+(aircraft, pilots,
+
+flight
+
+attendants,...) 
+
+Supplies
+
+(food,
+
+beverages,
+
+fuel, ...) 
+
+Ground
+
+activities
+
+(aircraft check,
+
+cleaning, ...) 
+
+Resources
+
+(aircraft, pilots,
+
+flight
+
+attendants,...) 
+
+Supplies
+
+(food,
+
+beverages,
+
+fuel, ...) 
+
+Ground
+
+activities
+
+(aircraft check,
+
+cleaning, ...) 
+
+Figure 1: A typical operation of a commercial flight
+
+2 
+
+===== PDF PAGE 3 / 17 =====
+
+preprint 
+
+This scheme is repeated several times throughout the day for each flight in the system. Pilots, flight attendants and
+
+aircrafts may have di ff erent schedules due to legal rests, duties, and maintenance plans for airplanes. So, any disruption
+
+in the system can impact the subsequent flights of the same airline [2]. Moreover, disturbances may cause congestion
+
+at airspace or other airports, creating queues and delaying some flights from other carriers [106, 123]. In this way, the
+
+prediction of flight delays is an essential subject for airlines, airports, Air Navigation Service Providers (ANSP), and
+
+network managers, like FAA [52] and Eurocontrol [46].
+
+The flight delay prediction problem can be treated by di ff erent points of view: (i) delay propagation, (ii) root delay and
+
+cancellation. In delay propagation, one study how delay propagates through the network of the transportation system.
+
+On the other hand, considering that new problems may happen eventually, it is also important to predict further delays
+
+and understand their causes.   Such occurrences, in this paper, are named as a   root   delay problem.   Finally, under
+
+specific situations, delays can lead to cancellations, forcing airlines and passengers to reschedule their itineraries. So,
+
+researchers focused on cancellation analysis try to figure out which conditions lead to cancellations.   Moreover, it
+
+explores the airlines’ decision-making process for choosing the flights to be canceled. 
+
+3   Taxonomy 
+
+The main problems related to flight delay prediction are identified and organized in a taxonomy. It includes scopes,
+
+models, and ways of handling flight delay prediction problem. It considers flight domain features, such as   problem 
+
+and   scope , and Data Science perspectives, such as   data   and   methods . Figure 2 depicts the entire taxonomy while next
+
+subsections describe each component of the taxonomy and related work.
+
+Regarding the available literature on flight delay prediction, we have conducted a systematic mapping study.   The
+
+search expression string   (“airport delay”   ∨   “flight delay”)   ∧   (“predict”   ∨   “forecast”   ∨   “propagate”)   was used
+
+to query Scopus on October 2017. Query result brought 310 references. Additionally, 29 works were added using
+
+snowballing search. 
+
+Figure 2: Taxonomy of the flight delay prediction problem
+
+We have selected 134 to build this review due to their relevance and direct link with the flight delay prediction problem.
+
+The main criteria to be included is to have the word “delay” in the abstract, and the paper should have at least the one
+
+citation at Google Scholar per year before 2016. It means that to include a paper of 2015, it must have at least one
+
+citation, and so one.
+
+From this study, we were able to present a taxonomy that drives the organization of the following sections. 
+
+3.1   Problem 
+
+Problem is the core feature in domain taxonomy. As seen in Section 2, there are three major concerns regarding the
+
+flight delay prediction problem: delay propagation, root delay and cancellation. Depending on the emphasis of the
+
+research, authors select one of these lines to develop their models.
+
+3 
+
+===== PDF PAGE 4 / 17 =====
+
+preprint 
+
+3.1.1   Root delay and cancellation 
+
+Considering that new delay (root delay) may happen eventually, these root delays impair the performance of trans-
+
+portation network.   Researchers create prediction models to tackle root delay, predicting when and where a delay
+
+will occur and what are its reasons and sources. This includes models that e ffi ciently seek to estimate the number of
+
+minutes, probability or level of delay for a specific flight, airline or airport.
+
+A relevant number of works focused on predicting and estimating delay duration [102]. Some approaches considered
+
+probabilistic models and innovation distribution [90, 112], whereas others find conditions for the occurrence of a root
+
+delay, such as passenger demand, fares, flight frequency, aircraft size, and taxi-out time [11, 131].
+
+Particular circumstances, such as weather conditions, acts of God, aircraft problems, may lead airlines to cancel
+
+flights. Besides, airlines may directly cancel a flight, when factors like seat occupancy or cost savings are taking into
+
+consideration [80, 122]. 
+
+3.1.2   Delay propagation 
+
+In delay propagation, the primary objective is to understand how delay propagates through airlines and airports based
+
+on the assumption that an initial delay has already occurred in the transportation system. A particular scenario happens
+
+when delays are spread to other flights of the same airline as chain reactions [24, 16, 2, 118]. Under this situations, it
+
+is important to measure how stable and reliable carriers can be to recover from delay propagation [119, 41]. Also, a
+
+delay may continue to propagate due to the scheduling of critical resources or retentions in other airports [59].
+
+When scheduled time for take-o ff   or landing is not fulfilled, flights need new slots that may be unavailable. In this
+
+scenario, it is important to understand the e ff ects that a root delay in flight may produce to both departure and arrival
+
+airports [123, 100, 61]. Such phenomenon may increase the number of flights at some period, generating capacity
+
+problems and queues. 
+
+3.2   Scope 
+
+Delays can be induced by di ff erent sources and a ff ect airports, airlines,   en route   airspace or an ensemble of them. For
+
+analysis purposes, one may assume a simplified system where only one of these actors or any combination of them is
+
+considered. It should be noted that any scope of application can be combined with any problem mentioned in Section
+
+3.1.
+
+Some work focused on airports to predict delays for all departs considered all airlines and   en route   airspace indi ff er-
+
+ently [106, 102]. Airports are also the focus when the objective is to investigate their e ffi ciency based on delays of all
+
+carriers [94, 72, 100, 71]. On the other hand, only airlines are considered when comparing the performance of two
+
+airlines under the same conditions [3].
+
+An ensemble of airport and   en route   airspace were studied to understand the relationship between congestion and
+
+delays [63, 88]. Others considered airports and airlines as well to evaluate capacity problems and airlines decisions
+
+[112]. There are many possibilities to ensemble scopes. This becomes important when studying the dynamics of air
+
+transportation systems, mainly when targeting root delay. 
+
+3.3   Data 
+
+Three fundamental questions about data are: Where to find flight data? Which attributes should be considered? Is it
+
+possible to handle each datum to obtain better results? To answer these questions, the data problem is divided into
+
+three classes: (i) data sources, (ii) dimensions, and (iii) data management. 
+
+3.3.1   Data Sources 
+
+The type of datasets from the air transportation system are mainly related to airlines, airports or ensemble.   Since
+
+airlines and airports commonly do not share their databases with the entire community, they are often used by col-
+
+laborators of those institutions.   Ensemble datasets may include both carriers, airports, and additional information
+
+provided by governmental agencies, regulatory authorities, and service providers. Table 1 displays the type of datasets
+
+by regions. It presents the number of publications and the top three most cited papers in each category. Governmental
+
+agencies usually provide public access to their databases with di ff erent granularity. It is noticed that data from The
+
+United States Department of Transportation [44], primarily through The Federal Aviation Administration [52] and The
+
+Bureau of Transportation Statistics databases [26] are widely used to obtain information about flights. The Eurocon-
+
+4 
+
+===== PDF PAGE 5 / 17 =====
+
+preprint 
+
+trol [46] database is provided by an intergovernmental organization in Europe. This dataset is also used intensively in
+
+flight delay studies [103].
+
+Table 1: Number of sources of real data about the air transportation system per region
+
+Region   Ensemble   Airline   Airport
+
+Asia   2 [89, 111]   1 [104]   1 [121]
+
+Brazil   2 [110, 5]   0   0
+
+Europe   7 [30, 29, 81]   2 [109, 58]   7 [103, 27, 96]
+
+US   11 [90, 112, 128]   7 [78, 3, 4]   16 [54, 11, 53]
+
+Other related datasets, such as weather, may be obtained from governmental databases or service providers. This in-
+
+cludes, for example, The National Oceanic and Atmospheric Administration of the United States [92]. In fact, authors
+
+may use more than one source to develop their models. Datasets from United States Department of Transportation
+
+[44], National Oceanic and Atmospheric Administration [92], and Weather Company [113] are commonly used to
+
+build delay prediction models.
+
+Additionally, some researchers [130, 131] create synthetic datasets to evaluate their models instead of using real
+
+data. For example, Zou et al. [131] developed a market scenario, considering airport capacity, links, frequency, and
+
+characteristics of flights and passenger demand. 
+
+3.3.2   Dimensions 
+
+Considering the main public datasets and the papers analyzed, we have organized them main commonly attributes
+
+used into seven classes depicted in the data model of Figure 3. They abstract the main input attributes for delay pre-
+
+diction models. Beyond scheduled and actual times of departure and arrival, several characteristics may be considered
+
+depending on the focus of research. 
+
+Figure 3: Data model of the flight delay prediction
+
+Spatial dimension is related to the positions taken by the aircraft, such as departure and arrival airports, their cities,
+
+regions, and countries [61, 102]. The temporal dimension is often used to capture seasonality or periodic patterns
+
+5 
+
+===== PDF PAGE 6 / 17 =====
+
+preprint 
+
+of data. These elements contain both date (season, month, and day of the week) and time (the day or time of the
+
+day) characteristics [90, 1, 112]. Weather dimension expresses external and environmental conditions in a particular
+
+moment [50]. It may represent specific features, such as ceiling and visibility [103] that defines, for example, if take-
+
+o ff   or landing is going to happen under visual or instrumental conditions. Additionally,   en route   airspace weather
+
+situation (known as convective weather) and airport weather situation (known as surface weather) contain several
+
+momentaneous parameters [63].
+
+Planning describes what airlines, airports, and air tra ffi c controllers intend to do with critical resources involved in their
+
+operations. This dimension includes (i) airline schedules, (ii) airport schedules and (iii) flight plans. Arline schedules
+
+define all origin and destination points, their frequency and sequence, and aircrafts and crew allocations for each flight
+
+[24, 16, 119, 3, 41]. Airport schedules indicate the time each flight takes-o ff   and lands, while flight plans indicate all 
+
+en route   parameters, such as distance, route, speed, and high [59].
+
+Features represent characteristics of airlines, airports or aircrafts. Airlines status may indicate if a carrier is a major
+
+or an a ffi liate one or if it is a traditional hub-and-spoke or a low-cost point-to-point. Aircrafts characteristics show
+
+their size, their number of seats and occupancy, which may be a constraint to some operations because they a ff ect
+
+market decisions. Finally, airport infrastructure may represent the number of runways, gates and service providers in
+
+an airport facility [94, 109, 122].
+
+The state of the system indicates in which conditions airlines, airports or   en route   airspace are operating at a specific
+
+moment. Some examples correspond to prior levels of delay or airports closures [130]. The information about the
+
+state of the system is used to predict its behavior. Finally, operations are related to capacity and demand of airports
+
+and   en route   airspace. When demand exceeds capacity, a congestion scenario is formed, which enables occurrence of
+
+delays [88]. 
+
+3.3.3   Data Management 
+
+Since the use of databases to store a massive amount of data have been increasing over the last years, data manage-
+
+ment techniques are becoming more and more crucial to provide a convenient and e ffi cient query processing. Data
+
+management tasks contemplate design of database structure to enable data integration from di ff erent sources, elimina-
+
+tion of inconsistencies, and data transformation. The development of a data warehouse supported by online analytical
+
+processing (OLAP) and data management techniques may be useful for this purpose. As mentioned in Section 3.3.1,
+
+multiple sources of data may be used. Thus, the usage of data warehouses combined with Extract, Transform and
+
+Load (ETL) procedures are commonly used to link the datasets of di ff erent sources [126].
+
+There are many data management preprocessing procedures that can be applied to flight delay prediction datasets. They
+
+include data cleaning, feature selection, data transformation, and clustering. One of the main tasks of data cleaning
+
+is outlier removal. Extreme conditions may result in outliers that are not interesting if one is concerned about regular
+
+operations [112].   Feature selection is the process of identifying attributes that are less correlated.   Correlated and
+
+irrelevant attributes may provide model over-fitting or decrease prediction performance [118]. These preprocessing
+
+procedures are essential since the better the preprocessing is conducted on input data, the better the prediction models
+
+may be developed from it.
+
+Data transformation is also an important activity to empower prediction models. Some examples of transformations
+
+include normalization and discretization. Normalization reduces the range of possible values to a particular interval,
+
+such as -1 to 1 or 0 to 1.   It gives equal strength for di ff erent variables and let machine learning methods identify
+
+which are the most relevant ones. Discretization consists of replacing numerical values by representative labels. It
+
+includes the transform of time periods into bins of a fixed time [11, 72], binning of values to cope with limitations in
+
+computational packages [24, 123] or to better train prediction models [16], especially when using machine learning
+
+models.
+
+Clustering means grouping elements of the dataset in a way that similar observations stay together in the same group
+
+and dissimilar items stay in di ff erent groups. Many works compute clustering techniques, such as k-means or agglom-
+
+erative hierarchical clustering, to support preliminary steps for further prediction models [102]. 
+
+3.4   Method 
+
+The flight delay prediction problem may be modeled in many ways, depending on the objectives of the research.
+
+Methods were divided into five groups, according to Figure 4.   The numbers next to each category represent the
+
+number of related papers.
+
+6 
+
+===== PDF PAGE 7 / 17 =====
+
+preprint 
+
+Figure 4: Categories of methods used to model the flight delay prediction 
+
+3.4.1   Statistical Analysis 
+
+Statistical analysis usually encompasses the use of regression models, correlation analysis, econometric models, para-
+
+metric tests, non-parametric tests, and multivariate analysis (MVA). When it comes to regression models, both delay
+
+multiplier and recursive models can help airlines to understand delay propagation e ff ects through the network and to
+
+estimate the costs of delays [16, 115, 84, 124, 127].
+
+Many econometric models are also build to evaluate the e ffi ciency flight systems, such as the analysis of the invest-
+
+ments done by a governmental agency [88] or to evaluate the equilibrium point considering the relationship between
+
+delays and passenger demand, fares, frequency and size of the aircrafts [131]. Xiong et al. [122] built an econometric
+
+model based on pre-existing delays, potential delay savings, distance, characteristics of the destination airport and air-
+
+line, frequency, aircraft size, occupancy rate and fare to understand which reasons lead airlines to cancel their flights.
+
+Qin et al. [101] studied the periodicity of flight delay rate, whereas Mofokeng et al. [87] studied the impact of aircraft
+
+turnaround time during maintenance check. Finally, Hao et al. [61] built a model to quantify how delays originated at
+
+New York are propagated to other airports.
+
+Some works focus on statistical inference.   Pathomsiri et al.   [94] used a non-parametric function to evaluate the
+
+e ffi ciency of airports of the United States regarding delays. Reynolds et al. [103] computed the correlation between
+
+levels of delays and capacities of the European airports. They also suggested di ff erent approaches to deal with the
+
+congestion problem, describing their advantages and disadvantages.   Finally, Abdel-Aty et al.   [1] calculated daily
+
+average of delays to detect correlations to understand the principal causes of delays at Orlando International Airport. 
+
+3.4.2   Probabilistic Models 
+
+Probabilistic Models encompass analysis tools that estimate the probability of an event based on historical data. Tu
+
+et al. [112] developed a probabilistic model based on expectation-maximization combined with genetic algorithms to
+
+predict the distribution of departure delay at Denver International Airport.
+
+Boswell et al. [24] expressed delay classes by a probabilistic mass function and used a transition matrix to verify delay
+
+propagation to subsequent flights. They made a cancellation analysis computing the conditional probability to cancel
+
+a flight given that its previous flight was delayed. Mueller et al. [90] modeled departure,   en route   and arrival delays
+
+using density functions. The authors verified that Normal distribution fitted better to departure delays, while   en route 
+
+and arrival delays were better described by Poisson distribution. Concerned about the total duration of a root delay,
+
+Wong et al. [118] studied delay propagation through a survival model.
+
+Evans et al. [49] built a theoretical routing networks that integrated flight routing and scheduling model. Kotegawa
+
+et al. [74] built a series of algorithms that forecast restructuring of the US commercial airline network to reduce both
+
+flight delay and total delay. Pfeil et al. [98] a probabilistic forecasts of whether or not a terminal area route will be
+
+blocked based on raw convective weather forecasts. Finally, Zhong et al. [129] build a Monte Carlo simulations to
+
+estimate airports’ runway capacity.
+
+7 
+
+===== PDF PAGE 8 / 17 =====
+
+preprint 
+
+3.4.3   Network Representation 
+
+Network representation encompasses the study of flight systems according to a graph theory. Abdelghany et al. [2]
+
+built direct acyclic graphs to model the schedule of an airline (including flight times and resources availability) to
+
+detect disruptions and their impacts on the rest of the network.   They used the classical shortest path algorithm to
+
+evaluate propagation e ff ects.
+
+Ahmadbeygi et al. [3] built propagation trees to compare two di ff erent airlines, one operating in a conventional hub-
+
+and-spoke scheme and the other in a low-cost point-to-point system.   Xu et al.   [123] and Wu et al.   [120] built a
+
+Bayesian network to model delay propagation. Baspinar [14] built a network-epidemic process using historical flight-
+
+track data of Europe to create a novel delay propagation model. 
+
+3.4.4   Operational Research 
+
+Operational Research includes advanced analytical methods (such as optimization, simulations, and queue theory) to
+
+help key-players make better decisions.   Simulations may analyze airport capacity data, considering departure and
+
+arrival delays under di ff erent weather conditions [106, 63]. They may also evaluate the cost of, each delayed flight of
+
+an airline schedule [109]. Moreover, simulations through queuing models were applied by Wieland [117] to predict
+
+root delay, by Kim and Hansen [72] to study the e ff ects of capacity and demand on delay levels at the airports of New
+
+York area, and by Pyrgiotis et al. [100] to study delay propagation between some airports.
+
+Other simulations were done to analyze delay propagation concerning schedule stability [41] and reliability [119].
+
+Through simulations, di ff erent scenarios were commonly explored, such as reliability or flexibility of airports under
+
+external conditions. Hansen et al. [59] considered the congestion problem and designed a simple deterministic queuing
+
+model to analyze propagation e ff ects for subsequent flights of an airline and at Los Angeles International Airport. 
+
+3.4.5   Machine Learning 
+
+Machine learning is the research that explores the development of algorithms that can learn from data and provide
+
+predictions based on it. Works that study flight systems are increasing the usage of machine learning methods. The
+
+methods commonly used include k-Nearest Neighbor, neural networks, SVM, fuzzy logic, and random forests. They
+
+were mainly used for classification and prediction.
+
+Rebollo et al.   [102] applied random forests to predict root delay.   They compared their approach with regression
+
+models to predict root delay in airports of the United States considering time horizons of 2, 4, 6 and 24 hours. Their
+
+test errors grew as the forecast horizon increased.
+
+Khanmohammadi et al. [69] created an adaptive network based on fuzzy inference system to predict root delay. The
+
+predictions were used as an input for a fuzzy decision-making method to sequence arrivals at JFK International Airport
+
+in New York.
+
+Balakrishna et al.   [10, 11] used a reinforcement learning algorithm to predict taxi-out delays.   The problem was
+
+modeled through a Markov decision process and solved by a machine learning algorithm. When running their model
+
+15 minutes before the scheduled time of departure, authors achieved good performances at JFK International Airport
+
+in New York and Tampa Bay International Airport.
+
+Lu et al. [130] built a recommendation system to forecast delays at some airports due to propagation e ff ects. The
+
+prediction was based on the k-Nearest Neighbor algorithm and used historical data to recognize similar situations in
+
+the past.   The authors noticed fast response time and easy, logical comprehension as the main advantages of their
+
+method. 
+
+4   Results and discussion 
+
+Since flight delays cause economic consequences to passengers and airlines, recognizing them through prediction may
+
+improve marketing decisions. Due to that, several forecast models have been built over the last twenty years. These
+
+models have sought to understand how delays propagate through the network of flights or airports, to predict root delay
+
+in the system or to comprehend the cancellation process. Beyond these three points of view for treating the flight delay
+
+prediction problem, models could also di ff er by their scope of application, data issues and methods.
+
+The number of papers has increased in the late 2000s since 87.5% of the works had been published between 2007
+
+and 2017. Regarding only the documents considered in this analysis, Figure 5.a displays the number of publications
+
+grouped by methods.   It can be observed a significant growth in machine learning [6] and data mining [17, 77] in
+
+the last decade. Also, Figure 6 depicts the complete timeline of papers, showing most cited authors per period and
+
+8 
+
+===== PDF PAGE 9 / 17 =====
+
+preprint 
+0
+
+5
+
+10
+
+15
+
+20
+
+1997
+1998
+2001
+2002
+2004
+2005
+2006
+2007
+2008
+2009
+2010
+2011
+2012
+2013
+2014
+2015
+2016
+2017
+
+legend   ML   OR   NET   PS   STAT 
+
+a 
+0
+
+5
+
+10
+
+15
+
+JATM
+
+TRPELTR
+TRPCET
+
+TRR
+
+TRPAPP
+
+TS
+
+JAIS
+JUE
+SR
+
+journal
+
+qtd 
+  
+b
+
+Figure 5: (a) Publication in years according to main methods:      Statistical Analysis,      Probabilistic Models,      Net-
+
+work Representation,      Operational Research,      Machine Learning;
+
+(b) Journals of with major published papers in the subject 
+
+Years   root delay or cancellation   delay propagation
+
+1997-2000      Wieland [117]      Boswell [24]      Beatty [16]
+
+2001-2004      Hansen [59]      Mueller [90]      Evans [51]      Schaefer [106]      Abdelghany [2]
+
+2005      Hsiao [62]      Hansen [60]      Wu [119]      Xu [123]
+
+2006      Sim [107]      Lan [78]
+
+2007   
+   Wan [114]      Biesiada [22]      Abdel-Aty
+
+[1]
+
+2008 
+
+   Balakrishna [9]      Soomer [109] 
+
+   McCrea [85]      Tu [112]      Pathomsiri
+
+[94] 
+
+   Lapp [79]      AhmadBeygi [3]
+
+2009      Pejovic [96]
+
+2010   
+   Balakrishna [11]      Ganesan [56]      Klein
+
+[73]   
+   Ahmadbeygi [4]
+
+2011      G¨ urb¨ uz [58]      Evans [47]      Nayak [91]
+
+2012      Wang [116]      Zou [132]      Azadian [7]      D¨ uck [41]      Wong [118]
+
+2013   
+   Kulkarni [76]      Kim [72]      Evans [48] 
+
+   Xiong [122]   
+   Pyrgiotis [100]      Fleurquin [54]
+
+2014   
+   Rebollo [102]      Lin [82]      Baumgarten
+
+[15]   
+   Campanelli [29]      Hao [61]
+
+2015      Bloem [23]      Cai [28]      Jacquillat [65]      Ciruelos [35]      Cheng [32]
+
+2016   
+   Choi [34]      Castaing [31]      Bertsimas
+
+[20]      Simaiakis [108]   
+   Khanmohammadi [70]      Cong [36]
+
+2017 
+
+   Takeichi [111]      Ding[43]      Baluch[13] 
+
+   Jayam [67]      Jacquillat [66] 
+
+   P´ erez–Rodr´ ıguez [99] 
+
+   Belkoura [18]      Ben Ahmed [19] 
+
+Figure 6: Time line of flight delay prediction publications:      Statistical Analysis,      Probabilistic Models,      Network
+
+Representation,      Operational Research,      Machine Learning
+
+categories of methods. Pondering the way for tackling the delay problem, it was seen a balance between the number of
+
+papers that consider delay propagation and root delay, while few works deemed sole the cancellation analysis. Also,
+
+Figure 5.b indicates the foremost journals in which flight delay material was published.
+
+From Figures 6 and 7, it is possible to observe the leading authors in the field. Figure 7 displays the main collaboration
+
+graph from authors in our systematic review that had three or more publications. The radius of each vertex indicates
+
+the number of papers published by each author, whereas the strength of the edge indicates the degree of collaboration
+
+among the pair of authors. Some authors do not contain connected edges, meaning that none of their collaborators
+
+achieved three publications in our review.
+
+According to data perspective, we divided our analysis into three parts: data sources, dimensions and data manage-
+
+ment. From our review analysis, the adoption of data sources depends mostly on the country or region where the study
+
+9 
+
+===== PDF PAGE 10 / 17 =====
+
+preprint 
+Ganesan   Balakrishna
+
+Sherry
+
+Li
+
+Kulkarni
+
+Chen
+
+Xu
+
+Wang
+
+Balakrishnan
+
+Clarke
+
+Evans
+
+Schäfer
+
+Campanelli
+
+Fleurquin
+
+Eguiluz   Ramasco Zhang
+
+Cohn
+
+Sridhar
+
+Kim
+
+Odoni
+
+Zou
+
+Hansen 
+
+Figure 7: Collaboration network of main authors in subject
+
+has been taken place. For example, in China, most works were based on airport data, while in the United States the
+
+primary source was The United States Department of Transportation [44].
+
+Dimensions were not directly related to the type of problem, but to the scope of application. This characteristic is
+
+notable in this case.   Attributes such as weather, capacity, and demand were characteristics of airport or   en route 
+
+airspace scopes. On the other hand, airlines schedules indicated scopes that considered airlines elements. It was also
+
+observed several ensembles of di ff erent dimensions, showing that prediction models may be improved through the
+
+selection of di ff erent attributes.
+
+Data management was not specific to any problem or scope of application, and its use is steadily growing. In fact,
+
+it is present in most of the machine learning models adopted, primarily through data transformation.   Most of the
+
+probabilistic models also considered outlier removal and data transformations techniques.   A small percentage of
+
+the statistical analysis, network representation, and operational research methods applied general data management
+
+techniques as well.
+
+Regarding the methods used to develop the prediction models, statistical analysis, and operational research were the
+
+most applied in the past. These approaches were well spread between the three ways of treating the prediction problem.
+
+This same balance was also verified for probabilistic models. On the other hand, network representation was mostly
+
+employed for delay propagation.
+
+It is worth mentioning that machine learning approaches experienced a notable growth in the late 2000s, especially in
+
+root delay. In fact, both machine learning and data management are positively correlated. The more machine learning
+
+is used, the more data management is required. Especially, due to a trend in which extensive data is collected from
+
+sensors and IoT devices [68, 42, 97, 122, 128]. In fact, this can be confirmed in Figure 8 that presents the cloud word
+
+from papers published between 2015 and 2017 related to flight delays and machine learning. Terms such as algorithm
+
+[12], big data [38, 33], data model [37], learn [57], train-test [64] are becoming more frequent. Such terminology is
+
+day-by-day becoming a trend for the next years. 
+
+5   Conclusion 
+
+Flight delays are an important subject in the literature due to their economic and environmental impacts. They may
+
+increase costs to customers and operational costs to airlines. Apart from outcomes directly related to passengers, delay
+
+prediction is crucial during the decision-making process for every player in the air transportation system.
+
+In this context, researchers created flight delay models for delay prediction over the last years, and this work contributes
+
+with an analysis of these models from a Data Science perspective. We developed a taxonomy scheme and classified
+
+models in respect of detailed components.
+
+10 
+
+===== PDF PAGE 11 / 17 =====
+
+preprint 
+
+Figure 8: Trends in machine learning for flight delay prediction
+
+Mainly, the taxonomy includes domain and Data Science branches. The former branch categorizes the problem (flight
+
+delay prediction) and the scope. The last branch groups methods and data handling. It was observed that the flight
+
+delay prediction is classified into two main categories, such as delay propagation and root delay and cancellation.
+
+Besides, the scope determines one of the three specific extents: airline, airport, en-route airspace or an ensemble of
+
+them.
+
+Additionally, considering Data Science branch, we aimed at the datum, by categorizing data sources, dimensions
+
+that can be used in the models, and data management techniques to preprocess data and improve prediction models
+
+e ffi ciency. We also studied and divided the main methods into five categories: statistical analysis, probabilistic models,
+
+network representation, operations research, and machine learning. Those categories have been grouped as their use
+
+on specific forecast models for flight delays.
+
+Besides the taxonomic scheme, we also presented a timeline with all articles to spot trends and relationships involving
+
+the main elements in the taxonomy. In the light of the domain-problem classification, this timeline showed a dominance
+
+of delay propagation and root delay over cancellation analysis. Researchers used to focus on statistical analysis and
+
+operational research approaches in the past.   However, as the data volume grows, we noticed the use of machine
+
+learning and data management is increasing significantly. This clearly characterizes a Data Science trend.
+
+Researchers from airlines, airports, and academia will require a combination of skills of both domain specialists and
+
+data scientists to enable knowledge discovery from flight Big Data. 
+
+Acknowledgments 
+
+The authors thank CNPq, CAPES (finance code 001), FAPERJ, and CEFET / RJ for partially funding this research. 
+
+Conflict of interest 
+
+On behalf of all authors, the corresponding author states that there is no conflict of interest. 
+
+References 
+
+[1] M. Abdel-Aty, C. Lee, Y. Bai, X. Li, and M. Michalak. Detecting periodic patterns of arrival delay.   Journal of
+
+Air Transport Management , 13(6):355–361, Nov. 2007. ISSN 0969-6997.
+
+11 
+
+===== PDF PAGE 12 / 17 =====
+
+preprint 
+
+[2] K. F. Abdelghany, S. S. Shah, S. Raina, and A. F. Abdelghany.   A model for projecting flight delays during
+
+irregular operation conditions.   Journal of Air Transport Management , 10(6):385–394, Nov. 2004. ISSN 0969-
+
+6997.
+
+[3] S. AhmadBeygi, A. Cohn, Y. Guan, and P. Belobaba. Analysis of the potential for delay propagation in passen-
+
+ger airline networks.   Journal of Air Transport Management , 14(5):221–236, Sept. 2008. ISSN 0969-6997.
+
+[4] S. Ahmadbeygi, A. Cohn, and M. Lapp. Decreasing airline delay propagation by re-allocating scheduled slack. 
+
+IIE Transactions (Institute of Industrial Engineers) , 42(7):478–489, 2010.
+
+[5] ANAC. Agˆ encia Nacional de Aviac ¸ ˜ ao Civil. Technical report, http: // www.anac.gov.br / , 2017.
+
+[6] C. Ariyawansa and A. Aponso. Review on state of art data mining and machine learning techniques for intel-
+
+ligent Airport systems. In   Proceedings of 2016 International Conference on Information Management, ICIM
+
+2016 , pages 134–138, 2016.
+
+[7] F. Azadian, A. E. Murat, and R. B. Chinnam.   Dynamic routing of time-sensitive air cargo using real-time
+
+information.   Transportation Research Part E: Logistics and Transportation Review , 48(1):355–372, Jan. 2012.
+
+ISSN 1366-5545.
+
+[8] E. Balaban, I. Roychoudhury, L. Spirkovska, S. Sankararaman, C. Kulkarni, and T. Arnon. Dynamic routing
+
+of aircraft in the presence of adverse weather using a POMDP framework. In   17th AIAA Aviation Technology,
+
+Integration, and Operations Conference, 2017 , 2017.
+
+[9] P. Balakrishna, R. Ganesan, and L. Sherry. Airport taxi-out prediction using approximate dynamic program-
+
+ming: Intelligence-based paradigm.   Transportation Research Record , (2052):54–61, 2008.
+
+[10] P. Balakrishna, R. Ganesan, L. Sherry, and B. S. Levy. Estimating Taxi-out times with a reinforcement learning
+
+algorithm. In   2008 IEEE / AIAA 27th Digital Avionics Systems Conference , pages 3.D.3–1–3.D.3–12, Oct. 2008.
+
+[11] P. Balakrishna, R. Ganesan, and L. Sherry. Accuracy of reinforcement learning algorithms for predicting aircraft
+
+taxi-out times: A case-study of Tampa Bay departures.   Transportation Research Part C: Emerging Technolo-
+
+gies , 18(6):950–962, Dec. 2010. ISSN 0968-090X.
+
+[12] H. Balakrishnan. Control and optimization algorithms for air transportation systems.   Annual Reviews in Control ,
+
+41:39–46, 2016.
+
+[13] M. Baluch, T. Bergstra, and M. El-Hajj.   Complex analysis of united states flight data using a data mining
+
+approach. In   2017 IEEE 7th Annual Computing and Communication Workshop and Conference, CCWC 2017 ,
+
+2017.
+
+[14] B. Baspinar and E. Koyuncu.   A Data-Driven Air Transportation Delay Propagation Model Using Epidemic
+
+Process Models.   International Journal of Aerospace Engineering , 2016, 2016.
+
+[15] P. Baumgarten, R. Malina, and A. Lange. The impact of hubbing concentration on flight delays within airline
+
+networks: An empirical analysis of the US domestic market.   Transportation Research Part E: Logistics and
+
+Transportation Review , 66(Supplement C):103–114, June 2014. ISSN 1366-5545.
+
+[16] R. Beatty, R. Hsu, L. Berry, and J. Rome. Preliminary evaluation of flight delay propagation through an airline
+
+schedule.   2nd USA / Europe Air Tra ffi c Management R & D Seminar , 7(4):259–270, 1998.
+
+[17] L. Belcastro, F. Marozzo, D. Talia, and P. Trunfio. Using scalable data mining for predicting flight delays.   ACM
+
+Transactions on Intelligent Systems and Technology , 8(1), 2016.
+
+[18] S. Belkoura, J. Pe˜ na, and M. Zanin.   Beyond linear delay multipliers in air transport.   Journal of Advanced
+
+Transportation , 2017, 2017.
+
+[19] M. Ben Ahmed, W. Ghroubi, M. Haouari, and H. Sherali. A hybrid optimization-simulation approach for robust
+
+weekly aircraft routing and retiming.   Transportation Research Part C: Emerging Technologies , 84:1–20, 2017.
+
+[20] D. Bertsimas and M. Frankovich. Unified optimization of tra ffi c flows through airports.   Transportation Science ,
+
+50(1):77–93, 2016.
+
+[21] D. Bhadra. You (expect to) get what you pay for: A system approach to delay, fare, and complaints.   Trans-
+
+portation Research Part A: Policy and Practice , 43(9):829–843, Nov. 2009. ISSN 0965-8564.
+
+[22] M. Biesiada and A. Pi´ orkowska. Gamma-ray burst neutrinos, Lorenz invariance violation and the influence of
+
+background cosmology.   Journal of Cosmology and Astroparticle Physics , (5), 2007.
+
+[23] M. Bloem and N. Bambos. Ground delay program analytics with behavioral cloning and inverse reinforcement
+
+learning.   Journal of Aerospace Information Systems , 12(3):299–313, 2015.
+
+[24] S. B. Boswell and J. E. Evans.   Analysis of downstream impacts of air tra ffi c delay .   Lincoln Laboratory,
+
+Massachusetts Institute of Technology, 1997.
+
+12 
+
+===== PDF PAGE 13 / 17 =====
+
+preprint 
+
+[25] R. Britto, M. Dresner, and A. Voltes. The impact of flight delays on passenger demand and societal welfare. 
+
+Transportation Research Part E: Logistics and Transportation Review , 48(2):460–469, Mar. 2012. ISSN 1366-
+
+5545.
+
+[26] BTS. The Bureau of Transportation Statistics databases. Technical report, http: // www.rita.dot.gov / bts / home,
+
+2017.
+
+[27] B. Bubalo and J. Daduna.   Airport capacity and demand calculations by simulation-the case of Berlin-
+
+Brandenburg International Airport.   NETNOMICS: Economic Research and Electronic Networking , 12(3):161–
+
+181, 2011.
+
+[28] K. Cai, Y. Jia, Y. Zhu, and M. Xiao. A novel biobjective risk-based model for stochastic air tra ffi c network flow
+
+optimization problem.   Scientific World Journal , 2015, 2015.
+
+[29] B. Campanelli, P. Fleurquin, V. Egu´ ıluz, J. Ramasco, A. Arranz, I. Extebarria, and C. Ciruelos.   Modeling
+
+reactionary delays in the European air transport network. In   SIDs 2014 - Proceedings of the SESAR Innovation
+
+Days , 2014.
+
+[30] F. Carr, G. Theis, J.-P. Clarke, and E. Feron. Evaluation of improved pushback forecasts derived from airline
+
+ground operations data.   Journal of Aerospace Computing, Information and Communication , (JAN.):25–43,
+
+2005.
+
+[31] J. Castaing, I. Mukherjee, A. Cohn, L. Hurwitz, A. Nguyen, and J. M¨ uller. Reducing airport gate blockage in
+
+passenger aviation: Models and analysis.   Computers and Operations Research , 65:189–199, 2016.
+
+[32] F. Cheng, B. Baszczewski, and J. Gulding. A hybrid optimization-simulation approach for itinerary generation.
+
+In   Proceedings - Winter Simulation Conference , volume 2015-January, pages 1885–1896, 2015.
+
+[33] J. Cheng, C. Rong, H. Ye, and X. Zheng. Risk management using big real time data. In   Proceedings - IEEE
+
+7th International Conference on Cloud Computing Technology and Science, CloudCom 2015 , pages 542–547,
+
+2016.
+
+[34] S. Choi, Y. Kim, S. Briceno, and D. Mavris.   Prediction of weather-induced airline delays based on ma-
+
+chine learning algorithms. In   AIAA / IEEE Digital Avionics Systems Conference - Proceedings , volume 2016-
+
+December, 2016.
+
+[35] C. Ciruelos, A. Arranz, I. Etxebarria, S. Peces, B. Campanelli, P. Fleurquin, V. Eguiluz, and J. Ramasco.
+
+Modelling delay propagation trees for scheduled flights.   In   Proceedings of the 11th USA / Europe Air Tra ffi c
+
+Management Research and Development Seminar, ATM 2015 , 2015.
+
+[36] W. Cong, M. Hu, B. Dong, Y. Wang, and C. Feng. Empirical analysis of airport network and critical airports. 
+
+Chinese Journal of Aeronautics , 29(2):512–519, 2016.
+
+[37] J. Cox and M. Kochenderfer.   Ground delay program planning using markov decision processes.   Journal of
+
+Aerospace Information Systems , 13(3):134–142, 2016.
+
+[38] L. Cruciol, L. Weigang, J.-P. Clarke, and L. Li.   Air tra ffi c flow management data mining and analysis for
+
+in-flight cost optimization.   Computational Methods in Applied Sciences , 38:73–86, 2015.
+
+[39] J. I. Daniel and K. T. Harback.   (When) Do hub airlines internalize their self-imposed congestion delays? 
+
+Journal of Urban Economics , 63(2):583–612, Mar. 2008. ISSN 0094-1190.
+
+[40] A. D’Ariano, M. Pistelli, and D. Pacciarelli. Aircraft retiming and rerouting in vicinity of airports.   IET Intelli-
+
+gent Transport Systems , 6(4):433–443, 2012.
+
+[41] V. D¨ uck, L. Ionescu, N. Kliewer, and L. Suhl. Increasing stability of crew and aircraft schedules.   Transportation
+
+Research Part C: Emerging Technologies , 20(1):47–61, Feb. 2012. ISSN 0968-090X.
+
+[42] T. Diana. Validating delay constructs: An application of confirmatory factor analysis.   Journal of Air Transport
+
+Management , 35(Supplement C):87–91, Mar. 2014. ISSN 0969-6997.
+
+[43] Y. Ding.   Predicting flight delay based on multiple linear regression.   In   IOP Conference Series: Earth and
+
+Environmental Science , volume 81, 2017.
+
+[44] DOT. The United States Department of Transportation. Technical report, http: // www.dot.gov / , 2017.
+
+[45] EUROCONTROL.   CODA   Digest   -   Delays   to   Air   Transport   in   Europe.   Technical   report,
+
+https: // www.eurocontrol.int / articles / coda-publications, 2017.
+
+[46] EUROCONTROL.   European   Organisation   for   the   Safety   of   Air   Navigation.   Technical   report,
+
+https: // www.eurocontrol.int / , 2017.
+
+[47] A. Evans and A. Sch¨ afer. The impact of airport capacity constraints on future growth in the US air transportation
+
+system.   Journal of Air Transport Management , 17(5):288–295, 2011.
+
+13 
+
+===== PDF PAGE 14 / 17 =====
+
+preprint 
+
+[48] A. Evans and A. Sch¨ afer. The rebound e ff ect in the aviation sector.   Energy Economics , 36:158–165, 2013.
+
+[49] A. Evans, A. Sch¨ afer, and L. Dray. Modelling airline network routing and scheduling under airport capacity
+
+constraints. In   8th AIAA Aviation Technology, Integration and Operations (ATIO) Conference , 2008.
+
+[50] A. Evans, B. Sridhar, and D. McNally. Improving operational acceptability of dynamic weather routes through
+
+analysis of commonly used routings. In   16th AIAA Aviation Technology, Integration, and Operations Confer-
+
+ence , 2016.
+
+[51] J. Evans, S. Allan, and M. Robinson.   Quantifying delay reduction benefits for aviation convective weather
+
+decision support systems. In   Conference on Aviation, Range, and Aerospace Meteorology , pages 39–70, 2004.
+
+[52] FAA. Federal Aviation Administration. Technical report, http: // www.faa.gov / , 2017.
+
+[53] P. Fleurquin, J. Ramasco, and V. Eguiluz. Data-driven modeling of systemic delay propagation under severe
+
+meteorological conditions.   In   Proceedings of the 10th USA / Europe Air Tra ffi c Management Research and
+
+Development Seminar, ATM 2013 , 2013.
+
+[54] P. Fleurquin, J. Ramasco, and V. Eguiluz.   Systemic delay propagation in the US airport network.   Scientific
+
+Reports , 3, 2013.
+
+[55] P. Fleurquin, B. Campanelli, V. Eguiluz, and J. Ramasco. Trees of reactionary delay: Addressing the dynamical
+
+robustness of the US air transportation network. In   SIDs 2014 - Proceedings of the SESAR Innovation Days ,
+
+2014.
+
+[56] R. Ganesan, P. Balakrishna, and L. Sherry. Improving quality of prediction in highly dynamic environments
+
+using approximate dynamic programming.   Quality and Reliability Engineering International , 26(7):717–732,
+
+2010.
+
+[57] E. George and S. Khan. Reinforcement learning for taxi-out time prediction: An improved Q-learning approach.
+
+In   2015 International Conference on Computing and Network Communications, CoCoNet 2015 , pages 757–
+
+764, 2016.
+
+[58] F. G¨ urb¨ uz, L. ¨ Ozbakir, and H. Yapici. Data mining and preprocessing application on component reports of an
+
+airline company in Turkey.   Expert Systems with Applications , 38(6):6618–6626, 2011.
+
+[59] M. Hansen. Micro-level analysis of airport delay externalities using deterministic queuing models: a case study. 
+
+Journal of Air Transport Management , 8(2):73–87, Mar. 2002. ISSN 0969-6997.
+
+[60] M. Hansen and Y. Zhang. Operational consequences of alternative airport demand management policies case
+
+of LaGuardia Airport, New York.   Transportation Research Record , (1915):95–104, 2005.
+
+[61] L. Hao, M. Hansen, Y. Zhang, and J. Post. New York, New York: Two ways of estimating the delay impact of
+
+New York airports.   Transportation Research Part E: Logistics and Transportation Review , 70(Supplement C):
+
+245–260, Oct. 2014. ISSN 1366-5545.
+
+[62] C.-Y. Hsiao and M. Hansen. Air transportation network flows: Equilibrium model.   Transportation Research
+
+Record , (1915):12–19, 2005.
+
+[63] G. Hunter, B. Boisvert, and K. Ramamoorthy. Advanced national airspace tra ffi c flow management simulation
+
+experiments and vlidation. In   2007 Winter Simulation Conference , pages 1261–1267, Dec. 2007.
+
+[64] L. Ionescu, C. Gwiggner, and N. Kliewer. Data Analysis of Delays in Airline Networks.   Business and Infor-
+
+mation Systems Engineering , 58(2):119–133, 2016.
+
+[65] A. Jacquillat and A. Odoni. Endogenous control of service rates in stochastic and dynamic queuing models of
+
+airport congestion.   Transportation Research Part E: Logistics and Transportation Review , 73:133–151, 2015.
+
+[66] A. Jacquillat, A. Odoni, and M. Webster. Dynamic control of runway configurations and of arrival and departure
+
+service rates at jfk airport under stochastic queue conditions.   Transportation Science , 51(1):155–176, 2017.
+
+[67] H. Jayam and L. Nozick.   Understanding the trade-o ff   between maximum passenger throughput and airline
+
+equity in allocating capacity under severe weather conditions.   Transportation Research Record , 2626:18–24,
+
+2017.
+
+[68] B. Karakostas. Event Prediction in an IoT Environment Using Na¨ ıve Bayesian Models. In   Procedia Computer
+
+Science , volume 83, pages 11–17, 2016.
+
+[69] S. Khanmohammadi, C. A. Chou, H. W. Lewis, and D. Elias.   A systems approach for scheduling aircraft
+
+landings in JFK airport. In   2014 IEEE International Conference on Fuzzy Systems (FUZZ-IEEE) , pages 1578–
+
+1585, July 2014.
+
+[70] S. Khanmohammadi, S. Tutun, and Y. Kucuk.   A New Multilevel Input Layer Artificial Neural Network for
+
+Predicting Flight Delays at JFK Airport. In   Procedia Computer Science , volume 95, pages 237–244, 2016.
+
+14 
+
+===== PDF PAGE 15 / 17 =====
+
+preprint 
+
+[71] A. Kim. The impacts of changing flight demands and throughput performance on airport delays through the
+
+Great Recession.   Transportation Research Part A: Policy and Practice , 86:19–34, 2016.
+
+[72] A. Kim and M. Hansen. Deconstructing delay: A non-parametric approach to analyzing delay changes in single
+
+server queuing systems.   Transportation Research Part B: Methodological , 58(Supplement C):119–133, Dec.
+
+2013. ISSN 0191-2615.
+
+[73] A. Klein. Airport delay prediction using weather-impacted tra ffi c index (WITI) model. In   29th Digital Avionics
+
+Systems Conference , pages 2.B.1–1–2.B.1–13, Oct. 2010.
+
+[74] T. Kotegawa, D. De Laurentis, K. Noonan, and J. Post. Impact of commercial airline network evolution on the
+
+U.S. air transportation system. In   Proceedings of the 9th USA / Europe Air Tra ffi c Management Research and
+
+Development Seminar, ATM 2011 , pages 572–580, 2011.
+
+[75] T. Krsti´ c Simi´ c and O. Babi´ c. Airport tra ffi c complexity and environment e ffi ciency metrics for evaluation of
+
+ATM measures.   Journal of Air Transport Management , 42(Supplement C):260–271, Jan. 2015. ISSN 0969-
+
+6997.
+
+[76] D. Kulkarni, Y. Wang, and B. Sridhar. Data mining for understanding and improving decision-making a ff ecting
+
+ground delay programs. In   AIAA / IEEE Digital Avionics Systems Conference - Proceedings , pages 5B11–5B18,
+
+2013.
+
+[77] D. Kulkarni, Y. Wang, and B. Sridhar. Analysis of airport ground delay program decisions using data mining
+
+techniques. In   AIAA AVIATION 2014 -14th AIAA Aviation Technology, Integration, and Operations Conference ,
+
+2014.
+
+[78] S. Lan, J.-P. Clarke, and C. Barnhart. Planning for robust airline operations: Optimizing aircraft routings and
+
+flight departure times to minimize passenger disruptions.   Transportation Science , 40(1):15–28, 2006.
+
+[79] M. Lapp, S. AhmadBeygi, A. Cohn, and O. Tsimhoni.   A Recursion-based Approach to Simulating Airline
+
+Schedule Robustness.   In   Proceedings of the 40th Conference on Winter Simulation , WSC ’08, pages 2661–
+
+2667, Miami, Florida, 2008. Winter Simulation Conference. ISBN 978-1-4244-2708-6.
+
+[80] L. Le, G. Donohue, K. Ho ff man, and C.-H. Chen.   Optimum airport capacity utilization under congestion
+
+management: A case study of New York LaGuardia airport.   Transportation Planning and Technology , 31(1):
+
+93–112, 2008.
+
+[81] T. Lehouillier, F. Soumis, J. Omer, and C. Allignol. Measuring the interactions between air tra ffi c control and
+
+flow management using a simulation-based framework.   Computers and Industrial Engineering , 99:269–279,
+
+2016.
+
+[82] L. Lin, Q. Wang, and A. Sadek. Border crossing delay prediction using transient multi-server queueing models. 
+
+Transportation Research Part A: Policy and Practice , 64:65–91, 2014.
+
+[83] B. Manley and L. Sherry.   Impact of ground delay program rationing rules on passenger and airline equity.
+
+In   IMETI 2008 - International Multi-Conference on Engineering and Technological Innovation, Proceedings ,
+
+volume 1, pages 325–330, 2008.
+
+[84] D. Markovic, T. Hauf, P. R¨ ohner, and U. Spehr.   A statistical study of the weather impact on punctuality at
+
+Frankfurt airport.   Meteorological Applications , 15(2):293–303, 2008.
+
+[85] M. V. McCrea, H. D. Sherali, and A. A. Trani. A probabilistic framework for weather-based rerouting and delay
+
+estimations within an Airspace Planning model.   Transportation Research Part C: Emerging Technologies , 16
+
+(4):410–431, Aug. 2008. ISSN 0968-090X.
+
+[86] M. Mellat-Parast, D. Golmohammadi, K. McFadden, and J. Miller. Linking business strategy to service failures
+
+and financial performance: Empirical evidence from the U.S. domestic airline industry.   Journal of Operations
+
+Management , 38:14–24, 2015.
+
+[87] T. Mofokeng and A. Marnewick. Factors contributing to delays regarding aircraft during A-check maintenance.
+
+In   2017 IEEE Technology and Engineering Management Society Conference, TEMSCON 2017 , pages 185–190,
+
+2017.
+
+[88] S. A. Morrison and C. Winston.   The e ff ect of FAA expenditures on air travel delays.   Journal of Urban
+
+Economics , 63(2):669–678, Mar. 2008. ISSN 0094-1190.
+
+[89] J. Mou, C. Liu, S. Chen, G. Huang, and X. Lu. Temporal Characteristics of the Chinese Aviation Network and
+
+their E ff ects on the Spread of Infectious Diseases.   Scientific Reports , 7(1), 2017.
+
+[90] E. R. Mueller and G. B. Chatterji.   Analysis of aircraft arrival and departure delay characteristics.   In   AIAA
+
+aircraft technology, integration and operations (ATIO) conference , 2002.
+
+15 
+
+===== PDF PAGE 16 / 17 =====
+
+preprint 
+
+[91] N. Nayak and Y. Zhang.   Estimation and comparison of impact of single airport delay on national airspace
+
+system with multivariate simultaneous models.   Transportation Research Record , (2206):52–60, 2011.
+
+[92] NOAA. National Oceanic and Atmospheric Administration. Technical report, http: // www.noaa.gov / , 2017.
+
+[93] V. Pai. On the factors that a ff ect airline flight frequency and aircraft size.   Journal of Air Transport Management ,
+
+16(4):169–177, July 2010. ISSN 0969-6997.
+
+[94] S. Pathomsiri, A. Haghani, M. Dresner, and R. J. Windle. Impact of undesirable outputs on the productivity of
+
+US airports.   Transportation Research Part E: Logistics and Transportation Review , 44(2):235–259, Mar. 2008.
+
+ISSN 1366-5545.
+
+[95] T. Pejovic, R. B. Noland, V. Williams, and R. Toumi. A tentative analysis of the impacts of an airport closure. 
+
+Journal of Air Transport Management , 15(5):241–248, Sept. 2009. ISSN 0969-6997.
+
+[96] T. Pejovic, V. Williams, R. Noland, and R. Toumi.   Factors a ff ecting the frequency and severity of airport
+
+weather delays and the implications of climate change for future delays.   Transportation Research Record ,
+
+(2139):97–106, 2009.
+
+[97] E. Peterson, K. Neels, N. Barczi, and T. Graham. The economic cost of airline flight delay.   Journal of Transport
+
+Economics and Policy , 47(1):107–121, 2013.
+
+[98] D. Pfeil and H. Balakrishnan. Identification of robust terminal-area routes in convective weather.   Transportation
+
+Science , 46(1):56–73, 2012.
+
+[99] J. P´ erez–Rodr´ ıguez, J. P´ erez–S´ anchez, and E. G´ omez–D´ eniz. Modelling the asymmetric probabilistic delay of
+
+aircraft arrival.   Journal of Air Transport Management , 62:90–98, 2017.
+
+[100] N. Pyrgiotis, K. M. Malone, and A. Odoni.   Modelling delay propagation within an airport network.   Trans-
+
+portation Research Part C: Emerging Technologies , 27(Supplement C):60–75, Feb. 2013. ISSN 0968-090X.
+
+[101] Q. Qin and H. Yu. A statistical analysis on the periodicity of flight delay rate of the airports in the US.   Advances
+
+in Transportation Studies , 3:93–104, 2014.
+
+[102] J. J. Rebollo and H. Balakrishnan. Characterization and prediction of air tra ffi c delays.   Transportation Research
+
+Part C: Emerging Technologies , 44(Supplement C):231–241, July 2014. ISSN 0968-090X.
+
+[103] A. J. Reynolds-Feighan and K. J. Button.   An assessment of the capacity and congestion levels at European
+
+airports.   Journal of Air Transport Management , 5(3):113–134, July 1999. ISSN 0969-6997.
+
+[104] F. Rong, L. Qianya, H. Bo, Z. Jing, and Y. Dongdong.   The prediction of flight delays based the analysis of
+
+Random flight points. In   Chinese Control Conference, CCC , volume 2015-September, pages 3992–3997, 2015.
+
+[105] M. S. Ryerson, M. Hansen, and J. Bonn. Time to burn: Flight delay, terminal e ffi ciency, and fuel consumption
+
+in the National Airspace System.   Transportation Research Part A: Policy and Practice , 69(Supplement C):
+
+286–298, Nov. 2014. ISSN 0965-8564.
+
+[106] L. Schaefer and D. Millner. Flight delay propagation analysis with the Detailed Policy Assessment Tool. In 
+
+2001 IEEE International Conference on Systems, Man and Cybernetics. e-Systems and e-Man for Cybernetics
+
+in Cyberspace (Cat.No.01CH37236) , volume 2, pages 1299–1303 vol.2, 2001.
+
+[107] K. Sim, H. Koh, and S. Shetty. Some potential issues of service quality reporting for airlines.   Journal of Air
+
+Transport Management , 12(6):293–299, 2006.
+
+[108] I. Simaiakis and H. Balakrishnan. A queuing model of the airport departure process.   Transportation Science ,
+
+50(1):94–109, 2016.
+
+[109] M. J. Soomer and G. J. Franx. Scheduling aircraft landings using airlines’ preferences.   European Journal of
+
+Operational Research , 190(1):277 – 291, 2008. ISSN 0377-2217.
+
+[110] A. Sternberg, D. Carvalho, L. Murta, J. Soares, and E. Ogasawara. An analysis of Brazilian flight delays based
+
+on frequent patterns.   Transportation Research Part E: Logistics and Transportation Review , 95:282–298, 2016.
+
+[111] N. Takeichi, R. Kaida, A. Shimomura, and T. Yamauchi. Prediction of delay due to air tra ffi c control by machine
+
+learning. In   AIAA Modeling and Simulation Technologies Conference, 2017 , 2017.
+
+[112] Y. Tu, M. O. Ball, and W. S. Jank. Estimating flight departure delay distributions—a statistical approach with
+
+long-term trend and short-term pattern.   Journal of the American Statistical Association , 103(481):112–125,
+
+2008.
+
+[113] TWC. The Weather Company. Technical report, http: // www.theweathercompany.com / , 2017.
+
+[114] Y. Wan and S. Roy. A scalable methodology for evaluating and designing coordinated air tra ffi c flow manage-
+
+ment strategies under uncertainty. In   Collection of Technical Papers - AIAA Guidance, Navigation, and Control
+
+Conference 2007 , volume 1, pages 674–698, 2007.
+
+16 
+
+===== PDF PAGE 17 / 17 =====
+
+preprint 
+
+[115] P. Wang, L. Schaefer, and L. Wojcik. Flight connections and their impacts on delay propagation. In   Digital
+
+Avionics Systems Conference, 2003. DASC ’03. The 22nd , volume 1, pages 5.B.4–5.1–9 vol.1, Oct. 2003.
+
+[116] Y. Wang. Prediction of weather impacted airport capacity using RUC-2 forecast. In   AIAA / IEEE Digital Avionics
+
+Systems Conference - Proceedings , pages 3C31–3C312, 2012.
+
+[117] F. Wieland. Limits to growth: results from the detailed policy assessment tool [air tra ffi c congestion]. In   16th
+
+DASC. AIAA / IEEE Digital Avionics Systems Conference. Reflections to the Future. Proceedings , volume 2,
+
+pages 9.2–1–9.2–8 vol.2, Oct. 1997.
+
+[118] J.-T. Wong and S.-C. Tsai. A survival model for flight delay propagation.   Journal of Air Transport Management ,
+
+23(Supplement C):5–11, Aug. 2012. ISSN 0969-6997.
+
+[119] C.-L. Wu. Inherent delays and operational reliability of airline schedules.   Journal of Air Transport Management ,
+
+11(4):273–282, July 2005. ISSN 0969-6997.
+
+[120] W.-W. Wu, T.-T. Meng, and H.-Y. Zhang. Flight plan optimization based on airport delay prediction.   Jiaotong
+
+Yunshu Xitong Gongcheng Yu Xinxi / Journal of Transportation Systems Engineering and Information Technol-
+
+ogy , 16(6):189–195, 2016.
+
+[121] G. Xiangmin and M. Li. Departure capacity prediction for hub airport in thunderstorm based on data mining
+
+method. In   Proceedings of the 29th Chinese Control and Decision Conference, CCDC 2017 , pages 6004–6009,
+
+2017.
+
+[122] J. Xiong and M. Hansen.   Modelling airline flight cancellation decisions.   Transportation Research Part E:
+
+Logistics and Transportation Review , 56(Supplement C):64–80, Sept. 2013. ISSN 1366-5545.
+
+[123] N. Xu, G. Donohue, K. B. Laskey, and C.-H. Chen. Estimation of delay propagation in the national aviation sys-
+
+tem using Bayesian networks. In   6th USA / Europe Air Tra ffi c Management Research and Development Seminar .
+
+Citeseer, 2005.
+
+[124] N. Xu, L. Sherry, and K. Laskey.   Multifactor model for predicting delays at U.S. airports.   Transportation
+
+Research Record , (2052):62–71, 2008.
+
+[125] Y. Xu, R. Dalmau, and X. Prats. Maximizing airborne delay at no extra fuel cost by means of linear holding. 
+
+Transportation Research Part C: Emerging Technologies , 81:137–152, 2017.
+
+[126] R. Yao, W. Jiandong, and D. Jianli. RIA-based visualization platform of flight delay intelligent prediction. In 
+
+2009 ISECS International Colloquium on Computing, Communication, Control, and Management , volume 2,
+
+pages 94–97, Aug. 2009.
+
+[127] J. Zhang, X.-H. Xu, F. Wang, and D.-X. Wei.   Airport delay performance evaluation based on fuzzy linear
+
+regression model.   Jiaotong Yunshu Gongcheng Xuebao / Journal of Tra ffi c and Transportation Engineering , 10
+
+(4):109–114, 2010.
+
+[128] W. Zhang, M. Kamgarpour, D. Sun, and C. Tomlin.   A hierarchical flight planning framework for air tra ffi c
+
+management.   Proceedings of the IEEE , 100(1):179–194, 2012.
+
+[129] Z. Zhong, D. Varun, and Y. Lin. Studies for air tra ffi c management R&D in the ASEAN-region context.   Journal
+
+of Air Transport Management , 64:15–20, 2017.
+
+[130] L. Zonglei, W. Jiandong, and Z. Guansheng. A New Method to Alarm Large Scale of Flights Delay Based on
+
+Machine Learning. In   2008 International Symposium on Knowledge Acquisition and Modeling , pages 589–592,
+
+Dec. 2008.
+
+[131] B. Zou and M. Hansen. Flight delays, capacity investment and social welfare under air transport supply-demand
+
+equilibrium.   Transportation Research Part A: Policy and Practice , 46(6):965–980, July 2012. ISSN 0965-8564.
+
+[132] B. Zou and M. Hansen.   Impact of operational performance on air carrier cost structure: Evidence from US
+
+airlines.   Transportation Research Part E: Logistics and Transportation Review , 48(5):1032–1048, 2012.
+
+[133] B. Zou and M. Hansen.   Flight delay impact on airfare and flight frequency: A comprehensive assessment. 
+
+Transportation Research Part E: Logistics and Transportation Review , 69(0):54 – 74, 2014. ISSN 1366-5545.
+
+17 

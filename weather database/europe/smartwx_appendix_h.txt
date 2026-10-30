@@ -1,0 +1,471 @@
+﻿===== ppt/slides/slide1.xml =====
+Cross-Border Weather Procedure
+Supporting European 
+Aviation
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+About
+Summer 2020
+Until Now
+More Information
+Together we are stronger
+ 
+===== ppt/slides/slide2.xml =====
+Cross-Border Weather Procedure
+Supporting European 
+Aviation
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   Summary
+   Objectives
+   Benefits
+   Participants
+About
+Summer 2020
+Until Now
+More Information
+===== ppt/slides/slide3.xml =====
+   
+2019
+Cross-Border Weather Procedure
+Supporting European 
+Aviation
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+About
+Summer 2020
+More Information
+Until Now
+ 2018
+===== ppt/slides/slide4.xml =====
+Cross-Border Weather Procedure
+Supporting European 
+Aviation
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+About
+Summer 2020
+Until Now
+   New
+Changes due to 
+     COVID-19
+More Information
+   
+Timeline
+   
+Forecast Example
+===== ppt/slides/slide5.xml =====
+ 
+Cross-Border Weather Procedure
+ 
+Supporting European 
+Aviation
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+About
+Summer 2020
+Until Now
+ Archive 2015 - 2020
+More Information
+===== ppt/slides/slide6.xml =====
+Cross-Border Weather Procedure
+Supporting European 
+Aviation
+About
+Summer 2020
+Until Now
+More Information
+Weather -
+
+major 
+cause 
+of capacity reduction across wide areas of the 
+Network
+Collaborative approach 
+is vital to ensure 
+COVID-19 recovery is as delay free as possible
+Objective:
+Consolidated weather 
+forecast (main focus – convective activity)
+Improving collaboration, planning and dissemination of information
+Reducing the number of weather regulations, increasing lead times 
+and stability
+Weather Forum May 2018 
+ Need for improvement of 
+weather management with cross-border coordination 
+
+!
+!
+===== ppt/slides/slide7.xml =====
+Cross-Border Weather Procedure
+Supporting European 
+Aviation
+D -1
+Raise situational awareness
+Allow basic planning
+RAD relaxation
+AO involvement
+D-0
+After updated weather forecast
+ decision making horizon 3-4h
+Tactical weather view/
+Nowcast
+Focussed Collaborative coordination
+Improve Application of measures
+Objectives
+About
+Summer 2020
+Until Now
+More Information
+===== ppt/slides/slide8.xml =====
+Cross-Border Weather Procedure
+Supporting European 
+Aviation
+About
+Summer 2020
+Until Now
+More Information
+Increased situational awareness
+Earlier decision making
+Increasing stability
+RAD relaxations
+Better planned re-routings
+Staff planning
+Benefits
+===== ppt/slides/slide9.xml =====
+Cross-Border Weather Procedure
+Supporting European 
+Aviation
+2018
+2019
+Austrocontrol
+CroControl
+DFS 
+DSNA
+ENAIRE
+MUAC
+NATS
+Skyguide
+
+Participants 2020
+Meteorological service coordination led by 
+EUMETNET.
+About
+Summer 2020
+Until Now
+More Information
+2020
+===== ppt/slides/slide10.xml =====
+Cross-Border Weather Procedure
+Supporting European 
+Aviation
+About
+Summer 2020
+Until Now
+More Information
+Duration: 1
+st
+ June until 30
+th
+ September 2020
+Focus on Tactical - 
+Nowcasting
+Focussed collaboration
+AO involvement
+Simplified Matrix
+Met Forecaster in the Ops Room
+New for S20
+===== ppt/slides/slide11.xml =====
+Cross-Border Weather Procedure
+Supporting European 
+Aviation
+About
+Summer 2020
+Until Now
+More Information
+Due COVID-19 crisis 
+Start of process delayed until 
+the start 
+of 
+June
+RAD relaxations
+process in place but many RAD’s not applied or disabled
+Scenarios may be used if required.
+Changeable situation 
+dependent 
+upon traffic recovery- need for 
+flexibility
+Forecaster in NMOC 
+Ops Room 
+still 
+planned for 
+July/August
+Collaborative conferencing 
+will be either triggered by 
+Forecast risk (
+as per last years process
+) 
+with discretion based on traffic
+.
+Tactical collaboration
+based on web-based tactical forecasts and 
+Nowcasting
+ visualisations
+development continues, deployment 
+expected end of June
+===== ppt/slides/slide12.xml =====
+Cross-Border Weather Procedure
+Supporting European 
+Aviation
+About
+Summer 2020
+Until Now
+More Information
+11:30-12:30 
+Conferencing 
+(if required 10-15min; aiming for 11:30)
+Coordinating
+09:00 – 11:00
+Building Plan
+16:00 – 17:00
+Publishing the Plan
+9
+:00
+Weather Forecast
+D-1
+D-0
+07:00
+Update of D-1 Forecast
+12:00
+Update of 07:00 Forecast
+Focused Conferencing 
+(if required)
+* All times UTC
+===== ppt/slides/slide13.xml =====
+Cross-Border Weather Procedure
+Supporting European 
+Aviation
+About
+Summer 2020
+Until Now
+More Information
+2020 Example
+===== ppt/slides/slide14.xml =====
+NATS
+, DSNA
+, MUAC and 
+DFS
+Single 
+weather view provided over the 
+area of 
+South East England, Benelux, North Eastern France and 
+Germany
+1
+st
+ April – 30
+th
+ September 2019
+
+Clear 
+Presentation and four time periods
+      Non 
+Met approach was appreciated – Right 
+level
+      Cloud 
+Tops & Vector information
+      Risk Matrix: 
+Very good, eased decision 
+making
+
+
+No need for terrain- 
+emphasise
+ sector clusters
+      No 
+coverage around eastern Karlsruhe/Polish border
+      Some 
+forecasts 
+underestimated
+      Medium 
+risk led to regulations and cross border delay
+      Occasional 
+late delivery of forecasts
+      Confusion 
+over tactical updates
+      Some 
+requests for out of area updates – outside of 
+scope
+Cross-Border Weather Procedure
+Supporting European 
+Aviation
+About
+Summer 2020
+Until Now
+More Information
+2019 Procedure
+===== ppt/slides/slide15.xml =====
+Cross-Border Weather Procedure
+Supporting European 
+Aviation
+About
+Summer 2020
+Until Now
+More Information
+NATS, MUAC and 
+DFS
+Single 
+weather view provided over the 
+area of 
+South 
+East England, Benelux and Germany
+1
+st
+ August – 30
+th
+ September 2018
+D-1 planning and conferences 
+called by 
+NM
+
+Xborder map useful for situational awareness
+      Some 
+discussions to reduce military activity and re-routing
+
+     No 
+real planning, no significant behavioural change
+      Lack 
+of real engagement by participants
+      Extra 
+workload for participants without tangible 
+benefits
+2018 Procedure
+===== ppt/slides/slide16.xml =====
+Cross-Border Weather Procedure
+Supporting European 
+Aviation
+About
+Summer 2020
+Until Now
+More Information
+Archive
+2018
+2015
+2019
+2020
+START
+**Click on the bullet to see documents
+ 
+Operational Instructions
+ 
+Meetings
+ Forecast 
+Example
+ 
+Operational Instructions
+ 
+Meetings
+ Forecast
+ Example
+ 
+Operational Instructions
+ 
+Meetings
+ 
+Weather Forum
+ Final Report
+ 
+Follow up
+ External Doc
