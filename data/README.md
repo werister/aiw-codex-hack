@@ -1,5 +1,7 @@
 # EDDF weather data
 
+**Counts:** 4 public sources (DFLD.de recorded direction, IEM EDDF METAR, Open-Meteo previous runs: best match, ECMWF IFS, GFS, ICON and pressure boxes; DWD 01420 as a cross-check) · 154,718 METAR reports covering 77,380 hours (2018-01-01 to 2026-10-30) · 76,588 DFLD labelled hours (2018-01 to 2026-10-29) · 54 tests pass (30 Oct 2026, commit b2c48f1).
+
 Most recent requested observation range: 2024-01-01 through 2026-10-30. METAR backfills append to existing reports; the inventory gives each file's full retained period. All timestamps are UTC. Data retrieval times and exact request URLs are recorded per file in [inventory.json](inventory.json).
 
 Rebuild METAR history with `python -m ml.fetch --since 2018-01-01 --sources metar`. Backfill only the older years with `python -m ml.fetch --since 2018-01-01 --until 2022-12-31 --sources metar`; existing reports win on duplicate observation timestamp and raw METAR. Other weather sources can be fetched with `python -m ml.fetch --since 2023-01-01`. Raw responses and retrieval metadata are cached in ignored `data/raw/`. Completed calendar chunks are reused; current chunks expire after one hour and DWD recent archives/listings after six hours. `--refresh` explicitly redownloads. Use `--sources metar previous` to select sources, or `--until YYYY-MM-DD` for an inclusive end date. Live snapshots reuse the current UTC hour. No credentials or accounts are used.
