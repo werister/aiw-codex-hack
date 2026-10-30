@@ -1,5 +1,7 @@
 # Data Sources for the Frankfurt Airport Forecast
 
+> Superseded. This is the early research from the morning of 30 Oct. The data we use is in `data/README.md` and `DATA_AND_DECISIONS.md`. Some statements below are out of date: DWD station 01420 is in the 10-minute archive, and DFLD gives recorded operating directions.
+
 **Research date:** 30 October 2026  
 **Target:** Hourly forecasts up to 48 hours ahead for Runway 18 availability and airport operating direction (25/07).
 

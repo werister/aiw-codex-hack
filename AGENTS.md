@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Instructions for Codex (and any other coding agent) working in this repo.
+Instructions for every coding agent working in this repo.
 Context: 6 hour hackathon (AI Week Codex hack). Speed matters, but `main` must always run.
 
 ## Project
