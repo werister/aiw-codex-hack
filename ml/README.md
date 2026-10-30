@@ -1,6 +1,6 @@
 # ml/ · data, labels, model, backtest, forecast CLI (Python 3.13)
 
-Owners: Kai (co-lead) and the Codex workers. Rules: `ml/rules.json` (from the official FraAlliance brief). Never hard-code a threshold anywhere else.
+Owners: Kai (co-lead) and our agents. Rules: `ml/rules.json` (from the official FraAlliance brief). Never hard-code a threshold anywhere else.
 
 ```bash
 python -m pip install -r ml/requirements.txt

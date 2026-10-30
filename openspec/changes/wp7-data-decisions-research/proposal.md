@@ -1,6 +1,6 @@
 # Proposal: How the decision is made, and which data exists
 
-**Work package 7 · Owner:** Codex worker (branch `jayden/research`).
+**Work package 7 · Owner:** our agents (branch `jayden/research`).
 
 ## Why
 

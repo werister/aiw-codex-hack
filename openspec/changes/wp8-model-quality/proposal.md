@@ -1,6 +1,6 @@
 # Proposal: Model quality numbers for the dashboard
 
-**Work package 8 · Owner:** a Codex worker (Astra). The UI panel itself is WP5.
+**Work package 8 · Owner:** our agents. The UI panel itself is WP5.
 
 ## Why
 

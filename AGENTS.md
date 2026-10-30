@@ -46,7 +46,7 @@ git push --force-with-lease # on your own branch only
 - Land branches on `main` via fast-forward (rebase first, then `git merge --ff-only` or a PR with "Rebase and merge").
 - If a rebase conflict is non-trivial and touches someone else's code, stop and ask instead of guessing.
 
-**No AI agents in the commit history.** Never mention any AI agent or model in commit messages, trailers (no `Co-Authored-By:` agent lines, no session links) or author fields. Commits are authored by the human who runs the agent.
+**No AI names anywhere.** Never name an AI assistant, agent, model or vendor in commit messages, trailers (no `Co-Authored-By:` agent lines, no session links), author fields or files. Say "head agent" or "our agents". Commits are authored by the human who runs the agent.
 
 Commit message format (keep it short, imperative):
 
@@ -89,6 +89,6 @@ docs: update run instructions
 ## Team notes
 
 - Kai Detmers: ML and data pipeline co-lead (`ml/`).
-- Jayden Bruck (as head agent, with Codex workers): Codex workers (branches `jayden/data` and `jayden/model`) build `ml/`; the head agent owns `web/` and integration. Leaves at 16:45.
+- Jayden Bruck (head agent, with our agents in separate worktrees on branches `jayden/<package>`): owns `web/` and integration, and drives the worker packages. Leaves at 16:45.
 - Hugo Hader: pitch and demo at 17:00. Luca Schultz: data review, sanity checks, business-case numbers, backup presenter.
 - Decision 11:40: labels come from the official rules on EDDF METAR, validated against flown ODs if a public source exists. The model must beat the rule baseline on held-out days.

@@ -1,6 +1,6 @@
 # Proposal: Data sources and download
 
-**Work package 1 · Owner:** Codex worker (branch `jayden/data`). Data check: Luca.
+**Work package 1 · Owner:** our agents (branch `jayden/data`). Data check: Luca.
 
 ## Why
 
