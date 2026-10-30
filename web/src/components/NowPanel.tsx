@@ -48,7 +48,7 @@ export function NowPanel({ f, compact }: { f: ForecastResponse; compact?: boolea
               <span className={cx("rounded-full px-3 py-1.5 text-[15px] text-on-signal", odBg(nc.to))}>
                 {nc.to} {OD_LABEL[nc.to]} from {hhmm(nc.local)}
               </span>
-              <span className="tabular">{pct(nc.p)}</span>
+              <span className="tabular">{pct(nc.p)} likely</span>
             </div>
             <Sub>
               P({nc.to}) at {hhmm(nc.local)} {dayLabel(nc.local)} · window {hhmm(nc.window_local[0])}–{hhmm(nc.window_local[1])}

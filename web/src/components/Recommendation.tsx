@@ -2,31 +2,44 @@ import type { ForecastResponse, OD } from "@/lib/forecast-types";
 import { Arrow, OD_LABEL, cx, dayLabel, hhmm, odBg, pct } from "./ui";
 
 // Planning policy v1: one suggestion from the forecast fields, no new data.
+// p is always the probability of the named event; certainty is the producer's margin score, shown apart.
 export const UNCERTAIN_BELOW = 0.6;
 export const PLAN_POLICY =
-  "Policy v1: the earliest forecast change of operating direction or runway 18 closure in the next 48 h. Flagged uncertain when its probability is below 60%, or, with no change, when any hour's call is below 60%.";
+  "Policy v1: the earliest forecast change of operating direction or runway 18 closure in the next 48 h. Flagged uncertain when the probability of that event is below 60%; with no change, when the current set-up is below 60% in any hour.";
+export const CERTAINTY_DEF =
+  "Certainty score = 100 × min(|2·P(25) − 1|, |2·P(18 usable) − 1|): the smaller of the two probability margins. 0 is a coin toss, 100 a sure call. It is not a probability.";
 
 export type Plan =
-  | { kind: "change"; time: string; to: OD; local: string; window: [string, string]; p: number }
-  | { kind: "closure"; time: string; start: string; end: string; openEnded: boolean; p: number }
-  | { kind: "hold"; time: string; od: OD; r18Open: boolean; minCertainty: number };
+  | { kind: "change"; time: string; to: OD; local: string; window: [string, string]; p: number; certainty: number }
+  | { kind: "closure"; time: string; start: string; end: string; openEnded: boolean; p: number; certainty: number }
+  | { kind: "hold"; time: string; od: OD; r18Open: boolean; p: number; certainty: number };
 
 export function planFrom(f: ForecastResponse): Plan {
   const nc = f.next_change;
   const cl = f.closures_18[0];
+  const certaintyAt = (t: string) => f.hours.find((h) => h.time === t)?.certainty ?? 0;
   // UTC ISO strings sort as text.
   if (cl && (!nc || cl.start < nc.time)) {
     // Still closed at the last hour: the reopening is beyond the forecast.
     const openEnded = f.closures_18.length === 1 && f.hours[f.hours.length - 1].p_18_usable < 0.5;
-    return { kind: "closure", time: cl.start, start: cl.local_start, end: cl.local_end, openEnded, p: 1 - cl.min_p_usable };
+    const p = 1 - cl.min_p_usable;
+    return { kind: "closure", time: cl.start, start: cl.local_start, end: cl.local_end, openEnded, p, certainty: certaintyAt(cl.start) };
   }
-  if (nc) return { kind: "change", time: nc.time, to: nc.to, local: nc.local, window: nc.window_local, p: nc.p };
+  if (nc) {
+    const certainty = certaintyAt(nc.time);
+    return { kind: "change", time: nc.time, to: nc.to, local: nc.local, window: nc.window_local, p: nc.p, certainty };
+  }
+  // No change: the least likely hour of the current direction and runway 18 state.
+  const r18Open = f.hours[0].p_18_usable >= 0.5;
+  const pHeld = (h: (typeof f.hours)[number]) =>
+    Math.min(f.current_od === "25" ? h.p_od25 : 1 - h.p_od25, r18Open ? h.p_18_usable : 1 - h.p_18_usable);
   return {
     kind: "hold",
     time: f.hours[0].time,
     od: f.current_od,
-    r18Open: f.hours[0].p_18_usable >= 0.5,
-    minCertainty: Math.min(...f.hours.map((h) => h.certainty)),
+    r18Open,
+    p: Math.min(...f.hours.map(pHeld)),
+    certainty: Math.min(...f.hours.map((h) => h.certainty)),
   };
 }
 
@@ -56,8 +69,7 @@ export function Recommendation({
   onShowEvidence?: () => void;
 }) {
   const plan = planFrom(f);
-  // Certainty score 20/100 is a 60% call (score = 100 × |2p − 1|).
-  const uncertain = plan.kind === "hold" ? plan.minCertainty < 20 : plan.p < UNCERTAIN_BELOW;
+  const uncertain = plan.p < UNCERTAIN_BELOW;
 
   return (
     <section className={cx("rounded-card bg-select p-5 text-ink", !compact && "sm:p-6")} aria-label="Planning recommendation">
@@ -88,9 +100,12 @@ export function Recommendation({
         )}
       </p>
 
-      <dl className={cx("grid gap-x-6 gap-y-4", compact ? "mt-3 grid-cols-4" : "mt-5 grid-cols-2 lg:grid-cols-5")}>
+      <dl className={cx("grid gap-x-6 gap-y-4", compact ? "mt-3 grid-cols-5" : "mt-5 grid-cols-2 lg:grid-cols-6")}>
         <Fact k="Window">{planWindow(plan)}</Fact>
-        <Fact k={probLabel(plan)}>{plan.kind === "hold" ? `${plan.minCertainty}/100` : pct(plan.p)}</Fact>
+        <Fact k={probLabel(plan)}>{pct(plan.p)} likely</Fact>
+        <Fact k={plan.kind === "hold" ? "Certainty, lowest hour" : "Certainty"} hint={CERTAINTY_DEF}>
+          {plan.certainty}/100
+        </Fact>
         <Fact k="Issued">
           {dayLabel(f.issued_local)} {hhmm(f.issued_local)}
         </Fact>
@@ -128,7 +143,7 @@ export function Recommendation({
 export function probLabel(plan: Plan) {
   if (plan.kind === "change") return `P(${plan.to} ${OD_LABEL[plan.to]} at ${hhmm(plan.local)})`;
   if (plan.kind === "closure") return "P(runway 18 unusable), worst hour";
-  return "Lowest certainty score";
+  return "P(no change), least likely hour";
 }
 
 function Chip({ od }: { od: OD }) {
@@ -139,10 +154,12 @@ function Chip({ od }: { od: OD }) {
   );
 }
 
-function Fact({ k, children }: { k: string; children: React.ReactNode }) {
+function Fact({ k, hint, children }: { k: string; hint?: string; children: React.ReactNode }) {
   return (
-    <div>
-      <dt className="mb-1 text-[12px] text-muted">{k}</dt>
+    <div title={hint}>
+      <dt className={cx("mb-1 text-[12px] text-muted", hint && "w-fit cursor-help underline decoration-dotted underline-offset-2")}>
+        {k}
+      </dt>
       <dd className="text-[17px] leading-snug tabular">{children}</dd>
     </div>
   );
