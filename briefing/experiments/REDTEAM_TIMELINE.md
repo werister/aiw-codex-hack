@@ -1,6 +1,8 @@
 # How we tested and selected the current runway model
 
-**Evidence cut: 30 October 2026. Branch: `hugo/redteam-evidence`.** This is a presentation-ready history of the team's modelling work and Hugo's independent red-team work. The current selected model is **walk-forward-v5**. It is the strongest adopted version in the team's reported historical comparison; it is not proven universally best for every horizon, regime or operational outcome.
+**Evidence cut: 30 October 2026. Branch: `hugo/redteam-evidence`.** This is a presentation-ready history of the team's modelling work and Hugo's independent red-team work. The current served model is **walk-forward-v6** at reviewed pin `410d2b9`. v5 was the preceding adopted feature set. v6 improves correctness and evaluation; a general accuracy gain over v5 is not established. No version is proven best for every regime or operational outcome.
+
+Latest evidence: [first findings](COLAB_ICON_FIRST_FINDINGS.md), [version decision CSV](MODEL_VERSION_RESULTS.csv), [audited Colab CSV](v5-icon/audited_headline_all_lags.csv), [executed cells and outputs](v5-icon/executed-evidence.ipynb), and [comparison chart](v5-icon/colab_comparison.svg). CSV accuracies are fractions; multiply by 100 for percent. Compare only within the same experiment, target and lag.
 
 **Judge-facing takeaway:** We started with a rules baseline, corrected timing assumptions even when scores fell, improved weather features, tested alternatives on matched rows, and retained negative results. Our independent Extra Trees / simple-ensemble trial did not justify replacing the original model. Runway-18 closure prediction and a genuinely untouched forward evaluation remain open.
 
@@ -22,13 +24,13 @@ All times below are **30 October 2026, Europe/Berlin (CET, UTC+1)**. Times attac
 | 14:11 commit `6de474f`; E11/E16 | Stronger corrected-wind rules and runway-18 events | Check the model against stronger rules, and examine rare inferred closures | Stronger-rule OD accuracy **95.6 / 88.8 / 89.2 / 85.8%**. v5 still leads at 6/24/48 h. Runway-18 model detected only **3/24 issue-level closure windows at 24 h**; no broad closure-skill claim. |
 | 14:12 commit `5ecf04e` | Explicit availability metadata | Reject archived inputs explicitly published/retrieved after issue time where the relevant metadata is supplied | Guard added. The historic archive lacks verified publication timestamps, so this does not prove all historic weather was available at issue time. |
 | Independent review rounds, following the Colab run | Opus, Muse, Kiro | Leakage counterexample, metric recomputation, feature/trace contracts, new-data eligibility | Metric recomputation matched **72/72 rows**; **29 checks** passed. Focused leakage suite: **15 passed**, including tests demonstrating a vulnerability. v5 CLI/contract suite: **27 passed**. Counts overlap existing tests; do not add them into one total. |
-| Later new-data round | Pinned v5 + raw ICON-Global candidate | Freeze data, retain baseline 45 features, append 7 ICON features, pair issue masks and 6/12 h lag assumptions | Adapter/protocol tests: **27 passed**; final bundle/source checks: **49 passed**. These are software/data checks. **New model training and accuracy results are still pending.** |
-| Latest selector exploration | Experimental per-case choice | Learn lead × regime preference on earlier out-of-fit predictions; compare frozen selector, transferred policy, global arm, equal blend and fixed models in October | Code committed, not a demonstrated improvement. No production router deployed. No October outcomes may select the policy. |
+| Later new-data round | Pinned v5 + raw ICON-Global candidate | Freeze data, retain baseline 45 features, append 7 ICON features, pair issue masks and 6/12 h lag assumptions | Adapter/protocol tests: **27 passed**; final bundle/source checks: **49 passed**. These are software/data checks. Both Colab fits completed: 286.7 s / 286.1 s at lag proxies 6 / 12 h. ICON worsens 6 h Brier, slightly improves 24/48 h; not promoted. |
+| Latest selector exploration | Experimental per-case choice | Learn lead × regime preference on earlier out-of-fit predictions; compare frozen selector, transferred policy, global arm, equal blend and fixed models in October | Completed Colab experiment; mixed results, not a demonstrated consistent improvement. No production router deployed. No October outcomes may select the policy. |
 | Latest delay-data review | Luca/Kai BTS data | Check geography, granularity, timing and provenance before using delay labels | **22,687 monthly US carrier–airport rows, 364 airports, 21 carriers; no FRA**. Cannot validate Frankfurt flight-level delay counterfactuals. Keep as contextual analysis. |
 
 “Before” and “after” refer only to the stated matched comparison. Earlier experiment-log snapshots changed folds, coverage and timing assumptions; they are not one continuous leaderboard on identical test rows. E2–E4 are historical experiment identifiers; no unverified v1/v2/v3 release names are assigned here.
 
-## Current selected version: v5 historical evaluation
+## Preceding adopted version: v5 historical evaluation (superseded by v6)
 
 Source: [frozen quality.json](https://github.com/werister/aiw-codex-hack/blob/5aed997313b78678d11fa23b808c2a9835a1d91a/web/public/data/quality.json), `out_of_sample.od`. Twelve expanding monthly folds, November 2025–October 2026. Each fold fit uses earlier labels; feature selection nevertheless used these same folds. The table below was read from the committed artifact, **not independently retrained in this red-team session**.
 
@@ -95,8 +97,8 @@ Evidence: [executed notebook](v4-colab-october.ipynb), [complete report](v4-cola
 
 | Candidate | State | How it should be judged |
 |---|---|---|
-| v5 + 7 raw ICON-Global features | Reviewed script/notebook committed; fit pending | Matched 2025+ full-48 h issue masks; preserve raw/blended predictions; separate lag-6 and lag-12 sensitivity runs. |
-| Small lead × regime selector | Code ready; experiment pending | Early base fit → August blend validation → September selector validation → October exploratory score; purge labels at each boundary; compare global arm and fixed candidates. |
+| v5 + 7 raw ICON-Global features | Completed in Colab at lag proxies 6 and 12 h; not promoted | Matched 2025+ full-48 h issue masks; preserve raw/blended predictions; separate lag-6 and lag-12 sensitivity runs. |
+| Small lead × regime selector | Completed frozen and transferred-policy experiments; no consistent advantage | Early base fit → August blend validation → September selector validation → October exploratory score; purge labels at each boundary; compare global arm and fixed candidates. |
 | Post-blend probability calibration | Owner confirmed untried | Disjoint chronological fit/calibration/test windows; OD Brier at 6/24/48 h. |
 | Conditional wind correction | Owner confirmed untried and promising for runway 18 | Fit direction/speed/season/regime correction only on earlier data, before any inner validation; compare against fixed-factor rules and model. |
 | Direct direction-change / change-time learning | Owner confirmed untried | First freeze event definition, missing-window policy and censoring; report event detection and timing, not only stable-hour accuracy. |
@@ -108,7 +110,7 @@ No production decision-API router was deployed by this work. Comparing alternati
 
 The branch includes the existing executed v4 notebook and the new [v5/ICON notebook](v5-icon/fra-v5-icon.ipynb), [experiment script](v5-icon/experiment_v5_icon.py) and [adapter](v5-icon/icon_supplement.py), plus [red-team test sources](redteam/README.md). The latter include the leakage counterexample, independent metric audit and ICON tests/protocol helpers.
 
-Test counts refer to named runs, not unique cumulative tests: **50 source tests in Colab**, **29 evidence-audit checks**, **15 focused leakage tests**, **27 v5 contract tests**, **27 ICON adapter/protocol tests**, **49 bundle/source checks**. Several suites reuse production tests; the 49 checks include static/hash checks and are not 49 model experiments. The v4 learner comparison is complete. The new v5/ICON run has now started in Colab: both archive hashes matched, and all 54 existing source tests passed in 2.45 seconds. Initial runtime checks confirmed 45 baseline + 7 supplemental features, 16,008 ICON hours, and correct same-hour METAR alignment (correlation 0.782 versus 0.360/0.382 at ±24-hour shifts). Model scores remain pending. All model training in this lane uses Colab.
+Test counts refer to named runs, not unique cumulative tests: **50 source tests in Colab**, **29 evidence-audit checks**, **15 focused leakage tests**, **27 v5 contract tests**, **27 ICON adapter/protocol tests**, **49 bundle/source checks**. Several suites reuse production tests; the 49 checks include static/hash checks and are not 49 model experiments. The v4 learner comparison and both v5/ICON runs are complete. Both archive hashes matched; 54 existing source tests passed in 2.45 seconds. Runtime checks confirmed 45 baseline + 7 supplemental features, 16,008 ICON hours, and same-hour METAR alignment (correlation 0.782 versus 0.360/0.382 at ±24-hour shifts). Independent recomputation matched all 40 headline metric rows per lag. The evidence CSV adds the corresponding global comparator and frozen-model arms (88 rows total). Seven-day paired block intervals for the nonzero primary Brier differences all include zero. October runway-18 hourly scores are 100%, but the evaluated windows contain no positive closure events; this provides no evidence of closure detection. All model training in this lane uses Colab.
 
 Pins:
 - v4 source archive SHA-256: `74f91c3a19fb545989f48a5bd0478a5915529ff797d09addfead48b117ea6b18`.
@@ -120,6 +122,21 @@ The binary v4 evidence is preserved on the SSD at `/Volumes/AthenaSSD/fra-red-te
 
 ## Suggested 30-second explanation to the judges
 
-> We tested the forecast in monthly chronological folds, corrected a weather-availability assumption even though it lowered our score, and then improved the weather inputs. The selected v5 gets direction right in about 91.7% of scored hours at 24 hours ahead, versus 87.7% for the challenge rules. Independently, we ran Extra Trees and a simple combination in Colab on matched October data; neither improved accuracy over the original v4 blend. We kept those negative results and audited the saved predictions. The historical folds informed model selection, so our untouched forward test is still ahead. Runway-18 closures remain a separate weak point.
+> We tested the forecast in monthly chronological folds, corrected a weather-availability assumption even though it lowered our score, and then improved the weather inputs. The currently served v6 reports 91.8% direction accuracy at 24 hours ahead, versus 87.7% for the challenge rules on twelve historical folds. Its latest improvements strengthen timing and evaluation; they do not establish a general accuracy jump over v5. Independently, we ran Extra Trees and a simple combination in Colab on matched October data; neither improved accuracy over the original v4 blend. We also tested extra ICON inputs and case-by-case selection in Colab; small longer-lead improvements came with short-lead regressions and uncertain gains. We kept those negative results and audited the saved predictions. The historical folds informed model selection, so our untouched forward test is still ahead. Runway-18 closures remain a separate weak point.
 
 This narrative distinguishes the team's v5 development from the independent v4 challenge, rather than implying that our red-team alternatives produced or outperformed v5.
+
+## Latest stage: Kai's v6 and completed Colab sensitivity (30 October)
+
+Kai's [forecast improvements explanation](https://github.com/werister/aiw-codex-hack/blob/410d2b9baa1cc6e44b5265feb8954c2b18224b9f/ML_VERBESSERUNGEN.md) documents observed tailwind-history initialization, all supplied availability timestamps checked, direction-sensitive and deduplicated switch evaluation, complete-window runway-18 evaluation, and OD display when runway-18 labels are absent. Existing architecture remains. E18 extra observation history was not adopted; E19 speed correction was not pursued after diagnosing grouping bias; E20 current forecast-error/trend and E21 QNH-tendency features were coded but not trained before freeze; E22 variable-wind label treatment was not applied in a retrain. Do not label these as completed improvements.
+
+| Lead | v6 rows | v6 OD accuracy | Brier | Rules | Persistence |
+|---|---:|---:|---:|---:|---:|
+| 1 h | 1416 | 95.69% | .03414 | 93.08% | 95.90% |
+| 6 h | 1416 | 92.73% | .05305 | 88.14% | 88.84% |
+| 24 h | 1383 | 91.83% | .06368 | 87.71% | 75.05% |
+| 48 h | 1338 | 88.86% | .08182 | 84.01% | 64.20% |
+
+These are committed v6 artifact values, not an independent v6 retraining in this lane. v6 event results supersede the earlier v5 figures above: 27.2% of 750 actual-change windows within ±1 h, 52.5% within ±3 h; false alarms in 14.7% of 593 no-change windows; 89 excluded. Distinct-event recall is 115/193 (59.6%) with deduplicated precision 45.5%. Runway 18: 0/12 positive complete 24-hour windows detected among 307 eligible, 1125 excluded. Changed definitions and denominators prevent a simple v5/v6 event-gain claim.
+
+The new ICON runs use a restricted paired v5 training population, not the served v6. The selector's global comparator is selected on September, and October outcomes never choose the policy. No causal flight-delay or production routing claim is supported. [Full results and limitations](COLAB_ICON_FIRST_FINDINGS.md).
