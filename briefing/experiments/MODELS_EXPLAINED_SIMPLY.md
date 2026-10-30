@@ -13,7 +13,7 @@ Imagine a computer trying to guess which runway direction the airport will use. 
 | v5 + raw ICON | Give v5 seven additional clues from another weather forecast dataset. | Small longer-lead probability-score improvements, but worse at 6 hours. No replacement justified. |
 | v5/ICON, 50/50 | Average the two forecasts. | Mixed results; no convincing overall improvement. |
 | Scenario selector | A referee chooses v5 or the ICON candidate according to horizon and weather regime, using older validation results. | It did not consistently beat choosing one global model. |
-| v6 | Keep the model family, improve how it remembers current wind conditions, checks information timing, blends runway-18 probabilities and counts mistakes. | Current team model. Our independent Colab suite passed 103 tests; fresh prediction checks are being recorded separately. |
+| v6 | Keep the model family, improve how it remembers current wind conditions, checks information timing, blends runway-18 probabilities and counts mistakes. | Current team model. Our independent Colab suite passed 103 tests; fresh October and January/April/July midnight checks completed, with mixed results. See [completed results](v6-colab/RESULTS.md). |
 
 **Not promoted** means we saved the experiment but did not replace the main model with it. We do not erase an experiment just because it did not win.
 
@@ -52,4 +52,4 @@ The older October v4 test scored 94.29%, 81.31%, 75.70% and 72.90% at 1, 6, 24 a
 - [New v6 protocol](v6-colab/experiment_v6.py): freshly refit October, never test October using final weights trained through October.
 - [Team model card](../../MODEL_CARD.md)
 
-Recorded 30 October 2026. New v6 and seasonal outputs must be marked complete only after the runs finish and the result files are checked.
+Recorded 30 October 2026. The v6 October and seasonal-midnight outputs are now complete and audited. The attempted six-hourly seasonal run failed a test-harness assertion and is recorded separately.
