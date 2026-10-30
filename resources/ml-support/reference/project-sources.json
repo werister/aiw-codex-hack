@@ -1,0 +1,182 @@
+[
+  {
+    "path": "resources/raw/windy/point-forecast-docs.html",
+    "url": "https://api.windy.com/point-forecast/docs",
+    "resolved_url": "https://api.windy.com/point-forecast/docs",
+    "retrieved_at_utc": "2026-10-30T10:00:18.780503+00:00",
+    "bytes": 86494,
+    "sha256": "620634fd405cea441de9867b2f79c201b3212cea7b1b505585db7c5a6ade1720",
+    "content_type": "text/html",
+    "status": "downloaded"
+  },
+  {
+    "path": "resources/raw/windy/point-forecast-pricing.html",
+    "url": "https://api.windy.com/point-forecast/pricing",
+    "resolved_url": "https://api.windy.com/point-forecast/pricing",
+    "retrieved_at_utc": "2026-10-30T10:00:18.766757+00:00",
+    "bytes": 53857,
+    "sha256": "8d6bd6840fc889b9d675dcf8afdc70142727d4f57ef15f6431908930c4a59404",
+    "content_type": "text/html",
+    "status": "downloaded"
+  },
+  {
+    "path": "resources/raw/windy/map-forecast-docs.html",
+    "url": "https://api.windy.com/map-forecast/docs",
+    "resolved_url": "https://api.windy.com/map-forecast/docs",
+    "retrieved_at_utc": "2026-10-30T10:00:18.766733+00:00",
+    "bytes": 65336,
+    "sha256": "f4319549f4a40ed504af509f3c2814f01bcee3ea16199d15e43c7ba86b14a58e",
+    "content_type": "text/html",
+    "status": "downloaded"
+  },
+  {
+    "path": "resources/raw/windy/map-forecast-tutorials.html",
+    "url": "https://api.windy.com/map-forecast/tutorials",
+    "resolved_url": "https://api.windy.com/map-forecast/tutorials",
+    "retrieved_at_utc": "2026-10-30T10:00:18.764657+00:00",
+    "bytes": 52154,
+    "sha256": "7ca67e0320e5405b807dee01e9a13b5ae9a17d265621dc32ccca73eceda1bfff",
+    "content_type": "text/html;charset=utf-8",
+    "status": "downloaded"
+  },
+  {
+    "path": "resources/raw/fraport/operation-direction.html",
+    "url": "https://www.fraport.com/en/sustainability/dialog-with-neighbors/noise-and-air/flight-operations/operation-direction.html",
+    "resolved_url": "https://www.fraport.com/en/sustainability/dialog-with-neighbors/noise-and-air/flight-operations/operation-direction.html",
+    "retrieved_at_utc": "2026-10-30T10:00:18.949388+00:00",
+    "bytes": 283494,
+    "sha256": "080e298ea2407faf399ecd7906ac4262f5b63a203720661749e02713bb1bd418",
+    "content_type": "text/html; charset=UTF-8",
+    "status": "downloaded"
+  },
+  {
+    "path": "resources/raw/fraport/current-operation-direction.html",
+    "url": "https://www.fraport.com/en/sustainability/dialog-with-neighbors/news/current-operation-direction.html",
+    "resolved_url": "https://www.fraport.com/en/sustainability/dialog-with-neighbors/news/current-operation-direction.html",
+    "retrieved_at_utc": "2026-10-30T10:00:19.783622+00:00",
+    "bytes": 264502,
+    "sha256": "7e8b619fb4ea7a4de57fea01aaee2cdc6cdd8304643274f98fea0530597fb887",
+    "content_type": "text/html; charset=UTF-8",
+    "status": "downloaded"
+  },
+  {
+    "path": "resources/raw/dwd/wind-stations.txt",
+    "url": "https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/wind/recent/FF_Stundenwerte_Beschreibung_Stationen.txt",
+    "resolved_url": "https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/wind/recent/FF_Stundenwerte_Beschreibung_Stationen.txt",
+    "retrieved_at_utc": "2026-10-30T10:00:19.280326+00:00",
+    "bytes": 531285,
+    "sha256": "7690244888322dda2c73e0e0929ffa85e646a310b2acd58164f7bfe8c4f08179",
+    "content_type": "text/plain",
+    "status": "downloaded"
+  },
+  {
+    "path": "resources/raw/dwd/wind-hourly-description.pdf",
+    "url": "https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/wind/DESCRIPTION_obsgermany_climate_hourly_wind_en.pdf",
+    "resolved_url": "https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/wind/DESCRIPTION_obsgermany_climate_hourly_wind_en.pdf",
+    "retrieved_at_utc": "2026-10-30T10:00:19.092927+00:00",
+    "bytes": 32423,
+    "sha256": "e909330bf193f2daf04f0f53add748165c3c4b9ee7ec22065e9d1ac53291744b",
+    "content_type": "application/pdf",
+    "status": "downloaded"
+  },
+  {
+    "path": "resources/raw/dwd/wind-01420-recent.zip",
+    "url": "https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/wind/recent/stundenwerte_FF_01420_akt.zip",
+    "resolved_url": "https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/wind/recent/stundenwerte_FF_01420_akt.zip",
+    "retrieved_at_utc": "2026-10-30T10:00:19.295306+00:00",
+    "bytes": 72891,
+    "sha256": "54bfce47b9a8e22b3f5a3efe97b8b45894ea68a5a80fd625d94d8266e79aa07a",
+    "content_type": "application/zip",
+    "status": "downloaded"
+  },
+  {
+    "path": "resources/raw/dwd/wind-01420-historical.zip",
+    "url": "https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/wind/historical/stundenwerte_FF_01420_19670101_20251231_hist.zip",
+    "resolved_url": "https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/wind/historical/stundenwerte_FF_01420_19670101_20251231_hist.zip",
+    "retrieved_at_utc": "2026-10-30T10:00:19.550808+00:00",
+    "bytes": 2346883,
+    "sha256": "0be507f35315ae1d59aa2dc889c2201b078f3a23879c816a51a4d706c2eb4f4f",
+    "content_type": "application/zip",
+    "status": "downloaded"
+  },
+  {
+    "path": "resources/raw/dwd/mosmix-10637-latest.kmz",
+    "url": "https://opendata.dwd.de/weather/local_forecasts/mos/MOSMIX_L/single_stations/10637/kml/MOSMIX_L_LATEST_10637.kmz",
+    "resolved_url": "https://opendata.dwd.de/weather/local_forecasts/mos/MOSMIX_L/single_stations/10637/kml/MOSMIX_L_LATEST_10637.kmz",
+    "retrieved_at_utc": "2026-10-30T10:00:19.052923+00:00",
+    "bytes": 16343,
+    "sha256": "f1528b3f95d5954cc3baf73ba5100866f7adc8a76d15e08e58cab3be3ac752f8",
+    "content_type": "application/vnd.google-earth.kmz",
+    "status": "downloaded"
+  },
+  {
+    "path": "resources/raw/dwd/mosmix-description.pdf",
+    "url": "https://www.dwd.de/EN/ourservices/met_application_mosmix/mosmix_application_description.pdf?__blob=publicationFile&v=2",
+    "resolved_url": "https://www.dwd.de/EN/ourservices/met_application_mosmix/mosmix_application_description.pdf?__blob=publicationFile&v=2",
+    "retrieved_at_utc": "2026-10-30T10:00:19.361219+00:00",
+    "bytes": 752690,
+    "sha256": "00671603791637bd1e2d31a9ed014e1d9e396e753dac59bf73e0211ea4d25a8e",
+    "content_type": "application/pdf;charset=UTF-8",
+    "status": "downloaded"
+  },
+  {
+    "path": "resources/raw/dwd/mosmix-parameters.pdf",
+    "url": "https://www.dwd.de/DE/leistungen/met_verfahren_mosmix/mosmix_parameteruebersicht.pdf?__blob=publicationFile&v=3",
+    "resolved_url": "https://www.dwd.de/DE/leistungen/met_verfahren_mosmix/mosmix_parameteruebersicht.pdf?__blob=publicationFile&v=3",
+    "retrieved_at_utc": "2026-10-30T10:00:19.328042+00:00",
+    "bytes": 113324,
+    "sha256": "6a771e634918d5ee8f1cc06a55c36096c0f9732ad72e4ccd7caaf4ab87b1daee",
+    "content_type": "application/pdf;charset=UTF-8",
+    "status": "downloaded"
+  },
+  {
+    "path": "resources/raw/dwd/mosmix-kml-format.pdf",
+    "url": "https://www.dwd.de/DE/leistungen/met_verfahren_mosmix/kml_formatbeschreibung.pdf?__blob=publicationFile&v=16",
+    "resolved_url": "https://www.dwd.de/DE/leistungen/met_verfahren_mosmix/kml_formatbeschreibung.pdf?__blob=publicationFile&v=16",
+    "retrieved_at_utc": "2026-10-30T10:00:19.434057+00:00",
+    "bytes": 288387,
+    "sha256": "24f2cd99791eccf590dee4d950e6135d3d47e9aa9d842d8563153481c58f56b9",
+    "content_type": "application/pdf;charset=UTF-8",
+    "status": "downloaded"
+  },
+  {
+    "path": "resources/raw/umwelthaus/operation-direction-and-forecast.html",
+    "url": "https://www.umwelthaus.org/fluglaerm/anwendungen-service/aktuelle-betriebsrichtung-und-prognose/",
+    "resolved_url": "https://www.umwelthaus.org/fluglaerm/anwendungen-service/aktuelle-betriebsrichtung-und-prognose/",
+    "retrieved_at_utc": "2026-10-30T10:00:19.762936+00:00",
+    "bytes": 52099,
+    "sha256": "be29a5ef2c54f2b71a883236583bbc4344449a2ce47ef50d6599a5ac586e2805",
+    "content_type": "text/html; charset=utf-8",
+    "status": "downloaded"
+  },
+  {
+    "path": "resources/raw/dwd/gust-01420-recent.zip",
+    "url": "https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/extreme_wind/recent/stundenwerte_FX_01420_akt.zip",
+    "resolved_url": "https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/extreme_wind/recent/stundenwerte_FX_01420_akt.zip",
+    "retrieved_at_utc": "2026-10-30T10:01:57.873253+00:00",
+    "bytes": 59876,
+    "sha256": "d858925df8bcb505bfc320199a7b28b758be8fbc66080dca9b43508ff445f123",
+    "content_type": "application/zip",
+    "status": "downloaded"
+  },
+  {
+    "path": "resources/raw/fraport/current-operation-direction.js",
+    "url": "https://sslapps.fraport.de/betriebsrichtung/betriebsrichtungsvg.js",
+    "resolved_url": "https://sslapps.fraport.de/betriebsrichtung/betriebsrichtungsvg.js",
+    "retrieved_at_utc": "2026-10-30T10:01:57.588053+00:00",
+    "bytes": 34072,
+    "sha256": "342f4436e6cb030c3dafb870d482252935f07127681dcd398114f230fa1fd09a",
+    "content_type": "application/javascript",
+    "status": "downloaded"
+  },
+  {
+    "path": "resources/raw/dwd/gust-01420-historical.zip",
+    "url": "https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/extreme_wind/historical/stundenwerte_FX_01420_19900627_20251231_hist.zip",
+    "resolved_url": "https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/extreme_wind/historical/stundenwerte_FX_01420_19900627_20251231_hist.zip",
+    "retrieved_at_utc": "2026-10-30T10:02:09.666812+00:00",
+    "bytes": 803630,
+    "sha256": "142011a9e7850fdb5342456351e0a39987c3e6269d84757930f3b72cc339e1b3",
+    "content_type": "application/zip",
+    "status": "downloaded"
+  }
+]

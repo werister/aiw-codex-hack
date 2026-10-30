@@ -1,0 +1,78 @@
+{
+  "first_valid_time_utc": "2026-10-29T00:00:00Z",
+  "http_status": 200,
+  "interpretation": [
+    "This successful request proves the selected historical run is retrievable now.",
+    "It does not prove when that run first became publicly available in real time.",
+    "The run parameter is initialization time, not publication time."
+  ],
+  "last_valid_time_utc": "2026-10-31T23:00:00Z",
+  "missing_fields": [],
+  "model": "icon_global",
+  "parameters": {
+    "forecast_days": "3",
+    "hourly": "wind_speed_10m,wind_direction_10m,wind_gusts_10m,pressure_msl,temperature_2m",
+    "latitude": "50.033",
+    "longitude": "8.570",
+    "models": "icon_global",
+    "run": "2026-10-29T00:00",
+    "timezone": "UTC",
+    "wind_speed_unit": "kn"
+  },
+  "raw_bytes": 3407,
+  "raw_file": "raw/single-runs/2026-10-29T00-00.json",
+  "requested_at_utc": "2026-10-30T11:01:02.070456+00:00",
+  "requested_run_initialization_utc": "2026-10-29T00:00:00+00:00",
+  "response_headers": {
+    "content-type": "application/json; charset=utf-8",
+    "date": "Fri, 30 Oct 2026 11:01:02 GMT"
+  },
+  "retrieved_at_utc": "2026-10-30T11:01:02.201284+00:00",
+  "returned_grid": {
+    "elevation_m": 105.0,
+    "latitude": 50.0,
+    "longitude": 8.625
+  },
+  "rows": 72,
+  "sha256": "da5e54274c9536db54bda5bb9caabf90f483e3997c7967c1c3a5572e08c4b94d",
+  "timezone": "GMT",
+  "url": "https://single-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.570&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m&wind_speed_unit=kn&timezone=UTC&models=icon_global&run=2026-10-29T00%3A00&forecast_days=3",
+  "utc_offset_seconds": 0,
+  "variables": {
+    "pressure_msl": {
+      "count": 72,
+      "max": 1033.1,
+      "min": 1029.4,
+      "null_count": 0,
+      "unit": "hPa"
+    },
+    "temperature_2m": {
+      "count": 72,
+      "max": 13.4,
+      "min": 1.6,
+      "null_count": 0,
+      "unit": "\u00b0C"
+    },
+    "wind_direction_10m": {
+      "count": 72,
+      "max": 79.0,
+      "min": 17.0,
+      "null_count": 0,
+      "unit": "\u00b0"
+    },
+    "wind_gusts_10m": {
+      "count": 72,
+      "max": 12.8,
+      "min": 2.1,
+      "null_count": 1,
+      "unit": "kn"
+    },
+    "wind_speed_10m": {
+      "count": 72,
+      "max": 4.4,
+      "min": 1.4,
+      "null_count": 0,
+      "unit": "kn"
+    }
+  }
+}
