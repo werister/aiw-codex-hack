@@ -1,5 +1,7 @@
 # Notices
 
+**Review here:** https://fraalliance-runway-forecast.statworx-par-2884.chatgpt.site (`/` dashboard, `/deck/` slides, `/pitch` replay, `/approach`, `/widget`). Republished from main every 15 min, 15:02 to 16:47. Only origin/main reaches the team; everything builds with `STATIC_EXPORT=1`; test each page at its site path.
+
 Open problems across main, branches and worktrees. One line each: time (Berlin) | severity | what is wrong | where | who acts. `STOP` breaks main or makes the submission wrong, `FIX` should be fixed before 16:00, `FYI` is worth knowing. Delete a line once it is fixed. Rules: "Cross-checking" in `AGENTS.md`.
 
 Main at 14:50 runs: `python -m pytest ml/tests -q` gives 54 passed (14:37). Lint passes since 2d0d773. The last web build check was cut short by low memory on the build PC.

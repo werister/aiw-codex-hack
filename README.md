@@ -2,10 +2,9 @@
 
 > ## 🎤 FINALS PITCH: one page, everyone use this
 > - **Open it:** use the live link below, or locally: pull `main`, run `python -m http.server 8000 -d web/public`, open http://localhost:8000/deck/ (the charts need a server; a double-clicked file only shows the poster). Arrow keys or click to advance, **A** = autoplay.
-> - **Live:** https://fraalliance-runway-forecast.statworx-par-2884.chatgpt.site/deck/ (visible once Jayden turns sharing on)
+> - **Live (THE place to review):** https://fraalliance-runway-forecast.statworx-par-2884.chatgpt.site: `/` dashboard, `/deck/` slides, `/pitch` Kai's real-day replay, `/approach` how we built it, `/widget` iPad view. Republished from main every 15 min, 15:02 to 16:47. Visible to others once Jayden turns sharing on.
 > - **Presenter:** Hugo. The script and timings are in `web/public/deck/NOTES.md`. 4 minutes max.
 > - **Freeze:** final version 15:50, no changes after 16:30 except fixes. Finals at 17:00.
-> - **Other pages:** `/` is the dashboard, `/pitch` is Kai's real-day replay, `/approach` is how we built it.
 
 **Live app:** https://fraalliance-runway-forecast.statworx-par-2884.chatgpt.site (private until sharing is switched on; the finals deck is at `/deck/index.html` after the next redeploy, and `/pitch` is the app's pitch mode)
 
