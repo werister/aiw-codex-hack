@@ -517,7 +517,7 @@ export function mount(container, options = {}) {
   // ---- loop ----
   let introStart = opts.intro ? 0 : -INTRO;
   if (opts.intro) setCamera(opts.view, INTRO);
-  let raf = 0, last = performance.now(), visible = true;
+  let raf = 0, last = performance.now(), visible = true, paused = false;
   const io = typeof IntersectionObserver !== "undefined"
     ? new IntersectionObserver((e) => { visible = e[0].isIntersecting; })
     : null;
@@ -527,7 +527,7 @@ export function mount(container, options = {}) {
     raf = requestAnimationFrame(frame);
     const dt = Math.min(0.05, (now - last) / 1000);
     last = now;
-    if (!visible) return;
+    if (!visible || paused) return;
     t += dt;
 
     // Intro: tiles settle, then guides, labels and arrow fade in.
@@ -633,6 +633,8 @@ export function mount(container, options = {}) {
       if (!on) beginTransition(target);
     },
     setCamera,
+    // Stop drawing while the host covers the scene (the deck's full-screen slides).
+    setPaused(on) { paused = !!on; },
     setTheme(name) {
       pal = PALETTE[name] || PALETTE.light;
       colorTween = null;
