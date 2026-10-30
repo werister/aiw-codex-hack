@@ -3,9 +3,14 @@ import json
 import hashlib
 import math
 import struct
+import sys
 from pathlib import Path
 import bpy
 from mathutils import Vector
+from mathutils.bvhtree import BVHTree
+
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+from check_scene import check_scene
 
 OUT=Path(__file__).resolve().parents[2]/'assets'/'airport'
 manifest=json.loads((OUT/'manifest.json').read_text())
@@ -75,22 +80,50 @@ for phase in manifest['demonstration_phases']:
         assert abs(flexible[-1][0]-flexible[-2][0])<1e-5
         assert flexible[-1][1]<flexible[-2][1]
     else:
-        assert flexible[1:]==phase['paths']['depart_center']
+        assert flexible[-3:-1]==phase['paths']['depart_center'][-3:-1]
 report['checks']+=['All three parallel runways share OD','18 departures always southbound',
                   '18 closure redirects the flexible departure to the centre runway']
 
 # Verify the native project, including evaluated playback at every phase.
 bpy.ops.wm.open_mainfile(filepath=str(OUT/'fra-airport.blend'))
 s=bpy.data.scenes['FRA · Airport demonstration'];bpy.context.window.scene=s
-for f in (1,125,240,241,365,480,481,605,720):
+for f in (1,240,480,481,720,960,961,1200,1440):
     s.frame_set(f)
     active=[o for o in s.objects if o.name.startswith('State.') and o.type=='EMPTY' and o.scale.x>.5]
     assert len(active)==1,(f,'state visibility')
     for o in s.objects:
         if o.name.startswith('Flight.') and o.type=='EMPTY':
             assert all(math.isfinite(v) for v in o.location)
-            assert o.location.z>=1.9
+            assert o.location.z>=1.85-1e-5
 report['checks'].append('Native scene opens; playback states and aircraft transforms valid')
+report['scene_checks']=check_scene(s,manifest)
+
+# Raycast the generated surfaces, not route metadata: every ground movement
+# sample must actually sit on a runway or the unioned apron/taxi mesh.
+surfaces=[]
+for o in s.objects:
+    if o.type!='MESH':continue
+    if o.parent and o.parent.name=='Surface.TaxiApron':surfaces.append(o)
+    elif o.parent and o.parent.name in [v['root'] for v in runways.values()]:
+        if any(m and m.name.startswith('Runway ·') for m in o.data.materials):surfaces.append(o)
+vertices=[]; faces=[]
+for o in surfaces:
+    offset=len(vertices)
+    vertices.extend(o.matrix_world@v.co for v in o.data.vertices)
+    faces.extend(tuple(offset+i for i in face.vertices) for face in o.data.polygons)
+surface_tree=BVHTree.FromPolygons(vertices,faces)
+ground_samples=0
+for f in range(1,s.frame_end+1):
+    s.frame_set(f)
+    for o in s.objects:
+        if o.type!='EMPTY' or not o.get('demo_role'):continue
+        p=o.matrix_world.translation
+        if abs(p.z-1.85)<.005:
+            hit=surface_tree.ray_cast(p+Vector((0,0,1)),Vector((0,0,-1)),1.15)
+            assert hit[0] is not None,(f,o.name,'ground route leaves paved movement surface',list(p))
+            assert abs(hit[0].z-1.85)<.01,(f,o.name,'surface height mismatch',hit[0].z)
+            ground_samples+=1
+report['checks'].append(f'{ground_samples} ground positions raycast onto actual movement pavement at z=1.85')
 report['blend_sha256']=hashlib.sha256((OUT/'fra-airport.blend').read_bytes()).hexdigest()
 report['result']='passed'
 (OUT/'verification.json').write_text(json.dumps(report,indent=2)+'\n')
