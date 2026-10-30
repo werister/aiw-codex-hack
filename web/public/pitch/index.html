@@ -56,6 +56,8 @@
     background: var(--scene);
   }
   #scene { position: absolute; inset: 0; width: 1920px; height: 1080px; }
+  /* Opened from file://, Chrome won't load the module; show a still of the scene instead. */
+  .no3d #scene { background: url("poster.jpg") center / cover no-repeat; }
 
   #veil {
     position: absolute; inset: 0; pointer-events: none;
