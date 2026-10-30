@@ -9,6 +9,7 @@ import bpy
 from mathutils import Vector
 
 from geometry import root, box, cylinder, sphere, mesh, text
+from terminal_architecture import build_terminal
 
 GROUND = 1.85
 PHASE_FRAMES = 480
@@ -174,23 +175,13 @@ def airport_layout(m, assets, clone):
     unified_surface('Unified taxi centerlines',paths,.55,
                     GROUND+.015,GROUND+.045,m['yellow'],guides,specs)
 
-    terminal=group('Building.Terminal',env,'building')
-    aligned_box('Terminal podium',65,132,3.0,(242,27,3.1),m['concrete'],terminal,1.5)
-    aligned_box('Terminal glazing',65,132,9,(238,24,14),m['glass'],terminal,1.5)
-    aligned_box('Terminal roof',65,132,17,(244,29,2),m['concrete'],terminal,1.5)
-    for u in range(-42,181,12):
-        aligned_box('Roof rib',u,132,18.2,(1.3,27,.8),m['roof'],terminal,.2)
-        aligned_box('Mullion',u,119.8,9,(.5,.5,12),m['concrete'],terminal)
+    build_terminal(m,env,uv)
     for u in (-15,65,145):
-        concourse=group('Building.Concourse',env,'building')
-        aligned_box('Concourse',u,101,8,(12,44,13),m['concrete'],concourse,1)
-        aligned_box('Concourse glazing',u,101,10,(12.3,38,5),m['glass'],concourse,.2)
-        aligned_box('Concourse roof',u,101,15,(14,46,1.5),m['roof'],concourse,.8)
         for sign in (-1,1):
-            aligned_box('Jet bridge',u+sign*12,96,5.5,(14,3.8,3.5),m['concrete'],concourse,.5)
-            # Stand paint is flat and above the one apron surface.
             slab('Stand lead-in',strip_polygon([uv(u+sign*20,66),uv(u+sign*20,94)],.45),
                  GROUND+.015,GROUND+.045,m['yellow'],guides)
+            text('Gate identifier',str(10+((-15,65,145).index(u))*2+(1 if sign<0 else 2)),
+                 uv(u+sign*23,72,GROUND+.08),2.2,m['yellow'],guides,math.radians(20))
     tower=clone(assets['tower'],'Building.Tower',uv(-150,124,GROUND),.70)
     tower.parent=env; tower['obstacle_kind']='building'
     for i,(u,v,w,d) in enumerate(((235,128,45,27),(240,181,42,25))):
@@ -244,7 +235,10 @@ def animate_demo(s, assets, specs, m, clone):
         if not usable:
             timing['depart_center']=dict(start=.02,finish=.46)
             timing['depart_flex']=dict(start=.50,finish=.96)
-        records.append(dict(start_frame=start,end_frame=end,od=od,runway_18_usable=usable,
+        wind_from,wind_speed=[(250,12),(70,12),(20,20)][phase]
+        wind_fixture=dict(from_degrees=wind_from,speed_kt=wind_speed,
+                          runway18_tailwind_kt=round(max(0,-wind_speed*math.cos(math.radians(wind_from-180))),2))
+        records.append(dict(wind_fixture=wind_fixture,start_frame=start,end_frame=end,od=od,runway_18_usable=usable,
                             paths={k:[list(p) for p in v] for k,v in routes.items()},timing=timing))
         s.timeline_markers.new(f'{phase+1} | OD {od} | 18 '+('OFFEN' if usable else 'GESPERRT'),frame=start)
         for key,p in planes.items():
@@ -269,9 +263,11 @@ def animate_demo(s, assets, specs, m, clone):
         text('State number',f'0{phase+1}  /  03     DEMO',(125,-274,1.32),8,m['navy'],state)
         text('Operating direction','BETRIEBSRICHTUNG  '+od,(125,-294,1.32),12,m['navy'],state)
         text('Runway 18 status','BAHN 18  '+('OFFEN' if usable else 'GESPERRT'),
-             (125,-317,1.32),11,m['green' if usable else 'red'],state)
+             (125,-327,1.32),11,m['green' if usable else 'red'],state)
+        text('Wind example',f'BEISPIELWIND  {wind_from:03d} DEG / {wind_speed} KT',
+             (125,-310,1.32),6.4,m['navy'],state)
         explanation='ABFLUEGE: MITTELBAHN + 18' if usable else 'ABFLUEGE: NUR MITTELBAHN'
-        text('Allocation explanation',explanation,(125,-340,1.32),7.5,m['navy'],state)
+        text('Allocation explanation',explanation,(125,-345,1.32),7.5,m['navy'],state)
         text('Demo provenance','FRA  /  ILLUSTRATIVE BEISPIELWEGE',(125,-357,1.32),4.5,m['navy'],state)
         for key,spec in specs.items():
             heading=180 if key=='west' else (70 if od=='07' else 250)

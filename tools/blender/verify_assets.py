@@ -97,6 +97,11 @@ for f in (1,240,480,481,720,960,961,1200,1440):
             assert o.location.z>=1.85-1e-5
 report['checks'].append('Native scene opens; playback states and aircraft transforms valid')
 report['scene_checks']=check_scene(s,manifest)
+scene_failures=[message for message in report['scene_checks'] if message.startswith('FAIL:')]
+if scene_failures:
+    report['result']='failed'
+    (OUT/'verification.json').write_text(json.dumps(report,indent=2)+'\n')
+    raise AssertionError('\n'.join(scene_failures))
 
 # Raycast the generated surfaces, not route metadata: every ground movement
 # sample must actually sit on a runway or the unioned apron/taxi mesh.

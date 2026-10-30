@@ -6,7 +6,6 @@ Optional arguments after --: --no-render, --preview-only, --samples 32
 import argparse
 import json
 import math
-import random
 import sys
 from pathlib import Path
 
@@ -16,8 +15,7 @@ from mathutils import Vector
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-from geometry import (palette, root, box, cylinder, sphere, beam, line, text,
-                      mesh, aircraft, tower, runway, pavement)
+from geometry import palette, box, aircraft, tower, runway
 
 OUT = HERE.parents[1] / 'assets' / 'airport'
 EXPORT = OUT / 'exports'
@@ -27,6 +25,7 @@ for folder in (OUT, EXPORT, PREVIEW):
 parser = argparse.ArgumentParser()
 parser.add_argument('--no-render', action='store_true')
 parser.add_argument('--preview-only', action='store_true')
+parser.add_argument('--export-only', action='store_true')
 parser.add_argument('--samples', type=int, default=40)
 parser.add_argument('--preview-filter', default='')
 args = parser.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [])
@@ -44,7 +43,7 @@ def scene(name):
     s.render.resolution_percentage=100
     s.render.image_settings.file_format='PNG'
     s.view_settings.view_transform='AgX'
-    s.view_settings.exposure=.45
+    s.view_settings.exposure=0
     s.world=bpy.data.worlds.new(name+' World')
     s.world.use_nodes=True
     s.world.node_tree.nodes['Background'].inputs[0].default_value=(.73,.80,.86,1)
@@ -113,12 +112,12 @@ def camera(name,position,target,scale):
 def lighting(s,size):
     bpy.ops.object.light_add(type='AREA', location=(-size*.3,-size*.5,size*.9))
     o=bpy.context.object;o.name='Studio softbox'
-    o.data.energy=size*size*4
+    o.data.energy=size*size*2.5
     o.data.shape='DISK';o.data.size=size*.7
     o.rotation_euler=(Vector((0,0,0))-o.location).to_track_quat('-Z','Y').to_euler()
     bpy.ops.object.light_add(type='SUN',location=(0,0,size))
     o=bpy.context.object;o.name='Soft afternoon sun'
-    o.data.energy=1.5;o.data.angle=math.radians(14)
+    o.data.energy=1.8;o.data.angle=math.radians(6)
     o.rotation_euler=(math.radians(25),math.radians(-18),math.radians(-30))
 
 
@@ -134,7 +133,7 @@ def export_glb(s,r,name,animated=False):
     for o in descendants(r):o.select_set(True)
     bpy.context.view_layer.objects.active=r
     bpy.ops.export_scene.gltf(filepath=str(EXPORT/name),export_format='GLB',
-        use_selection=True,export_yup=True,export_apply=True,
+        use_selection=True,export_yup=True,export_apply=True,export_texcoords=False,
         export_animations=animated,export_extras=True,export_cameras=False,
         export_lights=False,export_frame_range=True,export_force_sampling=True)
     bpy.ops.object.select_all(action='DESELECT')
@@ -152,6 +151,22 @@ def render(s,name,cam=None,frame=1):
 
 
 from airport_scene import airport_layout, animate_demo
+
+
+if args.export_only:
+    bpy.ops.wm.open_mainfile(filepath=str(OUT/'fra-airport.blend'))
+    for key in ('narrowbody','widebody'):
+        export_glb(bpy.data.scenes['Asset · '+key.title()],bpy.data.objects['Aircraft.'+key],
+                   'aircraft-'+key+'.glb')
+    export_glb(bpy.data.scenes['Asset · Tower'],bpy.data.objects['Tower'],'tower.glb')
+    for key in ('07L-25R','07C-25C','07R-25L','18'):
+        export_glb(bpy.data.scenes['Asset · Runway '+key],bpy.data.objects['Runway.'+key],
+                   'runway-'+key+'.glb')
+    s=bpy.data.scenes['FRA · Airport demonstration']
+    export_glb(s,bpy.data.objects['Airport.Environment'],'airport-environment.glb')
+    export_glb(s,bpy.data.objects['Airport.Demonstration'],'airport-traffic-demo.glb',True)
+    print('FRA_EXPORT_COMPLETE',flush=True)
+    sys.exit(0)
 
 
 if not args.preview_only:

@@ -86,6 +86,11 @@
   "fps": 24,
   "demonstration_phases": [
     {
+      "wind_fixture": {
+        "from_degrees": 250,
+        "speed_kt": 12,
+        "runway18_tailwind_kt": 0
+      },
       "start_frame": 1,
       "end_frame": 480,
       "od": "25",
@@ -210,6 +215,11 @@
       }
     },
     {
+      "wind_fixture": {
+        "from_degrees": 70,
+        "speed_kt": 12,
+        "runway18_tailwind_kt": 4.1
+      },
       "start_frame": 481,
       "end_frame": 960,
       "od": "07",
@@ -334,6 +344,11 @@
       }
     },
     {
+      "wind_fixture": {
+        "from_degrees": 20,
+        "speed_kt": 20,
+        "runway18_tailwind_kt": 18.79
+      },
       "start_frame": 961,
       "end_frame": 1440,
       "od": "07",
