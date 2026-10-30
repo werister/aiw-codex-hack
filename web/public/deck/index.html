@@ -114,7 +114,7 @@
     background: rgba(255,255,255,0.93); box-shadow: 0 0 0 1px var(--line) inset;
     opacity: 0; transform: translateY(12px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); pointer-events: none;
   }
-  [data-slide="built"] #hud { opacity: 1; transform: none; transition-delay: 0.6s; }
+  [data-slide="none"] #hud { opacity: 1; }
   #hud .row { display: flex; align-items: center; gap: 22px; }
   #hud .row + .row { margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--line); }
   #hud svg { width: 84px; height: 84px; flex: none; }
@@ -188,6 +188,32 @@
   .next li small { display: block; font-size: 24px; color: var(--muted); font-weight: 400; margin-top: 8px; }
   .thanks { font-size: 150px; font-weight: 300; color: var(--accent); margin-top: 100px; letter-spacing: -0.02em; line-height: 1; }
 
+  /* viz slides: headline, then the module fills the rest */
+  .s-viz { display: flex; flex-direction: column; padding-bottom: 90px; }
+  .s-viz h2 { font-size: 72px; }
+  .s-viz .viz { position: relative; flex: 1 1 auto; min-height: 0; margin-top: 44px; }
+  .viz-fallback { display: none; height: 100%; align-items: center; justify-content: center; }
+  .viz.missing .viz-fallback { display: flex; }
+  .device.small { flex: none; width: 1050px; height: 660px; }
+  .device.small .screen iframe { transform: scale(0.6385); }
+  .changes { font-size: 24px; color: var(--ink-2); margin-top: 22px; }
+  .changes b { font-weight: 400; color: var(--ink); }
+
+  /* people: three icon + number tiles */
+  .ptiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 80px; }
+  .ptile { background: var(--panel-2); border-radius: 10px; padding: 44px 44px 50px; min-height: 520px; display: flex; flex-direction: column; }
+  .ptile svg { width: 52px; height: 52px; color: var(--accent); }
+  .ptile .n { font-size: 150px; line-height: 1; font-weight: 300; color: var(--accent); letter-spacing: -0.03em; margin-top: auto; }
+  .ptile .t { font-size: 32px; margin-top: 18px; line-height: 1.2; }
+  .ptile .s { font-size: 22px; color: var(--muted); margin-top: 10px; }
+
+  /* team */
+  .s-team { display: flex; flex-direction: column; justify-content: center; }
+  .s-team .thanks { margin-top: 0; }
+  .s-team .team { position: static; margin-top: 70px; font-size: 34px; }
+  .credits { font-size: 22px; color: var(--muted); margin-top: 18px; }
+  .nexts { font-size: 22px; color: var(--muted); margin-top: 8px; }
+
   #progress { position: absolute; left: 0; bottom: 0; height: 4px; background: var(--accent); transition: width 0.6s var(--ease); }
   #count { position: absolute; right: 60px; bottom: 34px; font-size: 18px; color: var(--muted); letter-spacing: 0.06em; }
   #auto { position: absolute; right: 140px; bottom: 28px; font-size: 16px; color: #fff; background: var(--accent); border-radius: 999px; padding: 6px 14px 7px; display: none; letter-spacing: 0.06em; }
@@ -200,45 +226,26 @@
   <div id="veil"><div class="layer left"></div><div class="layer full"></div><div class="layer top"></div></div>
 
   <section class="slide s-title" data-name="title" data-veil="left" data-time="15">
-    <p class="eyebrow rise">Liftoff · FraAlliance challenge</p>
+    <p class="eyebrow rise">Frankfurt Airport · FraAlliance challenge</p>
     <h1 class="rise d1">The wind decides the runway.</h1>
-    <h1 class="rise d2 accent">We see it 48 hours earlier.</h1>
-    <p class="team rise d3">Hugo Hader<span>·</span>Kai Detmers<span>·</span>Luca Schultz<span>·</span>Jayden Bruck<small>3D airport model and data verification: Kai Detmers</small></p>
+    <h1 class="rise d2 accent">48 hours earlier.</h1>
   </section>
 
   <section class="slide s-problem" data-name="problem" data-veil="full" data-time="20">
     <div class="left">
       <p class="eyebrow rise">The problem</p>
       <div class="stat rise d1" style="margin-top:48px"><div class="num" data-count="156">156</div><div class="lbl">direction changes a year</div></div>
-      <div class="stat rise d2"><div class="num"><span data-count="6">6</span> of 10</div><div class="lbl">departures use runway 18</div></div>
-      <p class="follow rise d3">Every switch moves staff, transfers, flights.</p>
+      <p class="follow rise d3"><span data-count="6">6</span> of 10 departures need runway 18.</p>
     </div>
     <div class="rise d2" style="flex:1">
       <div class="clip"><video id="clip" src="media/airport-demo.mp4" poster="media/airport-demo-poster.jpg" muted loop playsinline preload="auto"></video></div>
-      <p class="cap">West, east, then east with runway 18 closed. 3D model: Kai Detmers</p>
-    </div>
-    <p class="src">Numbers: FraAlliance challenge pitch, 30 Oct 2026</p>
-  </section>
-
-  <section class="slide s-built" data-name="built" data-veil="top" data-time="25">
-    <p class="eyebrow rise">What we built</p>
-    <h2 class="rise d1">Every hour, 48 hours ahead.</h2>
-    <div class="chips rise d2">
-      <span class="chip">Direction</span>
-      <span class="chip">Runway 18</span>
-      <span class="chip">Certainty</span>
-      <span class="chip">Next change</span>
     </div>
   </section>
 
-  <section class="slide s-device" data-name="dashboard" data-veil="full" data-time="35">
+  <section class="slide s-device" data-name="built" data-veil="full" data-time="30">
     <div class="left">
-      <p class="eyebrow rise">Live</p>
-      <h2 class="rise d1">The next 48 hours, at a glance.</h2>
-      <div class="links rise d2">
-        <a class="btn" data-href="" target="_blank" rel="noopener">Open the dashboard
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      </div>
+      <p class="eyebrow rise">What we built</p>
+      <h2 class="rise d1">Every hour, 48 hours ahead.</h2>
     </div>
     <div class="device grow d1"><div class="screen" data-frame="">
       <iframe title="Live dashboard" loading="lazy"></iframe>
@@ -246,51 +253,52 @@
     </div></div>
   </section>
 
-  <section class="slide s-device" data-name="replay" data-veil="full" data-time="30">
-    <div class="left">
-      <p class="eyebrow rise">Replay</p>
-      <h2 class="rise d1">A past day: forecast, then reality.</h2>
-      <div class="links rise d2">
-        <a class="btn ghost" data-href="pitch" target="_blank" rel="noopener">Open the replay
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      </div>
-    </div>
-    <div class="device grow d1"><div class="screen" data-frame="pitch">
+  <section class="slide s-viz" data-name="data" data-veil="full" data-time="20" data-viz="barcode">
+    <p class="eyebrow rise">The data</p>
+    <h2 class="rise d1">Eight years of flown directions.</h2>
+    <div class="viz rise d2"></div>
+  </section>
+
+  <section class="slide s-viz" data-name="model" data-veil="full" data-time="20" data-viz="tree">
+    <p class="eyebrow rise">The model</p>
+    <h2 class="rise d1">It learned how the wind decides.</h2>
+    <div class="viz rise d2"></div>
+  </section>
+
+  <section class="slide s-viz" data-name="day" data-veil="full" data-time="30" data-viz="example">
+    <p class="eyebrow rise">A day in practice</p>
+    <h2 class="rise d1">Warned a day ahead.</h2>
+    <div class="viz rise d2"><div class="viz-fallback"><div class="device small"><div class="screen" data-frame="pitch">
       <iframe title="Historical replay" loading="lazy"></iframe>
-      <div class="fallback"><div class="card-fallback"><p>The replay runs in the live app.</p><a class="btn" data-href="pitch" target="_blank" rel="noopener">Open the replay</a></div></div>
-    </div></div>
+      <div class="fallback"><img src="media/dashboard.jpg" alt="Liftoff dashboard"></div>
+    </div></div></div></div>
   </section>
 
-  <section class="slide s-did" data-name="did" data-veil="full" data-time="20">
-    <p class="eyebrow rise">What we did</p>
-    <div class="tiles" id="did-tiles"></div>
-    <p class="foot rise d6" id="did-foot"></p>
+  <section class="slide s-viz" data-name="results" data-veil="full" data-time="25" data-viz="accuracy">
+    <p class="eyebrow rise">Results</p>
+    <h2 class="rise d1">A third fewer mistakes than the rules.</h2>
+    <div class="viz rise d2"></div>
+    <p class="changes rise d3" id="changes"></p>
   </section>
 
-  <section class="slide s-acc" data-name="accuracy" data-veil="full" data-time="35">
-    <p class="eyebrow rise">How good is it?</p>
-    <div class="acc">
-      <div class="hero rise d1"><div class="n" id="acc-hero">9 of 10</div><div class="t">hours right, 2 days ahead</div></div>
-      <ul id="acc-list"></ul>
-    </div>
-    <div class="detail rise d5" id="acc-detail"></div>
-  </section>
-
-  <section class="slide s-value" data-name="value" data-veil="full" data-time="20">
+  <section class="slide s-value" data-name="value" data-veil="full" data-time="15">
     <p class="eyebrow rise">What it could be worth</p>
     <div class="big rise d1" id="value-big"></div>
-    <div class="t rise d2">a year at FRA, central case · illustrative estimate</div>
+    <div class="t rise d2">a year at Frankfurt Airport, central case</div>
     <div class="range rise d3" id="value-range"></div>
     <p class="quote rise d4" id="value-quote"></p>
   </section>
 
-  <section class="slide s-next" data-name="next" data-veil="left" data-time="20">
-    <p class="eyebrow rise">What's next</p>
-    <ul class="next">
-      <li class="rise d1">Test ensemble spread for certainty<small>Candidate feature: DWD ICON-D2-EPS</small></li>
-      <li class="rise d2">Fleet-wide planning</li>
-    </ul>
-    <p class="thanks rise d3">Thank you.</p>
+  <section class="slide s-people" data-name="people" data-veil="full" data-time="20">
+    <p class="eyebrow rise">For the people doing the work</p>
+    <div class="ptiles" id="people"></div>
+  </section>
+
+  <section class="slide s-team" data-name="team" data-veil="left" data-time="15">
+    <p class="thanks rise">Thank you.</p>
+    <p class="team rise d1">Hugo Hader<span>·</span>Kai Detmers<span>·</span>Luca Schultz<span>·</span>Jayden Bruck</p>
+    <p class="credits rise d2">3D airport model and data verification: Kai Detmers · Built with Codex</p>
+    <p class="nexts rise d3">Next: ensemble spread for certainty · fleet-wide planning</p>
   </section>
 
   <div id="hud" aria-hidden="true">
@@ -323,17 +331,15 @@
   // Snapshot of web/public/data/quality.json and repo facts, written by snapshot.py (copied exactly, never edited by hand).
   // The live file replaces the quality numbers at render time when the deck is served over http.
   /* SNAPSHOT:BEGIN */
-  var SNAPSHOT = {"quality": {"test": {"start": "2025-11-01T05:00:00+00:00", "end": "2026-10-27T17:00:00+00:00", "months": 12}, "od": [{"lead_h": 1, "n": 1416, "n_days": 361, "model_acc": 0.9597457627118644, "model_acc_ci": [0.9499638817737515, 0.9695699062578719], "rule_acc": 0.9590395480225988, "persistence_acc": 0.9590395480225988, "model_change_acc": 0.20689655172413793, "rule_change_acc": 0.0, "persistence_change_acc": 0.0, "mcnemar_p_vs_rule": 1.0, "dm_p_vs_rule": 0.1352421163826404, "mcnemar_p_vs_persistence": 1.0, "dm_p_vs_persistence": 0.1352421163826404}, {"lead_h": 6, "n": 1416, "n_days": 361, "model_acc": 0.9279661016949152, "model_acc_ci": [0.9089625970359916, 0.944721035449915], "rule_acc": 0.8813559322033898, "persistence_acc": 0.8884180790960452, "model_change_acc": 0.6235955056179775, "rule_change_acc": 0.7640449438202247, "persistence_change_acc": 0.11235955056179775, "mcnemar_p_vs_rule": 2.326921468571164e-07, "dm_p_vs_rule": 1.1572507267012964e-15, "mcnemar_p_vs_persistence": 9.593942024706217e-07, "dm_p_vs_persistence": 5.230600194137753e-10}, {"lead_h": 24, "n": 1383, "n_days": 357, "model_acc": 0.9168474331164136, "model_acc_ci": [0.8972447735255628, 0.9350208791613602], "rule_acc": 0.8770788141720897, "persistence_acc": 0.7505422993492408, "model_change_acc": 0.8208333333333333, "rule_change_acc": 0.8020833333333334, "persistence_change_acc": 0.28125, "mcnemar_p_vs_rule": 1.6535332124342004e-06, "dm_p_vs_rule": 2.963160293577706e-13, "mcnemar_p_vs_persistence": 3.166016329404732e-36, "dm_p_vs_persistence": 4.576149569348425e-25}, {"lead_h": 48, "n": 1338, "n_days": 346, "model_acc": 0.8916292974588939, "model_acc_ci": [0.8702151185318853, 0.9117449198201555], "rule_acc": 0.8400597907324364, "persistence_acc": 0.6420029895366218, "model_change_acc": 0.8335625859697386, "rule_change_acc": 0.796423658872077, "persistence_change_acc": 0.34112792297111416, "mcnemar_p_vs_rule": 4.710881528708642e-08, "dm_p_vs_rule": 1.69183773233844e-14, "mcnemar_p_vs_persistence": 2.7080503029520278e-55, "dm_p_vs_persistence": 2.9651264744544344e-31}], "next_change": {"within_3h": 0.5254901960784314, "false_alarm_rate": 0.12802768166089964}}, "did": {"labels_since": "2018", "weather_models": 3, "weather_model_names": "ECMWF, GFS, ICON", "experiments": 17, "tests_passed": 54, "hours_verified": 76588, "half_hours": 154752, "changes": 1681, "raw_files_ok": 46, "raw_files": 46, "winds_rechecked": 144072}, "value": {"sentence": "On EUROCONTROL unit costs that is worth an illustrative €0.13M to €3.2M a year at FRA, about €0.4M in our central case, plus a similar amount in passengers' time. These are estimates, not measured FRA savings.", "low": "0.13", "high": "3.2", "central": "0.4"}};
+  var SNAPSHOT = {"quality": {"test": {"start": "2025-11-01T05:00:00+00:00", "end": "2026-10-27T17:00:00+00:00", "months": 12}, "od": [{"lead_h": 1, "n": 1416, "n_days": 361, "model_acc": 0.9597457627118644, "model_acc_ci": [0.9499638817737515, 0.9695699062578719], "rule_acc": 0.9590395480225988, "persistence_acc": 0.9590395480225988, "model_change_acc": 0.20689655172413793, "rule_change_acc": 0.0, "persistence_change_acc": 0.0, "mcnemar_p_vs_rule": 1.0, "dm_p_vs_rule": 0.1352421163826404, "mcnemar_p_vs_persistence": 1.0, "dm_p_vs_persistence": 0.1352421163826404}, {"lead_h": 6, "n": 1416, "n_days": 361, "model_acc": 0.9279661016949152, "model_acc_ci": [0.9089625970359916, 0.944721035449915], "rule_acc": 0.8813559322033898, "persistence_acc": 0.8884180790960452, "model_change_acc": 0.6235955056179775, "rule_change_acc": 0.7640449438202247, "persistence_change_acc": 0.11235955056179775, "mcnemar_p_vs_rule": 2.326921468571164e-07, "dm_p_vs_rule": 1.1572507267012964e-15, "mcnemar_p_vs_persistence": 9.593942024706217e-07, "dm_p_vs_persistence": 5.230600194137753e-10}, {"lead_h": 24, "n": 1383, "n_days": 357, "model_acc": 0.9168474331164136, "model_acc_ci": [0.8972447735255628, 0.9350208791613602], "rule_acc": 0.8770788141720897, "persistence_acc": 0.7505422993492408, "model_change_acc": 0.8208333333333333, "rule_change_acc": 0.8020833333333334, "persistence_change_acc": 0.28125, "mcnemar_p_vs_rule": 1.6535332124342004e-06, "dm_p_vs_rule": 2.963160293577706e-13, "mcnemar_p_vs_persistence": 3.166016329404732e-36, "dm_p_vs_persistence": 4.576149569348425e-25}, {"lead_h": 48, "n": 1338, "n_days": 346, "model_acc": 0.8916292974588939, "model_acc_ci": [0.8702151185318853, 0.9117449198201555], "rule_acc": 0.8400597907324364, "persistence_acc": 0.6420029895366218, "model_change_acc": 0.8335625859697386, "rule_change_acc": 0.796423658872077, "persistence_change_acc": 0.34112792297111416, "mcnemar_p_vs_rule": 4.710881528708642e-08, "dm_p_vs_rule": 1.69183773233844e-14, "mcnemar_p_vs_persistence": 2.7080503029520278e-55, "dm_p_vs_persistence": 2.9651264744544344e-31}], "next_change": {"within_3h": 0.5254901960784314, "false_alarm_rate": 0.12802768166089964}}, "did": {"labels_since": "2018", "weather_models": 3, "weather_model_names": "ECMWF, GFS, ICON", "experiments": 17, "tests_passed": 54, "hours_verified": 76588, "half_hours": 154752, "changes": 1681, "raw_files_ok": 46, "raw_files": 46, "winds_rechecked": 144072}, "value": {"sentence": "On EUROCONTROL unit costs that is worth an illustrative €0.13M to €3.2M a year at FRA, about €0.4M in our central case, plus a similar amount in passengers' time. These are estimates, not measured FRA savings.", "low": "0.13", "high": "3.2", "central": "0.4"}, "people": {"more_right_hours": 350}};
   /* SNAPSHOT:END */
 
   // Camera per slide for the shared scene (scene.js).
   var VIEWS = {
-    title: { position: [-34, 78, 100], target: [-34, 0, 10] },
-    problem: { position: [-4, 80, 96], target: [-4, 0, 8] },
-    built: { position: [-34, 82, 100], target: [-34, 0, 6] },
-    next: { position: [-30, 50, 92], target: [-36, 0, 4] }
+    title: { position: [-26, 30, 104], target: [-26, 3, -8] },
+    team: { position: [-30, 44, 96], target: [-36, 0, 0] }
   };
-  var SCENE_SLIDES = { title: 1, built: 1, next: 1 };
+  var SCENE_SLIDES = { title: 1, team: 1 };
 
   // ---------- stage fit ----------
   var stage = document.getElementById("stage");
@@ -373,6 +379,8 @@
     target: '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.8"/>',
     flask: '<path d="M10 3h4M11 3v6L5.5 18.5A1.6 1.6 0 0 0 7 21h10a1.6 1.6 0 0 0 1.5-2.5L13 9V3"/><path d="M8 15h8"/>',
     shield: '<path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',
+    bell: '<path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 0 0 4 0"/>',
+    clock: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/>',
     turn: '<path d="M4 9h13l-3-3M20 15H7l3 3"/>'
   };
   function icon(name) {
@@ -395,63 +403,29 @@
   function render(data, fromFile) {
     var byLead = {};
     data.od.forEach(function (r) { byLead[r.lead_h] = r; });
-    var did = SNAPSHOT.did;
-    var leads = [6, 24, 48].map(function (h) { return byLead[h]; }).filter(Boolean);
+    var r24 = byLead[24], nc = data.next_change;
 
-    // What we did
-    var days = leads.reduce(function (a, r) { return a + (r.n_days || 0); }, 0) / leads.length;
-    var per = Math.round(leads.reduce(function (a, r) { return a + r.n; }, 0) / leads.length / 100) * 100;
-    var tiles = [
-      ["plane", did.hours_verified, "hours of flown directions", "since " + did.labels_since + ", rebuilt exactly from " + fmt(did.half_hours, 0) + " half-hours"],
-      ["turn", did.changes, "direction changes", "in that record"],
-      ["cloud", did.weather_models, "weather models, archived", did.weather_model_names],
-      ["calendar", data.test ? data.test.months : 12, "months never seen", (days ? "about " + Math.round(days / 10) * 10 + " days, " : "") + "~" + fmt(per, 0) + " forecasts per horizon"],
-      ["flask", did.experiments, "experiments tried", "each one logged"],
-      ["shield", did.tests_passed, "automated tests pass", "including leakage checks"]
-    ];
-    document.getElementById("did-tiles").innerHTML = tiles.map(function (t, i) {
-      return '<div class="tile rise d' + Math.min(5, i + 1) + '">' + icon(t[0]) + '<div class="n">' + num(t[1]) + '</div><div class="t">' + t[2] + '</div><div class="s">' + t[3] + '</div></div>';
-    }).join("");
-    document.getElementById("did-foot").innerHTML = "Red team: " + did.raw_files_ok + "/" + did.raw_files + " raw weather files hash-checked · " +
-      fmt(did.winds_rechecked, 0) + " forecast winds re-checked · stuck-feed check. <span>Data verification: Kai Detmers · Built with Codex</span>";
-
-    // Accuracy, in plain words, 48 h ahead.
-    var r48 = byLead[48], r24 = byLead[24];
-    var wrongM = 1 - r48.model_acc, wrongR = 1 - r48.rule_acc, wrongP = 1 - r48.persistence_acc;
-    document.getElementById("acc-hero").innerHTML = num(Math.round(r48.model_acc * 10)) + " of 10";
-    var maxP = 0;
-    leads.forEach(function (r) {
-      ["mcnemar_p_vs_rule", "dm_p_vs_rule", "mcnemar_p_vs_persistence", "dm_p_vs_persistence"].forEach(function (k) { if (r[k] != null) maxP = Math.max(maxP, r[k]); });
-    });
-    var luck = maxP && maxP < 0.001 ? "&lt; 1 in 1,000" : maxP ? "1 in " + fmt(Math.round(1 / maxP), 0) : null;
-    document.getElementById("acc-list").innerHTML =
-      '<li class="rise d2"><b>' + num(Math.round((1 - wrongM / wrongR) * 100), 0, "%") + '</b>fewer mistakes than the official rules</li>' +
-      '<li class="rise d3"><b>' + num((wrongP / wrongM).toFixed(1), 1, "×") + '</b>fewer mistakes than “same as now”</li>' +
-      (luck ? '<li class="rise d4"><b>' + luck + '</b>chance it is luck</li>' : "");
-
-    var nc = data.next_change;
-    var rows = '<tr><th>Ahead</th><th>Our model</th><th>95% range</th><th>Official rules</th><th>Same as now</th><th></th></tr>';
-    leads.forEach(function (r) {
-      var c = r.model_acc_ci;
-      rows += '<tr><td>' + r.lead_h + ' h</td><td class="m">' + pct(r.model_acc) + '%</td><td>' + (c ? pct(c[0]) + "–" + pct(c[1]) : "") +
-        '</td><td>' + pct(r.rule_acc) + '%</td><td>' + pct(r.persistence_acc) + '%</td><td></td></tr>';
-    });
-    var changes = [];
-    if (r24 && r24.model_change_acc != null) changes.push(pct(r24.model_change_acc) + "% of direction changes seen a day ahead (rules " + pct(r24.rule_change_acc) + "%, same as now " + pct(r24.persistence_change_acc) + "%)");
-    if (nc) changes.push(pct(nc.within_3h) + "% timed within 3 h", pct(nc.false_alarm_rate) + "% false alarms");
-    var one = byLead[1];
-    var fine = "Share of hours with the right direction, " + (data.test ? data.test.months + " months never seen in training (" + monthName(data.test.start) + " to " + monthName(data.test.end) + ")" : "held-out months") +
-      ", n = " + leads.map(function (r) { return r.n; }).join(" / ") + ". Ranges from resampling whole days." +
-      (one ? " 1 h ahead all three tie (" + pct(one.model_acc) + " / " + pct(one.rule_acc) + " / " + pct(one.persistence_acc) + "%)." : "") +
-      " Features were chosen on these months; the live forecasts are the clean test. Runway 18 is not scored: its labels are inferred.";
-    document.getElementById("acc-detail").innerHTML = '<table>' + rows + '</table><p class="fine"><b style="font-weight:400;color:var(--ink-2)">' + changes.join(" · ") + '.</b> ' + fine + '</p>';
-    document.getElementById("acc-detail").dataset.source = fromFile ? "quality.json" : "snapshot";
+    // Results: change recall and false alarms always sit next to accuracy.
+    var bits = [];
+    if (r24 && r24.model_change_acc != null) bits.push("<b>" + pct(r24.model_change_acc) + "%</b> of direction changes seen a day ahead");
+    if (nc) bits.push("<b>" + pct(nc.within_3h) + "%</b> timed within 3 h", "<b>" + pct(nc.false_alarm_rate) + "%</b> false alarms");
+    document.getElementById("changes").innerHTML = bits.join(" · ");
+    document.getElementById("changes").dataset.source = fromFile ? "quality.json" : "snapshot";
 
     // Value: the agreed sentence, verbatim, always next to the figure.
     var v = SNAPSHOT.value;
     document.getElementById("value-big").innerHTML = "~€" + v.central + "M";
-    document.getElementById("value-range").textContent = "Range €" + v.low + "M to €" + v.high + "M, plus a similar amount in passengers' time";
+    document.getElementById("value-range").textContent = "€" + v.low + "M to €" + v.high + "M, plus similar value in passengers' time";
     document.getElementById("value-quote").textContent = "“" + v.sentence + "”";
+
+    // People: 82% vs 28% from quality.json, 350 hours from RESULTS.md pitch line 3.
+    var tiles = [];
+    if (r24 && r24.model_change_acc != null) tiles.push(["bell", num(Math.round(r24.model_change_acc * 100), 0, "%"), "of changes flagged a day ahead", "instead of " + Math.round(r24.persistence_change_acc * 100) + "% when assuming nothing changes"]);
+    tiles.push(["clock", "~" + num(SNAPSHOT.people.more_right_hours), "more hours a year planned right", "than with the official rules"]);
+    tiles.push(["calendar", num(24) + " h", "to set rosters, equipment, stands", "instead of reshuffling on the spot"]);
+    document.getElementById("people").innerHTML = tiles.map(function (t, i) {
+      return '<div class="ptile rise d' + (i + 1) + '">' + icon(t[0]) + '<div class="n">' + t[1] + '</div><div class="t">' + t[2] + '</div><div class="s">' + t[3] + '</div></div>';
+    }).join("");
   }
 
   function loadQuality() {
@@ -466,8 +440,12 @@
   // ---------- embedded app ----------
   Array.prototype.forEach.call(document.querySelectorAll("[data-href]"), function (a) { a.href = appUrl(a.dataset.href); });
   function loadFrame(slide) {
+    if (slide.dataset.viz) return; // its frame is only a fallback
     var screen = slide.querySelector(".screen");
-    if (!screen || screen.dataset.loaded) return;
+    if (screen) loadFrameScreen(screen);
+  }
+  function loadFrameScreen(screen) {
+    if (screen.dataset.loaded) return;
     screen.dataset.loaded = "1";
     if (FILE) { screen.classList.add("failed"); return; }
     var frame = screen.querySelector("iframe");
@@ -485,6 +463,29 @@
       } catch (e) { screen.classList.add("failed"); /* the app is same-origin; a throw means an error page */ }
     });
     frame.src = appUrl(screen.dataset.frame);
+  }
+
+  // ---------- viz modules (viz/<name>.js: mount(el) -> { replay }) ----------
+  var vizState = {};
+  function enterViz(slide) {
+    var name = slide.dataset.viz;
+    if (!name) return;
+    var box = slide.querySelector(".viz");
+    var st = vizState[name];
+    if (st && st.handle) { try { st.handle.replay(); } catch (e) {} return; }
+    if (st) return; // loading
+    vizState[name] = st = {};
+    import("./viz/" + name + ".js").then(function (m) {
+      box.classList.remove("missing");
+      var fb = box.querySelector(".viz-fallback");
+      if (fb) fb.remove();
+      st.handle = m.mount(box);
+    }).catch(function () {
+      delete vizState[name]; // try again on the next visit, the module may land later
+      box.classList.add("missing");
+      var screen = box.querySelector(".screen");
+      if (screen) loadFrameScreen(screen);
+    });
   }
 
   // ---------- HUD ----------
@@ -516,6 +517,7 @@
     try { history.replaceState(null, "", "#" + (i + 1)); } catch (e) {}
     countUp(slide);
     loadFrame(slide);
+    enterViz(slide);
     if (slides[i + 1]) loadFrame(slides[i + 1]);
     if (name === "problem") { try { clip.currentTime = 0; clip.play(); } catch (e) {} } else clip.pause();
     if (fra) {

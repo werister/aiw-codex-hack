@@ -63,7 +63,11 @@ low, high = re.search(r"€([\d.]+)M to €([\d.]+)M a year", sentence).groups()
 central = re.search(r"about €([\d.]+)M in our central case", sentence).group(1)
 value = {"sentence": sentence, "low": low, "high": high, "central": central}
 
-snap = {"quality": quality, "did": did, "value": value}
+# People: pitch line 3 of RESULTS.md ("about 350 more hours a year" with the right direction than the rules).
+line3 = re.search(r'^3\. "(.*?)"\s*$', results, flags=re.M).group(1)
+people = {"more_right_hours": int(re.search(r"about (\d+) more hours a year", line3).group(1))}
+
+snap = {"quality": quality, "did": did, "value": value, "people": people}
 page = here / "index.html"
 html = page.read_text(encoding="utf-8")
 block = "/* SNAPSHOT:BEGIN */\n  var SNAPSHOT = " + json.dumps(snap, ensure_ascii=False) + ";\n  /* SNAPSHOT:END */"
@@ -72,4 +76,4 @@ assert n == 1, "snapshot markers not found"
 page.write_text(html, encoding="utf-8", newline="\n")
 print("quality:", [(r["lead_h"], round(r["model_acc"], 4)) for r in od], quality["next_change"])
 print("did:", did)
-print("value:", value["central"], value["low"], value["high"])
+print("value:", value["central"], value["low"], value["high"], "people:", people)
