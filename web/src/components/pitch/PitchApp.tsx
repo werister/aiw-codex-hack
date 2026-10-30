@@ -16,7 +16,7 @@ import { Timeline } from "../Timeline";
 import { Panel, cx } from "../ui";
 
 const STEPS = ["Historical forecast", "Evaluation"];
-const BUTTON = "rounded-lg border border-line px-4 py-2 text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-west disabled:opacity-40";
+const BUTTON = "rounded-full border border-line px-5 py-2.5 text-[15px] transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-west disabled:opacity-40";
 
 // Each requested URL lives in a keyed component, so a new case starts with no old result.
 function useArtifact<T>(url: string) {
@@ -43,14 +43,14 @@ export function PitchApp() {
             <BrandLogo />
             <span className="text-[15px] text-muted">Frankfurt Airport</span>
           </div>
-          <h1 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">Runway forecast for Frankfurt</h1>
+          <h1 className="mt-6 text-[36px] font-light leading-[1.05] tracking-[-0.02em] sm:text-[56px]">Runway forecast for Frankfurt</h1>
         </div>
         <Link href="/" className={BUTTON}>Open cockpit</Link>
       </header>
       <nav aria-label="Presentation steps" className="grid gap-2 sm:grid-cols-2">
         {STEPS.map((label, i) => (
           <button key={label} onClick={() => setStep(i)} aria-current={step === i ? "step" : undefined}
-            className={cx(BUTTON, "text-left", step === i ? "border-west bg-west-soft text-ink" : "bg-panel text-ink-2")}>
+            className={cx(BUTTON, "text-left", step === i ? "border-accent bg-accent text-accent-ink" : "bg-panel text-ink-2")}>
             <span className="mr-2 text-muted">0{i + 1}</span>{label}
           </button>
         ))}
@@ -73,13 +73,13 @@ function ReplayPicker({ onContinue }: { onContinue: () => void }) {
     <div className="space-y-4">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h2 className="text-xl font-semibold">Historical forecast</h2>
+          <h2 className="text-[28px] font-light leading-tight">Historical forecast</h2>
           <p className="mt-1 text-sm text-ink-2">Choose a published date. The earliest available date opens first.</p>
         </div>
         <label className="flex flex-col gap-1 text-xs text-muted">
           Forecast date
           <select value={day ?? ""} onChange={(e) => setChoice(e.target.value)} disabled={!days.length}
-            className="rounded-lg border border-line bg-panel px-3 py-2 text-sm text-ink">
+            className="rounded-full border border-line bg-panel px-4 py-2 text-[15px] text-ink">
             {days.map((d) => <option key={d} value={d}>{d}</option>)}
           </select>
         </label>
@@ -149,11 +149,11 @@ function HistoricalReplay({ day, onContinue }: { day: string; onContinue: () => 
         <p className="text-sm text-ink-2">Enter how many minutes an alternative ground-handling allocation would take. The result is a hypothetical scenario; no team procedure or staffing benefit is assumed.</p>
         <label className="mt-3 flex flex-wrap items-center gap-3 text-sm">Preparation time (minutes)
           <input type="number" min="0" max="1440" step="1" value={preparation} onChange={(e) => setPreparation(e.target.value)} placeholder="Minutes"
-            className="w-64 max-w-full rounded-lg border border-line bg-panel-2 px-3 py-2 text-ink" />
+            className="w-64 max-w-full rounded-card border border-line bg-panel-2 px-3 py-2 text-ink" />
         </label>
         <p className="mt-3 text-sm" aria-live="polite">{!event ? "No direction change or Runway 18 restriction is forecast in this case." : !validMinutes ? "Enter 0–1,440 whole minutes to calculate the review time." : reviewAt && Date.parse(reviewAt) < Date.parse(f.issued_at) ? "This duration places review before issue time; no review time is available." : reviewAt && Date.parse(reviewAt) === Date.parse(f.issued_at) ? `Review time: ${formatPitchTimeWithOffset(reviewAt)} (forecast issue time; no lead time).` : `Scenario review time: ${formatPitchTimeWithOffset(reviewAt!)} · before the forecast ${event.kind === "direction" ? "direction change" : "Runway 18 restriction"}.`}</p>
         <p className="mt-2 text-xs text-muted">This uses the first forecast event. The result is hypothetical, not an operational deadline or a calibrated event interval. Compare it with recorded evidence after revealing the outcome.</p>
-        {revealed && <p className="mt-2 rounded-lg border border-line bg-panel-2 p-3 text-sm text-ink-2">{historicalPreparationEvidence({ eventKind: event?.kind ?? null, reviewAt, status: reviewAt ? preparationTimingStatus(f.issued_at, reviewAt, firstOpposite) : null, firstOpposite })}</p>}
+        {revealed && <p className="mt-2 rounded-card border border-line bg-panel-2 p-3 text-sm text-ink-2">{historicalPreparationEvidence({ eventKind: event?.kind ?? null, reviewAt, status: reviewAt ? preparationTimingStatus(f.issued_at, reviewAt, firstOpposite) : null, firstOpposite })}</p>}
       </Panel>
       <button className={cx(BUTTON, "bg-west-soft text-ink")} onClick={onContinue}>View evaluation →</button>
     </div>
@@ -207,7 +207,7 @@ function PitchQuality() {
   const outOfSampleByLead = new Map((q.out_of_sample?.od ?? []).map((row) => [row.lead_h, row]));
   return (
     <div className="space-y-4">
-      <div><h2 className="text-xl font-semibold">Evaluation</h2><p className="mt-1 text-sm text-ink-2">{q.folds.length} monthly folds · {q.evaluation}. These results are separate from the selected historical forecast and are not tied to its model version.</p></div>
+      <div><h2 className="text-[28px] font-light leading-tight">Evaluation</h2><p className="mt-1 text-sm text-ink-2">{q.folds.length} monthly folds · {q.evaluation}. These results are separate from the selected historical forecast and are not tied to its model version.</p></div>
       <Panel title="Operating direction">
         <div className="overflow-x-auto"><table className="w-full min-w-[560px] text-left text-sm tabular">
           <thead className="text-xs text-muted"><tr><th className="py-2">Lead</th><th>Hours</th><th>Model</th><th>Rules</th><th>Keep current</th><th>Model / rules Brier ↓</th></tr></thead>
@@ -229,7 +229,7 @@ function PitchQuality() {
       <Panel title="Runway 18 labels">
         <p className="text-sm text-ink-2">Its labels are {q.r18_label_type} from observed weather and the challenge rules. Actual operational closure history is not supplied with this evaluation.</p>
       </Panel>
-      <details className="rounded-xl border border-line bg-panel p-4 text-sm"><summary className="cursor-pointer">Sources and limitations</summary>
+      <details className="rounded-card border border-line bg-panel p-5 text-sm"><summary className="cursor-pointer">Sources and limitations</summary>
         <ul className="mt-3 list-disc space-y-2 pl-5 text-xs text-ink-2">{q.limitations.map((text) => <li key={text}>{text}</li>)}</ul>
         <ul className="mt-4 space-y-2 text-xs">{q.data_sources.map((source) => <li key={source.name}><a href={source.url} target="_blank" rel="noreferrer" className="underline">{source.name}</a></li>)}</ul>
         <a href="/data/quality.json" className="mt-3 inline-block text-xs underline">Open the evaluation data</a>
@@ -240,7 +240,7 @@ function PitchQuality() {
 }
 
 function Metric({ label, value }: { label: string; value: string }) {
-  return <div className="rounded-lg bg-panel-2 p-3"><p className="text-xs text-muted">{label}</p><p className="mt-1 text-lg font-semibold tabular">{value}</p></div>;
+  return <div className="rounded-card bg-panel-2 p-4"><p className="text-[13px] text-muted">{label}</p><p className="mt-2 text-[26px] font-light leading-tight tabular">{value}</p></div>;
 }
 function Loading() { return <p role="status" className="py-8 text-muted">Loading saved data…</p>; }
-function Unavailable({ label }: { label: string }) { return <p role="alert" className="rounded-xl border border-line bg-panel p-5 text-ink-2">{label} <Link href="/" className="underline">Return to cockpit</Link></p>; }
+function Unavailable({ label }: { label: string }) { return <p role="alert" className="rounded-card border border-line bg-panel p-5 text-ink-2">{label} <Link href="/" className="underline">Return to cockpit</Link></p>; }
