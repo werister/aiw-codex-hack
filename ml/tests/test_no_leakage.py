@@ -11,7 +11,7 @@ def test_issue_time_and_offsets(timestamp):
     obs = pd.DataFrame({"time": pd.date_range(issue - pd.Timedelta(hours=4), periods=6, freq="h"),
                         "wind_dir_deg": [250] * 6, "wind_kt": [5, 6, 7, 8, 9, 999], "gust_kt": [10] * 6})
     nwp = pd.DataFrame({"time": pd.date_range(issue + pd.Timedelta(hours=1), periods=48, freq="h")})
-    for day in (1, 2):
+    for day in (1, 2, 3):
         for key, value in {"wind_speed_10m": day * 5, "wind_direction_10m": 250,
                            "wind_gusts_10m": day * 10}.items():
             nwp[f"{key}_previous_day{day}"] = value
@@ -21,8 +21,10 @@ def test_issue_time_and_offsets(timestamp):
     assert frame.obs_time_max.le(issue).all()
     assert frame.od_available_max.le(issue).all()
     assert frame.nwp_available_proxy.le(issue).all()
-    assert frame.nwp_offset_days.tolist() == [1] * 24 + [2] * 24
-    assert frame.wind_kt.tolist() == [5] * 24 + [10] * 24
+    assert frame.nwp_offset_days.tolist() == [1] * 18 + [2] * 24 + [3] * 6
+    assert frame.wind_kt.tolist() == [5] * 18 + [10] * 24 + [15] * 6
+    assert frame.lead_h.le(24 * frame.nwp_offset_days - 6).all()
+    assert (frame.time - pd.to_timedelta(frame.nwp_offset_days, unit="D") + pd.Timedelta(hours=6)).le(issue).all()
     assert frame.obs_wind_kt.eq(9).all()
     assert frame.hours_since_change.isna().all()
     # Alter all future observations and labels; every model input must be identical.
@@ -32,6 +34,18 @@ def test_issue_time_and_offsets(timestamp):
     pd.testing.assert_frame_equal(frame[FEATURES], changed[FEATURES])
     required = frame[FEATURES].drop(columns=["hours_since_change", "pressure_msl", "temperature_2m", "wind_speed_80m"])
     assert np.isfinite(required.to_numpy(dtype=float)).all()
+
+
+def test_missing_day3_cannot_use_a_newer_run():
+    from ml.features import select_nwp
+
+    issue = pd.Timestamp("2026-05-01T00:00Z")
+    weather = pd.DataFrame({"time": pd.date_range(issue + pd.Timedelta(hours=1), periods=48, freq="h")})
+    for day in (1, 2):
+        for name in ("wind_speed_10m", "wind_direction_10m", "wind_gusts_10m"):
+            weather[f"{name}_previous_day{day}"] = 10
+    with pytest.raises(ValueError, match="coverage"):
+        select_nwp(issue, weather)
 
 
 def test_no_day0_fallback_and_future_publication():

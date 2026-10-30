@@ -8,6 +8,7 @@ import pandas as pd
 from ml.rules import RULES, od_state_machine, r18_usable
 
 BERLIN = ZoneInfo("Europe/Berlin")
+PUBLICATION_LAG_H = 6
 WIND_COLUMNS = {"wind_speed_10m": "wind_kt", "wind_direction_10m": "wind_dir_deg",
                 "wind_gusts_10m": "gust_kt"}
 FEATURES = ["od_at_issue", "hours_since_change", "obs_wind_kt", "obs_gust_kt",
@@ -42,8 +43,13 @@ def components(speed, direction, heading):
     return speed * np.cos(np.deg2rad(direction - heading - 180))
 
 
+def nwp_offset_days(lead_h):
+    """Smallest offset N with lead_h <= 24*N minus the publication lag."""
+    return (lead_h + PUBLICATION_LAG_H + 23) // 24
+
+
 def select_nwp(issue, nwp):
-    """Select day1 for 1..24, day2 for 25..48; never substitute day0.
+    """Select day1 for 1..18, day2 for 19..42, day3 for 43..48.
 
     Offset availability is a proxy, not a verified publication timestamp. Explicit
     issued_at/retrieved_at metadata, when provided, must precede issue time.
@@ -60,25 +66,27 @@ def select_nwp(issue, nwp):
         source = source.loc[source[stamp] <= issue].sort_values(stamp)
     source = source.drop_duplicates("time", keep="last").set_index("time").reindex(targets)
     output = pd.DataFrame({"time": targets, "lead_h": np.arange(1, 49)})
-    output["nwp_offset_days"] = np.where(output.lead_h <= 24, 1, 2) if archived else 0
+    output["nwp_offset_days"] = nwp_offset_days(output.lead_h) if archived else 0
     for name, destination in WIND_COLUMNS.items():
         if archived:
-            output[destination] = np.where(output.lead_h <= 24,
-                source[name + "_previous_day1"], source[name + "_previous_day2"])
+            output[destination] = np.select(
+                [output.nwp_offset_days.eq(day) for day in (1, 2, 3)],
+                [source.get(f"{name}_previous_day{day}", np.nan) for day in (1, 2, 3)], default=np.nan)
         else:
             column = destination if destination in source else name
             output[destination] = source[column].to_numpy()
     for name in ("pressure_msl", "temperature_2m", "wind_speed_80m"):
         if archived:
-            output[name] = np.where(output.lead_h <= 24,
-                source.get(name + "_previous_day1", np.nan),
-                source.get(name + "_previous_day2", np.nan))
+            output[name] = np.select(
+                [output.nwp_offset_days.eq(day) for day in (1, 2, 3)],
+                [source.get(f"{name}_previous_day{day}", np.nan) for day in (1, 2, 3)], default=np.nan)
         else:
             output[name] = source[name].to_numpy() if name in source else np.nan
     if output[["wind_kt", "gust_kt", "wind_dir_deg"]].isna().any().any():
         raise ValueError("Incomplete 48-hour archived wind coverage")
     if archived:
-        output["nwp_available_proxy"] = output.time - pd.to_timedelta(output.nwp_offset_days, unit="D")
+        output["nwp_available_proxy"] = (output.time - pd.to_timedelta(output.nwp_offset_days, unit="D")
+                                         + pd.Timedelta(hours=PUBLICATION_LAG_H))
     else:
         output["nwp_available_proxy"] = source[stamp].to_numpy()
     return output

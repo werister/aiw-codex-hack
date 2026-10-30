@@ -15,6 +15,7 @@ import pandas as pd
 import requests
 
 from ml import live
+from ml.features import nwp_offset_days
 from ml.rules import RULES, crosswind, od_state_machine, r18_usable, tailwind
 
 BERLIN = ZoneInfo("Europe/Berlin")
@@ -55,7 +56,7 @@ def selected_wind(issue, nwp):
     archived = "wind_speed_10m_previous_day1" in source
     rows = []
     for lead, (time, values) in enumerate(source.iterrows(), 1):
-        suffix = f"_previous_day{1 if lead <= 24 else 2}" if archived else ""
+        suffix = f"_previous_day{nwp_offset_days(lead)}" if archived else ""
         rows.append({"time": time, "lead_h": lead,
                      "wind_dir_deg": values["wind_direction_10m" + suffix],
                      "wind_kt": values["wind_speed_10m" + suffix],

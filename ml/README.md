@@ -14,7 +14,7 @@ python -m pytest ml/tests -q                      # rule and leakage tests
 
 ## Sources (cite all of them in the model card)
 - **EDDF METAR**, Iowa Environmental Mesonet ASOS archive: `https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py?station=EDDF&...` (half-hourly wind direction, speed, gusts).
-- **Archived weather-model forecasts**, Open-Meteo Previous Runs API: `https://previous-runs-api.open-meteo.com/v1/forecast` at EDDF (50.033 N, 8.570 E). `<var>_previous_day1` and `<var>_previous_day2` are values from runs issued about 1 and 2 days before the target hour, which keeps the backtest honest about lead time.
+- **Archived weather-model forecasts**, Open-Meteo Previous Runs API: `https://previous-runs-api.open-meteo.com/v1/forecast` at EDDF (50.033 N, 8.570 E). `<var>_previous_day1`, `<var>_previous_day2` and `<var>_previous_day3` give values from forecasts about 1, 2 and 3 days before target time. Evaluation adds a six-hour publication lag.
 - **Live forecast**, Open-Meteo Forecast API: `https://api.open-meteo.com/v1/forecast`, same variable names.
 - **Flown operating directions**, if found (DFLD, UNH/Fraport statistics, OpenSky): used to validate the METAR-derived labels. See `ml/SOURCES.md`.
 
@@ -34,16 +34,20 @@ always inferred from METAR and the official rules, not recorded closure history.
 ## Honest evaluation
 - Issue time T. The model only uses what was known at T:
   - observations up to T
-  - archived forecast offsets `previous_day1` for lead 1–24 h and `previous_day2` for lead 25–48 h
+  - archived forecast offsets with a six-hour publication lag: `previous_day1` for leads 1-18 h, `previous_day2` for 19-42 h and `previous_day3` for 43-48 h
 - Train and test split by time. The test period comes after the training period and is never used for fitting.
 - Report accuracy and Brier score at lead 1, 6, 24 (and 48) h against two baselines:
   - persistence
   - the official rules applied to the forecast wind
 
-The offsets are a proxy for availability. The archive does not supply original
-publication timestamps. At leads 24 and 48 the nominal availability equals T,
-so strict publication before T cannot be proved. Live forecasts with explicit
-issuance or retrieval metadata are rejected if that timestamp exceeds T.
+An offset N is eligible only when `lead_h <= 24*N - 6`. Buffered availability
+is `target_time - N days + 6 hours` and must be no later than T. At leads 18
+and 42 the buffered availability equals T; leads 24 and 48 now use older runs.
+The archive does not supply exact publication timestamps, so the six-hour lag
+remains a conservative availability assumption. Day 3 is required for leads
+43-48; missing fields raise an error rather than substituting a newer run.
+Live forecasts with explicit issuance or retrieval metadata are rejected if
+that timestamp exceeds T.
 
 Training uses 6-hourly issues by default, each with all 48 hourly leads, and the
 last six calendar months as expanding walk-forward folds. Change this with
@@ -73,7 +77,10 @@ filtered. Dates before the earliest saved walk-forward fit are rejected.
 Both outputs are runtime assets in `web/public/data/`, served as
 `/data/backtest.json` and `/data/quality.json`.
 `backtest.json` follows `BacktestResult`, with extra change-case metrics and an
-explicit `r18_label_type: "inferred"`.
+explicit `r18_label_type: "inferred"`. Scores report `raw_model_*`, `blend_*`,
+`rule_*` and `persistence_*` accuracy, Brier and change-case accuracy. Existing
+`model_*` fields alias the served blend for compatibility. For runway 18 the
+classifier is served directly, so its raw and blend scores are identical.
 
 `quality.json` has this shape, for the UI owner to add as `QualityResult`:
 
@@ -85,6 +92,9 @@ type Score = {
   model_brier: number | null; rule_brier: number | null; persistence_brier: number | null;
   model_change_acc: number | null; rule_change_acc: number | null;
   persistence_change_acc: number | null;
+  raw_model_acc: number | null; raw_model_brier: number | null;
+  raw_model_change_acc: number | null;
+  blend_acc: number | null; blend_brier: number | null; blend_change_acc: number | null;
 };
 type Scores = { od: Score[]; r18: Score[] };
 type Bin = {
@@ -93,7 +103,8 @@ type Bin = {
 };
 type QualityResult = {
   schema_version: number; evaluation: string; r18_label_type: "inferred";
-  issue_stride_h: number;
+  issue_stride_h: number; publication_lag_h: number;
+  forecast_offsets: { lead_start: number; lead_end: number; previous_day: number }[];
   folds: {
     month: string; train_period: Period; train_target_end: string;
     test_period: Period; train_n: number; test_n: number;

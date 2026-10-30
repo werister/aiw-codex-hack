@@ -11,6 +11,8 @@ from pathlib import Path
 import pandas as pd
 import requests
 
+from ml.features import PUBLICATION_LAG_H, nwp_offset_days
+
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 CACHE = DATA / "raw" / "forecast_cli"
@@ -82,7 +84,7 @@ def covers(frame, targets, archived=False):
         return False
     source = frame.drop_duplicates("time", keep="last").set_index("time").reindex(targets)
     for lead, (_, row) in enumerate(source.iterrows(), 1):
-        suffix = f"_previous_day{1 if lead <= 24 else 2}" if archived else ""
+        suffix = f"_previous_day{nwp_offset_days(lead)}" if archived else ""
         if any(pd.isna(row.get(name + suffix)) for name in VARIABLES[:3]):
             return False
     return True
@@ -95,7 +97,7 @@ def archived_weather(issue):
     if len(frame):
         frame["time"] = pd.to_datetime(frame.time, utc=True)
     if not covers(frame, targets, archived=True):
-        variables = [f"{name}_previous_day{day}" for day in (1, 2) for name in VARIABLES]
+        variables = [f"{name}_previous_day{day}" for day in (1, 2, 3) for name in VARIABLES]
         params = {"latitude": 50.033, "longitude": 8.570, "hourly": ",".join(variables),
                   "wind_speed_unit": "kn", "timezone": "UTC", "models": "best_match",
                   "start_date": str(targets[0].date()), "end_date": str(targets[-1].date())}
@@ -106,9 +108,9 @@ def archived_weather(issue):
         raise ValueError("Archived forecast does not cover all 48 hours; no observed-weather substitution")
     frame = frame.loc[frame.time.isin(targets)].copy().sort_values("time")
     # These are nominal offset availability proxies, not publication timestamps.
-    frame["available_at"] = [t - pd.Timedelta(days=1 if i < 24 else 2)
-                             for i, t in enumerate(frame.time)]
-    return frame, "Open-Meteo previous runs (best_match; day1/day2 availability proxy)"
+    frame["available_at"] = [t - pd.Timedelta(days=nwp_offset_days(lead)) + pd.Timedelta(hours=PUBLICATION_LAG_H)
+                             for lead, t in enumerate(frame.time, 1)]
+    return frame, "Open-Meteo previous runs (best_match; day1/day2/day3; six-hour publication lag)"
 
 
 def live_weather(issue, now):

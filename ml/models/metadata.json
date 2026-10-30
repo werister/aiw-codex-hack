@@ -1,5 +1,5 @@
 {
-  "version": "walk-forward-v2",
+  "version": "walk-forward-v3",
   "features": [
     "od_at_issue",
     "hours_since_change",
@@ -28,7 +28,7 @@
     "wind_speed_80m"
   ],
   "trained_through": "2026-10-29T19:00:00+00:00",
-  "n": 194400,
+  "n": 194352,
   "r18_label_type": "inferred",
   "od_model_weight": {
     "1": 0.25,
@@ -39,5 +39,6 @@
   "od_blend_validation_period": {
     "start": "2026-08-28T18:00:00+00:00",
     "end": "2026-10-27T18:00:00+00:00"
-  }
+  },
+  "publication_lag_h": 6
 }
