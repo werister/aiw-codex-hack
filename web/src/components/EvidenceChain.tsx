@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import type { ForecastResponse, HourForecast } from "@/lib/forecast-types";
-import { PLAN_POLICY, planFrom, planHeadline, planWindow, probLabel } from "./Recommendation";
+import { CERTAINTY_DEF, PLAN_POLICY, planFrom, planHeadline, planWindow, probLabel } from "./Recommendation";
 import { Arrow, OD_LABEL, Panel, cx, dayLabel, hhmm, pct } from "./ui";
 
 type Node = { title: string; summary: string; rows: [string, string][] };
@@ -28,9 +28,12 @@ export function EvidenceChain({
       title: "Sources",
       summary: `Issued ${dayLabel(f.issued_local)} ${hhmm(f.issued_local)}`,
       rows: [
+        ["Mode", f.mode === "live" ? "Live forecast" : "Historical forecast"],
         ["Issued", `${dayLabel(f.issued_local)} ${hhmm(f.issued_local)}`],
+        ["Model", f.model_version],
+        ["Weather and records, as the file names them", f.nwp],
         ["OD at issue", `${f.current_od} ${OD_LABEL[f.current_od]}`],
-        ["Inputs", f.nwp],
+        ["Observation source for this run", "not recorded in this forecast file"],
       ],
     },
     {
@@ -68,7 +71,8 @@ export function EvidenceChain({
       summary: planHeadline(plan),
       rows: [
         ["Window", planWindow(plan)],
-        [probLabel(plan), plan.kind === "hold" ? `${plan.minCertainty}/100` : pct(plan.p)],
+        [probLabel(plan), `${pct(plan.p)} likely`],
+        ["Certainty", `${plan.certainty}/100. ${CERTAINTY_DEF}`],
         ["Traffic", "demand data unavailable"],
         ["Policy", PLAN_POLICY],
       ],
@@ -120,8 +124,8 @@ export function EvidenceChain({
         ))}
       </ol>
       <p className="mt-4 text-[13px] text-muted">
-        Values are the recorded inputs and outputs of this forecast run for the selected hour. Click any hour in the
-        timeline to follow it here.
+        Every value comes from this forecast file, for the selected hour. Click any hour in the timeline to follow it
+        here.
       </p>
     </Panel>
   );

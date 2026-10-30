@@ -3,7 +3,7 @@
 import type { ForecastResponse, HourForecast } from "@/lib/forecast-types";
 import { cx, dayLabel, hhmm, odBg } from "./ui";
 
-// 48 hourly columns. Rows: OD, runway 18, confidence, wind, and (for past days) what was flown.
+// 48 hourly columns. Rows: OD, runway 18, certainty, wind, and (for past days) the recorded direction.
 export function Timeline({
   f,
   selected,
