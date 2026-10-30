@@ -6488,6 +6488,14 @@
         "precision": 1.0,
         "false_alarm_rate": 0.0
       },
+      "rule_corrected": {
+        "hits": 0,
+        "misses": 5,
+        "false_alarms": 5,
+        "recall": 0.0,
+        "precision": 0.0,
+        "false_alarm_rate": 0.004142502071251036
+      },
       "model_brier": 0.004063773632001241
     },
     {
@@ -6518,6 +6526,14 @@
         "precision": 1.0,
         "false_alarm_rate": 0.0
       },
+      "rule_corrected": {
+        "hits": 0,
+        "misses": 12,
+        "false_alarms": 21,
+        "recall": 0.0,
+        "precision": 0.0,
+        "false_alarm_rate": 0.014840989399293287
+      },
       "model_brier": 0.002746919811818842
     },
     {
@@ -6547,6 +6563,14 @@
         "recall": 0.125,
         "precision": 1.0,
         "false_alarm_rate": 0.0
+      },
+      "rule_corrected": {
+        "hits": 1,
+        "misses": 23,
+        "false_alarms": 64,
+        "recall": 0.041666666666666664,
+        "precision": 0.015384615384615385,
+        "false_alarm_rate": 0.045454545454545456
       },
       "model_brier": 0.002765184013832384
     }

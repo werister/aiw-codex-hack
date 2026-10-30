@@ -1721,11 +1721,11 @@
     }
   ],
   "evidence": {
-    "run_id": "bdaf1effa23a",
+    "run_id": "e7d0d6fa7ca9",
     "model_artifact": {
       "version": "walk-forward-v5",
       "file": "fold-2026-10.joblib",
-      "sha256": "faebe52aefa624b9406505b728e454ea553b4f2e9ee6d5a6562fedcac690ffe5",
+      "sha256": "0bf9cfd452f17bb76041248bd7bae718c46706e9bea3b8b8285f1a4a2c03220c",
       "trained_through": "2026-09-30T23:00:00+00:00"
     },
     "feature_set": "base+ensemble+synoptic",
