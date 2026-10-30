@@ -9,5 +9,5 @@
 
 ## 2. Output
 
-- [ ] 2.1 `QualityResult` type agreed with WP5
+- [x] 2.1 `QualityResult` type agreed with WP5 (nullable timing rates and optional event denominators consumed by the cockpit and pitch)
 - [x] 2.2 `web/public/data/quality.json`

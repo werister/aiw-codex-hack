@@ -32,7 +32,7 @@ export function ForecastEvents({
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
         <Track
           title="Operating direction"
-          empty={f.hours.length ? "No direction transition in the supplied hourly calls." : "No direction forecast supplied."}
+          empty={f.hours.length ? "No direction change in the available forecast hours." : "Direction forecast unavailable."}
         >
           {events.direction.map((event) => (
             <DirectionCard key={event.id} event={event} onSelectHour={onSelectHour} />
@@ -41,7 +41,7 @@ export function ForecastEvents({
 
         <Track
           title="Runway 18"
-          empty={f.hours.length ? "No closure interval or status change in the supplied forecast." : "No runway 18 forecast supplied."}
+          empty={f.hours.length ? "No closure or status change in this forecast." : "Runway 18 forecast unavailable."}
         >
           {events.runway18.map((event) => (
             <RunwayCard key={event.id} event={event} f={f} onSelectHour={onSelectHour} />
@@ -75,7 +75,7 @@ function DirectionCard({ event, onSelectHour }: { event: DirectionEvent; onSelec
       <p className="mt-1 text-[11px] leading-snug text-muted">{event.sourceLabel}</p>
       {event.windowLocal && (
         <p className="mt-1 text-[11px] leading-snug text-muted">
-          Supplied Europe/Berlin window: {formatLocal(event.windowLocal[0])}–{formatLocal(event.windowLocal[1])}
+          Forecast window (Berlin): {formatLocal(event.windowLocal[0])}–{formatLocal(event.windowLocal[1])}
         </p>
       )}
     </>
@@ -104,7 +104,7 @@ function RunwayCard({
   onSelectHour?: (index: number) => void;
 }) {
   const ongoingText = event.kind === "closure" && event.ongoing
-    ? `Closure interval reaches the final supplied row (${lastForecastInstant(f)}); reopening is unknown beyond this forecast.`
+    ? `Closure continues through ${lastForecastInstant(f)}. Reopening time is unknown.`
     : null;
 
   return (
@@ -118,23 +118,23 @@ function RunwayCard({
           <>
             <p className="text-[14px] leading-snug">Runway 18 likely unusable</p>
             <p className="mt-1 text-[12px] leading-snug text-muted">Starts · {formatForecastInstant(event.time, event.local)}</p>
-            {event.end && <p className="mt-1 text-[12px] leading-snug text-muted">First usable forecast hour · {formatForecastInstant(event.end.time, event.end.local)}</p>}
+            {event.end && <p className="mt-1 text-[12px] leading-snug text-muted">Reported interval end · {formatForecastInstant(event.end.time, event.end.local)}</p>}
             {ongoingText && <p className="mt-1 text-[12px] leading-snug text-muted">{ongoingText}</p>}
           </>
         ) : (
           <>
-            <p className="text-[14px] leading-snug">Runway 18 likely unusable in supplied hourly calls</p>
+            <p className="text-[14px] leading-snug">Runway 18 likely unusable at these hours</p>
             <p className="mt-1 text-[12px] leading-snug text-muted">
               {event.closedSampleCount} closed sample{event.closedSampleCount === 1 ? "" : "s"} · {formatForecastInstant(event.time, event.local)}
             </p>
             {event.lastClosedCall.time !== event.time && (
-              <p className="mt-1 text-[12px] leading-snug text-muted">Last supplied closed call · {formatForecastInstant(event.lastClosedCall.time, event.lastClosedCall.local)}</p>
+              <p className="mt-1 text-[12px] leading-snug text-muted">Last hour forecast unusable · {formatForecastInstant(event.lastClosedCall.time, event.lastClosedCall.local)}</p>
             )}
             {event.firstUsableCall && (
               <p className="mt-1 text-[12px] leading-snug text-muted">First usable sampled hour · {formatForecastInstant(event.firstUsableCall.time, event.firstUsableCall.local)}</p>
             )}
-            {event.ongoing && <p className="mt-1 text-[12px] leading-snug text-muted">Reopening is unknown beyond the supplied calls.</p>}
-            {event.gapsPresent && <p className="mt-1 text-[12px] leading-snug text-muted">Timestamp gaps are present; no state is inferred for missing hours.</p>}
+            {event.ongoing && <p className="mt-1 text-[12px] leading-snug text-muted">Reopening time is unknown.</p>}
+            {event.gapsPresent && <p className="mt-1 text-[12px] leading-snug text-muted">Some hours are missing; their runway status is unknown.</p>}
           </>
         )}
         <p className="mt-1 text-[12px] font-medium tabular">{event.probabilityLabel} · {pct(event.probability)}</p>

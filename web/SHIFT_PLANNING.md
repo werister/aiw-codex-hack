@@ -14,7 +14,7 @@ Hourly probabilities describe the named state at that hour. The lowest hourly su
 
 In `/pitch`, enter a preparation duration for a saved historical case, inspect the conditional review time, then reveal the recorded outcome. The comparison uses recorded-state bounds; gaps and hourly bins prevent exact switch-time claims. An earlier review time alone does not prove adequate preparation or historical input availability.
 
-The separate runway-18 example uses synthetic weather and the official challenge limits. It demonstrates the restriction workflow and is excluded from historical forecasts, model probabilities and aggregate evaluation. It must not be presented as an actual airport closure or a successful model prediction.
+The pitch opens with a saved historical forecast. It displays published forecast and evaluation values; missing evidence remains unavailable. No synthetic weather or restriction scenario is shown.
 
 ## Evidence and validation boundary
 

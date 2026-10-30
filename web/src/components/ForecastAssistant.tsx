@@ -105,7 +105,7 @@ function ForecastAssistantSession({
           </ThreadPrimitive.Viewport>
 
           <p className="text-[13px] text-muted">
-            The six-hour brief starts at the selected hour and uses up to five following consecutive UTC forecast hours.
+            The brief covers up to six consecutive hours, starting at your selection.
           </p>
 
           <div className="flex flex-wrap gap-2" aria-label="Suggested questions">

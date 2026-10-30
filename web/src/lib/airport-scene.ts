@@ -1,13 +1,14 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { buildTrafficPlan, sampleFlight, type AirportSceneState, type FlightRole } from "./airport-traffic";
 import type { HourForecast } from "./forecast-types";
 
 type State = AirportSceneState & {
   forecastHour?: Pick<HourForecast, "time" | "local" | "lead_h" | "p_18_usable" | "certainty">;
 };
-type Options = State & { paused?: boolean; onReady?: () => void; onError?: (error: unknown) => void };
+type Options = State & { theme?: "light" | "tower"; paused?: boolean; onReady?: () => void; onError?: (error: unknown) => void };
 const MODEL_ROOT = "/models/airport/";
 const ROLES: FlightRole[] = ["arrive_north", "arrive_south", "depart_center", "depart_flex"];
 const CYCLE_SECONDS = 20;
@@ -28,6 +29,39 @@ function release(roots: THREE.Object3D[]) {
   }));
   geometry.forEach((g) => g.dispose());
   materials.forEach((m) => m.dispose());
+}
+
+// Blender keeps every window and marking editable. Batch static parts by
+// material at load time so that this detail does not cost thousands of draws.
+function batchModel(root: THREE.Object3D) {
+  root.updateMatrixWorld(true);
+  const batches = new Map<string, { material: THREE.Material; cast: boolean; receive: boolean; parts: THREE.BufferGeometry[] }>();
+  const originals = new Set<THREE.BufferGeometry>();
+  root.traverse((object) => {
+    if (!(object instanceof THREE.Mesh) || Array.isArray(object.material)) return;
+    const key = `${object.material.uuid}:${object.castShadow}:${object.receiveShadow}`;
+    let batch = batches.get(key);
+    if (!batch) {
+      batch = { material: object.material, cast: object.castShadow, receive: object.receiveShadow, parts: [] };
+      batches.set(key, batch);
+    }
+    const geometry = object.geometry.index ? object.geometry.toNonIndexed() : object.geometry.clone();
+    geometry.applyMatrix4(object.matrixWorld);
+    batch.parts.push(geometry);
+    originals.add(object.geometry);
+  });
+  const result = new THREE.Group();
+  for (const batch of batches.values()) {
+    const geometry = mergeGeometries(batch.parts);
+    if (!geometry) throw new Error("Airport geometry could not be batched");
+    const mesh = new THREE.Mesh(geometry, batch.material);
+    mesh.castShadow = batch.cast;
+    mesh.receiveShadow = batch.receive;
+    result.add(mesh);
+    batch.parts.forEach((part) => part.dispose());
+  }
+  originals.forEach((geometry) => geometry.dispose());
+  return result;
 }
 
 /** The forecast owns state. Only the illustrative motion loops; it never picks an OD. */
@@ -59,9 +93,12 @@ export function mount(host: HTMLElement, options: Options) {
   host.appendChild(canvas);
 
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color("#edf0ef");
+  const towerTheme = options.theme === "tower";
+  const background = towerTheme ? 0x16144d : 0xedf0ef;
+  scene.background = new THREE.Color(background);
   const camera = new THREE.OrthographicCamera(-650, 650, 470, -470, 1, 6000);
   camera.position.set(660, 1550, 1000);
+  camera.zoom = 1.12;
   const controls = new OrbitControls(camera, canvas);
   canvas.style.touchAction = "pan-y";
   controls.target.set(0, 0, 55);
@@ -73,16 +110,16 @@ export function mount(host: HTMLElement, options: Options) {
   controls.maxPolarAngle = Math.PI * 0.47;
   controls.enablePan = false;
   controls.update();
-  scene.add(new THREE.HemisphereLight(0xe4efff, 0x718172, 2.1));
-  const sun = new THREE.DirectionalLight(0xfff4df, 3.2);
+  scene.add(new THREE.HemisphereLight(0xe4efff, 0x718172, towerTheme ? 1.1 : 2.1));
+  const sun = new THREE.DirectionalLight(0xfff4df, towerTheme ? 1.8 : 3.2);
   sun.position.set(-500, 1000, 350);
   sun.castShadow = true;
   sun.shadow.mapSize.set(2048, 2048);
   Object.assign(sun.shadow.camera, { left: -720, right: 720, top: 720, bottom: -720, near: 1, far: 2200 });
-  sun.shadow.normalBias = 0.12;
-  sun.shadow.bias = -0.00002;
+  sun.shadow.normalBias = 0.3;
+  sun.shadow.bias = -0.00015;
   scene.add(sun);
-  const floor = new THREE.Mesh(new THREE.PlaneGeometry(5000, 5000), new THREE.MeshStandardMaterial({ color: 0xedf0ef, roughness: 1 }));
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(5000, 5000), new THREE.MeshStandardMaterial({ color: background, roughness: 1 }));
   floor.rotation.x = -Math.PI / 2;
   floor.position.y = -3.2;
   floor.receiveShadow = true;
@@ -206,6 +243,7 @@ export function mount(host: HTMLElement, options: Options) {
     if (now - lastStatsAt >= 1000) {
       canvas.dataset.renderedFrames = String(frameCount);
       canvas.dataset.fps = lastStatsAt ? String(Math.round(statsFrames * 1000 / (now - lastStatsAt))) : "warming";
+      canvas.dataset.drawCalls = String(renderer.info.render.calls);
       lastStatsAt = now; statsFrames = 0;
     }
   }
@@ -230,12 +268,21 @@ export function mount(host: HTMLElement, options: Options) {
     if (disposed) { release([environment, narrowbody, widebody]); return; }
     manifest = layout;
     environment.traverse((o) => {
-      if (o instanceof THREE.Mesh) { o.castShadow = true; o.receiveShadow = true; }
+      if (o instanceof THREE.Mesh) {
+        const materials = Array.isArray(o.material) ? o.material : [o.material];
+        // Ground layers receive aircraft/building shadows, but must not shadow
+        // themselves: their centimetre offsets are below shadow-map precision.
+        o.castShadow = !materials.every((m) => /^(Diorama|Landscape|Marking|Runway|Shoulder|Apron|Flow) ·/.test(m.name));
+        o.receiveShadow = true;
+      }
     });
-    scene.add(environment);
-    bounds = new THREE.Box3().setFromObject(environment);
+    const airport = batchModel(environment);
+    const narrow = batchModel(narrowbody);
+    const wide = batchModel(widebody);
+    scene.add(airport);
+    bounds = new THREE.Box3().setFromObject(airport);
     ROLES.forEach((role) => {
-      const aircraft = (role === "arrive_south" ? widebody : narrowbody).clone(true);
+      const aircraft = (role === "arrive_south" ? wide : narrow).clone(true);
       aircraft.scale.setScalar(role === "arrive_south" ? 0.42 : 0.6);
       aircraft.traverse((o) => { if (o instanceof THREE.Mesh) o.castShadow = true; });
       planes.set(role, aircraft); scene.add(aircraft);

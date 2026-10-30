@@ -41,8 +41,8 @@ export function DirectionBand({ f, compact }: { f: ForecastResponse; compact?: b
           </p>
           <p className="mt-1 w-full text-[13px] leading-snug">
             {ruleDifferences.length
-              ? `At this forecast hour, model and rule baseline differ on ${ruleDifferences.join(" and ")}.`
-              : "At this forecast hour, model and rule baseline agree on both calls."}
+              ? `Model and rules differ on ${ruleDifferences.join(" and ")} for this hour.`
+              : "Model and rules agree for this hour."}
           </p>
         </div>
       )}

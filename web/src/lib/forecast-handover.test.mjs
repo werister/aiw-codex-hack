@@ -141,6 +141,23 @@ test("no overlapping restrictions and malformed intervals are reported honestly"
   assert.match(answer.text, /1 supplied restriction interval has invalid timestamps/);
 });
 
+test("hourly closed calls without supplied intervals show unknown reopening or a later usable sample", () => {
+  const first = makeHour("2026-10-30T10:00Z", "2026-10-30T12:00", { p_18_usable: 0.2 });
+  const second = makeHour("2026-10-30T11:00Z", "2026-10-30T13:00", { p_18_usable: 0.1 });
+  const laterUsable = makeHour("2026-10-30T12:00Z", "2026-10-30T14:00", { p_18_usable: 0.8 });
+
+  const ongoing = answerHandoverQuestion(makeForecast([first, second]), first, "Runway 18 restrictions");
+  assert.ok(ongoing);
+  assert.match(ongoing.text, /Hourly calls only; these samples do not establish a supplied closure interval or continuous state/);
+  assert.match(ongoing.text, /2 likely-unusable hourly calls; first .*UTC 2026-10-30 10:00Z\), last .*UTC 2026-10-30 11:00Z\);/);
+  assert.match(ongoing.text, /No later usable call appears in this covered window; reopening is unknown/);
+
+  const reopened = answerHandoverQuestion(makeForecast([first, second, laterUsable]), first, "Runway 18 restrictions");
+  assert.ok(reopened);
+  assert.match(reopened.text, /First later usable sampled call: .*UTC 2026-10-30 12:00Z\) \(P usable 80%\)/);
+  assert.doesNotMatch(reopened.text, /reopening is unknown/);
+});
+
 test("a zero-length final closed interval is a valid truncated event with unknown reopening", () => {
   const last = makeHour("2026-10-25T07:00Z", "2026-10-25T08:00", { p_18_usable: 0.2 });
   const answer = answerHandoverQuestion(makeForecast([last], {
@@ -150,6 +167,21 @@ test("a zero-length final closed interval is a valid truncated event with unknow
   assert.match(answer.text, /1 restriction interval overlaps/);
   assert.match(answer.text, /final supplied hour .*P\(Runway 18 usable\) is 20%; reopening is unknown/);
   assert.doesNotMatch(answer.text, /invalid timestamps/);
+});
+
+test("a final closed interval ending at the selected last row is included as ongoing", () => {
+  const hours = [
+    makeHour("2026-10-25T05:00Z", "2026-10-25T06:00", { p_18_usable: 0.2 }),
+    makeHour("2026-10-25T06:00Z", "2026-10-25T07:00", { p_18_usable: 0.2 }),
+    makeHour("2026-10-25T07:00Z", "2026-10-25T08:00", { p_18_usable: 0.2 }),
+  ];
+  const answer = answerHandoverQuestion(makeForecast(hours, {
+    closures_18: [{ start: hours[0].time, end: hours[2].time, min_p_usable: 0.1 }],
+  }), hours[2], "Runway 18 restrictions");
+  assert.ok(answer);
+  assert.match(answer.text, /1 restriction interval overlaps/);
+  assert.match(answer.text, /Already ongoing at the selected hour/);
+  assert.match(answer.text, /final supplied hour .*P\(Runway 18 usable\) is 20%; reopening is unknown/);
 });
 
 test("an interval end without a matching usable hourly call is not called a reopening", () => {
@@ -199,9 +231,9 @@ test("evidence lists artifact, issue inputs, source availability and missing fee
   }), hours[0], "Brief next 6 hours");
   assert.ok(answer);
   assert.match(answer.text, /Run 0123456789ab · artifact wf5/);
-  assert.match(answer.text, /Source availability is recorded in the evidence chain/);
+  assert.match(answer.text, /Recorded source metadata/);
   assert.match(answer.text, /missing: Ensemble/);
-  assert.match(answer.text, /1 feed became available after issue time/);
+  assert.match(answer.text, /1 feed recorded available after issue time/);
 });
 
 test("missing selection gives a prompt to select an hour", () => {

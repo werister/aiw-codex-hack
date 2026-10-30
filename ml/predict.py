@@ -12,7 +12,7 @@ MODEL_PATH = Path(__file__).with_name("models") / "forecast.joblib"
 HORIZONS = ("1", "6", "24", "48")
 EVIDENCE_COLUMNS = ["nwp_offset_days", "wind_kt_metar_scaled", "ens_tailwind_25_mean", "ens_tailwind_25_std",
                     "ens_tailwind_18_mean", "ens_dir_spread", "ens_votes_25", "rule_od25_ens", "dp_ns", "dp_ew",
-                    "blend_key", "blend_weight", "p_od25_raw"]
+                    "blend_key", "blend_weight", "p_od25_raw", "p_18_usable_raw", "r18_blend_weight"]
 REGIMES = ("night", "calm", "active")
 # Night flight restrictions at FRA run 23:00-05:00 local.
 NIGHT_HOURS = (23, 0, 1, 2, 3, 4)
@@ -66,6 +66,19 @@ def blend_keys(frame):
     return np.char.add(np.char.add(horizon.astype(str), ":"), regime.astype(str))
 
 
+def r18_probability(models, frame):
+    """Blend observed weather state using weights selected before the test period."""
+    raw = probability(models["r18"], frame[FEATURES])
+    weights = models.get("r18_model_weight")
+    if weights is None:
+        return raw
+    prior = frame.persistence_18.to_numpy(dtype=float, na_value=np.nan)
+    horizon = np.select([frame.lead_h <= 1, frame.lead_h <= 6, frame.lead_h <= 24],
+                        HORIZONS[:3], default=HORIZONS[3])
+    alpha = np.array([weights.get(key, 1.0) for key in horizon])
+    return np.where(np.isfinite(prior), alpha * raw + (1 - alpha) * prior, raw)
+
+
 def od_probability(models, frame):
     """Blend with persistence using weights selected before each test fold."""
     p = probability(models["od"], frame[FEATURES])
@@ -92,8 +105,9 @@ def predict_48h(issue_time_utc, obs, nwp, od_at_issue):
     suffixed _previous_day1, _previous_day2 and _previous_day3 for archived
     offsets, selected at leads 1..18, 19..42 and 43..48 respectively. Never
     use unsuffixed historical day0. Live data accepts wind_kt, wind_dir_deg,
-    gust_kt or the unsuffixed source names, with issued_at or retrieved_at
-    no later than issue time. Optional pressure_msl, temperature_2m,
+    gust_kt or the unsuffixed source names, with issued_at or retrieved_at;
+    every supplied timestamp must be no later than issue time, including on
+    archived offsets. Optional pressure_msl, temperature_2m,
     wind_speed_80m, wind_direction_80m, separate models
     (<model>__wind_speed_10m, <model>__wind_direction_10m for ecmwf_ifs025,
     gfs_seamless, icon_seamless) and pressure boxes pressure_n/s/w/e follow
@@ -112,10 +126,16 @@ def predict_48h(issue_time_utc, obs, nwp, od_at_issue):
     frame = build_features(issue_time_utc, obs, nwp, od_at_issue, history)
     path, models = model_file_at_issue(pd.Timestamp(issue_time_utc))
     frame["p_od25"] = od_probability(models, frame)
-    frame["p_18_usable"] = probability(models["r18"], frame[FEATURES])
+    frame["p_18_usable"] = r18_probability(models, frame)
     frame["r18_label_type"] = "inferred"
     # Evidence: the values each probability was computed from.
     frame["p_od25_raw"] = probability(models["od"], frame[FEATURES])
+    frame["p_18_usable_raw"] = probability(models["r18"], frame[FEATURES])
+    r18_horizon = np.select([frame.lead_h <= 1, frame.lead_h <= 6, frame.lead_h <= 24],
+                            HORIZONS[:3], default=HORIZONS[3])
+    frame["r18_blend_weight"] = [models.get("r18_model_weight", {}).get(key, 1.0)
+                                  if pd.notna(prior) else 1.0
+                                  for key, prior in zip(r18_horizon, frame.persistence_18)]
     frame["blend_key"] = blend_keys(frame)
     weights = models.get("od_model_weight") or {}
     frame["blend_weight"] = [weights.get(key, weights.get(key.split(":")[0], 1.0)) for key in frame.blend_key]

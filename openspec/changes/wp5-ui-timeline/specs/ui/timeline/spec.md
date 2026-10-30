@@ -28,15 +28,15 @@ The forecast guide SHALL offer a deterministic briefing, runway-18 restriction s
 - **THEN** the answer states the actual coverage and does not extrapolate missing hours
 
 ### Requirement: Preparation demonstrations preserve evidence boundaries
-The historical replay SHALL compare a user-entered preparation scenario with available recorded-state timing without asserting an exact transition time or validated operational benefit. A synthetic runway-18 restriction demonstration SHALL be distinct from historical forecasts, derive its states from the challenge weather rules, display its synthetic status, and contribute no observations or evaluation scores.
+The historical replay SHALL compare a user-entered preparation scenario with available recorded-state timing without asserting an exact transition time or validated operational benefit. The published pitch SHALL show saved forecast and evaluation values only. Synthetic runway-18 fixtures SHALL remain outside that pitch and contribute no observations or evaluation scores.
 
 #### Scenario: Review time follows the first recorded opposite direction
 - **WHEN** the scenario's calculated review time is later than an available recorded opposite-direction label
 - **THEN** the replay identifies that the changed state was already recorded by then, without presenting the scenario as successful preparation
 
-#### Scenario: Jury opens the runway-18 illustration
-- **WHEN** the synthetic weather-rule case is displayed
-- **THEN** the restriction and conditional preparation time are explained while the case remains excluded from historical results and aggregate 1/6/24-hour evidence
+#### Scenario: Jury opens the pitch
+- **WHEN** the pitch is displayed
+- **THEN** it opens a saved historical forecast and offers the separate aggregate 1/6/24-hour evidence, without a synthetic restriction scenario
 
 ### Requirement: Timeline shows every deliverable
 The timeline SHALL show, for each of the 48 hours, the OD, P(runway 18 usable) and the certainty, and SHALL highlight the next likely change time.

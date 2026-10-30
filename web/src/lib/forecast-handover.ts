@@ -174,6 +174,7 @@ function provenanceLines(forecast: ForecastResponse) {
     `Run ${evidence.run_id} · artifact ${evidence.model_artifact.version} · trained through ${formatHandoverTimestamp(evidence.model_artifact.trained_through)} · recorded publication lag ${evidence.publication_lag_h} h.`,
   );
   const missingSources = evidence.sources.filter((source) => source.missing).map((source) => source.name);
+  const sourcesWithoutAvailability = evidence.sources.filter((source) => !source.missing && asTime(source.available_at) === null).length;
   const lateSources = evidence.sources.filter((source) => {
     if (source.missing) return false;
     const availableAt = asTime(source.available_at);
@@ -181,7 +182,7 @@ function provenanceLines(forecast: ForecastResponse) {
     return availableAt !== null && issueAt !== null && availableAt > issueAt;
   }).length;
   const missingLabel = missingSources.length ? `missing: ${missingSources.join(", ")}` : "no feeds marked missing";
-  lines.push(`Source availability is recorded in the evidence chain (${missingLabel}; ${lateSources} feed${lateSources === 1 ? "" : "s"} became available after issue time).`);
+  lines.push(`Recorded source metadata: ${missingLabel}; ${lateSources} feed${lateSources === 1 ? "" : "s"} recorded available after issue time; ${sourcesWithoutAvailability} without a usable availability timestamp.`);
   return lines;
 }
 
@@ -222,11 +223,23 @@ function restrictionsText(forecast: ForecastResponse, window: CoveredWindow) {
     })
     .sort((a, b) => a.time - b.time);
   const finalHour = chronologicalHours.at(-1);
+  const latestClosureStart = forecast.closures_18.reduce((latest, closure) => {
+    const time = asTime(closure.start);
+    return time !== null && time > latest ? time : latest;
+  }, -Infinity);
+  const reachesForecastEnd = (start: number, end: number) =>
+    finalHour !== undefined &&
+    start === latestClosureStart &&
+    finalHour.hour.p_18_usable < 0.5 &&
+    end >= finalHour.time &&
+    start <= finalHour.time;
   const validClosures = forecast.closures_18.flatMap((closure) => {
     const start = asTime(closure.start);
     const end = asTime(closure.end);
+    const truncatedFinalClosure = start !== null && end !== null && reachesForecastEnd(start, end) &&
+      finalHour!.time >= firstTime && finalHour!.time < endExclusive;
     return start !== null && end !== null && end >= start &&
-      ((start < endExclusive && end > firstTime) || (start === end && start >= firstTime && start < endExclusive))
+      ((start < endExclusive && end > firstTime) || (start === end && start >= firstTime && start < endExclusive) || truncatedFinalClosure)
       ? [{ closure, start, end }]
       : [];
   });
@@ -235,11 +248,6 @@ function restrictionsText(forecast: ForecastResponse, window: CoveredWindow) {
     const end = asTime(closure.end);
     return start === null || end === null || end < start;
   }).length;
-  const latestClosureStart = forecast.closures_18.reduce((latest, closure) => {
-    const time = asTime(closure.start);
-    return time !== null && time > latest ? time : latest;
-  }, -Infinity);
-
   const lines = [
     "Runway 18 restriction intervals supplied by the forecast. The start is inclusive; reopening is reported only when a matching forecast hour calls the runway likely usable. Final intervals may be truncated by the forecast horizon.",
     ...coverageLines(window),
@@ -247,6 +255,31 @@ function restrictionsText(forecast: ForecastResponse, window: CoveredWindow) {
 
   if (validClosures.length === 0) {
     lines.push("No supplied Runway 18 restriction interval overlaps these covered forecast hours.");
+    const closedRuns: { hours: HourForecast[]; laterUsable?: HourForecast }[] = [];
+    let activeRun: HourForecast[] = [];
+    for (const hour of window.hours) {
+      if (hour.p_18_usable < 0.5) {
+        activeRun.push(hour);
+      } else if (activeRun.length > 0) {
+        closedRuns.push({ hours: activeRun, laterUsable: hour });
+        activeRun = [];
+      }
+    }
+    if (activeRun.length > 0) closedRuns.push({ hours: activeRun });
+
+    if (closedRuns.length > 0) {
+      lines.push("Hourly calls only; these samples do not establish a supplied closure interval or continuous state between hours.");
+      for (const run of closedRuns) {
+        const first = run.hours[0];
+        const last = run.hours[run.hours.length - 1];
+        const minUsable = Math.min(...run.hours.map((hour) => hour.p_18_usable));
+        const count = run.hours.length;
+        const later = run.laterUsable
+          ? ` First later usable sampled call: ${formatHandoverTimestamp(run.laterUsable.time)} (P usable ${probability(run.laterUsable.p_18_usable)}).`
+          : " No later usable call appears in this covered window; reopening is unknown from these hourly calls.";
+        lines.push(`- ${count} likely-unusable hourly call${count === 1 ? "" : "s"}; first ${formatHandoverTimestamp(first.time)}, last ${formatHandoverTimestamp(last.time)}; minimum P usable ${probability(minUsable)}.${later}`);
+      }
+    }
   } else {
     lines.push(`${validClosures.length} restriction interval${validClosures.length === 1 ? " overlaps" : "s overlap"} the covered forecast hours:`);
     for (const { closure, start, end } of validClosures) {
@@ -254,10 +287,8 @@ function restrictionsText(forecast: ForecastResponse, window: CoveredWindow) {
         ? `Already ongoing at the selected hour; interval began ${formatHandoverTimestamp(closure.start)}`
         : `Starts${start === firstTime ? " at" : ""} ${formatHandoverTimestamp(closure.start)}`;
       let ending: string;
-      const finalCallStillUnusable = finalHour !== undefined && finalHour.hour.p_18_usable < 0.5 && end >= finalHour.time;
-      const reachesForecastEnd = start === latestClosureStart && finalCallStillUnusable && start <= finalHour!.time;
       const endHour = chronologicalHours.find(({ time }) => time === end)?.hour;
-      if (reachesForecastEnd) {
+      if (reachesForecastEnd(start, end)) {
         ending = `It reaches the final supplied hour ${formatHandoverTimestamp(finalHour!.hour.time)}, whose model P(Runway 18 usable) is ${probability(finalHour!.hour.p_18_usable)}; reopening is unknown beyond this forecast.`;
       } else if (endHour && endHour.p_18_usable >= 0.5) {
         ending = end >= endExclusive

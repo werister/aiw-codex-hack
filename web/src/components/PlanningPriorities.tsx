@@ -45,8 +45,8 @@ function PrioritiesSession({ f, file, onSelectHour }: {
   const prep = focus?.action === "prepare" ? preparationTime(focus.time, minutes, f.issued_at) : null;
 
   return (
-    <Panel title="Planning priorities" aside={<span className="text-[13px] text-muted">Preparation and evidence review</span>}>
-      <p className="text-[15px] text-ink-2">Choose a perspective to see which supported issue deserves attention. The forecast itself stays the same.</p>
+    <Panel title="Planning priorities">
+      <p className="text-[15px] text-ink-2">Choose a role to review its priorities for this forecast.</p>
       <div className="mt-4 flex flex-wrap gap-2" role="group" aria-label="Planning perspective">
         {([["ground_operations", "Ground operations"], ["forecast_review", "Forecast review"]] as const).map(([value, label]) => (
           <button key={value} type="button" aria-pressed={role === value} onClick={() => { setRole(value); setMinutes(""); }}
@@ -60,8 +60,8 @@ function PrioritiesSession({ f, file, onSelectHour }: {
       {review && focus && h && <div className="mt-4 space-y-4" aria-live="polite">
         <div className="rounded-card border border-line bg-panel-2 p-4 sm:p-5">
           <div className="flex flex-wrap items-center justify-between gap-2 text-[12px] uppercase tracking-wide text-muted">
-            <span>{focus.action === "prepare" ? "Preparation to consider" : focus.action === "review" ? "Evidence to review" : "Monitor"}</span>
-            <span>{review.status === "decisions" ? "Saved Decisions review" : review.status_reason === "single_candidate" ? "One supported issue · no ranking needed" : "Rule-based fallback · no Decisions selection"}</span>
+            <span>{focus.action === "prepare" ? "Preparation" : focus.action === "review" ? "Review" : "Monitor"}</span>
+            <span>{review.status === "decisions" ? "Saved Decisions review" : review.status_reason === "single_candidate" ? "One forecast issue" : "Rule-based fallback"}</span>
           </div>
           <h3 className="mt-2 text-[24px] font-light leading-tight text-ink">{focus.title}</h3>
           <p className="mt-2 max-w-3xl text-[15px] leading-relaxed text-ink-2">{focus.detail}</p>
@@ -70,23 +70,22 @@ function PrioritiesSession({ f, file, onSelectHour }: {
             <div><dt className="text-[12px] text-muted">At the first referenced hour</dt><dd>Model OD {h.od} · rule baseline OD {h.rule_od}</dd></div>
             <div><dt className="text-[12px] text-muted">Runway 18 · weather-derived</dt><dd>{Math.round(h.p_18_usable * 100)}% probability of usability</dd></div>
           </dl>
-          <button type="button" onClick={() => onSelectHour(focus.hour_indices[0])} className="pill-btn mt-4 min-h-11 bg-accent text-accent-ink">Inspect this forecast hour</button>
+          <button type="button" onClick={() => onSelectHour(focus.hour_indices[0])} className="pill-btn mt-4 min-h-11 bg-accent text-accent-ink">View hour</button>
         </div>
         {focus.action === "prepare" && <div className="text-[15px]">
           <label className="flex flex-wrap items-center gap-3">Your preparation time (minutes)
             <input type="number" min="0" max="1440" step="1" value={minutes} onChange={(event) => setMinutes(event.target.value)}
               placeholder="Enter your team's lead time" className="min-h-11 w-64 max-w-full rounded-lg border border-line bg-panel px-3 text-ink" />
           </label>
-          <p className="mt-2 text-muted">{prep ? prep.enoughLead ? `Conditional preparation start: ${local(prep.time)}.` : "This preparation time reaches the issue time or earlier; the forecast provides insufficient lead." : "Enter 0–1,440 minutes to calculate a scenario start time."} This uses your input and the forecast hour; it is not an operational deadline.</p>
+          <p className="mt-2 text-muted">{prep ? prep.enoughLead ? `Scenario start: ${local(prep.time)}.` : "This duration would require starting at or before forecast issue time." : "Enter 0–1,440 minutes to calculate a start time."} Calculated from your duration and the forecast; no operational deadline is set.</p>
         </div>}
         <details className="text-[13px] text-muted">
-          <summary className="min-h-11 cursor-pointer py-3">Other supported issues and review provenance</summary>
+          <summary className="min-h-11 cursor-pointer py-3">Other issues and review source</summary>
           <ul className="space-y-2">{review.candidates.filter((candidate) => candidate.id !== focus.id).map((candidate) => (
             <li key={candidate.id}><button type="button" onClick={() => onSelectHour(candidate.hour_indices[0])} className="min-h-11 text-left underline">{candidate.title} · {local(candidate.time)}</button></li>
           ))}</ul>
           <p className="mt-3">Review created {local(review.generated_at)} from the forecast issued {local(f.issued_at)}. Policy {review.policy_version}.</p>
-          {selection?.selection_confidence !== undefined && <p className="mt-2">Selection confidence: {Math.round(selection.selection_confidence * 100)}%. This describes the API’s choice of focus; it is not a weather probability or measured operational accuracy.</p>}
-          <p className="mt-2">Titles, actions, times and evidence come from a fixed candidate list. No flight-demand or staffing feed is connected. {f.mode === "hindcast" ? "This is a newly generated review of historical forecast evidence, not a decision recorded on that historical day." : "The responsible shift lead reviews any preparation action."}</p>
+          <p className="mt-2">Priorities are selected from forecast-derived issues. Flight demand and staffing data are unavailable. {f.mode === "hindcast" ? "This review was created later from the saved forecast." : "The shift lead decides which actions to take."}</p>
         </details>
       </div>}
     </Panel>

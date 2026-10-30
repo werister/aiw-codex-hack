@@ -14,9 +14,8 @@ import {
 } from "@/lib/pitch-replay";
 import { Timeline } from "../Timeline";
 import { Panel, cx } from "../ui";
-import { WindExample } from "./WindExample";
 
-const STEPS = ["The hidden change", "Reveal the outcome", "Beyond one case"];
+const STEPS = ["Historical forecast", "Evaluation"];
 const BUTTON = "rounded-lg border border-line px-4 py-2 text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-west disabled:opacity-40";
 
 // Each requested URL lives in a keyed component, so a new case starts with no old result.
@@ -44,11 +43,11 @@ export function PitchApp() {
             <BrandLogo />
             <span className="text-xs uppercase tracking-widest text-muted">Frankfurt · Runway Outlook</span>
           </div>
-          <h1 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">Make the next change visible.</h1>
+          <h1 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">Runway forecast for Frankfurt</h1>
         </div>
         <Link href="/" className={BUTTON}>Open cockpit</Link>
       </header>
-      <nav aria-label="Presentation steps" className="grid gap-2 sm:grid-cols-3">
+      <nav aria-label="Presentation steps" className="grid gap-2 sm:grid-cols-2">
         {STEPS.map((label, i) => (
           <button key={label} onClick={() => setStep(i)} aria-current={step === i ? "step" : undefined}
             className={cx(BUTTON, "text-left", step === i ? "border-west bg-west-soft text-ink" : "bg-panel text-ink-2")}>
@@ -56,12 +55,11 @@ export function PitchApp() {
           </button>
         ))}
       </nav>
-      {step === 0 && <WindExample onContinue={() => setStep(1)} />}
-      {step === 1 && <ReplayPicker onContinue={() => setStep(2)} />}
-      {step === 2 && <PitchQuality />}
+      {step === 0 && <ReplayPicker onContinue={() => setStep(1)} />}
+      {step === 1 && <PitchQuality />}
       <footer className="border-t border-line pt-4 text-xs leading-relaxed text-muted">
-        A planning aid for the ground-handling shift lead. Runway clearance remains an operational decision.
-        Times are Europe/Berlin. The illustration and historical evaluation have separate evidence.
+        For ground-handling planning. Runway clearance remains an operational decision.
+        Times use Europe/Berlin. The historical forecast and aggregate evaluation are separate.
       </footer>
     </main>
   );
@@ -76,11 +74,11 @@ function ReplayPicker({ onContinue }: { onContinue: () => void }) {
     <div className="space-y-4">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h2 className="text-xl font-semibold">First the forecast. Then the outcome.</h2>
-          <p className="mt-1 text-sm text-ink-2">Historical reconstruction. The earliest saved case opens first; choose any available day.</p>
+          <h2 className="text-xl font-semibold">Historical forecast</h2>
+          <p className="mt-1 text-sm text-ink-2">Choose a published date. The earliest available date opens first.</p>
         </div>
         <label className="flex flex-col gap-1 text-xs text-muted">
-          Historical case
+          Forecast date
           <select value={day ?? ""} onChange={(e) => setChoice(e.target.value)} disabled={!days.length}
             className="rounded-lg border border-line bg-panel px-3 py-2 text-sm text-ink">
             {days.map((d) => <option key={d} value={d}>{d}</option>)}
@@ -97,9 +95,9 @@ function HistoricalReplay({ day, onContinue }: { day: string; onContinue: () => 
   const [revealed, setRevealed] = useState(false);
   const [selected, setSelected] = useState(0);
   const [preparation, setPreparation] = useState("");
-  if (error) return <Unavailable label="This case could not be loaded. Choose another day or reload." />;
+  if (error) return <Unavailable label="Forecast unavailable. Choose another date or reload." />;
   if (!f) return <Loading />;
-  if (f.mode !== "hindcast" || !Array.isArray(f.hours) || !f.hours.length) return <Unavailable label="This artifact does not contain a historical forecast." />;
+  if (f.mode !== "hindcast" || !Array.isArray(f.hours) || !f.hours.length) return <Unavailable label="This file is not a historical forecast." />;
 
   const scores = scoreReplay(f);
   const firstOpposite = firstRecordedOpposite(f);
@@ -111,34 +109,34 @@ function HistoricalReplay({ day, onContinue }: { day: string; onContinue: () => 
 
   return (
     <div className="space-y-4">
-      <Panel title="Forecast available to the presenter" aside={<span className="text-xs text-muted">Saved model: {f.model_version}</span>}>
+      <Panel title="Historical forecast" aside={<span className="text-xs text-muted">Model: {f.model_version}</span>}>
         <div className="grid gap-3 sm:grid-cols-2">
-          <Metric label="Reconstructed issue time" value={formatPitchTimeWithOffset(f.issued_at)} />
-          <Metric label="First predicted direction change" value={f.next_change ? `${f.next_change.from} → ${f.next_change.to} · ${formatPitchTimeWithOffset(f.next_change.time)}` : "None in this forecast"} />
+          <Metric label="Issue time" value={formatPitchTimeWithOffset(f.issued_at)} />
+          <Metric label="First forecast direction change" value={f.next_change ? `${f.next_change.from} → ${f.next_change.to} · ${formatPitchTimeWithOffset(f.next_change.time)}` : "None in this forecast"} />
         </div>
-        <p className="mt-3 text-xs leading-relaxed text-muted">Saved historical illustration, not a verified as-of backtest. This replay uses the archived-weather availability proxy recorded below; its version can predate the current evaluation. Exact publication times and the initial direction&apos;s reporting delay are unverified.</p>
+        <p className="mt-3 text-xs leading-relaxed text-muted">This saved replay is not an as-of backtest. Its archived-weather availability proxy may predate the current evaluation. Exact publication times and the initial direction reporting delay are unknown.</p>
         <details className="mt-2 text-xs text-muted"><summary className="cursor-pointer">Forecast provenance</summary><p className="mt-2 break-words">{f.nwp} · rules {f.rules_version}</p></details>
       </Panel>
-      <Panel title={`Forecast horizon · ${f.hours.length} available hours`}>
+      <Panel title={`Forecast · ${f.hours.length} hours`}>
         <Timeline f={f} selected={selected} onSelect={setSelected} rows={["od", "r18", "wind"]} />
-        <p className="mt-3 text-sm text-ink-2">Selected: {formatPitchTimeWithOffset(h.time)} · +{h.lead_h} h · model {h.od}, rule baseline {h.rule_od} · runway 18 weather usability {Math.round(h.p_18_usable * 100)}%.</p>
+        <p className="mt-3 text-sm text-ink-2">Selected: {formatPitchTimeWithOffset(h.time)} · lead +{h.lead_h} h · model OD {h.od}, rules {h.rule_od} · Runway 18 usability probability {Math.round(h.p_18_usable * 100)}%.</p>
       </Panel>
       <Panel title={revealed ? "Recorded direction revealed" : "The later outcome is hidden"}>
-        <p className="text-sm text-ink-2">Direction labels are DFLD&apos;s public operational proxy, not a certified movement log. Runway 18 labels are weather-rule inference; this replay does not validate actual closures.</p>
+        <p className="text-sm text-ink-2">DFLD directions are operational proxies, not certified movement records. Runway 18 labels come from weather rules and do not establish actual closures.</p>
         <button className={cx(BUTTON, "mt-4 bg-west-soft text-ink")} disabled={scores.matchedHours === 0}
           onClick={() => setRevealed((value) => !value)} aria-expanded={revealed} aria-controls="replay-outcome">
           {revealed ? "Hide recorded outcome" : "Reveal recorded outcome"}
         </button>
-        {scores.matchedHours === 0 && <p className="mt-2 text-sm text-muted">No matched recorded direction labels are available for this case.</p>}
+        {scores.matchedHours === 0 && <p className="mt-2 text-sm text-muted">No recorded direction labels match this forecast.</p>}
         {revealed && <div id="replay-outcome" className="mt-4 space-y-4" aria-live="polite">
-          <p className="text-sm"><strong>{scores.matchedHours}/{scores.totalHours} forecast hours have recorded labels.</strong> Gaps are excluded equally for every method.</p>
+          <p className="text-sm"><strong>{scores.matchedHours}/{scores.totalHours} forecast hours have recorded labels.</strong> Every method uses the same hours.</p>
           <div className="grid gap-3 sm:grid-cols-3">
             <Metric label="Model · matching direction" value={`${scores.modelCorrect}/${scores.matchedHours}`} />
             <Metric label="Weather rules · matching direction" value={`${scores.ruleCorrect}/${scores.matchedHours}`} />
             <Metric label="Keep current · matching direction" value={`${scores.persistenceCorrect}/${scores.matchedHours}`} />
           </div>
-          <p className="text-sm text-ink-2">{firstOpposite ? `First recorded direction different from the issue state: ${firstOpposite.od}, ${formatPitchTimeWithOffset(firstOpposite.time)}.` : "No different direction appears in the available recorded hours."} Missing and hourly bins prevent an exact switch-time claim. These are state matches for one case, not event-detection accuracy.</p>
-          {firstOpposite?.previousMatchingTime && <p className="text-sm text-ink-2">The last matching recorded hour was {formatPitchTimeWithOffset(firstOpposite.previousMatchingTime)}. The recorded change is only bounded by these samples; the exact transition may fall anywhere in the gap, or may have changed temporarily between samples.</p>}
+          <p className="text-sm text-ink-2">{firstOpposite ? `First different recorded direction: ${firstOpposite.od} at ${formatPitchTimeWithOffset(firstOpposite.time)}.` : "No different direction appears in the saved hourly records."} These scores count matching hourly states; they do not measure change-event detection or exact switch timing.</p>
+          {firstOpposite?.previousMatchingTime && <p className="text-sm text-ink-2">Last matching sample: {formatPitchTimeWithOffset(firstOpposite.previousMatchingTime)}. First different sample: {formatPitchTimeWithOffset(firstOpposite.time)}. The switch was between those samples; hourly records may miss temporary changes.</p>}
           <details className="text-sm"><summary className="cursor-pointer text-ink-2">Inspect all forecast and recorded hours</summary><div className="mt-3 overflow-x-auto"><table className="w-full min-w-[520px] text-left text-xs tabular">
             <thead><tr className="text-muted"><th className="p-2">Berlin time</th><th>Model</th><th>Rules</th><th>Keep current</th><th>Recorded OD</th></tr></thead>
             <tbody>{f.hours.map((hour) => {
@@ -148,17 +146,17 @@ function HistoricalReplay({ day, onContinue }: { day: string; onContinue: () => 
           </table></div></details>
         </div>}
       </Panel>
-      <Panel title="What could the shift lead prepare?">
-        <p className="text-sm text-ink-2">Review an alternative ground-handling allocation before the forecast event. Enter a preparation duration for this scenario; no team procedure or staffing benefit is assumed.</p>
+      <Panel title="Preparation time">
+        <p className="text-sm text-ink-2">Enter how many minutes an alternative ground-handling allocation would take. The result is a hypothetical scenario; no team procedure or staffing benefit is assumed.</p>
         <label className="mt-3 flex flex-wrap items-center gap-3 text-sm">Preparation time (minutes)
-          <input type="number" min="0" max="1440" step="1" value={preparation} onChange={(e) => setPreparation(e.target.value)} placeholder="Enter scenario duration"
+          <input type="number" min="0" max="1440" step="1" value={preparation} onChange={(e) => setPreparation(e.target.value)} placeholder="Minutes"
             className="w-64 max-w-full rounded-lg border border-line bg-panel-2 px-3 py-2 text-ink" />
         </label>
-        <p className="mt-3 text-sm" aria-live="polite">{!event ? "No upcoming direction change or runway-18 restriction is forecast in this case." : !validMinutes ? "Enter a whole number from 0–1,440 minutes to calculate a conditional review time." : reviewAt && Date.parse(reviewAt) < Date.parse(f.issued_at) ? "This duration requires a review before the issue time. The forecast offers insufficient lead; no earlier review time is displayed." : reviewAt && Date.parse(reviewAt) === Date.parse(f.issued_at) ? `Conditional review at issue time ${formatPitchTimeWithOffset(reviewAt)}; this leaves no additional lead beyond the issue.` : `Scenario review time: ${formatPitchTimeWithOffset(reviewAt!)} · before the forecast ${event.kind === "direction" ? "direction change" : "runway-18 restriction"}.`}</p>
-        <p className="mt-2 text-xs text-muted">The time is calculated from the earliest indicated event in this saved forecast. It is a scenario, not a guaranteed deadline or a calibrated event interval. Compare it with recorded evidence after revealing the outcome.</p>
+        <p className="mt-3 text-sm" aria-live="polite">{!event ? "No direction change or Runway 18 restriction is forecast in this case." : !validMinutes ? "Enter 0–1,440 whole minutes to calculate the review time." : reviewAt && Date.parse(reviewAt) < Date.parse(f.issued_at) ? "This duration places review before issue time; no review time is available." : reviewAt && Date.parse(reviewAt) === Date.parse(f.issued_at) ? `Review time: ${formatPitchTimeWithOffset(reviewAt)} (forecast issue time; no lead time).` : `Scenario review time: ${formatPitchTimeWithOffset(reviewAt!)} · before the forecast ${event.kind === "direction" ? "direction change" : "Runway 18 restriction"}.`}</p>
+        <p className="mt-2 text-xs text-muted">This uses the first forecast event. The result is hypothetical, not an operational deadline or a calibrated event interval. Compare it with recorded evidence after revealing the outcome.</p>
         {revealed && <p className="mt-2 rounded-lg border border-line bg-panel-2 p-3 text-sm text-ink-2">{historicalPreparationEvidence({ eventKind: event?.kind ?? null, reviewAt, status: reviewAt ? preparationTimingStatus(f.issued_at, reviewAt, firstOpposite) : null, firstOpposite })}</p>}
       </Panel>
-      <button className={cx(BUTTON, "bg-west-soft text-ink")} onClick={onContinue}>See the wider evaluation →</button>
+      <button className={cx(BUTTON, "bg-west-soft text-ink")} onClick={onContinue}>View evaluation →</button>
     </div>
   );
 }
@@ -176,21 +174,21 @@ function historicalPreparationEvidence({
   status: PreparationTimingStatus | null;
   firstOpposite: ReturnType<typeof firstRecordedOpposite>;
 }) {
-  if (!reviewAt) return "Enter a preparation duration to compare its scenario review time with recorded evidence.";
-  if (eventKind === "runway18") return "Timing unknown: this replay has inferred weather-rule labels but no recorded Runway 18 closure history to compare with the review time.";
-  if (eventKind !== "direction") return "No forecast event is available for this case, so preparation timing cannot be compared.";
-  if (!firstOpposite) return "Timing unknown: no different direction appears in the available recorded hours, so there is no recorded change to compare.";
+  if (!reviewAt) return "Enter a duration to compare the hypothetical review time with recorded evidence.";
+  if (eventKind === "runway18") return "Runway 18 timing cannot be compared: this replay has weather-rule labels but no recorded closure history.";
+  if (eventKind !== "direction") return "No forecast event is available to compare with the review time.";
+  if (!firstOpposite) return "No different recorded direction is available for comparison.";
 
   const firstDifferent = formatPitchTimeWithOffset(firstOpposite.time);
-  if (status === "insufficient-lead") return "Insufficient lead: this scenario review time falls before forecast issue time. No earlier timestamp or operational benefit is inferred.";
-  if (status === "late") return `Late against the recorded evidence: review is at or after the first different recorded direction at ${firstDifferent}. This is not the exact transition time or proof of a missed operational action.`;
+  if (status === "insufficient-lead") return "Insufficient lead: the review time is before forecast issue time. No earlier action is inferred.";
+  if (status === "late") return `Late: review is at or after the first different recorded direction (${firstDifferent}). The hourly record does not show the exact transition time or prove an operational action was missed.`;
   if (status === "before-recorded-change-interval" && firstOpposite.previousMatchingTime) {
-    return `Earlier than the recorded change interval: the last matching sample was ${formatPitchTimeWithOffset(firstOpposite.previousMatchingTime)}, followed by the first different sample at ${firstDifferent}. Hourly gaps may hide a transient change, so this does not guarantee adequate preparation.`;
+    return `Before the recorded change: the last matching sample was ${formatPitchTimeWithOffset(firstOpposite.previousMatchingTime)} and the first different sample was ${firstDifferent}. Hourly records may miss temporary changes.`;
   }
   if (firstOpposite.previousMatchingTime) {
-    return `Timing unknown: the review falls between the last matching sample (${formatPitchTimeWithOffset(firstOpposite.previousMatchingTime)}) and the first different sample (${firstDifferent}). The actual transition could be anywhere in that gap.`;
+    return `The review falls between the last matching sample (${formatPitchTimeWithOffset(firstOpposite.previousMatchingTime)}) and the first different sample (${firstDifferent}). The exact transition time is unknown within this gap.`;
   }
-  return `Timing unknown: the first different recorded direction is ${firstDifferent}, but no earlier post-issue matching sample is available to bound the change interval.`;
+  return `The first different recorded direction is ${firstDifferent}, but no earlier post-issue sample is available to bound the change time.`;
 }
 
 function formatRate(value: number | null | undefined, denominator: number | null | undefined) {
@@ -210,8 +208,8 @@ function PitchQuality() {
   const outOfSampleByLead = new Map((q.out_of_sample?.od ?? []).map((row) => [row.lead_h, row]));
   return (
     <div className="space-y-4">
-      <div><h2 className="text-xl font-semibold">One case illustrates. Held-out months test.</h2><p className="mt-1 text-sm text-ink-2">{q.folds.length} monthly folds · {q.evaluation}. This is a separate evaluation report; it does not declare a model-version link to the saved replay.</p></div>
-      <Panel title="Operating direction · same targets, three methods">
+      <div><h2 className="text-xl font-semibold">Evaluation</h2><p className="mt-1 text-sm text-ink-2">{q.folds.length} monthly folds · {q.evaluation}. These results are separate from the selected historical forecast and are not tied to its model version.</p></div>
+      <Panel title="Operating direction">
         <div className="overflow-x-auto"><table className="w-full min-w-[560px] text-left text-sm tabular">
           <thead className="text-xs text-muted"><tr><th className="py-2">Lead</th><th>Hours</th><th>Model</th><th>Rules</th><th>Keep current</th><th>Model / rules Brier ↓</th></tr></thead>
           <tbody>{([1, 6, 24] as const).map((lead) => {
@@ -219,25 +217,25 @@ function PitchQuality() {
             return <tr key={lead} className="border-t border-line"><td className="py-3">+{lead} h</td><td>{r && r.n > 0 ? r.n : "Unavailable"}</td><td>{formatRate(r?.model_acc, r?.n)}</td><td>{formatRate(r?.rule_acc, r?.n)}</td><td>{formatRate(r?.persistence_acc, r?.n)}</td><td>{r && r.n > 0 ? `${formatDecimal(r.model_brier)} / ${formatDecimal(r.rule_brier)}` : "Unavailable"}</td></tr>;
           })}</tbody>
         </table></div>
-        <p className="mt-3 text-xs text-muted">Percentages are hourly direction accuracy at each lead against DFLD records. Brier measures probability error; lower is better. These scores do not measure useful preparation time.</p>
+        <p className="mt-3 text-xs text-muted">Percentages are hourly direction accuracy against DFLD records. Brier measures probability error; lower is better. These scores do not show whether the lead time is sufficient for an operational task.</p>
       </Panel>
-      <Panel title="Changes and false alarms both matter">
+      <Panel title="Change timing and false alarms">
         <div className="grid gap-3 sm:grid-cols-3">
           <Metric label={`First change within ±1 h · ${q.next_change.n_actual_change_windows} change windows`} value={formatRate(q.next_change.within_1h, q.next_change.n_actual_change_windows)} />
           <Metric label={`First change within ±3 h · ${q.next_change.n_actual_change_windows} change windows`} value={formatRate(q.next_change.within_3h, q.next_change.n_actual_change_windows)} />
           <Metric label={`False alarms · ${q.next_change.n_no_change_windows ?? "unknown"} no-change windows`} value={formatRate(q.next_change.false_alarm_rate, q.next_change.n_no_change_windows)} />
         </div>
-        <p className="mt-3 text-xs text-muted">These are overlapping forecast issue windows, not independent events. {q.next_change.excluded_incomplete_windows ?? "Unspecified"} incomplete windows were excluded. A direction timing result does not validate runway-18 closures.</p>
+        <p className="mt-3 text-xs text-muted">These are overlapping forecast issue windows, not independent events. {q.next_change.excluded_incomplete_windows ?? "Unspecified"} incomplete windows were excluded. Direction timing does not validate runway-18 closures.</p>
       </Panel>
-      <Panel title="Runway 18 · the evidence boundary">
-        <p className="text-sm text-ink-2">Its labels are {q.r18_label_type} from observed weather and the challenge rules. Actual operational closure history is not supplied with this evaluation. The synthetic opening demonstration illustrates a threshold scenario only; it is excluded from the historical cases and aggregate scores, and does not prove an operational forecasting gain.</p>
+      <Panel title="Runway 18 labels">
+        <p className="text-sm text-ink-2">Its labels are {q.r18_label_type} from observed weather and the challenge rules. Actual operational closure history is not supplied with this evaluation.</p>
       </Panel>
       <details className="rounded-xl border border-line bg-panel p-4 text-sm"><summary className="cursor-pointer">Sources and limitations</summary>
         <ul className="mt-3 list-disc space-y-2 pl-5 text-xs text-ink-2">{q.limitations.map((text) => <li key={text}>{text}</li>)}</ul>
         <ul className="mt-4 space-y-2 text-xs">{q.data_sources.map((source) => <li key={source.name}><a href={source.url} target="_blank" rel="noreferrer" className="underline">{source.name}</a></li>)}</ul>
         <a href="/data/quality.json" className="mt-3 inline-block text-xs underline">Open the evaluation data</a>
       </details>
-      <Panel title="The next decision"><p className="text-lg font-semibold">Make time for preparation.</p><p className="mt-2 text-sm text-ink-2">Validate the warning with a ground-handling shift lead: what could they prepare, how much time do they need, and which false alarms are tolerable?</p></Panel>
+      <Panel title="Next validation"><p className="mt-2 text-sm text-ink-2">Ask a ground-handling shift lead what staff could prepare, how much lead time they need, and which false-alarm rate they can accept.</p></Panel>
     </div>
   );
 }

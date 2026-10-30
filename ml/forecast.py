@@ -18,7 +18,8 @@ import pandas as pd
 import requests
 
 from ml import live
-from ml.features import MULTIMODELS, PUBLICATION_LAG_H, nwp_offset_days
+from ml.features import (MULTIMODELS, PUBLICATION_LAG_H,
+                         observations_available_at, select_nwp, tailwind_since_issue)
 from ml.quality import suspect_od_runs
 from ml.rules import RULES, crosswind, od_state_machine, r18_usable, tailwind
 
@@ -56,16 +57,7 @@ def current_direction(obs, history, cutoff):
 
 
 def selected_wind(issue, nwp):
-    source = nwp.set_index("time").reindex(live.target_hours(issue))
-    archived = "wind_speed_10m_previous_day1" in source
-    rows = []
-    for lead, (time, values) in enumerate(source.iterrows(), 1):
-        suffix = f"_previous_day{nwp_offset_days(lead)}" if archived else ""
-        rows.append({"time": time, "lead_h": lead,
-                     "wind_dir_deg": values["wind_direction_10m" + suffix],
-                     "wind_kt": values["wind_speed_10m" + suffix],
-                     "gust_kt": values["wind_gusts_10m" + suffix]})
-    return pd.DataFrame(rows)
+    return select_nwp(issue, nwp)[["time", "lead_h", "wind_dir_deg", "wind_kt", "gust_kt"]]
 
 
 def logistic(value):
@@ -76,7 +68,9 @@ def fallback_predict(issue, obs, nwp, current_od):
     """Temporary until fitted probabilities are available from predict_48h."""
     frame = selected_wind(issue, nwp)
     rows = wind_rows(frame)
-    frame["rule_od"] = od_state_machine(rows, initial_od=current_od)
+    available_obs = observations_available_at(obs, issue)
+    timer = tailwind_since_issue(issue, available_obs, current_od, obs.attrs.get("od_history"))
+    frame["rule_od"] = od_state_machine(rows, initial_od=current_od, tailwind_since=timer)
     frame["rule_18_usable"] = [r18_usable(s, d, g) for _, d, s, g in rows]
     for runway in ("25", "18"):
         frame[f"tailwind_{runway}_kt"] = [tailwind(s, d, RULES["runway_heading_deg"][runway])
@@ -185,13 +179,17 @@ def hour_inputs(row):
                                                      "ens_tailwind_18_mean", "ens_dir_spread", "ens_votes_25")},
             "rule_od25_ens": int(row["rule_od25_ens"]), "dp_ns_hpa": number(row["dp_ns"]),
             "dp_ew_hpa": number(row["dp_ew"]), "blend_key": str(row["blend_key"]),
-            "blend_weight": float(row["blend_weight"]), "p_od25_raw": float(row["p_od25_raw"])}
+            "blend_weight": float(row["blend_weight"]), "p_od25_raw": float(row["p_od25_raw"]),
+            "p_18_usable_raw": number(row.get("p_18_usable_raw")),
+            "r18_blend_weight": number(row.get("r18_blend_weight"))}
 
 
 def input_sources(nwp, obs, known, issue):
     """Which inputs were present and when each became available (no later than issue)."""
     def latest(column):
         values = pd.to_datetime(nwp[column], utc=True).dropna() if column in nwp else pd.Series(dtype="datetime64[ns, UTC]")
+        if column in ("issued_at", "retrieved_at"):
+            values = values.loc[values <= issue]
         return utc_text(values.max()) if len(values) else None
 
     def present(prefix):
@@ -199,8 +197,10 @@ def input_sources(nwp, obs, known, issue):
 
     base = latest("available_at")
     sources = [{"name": "Open-Meteo best_match", "available_at": base}]
-    if latest("issued_at"):
-        sources[0]["issued_at"] = latest("issued_at")
+    for stamp in ("issued_at", "retrieved_at"):
+        value = latest(stamp)
+        if value:
+            sources[0][stamp] = value
     for model in MULTIMODELS:
         sources.append({"name": f"Open-Meteo {model}", "available_at": latest(f"{model}__available_at") or base,
                         "missing": not present(f"{model}__wind_speed_10m")})
@@ -338,11 +338,12 @@ def build_forecast(day=None, *, now=None, include_observed=True, include_briefin
     hours = format_hours(frame, issue)
     note = None
     if day is not None and day > issue.tz_convert(BERLIN).date():
-        hours = [hour for hour in hours if pd.Timestamp(hour["time"]).tz_convert(BERLIN).date() == day]
-        if not hours:
-            raise ValueError("Requested day is outside the current 48-hour forecast horizon")
-        note = (f"Requested {day}; issued at the current hour using the latest METAR and live forecast. "
-                f"Showing {len(hours)} available hours for that day within the 48-hour horizon.")
+        requested_hours = [hour for hour in hours
+                           if pd.Timestamp(hour["time"]).tz_convert(BERLIN).date() == day]
+        if not requested_hours:
+            raise ValueError("Requested day does not intersect the current 48-hour forecast horizon")
+        note = (f"Requested {day}; it falls within the current 48-hour forecast issued at "
+                f"{local_text(issue)}. Showing the full 48-hour horizon.")
     result = {"issued_at": utc_text(issue), "issued_local": local_text(issue), "mode": mode,
               "current_od": current_od, "nwp": source + "; " + provenance + "; runway 18 usability inferred",
               "model_version": version, "rules_version": RULES["version"], "hours": hours,
@@ -360,8 +361,9 @@ def build_forecast(day=None, *, now=None, include_observed=True, include_briefin
 def score_forecasts(start, end):
     """Score midnight local issues on matched DFLD hours, without future inputs.
 
-    Recorded runs that break the 10 kt landing limit for three or more METAR hours
-    are a stuck feed (ml.quality.suspect_od_runs); scores are given with and without them.
+    Runs with repeated 10 kt rule disagreements are a sensitivity flag from
+    ml.quality.suspect_od_runs, not evidence that the recorded feed failed.
+    Scores are reported with all recorded labels and with flagged hours excluded.
     """
     if start > end:
         raise ValueError("--from must be on or before --to")
@@ -431,8 +433,8 @@ def print_score(result):
           f"persistence {first['persistence']:.1%} | {first['n']} matched hours")
     print("The 1-6 band combines six leads; compare backtest lead 1 with 'Lead 1 only'.")
     if result["stuck_feed_hours"]:
-        print(f"Without {result['stuck_feed_hours']} matched hours from recorded runs that break the "
-              "10 kt landing limit (stuck feed):")
+        print(f"Sensitivity excluding {result['stuck_feed_hours']} matched hours flagged for repeated "
+              "10 kt landing-limit disagreement (not evidence of feed failure):")
         for row in result["rows_stuck_feed_excluded"] + [result["lead_1_stuck_feed_excluded"]]:
             print(f"{row['lead']:>5} | {row['model']:6.1%} | {row['rules']:6.1%} | "
                   f"{row['persistence']:11.1%} | {row['n']}")

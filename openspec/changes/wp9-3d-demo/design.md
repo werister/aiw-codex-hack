@@ -7,6 +7,7 @@
 **Goals:**
 - Make the selected forecast hour the source of the browser scene state.
 - Keep the Blender-authored airport model reusable while rendering traffic in the browser.
+- Preserve a crafted, high-fidelity map look with simplified recognizable landmarks, smooth forms, restrained materials, and antialiasing.
 - Make loading, failure, motion, and the runway-18 probability threshold understandable to users.
 
 **Non-Goals:**
@@ -16,9 +17,9 @@
 
 ## Decisions
 
-1. **Use Blender for airport geometry and Three.js for interactive rendering.** A static Blender render cannot respond to any of the 48 selected forecast hours. The browser scene can reuse the authored airport model and change its illustrative flow without changing the forecast data. A single Blender animation remains useful as a visual reference, but is not the runtime.
+1. **Use Blender for airport geometry and Three.js for interactive rendering.** A static Blender render cannot respond to any of the 48 selected forecast hours. The browser scene can reuse the authored airport model and change its illustrative flow without changing the forecast data. A single Blender animation remains useful as a visual reference, but is not the runtime. The user-supplied Apple Maps 3D reference sets a quality bar for simplified, recognizable forms; it does not call for copied assets or comic styling.
 
-2. **Keep `SceneHero` as the adapter.** It dynamically imports `@/lib/airport-scene` on the client and passes `{ od, r18Open, wind, paused, onReady, onError }` to `mount(host, options)`. The returned controller exposes `setState(state)`, `reset()`, `setPaused(boolean)`, and `destroy()`. State contains `{ od, r18Open, wind?, forecastHour? }`; `forecastHour` is the selected row's `time`, `local`, `lead_h`, `p_18_usable`, and `certainty` only. `Widget` remains valid when it omits `forecastHour`.
+2. **Keep `SceneHero` as the adapter.** It dynamically imports `@/lib/airport-scene` on the client and passes `{ od, r18Open, wind?, forecastHour?, theme, paused, onReady, onError }` to `mount(host, options)`. The returned controller exposes `setState(state)`, `reset()`, `setPaused(boolean)`, and `destroy()`. State contains `{ od, r18Open, wind?, forecastHour? }`; `forecastHour` is the selected row's `time`, `local`, `lead_h`, `p_18_usable`, and `certainty` only. `Widget` remains valid when it omits `forecastHour`.
 
 3. **Preserve the probability and threshold in the UI.** The scene receives the model OD and the `p_18_usable >= 0.5` binary depiction. The caption shows the selected local time, lead, exact runway-18 probability, model certainty, and the 50% display threshold. This describes the model output without implying a deterministic operational decision.
 
@@ -30,7 +31,7 @@
 
 - **3D assets or WebGL fail to load** → Keep the existing `RunwayMap` as the visible fallback and expose a loading/error status.
 - **Users mistake probability for an operational guarantee** → Show the numeric probability, threshold, and illustrative-traffic caption together.
-- **Motion becomes distracting or inaccessible** → Start paused, provide keyboard-operable controls, and honor reduced-motion changes.
+- **Motion becomes distracting or inaccessible** → Provide keyboard-operable controls and honor reduced-motion changes.
 
 ## Migration Plan
 

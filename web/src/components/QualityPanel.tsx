@@ -4,15 +4,19 @@ import { useEffect, useState } from "react";
 import type { QualityResult, ReliabilityBin, SkillAtLead } from "@/lib/forecast-types";
 import { Panel, cx } from "./ui";
 
+type Quality = QualityResult & {
+  next_change: QualityResult["next_change"] & { n_no_change_windows?: number };
+};
+
 // Held-out quality from the expanding monthly walk-forward (web/public/data/quality.json).
 export function QualityPanel() {
-  const [q, setQ] = useState<QualityResult | null>(null);
+  const [q, setQ] = useState<Quality | null>(null);
   const [state, setState] = useState<"loading" | "ready" | "missing">("loading");
 
   useEffect(() => {
     fetch("/data/quality.json", { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : Promise.reject()))
-      .then((d: QualityResult) => {
+      .then((d: Quality) => {
         setQ(d);
         setState("ready");
       })
@@ -23,7 +27,7 @@ export function QualityPanel() {
     return (
       <Panel title="Model quality">
         <p className="text-[15px] text-muted">
-          {state === "loading" ? "Loading…" : "The walk-forward backtest is still running. Its results appear here when they land."}
+          {state === "loading" ? "Loading…" : "Evaluation data unavailable."}
         </p>
       </Panel>
     );
@@ -37,19 +41,19 @@ export function QualityPanel() {
       aside={<span className="text-[13px] text-muted">{q.evaluation}</span>}
     >
       <p className="-mt-1 max-w-[90ch] text-[15px] leading-snug text-ink-2">
-        Measured on months the model never saw. It does not change the forecast above. Direction is scored against DFLD
-        records (change hours left out), runway 18 against {q.r18_label_type} labels.
+        Test months are excluded from training. Direction is compared with DFLD records, excluding change hours.
+        Runway 18 uses {q.r18_label_type} labels.
       </p>
       <dl className="mt-5 flex flex-wrap gap-x-10 gap-y-3 text-[15px]">
-        <Fact k="Held-out months" v={`${months.length} · ${months[0]} to ${months[months.length - 1]}`} />
-        <Fact k="Changes timed within ±3 h" v={`${measuredRate(q.next_change.within_3h)} (±1 h: ${measuredRate(q.next_change.within_1h)})`} />
-        <Fact k="False alarms in no-change windows" v={measuredRate(q.next_change.false_alarm_rate)} />
-        <Fact k="Recorded hours matching the rules" v={`${Math.round(q.rule_label_comparison.agreement * 100)}%`} />
+        <Fact k="Held-out months" v={months.length ? `${months.length} · ${months[0]} to ${months[months.length - 1]}` : "Unavailable"} />
+        <Fact k="Changes timed within ±3 h" v={`${measuredRate(q.next_change.within_3h, q.next_change.n_actual_change_windows)} (±1 h: ${measuredRate(q.next_change.within_1h, q.next_change.n_actual_change_windows)})`} />
+        <Fact k="False alarms in no-change windows" v={measuredRate(q.next_change.false_alarm_rate, q.next_change.n_no_change_windows)} />
+        <Fact k="Recorded hours matching the rules" v={measuredRate(q.rule_label_comparison.agreement, q.rule_label_comparison.n)} />
       </dl>
 
       <div className="mt-8 grid gap-8 xl:grid-cols-[3fr_2fr]">
-        <SkillTable rows={q.out_of_sample.od} inSample={q.in_sample.od} />
-        <Reliability bins={q.reliability.od} />
+        <SkillTable rows={q.out_of_sample?.od ?? []} inSample={q.in_sample?.od ?? []} />
+        <Reliability bins={q.reliability?.od ?? []} />
       </div>
 
       <details className="mt-6 border-t border-line pt-4 text-[13px] leading-relaxed text-muted">
@@ -69,14 +73,18 @@ export function QualityPanel() {
             <li key={l}>{l}</li>
           ))}
         </ul>
-        <p className="mt-2">Runway 18 labels are {q.r18_label_type}; this evaluation supplies no actual operational closure history.</p>
+        <p className="mt-2">Runway 18 labels are {q.r18_label_type}. Recorded operational closures are unavailable.</p>
       </details>
     </Panel>
   );
 }
 
-function measuredRate(value: number | null | undefined) {
-  return typeof value === "number" && Number.isFinite(value) ? `${Math.round(value * 100)}%` : "Unavailable";
+function measuredRate(value: number | null | undefined, n: number | null | undefined) {
+  return hasMeasuredRate(value, n) ? `${Math.round(value * 100)}%` : "Unavailable";
+}
+
+function hasMeasuredRate(value: number | null | undefined, n: number | null | undefined): value is number {
+  return Number.isInteger(n) && n! > 0 && typeof value === "number" && Number.isFinite(value) && value >= 0 && value <= 1;
 }
 
 function Fact({ k, v }: { k: string; v: string }) {
@@ -106,11 +114,20 @@ function SkillTable({ rows, inSample }: { rows: SkillAtLead[]; inSample: SkillAt
           </tr>
         </thead>
         <tbody>
+          {rows.length === 0 && <tr><td colSpan={6} className="py-2 text-muted">Unavailable</td></tr>}
           {rows.map((r) => {
-            const best = Math.max(r.model_acc, r.rule_acc, r.persistence_acc);
-            const cell = (v: number) => (
-              <td className={cx("py-2 tabular", v === best ? "font-semibold text-ink" : "text-muted")}>{(v * 100).toFixed(1)}%</td>
-            );
+            const scores = [r.model_acc, r.rule_acc, r.persistence_acc].filter((value) => hasMeasuredRate(value, r.n));
+            const best = scores.length ? Math.max(...scores) : null;
+            const cell = (v: number) => {
+              const available = hasMeasuredRate(v, r.n);
+              return (
+                <td className={cx("py-2 tabular", available && v === best ? "font-semibold text-ink" : "text-muted")}>
+                  {available ? `${(v * 100).toFixed(1)}%` : "Unavailable"}
+                </td>
+              );
+            };
+            const changeN = Number.isInteger(r.change_n) && r.change_n! > 0 ? r.change_n : null;
+            const inSampleRow = ins.get(r.lead_h);
             return (
               <tr key={r.lead_h} className="border-t border-line">
                 <td className="py-2 tabular">{r.lead_h} h</td>
@@ -118,12 +135,14 @@ function SkillTable({ rows, inSample }: { rows: SkillAtLead[]; inSample: SkillAt
                 {cell(r.rule_acc)}
                 {cell(r.persistence_acc)}
                 <td className="py-2 tabular text-ink-2">
-                  {r.model_change_acc != null && r.change_n
-                    ? `${Math.round(r.model_change_acc * 100)}% / ${r.rule_change_acc != null ? `${Math.round(r.rule_change_acc * 100)}%` : "unavailable"} of ${r.change_n}`
-                    : "unavailable"}
+                  {changeN
+                    ? `${measuredRate(r.model_change_acc, changeN)} / ${measuredRate(r.rule_change_acc, changeN)} of ${changeN}`
+                    : "Unavailable"}
                 </td>
                 <td className="py-2 tabular text-muted">
-                  {ins.get(r.lead_h) ? `${(ins.get(r.lead_h)!.model_acc * 100).toFixed(1)}%` : "–"}
+                  {inSampleRow && hasMeasuredRate(inSampleRow.model_acc, inSampleRow.n)
+                    ? `${(inSampleRow.model_acc * 100).toFixed(1)}%`
+                    : "Unavailable"}
                 </td>
               </tr>
             );
@@ -132,17 +151,24 @@ function SkillTable({ rows, inSample }: { rows: SkillAtLead[]; inSample: SkillAt
       </table>
       </div>
       <div className="mt-2 text-[12px] text-muted">
-        Best per row in bold. &quot;Same as now&quot; is persistence. In-sample is shown only to make overfitting visible.
+        Best result per row in bold. Persistence keeps the direction at issue time. In-sample scores use training data.
       </div>
     </div>
   );
 }
 
 function Reliability({ bins }: { bins: ReliabilityBin[] }) {
-  const pts = bins.filter((b) => b.n > 0 && b.mean_predicted != null && b.observed_frequency != null);
+  const pts = bins.filter((b) =>
+    Number.isInteger(b.n) && b.n > 0 &&
+    hasProbability(b.mean_predicted) && hasProbability(b.observed_frequency),
+  );
   return (
     <div>
-      <div className="mb-3 text-[20px] font-light leading-tight">Is the probability honest?</div>
+      <div className="mb-3 text-[20px] font-light leading-tight">Predicted and observed probabilities</div>
+      {pts.length === 0 ? (
+        <p className="text-[12px] text-muted">Unavailable</p>
+      ) : (
+        <>
       <svg viewBox="0 0 220 180" className="w-full max-w-[300px]">
         <rect x="30" y="10" width="180" height="140" fill="var(--panel-2)" />
         <line x1="30" y1="150" x2="210" y2="10" stroke="var(--muted)" strokeDasharray="4 4" />
@@ -158,7 +184,13 @@ function Reliability({ bins }: { bins: ReliabilityBin[] }) {
         <text x="120" y="170" textAnchor="middle" fontSize="9" fill="var(--muted)">predicted P(OD 25)</text>
         <text x="12" y="80" textAnchor="middle" fontSize="9" fill="var(--muted)" transform="rotate(-90 12 80)">observed share 25</text>
       </svg>
-      <div className="text-[12px] text-muted">Dots on the dashed line mean the stated probability matches what happened.</div>
+      <div className="text-[12px] text-muted">On the dashed line, predicted probability equals observed frequency.</div>
+        </>
+      )}
     </div>
   );
+}
+
+function hasProbability(value: number | null | undefined): value is number {
+  return typeof value === "number" && Number.isFinite(value) && value >= 0 && value <= 1;
 }

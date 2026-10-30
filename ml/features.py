@@ -6,7 +6,7 @@ from zoneinfo import ZoneInfo
 import numpy as np
 import pandas as pd
 
-from ml.rules import RULES, od_state_machine, r18_usable
+from ml.rules import RULES, od_state_machine, r18_usable, tailwind
 
 BERLIN = ZoneInfo("Europe/Berlin")
 PUBLICATION_LAG_H = 6
@@ -47,7 +47,74 @@ def normalize_obs(obs):
     for column in ("wind_dir_deg", "wind_kt", "gust_kt"):
         obs[column] = pd.to_numeric(obs[column], errors="coerce")
     obs["gust_kt"] = obs.gust_kt.fillna(obs.wind_kt)
-    return obs.dropna(subset=["wind_kt"]).sort_values("time").drop_duplicates("time", keep="last")
+    keys = ["time", "retrieved_at"] if "retrieved_at" in obs else ["time"]
+    return obs.dropna(subset=["wind_kt"]).sort_values(keys, kind="stable").drop_duplicates("time", keep="last")
+
+
+def observations_available_at(obs, issue):
+    """Keep only observations that existed by issue time, before resolving duplicates."""
+    issue = utc(issue)
+    frame = obs.rename(columns={"valid": "time"}).copy().reset_index(drop=True)
+    if "retrieved_at" in frame:
+        retrieved = pd.to_datetime(frame["retrieved_at"], utc=True, errors="coerce")
+        if retrieved.isna().any():
+            raise ValueError("Explicit METAR retrieved_at metadata must be valid")
+        frame = frame.loc[retrieved <= issue].copy()
+        frame["retrieved_at"] = retrieved.loc[frame.index]
+    frame = normalize_obs(frame)
+    return frame.loc[frame.time <= issue].copy()
+
+
+def tailwind_since_issue(issue, observations, current_od, od_history=None):
+    """Return the start of the current observed positive-tailwind run, if known.
+
+    Use only observations available at issue time and at most five hours of
+    history. Gaps longer than one METAR interval break continuity. A known OD
+    change also caps the run; unavailable or contradictory states fail closed.
+    """
+    issue = utc(issue)
+    if current_od not in ("25", "07"):
+        raise ValueError("current_od must be '25' or '07'")
+    known = observations_available_at(observations, issue)
+    if known.empty:
+        return None
+    latest = known.time.iloc[-1]
+    if issue - latest > pd.Timedelta(minutes=30):
+        return None
+    start = issue - pd.Timedelta(hours=5)
+    if od_history is not None and not od_history.empty:
+        history = od_history.copy()
+        history["time"] = pd.to_datetime(history.time, utc=True, errors="coerce")
+        history["available_at"] = pd.to_datetime(history.available_at, utc=True, errors="coerce")
+        if history[["time", "available_at"]].isna().any().any():
+            raise ValueError("OD history timestamps must be valid")
+        history = history.loc[(history.available_at <= issue) & (history.time <= issue)]
+        history = history.sort_values("time", kind="stable")
+        changes = history.od.ne(history.od.shift())
+        if len(changes):
+            changes.iloc[0] = False
+        if changes.any():
+            start = max(start, history.loc[changes, "available_at"].iloc[-1])
+    known = known.loc[known.time >= start]
+    if known.empty or known.time.iloc[-1] != latest:
+        return None
+
+    heading = RULES["runway_heading_deg"][current_od]
+    since = None
+    previous = None
+    for row in known.itertuples(index=False):
+        time = row.time
+        if previous is not None and time - previous > pd.Timedelta(minutes=30):
+            since = None
+        previous = time
+        direction = row.wind_dir_deg
+        speed = row.wind_kt
+        component = tailwind(speed, direction, heading) if pd.notna(direction) else float("nan")
+        if not np.isfinite(component) or speed <= 0 or component <= 1e-9:
+            since = None
+        elif since is None:
+            since = time
+    return since
 
 
 def components(speed, direction, heading):
@@ -67,20 +134,25 @@ def select_nwp(issue, nwp):
     issued_at/retrieved_at metadata, when provided, must precede issue time.
     """
     targets = pd.date_range(issue + pd.Timedelta(hours=1), periods=48, freq="h")
-    source = nwp.copy()
+    source = nwp.copy().reset_index(drop=True)
     source["time"] = pd.to_datetime(source.time, utc=True)
     archived = "wind_speed_10m_previous_day1" in source
-    if not archived:
-        stamp = "issued_at" if "issued_at" in source else "retrieved_at"
-        if stamp not in source:
+    availability = [name for name in ("issued_at", "retrieved_at") if name in source]
+    if availability:
+        for stamp in availability:
+            source[stamp] = pd.to_datetime(source[stamp], utc=True, errors="coerce")
+            if source[stamp].isna().any():
+                raise ValueError(f"Explicit forecast {stamp} metadata must be valid")
+        available = source[availability].max(axis=1)
+        source["_available_at"] = available
+        # A row is eligible only if every supplied availability time has passed.
+        eligible = pd.Series(True, index=source.index)
+        for stamp in availability:
+            eligible &= source[stamp].le(issue)
+        source = source.loc[eligible].sort_values(["_available_at", "time"], kind="stable")
+    elif not archived:
+        if not availability:
             raise ValueError("Non-offset forecasts need issued_at or retrieved_at")
-        source[stamp] = pd.to_datetime(source[stamp], utc=True)
-        source = source.loc[source[stamp] <= issue].sort_values(stamp)
-    else:
-        # Explicit metadata on archived rows must also precede the issue time.
-        for stamp in ("issued_at", "retrieved_at"):
-            if stamp in source:
-                source = source.loc[pd.to_datetime(source[stamp], utc=True) <= issue]
     source = source.drop_duplicates("time", keep="last").set_index("time").reindex(targets)
     output = pd.DataFrame({"time": targets, "lead_h": np.arange(1, 49)})
     output["nwp_offset_days"] = nwp_offset_days(output.lead_h) if archived else 0
@@ -108,12 +180,15 @@ def select_nwp(issue, nwp):
         output[f"{model}_kt"] = pick(f"{model}__wind_speed_10m")
         output[f"{model}_dir"] = pick(f"{model}__wind_direction_10m")
     if output[["wind_kt", "gust_kt", "wind_dir_deg"]].isna().any().any():
-        raise ValueError("Incomplete 48-hour archived wind coverage")
-    if archived:
+        raise ValueError("Incomplete 48-hour forecast wind coverage")
+    if availability:
+        output["nwp_available_proxy"] = source["_available_at"].to_numpy()
+    elif archived:
         output["nwp_available_proxy"] = (output.time - pd.to_timedelta(output.nwp_offset_days, unit="D")
                                          + pd.Timedelta(hours=PUBLICATION_LAG_H))
     else:
-        output["nwp_available_proxy"] = source[stamp].to_numpy()
+        output["nwp_available_proxy"] = (output.time - pd.to_timedelta(output.nwp_offset_days, unit="D")
+                                         + pd.Timedelta(hours=PUBLICATION_LAG_H))
     return output
 
 
@@ -126,10 +201,7 @@ def build_features(issue_time_utc, obs, nwp, od_at_issue, od_history=None):
     issue = utc(issue_time_utc)
     if od_at_issue not in ("25", "07"):
         raise ValueError("od_at_issue must be '25' or '07'")
-    observations = normalize_obs(obs)
-    observations = observations.loc[observations.time <= issue]
-    if "retrieved_at" in observations:
-        observations = observations.loc[pd.to_datetime(observations.retrieved_at, utc=True) <= issue]
+    observations = observations_available_at(obs, issue)
     if observations.empty or issue - observations.time.iloc[-1] > pd.Timedelta(hours=2):
         raise ValueError("No METAR within two hours before issue")
     now = observations.iloc[-1]
@@ -164,11 +236,12 @@ def build_features(issue_time_utc, obs, nwp, od_at_issue, od_history=None):
     # Seed at issue time from the known observation, retaining the supplied OD.
     # Future forecast wind is never assumed to have started at T.
     rows = list(frame[["time", "wind_dir_deg", "wind_kt", "gust_kt"]].itertuples(index=False, name=None))
-    frame["rule_od"] = od_state_machine(rows, initial_od=od_at_issue)
+    timer = tailwind_since_issue(issue, observations, od_at_issue, od_history)
+    frame["rule_od"] = od_state_machine(rows, initial_od=od_at_issue, tailwind_since=timer)
     frame["rule_od25"] = frame.rule_od.eq("25").astype(int)
     frame["rule_18_usable"] = [r18_usable(s, d, g) for _, d, s, g in rows]
     frame["persistence_18"] = r18_usable(now.wind_kt, now.wind_dir_deg, now.gust_kt)
-    add_ensemble(frame, od_at_issue)
+    add_ensemble(frame, od_at_issue, timer)
     frame["wind_sin"] = np.sin(np.deg2rad(frame.wind_dir_deg))
     frame["wind_cos"] = np.cos(np.deg2rad(frame.wind_dir_deg))
     local = frame.time.dt.tz_convert(BERLIN)
@@ -179,7 +252,7 @@ def build_features(issue_time_utc, obs, nwp, od_at_issue, od_history=None):
     return frame
 
 
-def add_ensemble(frame, od_at_issue):
+def add_ensemble(frame, od_at_issue, tailwind_since=None):
     """Bias-corrected per-model runway components, model spread and rule states.
 
     Speeds are scaled to METAR level with WIND_SCALE. The ensemble mean wind
@@ -210,7 +283,8 @@ def add_ensemble(frame, od_at_issue):
     mean_direction = np.where(mean_speed > 0, np.rad2deg(np.arctan2(-u, -v)) % 360, np.nan)
     rows = [(time, None if np.isnan(d) else float(d), float(s), float(s))
             for time, d, s in zip(frame.time, mean_direction, np.nan_to_num(mean_speed))]
-    frame["rule_od25_ens"] = [int(od == "25") for od in od_state_machine(rows, initial_od=od_at_issue)]
+    frame["rule_od25_ens"] = [int(od == "25") for od in od_state_machine(rows, initial_od=od_at_issue,
+                                                                           tailwind_since=tailwind_since)]
     gust = frame.gust_kt.to_numpy(float) * WIND_SCALE["best_match"]
     frame["rule_18_ens"] = [np.nan if usable is None else float(usable)
                             for usable in (r18_usable(s, d, g) for (_, d, s, _), g in zip(rows, gust))]

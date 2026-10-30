@@ -5,90 +5,90 @@ import { Arrow, Panel, cx } from "@/components/ui";
 
 export const metadata: Metadata = { title: "Lift-off · How we built it" };
 
-// The iteration log, newest last. Mirrors EXPERIMENTS.md; numbers are held-out operating-direction accuracy.
+// Experiment results in chronological order. Accuracy values are for recorded operating direction.
 const STEPS: { id: string; title: string; did: string; result: string; tone: "win" | "lesson" | "honest" }[] = [
   {
     id: "E1",
-    title: "Check the rules against reality",
-    did: "Ran FraAlliance's official rules on the measured airport wind and compared them with the directions actually flown (DFLD records).",
-    result: "They agree in only 89.2% of hours. The rules are a baseline, not the truth, so we learn from what was flown.",
+    title: "Compare rules with recorded directions",
+    did: "Applied FraAlliance's rules to measured airport wind and compared the result with DFLD direction records.",
+    result: "The rules matched 89.2% of recorded hours.",
     tone: "lesson",
   },
   {
     id: "E2",
-    title: "First gradient-boosted model",
+    title: "First model",
     did: "Trees on the direction at issue time, measured wind, forecast wind as issued, and the rules run forward.",
-    result: "Strong at 6 to 48 h, but it lost at 1 h (93.8% vs 96.9% for keep-current).",
+    result: "At 1 h, accuracy was 93.8%, below persistence at 96.9%.",
     tone: "lesson",
   },
   {
     id: "E3",
-    title: "Blend with keep-current at short leads",
+    title: "Add persistence at short leads",
     did: "Per lead time, mix the model with persistence. Weights are picked on past data only.",
-    result: "1 h fixed: 97.0%.",
+    result: "1 h accuracy rose to 96.9%; other leads were unchanged.",
     tone: "win",
   },
   {
     id: "E4",
-    title: "Close a leak",
-    did: "Forecast runs only count as known 6 h after they start. That uses day-1 forecasts up to 18 h, then day 2 and day 3.",
-    result: "48 h dropped from 89.8% to 84.1%. The lower number is the honest one.",
+    title: "Apply the publication delay",
+    did: "Used each forecast run only after its six-hour publication delay: day 1 through 18 h, then days 2 and 3.",
+    result: "48 h accuracy fell from 89.8% to 84.1%.",
     tone: "honest",
   },
   {
     id: "E5",
-    title: "Same path as the jury",
+    title: "Compare forecast and training paths",
     did: "Compared the command the jury runs with the training pipeline, hour by hour.",
-    result: "144 of 144 lead rows identical: features and probabilities.",
+    result: "Features and probabilities matched on all 144 tested lead rows.",
     tone: "honest",
   },
   {
     id: "E6",
-    title: "Forecast like the jury days",
-    did: "Issued every October day at local midnight and scored against what was flown.",
-    result: "Beat the rules at every lead, but lost to keep-current at 1 to 6 h on calm nights.",
+    title: "Test October midnight forecasts",
+    did: "Issued forecasts at local midnight for each October day and compared them with DFLD records.",
+    result: "The model beat the rules. Persistence scored higher at 1–6 h on calm nights.",
     tone: "lesson",
   },
   {
     id: "E7",
-    title: "Three times more history",
-    did: "Extended recorded directions and METAR back to 2018 (76,588 labelled hours).",
-    result: "About three times as many direction changes to learn from.",
+    title: "Extend history to 2018",
+    did: "Added recorded directions and METAR data, for 76,588 labelled hours.",
+    result: "The dataset contains about three times as many direction changes.",
     tone: "win",
   },
   {
     id: "E8",
-    title: "Reject a tempting label",
+    title: "Reject a non-weather label",
     did: "Tested DFLD's runway-18 'not in use' row as a weather-closure label.",
-    result: "Only 1 of 2,251 such hours had a 15 kt tailwind. It reflects operations, not weather, so it was rejected.",
+    result: "Only 1 of 2,251 hours had a 15 kt tailwind. The label reflects operations, so it was not used as weather ground truth.",
     tone: "honest",
   },
   {
     id: "E9",
-    title: "Night and calm regimes",
-    did: "Blend weights per lead and regime (night, calm, active), chosen on inner validation data.",
-    result: "Midnight issues at 1 to 6 h: 95.9% vs 94.6% keep-current (stuck feed excluded).",
+    title: "Blend by time and wind regime",
+    did: "Selected blend weights by lead and regime using earlier validation data.",
+    result: "At midnight, 1–6 h accuracy was 95.9% vs 94.6% for persistence, excluding the stuck feed.",
     tone: "win",
   },
   {
     id: "E10",
-    title: "Stronger weather inputs",
-    did: "ECMWF, GFS and ICON separately, wind corrected to the airport sensor, per-runway tailwinds, model spread, pressure differences about 200 km around FRA.",
-    result: "On 12 test months, 48 h rose from 84.9% to 89.2%, and the Brier score improved by 24%.",
+    title: "Add separate weather models",
+    did: "Added ECMWF, GFS and ICON forecasts, runway-specific tailwinds, model spread and pressure differences around Frankfurt. Wind speeds were scaled to the airport sensor.",
+    result: "Across the same 12 test months, 48 h accuracy rose from 84.9% to 88.6%; Brier score fell from 0.108 to 0.084.",
     tone: "win",
   },
   {
     id: "E11",
-    title: "Tried, no gain",
-    did: "Deeper trees, monotonic constraints, one model per lead, extra observation features.",
-    result: "No improvement, so they were dropped. Kept simple.",
+    title: "Test alternative models",
+    did: "Tested deeper trees, monotonic constraints, one model per lead and extra observations.",
+    result: "None improved the scores, so they were not used.",
     tone: "lesson",
   },
   {
     id: "E12",
-    title: "Data quality catch",
-    did: "Spotted 103 h of recorded 07 against steady 8 to 17 kt westerlies (8 to 12 Oct). DWD station data confirms the wind.",
-    result: "A stuck feed. Scores are reported with and without it.",
+    title: "Find a stuck direction feed",
+    did: "Found 103 h of recorded OD 07 during steady 8–17 kt westerlies, 8–12 Oct. DWD station data confirms the wind.",
+    result: "Scores are reported with and without these hours.",
     tone: "honest",
   },
 ];
@@ -102,9 +102,6 @@ const PIPELINE = [
   ["Forecast", "48 hourly probabilities, certainty, next change"],
 ];
 
-// 12 monthly walk-forward folds: train on everything before the month, test on the month.
-const FOLDS = ["Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"];
-
 export default function Approach() {
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-[1200px] flex-col gap-3 px-4 pb-10 sm:px-5">
@@ -117,10 +114,9 @@ export default function Approach() {
         </nav>
       </header>
 
-      <Panel title="The idea">
+      <Panel title="Data and method">
         <p className="max-w-3xl text-[17px] leading-relaxed">
-          Learn from the directions Frankfurt <b>actually flew</b>, using only what a forecaster could have known at the time,
-          and beat FraAlliance&apos;s own rules. Every step below was tested on months the model never saw.
+          The model uses recorded directions and archived weather forecasts. Results are compared with FraAlliance&apos;s rules and persistence on held-out months.
         </p>
       </Panel>
 
@@ -136,7 +132,7 @@ export default function Approach() {
         </ol>
       </Panel>
 
-      <Panel title="How we iterated">
+      <Panel title="Experiments">
         <ol className="space-y-2">
           {STEPS.map((s) => (
             <li key={s.id} className="grid gap-x-4 gap-y-1 rounded-xl border border-line p-3 sm:grid-cols-[56px_1fr_1fr]">
@@ -161,59 +157,46 @@ export default function Approach() {
         <div className="mt-3 flex flex-wrap gap-3 text-xs text-muted">
           <span>
             <span className="mr-1 inline-block size-2 rounded-full bg-ok" />
-            improved the model
+            model changes
           </span>
           <span>
             <span className="mr-1 inline-block size-2 rounded-full bg-accent" />
-            taught us something
+            comparisons
           </span>
           <span>
             <span className="mr-1 inline-block size-2 rounded-full bg-east" />
-            kept us honest
+            data and validation checks
           </span>
         </div>
       </Panel>
 
-      <Panel title="How we validated">
+      <Panel title="Validation">
         <div className="grid gap-5 lg:grid-cols-[3fr_2fr]">
           <div>
-            <div className="mb-2 text-sm font-semibold">Walk-forward: 12 monthly folds, Nov 2025 to Oct 2026</div>
-            <div className="space-y-1">
-              {FOLDS.map((m, i) => (
-                <div key={m} className="grid grid-cols-[40px_1fr] items-center gap-2 text-xs">
-                  <span className="text-muted">{m}</span>
-                  <div className="flex h-3 gap-px">
-                    <div className="rounded-l bg-west-soft" style={{ width: `${40 + i * 4.5}%` }} />
-                    <div className="rounded-r bg-accent" style={{ width: "4.5%" }} />
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="mt-2 text-xs text-muted">
-              Pale: training data before the month (from 2018 for observations, 2024 for archived forecasts). Dark: the
-              month being tested.
-            </div>
+            <div className="mb-2 text-sm font-semibold">Walk-forward · 12 months, Nov 2025–Oct 2026</div>
+            <p className="text-sm text-ink-2">
+              Each test month uses a model trained on earlier data. Training expands as time advances.
+              Observations begin in 2018; archived forecasts begin in 2024.
+            </p>
           </div>
           <ul className="space-y-2 text-sm">
             <li>
-              <b>No hindsight:</b> forecasts are used as published, 6 h after each run starts, and the labels only once the
-              hour is over.
+              Forecasts enter after the six-hour publication delay; labels enter after the hour ends.
             </li>
             <li>
-              <b>No random cross-validation:</b> time only moves forward.
+              Training and test data are split in time order.
             </li>
             <li>
-              <b>Two baselines:</b> FraAlliance&apos;s official rules, and keeping the current direction.
+              Baselines: FraAlliance&apos;s rules and persistence.
             </li>
             <li>
-              <b>Uncertainty:</b> 95% confidence intervals by resampling whole days. McNemar test on accuracy,
-              Diebold-Mariano on Brier.
+              Confidence intervals resample whole days (95%). Accuracy uses McNemar&apos;s test; Brier scores use Diebold–Mariano.
             </li>
             <li>
-              <b>Honest probabilities:</b> a reliability check that stated chances match observed frequencies.
+              Reliability compares stated probabilities with observed frequencies.
             </li>
             <li>
-              <b>Same code path:</b> the jury command reproduces the backtest exactly.
+              The jury command matched the training path in the 144-row check above.
             </li>
           </ul>
         </div>

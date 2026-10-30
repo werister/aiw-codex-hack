@@ -9,7 +9,7 @@ Context: 6 hour hackathon (AI Week Codex hack). Speed matters, but `main` must a
 - **Stack:** Python 3.13 in `ml/` (pandas, scikit-learn) for data, labels, model, backtest and the forecast CLI. Next.js 16 + TypeScript + Tailwind 4 in `web/` (npm) for the ops timeline UI, deployed on Vercel from `web/`.
 - **Entry point:** `python -m ml.forecast --day YYYY-MM-DD` (CLI, first-class deliverable). Web: `web/src/app/page.tsx`.
 - **Run locally:** `python -m pip install -r ml/requirements.txt` then `python -m ml.forecast --day 2026-10-31`. Web: `cd web && npm install && npm run dev` (http://localhost:3000).
-- **Demo path:** open **Pitch mode** (`/pitch`): wind illustration, historical forecast with outcome reveal, then the separate aggregate evaluation. The cockpit (`/`) retains the 48 h timeline, jury-day picker and quality panel; show the model card (`MODEL_CARD.md`).
+- **Demo path:** open **Pitch mode** (`/pitch`): saved historical forecast with outcome reveal, then the separate aggregate evaluation. Display published values only; missing data stays unavailable. The cockpit (`/`) retains the 48 h timeline, jury-day picker and quality panel; show the model card (`MODEL_CARD.md`).
 - **Rules:** `ml/rules.json` holds the official FraAlliance limits. Contract between ML and UI: `web/src/lib/forecast-types.ts`.
 
 Keep this section current. If you change the stack, the run command or the entry point, update it in the same commit.

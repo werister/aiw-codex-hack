@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "result": "FAIL",
+  "scope": "illustrative web runtime paths against this Blender scene; not an operational clearance claim",
+  "evidence": {
+    "blend_file": "/Users/U751725/aiw-codex-hack/assets/airport/fra-airport.blend",
+    "blend_sha256": "178b16d2d5f3391b633b2bf529148731bc7e9e90873a6ccb7d2d15c9f4f71b4a",
+    "runtime_source": "/Users/U751725/aiw-codex-hack/web/src/lib/airport-traffic.ts",
+    "runtime_source_sha256": "a726a57097b0d64b7ea9237b15166688851e9bc4203bf979d18425f0550d9959",
+    "browser_manifest": "/Users/U751725/aiw-codex-hack/web/public/models/airport/manifest.json",
+    "browser_manifest_sha256": "0fcf1eb726cf721cb160f80857932f10c73f064c4be7f379cd1199bead674b63",
+    "assets_manifest_sha256": "0fcf1eb726cf721cb160f80857932f10c73f064c4be7f379cd1199bead674b63",
+    "node_sample_file": "/private/tmp/fra-runtime-samples.json",
+    "node_sample_sha256": "35373ee672506969722c48611b8724f4903fb8bc12c772a99e6e9cb6734fdad6",
+    "blender_version": "5.2.3 LTS",
+    "scene": "FRA \u00b7 Airport demonstration",
+    "state_count": 4,
+    "role_count": 4,
+    "samples_per_state_role": 1200,
+    "total_runtime_samples": 19200
+  },
+  "surface_geometry": {
+    "Surface.TaxiApron": {
+      "top_triangles": 257,
+      "z_min": 1.85,
+      "z_max": 1.85
+    },
+    "Runway.north": {
+      "top_triangles": 1296,
+      "z_min": 1.7,
+      "z_max": 2.425
+    },
+    "Runway.center": {
+      "top_triangles": 1704,
+      "z_min": 1.7,
+      "z_max": 2.425
+    },
+    "Runway.south": {
+      "top_triangles": 1516,
+      "z_min": 1.7,
+      "z_max": 2.425
+    },
+    "Runway.west": {
+      "top_triangles": 1150,
+      "z_min": 1.7,
+      "z_max": 2.425
+    }
+  },
+  "semantic_obstacles": 25,
+  "ground_surface_check": {
+    "height_threshold_m": 4.0,
+    "samples_checked": 0,
+    "misses": 0,
+    "coverage_percent": 0,
+    "miss_examples": []
+  },
+  "runtime_states": [],
+  "closed_runway18_ground_hits": {
+    "OD25": 0,
+    "OD07": 0
+  },
+  "open_runway18_ground_hits": {
+    "OD25": 0,
+    "OD07": 0
+  },
+  "direction_checks": {},
+  "static_obstacle_collisions": {
+    "count": 0,
+    "examples": []
+  },
+  "aircraft_hull_collisions": {
+    "count": 0,
+    "examples": []
+  },
+  "minimum_clearance": [],
+  "failures": [
+    "checker raised AttributeError: 'tuple' object has no attribute 'items'"
+  ],
+  "elapsed_seconds": 3.49
+}

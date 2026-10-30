@@ -3,15 +3,15 @@ import { Arrow } from "./ui";
 
 const STEPS = [
   {
-    title: "Public weather data",
-    line: "Weather forecasts and airport weather reports, free for anyone.",
+    title: "Weather data",
+    line: "Weather forecasts and airport reports.",
     icon: (
       <path d="M14 30h20a7 7 0 0 0 0-14 10 10 0 0 0-19-2A8 8 0 0 0 14 30Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
     ),
   },
   {
-    title: "Our forecast",
-    line: "West or east for every hour of the next 2 days, and how sure we are.",
+    title: "Direction forecast",
+    line: "A runway direction, runway 18 probability and certainty score for each hour.",
     icon: (
       <>
         <circle cx="24" cy="24" r="14" stroke="currentColor" strokeWidth="1.5" />
@@ -20,8 +20,8 @@ const STEPS = [
     ),
   },
   {
-    title: "Your plan",
-    line: "Staff, slots and runway changes prepared in time, not in a rush.",
+    title: "Review",
+    line: "Check forecast changes before your shift.",
     icon: (
       <>
         <rect x="12" y="10" width="24" height="28" rx="4" stroke="currentColor" strokeWidth="1.5" />
@@ -31,7 +31,6 @@ const STEPS = [
   },
 ];
 
-// Three steps, no jargon.
 export function HowItWorks() {
   return (
     <section className="border-t border-line py-16 sm:py-20" aria-label="How it works">
@@ -55,7 +54,7 @@ export function HowItWorks() {
         ))}
       </ol>
       <Link href="/pitch" className="pill-btn mt-12 bg-accent text-accent-ink [--btn-ring:var(--accent)]">
-        See a real day replayed <Arrow />
+        View a historical forecast <Arrow />
       </Link>
     </section>
   );

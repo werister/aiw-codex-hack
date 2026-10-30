@@ -83,8 +83,8 @@ def test_change_timing_counts_missed_changes():
     issue = pd.Timestamp("2026-05-01T00:00Z")
     forecast = pd.DataFrame({"issue_time": issue, "time": pd.date_range(issue + pd.Timedelta(hours=1), periods=48, freq="h"),
                              "lead_h": range(1, 49), "od_at_issue": 1, "p_od25": 0.9})
-    actual = pd.DataFrame({"time": pd.date_range(issue + pd.Timedelta(minutes=30), periods=96, freq="30min"),
-                           "od": ["25"] * 11 + ["07"] * 85})
+    actual = pd.DataFrame({"time": pd.date_range(issue, periods=97, freq="30min"),
+                           "od": ["25"] * 12 + ["07"] * 85})
     result = next_change_timing(forecast, actual)
     assert result["n_actual_change_windows"] == 1
     assert result["within_1h"] == result["within_3h"] == 0
@@ -105,7 +105,8 @@ def test_blend_validation_purges_crossing_labels(monkeypatch):
     frame = pd.DataFrame([{**{feature: 0 for feature in FEATURES}, "issue_time": issue,
                             "time": issue + pd.Timedelta(hours=lead),
                             "label_available_at": issue + pd.Timedelta(hours=lead + 1),
-                            "lead_h": lead, "y_od": 1} for issue in issues for lead in (1, 6, 24, 48)])
+                            "lead_h": lead, "y_od": 1, "y_r18": 1, "persistence_18": 1}
+                          for issue in issues for lead in (1, 6, 24, 48)])
     fits = []
 
     def capture_fit(rows):

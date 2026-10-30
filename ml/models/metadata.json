@@ -1,5 +1,5 @@
 {
-  "version": "walk-forward-v5",
+  "version": "walk-forward-v6",
   "features": [
     "od_at_issue",
     "hours_since_change",
@@ -52,21 +52,50 @@
   "r18_label_type": "inferred",
   "od_model_weight": {
     "1:night": 0.0,
-    "1:calm": 0.7,
-    "1:active": 1.0,
-    "6:night": 0.6,
-    "6:calm": 0.9,
-    "6:active": 1.0,
-    "24:night": 1.0,
+    "1:calm": 0.2,
+    "1:active": 0.2,
+    "6:night": 0.3,
+    "6:calm": 0.7,
+    "6:active": 0.4,
+    "24:night": 0.7,
     "24:calm": 1.0,
-    "24:active": 1.0,
-    "48:night": 1.0,
-    "48:calm": 1.0,
-    "48:active": 1.0
+    "24:active": 0.7,
+    "48:night": 0.8,
+    "48:calm": 0.9,
+    "48:active": 0.8
   },
   "od_blend_validation_period": {
     "start": "2026-08-28T22:00:00+00:00",
     "end": "2026-10-27T17:00:00+00:00"
+  },
+  "od_training_label_policy": "all-recorded",
+  "r18_model_weight": {
+    "1": 1.0,
+    "6": 1.0,
+    "24": 1.0,
+    "48": 1.0
+  },
+  "r18_blend_validation_period": {
+    "start": "2026-08-28T22:00:00+00:00",
+    "end": "2026-10-27T11:00:00+00:00"
+  },
+  "r18_blend_validation_support": {
+    "1": {
+      "n": 179,
+      "closed_rows": 0
+    },
+    "6": {
+      "n": 860,
+      "closed_rows": 0
+    },
+    "24": {
+      "n": 3100,
+      "closed_rows": 0
+    },
+    "48": {
+      "n": 4094,
+      "closed_rows": 0
+    }
   },
   "publication_lag_h": 6
 }

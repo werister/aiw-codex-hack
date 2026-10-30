@@ -5,6 +5,7 @@ import { BrandLogo } from "./BrandLogo";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { ForecastResponse } from "@/lib/forecast-types";
 import { EvidenceChain } from "./EvidenceChain";
+import { ForecastEvents } from "./ForecastEvents";
 import { HourDetail } from "./HourDetail";
 import { PlanningPriorities } from "./PlanningPriorities";
 import { ForecastAssistant } from "./ForecastAssistant";
@@ -28,7 +29,7 @@ export async function loadOptions(): Promise<Option[]> {
     if (!r.ok) throw new Error();
     const idx: { latest?: string; days?: string[] } = await r.json();
     const opts: Option[] = [];
-    if (idx.latest) opts.push({ label: "Live · next 48 h", file: idx.latest });
+    if (idx.latest) opts.push({ label: "Latest forecast", file: idx.latest });
     for (const d of idx.days ?? []) opts.push({ label: `${dayLabel(d + "T00:00")} (past day)`, file: `${d}.json` });
     if (opts.length) return opts;
   } catch {}
@@ -83,6 +84,7 @@ export function ForecastApp() {
   const [sel, setSel] = useState(0);
   const [evidenceOpen, setEvidenceOpen] = useState(false);
   const evidenceRef = useRef<HTMLDivElement>(null);
+  const expertRef = useRef<HTMLDetailsElement>(null);
   const h = f?.hours[Math.min(sel, (f?.hours.length ?? 1) - 1)];
   const hits = useMemo(() => {
     if (!f?.observed?.length) return null;
@@ -96,6 +98,12 @@ export function ForecastApp() {
     if (!f) return;
     const i = f.hours.findIndex((x) => x.time === planFrom(f).time);
     setSel(Math.max(0, i));
+  };
+
+  const inspectHour = (index: number) => {
+    setSel(index);
+    if (expertRef.current) expertRef.current.open = true;
+    document.getElementById("timeline")?.scrollIntoView({ block: "start" });
   };
 
   return (
@@ -147,15 +155,16 @@ export function ForecastApp() {
 
       {f && h && (
         <>
-          <PlainHero f={f} />
+          <PlainHero f={f} selected={sel} onSelectHour={setSel} />
+          <ForecastEvents f={f} onSelectHour={inspectHour} />
           <Numbers />
           <HowItWorks />
 
-          <details className="group border-t border-line py-8">
+          <details ref={expertRef} className="group border-t border-line py-8">
             <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
               <span>
-                <span className="block text-[24px] font-light">For experts</span>
-                <span className="text-[15px] text-muted">Hour by hour, runway 18, evidence, model quality and data sources</span>
+                <span className="block text-[24px] font-light">Forecast details</span>
+                <span className="text-[15px] text-muted">Hourly data, model results and sources</span>
               </span>
               <svg viewBox="0 0 12 8" className="h-2.5 w-4 shrink-0 transition-transform duration-300 group-open:rotate-180" fill="none" aria-hidden>
                 <path d="m1 1.5 5 5 5-5" stroke="currentColor" />
@@ -164,10 +173,7 @@ export function ForecastApp() {
 
             <div className="mt-8 flex flex-col gap-2.5">
               <section id="planning-priorities" className="scroll-mt-4">
-                <PlanningPriorities f={f} file={file} onSelectHour={(index) => {
-                  setSel(index);
-                  document.getElementById("timeline")?.scrollIntoView({ block: "start" });
-                }} />
+                <PlanningPriorities f={f} file={file} onSelectHour={inspectHour} />
               </section>
               <div className="py-2">
                 <Provenance f={f} />
@@ -182,7 +188,7 @@ export function ForecastApp() {
               />
               <section id="timeline" className="scroll-mt-4">
                 <Panel
-                  title="Next 48 hours"
+                  title={`Forecast · ${f.hours.length} hourly entries`}
                   aside={
                     <span className="text-[13px] text-muted">
                       {hits ? `${hits.ok} of ${hits.n} recorded hours match · ` : ""}tap an hour
@@ -209,7 +215,7 @@ export function ForecastApp() {
               <ForecastAssistant key={`${file}:${f.issued_at}:${h.time}`} f={f} h={h} />
               <QualityPanel />
               <Link href="/approach" className="pill-btn mt-2 self-start border border-line text-ink [--btn-ring:var(--line)]">
-                How we built it <Arrow />
+                Method and evaluation <Arrow />
               </Link>
             </div>
           </details>

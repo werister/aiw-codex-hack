@@ -30,8 +30,14 @@ Main at 14:50 runs: `python -m pytest ml/tests -q` gives 54 passed (14:37). Lint
 
 ## FYI
 
+<<<<<<< HEAD
 - 14:50 | FYI | `aiw-wt-ml` has an uncommitted change to `ml/rules.py` and `ml/features.py` since 14:33 (variable-direction wind counts runway 18 as usable when the mean wind is under 15 kt and the peak at most 40 kt). It matches the official limits. Land it or drop it before the final forecasts | `aiw-wt-ml` | model lane
 - 14:16 | FYI | User-approved shift-planning implementation in progress: event overview owns Hero/Recommendation/ForecastEvents and forecast-events; handover owns ForecastAssistant/forecast-explanation; demo owns pitch components/pitch-replay/runway18-demo; head agent owns ForecastApp/Widget and WP5/docs. Preserve these edits; staging and commits are serialized by this head agent | shared main, `web/`, WP5 | shift-planning lane
+=======
+- 14:56 | FYI | User approved a Windy test-only connection command. This lane owns new ml/windy.py and ml/tests/test_windy.py, plus narrow .env.example and ml/README.md additions. Modified Testing-tier weather will not enter forecasts, training or the UI; existing ML/UI owners retain their files. Git operations remain serialized | ml/windy.py | Windy integration lane
+
+- 14:52 | FYI | Shift-planning integration follows the new PlainHero/expert layout and published-values-only pitch. Parent owns ForecastApp event navigation and WP5 section 8/docs; one worker owns PlainHero selected-hour/time-label adaptation; handover helper is now frozen with 13 passing regressions. Preserve these edits. Final shared build and current-main browser verification pending; no rebase during active writes | shared main, web/, WP5 | shift-planning lane
+>>>>>>> 5d880fc (Refactor PitchApp component for clarity and updated terminology)
 
 
 - 13:29 | FYI | Publishing checkpoint: finish only the currently running airport rebuild and logo checks, then stop all source writes until the integration coordinator completes fetch/rebase/push. The user explicitly requests all work on main and publication; do not start another change during this checkpoint | shared main | all active file owners
@@ -70,5 +76,14 @@ Main at 14:50 runs: `python -m pytest ml/tests -q` gives 54 passed (14:37). Lint
 
 - 14:33 | FIX | suspect_od_runs raises MergeError on committed truth/METAR inputs with pandas 3: datetime64[us, UTC] versus datetime64[ns, UTC]. Isolated reproduction at 40af4ef; normalize keys at this merge boundary | `ml/quality.py:20` | algorithm implementation lane
 
-- 14:33 | FIX | Overlapping ownership claims for ForecastAssistant and forecast-explanation: the existing interaction lane has edits in flight while the shift-planning handover lane claims the same files. Reserve one writer per file and preserve both pending changes before staging; the monitor will not rebase this active tree | `web/src/components/ForecastAssistant.tsx`, `web/src/lib/forecast-explanation.ts` and its test | interaction and shift-planning owners
 - 14:40 | FIX | Current full web typecheck fails at PitchApp.tsx:218: number is not assignable to 1|6|24|48. New 3D renderer lint is clean; this independent pitch edit blocks a clean global tsc run | web/src/components/pitch/PitchApp.tsx:218 | pitch owner
+
+
+
+- 14:55 | FYI | Synthetic-value removal is ready locally: pitch fixture step, estimated savings, score count-up, API selection-confidence display and fabricated fold widths removed; missing scores stay unavailable. Typecheck, targeted lint, 22 logic tests and cockpit/widget/pitch/missing-day browser checks passed. Production builds remain unverified: default build failed on a denied CSS-compiler port; Webpack retry failed resolving the font host. No app or deploy configuration changed. Preserve narrow patches in Numbers/QualityPanel/PitchApp/Recommendation/EvidenceChain/PlanningPriorities/approach and docs; no Git mutation while integration lock is owned | web | data-display lane / integration owner
+
+- 14:58 | FYI | ML v6 completed all 12 chronological test months and 93 ML tests in isolation. User requests a shared commit with a beginner explanation. Coherent model/forecast refresh is finishing; this lane will publish only its ML sources, artifacts, contract and ML_VERBESSERUNGEN.md. Preserve the data-display lane's QualityPanel changes. New forecasts invalidate planning-review bases; those reviews must be regenerated against v6 | ml; web/public/data; web/public/forecasts | algorithm implementation lane
+
+- 14:59 | FIX | Deck review at 587dec9: slides 7/9 label model_change_acc as individual changes flagged, but ml/quality.py:41-42 scores target-hour direction on windows containing a change; RESULTS.md then converts 82% vs 28% into additional annual events for the money estimate. Reconcile this claim and the conflicting 3:35 deck notes versus 2/3/5-minute cue/script versions before presenting | web/public/deck/index.html, NOTES.md, presentation-script.md, RESULTS.md | pitch owners: Jayden, Hugo, Luca
+
+- 15:00 | FYI | User requests plain UI copy. Copy lane owns text-only patches in PitchApp, HowItWorks, approach, PlainHero, ForecastApp, ForecastAssistant, PlanningPriorities, Recommendation, DirectionBand and QualityPanel. Preserve forecast calculations, provenance and concurrent UI integration. No Git mutation during held integration lock | web/src | copy lane

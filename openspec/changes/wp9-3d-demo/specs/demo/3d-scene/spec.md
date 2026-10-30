@@ -6,6 +6,15 @@ Show how the selected Frankfurt Airport forecast hour maps to operating directio
 
 ## ADDED Requirements
 
+### Requirement: Crafted map-like 3D presentation
+
+The scene SHALL present recognizable Frankfurt Airport landmarks and aircraft in a high-fidelity, simplified map style, with restrained materials and smoothly rendered forms. It SHALL use antialiasing and SHALL not use comic styling.
+
+#### Scenario: Airport scene renders in the browser
+
+- **WHEN** the airport model and scene are ready
+- **THEN** terminal, tower, runways, and aircraft silhouettes are smooth at the displayed size, with no jagged edges or visible geometry gaps
+
 ### Requirement: Selected forecast hour drives the scene
 
 The scene SHALL render the model OD, the runway-18 state derived from the selected hour's `p_18_usable` at the 50% threshold, and that hour's forecast wind. When a selected hour is supplied, the scene SHALL identify its Berlin local time and lead, show the model's runway-18 probability and certainty, and state that the binary display uses the 50% threshold. Traffic SHALL be labelled illustrative.

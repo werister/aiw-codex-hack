@@ -10,4 +10,4 @@ The existing FraAlliance tokens and component rules in `DESIGN.md` remain the vi
 
 The selected hour is shared by the scrubber, timeline, runway view and guide. Changing the forecast or hour starts a fresh guide conversation. All displayed times use the supplied Europe/Berlin local values. Forecast loading, missing data and failures have explicit states; failed loads cannot retain a previous day's guide.
 
-The [preparation and handover workflow](SHIFT_PLANNING.md) adds simultaneous event tracks, a bounded six-hour briefing and a preparation-time replay. Source UTC hours determine ordering and repeated local hours retain their offsets. Synthetic runway-18 examples remain separate from historical and model-quality evidence.
+The [preparation and handover workflow](SHIFT_PLANNING.md) adds simultaneous event tracks, a bounded six-hour briefing and a preparation-time replay. Source UTC hours determine ordering and repeated local hours retain their offsets. The pitch uses saved historical forecasts and separate model-quality evidence; synthetic weather examples are not displayed.

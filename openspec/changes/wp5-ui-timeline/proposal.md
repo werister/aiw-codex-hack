@@ -22,7 +22,7 @@ Ops staff need to see in seconds what will change, when, and how sure we are.
 
 ## Scope
 
-Approved refinement, 30 October: support preparation and handover with simultaneous operating-direction and runway-18 event tracks, a deterministic six-hour briefing, and a historical preparation-time comparison. Reuse the existing hour selector, conversation runtime and pitch replay. Correct marginal-probability labels and remove unsupported operational firmness claims. A separate, visibly synthetic runway-18 weather-rule scenario demonstrates the restriction workflow when saved historical cases contain no restriction; it is excluded from evaluation and published forecasts.
+Approved refinement, 30 October: support preparation and handover with simultaneous operating-direction and runway-18 event tracks, a deterministic six-hour briefing, and a historical preparation-time comparison. Reuse the existing hour selector, conversation runtime and pitch replay. Correct marginal-probability labels and remove unsupported operational firmness claims. Following the later published-values-only decision, the pitch contains saved historical forecasts and separate aggregate evaluation; synthetic restriction fixtures remain confined to development checks.
 
 The delivered screen supports planning with forecast data. Live ATC integration, aircraft-position feeds and operational controls are outside WP5. The WP5 schematic traffic animation must be labelled `SIMULATION`; WP9 owns optional 3D and drops it if not ready by 15:00.
 

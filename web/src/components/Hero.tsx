@@ -34,7 +34,7 @@ export function Hero({
           <DirectionBand f={f} compact={compact} />
 
           <div className="mt-6 border-t border-line pt-4">
-            <p className="eyebrow text-muted">Supplied next-change forecast</p>
+            <p className="eyebrow text-muted">Next forecast change</p>
             {nc ? (
               <>
                 <p className={cx("mt-2 font-light leading-tight", compact ? "text-[24px]" : "text-[26px] sm:text-[32px]")}>
@@ -47,12 +47,12 @@ export function Hero({
                   P(OD {nc.to} at this hour) · {pct(nc.p)}
                 </p>
                 <p className="mt-1 text-[12px] leading-snug text-muted">
-                  Supplied Europe/Berlin window: {formatLocal(nc.window_local[0])}–{formatLocal(nc.window_local[1])}
+                  Forecast window (Berlin): {formatLocal(nc.window_local[0])}–{formatLocal(nc.window_local[1])}
                 </p>
               </>
             ) : (
               <p className="mt-2 text-[14px] leading-snug text-muted">
-                No next-change window was supplied. Direction transitions from the hourly calls are listed below.
+                No change window in this forecast. See hourly changes below.
               </p>
             )}
           </div>
@@ -60,7 +60,7 @@ export function Hero({
           {onEvidence && (
             <div className="mt-6 flex flex-wrap gap-2">
               <button type="button" onClick={onEvidence} className="pill-btn bg-accent text-accent-ink [--btn-ring:var(--accent)]">
-                Why? See evidence <Arrow />
+                View evidence <Arrow />
               </button>
               <a href="#timeline" className="pill-btn border border-line text-ink [--btn-ring:var(--line)]">
                 Forecast timeline

@@ -37,6 +37,8 @@ export interface HourInputs {
   blend_key: string; // e.g. "6:night"
   blend_weight: number;
   p_od25_raw: number;
+  p_18_usable_raw?: number | null;
+  r18_blend_weight?: number | null;
 }
 
 // Run-level evidence: which artifact and inputs produced this file.
@@ -55,7 +57,7 @@ export interface ForecastEvidence {
     od_source: string;
     hours_since_change: number | null;
   };
-  sources: { name: string; issued_at?: string; available_at: string; missing?: boolean }[];
+  sources: { name: string; issued_at?: string; retrieved_at?: string; available_at: string; missing?: boolean }[];
 }
 
 export interface NextChange {
@@ -135,7 +137,19 @@ export interface QualityResult {
   in_sample: { od: SkillAtLead[]; r18: SkillAtLead[] };
   out_of_sample: { od: SkillAtLead[]; r18: SkillAtLead[] };
   reliability: { od: ReliabilityBin[]; r18?: ReliabilityBin[] };
-  next_change: { within_1h: number | null; within_3h: number | null; false_alarm_rate: number | null; n_actual_change_windows: number };
+  next_change: {
+    within_1h: number | null; within_3h: number | null; false_alarm_rate: number | null;
+    n_actual_change_windows: number; n_no_change_windows?: number; excluded_incomplete_windows?: number;
+  };
+  od_change_events?: {
+    n_actual_events: number; n_matched_events: number; event_recall: number | null;
+    n_false_alarm_clusters: number; false_alarms_per_exposure_day: number | null;
+    median_warning_lead_h: number | null; tolerance_h: number;
+  };
+  r18_events?: {
+    horizon_h: number; n_issues: number; n_positive_issue_windows: number | null; excluded_issues: number;
+    model: { hits: number; misses: number; false_alarms: number; recall: number | null };
+  }[];
   rule_label_comparison: { n: number; agreement: number };
   data_sources: { name: string; url: string; file?: string }[];
   limitations: string[];

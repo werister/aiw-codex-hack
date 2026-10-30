@@ -40,7 +40,7 @@ export function EvidenceChain({
         ["Mode", f.mode === "live" ? "Live forecast" : "Historical forecast"],
         ["Issued", `${dayLabel(f.issued_local)} ${hhmm(f.issued_local)}`],
         ["Model", f.model_version],
-        ["Weather and records, as the file names them", f.nwp],
+        ["Weather and observation sources", f.nwp],
         ["OD at issue", `${f.current_od} ${OD_LABEL[f.current_od]}${ev ? ` · ${ev.issue_inputs.od_source}` : ""}`],
         ["Run ID", ev?.run_id ?? NOT_RECORDED],
         [
@@ -93,14 +93,14 @@ export function EvidenceChain({
       ],
     },
     {
-      title: "Planning response",
+      title: "Forecast summary",
       summary: planHeadline(plan),
       rows: [
         ["Window", planWindow(plan)],
         [probLabel(plan), plan.kind === "hold" && !plan.hasHours ? "Unavailable" : pct(plan.p)],
-        [plan.kind === "hold" ? "Lowest supplied certainty score" : "Certainty at event hour", `${plan.kind === "hold" && !plan.hasHours ? "Unavailable" : `${plan.certainty}/100`}. ${CERTAINTY_DEF}`],
+        [plan.kind === "hold" ? "Lowest hourly certainty score" : "Certainty at event hour", `${plan.certainty == null || !Number.isFinite(plan.certainty) ? "Unavailable" : `${plan.certainty}/100`}. ${CERTAINTY_DEF}`],
         ["Traffic", "demand data unavailable"],
-        ["Policy", PLAN_POLICY],
+        ["Summary method", PLAN_POLICY],
       ],
     },
   ];
@@ -125,7 +125,7 @@ export function EvidenceChain({
       <div className="mb-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-[15px]">
         <span>
           <span className="text-muted">Recommendation for </span>
-          {planHour ? `${dayLabel(planHour.local)} ${hhmm(planHour.local)}` : "the supplied forecast coverage"}
+          {planHour ? `${dayLabel(planHour.local)} ${hhmm(planHour.local)}` : "the available forecast hours"}
         </span>
         <span className={cx(!atPlan && "font-medium")}>
           <span className="text-muted">Inspecting </span>
@@ -133,7 +133,7 @@ export function EvidenceChain({
         </span>
         {!atPlan && (
           <button type="button" onClick={onReturn} className="pill-btn bg-accent text-accent-ink [--btn-ring:var(--accent)]">
-            Return to recommendation evidence
+            View summary hour
           </button>
         )}
       </div>
@@ -165,8 +165,7 @@ export function EvidenceChain({
         ))}
       </ol>
       <p className="mt-4 text-[13px] text-muted">
-        Values come from this forecast file. Features, model and rules, and forecast follow the selected hour;
-        the planning response summarizes the earliest supplied event or the available coverage.
+        Values come from this forecast file. Inputs and predictions follow the selected hour; the summary covers the first event or the available time range.
       </p>
     </Panel>
   );
