@@ -6,24 +6,26 @@ export function NowPanel({ f, compact }: { f: ForecastResponse; compact?: boolea
   const first = f.hours[0];
   const r18Open = first.p_18_usable >= 0.5;
   const nextClosure = f.closures_18[0];
+  // Closure still running at the last hour: its end is not known.
+  const openEnded = !!nextClosure && f.hours[f.hours.length - 1].p_18_usable < 0.5 && nextClosure === f.closures_18[f.closures_18.length - 1];
   const nc = f.next_change;
-  const big = compact ? "text-[64px]" : "text-[64px] sm:text-[88px]";
+  const big = compact ? "text-[56px]" : "text-[64px] sm:text-[88px]";
   const value = cx(big, "leading-[0.95] tracking-[-0.03em] tabular");
 
   return (
     <div className="grid gap-2.5 md:grid-cols-3">
-      <Tile label="Operating direction" compact={compact} className={cx(odBg(f.current_od), "text-on-signal")}>
+      <Tile label="Operating direction at issue" compact={compact} className={cx(odBg(f.current_od), "text-on-signal")}>
         <div className={value}>
           {f.current_od}{" "}
           <span className="text-[28px] font-light tracking-normal sm:text-[34px]">{OD_LABEL[f.current_od]}</span>
         </div>
         <Sub>
-          {first.od === f.current_od ? "Holding" : `Turning to ${first.od}`} · confidence {first.certainty}%
+          {first.od === f.current_od ? "Forecast holds" : `Forecast ${first.od}`} at +1 h · certainty score {first.certainty}/100
         </Sub>
       </Tile>
 
       <Tile
-        label="Runway 18 departures"
+        label="Runway 18 departures · next hour"
         compact={compact}
         className={r18Open ? "bg-ok-soft text-ink" : "bg-bad text-on-signal"}
       >
@@ -33,8 +35,8 @@ export function NowPanel({ f, compact }: { f: ForecastResponse; compact?: boolea
         </div>
         <Sub>
           {nextClosure
-            ? `${r18Open ? "Closes" : "Closed"} ${dayLabel(nextClosure.local_start)} ${hhmm(nextClosure.local_start)}–${hhmm(nextClosure.local_end)}`
-            : `Open for the next 48 h · P(usable) ${pct(first.p_18_usable)}`}
+            ? `Likely unusable ${dayLabel(nextClosure.local_start)} ${hhmm(nextClosure.local_start)}${openEnded ? ", reopening unknown" : `–${hhmm(nextClosure.local_end)}`}`
+            : `P(usable) ${pct(first.p_18_usable)} at ${hhmm(first.local)} · no closure in this forecast`}
         </Sub>
       </Tile>
 
@@ -44,18 +46,18 @@ export function NowPanel({ f, compact }: { f: ForecastResponse; compact?: boolea
             <div className={value}>{hhmm(nc.local)}</div>
             <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 text-[20px] leading-none">
               <span className={cx("rounded-full px-3 py-1.5 text-[15px] text-on-signal", odBg(nc.to))}>
-                to {nc.to} {OD_LABEL[nc.to]}
+                {nc.to} {OD_LABEL[nc.to]} from {hhmm(nc.local)}
               </span>
-              <span className="tabular">{pct(nc.p)} likely</span>
+              <span className="tabular">{pct(nc.p)}</span>
             </div>
             <Sub>
-              {dayLabel(nc.local)} · window {hhmm(nc.window_local[0])}–{hhmm(nc.window_local[1])}
+              P({nc.to}) at {hhmm(nc.local)} {dayLabel(nc.local)} · window {hhmm(nc.window_local[0])}–{hhmm(nc.window_local[1])}
             </Sub>
           </>
         ) : (
           <>
             <div className={cx(value, "font-light")}>None</div>
-            <Sub>No change expected in the next 48 h</Sub>
+            <Sub>No direction change predicted within this forecast</Sub>
           </>
         )}
       </Tile>
@@ -77,8 +79,8 @@ function Tile({
   return (
     <div
       className={cx(
-        "flex flex-col justify-between gap-6 rounded-card p-5 transition-colors duration-300 sm:p-6",
-        compact ? "min-h-[176px]" : "min-h-[200px] sm:min-h-[240px]",
+        "flex flex-col justify-between rounded-card p-5 transition-colors duration-300",
+        compact ? "min-h-[150px] gap-3" : "min-h-[200px] gap-6 sm:min-h-[240px] sm:p-6",
         className,
       )}
     >
