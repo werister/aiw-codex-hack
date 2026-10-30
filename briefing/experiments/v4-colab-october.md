@@ -31,6 +31,8 @@ At 48 hours, Brier scores were 0.22694 original blend, 0.22393 Extra Trees, and 
 - The real-data probe found one 103-hour flagged interval, entirely in October, with **0 crossings** of either the v4 or v5 fold boundaries. The coordinator reran the probe. No current fold-score effect from this boundary mechanism was demonstrated.
 - Opus also identified repeated feature/hyperparameter selection on the evaluation months in the experiment log. Reported walk-forward performance should not be presented as an untouched final test; its selection-bias magnitude is not measured.
 
+- Kiro's v5 checks were independently rerun at `a601b77e43e3d78e3209d201077c7469d8b6271a`: existing forecast CLI tests plus seven scratch checks, **27 passed, 0 failed**. Checks cover actual artifact hashes/feature ordering, required-wind rejection, future-METAR exclusion, and repeated inference-to-evidence run IDs using synthetic inputs. This is a separate v5 contract check, not a v5 accuracy experiment. Environment: scikit-learn 1.7.2, pandas 3.1.0, NumPy 2.5.4; deprecation warnings occurred. Named DataFrame column permutation is rejected; a deliberately permuted bare array changes predictions, but production inference currently passes correctly ordered named columns. Full CLI-process/UI replay and a complete identity contract were not proved by these checks.
+
 ## Inferred
 
 A different classifier or naive averaging is not enough on this slice. The more distinct next research move is learning change-event risk, **after F19 defines the event target and missing-window rules**. Chronological probability calibration is a smaller separate candidate (F23), with calibration data disjoint from base fitting and final evaluation. Both can be tested on CPU Colab.
