@@ -7,16 +7,16 @@ import type { ForecastResponse } from "@/lib/forecast-types";
 import { EvidenceChain } from "./EvidenceChain";
 import { HourDetail } from "./HourDetail";
 import { ForecastAssistant } from "./ForecastAssistant";
-import { Hero } from "./Hero";
+import { HowItWorks } from "./HowItWorks";
 import { Numbers } from "./Numbers";
+import { PlainHero } from "./PlainHero";
+import { Provenance } from "./Provenance";
 import { QualityPanel } from "./QualityPanel";
-import { planFrom } from "./Recommendation";
-import { RunwayMap } from "./RunwayMap";
-import { SceneHero } from "./SceneHero";
+import { Recommendation, planFrom } from "./Recommendation";
 import { Timeline } from "./Timeline";
 import { TimeScrubber } from "./TimeScrubber";
 import { ThemeToggle } from "./ThemeToggle";
-import { Arrow, Panel, dayLabel, hhmm } from "./ui";
+import { Arrow, Panel, dayLabel } from "./ui";
 
 type Option = { label: string; file: string };
 
@@ -28,7 +28,7 @@ export async function loadOptions(): Promise<Option[]> {
     const idx: { latest?: string; days?: string[] } = await r.json();
     const opts: Option[] = [];
     if (idx.latest) opts.push({ label: "Live · next 48 h", file: idx.latest });
-    for (const d of idx.days ?? []) opts.push({ label: `${dayLabel(d + "T00:00")} (hindcast)`, file: `${d}.json` });
+    for (const d of idx.days ?? []) opts.push({ label: `${dayLabel(d + "T00:00")} (past day)`, file: `${d}.json` });
     if (opts.length) return opts;
   } catch {}
   return [{ label: "Sample forecast", file: "sample.json" }];
@@ -129,9 +129,6 @@ export function ForecastApp() {
           <Link href="/pitch" className="pill-btn border border-line">
             Pitch mode
           </Link>
-          <Link href="/approach" className="pill-btn hidden border border-line text-ink [--btn-ring:var(--line)] md:inline-flex">
-            How we built it
-          </Link>
           <Link href="/widget" className="pill-btn hidden bg-accent text-accent-ink [--btn-ring:var(--accent)] sm:inline-flex">
             iPad <Arrow />
           </Link>
@@ -149,66 +146,68 @@ export function ForecastApp() {
 
       {f && h && (
         <>
-          <Hero
-            f={f}
-            scene={
-              <SceneHero
-                od={f.hours[0].od}
-                r18Open={f.hours[0].p_18_usable >= 0.5}
-                wind={f.hours[0].wind_dir_deg == null ? undefined : { dir: f.hours[0].wind_dir_deg, kt: f.hours[0].wind_kt }}
-                className="h-[340px] sm:h-[460px]"
-                fallback={
-                  <RunwayMap
-                    od={f.hours[0].od}
-                    r18Open={f.hours[0].p_18_usable >= 0.5}
-                    windDir={f.hours[0].wind_dir_deg}
-                    windKt={f.hours[0].wind_kt}
-                    label={`Forecast for ${hhmm(f.hours[0].local)} (+1 h)`}
-                  />
-                }
-              />
-            }
-            onEvidence={() => {
-              toPlanHour();
-              setEvidenceOpen(true);
-              evidenceRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-            }}
-          />
-
+          <PlainHero f={f} />
           <Numbers />
+          <HowItWorks />
 
-          <div className="flex flex-col gap-2.5">
-            <section id="timeline" className="scroll-mt-4">
-              <Panel
-                title="Next 48 hours"
-                aside={
-                  <span className="text-[13px] text-muted">
-                    {hits ? `${hits.ok} of ${hits.n} recorded hours match · ` : ""}tap an hour
-                  </span>
-                }
-              >
-                <TimeScrubber f={f} selected={sel} onSelect={setSel} />
-                <Timeline f={f} selected={sel} onSelect={setSel} />
-              </Panel>
-            </section>
+          <details className="group border-t border-line py-8">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
+              <span>
+                <span className="block text-[24px] font-light">For experts</span>
+                <span className="text-[15px] text-muted">Hour by hour, runway 18, evidence, model quality and data sources</span>
+              </span>
+              <svg viewBox="0 0 12 8" className="h-2.5 w-4 shrink-0 transition-transform duration-300 group-open:rotate-180" fill="none" aria-hidden>
+                <path d="m1 1.5 5 5 5-5" stroke="currentColor" />
+              </svg>
+            </summary>
 
-            <HourDetail h={h} />
-
-            <div ref={evidenceRef} className="scroll-mt-4">
-              <EvidenceChain
+            <div className="mt-8 flex flex-col gap-2.5">
+              <div className="py-2">
+                <Provenance f={f} />
+              </div>
+              <Recommendation
                 f={f}
-                h={h}
-                open={evidenceOpen}
-                onToggle={() => setEvidenceOpen((o) => !o)}
-                onReturn={toPlanHour}
+                onShowEvidence={() => {
+                  toPlanHour();
+                  setEvidenceOpen(true);
+                  evidenceRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
               />
+              <section id="timeline" className="scroll-mt-4">
+                <Panel
+                  title="Next 48 hours"
+                  aside={
+                    <span className="text-[13px] text-muted">
+                      {hits ? `${hits.ok} of ${hits.n} recorded hours match · ` : ""}tap an hour
+                    </span>
+                  }
+                >
+                  <TimeScrubber f={f} selected={sel} onSelect={setSel} />
+                  <Timeline f={f} selected={sel} onSelect={setSel} />
+                </Panel>
+              </section>
+
+              <HourDetail h={h} />
+
+              <div ref={evidenceRef} className="scroll-mt-4">
+                <EvidenceChain
+                  f={f}
+                  h={h}
+                  open={evidenceOpen}
+                  onToggle={() => setEvidenceOpen((o) => !o)}
+                  onReturn={toPlanHour}
+                />
+              </div>
+
+              <ForecastAssistant key={`${file}:${f.issued_at}:${h.time}`} f={f} h={h} />
+              <QualityPanel />
+              <Link href="/approach" className="pill-btn mt-2 self-start border border-line text-ink [--btn-ring:var(--line)]">
+                How we built it <Arrow />
+              </Link>
             </div>
+          </details>
 
-            <ForecastAssistant key={`${file}:${f.issued_at}:${h.time}`} f={f} h={h} />
-            <QualityPanel />
-          </div>
-
-          <footer className="mt-10 grid gap-4 border-t border-line pt-6 text-[13px] leading-relaxed text-muted md:grid-cols-[1fr_2fr]">
+          <footer className="mt-2 grid gap-4 border-t border-line pt-6 text-[13px] leading-relaxed text-muted md:grid-cols-[1fr_2fr]">
             <div className="tabular">
               Model {f.model_version}
               <br />
