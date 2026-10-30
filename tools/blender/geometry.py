@@ -136,12 +136,17 @@ def line(name, points, radius, mat, parent=None):
 
 
 def pavement(name, points, width, mat, parent=None):
-    for a,b in zip(points,points[1:]):
-        a,b=Vector(a),Vector(b)
-        side=Vector((b.y-a.y,a.x-b.x,0)).normalized()*width/2
-        mesh(name,[a-side,a+side,b+side,b-side],[(0,1,2,3)],mat,parent)
-    for point in points[1:-1]:
-        cylinder(name+' corner',point,width/2,.04,mat,parent,24)
+    # One continuous strip avoids overlapping discs and coplanar self-shadowing.
+    points=[Vector((x,y,z+.07)) for x,y,z in points]
+    normals=[Vector((b.y-a.y,a.x-b.x,0)).normalized() for a,b in zip(points,points[1:])]
+    verts=[]
+    for i,p in enumerate(points):
+        before=normals[max(0,i-1)];after=normals[min(i,len(normals)-1)]
+        direction=(before+after).normalized()
+        side=direction*(width/2/max(.3,direction.dot(before)))
+        verts.extend([p-side,p+side])
+    faces=[(i*2,i*2+1,i*2+3,i*2+2) for i in range(len(points)-1)]
+    return mesh(name,verts,faces,mat,parent)
 
 
 def text(name, body, loc, size, mat, parent=None, rotation=0):
@@ -254,18 +259,19 @@ def aircraft(name, m, wide=False):
             box('Door leaf',(x+s*.035,y,h+.10*k),(.035,.81*k,1.43*k),m['ivory'],r,.10*k)
             box('Door window',(x+s*.06,y,h+.53*k),(.035,.24*k,.29*k),m['glass'],r,.07*k)
         # Cockpit glazing follows the taper with separate windshield panes.
-        for a0,a1 in ((32,58),(61,82),(85,105)):
+        for a0,a1 in ((3,33),(36,55),(58,72)):
             verts=[];faces=[]
             for row in range(7):
-                yy=.390+row/6*.047
-                for lo,hi in zip(profile,profile[1:]):
-                    if lo[0]<=yy<=hi[0]:
-                        t=(yy-lo[0])/(hi[0]-lo[0])
-                        rr=lo[1]+(hi[1]-lo[1])*t
-                        zc=lo[2]+(hi[2]-lo[2])*t
-                        break
                 for col in range(7):
-                    a=math.radians(a0+(a1-a0)*col/6)*s
+                    deg=a0+(a1-a0)*col/6
+                    yy=.446-.075*(deg/72)+row/6*.024
+                    for lo,hi in zip(profile,profile[1:]):
+                        if lo[0]<=yy<=hi[0]:
+                            t=(yy-lo[0])/(hi[0]-lo[0])
+                            rr=lo[1]+(hi[1]-lo[1])*t
+                            zc=lo[2]+(hi[2]-lo[2])*t
+                            break
+                    a=math.radians(deg)*s
                     verts.append(((radius*rr+.025)*math.sin(a),length*yy,
                                   h+zc*radius+(radius*rr+.025)*math.cos(a)))
             for row in range(6):
@@ -372,7 +378,8 @@ def runway(name, m, length=4000, width=60, labels=('07C','25C'), heading=70):
             x=3+j*3.2
             for side in (-1,1):
                 box('Threshold piano key',(side*x,endy,.39),(1.8,30,.03),m['white'],markings)
-        text('Designator.'+label,label,(0,sign*(length/2-125),.41),25,m['white'],markings,0 if sign<0 else math.pi)
+        lettering=label[:2]+('\n'+label[2:] if len(label)>2 else '')
+        text('Designator.'+label,lettering,(0,sign*(length/2-125),.41),25,m['white'],markings,0 if sign<0 else math.pi)
         for dist in (300,450,600):
             for side in (-1,1):
                 box('Touchdown marking',(side*width*.27,sign*(length/2-dist),.39),

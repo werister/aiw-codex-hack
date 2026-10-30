@@ -1,0 +1,146 @@
+{
+  "assets": [
+    {
+      "file": "aircraft-narrowbody.glb",
+      "bytes": 1304604,
+      "sha256": "e248041d4cdd38e88dd304d694b9a07fada0a34657befa717babbc335b159a55",
+      "triangles_unique": 27380,
+      "mesh_nodes": 15,
+      "dimensions_blender_m": [
+        37.0,
+        37.5624,
+        11.5929
+      ],
+      "reimport": "passed",
+      "animation_clips": 0
+    },
+    {
+      "file": "aircraft-widebody.glb",
+      "bytes": 1742712,
+      "sha256": "5bd70a9d84a13a7841302c2602e2e2aa6ad8ee698db3a3150b7bb94f32cfbc26",
+      "triangles_unique": 36332,
+      "mesh_nodes": 15,
+      "dimensions_blender_m": [
+        63.0426,
+        63.936,
+        18.7585
+      ],
+      "reimport": "passed",
+      "animation_clips": 0
+    },
+    {
+      "file": "tower.glb",
+      "bytes": 4236368,
+      "sha256": "15c7f52cdfd70c26bbc3dcc230cfd71d6d1ff7cb82ffe7563d16b705086173ab",
+      "triangles_unique": 59800,
+      "mesh_nodes": 7,
+      "dimensions_blender_m": [
+        21.0,
+        18.0,
+        70.29
+      ],
+      "reimport": "passed",
+      "animation_clips": 0
+    },
+    {
+      "file": "runway-07L-25R.glb",
+      "bytes": 239356,
+      "sha256": "c46e321a97dd6654803dd96861e20318468362d094c30fb015df3344d5c0d9e6",
+      "triangles_unique": 4696,
+      "mesh_nodes": 4,
+      "dimensions_blender_m": [
+        60.0,
+        2820.0,
+        1.3250000000000002
+      ],
+      "reimport": "passed",
+      "animation_clips": 0
+    },
+    {
+      "file": "runway-07C-25C.glb",
+      "bytes": 308400,
+      "sha256": "68a6144133f9a587086a8ebab969496446d53ccb8fe46d09abe7cc5fd2bb8605",
+      "triangles_unique": 6156,
+      "mesh_nodes": 4,
+      "dimensions_blender_m": [
+        75.0,
+        4020.0,
+        1.3250000000000002
+      ],
+      "reimport": "passed",
+      "animation_clips": 0
+    },
+    {
+      "file": "runway-07R-25L.glb",
+      "bytes": 292672,
+      "sha256": "0fbcf6fbce284db0f3205e11dc3c9eca7097808d62d49190ee4a19078e134732",
+      "triangles_unique": 5776,
+      "mesh_nodes": 4,
+      "dimensions_blender_m": [
+        60.0,
+        4020.0,
+        1.3250000000000002
+      ],
+      "reimport": "passed",
+      "animation_clips": 0
+    },
+    {
+      "file": "runway-18.glb",
+      "bytes": 251016,
+      "sha256": "dc67f8ea0a914b9947c1e11e12a606af9a45d97f302111c279979dc0b2ea7bd1",
+      "triangles_unique": 4884,
+      "mesh_nodes": 4,
+      "dimensions_blender_m": [
+        60.0,
+        4020.0,
+        1.3250000000000002
+      ],
+      "reimport": "passed",
+      "animation_clips": 0
+    },
+    {
+      "file": "airport-environment.glb",
+      "bytes": 9216296,
+      "sha256": "6538fcc8efbe58882b2917252d84ec113ca6fb6f92ae3619dc4377e010310978",
+      "triangles_unique": 181247,
+      "mesh_nodes": 124,
+      "dimensions_blender_m": [
+        820.0,
+        670.0,
+        74.761
+      ],
+      "reimport": "passed",
+      "animation_clips": 0
+    },
+    {
+      "file": "airport-traffic-demo.glb",
+      "bytes": 3160736,
+      "sha256": "8a201d0cd8b3e98c5be18f398b440eb05d4c4f2fd5f31dabb772c51385026142",
+      "triangles_unique": 63931,
+      "mesh_nodes": 84,
+      "dimensions_blender_m": [
+        684.9355,
+        433.0852,
+        43.7607
+      ],
+      "reimport": "passed",
+      "animation_clips": 7
+    }
+  ],
+  "checks": [
+    "9 GLBs reimport successfully",
+    "All geometry finite",
+    "Self-contained buffers",
+    "Aircraft lengths and ground contact",
+    "Three landing gear groups per aircraft",
+    "Runway lengths",
+    "Traffic animation present",
+    "Each file smaller than 15 MB",
+    "All three parallel runways share OD",
+    "18 departures always southbound",
+    "18 closure redirects the flexible departure to the centre runway",
+    "Native scene opens; playback states and aircraft transforms valid"
+  ],
+  "blend_sha256": "4571e0253056efe0c4299810f4c0b9d348426e9762e3fc3980f2e22dea0a47e6",
+  "result": "passed"
+}
