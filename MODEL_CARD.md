@@ -46,7 +46,11 @@ Operating direction, all recorded hours (accuracy [95% CI], Brier):
 | 48 h | **89.2%** [87.0–91.2], 0.082 | 84.0%, 0.160 | 64.2%, 0.358 | +5.2 [3.2, 7.1] | +25.0 [21.1, 29.0] |
 
 - **Stuck feed:** DFLD shows 07 for 103 h on 8–12 Oct against steady westerlies, confirmed by DWD station data. With those hours excluded, the model scores 96.4 / 94.1 / 93.0 / 90.4% (rules 95.9 / 89.3 / 89.0 / 85.2%).
-- **Direction changes:** at 24 h the model catches 82% of hours with a change (rules 80%, persistence 28%). Next-change timing lands within ±3 h in 53% of cases (28% within ±1 h), with a 13% false-alarm rate.
+- **Beyond accuracy** (persistence can score high while missing every change):
+  - **Change recall:** on hours where the direction changes within the lead, the model is right in 62 / 82 / 83% at 6 / 24 / 48 h (rules 76 / 80 / 80%, persistence 11 / 28 / 34%).
+  - **Change timing:** 53% of real changes are predicted within ±3 h (28% within ±1 h), and 13% of change warnings are false alarms.
+  - **Calibration:** across 10 probability bins, predicted and observed frequency differ by 0.013 on average.
+  - **Runway 18 closure events (inferred):** 1 of 12 hit at 6 h, 3 of 24 at 24 h, 0 false alarms.
 - **The rules alone:** on observed METAR wind they agree with the recorded direction in 89.9% of hours.
 
 **Key drivers** (permutation importance):
@@ -65,6 +69,11 @@ Operating direction, all recorded hours (accuracy [95% CI], Brier):
 
 **Prior work:**
 - Zinkhan et al. (2023), DWD Offenbach with a university group: "Intrinsic Explainable Self-Enforcing Networks Using the ICON-D2-Ensemble Prediction System for Runway Configurations", *Engineering Proceedings* 39, 41 (CC BY). They forecast FRA's runway configuration from ensemble weather forecasts.
-- Puranik et al. (2023), NASA Ames: "Predicting airport runway configurations for decision-support using supervised learning". METAR-derived features, 93% accuracy at CLT and 73% at DEN.
+- Puranik et al. (2023), NASA Ames: "Predicting airport runway configurations for decision-support using supervised learning". A method reference for METAR-derived features only. It is not a comparable benchmark: different airports, horizons, labels, and a random rather than chronological split.
+
+**Next (not yet tested):**
+- ICON-D2 ensemble spread as a *candidate* certainty feature. Zinkhan et al. motivate it, but Open-Meteo has no ensemble archive before 29 Jul 2026, so it can't be backtested yet.
+- A wind correction conditional on direction and regime, for runway 18.
+- No cost per direction change is claimed: that needs FRA operations data.
 
 **Reproduce:** `python -m pip install -r ml/requirements.txt`, `python -m ml.train`, then `python -m ml.forecast --day YYYY-MM-DD`.
