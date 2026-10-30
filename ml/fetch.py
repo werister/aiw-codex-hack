@@ -8,6 +8,7 @@ import json
 import re
 import time
 import zipfile
+from itertools import combinations
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import urljoin
@@ -22,7 +23,9 @@ IEM = "https://mesonet.agron.iastate.edu/cgi-bin/request/"
 DWD = "https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/"
 VARIABLES = ["wind_speed_10m", "wind_direction_10m", "wind_gusts_10m",
              "pressure_msl", "temperature_2m", "wind_speed_80m", "wind_direction_80m"]
-SOURCES = ["metar", "taf", "previous", "historical", "dwd", "live"]
+MULTIMODELS = ("ecmwf_ifs025", "gfs_seamless", "icon_seamless")
+MULTIMODEL_VARIABLES = ("wind_speed_10m", "wind_direction_10m", "wind_gusts_10m")
+SOURCES = ["metar", "taf", "previous", "multimodel", "historical", "dwd", "live", "live-multimodel"]
 TERMS = {
     "IEM": "Public domain; attribution appreciated. https://mesonet.agron.iastate.edu/disclaimer.php",
     "Open-Meteo": "CC BY 4.0; https://open-meteo.com/en/licence and https://open-meteo.com/en/terms",
@@ -189,6 +192,87 @@ def fetch_openmeteo(dl, since, stop, previous=False):
     save(frame, "openmeteo_" + kind, "Open-Meteo", dl, "time", notes)
 
 
+def model_frame(payload, model):
+    frame = pd.DataFrame(payload["hourly"])
+    frame["time"] = pd.to_datetime(frame.time, utc=True)
+    for column in frame.columns.difference(["time"]):
+        frame[column] = pd.to_numeric(frame[column], errors="coerce")
+    return frame.rename(columns={column: f"{model}__{column}" for column in frame if column != "time"})
+
+
+def multimodel_summary(frame):
+    models = [model for model in MULTIMODELS if f"{model}__wind_direction_10m_previous_day1" in frame]
+    coverage = {}
+    for model in models:
+        values = frame[f"{model}__wind_direction_10m_previous_day1"].notna()
+        coverage[model] = {"day1_direction_hours": int(values.sum()),
+                           "first_day1_direction": str(frame.loc[values, "time"].min()),
+                           "last_day1_direction": str(frame.loc[values, "time"].max())}
+    pairs = []
+    for left, right in combinations(models, 2):
+        a, b = (frame[f"{model}__wind_direction_10m_previous_day1"] for model in (left, right))
+        delta = ((a - b + 180) % 360 - 180).abs().dropna()
+        pairs.append({"models": [left, right], "n": len(delta),
+                      "mean_absolute_direction_difference_deg": float(delta.mean()) if len(delta) else None})
+    total = sum(row["n"] for row in pairs)
+    return {"rows": len(frame), "start": str(frame.time.min()), "end": str(frame.time.max()),
+            "models": coverage, "day1_direction_pairs": pairs,
+            "pooled_mean_absolute_direction_difference_deg": sum(
+                row["n"] * row["mean_absolute_direction_difference_deg"] for row in pairs if row["n"]) / total if total else None,
+            "method": "Shortest circular distance, abs(((a-b+180) % 360)-180), on pairwise non-null day1 directions. "
+                      "Pooled mean weights every model-pair/hour equally; calm hours are retained."}
+
+
+def fetch_multimodel(dl, since, stop):
+    variables = [f"{name}_previous_day{day}" for day in (1, 2, 3) for name in MULTIMODEL_VARIABLES]
+    models = []
+    for model in MULTIMODELS:
+        months = []
+        for start, end in intervals(max(since, date(2024, 1, 1)), stop, monthly=True):
+            params = {"latitude": 50.033, "longitude": 8.570, "hourly": ",".join(variables),
+                      "wind_speed_unit": "kn", "timezone": "UTC", "models": model,
+                      "start_date": str(start), "end_date": str(end - timedelta(days=1))}
+            path = dl.get("https://previous-runs-api.open-meteo.com/v1/forecast", params, ".json",
+                          max_age=3600 if end > utcnow().date() else None)
+            months.append(model_frame(json.loads(path.read_text(encoding="utf-8")), model))
+        if not months:
+            raise ValueError("No dates in requested multimodel archive range")
+        frame = pd.concat(months, ignore_index=True).drop_duplicates("time").set_index("time")
+        if not frame[f"{model}__wind_direction_10m_previous_day1"].notna().any():
+            print(f"SKIP {model}: no archived direction values in requested period", flush=True)
+            continue
+        models.append(frame)
+    if len(models) < 2:
+        raise ValueError("At least two archived models are needed to compare forecasts")
+    combined = pd.concat(models, axis=1).sort_index().reset_index()
+    save(combined, "openmeteo_previous_runs_multimodel", "Open-Meteo", dl, "time",
+         "Separate ecmwf_ifs025, gfs_seamless and icon_seamless requests; 10 m wind in knots and direction degrees. "
+         "Previous-day offsets 1/2/3 are preserved without day0 substitution. Missing history and unsupported gusts remain null. "
+         "Offset valid time minus N days is not a verified publication timestamp; apply the training publication buffer.")
+    summary = multimodel_summary(combined)
+    (DATA / "openmeteo_multimodel_summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps(summary, indent=2), flush=True)
+
+
+def fetch_live_multimodel(dl, since=None, stop=None):
+    snapshot = pd.Timestamp(utcnow()).floor("h")
+    dl.used = []
+    models = []
+    for model in MULTIMODELS:
+        params = {"latitude": 50.033, "longitude": 8.570, "hourly": ",".join(MULTIMODEL_VARIABLES),
+                  "wind_speed_unit": "kn", "timezone": "UTC", "models": model,
+                  "start_hour": snapshot.strftime("%Y-%m-%dT%H:%M"),
+                  "end_hour": (snapshot + pd.Timedelta(hours=71)).strftime("%Y-%m-%dT%H:%M")}
+        path = dl.get("https://api.open-meteo.com/v1/forecast", params, ".json",
+                      max_age=3600, cache_tag=snapshot.isoformat())
+        models.append(model_frame(json.loads(path.read_text(encoding="utf-8")), model).set_index("time"))
+    frame = pd.concat(models, axis=1).sort_index().reset_index()
+    frame["retrieved_at"] = max(pd.Timestamp(item["retrieved_at"]) for item in dl.used)
+    save(frame, "live_forecast_multimodel", "Open-Meteo", dl, "time",
+         "Separate ECMWF/GFS/ICON forecasts, 72 hourly UTC targets; model-prefixed 10 m wind columns. "
+         "The maximum retrieval timestamp across the three requests is the earliest joint snapshot availability.")
+
+
 def fetch_dwd(dl, since, stop):
     for frequency, folders, name in [("hourly", ["historical", "recent"], "hourly"),
                                       ("10_minutes", ["recent"], "10min")]:
@@ -236,6 +320,7 @@ def fetch_live(dl, since, stop):
     retrieved = pd.Timestamp(dl.used[-1]["retrieved_at"])
     frame["retrieved_at"] = retrieved
     save(frame, "live_forecast", "Open-Meteo", dl, "time", "72 hourly values from the current UTC hour; retrieval timestamp retained.")
+    fetch_live_multimodel(dl)
     for product in ["metar", "taf"]:
         dl.used = []
         params = {"ids": "EDDF", "format": "json"}
@@ -310,6 +395,21 @@ def write_readme(since, stop, failures):
                     continue
                 valid = frame.loc[frame[col].notna(), "time"]
                 lines.append(f"  - `{col}`: {len(valid):,} non-null hours; {valid.min() if len(valid) else 'none'} through {valid.max() if len(valid) else 'none'}; maximum {frame[col].max():g}.")
+    summary_path = DATA / "openmeteo_multimodel_summary.json"
+    if summary_path.exists():
+        summary = json.loads(summary_path.read_text(encoding="utf-8"))
+        lines += ["", "## Separate-model forecast history", "",
+                  "Rebuild with `python -m ml.fetch --since 2024-01-01 --sources multimodel`. Requests use `https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.570&models={model}&hourly={variables}&wind_speed_unit=kn&timezone=UTC&start_date={YYYY-MM-DD}&end_date={YYYY-MM-DD}`. Each model is requested separately in cached calendar-month chunks, at most one network request per 1.2 seconds. Archive IDs `ecmwf_ifs025`, `gfs_seamless` and `icon_seamless` were accepted. Variables are `wind_speed_10m`, `wind_direction_10m`, `wind_gusts_10m`, each with `_previous_day1`, `_previous_day2` and `_previous_day3`. Columns are `<model>__<variable>_previous_dayN`. Speed/gust are knots; direction is degrees true. All timestamps are UTC. Licence: [CC BY 4.0](https://open-meteo.com/en/licence).", "",
+                  f"The output has {summary['rows']:,} hourly rows from {summary['start']} through {summary['end']}. Nulls preserve unavailable early history or variables; ECMWF archived gusts are unavailable in this extraction. The first non-null times below are valid times, not forecast publication times. Previous-run offsets do not establish exact publication timestamps. Apply the same availability/publication buffer as training before selecting an offset.", "",
+                  "| Model | First non-null day1 direction UTC | Last non-null day1 direction UTC | Hours |",
+                  "|---|---|---|---:|"]
+        for model, value in summary["models"].items():
+            lines.append(f"| {model} | {value['first_day1_direction']} | {value['last_day1_direction']} | {value['day1_direction_hours']:,} |")
+        lines += ["", "Direction disagreement uses the shortest circular angular distance, so 350 and 10 degrees differ by 20 degrees. All pairwise non-null day1 direction hours are included, including calm hours. See [openmeteo_multimodel_summary.json](openmeteo_multimodel_summary.json) for the pair counts and pooled mean.", "",
+                  "| Model pair | Mean absolute direction difference | Paired hours |", "|---|---:|---:|"]
+        for row in summary["day1_direction_pairs"]:
+            lines.append(f"| {' / '.join(row['models'])} | {row['mean_absolute_direction_difference_deg']:.3f} degrees | {row['n']:,} |")
+        lines += ["", "`python -m ml.fetch --sources live-multimodel` writes 72-hour snapshots to `live_forecast_multimodel.parquet`, with the same model prefixes and unsuffixed live variable names. `--sources live` also includes these models. The joint `retrieved_at` is the latest retrieval across the separate requests. `ml.live.live_weather` attaches those columns only from a snapshot retrieved by the issue time, otherwise it requests each named model from the Single Runs API using a dated run and the existing conservative 12-hour publication proxy. Per-model `__available_at`, and `__issued_at` for dated runs, remain on the returned input frame. Missing model data is reported and never replaced with another model. These are additional input columns for downstream features; prediction logic is unchanged.", ""]
     lines += ["", "Historical forecast day 0 stitches recent forecast leads and must not be used as an archived 24/48-hour forecast. Previous-day fields are lead offsets relative to valid time; preserve them separately and check availability at the evaluation issue time. Raw retrieval time is not a forecast initialization time.", "",
               "## Licences and attribution", ""]
     lines += [f"- {provider}: {terms}" for provider, terms in TERMS.items()]
@@ -338,6 +438,7 @@ def main():
     DATA.mkdir(exist_ok=True)
     stop = args.until + timedelta(days=1)
     functions = {"metar": fetch_metar, "taf": fetch_taf, "previous": lambda d, s, e: fetch_openmeteo(d, s, e, True),
+                 "multimodel": fetch_multimodel, "live-multimodel": fetch_live_multimodel,
                  "historical": fetch_openmeteo, "dwd": fetch_dwd, "live": fetch_live}
     failures = []
     for source in args.sources:

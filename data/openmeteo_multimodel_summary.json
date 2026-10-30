@@ -1,0 +1,50 @@
+{
+  "rows": 24816,
+  "start": "2024-01-01 00:00:00+00:00",
+  "end": "2026-10-30 23:00:00+00:00",
+  "models": {
+    "ecmwf_ifs025": {
+      "day1_direction_hours": 24000,
+      "first_day1_direction": "2024-02-04 00:00:00+00:00",
+      "last_day1_direction": "2026-10-30 23:00:00+00:00"
+    },
+    "gfs_seamless": {
+      "day1_direction_hours": 24372,
+      "first_day1_direction": "2024-01-19 12:00:00+00:00",
+      "last_day1_direction": "2026-10-30 23:00:00+00:00"
+    },
+    "icon_seamless": {
+      "day1_direction_hours": 24372,
+      "first_day1_direction": "2024-01-19 12:00:00+00:00",
+      "last_day1_direction": "2026-10-30 23:00:00+00:00"
+    }
+  },
+  "day1_direction_pairs": [
+    {
+      "models": [
+        "ecmwf_ifs025",
+        "gfs_seamless"
+      ],
+      "n": 24000,
+      "mean_absolute_direction_difference_deg": 24.687125
+    },
+    {
+      "models": [
+        "ecmwf_ifs025",
+        "icon_seamless"
+      ],
+      "n": 24000,
+      "mean_absolute_direction_difference_deg": 26.818
+    },
+    {
+      "models": [
+        "gfs_seamless",
+        "icon_seamless"
+      ],
+      "n": 24372,
+      "mean_absolute_direction_difference_deg": 29.88847858197932
+    }
+  ],
+  "pooled_mean_absolute_direction_difference_deg": 27.145373901508872,
+  "method": "Shortest circular distance, abs(((a-b+180) % 360)-180), on pairwise non-null day1 directions. Pooled mean weights every model-pair/hour equally; calm hours are retained."
+}

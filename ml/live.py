@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import io
 import json
+import sys
 import time
 from pathlib import Path
 
@@ -12,6 +13,7 @@ import pandas as pd
 import requests
 
 from ml.features import PUBLICATION_LAG_H, nwp_offset_days
+from ml.fetch import MULTIMODELS, MULTIMODEL_VARIABLES, model_frame
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
@@ -113,6 +115,43 @@ def archived_weather(issue):
     return frame, "Open-Meteo previous runs (best_match; day1/day2/day3; six-hour publication lag)"
 
 
+def add_live_models(frame, issue, now):
+    """Attach named forecasts without using snapshots fetched after issue time."""
+    targets = target_hours(issue)
+    path = DATA / "live_forecast_multimodel.parquet"
+    snapshot = pd.read_parquet(path) if path.exists() else pd.DataFrame()
+    if len(snapshot):
+        snapshot["time"] = pd.to_datetime(snapshot.time, utc=True)
+        snapshot["retrieved_at"] = pd.to_datetime(snapshot.retrieved_at, utc=True)
+        snapshot = snapshot.loc[snapshot.retrieved_at <= issue].sort_values("retrieved_at")
+        snapshot = snapshot.drop_duplicates("time", keep="last").set_index("time").reindex(targets)
+    run = (min(issue, now) - pd.Timedelta(hours=12)).floor("6h")
+    for model in MULTIMODELS:
+        names = [f"{model}__{name}" for name in MULTIMODEL_VARIABLES]
+        usable = len(snapshot) and all(name in snapshot and snapshot[name].notna().all() for name in names[:2])
+        if usable:
+            extra = snapshot.reindex(columns=names).copy()
+            extra[f"{model}__available_at"] = snapshot.retrieved_at
+        else:
+            params = {"latitude": 50.033, "longitude": 8.570, "hourly": ",".join(MULTIMODEL_VARIABLES),
+                      "wind_speed_unit": "kn", "timezone": "UTC", "models": model,
+                      "run": run.strftime("%Y-%m-%dT%H:%M"), "forecast_days": 7}
+            try:
+                payload = cached_get("https://single-runs-api.open-meteo.com/v1/forecast", params)
+                extra = model_frame(json.loads(payload["text"]), model).set_index("time").reindex(targets)
+                if any(extra[name].isna().any() for name in names[:2]):
+                    raise ValueError("incomplete wind coverage")
+            except (requests.RequestException, ValueError, KeyError) as error:
+                print(f"WARNING: {model} live wind unavailable: {error}", file=sys.stderr)
+                continue
+            extra[f"{model}__issued_at"] = run
+            # Same conservative publication proxy as the existing live fallback.
+            extra[f"{model}__available_at"] = run + pd.Timedelta(hours=12)
+        extra.index.name = "time"
+        frame = frame.merge(extra.reset_index(), on="time", how="left", validate="one_to_one")
+    return frame
+
+
 def live_weather(issue, now):
     """Use a pre-issue snapshot, otherwise a dated run with a publication buffer.
 
@@ -134,7 +173,7 @@ def live_weather(issue, now):
     if path.exists():
         frame = known_snapshot(pd.read_parquet(path))
         if frame is not None:
-            return frame, "Open-Meteo Forecast API (snapshot retrieved before issue)"
+            return add_live_models(frame, issue, now), "Open-Meteo Forecast API (snapshot retrieved before issue)"
     params = {"latitude": 50.033, "longitude": 8.570, "hourly": ",".join(VARIABLES),
               "wind_speed_unit": "kn", "timezone": "UTC",
               "start_date": str(targets[0].date()), "end_date": str(targets[-1].date())}
@@ -144,7 +183,7 @@ def live_weather(issue, now):
     snapshot["retrieved_at"] = payload["retrieved_at"]
     frame = known_snapshot(snapshot)
     if frame is not None:
-        return frame, "Open-Meteo Forecast API (snapshot retrieved before issue)"
+        return add_live_models(frame, issue, now), "Open-Meteo Forecast API (snapshot retrieved before issue)"
     # HACK: allow 12h for publication when no pre-issue live snapshot exists.
     run = (min(issue, now) - pd.Timedelta(hours=12)).floor("6h")
     params = {"latitude": 50.033, "longitude": 8.570, "hourly": ",".join(VARIABLES),
@@ -157,7 +196,7 @@ def live_weather(issue, now):
     frame["available_at"] = run + pd.Timedelta(hours=12)
     if not covers(frame, targets):
         raise ValueError("Requested day is outside the available live forecast horizon")
-    return frame.loc[frame.time.isin(targets)].copy(), (
+    return add_live_models(frame.loc[frame.time.isin(targets)].copy(), issue, now), (
         f"Open-Meteo single run fallback (ICON; run {run.isoformat()}; 12h publication proxy)")
 
 
