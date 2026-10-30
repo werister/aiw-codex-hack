@@ -22,7 +22,14 @@ Executed in Google Colab on 30 October 2026 at Hugo's request. **Neither Extra T
 | Fixed 50/50 combination | 89.52% | 81.31% | 72.90% | 72.90% |
 | Persistence | 96.19% | 90.65% | 73.83% | 65.42% |
 
-At 48 hours, Brier scores were 0.22694 original blend, 0.22393 Extra Trees, and 0.22474 combination (lower is better). That small probability-score difference does not establish an overall improvement. At 1 hour the blend and both alternatives correctly predicted **0 of 4 changed-direction rows**; overall accuracy alone hides this weakness. These are target-hour differences from issue-time OD, not validated counts of any intervening change.
+At 48 hours, Brier scores were 0.22694 original blend, 0.22393 Extra Trees, and 0.22474 combination (lower is better). That small probability-score difference does not establish an overall improvement. At 1 hour the blend and both alternatives correctly predicted **0 of 4 changed-direction rows**; overall accuracy alone hides this weakness. The change slice uses an increase in the recorded direction-change counter since the last known state. Its accuracy still measures the target-hour direction conditional on that flag; it is not an event-detection recall measure, and missing/transition-hour handling still needs F19.
+
+## Independent checks
+
+- Muse independently recomputed all **72/72 metric rows** from the exported probabilities: **29 checks passed, 0 failed**. The coordinator reran the audit with the same result.
+- Opus supplied a constructed cross-boundary case where post-boundary METAR flags earlier labels through the whole-run stuck-feed exclusion. The coordinator reviewed the test and reran it with the existing focused tests: **15 passed, 0 failed**. Two of those tests deliberately assert the problematic behavior; passing demonstrates the vulnerability, not a fix.
+- The real-data probe found one 103-hour flagged interval, entirely in October, with **0 crossings** of either the v4 or v5 fold boundaries. The coordinator reran the probe. No current fold-score effect from this boundary mechanism was demonstrated.
+- Opus also identified repeated feature/hyperparameter selection on the evaluation months in the experiment log. Reported walk-forward performance should not be presented as an untouched final test; its selection-bias magnitude is not measured.
 
 ## Inferred
 
