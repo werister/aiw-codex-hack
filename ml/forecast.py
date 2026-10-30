@@ -233,7 +233,7 @@ def score_forecasts(start, end):
         raise ValueError("Scoring requires past issue days")
     truth = live.recorded_history().set_index("time").od
     totals = {label: {"model": 0, "rules": 0, "persistence": 0, "n": 0}
-              for label in ("1-6", "7-24", "25-48")}
+              for label in ("1", "1-6", "7-24", "25-48")}
     days = 0
     for day in pd.date_range(start, end, freq="D"):
         result = build_forecast(day.date(), include_observed=False)
@@ -245,11 +245,13 @@ def score_forecasts(start, end):
             if observed not in ("25", "07"):
                 continue
             label = "1-6" if hour["lead_h"] <= 6 else "7-24" if hour["lead_h"] <= 24 else "25-48"
-            bucket = totals[label]
-            bucket["model"] += int(hour["od"] == observed)
-            bucket["rules"] += int(hour["rule_od"] == observed)
-            bucket["persistence"] += int(result["current_od"] == observed)
-            bucket["n"] += 1
+            labels = ("1", label) if hour["lead_h"] == 1 else (label,)
+            for key in labels:
+                bucket = totals[key]
+                bucket["model"] += int(hour["od"] == observed)
+                bucket["rules"] += int(hour["rule_od"] == observed)
+                bucket["persistence"] += int(result["current_od"] == observed)
+                bucket["n"] += 1
             matched += 1
         if not matched:
             raise ValueError(f"No recorded DFLD hours for issue day {day.date()}")
@@ -260,7 +262,7 @@ def score_forecasts(start, end):
             raise ValueError(f"No recorded DFLD hours for leads {lead}")
         rows.append({"lead": lead, **{name: counts[name] / counts["n"]
                                      for name in ("model", "rules", "persistence")}, "n": counts["n"]})
-    return {"days": days, "rows": rows}
+    return {"days": days, "rows": rows[1:], "lead_1": rows[0]}
 
 
 def print_score(result):
@@ -269,6 +271,10 @@ def print_score(result):
     for row in result["rows"]:
         print(f"{row['lead']:>5} | {row['model']:6.1%} | {row['rules']:6.1%} | "
               f"{row['persistence']:11.1%} | {row['n']}")
+    first = result["lead_1"]
+    print(f"Lead 1 only | model {first['model']:.1%} | rules {first['rules']:.1%} | "
+          f"persistence {first['persistence']:.1%} | {first['n']} matched hours")
+    print("The 1-6 band combines six leads; compare backtest lead 1 with 'Lead 1 only'.")
     print("Only recorded target hours are scored; overlapping daily forecast windows count separately.")
 
 
