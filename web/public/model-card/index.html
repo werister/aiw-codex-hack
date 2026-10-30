@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lift-off · Model card</title>
+<script>
+  // Served as /model-card (no slash) the relative paths below would resolve against "/". Pin the base to this folder.
+  (function () {
+    var p = location.pathname;
+    if (location.protocol !== "file:" && !/\/$|\.html?$/.test(p)) document.write('<base href="' + p + '/">');
+  })();
+</script>
+<style>
+  @font-face { font-family: "Inter Tight"; src: url("../deck/fonts/inter-tight-latin-wght-normal.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+  :root { --bg: #ffffff; --panel: #f1f1f8; --line: #dcdcea; --ink: #1d1a78; --ink-2: #3b3990; --muted: #5d5b94; --accent: #3c36da; }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.6 "Inter Tight", system-ui, sans-serif; letter-spacing: 0.005em; font-variant-numeric: tabular-nums; -webkit-font-smoothing: antialiased; }
+  header { border-bottom: 1px solid var(--line); }
+  header .in, main, footer { max-width: 780px; margin: 0 auto; padding: 0 20px; }
+  header .in { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 16px; padding-bottom: 16px; }
+  header img { height: 34px; width: auto; display: block; }
+  header span { font-size: 15px; color: var(--muted); }
+  main { padding-top: 28px; padding-bottom: 40px; }
+  h1 { font-size: 34px; line-height: 1.15; font-weight: 300; letter-spacing: -0.01em; margin: 8px 0 20px; }
+  h2 { font-size: 24px; line-height: 1.25; font-weight: 400; margin: 40px 0 12px; padding-top: 24px; border-top: 1px solid var(--line); }
+  h3 { font-size: 19px; font-weight: 500; margin: 28px 0 8px; }
+  p, li { color: var(--ink); }
+  ul, ol { padding-left: 22px; }
+  li { margin: 6px 0; }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  strong { font-weight: 600; }
+  code { font: 0.92em/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: var(--panel); border-radius: 6px; padding: 1px 6px; color: var(--ink-2); overflow-wrap: anywhere; }
+  pre { background: var(--panel); border-radius: 10px; padding: 14px 16px; overflow-x: auto; }
+  pre code { padding: 0; background: none; }
+  .repo-ref { border-bottom: 1px dotted var(--muted); }
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 16px 0; border: 1px solid var(--line); border-radius: 10px; }
+  table { border-collapse: collapse; width: 100%; font-size: 15px; }
+  th, td { padding: 9px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+  th { font-weight: 500; color: var(--muted); background: var(--panel); white-space: nowrap; }
+  tr:last-child td { border-bottom: 0; }
+  footer { padding-top: 18px; padding-bottom: 40px; font-size: 14px; color: var(--muted); border-top: 1px solid var(--line); }
+  @media (max-width: 560px) { body { font-size: 16px; } h1 { font-size: 28px; } h2 { font-size: 21px; } }
+</style>
+</head>
+<body>
+<header><div class="in"><img src="../brand/lift-off-logo.png" alt="Lift-off"><span>Model card · Frankfurt Airport</span></div></header>
+<main>
+<h1>Model card · Frankfurt operating direction and runway 18</h1>
+<p>Plain-language German explanation: <span class="repo-ref" title="In the team repository: ML_VERBESSERUNGEN.md">ML_VERBESSERUNGEN.md</span>.</p>
+<h2>Model and intended use</h2>
+<p><code>walk-forward-v6</code> predicts operating direction 25/07 and inferred runway-18 weather
+usability at each of the next 48 hourly targets. It also reports the first predicted
+direction change and a certainty score, <code>100 × min(|2p_OD25−1|, |2p_R18−1|)</code>.
+This margin is not a calibrated probability. The displayed change window is a
+probability-band heuristic, not a calibrated event-time interval.</p>
+<p>The system supports planning in the FraAlliance challenge. DFS decides the actual
+operating direction; these forecasts are not operational clearances.</p>
+<p>Two scikit-learn histogram gradient-boosted classifiers use 45 features: recorded
+state, METAR wind/trends, forecast wind, rules, separate weather models, pressure
+differences, local hour, season and lead. OD is blended with persistence by horizon
+and regime; R18 uses horizon-only weights. Each fold selects weights by Brier score
+on its preceding 60-day validation block, with labels purged across the inner
+boundary. Sparse or closure-free R18 validation and unknown current R18 state use
+the raw classifier. The model architecture remains unchanged.</p>
+<h2>Data and availability</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Use</th>
+<th>Limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.dfld.de/Mess/StatWetter.php?R=1&amp;D=01.10.2026" target="_blank" rel="noopener noreferrer">DFLD recorded directions</a></td>
+<td>Stable-hour OD targets and completed-hour current state; half-hour transitions for event scoring</td>
+<td>Public operational proxy, not a certified movement log</td>
+</tr>
+<tr>
+<td><a href="https://mesonet.agron.iastate.edu/request/download.phtml" target="_blank" rel="noopener noreferrer">IEM EDDF METAR</a></td>
+<td>Observed winds; inferred R18 targets</td>
+<td>Actual operational closures are not labels</td>
+</tr>
+<tr>
+<td><a href="https://open-meteo.com/en/docs/previous-runs-api" target="_blank" rel="noopener noreferrer">Open-Meteo Previous Runs</a></td>
+<td>Best-match, ECMWF, GFS, ICON and four pressure boxes</td>
+<td>Offset archive; exact historical publication times are unavailable</td>
+</tr>
+<tr>
+<td>FraAlliance brief, <code>ml/rules.json</code></td>
+<td>Official rule baseline and rule features</td>
+<td>Challenge thresholds govern this implementation</td>
+</tr>
+</tbody>
+</table></div>
+<p>Inputs cover 2024 onward for weather forecasts; longer METAR/DFLD history supports
+state and label checks. Archived runs use day 1 for leads 1–18, day 2 for 19–42,
+and day 3 for 43–48, with a six-hour publication proxy. Every explicit issuance
+and retrieval timestamp must also be no later than issue time. Observed positive
+tailwind duration seeds both rule paths and the CLI fallback.</p>
+<p>Live issues are rounded down to the hour. A newly fetched snapshot after that
+timestamp is ineligible; the existing dated-run fallback uses a twelve-hour
+publication proxy. Neither buffer proves actual historical availability.
+DFLD publication delay and summer-clock alignment remain unverified. Wind scales
+are existing fixed constants documented as fitted on 2024; this change neither
+refits them per fold nor independently reconstructs that calibration.</p>
+<h3>Independent data verification (Kai Detmers)</h3>
+<p>Offline checks, all exit 0 (<span class="repo-ref" title="In the team repository: resources/ml-depth/verification.md"><code>resources/ml-depth/verification.md</code></span>):
+- <strong>DFLD labels:</strong> all 76,588 hourly labels are rebuilt exactly from 154,752 half-hour values; the 788 excluded hours and 2,880 raw HTML samples match.
+- <strong>METAR:</strong> 46/46 raw file hashes match, with 32,156 wind groups and zero normalisation deviations.
+- <strong>Forecast wind:</strong> 144,072 values from 22 monthly responses re-checked. 72 hourly ICON vectors match their assigned runs; the six-hour publication buffer is still an assumption.
+- <strong>TAF:</strong> the IEM archive returned zero EDDF rows, so TAF is not used (<span class="repo-ref" title="In the team repository: resources/ml-support/taf/findings.md"><code>resources/ml-support/taf/findings.md</code></span>).
+- <strong>Wind bias:</strong> ICON surface wind runs about 3.3 kt below the airport sensor, stable across 22 months (7-day blocks −3.49 to −3.15 kt; against the DWD station −3.07 kt). That is why forecast wind is scaled to airport level.</p>
+<p><strong>Further limits:</strong>
+- <strong>Change hours:</strong> 770 of the 1,681 detectable direction changes fall in transition hours that the stable-hour accuracy excludes, so changes are scored on the half-hour data instead.
+- <strong>Runway 18 and variable wind:</strong> 4,289 VRB reports and 24 direction ranges make the 15 kt rule ambiguous. VRB hours with wind stay unlabelled (2,067 DFLD hours, 2024-12 to 2026-10). Labelling them usable is planned, not applied.
+- <strong>Threshold:</strong> Fraport's public page describes a lower tailwind threshold for direction changes than the official brief's 10 kt or more. We use the brief's.</p>
+<h2>Evaluation</h2>
+<p>Twelve expanding monthly folds, 2025-11 to 2026-10,
+with six-hourly local issue times and no random train/test split. Training target
+labels end before each test month. The feature dataset contains
+194,352 rows; 74 issue
+times lack required inputs. Stable-hour accuracy excludes transition-hour targets.
+Each score below uses the same labelled rows for its compared methods.</p>
+<p>Accuracy / Brier score (lower Brier is better):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Lead</th>
+<th style="text-align: right;">Scored rows</th>
+<th style="text-align: right;">Served model</th>
+<th style="text-align: right;">Official rules, base wind</th>
+<th style="text-align: right;">Persistence</th>
+<th style="text-align: right;">Rules, corrected ensemble</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 h</td>
+<td style="text-align: right;">1416</td>
+<td style="text-align: right;">95.7% / 0.0341</td>
+<td style="text-align: right;">93.1% / 0.0692</td>
+<td style="text-align: right;">95.9% / 0.0410</td>
+<td style="text-align: right;">93.3% / 0.0671</td>
+</tr>
+<tr>
+<td>6 h</td>
+<td style="text-align: right;">1416</td>
+<td style="text-align: right;">92.7% / 0.0530</td>
+<td style="text-align: right;">88.1% / 0.1186</td>
+<td style="text-align: right;">88.8% / 0.1116</td>
+<td style="text-align: right;">88.8% / 0.1116</td>
+</tr>
+<tr>
+<td>24 h</td>
+<td style="text-align: right;">1383</td>
+<td style="text-align: right;">91.8% / 0.0637</td>
+<td style="text-align: right;">87.7% / 0.1229</td>
+<td style="text-align: right;">75.1% / 0.2495</td>
+<td style="text-align: right;">89.2% / 0.1085</td>
+</tr>
+<tr>
+<td>48 h</td>
+<td style="text-align: right;">1338</td>
+<td style="text-align: right;">88.9% / 0.0818</td>
+<td style="text-align: right;">84.0% / 0.1599</td>
+<td style="text-align: right;">64.2% / 0.3580</td>
+<td style="text-align: right;">85.8% / 0.1420</td>
+</tr>
+</tbody>
+</table></div>
+<p>Paired 95% percentile intervals for model accuracy minus baseline, in percentage
+points, using seven-day contiguous calendar blocks:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Lead</th>
+<th style="text-align: right;">Versus base-wind rules</th>
+<th style="text-align: right;">Versus persistence</th>
+<th style="text-align: right;">Versus ensemble rules</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 h</td>
+<td style="text-align: right;">[+1.3, +4.3]</td>
+<td style="text-align: right;">[-1.1, +0.6]</td>
+<td style="text-align: right;">[+1.0, +4.2]</td>
+</tr>
+<tr>
+<td>6 h</td>
+<td style="text-align: right;">[+2.7, +6.5]</td>
+<td style="text-align: right;">[+1.3, +6.0]</td>
+<td style="text-align: right;">[+2.2, +5.7]</td>
+</tr>
+<tr>
+<td>24 h</td>
+<td style="text-align: right;">[+3.1, +6.3]</td>
+<td style="text-align: right;">[+13.2, +20.6]</td>
+<td style="text-align: right;">[+1.4, +4.8]</td>
+</tr>
+<tr>
+<td>48 h</td>
+<td style="text-align: right;">[+3.5, +7.2]</td>
+<td style="text-align: right;">[+19.6, +30.3]</td>
+<td style="text-align: right;">[+1.6, +5.3]</td>
+</tr>
+</tbody>
+</table></div>
+<p>The JSON also contains one-day and three-day intervals. A block interval is
+unavailable when any scored day is not covered by a complete contiguous block;
+gaps are never bridged. Overlapping forecasts remain dependent. McNemar p-values
+are nominal row-level results, DM uses daily losses with lag-one covariance,
+and comparisons are not adjusted for multiplicity. These folds informed feature
+choices and subsequent review: they are not an untouched final validation set.</p>
+<p>Primary training and scoring retain all recorded OD labels. The rule-disagreement
+flag marks 103 hours for sensitivity, not proven
+feed failure. The requested training-policy comparison completed:
+12 folds with identical training labels and
+0 refitted folds. Identical-label folds reuse the exact same fit; they cannot
+establish robustness to exclusions that never occurred in their training period.</p>
+<p>Daily midnight October CLI issues provide a separate view: lead-one model
+86.2%, rules 82.8%,
+persistence 100.0%, n=29.
+<code>web/public/data/cli-parity.csv</code> verifies all 45 features and both probabilities
+against the training path for six saved dates and all 48 leads.</p>
+<h2>Changes and rare runway-18 cases</h2>
+<p>First-change timing is direction-sensitive and uses actual half-hour state at
+issue time. It scores 750 overlapping change windows:
+27.2% within ±1 h and 52.5% within ±3 h.
+False-alarm rate is 14.7% over 593
+no-change windows, not the fraction of warnings that were false.
+89 incomplete or invalid windows are excluded.</p>
+<p>The separate unique-event view matches 115 of
+193 actual transitions within ±3 h:
+recall 59.6%, deduplicated precision 45.5%,
+138 false-warning clusters across
+358.5 covered days. Matching requires the warning to have been
+issued before the event. A minimum-error assignment summarizes matched warning
+lead; it does not measure earliest useful preparation time.</p>
+<p>R18 outcomes are overlapping positive issue windows, <strong>not unique closure episodes</strong>.
+Every target and compared prediction within the horizon must be known. Unknown
+or variable METAR direction stays unlabelled. Method cells show <strong>hits / false alarms</strong>:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Horizon</th>
+<th style="text-align: right;">Complete windows</th>
+<th style="text-align: right;">Positive windows</th>
+<th style="text-align: right;">Model</th>
+<th style="text-align: right;">Base rules</th>
+<th style="text-align: right;">Persistence</th>
+<th style="text-align: right;">Ensemble rules</th>
+<th style="text-align: right;">Excluded windows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 h</td>
+<td style="text-align: right;">1073</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0 / 0</td>
+<td style="text-align: right;">0 / 0</td>
+<td style="text-align: right;">3 / 0</td>
+<td style="text-align: right;">0 / 5</td>
+<td style="text-align: right;">359</td>
+</tr>
+<tr>
+<td>6 h</td>
+<td style="text-align: right;">760</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0 / 0</td>
+<td style="text-align: right;">0 / 0</td>
+<td style="text-align: right;">3 / 0</td>
+<td style="text-align: right;">0 / 16</td>
+<td style="text-align: right;">672</td>
+</tr>
+<tr>
+<td>24 h</td>
+<td style="text-align: right;">307</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0 / 0</td>
+<td style="text-align: right;">0 / 0</td>
+<td style="text-align: right;">3 / 0</td>
+<td style="text-align: right;">0 / 10</td>
+<td style="text-align: right;">1125</td>
+</tr>
+</tbody>
+</table></div>
+<p>Rare positive windows and inferred labels do not establish operational closure
+forecasting skill. DFLD runway-18 non-use is not equivalent to a weather closure.
+Permutation drivers for the final held-out month: dp_ns, od_at_issue, ens_tailwind_25_mean, ecmwf_ifs025_tailwind_25, geo_tailwind_25.</p>
+<h2>Prior work and next experiments</h2>
+<ul>
+<li>Zinkhan et al. (2023), DWD Offenbach with a university group: "Intrinsic Explainable Self-Enforcing Networks Using the ICON-D2-Ensemble Prediction System for Runway Configurations", <em>Engineering Proceedings</em> 39, 41 (CC BY). This is related work, not a benchmark: it shows one illustrative 15 h case at FRA with no backtest score and no calibration, and its text uses COSMO-DE-EPS although the title names ICON-D2. Review: Luca Schultz, <code>weather database/models/NOTES.md</code> (commit 0c8f4da on his branch).</li>
+<li>Puranik et al. (2023), NASA Ames: "Predicting airport runway configurations for decision-support using supervised learning". This is a method reference for METAR-derived features. Their 93.9% (CLT) and 73.5% (DEN) predict the configuration only <strong>15 minutes</strong> ahead, on a <strong>random 80:20 split</strong>, against baselines of 81.6% and 53.7%. That is not comparable to our 6–48 h chronological walk-forward.</li>
+</ul>
+<p><strong>Next (not yet tested):</strong>
+- ICON-D2 ensemble spread as a <em>candidate</em> certainty feature. Zinkhan et al. motivate it, but Open-Meteo has no ensemble archive before 29 Jul 2026, so it cannot support this twelve-month comparison.
+- A wind correction conditional on direction and regime, for runway 18.
+- No cost per direction change is claimed: that needs FRA operations data.</p>
+<h2>Reproduce</h2>
+<pre><code class="language-bash">python -m pip install -r ml/requirements.txt
+python -m pytest ml/tests -q
+python -m ml.train --months 12 --compare-label-policy
+python -m ml.forecast --day 2026-10-31
+</code></pre>
+<p>Future-day requests retain the complete current 48-hour forecast and state the
+actual issue time. Results and exclusions are in <code>web/public/data/quality.json</code>;
+implementation details and input contracts are in <code>ml/README.md</code>.</p>
+</main>
+<footer>Generated from <code>MODEL_CARD.md</code> (commit 8871c73) on 30 Oct 2026, 15:46. Forecast data: <a href="../data/quality.json">quality.json</a>.</footer>
+</body>
+</html>

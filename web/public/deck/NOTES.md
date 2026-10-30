@@ -1,6 +1,6 @@
 # Presenter notes — FraAlliance finals
 
-These cues follow the current 13-slide deck and canonical speaker script. The timings total 3:35 (215 seconds) and match autoplay. Lead with the planning task, then show the model and the evidence separately.
+These cues follow the current 14-slide deck and canonical speaker script. The timings total 3:41 (221 seconds) and match autoplay. Lead with the planning task, then show the model and the evidence separately.
 
 Use the browser-hosted `/deck/index.html`. Arrow keys or the clicker advance; `A` toggles autoplay; `End` jumps to the last slide. The dashboard is a planning forecast, not an operational clearance.
 
@@ -85,6 +85,12 @@ Windy is only a separate connection test. Its Testing-tier values are excluded f
 ### 13 · 3:27–3:35 · Team
 
 **Say:** “Thank you.”
+
+### 14 · 3:35–3:41 · Model card
+
+**Say:** “The full model card is public on our site. Scan to read it.”
+
+**Show:** QR to `/model-card/`, generated from `MODEL_CARD.md`.
 
 ## V6 figures for questions
 
