@@ -1,6 +1,6 @@
 # Presenter notes — FraAlliance finals
 
-These cues follow the current 13-slide deck and canonical speaker script. The timings total 3:16 (196 seconds) and match autoplay. Lead with the planning task, then show the model and the evidence separately.
+These cues follow the current 11-slide deck and canonical speaker script. The timings total 2:46 (166 seconds) and match autoplay. Lead with the planning task, then show the model and the evidence separately.
 
 Use the browser-hosted `/deck/index.html`. Arrow keys or the clicker advance; `A` toggles autoplay; `End` jumps to the last slide. The dashboard is a planning forecast, not an operational clearance.
 
@@ -52,33 +52,35 @@ Windy is only a separate connection test. Its Testing-tier values are excluded f
 
 **Keep straight:** Transition hours are excluded from this accuracy score. The stronger corrected-ensemble rule comparison is 93.3%, 88.8% and 89.2% at 1, 6 and 24 hours; include it if asked about baseline strength.
 
-### 9 · 2:26–2:41 · Next-change timing
+### 9 · 2:26–2:32 · What's next
+
+**Say:** “Next, fleet-wide planning: connect the forecast to flight demand so each shift sees which flights a change will hit.”
+
+### 10 · 2:32–2:40 · Team
+
+**Say:** “Thank you.”
+
+### 11 · 2:40–2:46 · Model card
+
+**Say:** “The full model card is public on our site. Scan to read it.”
+
+**Show:** QR to `/model-card/`, generated from `MODEL_CARD.md`.
+
+## If asked: honest limits (not on the slides)
+
+### Next-change timing
 
 **Say:** “Direction accuracy does not guarantee exact change timing. The separate event evaluation matches 115 of 193 recorded changes within three hours, with 138 false-alarm clusters. That limits how warnings should be used.”
 
 **Keep straight:** The median lead applies only to matched events. The separate window score is 394 of 750 overlapping change windows within three hours (52.5%); the false-alarm rate is 87 of 593 no-change windows (14.7%). These are different denominators, not independent events.
 
-### 10 · 2:41–2:56 · Runway 18 and certainty
+### Runway 18 and certainty
 
 **Say:** “Runway eighteen remains weak: no warnings in twelve positive twenty-four-hour windows. The labels are inferred from weather, not actual closures. Our certainty score is not a calibrated chance of being correct.”
 
 **Keep straight:** The 12 positive windows overlap and are not twelve independent closures. There were 307 complete windows and 1,125 exclusions.
 
 **Certainty:** “The 0–100 score is the smaller probability margin across the direction and runway-18 calls. It is not a calibrated chance that either forecast is correct.”
-
-### 11 · 2:56–3:02 · Next step
-
-**Say:** “Test alongside a shift lead: which warnings change preparation?”
-
-### 12 · 3:02–3:10 · Team
-
-**Say:** “Thank you.”
-
-### 13 · 3:10–3:16 · Model card
-
-**Say:** “The full model card is public on our site. Scan to read it.”
-
-**Show:** QR to `/model-card/`, generated from `MODEL_CARD.md`.
 
 ## V6 figures for questions
 
