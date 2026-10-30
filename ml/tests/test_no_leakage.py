@@ -134,3 +134,16 @@ def test_blend_regimes_and_stuck_runs():
     obs = pd.DataFrame({"time": times, "wind_kt": 12.0, "wind_dir_deg": 250.0})
     assert suspect_od_runs(truth, obs).tolist() == [False] * 2 + [True] * 4 + [False] * 2
     assert not suspect_od_runs(truth, obs.assign(wind_kt=8.0)).any()
+
+
+def test_archived_rows_with_late_metadata_are_rejected():
+    from ml.features import select_nwp
+
+    issue = pd.Timestamp("2026-05-01T00:00Z")
+    weather = pd.DataFrame({"time": pd.date_range(issue + pd.Timedelta(hours=1), periods=48, freq="h")})
+    for day in (1, 2, 3):
+        for name in ("wind_speed_10m", "wind_direction_10m", "wind_gusts_10m"):
+            weather[f"{name}_previous_day{day}"] = 10
+    assert len(select_nwp(issue, weather)) == 48
+    with pytest.raises(ValueError, match="coverage"):
+        select_nwp(issue, weather.assign(issued_at=issue + pd.Timedelta(hours=2)))

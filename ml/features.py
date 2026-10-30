@@ -76,6 +76,11 @@ def select_nwp(issue, nwp):
             raise ValueError("Non-offset forecasts need issued_at or retrieved_at")
         source[stamp] = pd.to_datetime(source[stamp], utc=True)
         source = source.loc[source[stamp] <= issue].sort_values(stamp)
+    else:
+        # Explicit metadata on archived rows must also precede the issue time.
+        for stamp in ("issued_at", "retrieved_at"):
+            if stamp in source:
+                source = source.loc[pd.to_datetime(source[stamp], utc=True) <= issue]
     source = source.drop_duplicates("time", keep="last").set_index("time").reindex(targets)
     output = pd.DataFrame({"time": targets, "lead_h": np.arange(1, 49)})
     output["nwp_offset_days"] = nwp_offset_days(output.lead_h) if archived else 0
