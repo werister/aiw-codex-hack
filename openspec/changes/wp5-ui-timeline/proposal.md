@@ -16,6 +16,14 @@ Ops staff need to see in seconds what will change, when, and how sure we are.
 - A model quality panel (data from WP8) and a day picker for the jury days.
 - Deployed on Vercel from this repo's `main`.
 
+- A simple tower-inspired summary and selectable hourly detail, following `briefing/brainstorm-268.md`; visible issue time, timezone, mode, source and versions explain the forecast.
+- Field-specific recorded, inferred or unknown provenance: DFLD/UNH OD when established, `INFERRED` for METAR-rule fallback and runway-18 targets. Reconcile the newer CLI brief with stale type comments through a joint metadata change.
+- Published-day selection from static JSON, with loading/unavailable/invalid-data states and evaluation provenance. See `design.md` and the CLI brief for the existing producer publication contract and proposed UI behavior.
+
+## Scope
+
+The delivered screen supports planning with forecast data. Live ATC integration, aircraft-position feeds and operational controls are outside WP5. The WP5 schematic traffic animation must be labelled `SIMULATION`; WP9 owns optional 3D and drops it if not ready by 15:00.
+
 ## Capabilities
 
 ### New Capabilities
@@ -26,3 +34,7 @@ Ops staff need to see in seconds what will change, when, and how sure we are.
 ## Impact
 
 Contracts: `ml/rules.json` (rules) and `web/src/lib/forecast-types.ts` (ML and UI JSON). Work on a `<person>/<feature>` branch, rebase onto `main`, land by fast-forward (see `AGENTS.md`).
+
+Coordinate forecast publication with WP4, model evidence with WP3/WP8, and flown-direction provenance with WP7. Use the already documented `/forecasts/index.json`, `/forecasts/latest.json` and dated outputs from the CLI brief. The brief also defines the 0.5 runway-18 threshold and margin-based certainty score; retain those semantics. Resolve closure endpoints beyond the forecast horizon jointly before displaying a reopening time. Preserve WP3's `web/src/data/backtest.json`; WP8's `quality.json` and `QualityResult` remain joint contract dependencies. Browser context and operational-system evidence: `briefing/2026-10-30-ui-atc-context.md`.
+
+The updated CLI brief permits recorded DFLD and published UNH OD references, while existing type comments still call them rule-derived. Per-target provenance and missing-reference handling need producer/type/UI agreement; until then unknown provenance stays explicit. Preserve the documented `rules-fallback` model-version label.
