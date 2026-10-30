@@ -4,23 +4,17 @@
 
 Open problems across main, branches and worktrees. One line each: time (Berlin) | severity | what is wrong | where | who acts. `STOP` breaks main or makes the submission wrong, `FIX` should be fixed before 16:00, `FYI` is worth knowing. Delete a line once it is fixed. Rules: "Cross-checking" in `AGENTS.md`.
 
-Main at 14:50 runs: `python -m pytest ml/tests -q` gives 54 passed (14:37). Lint passes since 2d0d773. The last web build check was cut short by low memory on the build PC.
+Main at 15:12 runs: `python -m pytest ml/tests -q` passed at 14:37 (54). Lint passes since 2d0d773. The last web build check was cut short by low memory on the build PC.
 
 ## STOP
 
 - 14:50 | STOP | Drive C: on the build PC is at 100% (6.0 GB free after it hit 20 MB at 14:17 and git writes failed), and memory is short enough that background builds get killed. Every re-render or `npm ci` eats into it | drive C: | head agent: clear temp folders, node_modules copies and render output before more installs or renders
-- 12:17 | STOP | Rule baseline drops the mild-tailwind timer known at issue time: 5 kt tailwind at T-20m and T with OD25 still predicts OD25 at T+1h instead of OD07; reproduced against the same state machine with the known timer | `ml/features.py:129-132`; the fallback in `ml/forecast.py` also starts with forecast rows only | model and cli owners: carry the observed hysteresis state into the forecast
 
 ## FIX
 
+- 15:12 | FYI | A future-day forecast holds only that day's 24 hours, while the timeline draws a fixed 48-column grid (`Timeline.tsx:193`), so jury-day views render half empty | `web/src/components/Timeline.tsx` | web owner
 
-
-
-- 12:41 | FIX | Quality timing metrics can be null when there are no actual-change windows, but the UI types them as numbers and renders Math.round(null * 100) as 0%, falsely implying measured failure instead of unavailable data | `ml/quality.py:88-90`, `web/src/lib/forecast-types.ts:99`, `web/src/components/QualityPanel.tsx:50-51` | web owner: type nullable rates and display unavailable explicitly
-
-- 12:41 | FIX | Future-day output now contains only the requested calendar day, while ForecastResponse and the UI still require 48 hours: with issue 2026-10-30T11:00Z and requested 2026-10-31, reproduced 24 rows with leads 12-35. The new day-view brief and the shared contract need coordinated handling | `ml/forecast.py:209-218`, `web/src/lib/forecast-types.ts:49`, `web/src/components/Timeline.tsx` | cli and web owners: preserve a full response with a separate day filter, or update the partial-day contract and UI together
-
-- 14:00 | FIX | Jury test days are pending from FraAlliance (README "Jury test days", ea7a492), with 2026-10-31 and 2026-11-01 as the fallback at 15:30. No jury-day forecast files exist yet | README, `web/public/forecasts/` | Jayden or Hugo: dates; cli lane: generate and add to `index.json` by 15:30
+- 15:12 | FIX | Jury test days are still pending from FraAlliance. The model lane is committing the fallback forecasts `2026-10-31.json` and `2026-11-01.json`; its rebase in `aiw-wt-ml` is stuck on conflicts in `latest.json` and `sample.json` | `aiw-wt-ml`, `web/public/forecasts/` | model lane: finish the rebase and push before 15:30
 - 14:15 | FYI | The static deck moved to `web/public/deck/` (3beb4b5), so `/pitch` is Kai's React route only. Check README and `PITCH.md` link the deck you present from. Hugo's static prototype `web/prototypes/dfs-forecast/` is also on main | `web/public/deck/`, `web/src/app/pitch/`, README | head agent, Hugo
 - 13:55 | FIX | The live URL is in `SUBMISSION.md` and README (1a2f59f), but README says the site is private until sharing is switched on. The jury can't open it until then | `SUBMISSION.md:5`, README | Jayden: switch sharing on before 16:00 and check it in a private window
 - 14:15 | FIX | `weather database/` is back to 76 MB with 29 third-party PDFs (76184d1 "consolidate weather research archives"), which undoes dfc3c5e. Copyright risk in the submission repo, and none of it feeds the model | `weather database/` | Luca and head agent: keep it on `luca/weather-database`
@@ -36,11 +30,9 @@ Main at 14:50 runs: `python -m pytest ml/tests -q` gives 54 passed (14:37). Lint
 
 - 14:52 | FYI | Shift-planning integration follows the new PlainHero/expert layout and published-values-only pitch. Parent owns ForecastApp event navigation and WP5 section 8/docs; one worker owns PlainHero selected-hour/time-label adaptation; handover helper is now frozen with 13 passing regressions. Preserve these edits. Final shared build and current-main browser verification pending; no rebase during active writes | shared main, web/, WP5 | shift-planning lane
 
-
 - 13:29 | FYI | Publishing checkpoint: finish only the currently running airport rebuild and logo checks, then stop all source writes until the integration coordinator completes fetch/rebase/push. The user explicitly requests all work on main and publication; do not start another change during this checkpoint | shared main | all active file owners
 
 - 13:31 | FYI | At 320 px, the widget recommendation's “Demand data unavailable” text overflows the viewport; its logo/header fits. Reproduced during branding verification | `web/src/components/Recommendation.tsx` via `/widget` | web owner: allow the compact traffic field to wrap
-
 
 - 14:15 | FYI | October midnight issues, walk-forward-v5: on all recorded hours persistence beats the model at 1-6 h (83.0% vs 95.3%; lead 1 86.2% vs 100%) because 240 of 1,348 matched hours fall in the stuck DFLD run of 8-12 Oct (07 against 8-17 kt westerlies). Without them: 1-6 h 96.6% vs 94.6%, 7-24 h 96.8% vs rules 91.9%, 25-48 h 94.9% vs 85.1%. Quote both | `web/public/data/october.json` | model-card owner
 - 13:30 | FYI | `PITCH.md` section 5 is titled "Built with Codex" and names Codex workers. That fits a Codex hackathon if intended, but AGENTS.md bans AI names in files | `PITCH.md:30-31` | head agent: decide
@@ -74,8 +66,6 @@ Main at 14:50 runs: `python -m pytest ml/tests -q` gives 54 passed (14:37). Lint
 - 14:33 | FIX | suspect_od_runs raises MergeError on committed truth/METAR inputs with pandas 3: datetime64[us, UTC] versus datetime64[ns, UTC]. Isolated reproduction at 40af4ef; normalize keys at this merge boundary | `ml/quality.py:20` | algorithm implementation lane
 
 - 14:40 | FIX | Current full web typecheck fails at PitchApp.tsx:218: number is not assignable to 1|6|24|48. New 3D renderer lint is clean; this independent pitch edit blocks a clean global tsc run | web/src/components/pitch/PitchApp.tsx:218 | pitch owner
-
-
 
 - 14:55 | FYI | Synthetic-value removal is ready locally: pitch fixture step, estimated savings, score count-up, API selection-confidence display and fabricated fold widths removed; missing scores stay unavailable. Typecheck, targeted lint, 22 logic tests and cockpit/widget/pitch/missing-day browser checks passed. Production builds remain unverified: default build failed on a denied CSS-compiler port; Webpack retry failed resolving the font host. No app or deploy configuration changed. Preserve narrow patches in Numbers/QualityPanel/PitchApp/Recommendation/EvidenceChain/PlanningPriorities/approach and docs; no Git mutation while integration lock is owned | web | data-display lane / integration owner
 
