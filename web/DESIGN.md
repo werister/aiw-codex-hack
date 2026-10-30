@@ -2,8 +2,8 @@
 
 ## Product identity
 
-The product is **Lift-off**. Its approved runway wordmark lives at
-`public/brand/lift-off-runway.png` and is shared by the cockpit, widget and pitch
+The product is **Lift-off**. Its runway wordmark with a compass inside the **o** lives at
+`public/brand/lift-off-compass.png` and is shared by the cockpit, widget and pitch
 through `src/components/BrandLogo.tsx`. The component frames the artwork inside
 the transparent export margins. It uses the original indigo/violet on light
 surfaces and a white monochrome treatment in tower mode.
