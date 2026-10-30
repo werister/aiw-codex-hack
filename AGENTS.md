@@ -86,6 +86,17 @@ docs: update run instructions
 - If something is ambiguous, ask one focused question rather than inventing requirements.
 - Do not delete files, rewrite history on `main`, or change CI/deploy config without explicit approval.
 
+## Cross-checking
+
+Four people and several agents work in parallel branches and worktrees. Nobody sees unpushed work, so:
+
+- Before each task, and at least every 15 minutes, pull main (`git fetch origin && git rebase origin/main`) and read `NOTICES.md`.
+- Use subagents to look at what the other branches and worktrees are doing (`git branch -r`, `git log origin/main..origin/<branch>`, `git worktree list`) before you build something. If it already exists, use it.
+- When you see something wrong anywhere in the repo or in any workspace, add one line to `NOTICES.md` or message the head lane. Examples: main doesn't run, the same thing built twice, code that disagrees with `frankfurt-airport-operating-direction-forecast.md`, leakage in the backtest, a committed secret, an AI name.
+- Commit to main as soon as your change runs. Small commits, rebased, never force-pushed.
+
+`NOTICES.md` has one line per open problem: time (Berlin), severity (`STOP`, `FIX` or `FYI`), what is wrong, where, who acts. Delete the line once it is fixed. A guardian checks all branches and worktrees every 10 minutes until 16:30 and keeps the file current.
+
 ## Team notes
 
 - Kai Detmers: ML and data pipeline co-lead (`ml/`).

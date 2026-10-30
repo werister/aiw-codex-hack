@@ -18,6 +18,8 @@ Pick yours, read its `proposal.md` and `tasks.md`, and tick tasks off as you go.
 
 Deadline: submissions at 16:00, finals at 17:00. Hugo presents; Jayden leaves at 16:45.
 
+**Cross-checking.** Open problems are in `NOTICES.md`. Every agent reads it and pulls main before each task and at least every 15 minutes, checks the other branches and worktrees before building, and adds a line when it sees something wrong. Details: "Cross-checking" in `AGENTS.md`.
+
 ## What we are building
 
 A 48 h hourly forecast for Frankfurt Airport. For each hour it gives:
