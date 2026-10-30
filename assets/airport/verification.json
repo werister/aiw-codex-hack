@@ -2,8 +2,8 @@
   "assets": [
     {
       "file": "aircraft-narrowbody.glb",
-      "bytes": 1304604,
-      "sha256": "e248041d4cdd38e88dd304d694b9a07fada0a34657befa717babbc335b159a55",
+      "bytes": 1301300,
+      "sha256": "6fc98a602e07726a3a0e86504227d52f308c6b8d29ee9c2acf5ce7e5647d1271",
       "triangles_unique": 27380,
       "mesh_nodes": 15,
       "dimensions_blender_m": [
@@ -17,7 +17,7 @@
     {
       "file": "aircraft-widebody.glb",
       "bytes": 1742712,
-      "sha256": "5bd70a9d84a13a7841302c2602e2e2aa6ad8ee698db3a3150b7bb94f32cfbc26",
+      "sha256": "2eb9f160453d2db0d02db027700e615834a29a82710d2c7c4dda3d24e71296b6",
       "triangles_unique": 36332,
       "mesh_nodes": 15,
       "dimensions_blender_m": [
@@ -31,7 +31,7 @@
     {
       "file": "tower.glb",
       "bytes": 4236368,
-      "sha256": "15c7f52cdfd70c26bbc3dcc230cfd71d6d1ff7cb82ffe7563d16b705086173ab",
+      "sha256": "7afe226fb7aa77a93a6908dde5e20354fa0fcd3e0397f694f4129db2f8b6c71f",
       "triangles_unique": 59800,
       "mesh_nodes": 7,
       "dimensions_blender_m": [
@@ -100,28 +100,28 @@
     },
     {
       "file": "airport-environment.glb",
-      "bytes": 9216296,
-      "sha256": "6538fcc8efbe58882b2917252d84ec113ca6fb6f92ae3619dc4377e010310978",
-      "triangles_unique": 181247,
-      "mesh_nodes": 124,
+      "bytes": 7736092,
+      "sha256": "5aa198863567c5213a4e63e8f325110904cabf672ff14cf31e1a286ba1c2980e",
+      "triangles_unique": 132444,
+      "mesh_nodes": 160,
       "dimensions_blender_m": [
-        820.0,
-        670.0,
-        74.761
+        900.0,
+        800.0,
+        61.053
       ],
       "reimport": "passed",
       "animation_clips": 0
     },
     {
       "file": "airport-traffic-demo.glb",
-      "bytes": 3160736,
-      "sha256": "8a201d0cd8b3e98c5be18f398b440eb05d4c4f2fd5f31dabb772c51385026142",
-      "triangles_unique": 63931,
-      "mesh_nodes": 84,
+      "bytes": 5115912,
+      "sha256": "d288f5dc834ec00b8ed80ad4aeeb1a1a787f13299bb8cc4c8928090d8f400a32",
+      "triangles_unique": 113024,
+      "mesh_nodes": 106,
       "dimensions_blender_m": [
-        684.9355,
-        433.0852,
-        43.7607
+        707.3952,
+        637.9667,
+        42.9383
       ],
       "reimport": "passed",
       "animation_clips": 7
@@ -141,6 +141,40 @@
     "18 closure redirects the flexible departure to the centre runway",
     "Native scene opens; playback states and aircraft transforms valid"
   ],
-  "blend_sha256": "4571e0253056efe0c4299810f4c0b9d348426e9762e3fc3980f2e22dea0a47e6",
-  "result": "passed"
+  "scene_checks": [
+    "FAIL: obstacle 'Building.Terminal' (building) overlaps runway 'north' expanded by 12 display m",
+    "INFO: minimum obstacle-to-runway clearance beyond the 12 m envelope: 0.00 display m (Building.Terminal / north)",
+    "PASS: no positive-area same-height XY triangle overlap between apron and runway tops (apron 146 triangles; runway 5666 triangles)",
+    "INFO: horizontal surface layers: apron z=[(1.85, 146)]; taxi paint z=[(1.895, 348)]; runway tops z=[(1.7, 8), (1.85, 8), (1.8925, 16), (1.905, 668), (1.908, 1373), (1.912, 1373), (2.425, 2220)]",
+    "INFO: measured taxi-paint/apron top separation: 0.0450 display m (paint 1.8950, apron 1.8500)",
+    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 74",
+    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 75",
+    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 76",
+    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 77",
+    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 78",
+    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 79",
+    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 80",
+    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 81",
+    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 82",
+    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 83",
+    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 84",
+    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 85",
+    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 86",
+    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 87",
+    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 88",
+    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 89",
+    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 90",
+    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 91",
+    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 92",
+    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 93",
+    "PASS: exactly one State.N overlay has scale 1 at every integer frame 1..1440; others are 0",
+    "FAIL: 521 additional flight/obstacle AABB intersections omitted",
+    "INFO: minimum moving-aircraft center separation: 31.67 display m (depart_center / depart_flex, frame 1025)",
+    "PASS: all visible moving-aircraft pairs stay at least 20 display m apart",
+    "INFO: minimum moving-flight/obstacle AABB gap: 0.00 display m (depart_center / Building.Terminal, frame 74)",
+    "PASS: all four aircraft roles reach each phase's manifest endpoint by its phase end",
+    "PASS: all route start/finish timings are normalized within 0..1",
+    "PASS: closed phase is represented as a distinct manifest state"
+  ],
+  "result": "failed"
 }

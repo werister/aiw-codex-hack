@@ -47,11 +47,8 @@ def _world_mesh_vertices(root, depsgraph):
     return vertices
 
 
-def _world_mesh_bounds(root, depsgraph):
-    vertices = _world_mesh_vertices(root, depsgraph)
-    if not vertices:
-        return None
-    if not all(_finite_vector(vertex) for vertex in vertices):
+def _bounds_from_vertices(vertices):
+    if not vertices or not all(_finite_vector(vertex) for vertex in vertices):
         return None
     return tuple((min(vertex[axis] for vertex in vertices),
                   max(vertex[axis] for vertex in vertices)) for axis in range(3))
@@ -73,38 +70,18 @@ def _local_bbox_corners(root, depsgraph):
     return tuple(corners)
 
 
-def _bounds_from_local_corners(root_matrix, local_corners):
+def _world_points_from_local_corners(root_matrix, local_corners):
     world = [root_matrix @ corner for corner in local_corners]
     if not world or not all(_finite_vector(corner) for corner in world):
         return None
+    return world
+
+
+def _bounds_from_points(world):
+    if not world or not all(_finite_vector(point) for point in world):
+        return None
     return tuple((min(corner[axis] for corner in world),
                   max(corner[axis] for corner in world)) for axis in range(3))
-
-
-def _bounds_overlap_3d(first, second):
-    return all(first[axis][0] <= second[axis][1] and
-               second[axis][0] <= first[axis][1] for axis in range(3))
-
-
-def _bounds_gap_3d(first, second):
-    gaps = []
-    for axis in range(3):
-        if first[axis][1] < second[axis][0]:
-            gaps.append(second[axis][0] - first[axis][1])
-        elif second[axis][1] < first[axis][0]:
-            gaps.append(first[axis][0] - second[axis][1])
-        else:
-            gaps.append(0.0)
-    return math.sqrt(sum(gap * gap for gap in gaps))
-
-
-def _projected_bounds(bounds, center, along, across):
-    corners = [Vector((x, y, 0.0))
-               for x in bounds[0] for y in bounds[1]]
-    along_values = [(point - center).dot(along) for point in corners]
-    across_values = [(point - center).dot(across) for point in corners]
-    return ((min(along_values), max(along_values)),
-            (min(across_values), max(across_values)))
 
 
 def _interval_gap(first, second):
@@ -115,32 +92,89 @@ def _interval_gap(first, second):
     return 0.0
 
 
-def _runway_projection(bounds, spec):
+def _runway_polygon(spec, margin=0.0):
     heading = math.radians(float(spec["heading"]))
     along = Vector((math.sin(heading), math.cos(heading), 0.0))
     across = Vector((math.cos(heading), -math.sin(heading), 0.0))
     center = Vector((float(spec["center"][0]), float(spec["center"][1]), 0.0))
-    return center, along, across, _projected_bounds(bounds, center, along, across)
-
-
-def _inside_expanded_runway(bounds, spec, margin=RUNWAY_CLEARANCE):
-    """Conservative oriented-rectangle overlap using projected mesh bounds."""
-    center, along, across, projected = _runway_projection(bounds, spec)
-    del center, along, across
     half_length = float(spec["length"]) * 0.5 + margin
     half_width = float(spec["width"]) * 0.5 + margin
-    return (projected[0][0] <= half_length and projected[0][1] >= -half_length and
-            projected[1][0] <= half_width and projected[1][1] >= -half_width)
+    points = [center - along * half_length - across * half_width,
+              center + along * half_length - across * half_width,
+              center + along * half_length + across * half_width,
+              center - along * half_length + across * half_width]
+    return [(float(point.x), float(point.y)) for point in points]
 
 
-def _runway_projection_gap(bounds, spec, margin=RUNWAY_CLEARANCE):
-    _, _, _, projected = _runway_projection(bounds, spec)
-    half_length = float(spec["length"]) * 0.5 + margin
-    half_width = float(spec["width"]) * 0.5 + margin
-    return math.hypot(
-        _interval_gap(projected[0], (-half_length, half_length)),
-        _interval_gap(projected[1], (-half_width, half_width)),
-    )
+def _convex_hull_xy(points):
+    """Monotone-chain convex hull from actual world points or bbox corners."""
+    ordered = sorted(set((float(point[0]), float(point[1])) for point in points))
+    if len(ordered) <= 2:
+        return ordered
+
+    def cross(origin, first, second):
+        return ((first[0] - origin[0]) * (second[1] - origin[1]) -
+                (first[1] - origin[1]) * (second[0] - origin[0]))
+
+    lower = []
+    for point in ordered:
+        while len(lower) >= 2 and cross(lower[-2], lower[-1], point) <= 1e-10:
+            lower.pop()
+        lower.append(point)
+    upper = []
+    for point in reversed(ordered):
+        while len(upper) >= 2 and cross(upper[-2], upper[-1], point) <= 1e-10:
+            upper.pop()
+        upper.append(point)
+    return lower[:-1] + upper[:-1]
+
+
+def _convex_polygons_overlap(first, second, epsilon=1e-7):
+    if len(first) < 3 or len(second) < 3:
+        return False
+    for polygon in (first, second):
+        for index, point in enumerate(polygon):
+            other = polygon[(index + 1) % len(polygon)]
+            axis_x, axis_y = -(other[1] - point[1]), other[0] - point[0]
+            axis_length = math.hypot(axis_x, axis_y)
+            if axis_length <= 1e-10:
+                continue
+            first_projection = [x * axis_x + y * axis_y for x, y in first]
+            second_projection = [x * axis_x + y * axis_y for x, y in second]
+            if min(max(first_projection), max(second_projection)) < max(
+                    min(first_projection), min(second_projection)) - epsilon * axis_length:
+                return False
+    return True
+
+
+def _point_segment_distance(point, start, end):
+    dx, dy = end[0] - start[0], end[1] - start[1]
+    length_squared = dx * dx + dy * dy
+    if length_squared <= 1e-20:
+        return math.hypot(point[0] - start[0], point[1] - start[1])
+    t = max(0.0, min(1.0, ((point[0] - start[0]) * dx + (point[1] - start[1]) * dy) /
+                     length_squared))
+    closest = (start[0] + t * dx, start[1] + t * dy)
+    return math.hypot(point[0] - closest[0], point[1] - closest[1])
+
+
+def _convex_polygon_distance(first, second):
+    if _convex_polygons_overlap(first, second):
+        return 0.0
+    minimum = math.inf
+    for point, polygon in [(point, second) for point in first] + [(point, first) for point in second]:
+        for index, start in enumerate(polygon):
+            end = polygon[(index + 1) % len(polygon)]
+            minimum = min(minimum, _point_segment_distance(point, start, end))
+    return minimum
+
+
+def _inside_expanded_runway(hull, spec, margin=RUNWAY_CLEARANCE):
+    return _convex_polygons_overlap(hull, _runway_polygon(spec, margin))
+
+
+def _runway_projection_gap(hull, spec, margin=RUNWAY_CLEARANCE):
+    return _convex_polygon_distance(hull, _runway_polygon(spec, margin))
 
 
 def _upward_planar_triangles(root, depsgraph):
@@ -212,9 +246,10 @@ def _surface_levels(triangles):
 def check_scene(scene, manifest) -> list[str]:
     """Return PASS/INFO/FAIL findings for geometry and demo playback checks.
 
-    Obstacle runway checks use descendant world-mesh vertices.  Moving-flight
-    checks use evaluated mesh AABBs as a conservative broadphase.  A PASS here
-    only establishes consistency of this illustrative scene and manifest.
+    Obstacle and runway checks use descendant world-mesh vertices. Moving-flight
+    broadphase uses cached root-local mesh bounds; narrowphase uses convex hulls
+    in XY and actual Z intervals. A PASS here only establishes consistency of
+    this illustrative scene and manifest.
     """
     findings = []
 
@@ -258,11 +293,13 @@ def check_scene(scene, manifest) -> list[str]:
                      if obj.get("obstacle_kind") in OBSTACLE_KINDS]
         for obstacle in obstacles:
             kind = str(obstacle.get("obstacle_kind"))
-            bounds = _world_mesh_bounds(obstacle, depsgraph)
-            if bounds is None:
+            vertices = _world_mesh_vertices(obstacle, depsgraph)
+            bounds = _bounds_from_vertices(vertices)
+            hull = _convex_hull_xy(vertices)
+            if bounds is None or len(hull) < 3:
                 failed(f"obstacle {obstacle.name!r} ({kind}) has no finite descendant mesh bounds")
                 continue
-            obstacle_bounds[obstacle.name] = (obstacle, bounds)
+            obstacle_bounds[obstacle.name] = (obstacle, bounds, hull)
 
         if not obstacles:
             failed("no semantic obstacle roots found (building/tree/parked_aircraft)")
@@ -284,10 +321,10 @@ def check_scene(scene, manifest) -> list[str]:
 
         min_runway_gap = (math.inf, None)
         runway_overlap_failures = 0
-        for obstacle_name, (obstacle, bounds) in obstacle_bounds.items():
+        for obstacle_name, (obstacle, bounds, hull) in obstacle_bounds.items():
             for key, spec in runway_specs.items():
                 try:
-                    gap = _runway_projection_gap(bounds, spec)
+                    gap = _runway_projection_gap(hull, spec)
                     if gap < min_runway_gap[0]:
                         min_runway_gap = (gap, (obstacle_name, key))
                     if gap <= 1e-6:
@@ -433,7 +470,6 @@ def check_scene(scene, manifest) -> list[str]:
                 if len(state_messages) < 10:
                     state_messages.append(f"frame {frame}: expected exactly one active State.N root, found {active_states}")
 
-            frame_bounds = {}
             frame_centers = {}
             for role in FLIGHT_ROLES:
                 roots = flights.get(role, [])
@@ -443,17 +479,18 @@ def check_scene(scene, manifest) -> list[str]:
                 evaluated_root = root.evaluated_get(depsgraph)
                 location = evaluated_root.matrix_world.translation
                 local_corners = flight_local_corners.get(role)
-                bounds = (_bounds_from_local_corners(evaluated_root.matrix_world, local_corners)
-                          if local_corners is not None else None)
+                world_corners = (_world_points_from_local_corners(evaluated_root.matrix_world, local_corners)
+                                 if local_corners is not None else None)
+                bounds = _bounds_from_points(world_corners) if world_corners is not None else None
                 if not _finite_vector(location) or bounds is None:
                     invalid_aircraft_frames += 1
                     if invalid_aircraft_frames <= 10:
                         failed(f"flight {role!r} has non-finite transform/bounds at frame {frame}")
                     continue
-                frame_bounds[role] = bounds
                 # The aircraft builders place their root origin at ground
                 # center, so this is a stable, model-defined center point.
                 frame_centers[role] = Vector(location)
+                flight_hull = _convex_hull_xy(world_corners)
 
                 hidden_parts = [part.name for part in _descendants(root)
                                 if part.hide_render or part.hide_viewport]
@@ -464,13 +501,18 @@ def check_scene(scene, manifest) -> list[str]:
                 if hidden_parts:
                     failed(f"flight {role!r} is hidden at frame {frame}: {sorted(set(hidden_parts))}")
 
-                for obstacle_name, (_, obstacle_box) in obstacle_bounds.items():
-                    if _bounds_overlap_3d(bounds, obstacle_box):
+                for obstacle_name, (_, obstacle_box, obstacle_hull) in obstacle_bounds.items():
+                    vertical_overlap = (bounds[2][0] <= obstacle_box[2][1] and
+                                        obstacle_box[2][0] <= bounds[2][1])
+                    horizontal_overlap = _convex_polygons_overlap(flight_hull, obstacle_hull)
+                    if vertical_overlap and horizontal_overlap:
                         collision_count += 1
                         if collision_count <= 20:
-                            failed(f"flight {role!r} AABB intersects obstacle {obstacle_name!r} "
+                            failed(f"flight {role!r} convex-hull/Z interval intersects obstacle {obstacle_name!r} "
                                    f"at frame {frame}")
-                    gap = _bounds_gap_3d(bounds, obstacle_box)
+                    horizontal_gap = _convex_polygon_distance(flight_hull, obstacle_hull)
+                    vertical_gap = _interval_gap(bounds[2], obstacle_box[2])
+                    gap = math.hypot(horizontal_gap, vertical_gap)
                     if gap < min_obstacle_gap[0]:
                         min_obstacle_gap = (gap, (role, obstacle_name, frame))
 
@@ -479,7 +521,7 @@ def check_scene(scene, manifest) -> list[str]:
                 if (closed_phase and role == "depart_flex" and west_spec is not None and
                         frame >= closed_phase_start and
                         bounds[2][0] <= GROUND_HEIGHT_MAX and
-                        _inside_expanded_runway(bounds, west_spec)):
+                        _inside_expanded_runway(flight_hull, west_spec)):
                     failed(f"closed-phase depart_flex is on/near the west runway at frame {frame} "
                            f"while on the ground (z-min {bounds[2][0]:.2f})")
 
@@ -510,7 +552,7 @@ def check_scene(scene, manifest) -> list[str]:
         if invalid_aircraft_frames > 10:
             failed(f"{invalid_aircraft_frames - 10} additional invalid moving-flight samples omitted")
         if collision_count > 20:
-            failed(f"{collision_count - 20} additional flight/obstacle AABB intersections omitted")
+            failed(f"{collision_count - 20} additional flight/obstacle hull intersections omitted")
         if separation_failure_count > 20:
             failed(f"{separation_failure_count - 20} additional aircraft-separation violations omitted")
         if math.isfinite(min_aircraft_separation[0]):
@@ -521,10 +563,10 @@ def check_scene(scene, manifest) -> list[str]:
                 passed(f"all visible moving-aircraft pairs stay at least {AIRCRAFT_SEPARATION:.0f} display m apart")
         if math.isfinite(min_obstacle_gap[0]):
             role, obstacle_name, frame = min_obstacle_gap[1]
-            info(f"minimum moving-flight/obstacle AABB gap: {min_obstacle_gap[0]:.2f} display m "
+            info(f"minimum moving-flight/obstacle hull/Z gap: {min_obstacle_gap[0]:.2f} display m "
                  f"({role} / {obstacle_name}, frame {frame})")
             if collision_count == 0:
-                passed(f"sampled moving-flight AABBs do not intersect semantic obstacle AABBs "
+                passed(f"moving-flight convex hulls/Z intervals do not intersect semantic obstacle hulls "
                        f"({scene.frame_end} integer frames)")
 
         # Check each route's last animation pose against its manifest target.
