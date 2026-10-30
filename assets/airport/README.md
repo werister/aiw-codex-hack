@@ -79,11 +79,13 @@ triangulates the taxiways; the delivered models need no Python dependencies:
 python3 -m venv tools/blender/.venv
 tools/blender/.venv/bin/python -m pip install -r tools/blender/requirements.txt
 blender --background --threads 6 --python tools/blender/build_airport.py
-blender --background --threads 6 --python tools/blender/verify_assets.py
+blender --background --threads 2 --python-exit-code 1 --python tools/blender/verify_assets.py
 ```
 
 On this Mac, replace `blender` with
 `/Applications/Blender.app/Contents/MacOS/Blender`.
+The exporter scopes selection to the active scene and omits unused UV data.
+`-- --export-only` re-exports the saved scene without changing its geometry.
 Append `-- --no-render` to rebuild geometry only, or `-- --preview-only` to
 render the saved project. `-- --preview-only --preview-filter tower.png`
 renders just that preview. Output stays under `assets/airport/`.

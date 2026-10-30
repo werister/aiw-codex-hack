@@ -2,8 +2,8 @@
   "assets": [
     {
       "file": "aircraft-narrowbody.glb",
-      "bytes": 1301300,
-      "sha256": "6fc98a602e07726a3a0e86504227d52f308c6b8d29ee9c2acf5ce7e5647d1271",
+      "bytes": 980996,
+      "sha256": "c28a394527410e2eadefb06522dfec604268fbf81ba4c8dc5c908fc53f0c1440",
       "triangles_unique": 27380,
       "mesh_nodes": 15,
       "dimensions_blender_m": [
@@ -16,8 +16,8 @@
     },
     {
       "file": "aircraft-widebody.glb",
-      "bytes": 1742712,
-      "sha256": "2eb9f160453d2db0d02db027700e615834a29a82710d2c7c4dda3d24e71296b6",
+      "bytes": 1307208,
+      "sha256": "2c3428a7ec0138fceb68a060ed53b1fa70f48fe2e0446ed95d0f89a78ea9b7dc",
       "triangles_unique": 36332,
       "mesh_nodes": 15,
       "dimensions_blender_m": [
@@ -30,10 +30,10 @@
     },
     {
       "file": "tower.glb",
-      "bytes": 4236368,
-      "sha256": "7afe226fb7aa77a93a6908dde5e20354fa0fcd3e0397f694f4129db2f8b6c71f",
-      "triangles_unique": 59800,
-      "mesh_nodes": 7,
+      "bytes": 4020524,
+      "sha256": "459db526c6b31411353f0f556f9958d585f7c6cf71d51aa2d2bba15633a7800e",
+      "triangles_unique": 77668,
+      "mesh_nodes": 8,
       "dimensions_blender_m": [
         21.0,
         18.0,
@@ -44,8 +44,8 @@
     },
     {
       "file": "runway-07L-25R.glb",
-      "bytes": 239356,
-      "sha256": "c46e321a97dd6654803dd96861e20318468362d094c30fb015df3344d5c0d9e6",
+      "bytes": 156504,
+      "sha256": "5e20f197a5cc5d1cb883d6dc2de10b80607aa7fa44991ae7c206cb5ff3c4cb45",
       "triangles_unique": 4696,
       "mesh_nodes": 4,
       "dimensions_blender_m": [
@@ -58,8 +58,8 @@
     },
     {
       "file": "runway-07C-25C.glb",
-      "bytes": 308400,
-      "sha256": "68a6144133f9a587086a8ebab969496446d53ccb8fe46d09abe7cc5fd2bb8605",
+      "bytes": 197540,
+      "sha256": "8c2ed66dc0deca697aebf9d67e192e40d2ea9f27bb5420bcb41d5cb659882f3e",
       "triangles_unique": 6156,
       "mesh_nodes": 4,
       "dimensions_blender_m": [
@@ -72,8 +72,8 @@
     },
     {
       "file": "runway-07R-25L.glb",
-      "bytes": 292672,
-      "sha256": "0fbcf6fbce284db0f3205e11dc3c9eca7097808d62d49190ee4a19078e134732",
+      "bytes": 184780,
+      "sha256": "ece2609a520ea1b594eac083449d53caa61413c644957fc741ffac435f135433",
       "triangles_unique": 5776,
       "mesh_nodes": 4,
       "dimensions_blender_m": [
@@ -86,8 +86,8 @@
     },
     {
       "file": "runway-18.glb",
-      "bytes": 251016,
-      "sha256": "dc67f8ea0a914b9947c1e11e12a606af9a45d97f302111c279979dc0b2ea7bd1",
+      "bytes": 152332,
+      "sha256": "29ccc195d033b0a2083d6d27e3d5ef331e87dc8dd878e8c1641f01fd767784dd",
       "triangles_unique": 4884,
       "mesh_nodes": 4,
       "dimensions_blender_m": [
@@ -100,10 +100,10 @@
     },
     {
       "file": "airport-environment.glb",
-      "bytes": 7736092,
-      "sha256": "5aa198863567c5213a4e63e8f325110904cabf672ff14cf31e1a286ba1c2980e",
-      "triangles_unique": 132444,
-      "mesh_nodes": 160,
+      "bytes": 12351840,
+      "sha256": "8eac4e62bac6f9a4250f071680f251cf745aae3fb3adae3f0f9099b172b7b5c8",
+      "triangles_unique": 260312,
+      "mesh_nodes": 208,
       "dimensions_blender_m": [
         900.0,
         800.0,
@@ -114,10 +114,10 @@
     },
     {
       "file": "airport-traffic-demo.glb",
-      "bytes": 5115912,
-      "sha256": "d288f5dc834ec00b8ed80ad4aeeb1a1a787f13299bb8cc4c8928090d8f400a32",
-      "triangles_unique": 113024,
-      "mesh_nodes": 106,
+      "bytes": 4284008,
+      "sha256": "619fc1f3f9311a24535f82c350418c4ecabc1ff73dff0fefc542fac7e9560c71",
+      "triangles_unique": 124412,
+      "mesh_nodes": 109,
       "dimensions_blender_m": [
         707.3952,
         637.9667,
@@ -139,42 +139,24 @@
     "All three parallel runways share OD",
     "18 departures always southbound",
     "18 closure redirects the flexible departure to the centre runway",
-    "Native scene opens; playback states and aircraft transforms valid"
+    "Native scene opens; playback states and aircraft transforms valid",
+    "3530 ground positions raycast onto actual movement pavement at z=1.85"
   ],
   "scene_checks": [
-    "FAIL: obstacle 'Building.Terminal' (building) overlaps runway 'north' expanded by 12 display m",
-    "INFO: minimum obstacle-to-runway clearance beyond the 12 m envelope: 0.00 display m (Building.Terminal / north)",
+    "INFO: minimum obstacle-to-runway clearance beyond the 12 m envelope: 30.95 display m (Building.Terminal / north)",
+    "PASS: 25 semantic obstacle roots clear all runway envelopes",
     "PASS: no positive-area same-height XY triangle overlap between apron and runway tops (apron 146 triangles; runway 5666 triangles)",
-    "INFO: horizontal surface layers: apron z=[(1.85, 146)]; taxi paint z=[(1.895, 348)]; runway tops z=[(1.7, 8), (1.85, 8), (1.8925, 16), (1.905, 668), (1.908, 1373), (1.912, 1373), (2.425, 2220)]",
+    "INFO: horizontal surface layers: apron z=[(1.85, 146)]; taxi paint z=[(1.895, 348), (1.932, 458)]; runway tops z=[(1.7, 8), (1.85, 8), (1.8925, 16), (1.905, 668), (1.908, 1373), (1.912, 1373), (2.425, 2220)]",
     "INFO: measured taxi-paint/apron top separation: 0.0450 display m (paint 1.8950, apron 1.8500)",
-    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 74",
-    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 75",
-    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 76",
-    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 77",
-    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 78",
-    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 79",
-    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 80",
-    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 81",
-    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 82",
-    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 83",
-    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 84",
-    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 85",
-    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 86",
-    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 87",
-    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 88",
-    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 89",
-    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 90",
-    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 91",
-    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 92",
-    "FAIL: flight 'depart_center' AABB intersects obstacle 'Building.Terminal' at frame 93",
     "PASS: exactly one State.N overlay has scale 1 at every integer frame 1..1440; others are 0",
-    "FAIL: 521 additional flight/obstacle AABB intersections omitted",
     "INFO: minimum moving-aircraft center separation: 31.67 display m (depart_center / depart_flex, frame 1025)",
     "PASS: all visible moving-aircraft pairs stay at least 20 display m apart",
-    "INFO: minimum moving-flight/obstacle AABB gap: 0.00 display m (depart_center / Building.Terminal, frame 74)",
+    "INFO: minimum moving-flight/obstacle hull/Z gap: 11.63 display m (arrive_north / Building.Service.1, frame 61)",
+    "PASS: moving-flight convex hulls/Z intervals do not intersect semantic obstacle hulls (1440 integer frames)",
     "PASS: all four aircraft roles reach each phase's manifest endpoint by its phase end",
     "PASS: all route start/finish timings are normalized within 0..1",
     "PASS: closed phase is represented as a distinct manifest state"
   ],
-  "result": "failed"
+  "blend_sha256": "55c5aaa3b0bba23e48863d7f3c75a7ee10ef31a7bbb1543af1e45b3cdd0137b5",
+  "result": "passed"
 }
