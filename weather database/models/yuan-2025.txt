@@ -1,0 +1,1580 @@
+
+
+===== PDF PAGE 1 / 17 =====
+
+Academic Editor: Pedro Couto
+
+Received: 4 June 2025
+
+Revised: 28 July 2025
+
+Accepted: 30 July 2025
+
+Published: 3 August 2025 
+
+Citation:   Yuan, L.; Kong, L.; Chen, H.
+
+Delay Prediction Through
+
+Multi-Channel Traffic and Weather
+
+Scene Image: A Deep Learning-Based
+
+Method.   Appl. Sci.   2025 ,   15 , 8604.
+
+https://doi.org/10.3390/app15158604 
+
+Copyright:   © 2025 by the authors.
+
+Licensee MDPI, Basel, Switzerland.
+
+This article is an open access article
+
+distributed under the terms and
+
+conditions of the Creative Commons
+
+Attribution (CC BY) license
+
+(https://creativecommons.org/
+
+licenses/by/4.0/). 
+
+Article 
+
+Delay Prediction Through Multi-Channel Traffic and Weather
+
+Scene Image: A Deep Learning-Based Method 
+
+Ligang Yuan   
+1,2, 
+*   , Linghua Kong   
+1,2   
+and Haiyan Chen   
+2,3 
+
+1   College of Civil Aviation, Nanjing University of Aeronautics and Astronautics, Nanjing 211106, China;
+
+klh1053109220@163.com 
+
+2   National Key Laboratory of Air Traffic Flow Management, Nanjing 211106, China; chenhaiyan@nuaa.edu.cn 
+
+3   College of Computer Science and Technology, Nanjing University of Aeronautics and Astronautics,
+
+Nanjing 211106, China 
+
+*   Correspondence: yuanligang@nuaa.edu.cn 
+
+Abstract 
+
+Accurate prediction of airport delays under convective weather conditions is essential for
+
+effective traffic coordination and improving overall airport efficiency. Traditional methods
+
+mainly rely on numerical weather and traffic indicators, but they often fail to capture the
+
+spatial distribution of traffic flows within the terminal area. To address this limitation, we
+
+propose a novel image-based representation named Multi-Channel Traffic and Weather
+
+Scene Image (MTWSI), which maps both meteorological and traffic information onto a
+
+two-dimensional airspace grid, thereby preserving spatial relationships. Based on the
+
+MTWSI, we develop a delay prediction model named ADLCNN. This model first uses a
+
+convolutional neural network to extract deep spatial features from the scene images and
+
+then classifies each sample into a delay level. Using real operational data from Guangzhou
+
+Baiyun Airport, this paper shows that ADLCNN achieves significantly higher prediction ac-
+
+curacy compared to traditional machine learning methods. The results confirm that MTWSI
+
+provides a more accurate representation of real traffic conditions under convective weather. 
+
+Keywords:   airport delay prediction; image recognition; convolutional neural network
+
+(CNN); convective weather; class imbalance 
+
+1. Introduction 
+
+Airport delay serves as a key indicator of an airport’s overall operational performance,
+
+reflecting its efficiency and the effectiveness of flight scheduling. Various factors, such as air
+
+traffic control, weather conditions, aircraft maintenance, flight scheduling, airport facilities,
+
+and human factors, work together to cause airport delays. Serious delays can lead to flight
+
+congestion, a higher risk of conflicts or accidents, and major inconvenience for airlines,
+
+passengers, and airport operations. To reduce these negative effects, intelligent airport
+
+delay prediction systems have emerged as a key part of Intelligent Air Traffic Management
+
+(IATM). These systems aim to improve operational efficiency by using Artificial Intelligence
+
+(AI) for real-time monitoring and early warnings of flight delays.
+
+The impact of weather on airport delays is particularly pronounced, especially when
+
+convective weather in terminal areas, such as high winds, hailstorms, or thunderstorms,
+
+disrupts aircraft operations and ground equipment. Therefore, an effective airport delay
+
+prediction system must take weather conditions into account. The primary objective of
+
+this paper is to characterize the influence of terminal area convective weather on flight
+
+operations by employing a multi-channel pictorial method that accurately depicts the 
+
+Appl. Sci.   2025 ,   15 , 8604   https://doi.org/10.3390/app15158604 
+
+===== PDF PAGE 2 / 17 =====
+
+Appl. Sci.   2025 ,   15 , 8604   2 of 17 
+
+relative positions of convective weather and inbound/outbound flight flows, thereby
+
+improving existing delay prediction models in terms of both accuracy and practicality.
+
+Compared to previous research, this study introduces a novel data representation
+
+method by rasterizing terminal area convective weather and flight data into Multi-Channel
+
+Traffic and Weather Scene Images. A Convolutional Neural Network (CNN) is then used
+
+to extract complex delay-related features from these images, allowing the development of
+
+a high-precision airport delay prediction model. The structure of the paper is as follows:
+
+Section 2 reviews related work on the weather delay index and deep prediction models.
+
+Section 3 explains the two main methods. Section 4 introduces the dataset and evaluates
+
+the proposed model through comparative experiments. Section 5 summarizes the study
+
+and outlines future research directions. 
+
+2. Literature Review 
+
+2.1. Related Work 
+
+2.1.1. Research on Weather Delay Index
+
+Since the late 1990s, airport delay studies in the context of severe weather have been
+
+at the forefront of research, with pioneering work led by organizations such as MITRE,
+
+MIT Lincoln Laboratory, and NASA. Early studies focused on the Weather Impacted Index
+
+(WITI) developed by MITRE, along with related initiatives like MITRE’s Flow Contingency
+
+Management (FCM), the application of Ensemble Weather Forecasts (EWF) to quantify
+
+weather uncertainty, and the FAA-led Air Traffic Management–Weather Integration study.
+
+In terms of WITI, a great deal of research has been done by scholars at home and
+
+abroad. Callaham et al. [1] introduced WITI in 2001 to quantify how unfavorable weather
+
+affects the National Airspace System, particularly for large-scale or long-duration scenarios.
+
+Between 2007 and 2009, Sridhar and Chatterji [2,3] developed regression models that
+
+incorporated weather conditions, flight traffic, and airport size to more comprehensively
+
+analyze daily national airspace delays. Klein et al. [4,5] further refined the concept by
+
+proposing the enroute WITI (E-WITI), the terminal area WITI (T-WITI), queuing delays,
+
+and a predictive WITI FA index, and they introduced a scanline-based method (2008–2009)
+
+for assessing sector availability under convective weather forecasts [6,7]. In 2009, Cook
+
+et al. [8] quantified the weather’s effect on air traffic via WITI. Mukherjee et al. [9] used
+
+WITI to classify weather days and compare weather-induced rerouting with National
+
+Advanced Planning Manual guidelines [10] developed a WITI-based method to evaluate
+
+sector capacity under severe weather.
+
+2.1.2. Research on Deep Prediction Models
+
+In recent years, Deep learning has rapidly transformed both weather prediction and
+
+traffic flow prediction. In 2020, Weyn et al. [11] introduced a data-driven global weather
+
+prediction framework using a deep CNN to fuse multichannel weather data, significantly
+
+boosting prediction accuracy. Building on this, Dong Kyun Kim et al. [12] combined Con-
+
+vLSTM with 3D CNN for precipitation nowcasting, demonstrating deep models’ strength
+
+in capturing spatiotemporal dynamics, while Jesús García Fernández et al. [13] proposed
+
+Broad UNet to reduce parameter counts without sacrificing performance in nowcasting. In
+
+2022, Fowdur et al. [14] advanced a real-time collaborative machine learning framework
+
+that integrates distributed data sources to improve situational awareness for convective
+
+weather. More recently, Zhang J et al. [15] developed a CNN BiLSTM attention model that
+
+enhances severe convective weather forecasts, and Jardines et al. [16] created a CNN-based
+
+system for pre-tactical thunderstorm prediction to support flight scheduling. For very
+
+short-term predictions, Bouchard et al. [17] compared threshold methods, neural networks,
+
+and belief functions for lightning strike risk, and Gao J et al. (2023) [18] showed that a hy- 
+
+===== PDF PAGE 3 / 17 =====
+
+Appl. Sci.   2025 ,   15 , 8604   3 of 17 
+
+brid multichannel CNN-GRU model yields high precision in ultra-short-term wind power
+
+forecasting. Additionally, GraphCast [19] delivers global daily forecasts up to 10 days with
+
+higher accuracy and much lower cost than NWP; MetNet-2 provides 1 km, 12 h end-to-end
+
+forecasts, showcasing deep learning’s extended lead-time edge [20].
+
+In the traffic flow domain, traditional CNN/LSTM pipelines evolved toward graph
+
+architectures. Wang C et al. [21] introduce the Bo-GRA-CNN-BiLSTM model and employ
+
+Bayesian optimization for automatic hyperparameter tuning to enhance adaptability and
+
+accuracy under varying weather conditions. Cai Kaiquan et al. proposed a Geographical
+
+and Operational GCN, or multi-airport flight delay prediction, effectively capturing spatial–
+
+operational dependencies [22]. Qi et al. [23] proposed STFGCN, which fuses weather and
+
+traffic via spatial–temporal relationship modeling to achieve top performance across all
+
+weather conditions. Beyond Bayesian and Adam optimization methods, genetic algorithms
+
+and other evolutionary strategies are increasingly adopted for hyperparameter tuning in
+
+intelligent transportation systems. For instance, Akopov and Beklaryan [24] proposed a
+
+hybrid clustering-assisted genetic algorithm for the evolutionary synthesis of high-capacity
+
+multilayer road networks. Similarly, Priya and Francis [25] integrated a multi-objective
+
+genetic algorithm with RNNs to enhance traffic speed prediction accuracy in complex urban
+
+environments. Collectively, these advances illustrate deep learning’s power to improve
+
+predictive accuracy and model design, while highlighting ongoing challenges in model
+
+complexity, data heterogeneity, and generalization. 
+
+2.2. Research Gap 
+
+Most existing research relies on statistical data to measure how convective weather
+
+affects traffic operations, mainly analyzing the overall effects in terminal areas. However,
+
+these studies have some important limitations:
+
+(1) Do not take into account the spatial distribution of convective weather in the
+
+terminal area and its relative position to the flight trajectory.
+
+(2) Current methods focus on single-airport or flight-level delay prediction, neglecting
+
+comprehensive evaluation of multi-airport collaborative delay levels under terminal-area
+
+operational scenarios.
+
+(3) Conventional models rely on manually designed static features (e.g., visibility,
+
+wind speed), which inadequately capture spatial correlations between weather patterns
+
+and flight paths, resulting in suboptimal prediction accuracy.
+
+We summarized the above studies in four aspects, including study area, research focus,
+
+key features, and unaddressed gaps, as shown in Table 1.
+
+Therefore, this paper proposes a method for predicting airport delay level based on
+
+deep metric learning. The method focuses on airport delay levels as the main research
+
+object. First, the FCM algorithm is used to cluster delay-related features, extract classi-
+
+fication rules for delay levels, and assign delay level labels. Then, actual data from the
+
+terminal area, including weather avoidance areas (WAF) and radar tracks (ADS-B), are
+
+converted into multi-channel image features that retain spatial location information. After
+
+that, a delay-level prediction model is built using a convolutional neural network. The
+
+aim of this method is to provide a comprehensive and objective way to describe and
+
+monitor the overall operational status of the terminal area. By accurately predicting the
+
+airport’s delay conditions during convective weather, the method aims to support traffic
+
+management decisions in the pre-tactical phase and improve the operational efficiency of
+
+the terminal area. 
+
+===== PDF PAGE 4 / 17 =====
+
+Appl. Sci.   2025 ,   15 , 8604   4 of 17 
+
+Table 1.   Summary of research on airport delay prediction. 
+
+Study Area   Research Focus   Key Features   Unaddressed Gaps 
+
+Weather Delay Index
+
+(WITI)
+
+WITI, E-WITI, FCM (Callaham,
+
+Sridhar, Klein [1–5],
+
+Cook et al. [8])
+
+Statistical indicators;
+
+regression models;
+
+sector-level delay estimates
+
+under convective weather 
+
+1 ⃝   Lacks spatially explicit weather
+
+trajectory modeling; 
+
+2 ⃝   Focus on national/airport-scale
+
+trends, limited flight-level
+
+granularity
+
+Deep Learning for
+
+Weather Forecasting
+
+CNN, ConvLSTM, Broad UNet,
+
+CNN-BiLSTM-Attention
+
+(Weyn et al. [11], Kim et al. [12],
+
+Zhang et al. [15])
+
+Multichannel radar/satellite
+
+input; spatiotemporal
+
+dynamics; attention
+
+mechanisms 
+
+1 ⃝   Focus on pure weather
+
+prediction, not directly linked to
+
+flight trajectory or delay; 
+
+2 ⃝   Lack of operational integration
+
+in multi-airport scenarios
+
+Deep Learning for
+
+Traffic/Delay
+
+Prediction
+
+Bo-GRA-CNN-BiLSTM,
+
+Geographical GCN, STFGCN
+
+(Wang C, Cai K,
+
+Qi et al. [21–23])
+
+Graph-based spatial–temporal
+
+modeling; hyperparameter
+
+tuning; weather–traffic fusion 
+
+1 ⃝   Most models use structured
+
+tabular data (visibility, wind, etc.),
+
+not unstructured image data; 
+
+2 ⃝   Spatial correlations between
+
+convective patterns and trajectory
+
+paths are weakly modeled
+
+Integrated
+
+Traffic–Weather
+
+Learning Models
+
+Hybrid CNN-GRU; GraphCast;
+
+MetNet-2 [18–20]
+
+Ultra-short-term,
+
+high-resolution forecasts with
+
+multiscale features 
+
+1 ⃝   Limited exploration of real-scene
+
+imagery (e.g., radar/traffic images)
+
+in delay prediction tasks; 
+
+2 ⃝   Models seldom generalize across
+
+airport networks under dynamic
+
+weather scenes 
+
+3. Methodology 
+
+3.1. Multi-Channel Traffic and Weather Scene Image 
+
+Predicting airport delay levels under convective weather is challenging because tra-
+
+ditional numerical features cannot fully capture the complex impact on terminal flight
+
+operations [24]. To address this issue, we apply deep learning by converting air traffic
+
+scene data into multi-channel images, from which useful features can be extracted. Figure 1
+
+shows the overall framework for constructing the Multi-Channel Traffic and Weather Scene
+
+Image (MTWSI).
+
+3.1.1. Data Description
+
+This study uses Weather Advective Flow (WAF) data together with air traffic data,
+
+which are further categorized into dynamic flight data and static airspace information.
+
+WAF data represent convective cloud information captured by weather radar and are used
+
+to predict and monitor extreme weather events (e.g., torrential rains, thunderstorms, and
+
+tornadoes) [25]. Each WAF dataset consists of 1250   ×   1250 data points, with each point
+
+indicating convective weather intensity over a 200 m   ×   200 m area. Static airspace data
+
+includes fixed aeronautical information, such as latitude and longitude, which define the
+
+structure of the airspace. Dynamic flight data, collected via satellite communication or
+
+ADS-B, provides real-time updates on aircraft position, altitude, speed, navigation, and
+
+flight status. In the proposed MTWSI-based deep learning method, the airspace is first
+
+rasterized using the static data. Then, the resulting grid is filled with dynamic flight data
+
+to form detailed traffic and weather scenarios. These images are then used for feature
+
+extraction to predict airport delay levels.
+
+3.1.2. Construction of Images
+
+(1)   Rasterization of terminal areas
+
+Convective weather in the terminal area is a major factor contributing to airport delays,
+
+especially when a high volume of flights is scheduled. In addition, the relative position 
+
+===== PDF PAGE 5 / 17 =====
+
+Appl. Sci.   2025 ,   15 , 8604   5 of 17 
+
+between the convective weather and flight paths plays a key role in determining the severity
+
+of the impact. For this reason, this paper proposes a new data representation method called
+
+multi-channel air traffic and weather scene images to portray the impact of convective
+
+weather within the terminal area on flight operations and to serve as an input to airport
+
+delay prediction models. 
+
+Figure 1.   Procedural Framework for Constructing MTWSI. 
+
+Each image is represented as a two-dimensional matrix. Therefore, the target terminal
+
+area is first rasterized to serve as the foundation for subsequent image construction [26].
+
+To ensure consistency and ease of processing, the outer square boundary of the terminal
+
+area is selected as the image extent and divided into 125   ×   125 grids (each 2 km wide) (see
+
+Figure 2). Since each grid cell contains latitude and longitude information, the aircraft’s
+
+location within the airspace can be assigned to the corresponding grid, which allows us to
+
+populate the grid with traffic operation information, such as traffic volume, average flight
+
+altitude, average flight speed, etc. However, because each grid cell can store only one value,
+
+multiple 2D matrices are employed to represent diverse traffic and weather information.
+
+These various 2D matrices together form a multi-channel image that reflects various aspects
+
+of traffic and weather conditions in the same area. By combining these channels, a realistic
+
+picture of the air traffic situation is created. 
+
+===== PDF PAGE 6 / 17 =====
+
+Appl. Sci.   2025 ,   15 , 8604   6 of 17 
+
+Figure 2.   Example of terminal area rasterization. 
+
+(2)   Visualization of traffic flow features
+
+Since traffic scenarios span a period rather than a single moment, and delay levels are
+
+not instantaneous, we aggregate all traffic and convective weather data over the designated
+
+period onto a grid map. Specifically, by assigning the flight track data to the corresponding
+
+grids of the 2D matrix, the visualization will display the number of flights passing through
+
+each grid during a certain period of time, as well as the overall flight status of the flights.
+
+Three types of images are based on flight trajectory, altitude, and speed information. These
+
+are referred to as the flight volume, average altitude, and average speed channels, as
+
+shown in Figure 3. Figure 3a shows the flight volume channel, where a darker grid color
+
+indicates that more flights passed through the corresponding airspace during the time
+
+period. Figure 3b shows the average altitude channel, where darker colors represent a
+
+higher average flight altitude in that grid area. Subfigure (c) shows the average speed
+
+channel, where darker colors indicate a lower average flight speed in the corresponding
+
+airspace during the time period.
+
+(3)   Visualization of convective weather features
+
+In addition, a convective weather channel is constructed to represent weather con-
+
+ditions within the terminal area. The original convective weather WAF data are a two-
+
+dimensional matrix consisting of 1250   ×   1250 data points. However, its resolution does
+
+not match that of the traffic-related channels and therefore needs to be reduced. To ad-
+
+dress this, following the concept of rasterized WSI, the WAF data are mapped onto a
+
+125   ×   125 terminal area grid.   The Weather Severity Index (WSI) is then calculated for
+
+each grid cell, aligning the data dimensions while preserving both the intensity and spa-
+
+tial distribution of the convective weather. As shown in Figure 4, Figure 4a–c illustrate
+
+the distribution of weak, moderate, and strong convective weather within the terminal
+
+area, respectively. 
+
+===== PDF PAGE 7 / 17 =====
+
+Appl. Sci.   2025 ,   15 , 8604   7 of 17 
+
+Figure 3.   Flight state channel. ( a ) Shows the flight volume channel, ( b ) Shows the average altitude
+
+channel, and ( c ) Shows the average speed channel. 
+
+Figure 4.   Convective weather channel. ( a ) Shows the weak convective weather within the terminal
+
+area, ( b ) Shows the moderate convective weather within the terminal area, ( c ) Shows the strong
+
+convective weather within the terminal area. 
+
+3.1.3. Construction of Channels
+
+Based on the above channel visualization results, nine image data channels are con-
+
+structed. These include inbound flight volume channel, inbound flight average flight speed
+
+channel, inbound flight average flight altitude channel, departing flight volume channel,
+
+departing flight average flight speed channel, departing flight average flight altitude chan-
+
+nel, mild convective weather channel, moderate convective weather channel, and strong
+
+convective weather channel. In order to eliminate the image features that do not have any
+
+significance to the airport delay prediction model, this paper adopts the approximate abla-
+
+tion experiment to screen the channels with various combinations of the channels, and the
+
+image resolution is set to 25   ×   25, and the model performance is evaluated by the Accuracy,
+
+Precision, Recall, and F1 metrics. Given that the severity of convective weather is a key
+
+factor affecting airport delays, all channel combinations must include the three convective
+
+weather channels. In total, 145 combinations are tested, and Table 2 lists 8 combinations
+
+that achieved better prediction results. 
+
+===== PDF PAGE 8 / 17 =====
+
+Appl. Sci.   2025 ,   15 , 8604   8 of 17 
+
+Table 2.   Channel Combination. 
+
+Combination Name   Channels 
+
+Chanel_combi1   Light Convective Weather, Moderate Convective Weather, Strong Convective Weather
+
+Chanel_combi2   
+Inbound Flight Volume, Light Convective Weather, Moderate Convective Weather, Strong
+
+Convective Weather
+
+Chanel_combi3   
+Departure Flight Volume, Light Convective Weather, Moderate Convective Weather, Strong
+
+Convective Weather
+
+Chanel_combi4   
+Inbound Flight Volume, Departure Flight Volume, Light Convective Weather, Moderate
+
+Convective Weather, Strong Convective Weather
+
+Chanel_combi5   
+Inbound Flight Volume, Inbound Flight Average Altitude, Departure Flight Volume, Light
+
+Convective Weather, Strong Convective Weather, Moderate Convective Weather
+
+Chanel_combi6
+
+Inbound Flight Volume, Inbound Flight Average Altitude, Inbound Flight Average Speed,
+
+Departure Flight Volume, Light Convective Weather, Moderate Convective Weather, Strong
+
+Convective Weather
+
+Chanel_combi7
+
+Inbound Flight Volume, Inbound Flight Average Altitude, Inbound Flight Average Speed,
+
+Departure Flight Volume, Departure Flight Average Speed, Light Convective Weather, Moderate
+
+Convective Weather, Strong Convective Weather
+
+Chanel_combi8
+
+Inbound Flight Volume, Inbound Flight Average Flight Height, Inbound Flight Average Flight
+
+Speed, Departure Flight Volume, Departure Flight Average Flight Speed, Departure Flight
+
+Average Flight Height, Light Convective Weather, Moderate Convective Weather, Strong
+
+Convective Weather 
+
+3.2. CNN-Based Airport Delay Level Prediction Model 
+
+Considering image-based methods, we employ a CNN learning strategy to develop
+
+an end-to-end method for airport delay prediction, referred to as ADLCNN. Specifically,
+
+the raw weather and traffic data are first rasterized to construct MTWSIs.   Then, the
+
+CNN extracts useful information from these images through nonlinear transformations,
+
+completing the feature learning process. Finally, the learned features are used to evaluate
+
+the delay level. Figure 5 shows the overall framework of the proposed ADLCNN method.
+
+3.2.1. Classification Method
+
+Airport delay level provides an overall description of various types of delays occurring
+
+at an airport within a specific period. It serves as an important indicator for evaluating
+
+airport operational efficiency. Using a single feature to describe delay can only reflect
+
+one aspect of the situation and fails to capture the full picture of flight delays and their
+
+evolving patterns. Therefore, this paper selects two indicators—the average departure
+
+delay time and the on-time departure rate—to assess the airport departure delay level from
+
+the perspectives of both delay severity and flight reliability.
+
+Airport delay classification can be regarded as an unsupervised learning problem, so
+
+in this paper, we will use the fuzzy C-mean (FCM) clustering [27]. The principle of the
+
+FCM algorithm is to minimize the criterion function through continuous iteration. After
+
+FCM cluster analysis, the flight delay dataset can be divided into different clusters, each
+
+representing a level of delay. Therefore, each cluster can be regarded as a delay level,
+
+which can be used to classify the degree of delay at the airport. Figure 6 demonstrates
+
+the trend of the contour coefficient with the number of clusters, where the number of
+
+clusters of 2 corresponds to the highest contour coefficient, indicating that the samples in
+
+the clustering results are more cohesive and separated at this time. Figure 7 demonstrates
+
+the distribution of different delay features within each cluster when the number of clusters
+
+is 2, in which the distribution of average departure delays between two clusters is relatively
+
+more separated, while there is a staggered distribution of flight punctuality, but the overall
+
+flight punctuality of the samples in Cluster 0 is higher, and the overall flight punctuality of
+
+the samples in Cluster 1 is lower. 
+
+===== PDF PAGE 9 / 17 =====
+
+Appl. Sci.   2025 ,   15 , 8604   9 of 17 
+
+Figure 5.   Framework structure of the ADLCNN method. 
+
+Figure 6.   Trend in the number of clusters and profile coefficient. 
+
+===== PDF PAGE 10 / 17 =====
+
+Appl. Sci.   2025 ,   15 , 8604   10 of 17 
+
+Figure 7.   Distribution of delay features in different clusters. 
+
+Thus, we divide the airport delay level into two categories.   Cluster 0 represents
+
+the general delay level, whose average departure delay is less than 50 min, and flight
+
+punctuality is higher. Cluster 1 represents the severe delay level, whose average departure
+
+delay is higher than 50 min, and flight punctuality is lower. The later experiments on
+
+airport delay prediction will be viewed as dichotomous predictions.
+
+The predicted delay levels in this study not only serve as a classification target but
+
+also provide practical value for air traffic control by enabling controllers to receive early
+
+warnings.   For example, if a high delay level is predicted in advance, controllers can
+
+prepare diversion resources or adjust flight release priorities accordingly, thereby mitigating
+
+congestion and improving decision efficiency.
+
+3.2.2. CNN-Based Feature Extraction and Rank Prediction
+
+This model predicts airport delay levels based on convective weather and air traffic
+
+conditions. It utilizes a multi-channel weather-traffic image (MTWSI) generated by com-
+
+bining relevant data. The output corresponds to delay categories created through FCM
+
+clustering analysis.
+
+During the construction of feature maps, the entire image is scanned by a processing
+
+unit, and the state of this unit is recorded at the corresponding position in the feature map.
+
+This process is equivalent to a convolution operation followed by a bias addition and a
+
+sigmoid activation function, represented as follows: 
+
+y 
+( d )   
+=   σ 
+
+ 
+
+Wy 
+( d − 1 )   
++   b 
+
+ 
+
+(1)
+
+where   d   denotes the depth of the convolutional layer,   W   is the weight matrix, and   b   is the
+
+bias term. In fully connected neural networks, the weight matrix is dense, meaning that
+
+each input is connected to every neuron via distinct weights. However, in convolutional 
+
+===== PDF PAGE 11 / 17 =====
+
+Appl. Sci.   2025 ,   15 , 8604   11 of 17 
+
+neural networks (CNNs), due to weight sharing, the weight matrix   W   is sparse. Its structure
+
+can be described as follows:   
+
+
+
+
+
+ 
+
+w   . . .   0
+
+. 
+. 
+.   
+.  .  .   
+. 
+. 
+.
+
+0   . . .   w 
+
+
+
+
+
+
+
+   
+(2)
+
+Here,   w   is a matrix with dimensions matching the receptive field of the unit. The use
+
+of sparse weight matrices reduces the number of trainable parameters, thereby enhancing
+
+the model’s generalization capability. Multiplying the input by the weight matrix   W   is
+
+equivalent to convolving the input with a learnable filter   w .
+
+If the input to the   ( d   −   1 ) -th layer has a spatial size of N   ×   N, and the receptive field of
+
+the units in layer d is m   ×   m, then the resulting feature map will have dimensions (N   −   m
+
++ 1)   ×   (N   −   m + 1). Specifically, the value at position ( i ,   j ) in the feature map is calculated
+
+as follows: 
+
+y 
+( d ) 
+
+ij   
+=   σ 
+
+ 
+
+x 
+( d ) 
+
+ij   
++   b 
+
+ 
+
+(3) 
+
+x 
+( d ) 
+
+ij   
+= 
+
+m − 1 
+
+∑ 
+
+α = 0 
+
+m − 1 
+
+∑ 
+
+b = 0 
+
+w ab y 
+( d − 1 )
+
+( i + a )( j + b )   
+(4)
+
+where the bias   b   is a scalar. By applying Equations (3) and (4) across all input positions ( i ,   j ),
+
+the feature map for the corresponding plane is generated.
+
+The CNN model contains two convolution layers and three dense layers. The first
+
+convolutional layer employs six 3   ×   3 kernels, and the second uses sixteen 3   ×   3 kernels
+
+to extract features. A ReLU activation function follows each dense layer (with 120 and
+
+84 nodes, respectively), and the final layer consists of 2 nodes corresponding to the two
+
+classes—delay and no delay—with probabilities computed via a SoftMax function. The
+
+probability of each category is calculated using a SoftMax activation function. The model
+
+has a learning rate of 0.001 and a batch size of 128. The data distribution is learned from
+
+training-set samples by iteratively optimizing the network model parameters. Usually, the
+
+optimization direction is determined by the objective function, which consists of an error
+
+term (J) and a regularity term (R) [28]: 
+
+θ   =   argminL ( X ,   Y ) =   argmin ( J ,   λ R )   (5) 
+
+J   =   −   
+1 
+
+m 
+
+N 
+
+∑ 
+
+i = 1 
+
+f   
+  
+y ( i ) ,   y 
+′ 
+( i ) 
+   
+(6)
+
+In the equation,   X   and   Y   are the inputs and outputs of the model. The loss function
+
+and regularization term are denoted by   J   and   R , respectively.   θ   denotes the parameters
+
+of the deep neural network, and   λ   is the weight of the regularization term. In this paper,
+
+the cross-entropy is used as the loss function and is determined by   f   ( · ) where   y ( i )   and 
+
+y ′   ( i )   are the real and actual labels of the first   i   training sample. The use of a shedding
+
+layer effectively reduces the occurrence of overfitting, and the Adam optimizer is applied
+
+to improve the performance of the gradient descent algorithm. Figure 8 demonstrates the
+
+CNN Architecture. 
+
+===== PDF PAGE 12 / 17 =====
+
+Appl. Sci.   2025 ,   15 , 8604   12 of 17 
+
+Figure 8.   CNN Architecture. 
+
+4. Experiment and Results 
+
+4.1. Experimental Setup 
+
+In this section, we validate the effectiveness of the proposed deep metric learning-
+
+based airport delay prediction method using real-world data. The experiments are con-
+
+ducted with one year (2019) of WAF and air traffic data from Guangzhou Baiyun Airport
+
+(ZGGG). Each sample represents an MTWSI constructed from one-hour segments of WAF
+
+and air traffic data, along with delay level labels derived according to the classification
+
+rules described in Section 3.2. In the following experiments, the dataset is divided into
+
+training and test sets in a 7:3 ratio. Additionally, two sets of comparison experiments are
+
+conducted. The first compares the prediction accuracy of the proposed method with that of
+
+a traditional numerical feature processing approach. The second evaluates how different
+
+separation rates in multi-channel images affect prediction accuracy.
+
+The experiments were performed on a computer equipped with an AMD EPYC 7642
+
+48-core processor, 24 GB RAM, and an NVIDIA RTX A5000 GPU. The Python programming
+
+language, version 3.7.9, was used. Deep learning frameworks TensorFlow 2.4.1 and Keras
+
+2.4.3 were used for model construction and training. Data were processed and analyzed
+
+using the NumPy 1.19.5 and pandas 1.2.1 libraries. Machine learning tasks were imple-
+
+mented using the scikit-learn 0.24.1 library. The results were visualized using Matplotlib
+
+3.3.4 and Seaborn 0.11.1 libraries. The experiments were conducted on Ubuntu 20.04.
+
+The predictive model is evaluated using accuracy, precision, recall, F1 score, and
+
+Matthews correlation coefficient.
+
+The raw dataset is highly unbalanced and significantly affects the performance of the
+
+classifier. To overcome this problem, this study will use sampling techniques to improve
+
+the category distribution and avoid overlap. Sampling techniques include under-sampling,
+
+oversampling, and hybrid methods.   Currently, popular sampling techniques include
+
+the following:
+
+(1) Under-sampling (US): Random Under-Sampling (RUS), Edited Nearest Neighbors
+
+(ENN), and Tomek Links.
+
+(2) Oversampling (OS) [29,30]: Random Over-Sampling (ROS), Synthetic Minority
+
+Over-sampling Technique (SMOTE), and Adaptive Synthetic (ADASYN).
+
+(3) Combination (UOS) [29,30]: SMOTETomek and SMOTEENN
+
+Figure 9 illustrates the original training dataset and the sampled training dataset
+
+generated by various sampling techniques to generate the sampled training dataset. The
+
+sampled data are used to train the estimation method, and the original test set is used to
+
+validate the performance. 
+
+===== PDF PAGE 13 / 17 =====
+
+Appl. Sci.   2025 ,   15 , 8604   13 of 17 
+
+Figure 9.   Class distribution of the training set after applying various sampling techniques. 
+
+4.2. Results and Discussions 
+
+4.2.1. Impact of Channel Selection on Model Performance
+
+Table 3 presents the performance of the ADLCNN model across eight channel com-
+
+binations for predicting cumulative departure delay levels. Notably, the Chanel_combi7
+
+combination achieves a prediction accuracy of 90.82%, with superior precision, recall, and
+
+F1 scores compared to other combinations. Hence, this combination is selected for subse-
+
+quent predictions. 8 channels: inbound flight volume channel, inbound flight average flight
+
+altitude channel, inbound flight average flight speed channel, departing flight volume
+
+channel, departing flight average flight speed channel, mild convective weather channel,
+
+moderate convective weather channel, and strong convective weather channel. 
+
+Table 3.   Impact of different channel combinations on cumulative delay level prediction. 
+
+Combination Name   Accuracy   Precision   Recall   F1 
+
+Chanel_combi1   88.72%   0.86   0.89   0.86
+
+Chanel_combi2   88.85%   0.86   0.89   0.86
+
+Chanel_combi3   90.03%   0.88   0.90   0.89
+
+Chanel_combi4   90.49%   0.89   0.90   0.88
+
+Chanel_combi5   89.84%   0.89   0.90   0.89
+
+Chanel_combi6   90.56%   0.89   0.91   0.89
+
+Chanel_combi7   90.82%   0.90   0.91   0.90
+
+Chanel_combi8   89.70%   0.89   0.90   0.89 
+
+4.2.2. Performance Comparison of Delay Prediction Methods
+
+The initial experiment compares the predictive performance of the MTWSI-based
+
+CNN model with several machine learning methods that rely on numerical features. These
+
+machine learning methods used for comparison include Gaussian Naive Bayes (GNB),
+
+k-Nearest Neighbors (KNN), logistic Linear Regression (LLR), Support Vector Machines
+
+(SVM), Multi-Layer Perception (MLP), and integrated learning algorithms such as Random
+
+Forests (RF) and Adaptive Boost (AdaBoost) [31,32]. 
+
+===== PDF PAGE 14 / 17 =====
+
+Appl. Sci.   2025 ,   15 , 8604   14 of 17 
+
+Table 4 summarizes the results produced by the prediction methods using various
+
+sampling techniques. An in-depth analysis of the table shows that the ADLCNN method
+
+proposed in this paper outperforms other traditional machine learning methods overall,
+
+regardless of the sampling technique used. In particular, the prediction performance of the
+
+ADLCNN is more balanced when using the ROS sampling technique, where the recall is
+
+0.83 for average delays and 0.78 for severe delays, with an overall accuracy of up to 0.831. 
+
+Table 4.   Prediction results under different sampling methods. 
+
+Sampling
+
+Methods
+
+Prediction
+
+Methods   
+Accuracy   Label   
+Classification Report   Confusion Matric
+
+Precision   Recall   F1   Low   High 
+
+RUS
+
+GNB   0.873   
+General delay   0.94   0.92   0.93   1942   167
+
+serious delay   0.24   0.30   0.26   123   52
+
+KNN   0.673   
+General delay   0.96   0.68   0.79   1428   681
+
+serious delay   0.14   0.63   0.23   65   110
+
+LLR   0.720   
+General delay   0.97   0.72   0.83   1514   595
+
+serious delay   0.18   0.75   0.29   44   131
+
+SVM   0.680   
+General delay   0.97   0.67   0.80   1421   688
+
+serious delay   0.16   0.75   0.26   44   131
+
+MLP   0.699   
+General delay   0.97   0.70   0.81   1470   639
+
+serious delay   0.16   0.72   0.27   49   126
+
+RF   0.735   
+General delay   0.97   0.73   0.84   1548   561
+
+serious delay   0.19   0.74   0.30   45   130
+
+AdaBoost   0.733   
+General delay   0.98   0.73   0.83   1538   571
+
+serious delay   0.19   0.78   0.31   39   136
+
+CNN   0.780   
+General delay   0.98   0.78   0.87   1643   468
+
+serious delay   0.23   0.81   0.36   33   142
+
+ROS
+
+GNB   0.871   
+General delay   0.94   0.92   0.93   1939   170
+
+serious delay   0.23   0.29   0.26   124   51
+
+KNN   0.854   
+General delay   0.94   0.90   0.92   1891   218
+
+serious delay   0.21   0.34   0.26   116   59
+
+LLR   0.722   
+General delay   0.97   0.72   0.83   1522   587
+
+serious delay   0.18   0.72   0.28   49   126
+
+SVM   0.684   
+General delay   0.97   0.68   0.80   1429   680
+
+serious delay   0.16   0.77   0.27   41   134
+
+MLP   0.765   
+General delay   0.97   0.77   0.86   1618   491
+
+serious delay   0.21   0.74   0.32   46   129
+
+RF   0.898   
+General delay   0.94   0.95   0.94   2010   99
+
+serious delay   0.29   0.23   0.25   135   40
+
+AdaBoost   0.793   
+General delay   0.97   0.80   0.88   1685   424
+
+serious delay   0.23   0.72   0.35   49   126
+
+CNN   0.831   
+General delay   0.98   0.83   0.90   1762   349
+
+serious delay   0.28   0.78   0.41   38   137
+
+SMOTEENN
+
+GNB   0.863   
+General delay   0.94   0.91   0.92   1914   195
+
+serious delay   0.23   0.33   0.27   117   58
+
+KNN   0.786   
+General delay   0.95   0.81   0.87   1702   407
+
+serious delay   0.19   0.53   0.28   82   93
+
+LLR   0.717   
+General delay   0.97   0.72   0.82   1508   601
+
+serious delay   0.18   0.74   0.29   45   130
+
+SVM   0.696   
+General delay   0.97   0.69   0.81   1456   653
+
+serious delay   0.17   0.76   0.28   42   133
+
+MLP   0.806   
+General delay   0.97   0.82   0.89   1727   382
+
+serious delay   0.23   0.66   0.34   60   115
+
+RF   0.820   
+General delay   0.96   0.84   0.90   1769   340
+
+serious delay   0.23   0.59   0.33   72   103
+
+AdaBoost   0.791   
+General delay   0.97   0.80   0.88   1687   422
+
+serious delay   0.22   0.69   0.33   55   120
+
+CNN   0.773   
+General delay   0.98   0.77   0.86   1621   490
+
+serious delay   0.23   0.84   0.36   28   147 
+
+===== PDF PAGE 15 / 17 =====
+
+Appl. Sci.   2025 ,   15 , 8604   15 of 17 
+
+4.2.3. Performance Comparison of Multi-Channel Images with Different Resolutions
+
+The second experiment compares the performance of ADLCNN models trained on
+
+multi-channel images of different resolutions. Here, we have designed three different
+
+resolutions, namely 5   ×   5, 25   ×   25, and 125   ×   125.
+
+Table 5 shows the performance results of the ADLCNN method for predicting the
+
+cumulative delay level of departures for different resolutions of multi-channel images. Here,
+
+the model uses a channel combination of Chanel_combi7 as input. At a 25   ×   25 resolution,
+
+the model achieves an overall accuracy of 91.61% and a recall of 0.98 for the majority
+
+class (A0). However, class imbalance leads to lower accuracy for the minority class (A1),
+
+with only 73 out of 172 A1 samples correctly predicted, so the subsequent experiments of
+
+comparing the performances of the different methods are carried out. 
+
+Table 5.   Prediction results of cumulative delay on multichannel images of different resolutions. 
+
+Resolution   Accuracy   Label   
+Classification Report   Confusion Matric
+
+Precision   Recall   F1   A0   A1 
+
+5   ×   5   89.25%   
+A0   0.91   0.98   0.94   1323   30
+
+A1   0.56   0.22   0.32   134   38
+
+25   ×   25   91.61%   
+A0   0.93   0.98   0.95   1324   29
+
+A1   0.72   0.42   0.53   99   73
+
+125   ×   125   91.21%   
+A0   0.92   0.99   0.95   1333   20
+
+A1   0.74   0.34   0.47   114   58
+
+Table 6 reports the average processing time per step during training and testing at
+
+various image resolutions. The computational cost increases dramatically with resolution at
+
+125   ×   125, training steps average 238 ms—over 25 times longer than at 25   ×   25—and testing
+
+steps average 58 ms, nearly 18 times longer. Considering both predictive performance and
+
+efficiency, a 25   ×   25 resolution is optimal. 
+
+Table 6.   Model training duration at different resolutions. 
+
+5   ×   5   25   ×   25   125   ×   125 
+
+Training time   2 ms/step   9 ms/step   238 ms/step
+
+Testing time   1 ms/step   3 ms/step   58 ms/step 
+
+5. Conclusions 
+
+This study introduces a multi-channel, image-based method that automatically cap-
+
+tures complex, weather-affected traffic features to predict airport delay. The proposed
+
+method comprises three main components:
+
+(1) Fuzzy C-Means (FCM) clustering is applied to classify airport departure delay levels.
+
+(2) Weather Advective Flow (WAF) data, combined with incoming and outgoing flight
+
+data, are rasterized to construct a multi-channel image that portrays air traffic operation
+
+scenarios under convective weather conditions.
+
+(3) Deep learning techniques analyze features in the generated images to predict
+
+airport delay levels. Experimental results demonstrate that the proposed method achieves
+
+significantly higher prediction accuracy compared to traditional machine learning methods.
+
+The proposed model significantly enhances the accuracy of delay prediction and
+
+offers effective support for airport operational decisions. It facilitates proactive resource
+
+allocation, schedule adjustments, and reduced passenger waiting times. Furthermore,
+
+the model proves highly applicable in real-world scenarios, particularly in capturing the
+
+impact of complex weather on air traffic.   Its ability to improve operational efficiency 
+
+===== PDF PAGE 16 / 17 =====
+
+Appl. Sci.   2025 ,   15 , 8604   16 of 17 
+
+and reduce management costs underscores its strong practical value and potential for
+
+broader adoption.
+
+Next steps could explore these key areas:
+
+(1) Designing more complex and effective networks to further enhance prediction
+
+performance.
+
+(2) Integrating clustering methods with domain knowledge and professional experi-
+
+ence to improve explanatory power in airport delay classification.
+
+(3) Incorporating advanced temporal feature extraction techniques to better capture
+
+the time-dependent characteristics inherent in air traffic scenarios.
+
+(4) Considering the method’s integration with existing operational protocols such as
+
+those of ICAO or local air traffic management systems, the current approach remains at the
+
+research stage and has not yet been embedded in formal procedures. 
+
+Author Contributions:   Conceptualization, L.Y.; methodology, L.Y., L.K. and H.C.; software, H.C.;
+
+formal analysis, L.Y. and L.K.; investigation, L.Y. and H.C.; resources, L.Y. and H.C.; data curation,
+
+L.Y.; writing—original draft preparation, L.K. and L.Y.; writing—review and editing, L.Y., L.K. and
+
+H.C.; supervision, L.Y. and H.C.; project administration, L.Y.; funding acquisition, L.Y. All authors
+
+have read and agreed to the published version of the manuscript. 
+
+Funding:   This paper is supported by the National Key R&D Program of China (No. 2022YFB2602400). 
+
+Data Availability Statement:   The raw data supporting the conclusions of this article will be made
+
+available by the authors on request. 
+
+Acknowledgments:   We would like to thank the State Key Laboratory of Air Traffic Management
+
+System for providing the data used in the model tests described in this paper. 
+
+Conflicts of Interest:   The authors declare no conflicts of interest. 
+
+References 
+
+1.   Callaham, M.; DeArmon, J.; Cooper, A.; Goodfriend, J.; Moch-Mooney, D.; Solomos, G. Assessing NAS performance: Normalizing
+
+for the effects of weather. In Proceedings of the 4th USA/Europe Air Traffic Management R&D Symposium, Santa Fe, NM, USA,
+
+3–7 December 2001.
+
+2.   Sridhar, B.; Swei, S. Computation of aggregate delay using center-based weather impacted traffic index. In Proceedings of the 7th
+
+AIAA Aviation Technology, Integration, and Operations Conference, Belfast, Ireland, 18–20 September 2007.
+
+3.   Sridhar, B.; Chen, N.Y. Short-term national airspace system delay prediction using weather impacted traffic index.   J. Guid. Control
+
+Dyn.   2009 ,   32 , 657–662. [CrossRef]
+
+4.   Klein, A.; Jehlen, R.; Liang, D. Weather index with queuing component for national airspace system performance assessment. In
+
+Proceedings of the 7th FAA/Eurocontrol ATM Seminar, Barcelona, Spain, 2–5 July 2007.
+
+5.   Klein, A.; Kavoussi, S.; Hickman, D.; Simenauer, D.; Phaneuf, M.; MacPhail, T. Using a convective weather forecast product
+
+to predict weather impact on air traffic: Methodology and comparison with actual data. In Proceedings of the 2007 Integrated
+
+Communications, Navigation and Surveillance Conference, Herndon, VA, USA, 1–3 May 2007; pp. 1–10.
+
+6.   Klein, A.; Cook, L.; Wood, B. Airspace availability estimation for traffic flow management using the scanning method. In
+
+Proceedings of the 2008 IEEE/AIAA 27th Digital Avionics Systems Conference, St.   Paul, MN, USA, 26–30 October 2008;
+
+pp. 3B5-1–3B5-10.
+
+7.   Klein, A.; MacPhail, T.; Kavoussi, S.; Hickman, D.; Phaneuf, M.; Lee, R.S.; Simenauer, D. NAS weather index: Quantifying impact
+
+of actual and forecast en-route and surface weather on air traffic. In Proceedings of the 89th AMS Annual Meeting, Phoenix, AZ,
+
+USA, 11–15 January 2009.
+
+8.   Cook, L.; Wood, B.; Klein, A.; Lee, R.; Memarzadeh, B. Analyzing the share of individual weather factors affecting NAS
+
+performance using the weather impacted traffic index. In Proceedings of the 9th AIAA Aviation Technology, Integration, and
+
+Operations Conference (ATIO) and Aircraft Noise and Emissions Reduction Symposium (ANERS), Hilton Head, SC, USA, 21–23
+
+September 2009; p. 7017.
+
+9.   Mukherjee, A.; Grabbe, S.R.; Sridhar, B. Classification of days using weather impacted traffic in the national airspace system. In
+
+Proceedings of the 2013 Aviation Technology, Integration, and Operations Conference, Los Angeles, CA, USA, 12–14 August 2013.
+
+10.   Huang, S.; Xu, L.; Zhou, Y.; Qiao, Y.; Shen, Z. A high-precision method for evaluating sector capacity in bad weather based on an
+
+improved WITI model.   Appl. Sci.   2022 ,   12 , 10114. [CrossRef] 
+
+===== PDF PAGE 17 / 17 =====
+
+Appl. Sci.   2025 ,   15 , 8604   17 of 17 
+
+11.   Weyn, J.A.; Durran, D.R.; Caruana, R. Improving data-driven global weather prediction using deep convolutional neural networks
+
+on a cubed sphere.   J. Adv. Model. Earth Syst.   2020 ,   12 , e2020MS002109. [CrossRef]
+
+12.   Kim, D.-K.; Suezawa, T.; Mega, T.; Kikuchi, H.; Yoshikawa, E.; Baron, P.; Ushio, T. Improving precipitation nowcasting using a
+
+three-dimensional convolutional neural network model from multiparameter phased array weather radar observations.   Atmos.
+
+Res.   2021 ,   262 , 105774. [CrossRef]
+
+13.   Fernández, J.G.; Mehrkanoon, S. Broad-UNet: Multi-scale feature learning for nowcasting tasks.   Neural Netw.   2021 ,   144 , 419–427.
+
+[CrossRef] [PubMed]
+
+14.   Fowdur, T.P.; Ibn Nazir, R.M.N. A real-time collaborative machine learning based weather forecasting system with multiple
+
+predictor locations.   Array   2022 ,   14 , 100153. [CrossRef]
+
+15.   Zhang, J.; Yin, M.; Wang, P.; Gao, Z. A method based on deep learning for severe convective weather forecast: CNN-BiLSTM-AM
+
+(version 1.0).   Atmosphere   2024 ,   15 , 1229. [CrossRef]
+
+16.   Jardines, A.; Eivazi, H.; Zea, E.; García-Heras, J.; Simarro, J.; Otero, E.; Soler, M.; Vinuesa, R. Thunderstorm prediction during
+
+pre-tactical air-traffic-flow management using convolutional neural networks.   Expert Syst. Appl.   2024 ,   241 , 122466. [CrossRef]
+
+17.   Bouchard, A.; Buguet, M.; Chan-Hon-Tong, A.; Dezert, J.; Lalande, P. Comparison of different forecasting tools for short range
+
+lightning strike risk assessment.   Nat. Hazards   2023 ,   115 , 1011–1047. [CrossRef]
+
+18.   Gao, J.; Ye, X.; Lei, X.; Huang, B.; Wang, X.; Wang, L. A multichannel based CNN and GRU method for short term wind power
+
+prediction.   Electronics   2023 ,   12 , 4479. [CrossRef]
+
+19.   Sadeghi Tabas, S.; Wang, J.; Lei, W.; Row, M.; Zhang, Z.; Zhu, L.; Peng, J.; Carley, J.R.   GFS-Powered Machine Learning Weather
+
+Prediction: A Comparative Study on Training GraphCast with NOAA’s GDAS Data for Global Weather Forecasts ; Office Note No. 521;
+
+National Centers for Environmental Prediction: College Park, MD, USA, 2025.
+
+20.   Espeholt, L.; Agrawal, S.; Sønderby, C.; Kumar, M.; Heek, J.; Bromberg, C.; Gazen, C.; Carver, R.; Andrychowicz, M.; Hickey, J.;
+
+et al. Deep learning for twelve hour precipitation forecasts.   Nat. Commun.   2022 ,   13 , 5145. [CrossRef]
+
+21.   Wang, C.; Huang, S.; Zhang, C. Short term traffic flow prediction considering weather factors based on optimized deep learning
+
+neural networks: Bo-GRA-CNN-BiLSTM.   Sustainability   2025 ,   17 , 2576. [CrossRef]
+
+22.   Cai, K.; Li, Y.; Zhu, Y.; Fang, Q.; Yang, Y.; DU, W. A geographical and operational deep graph convolutional approach for flight
+
+delay prediction.   Chin. J. Aeronaut.   2023 ,   36 , 357–367. [CrossRef]
+
+23.   Qi, X.; Yao, J.; Wang, P.; Shi, T.; Zhang, Y.; Zhao, X. Combining weather factors to predict traffic flow: A spatial-temporal fusion
+
+graph convolutional network-based deep learning approach.   IET Intell. Transp. Syst.   2024 ,   18 , 528–539. [CrossRef]
+
+24.   Akopov, A.S.; Beklaryan, L.A. Evolutionary Synthesis of High-Capacity Reconfigurable Multilayer Road Networks Using a
+
+Multiagent Hybrid Clustering-Assisted Genetic Algorithm.   IEEE Access   2025 ,   13 , 53448–53474. [CrossRef]
+
+25.   Priya, C.S.; Francis, F.S. Optimizing Traffic Speed Prediction Using a Multi-Objective Genetic Algorithm-Enhanced RNN for
+
+Intelligent Transportation Systems.   IEEE Access   2025 ,   13 , 35688–35706. [CrossRef]
+
+26.   Carvalho, L.; Sternberg, A.; Gonçalves, L.M.; Cruz, A.B.; Soares, J.A.; Brand ã o, D.; Carvalho, D.; Ogasawara, E. On the relevance
+
+of data science for flight delay research: A systematic review.   Transp. Rev.   2020 ,   41 , 499–528. [CrossRef]
+
+27.   Kumar, A.; Islam, T.; Sekimoto, Y.; Mattmann, C.; Wilson, B.; Stoean, R. Convcast: An embedded convolutional LSTM based
+
+architecture for precipitation nowcasting using satellite data.   PLoS ONE   2020 ,   15 , e0230114. [CrossRef]
+
+28.   Zhu, X.X.; Tuia, D.; Mou, L.; Xia, G.-S.; Zhang, L.; Xu, F.; Fraundorfer, F. Deep learning in remote sensing: A comprehensive
+
+review and list of resources.   IEEE Geosci. Remote Sens. Mag.   2017 ,   5 , 8–36. [CrossRef]
+
+29.   Chen, J.; Liang, J.; Cheng, L.; Tong, Y. Cooperative attack decision modeling method of multiple UAVs based on FCM.   Acta
+
+Aeronaut. Astronaut. Sin.   2022 ,   43 , 325526. (In Chinese)
+
+30.   Xie, H.; Zhang, M.; Ge, J.; Dong, X.; Chen, H. Learning air traffic as images: A deep convolutional neural network for airspace
+
+operation complexity evaluation.   Complexity   2021 ,   2021 , 6457246. [CrossRef]
+
+31.   Li, R.; Li, S.; Xu, K.; Zeng, M.; Li, X.; Gu, J.; Chen, Y. Auxiliary generative mutual adversarial networks for class-imbalanced fault
+
+diagnosis under small samples.   Chin. J. Aeronaut.   2023 ,   36 , 464–478. [CrossRef]
+
+32.   Niu, J.; Liu, Z.; Pan, Q.; Yang, Y.; Li, Y. Conditional self-attention generative adversarial network with differential evolution
+
+algorithm for imbalanced data classification.   Chin. J. Aeronaut.   2023 ,   36 , 303–315. [CrossRef] 
+
+Disclaimer/Publisher’s Note:   The statements, opinions and data contained in all publications are solely those of the individual
+
+author(s) and contributor(s) and not of MDPI and/or the editor(s). MDPI and/or the editor(s) disclaim responsibility for any injury to
+
+people or property resulting from any ideas, methods, instructions or products referred to in the content. 

@@ -1,0 +1,109 @@
+﻿Bibliographischer Extrakt aus liu-2024.pdf; Seitenmarker erhalten; Extraktion 2026-10-30. Vollständige Referenzliste des PDFs, keine Prüfung aller zitierten Werke.
+
+R EFERENCES
+
+[1]   IATA,   “20   year   passenger   forecast,”   2019.   [Online].   Available:
+
+https://www.iata.org/en/publications/store/20-year-passenger-forecast/
+
+[2]   A.   Sternberg,   J.   Soares,   D.   Carvalho,   and   E.   Ogasawara,   “A
+
+review   on   flight   delay   prediction,”   2017.   [Online].   Available:
+
+https://arxiv.org/abs/1703.06118
+
+[3]   Y. J. Kim, S. Choi, S. Briceno, and D. Mavris, “A deep learning
+
+approach to flight delay prediction,” in   2016 IEEE/AIAA 35th Digital
+
+Avionics Systems Conference (DASC) .   IEEE, 2016, pp. 1–6.
+
+[4]   T. Vandal, M. Livingston, C. Piho, and S. Zimmerman, “Prediction and
+
+uncertainty quantification of daily airport flight delays,” in   Proceedings
+
+of The 4th International Conference on Predictive Applications and
+
+APIs .   PMLR, 2018, pp. 82:45–51.
+
+[5]   L. Wang, A. Tien, and J. Chou, “Multi-airport delay prediction with
+
+transformers,”   2021.   [Online].   Available:   https://arxiv.org/abs/1912.
+
+09363
+
+[6]   S.   O.   Arik   and   T.   Pfister,   “Interpretable   deep   learning   for   time
+
+series forecasting,” 2021. [Online]. Available: https://ai.googleblog.
+
+com/2021/12/interpretable-deep-learning-for-time.html
+
+[7]   M. Bloem and N. Bambos, “Ground delay program analytics with
+
+behavioral cloning and inverse reinforcement learning,”   Journal of
+
+Aerospace Information Systems , vol. 12, no. 3, pp. 299–313, 2015.
+
+[8]   R. Ganesan, P. Balakrishna, and L. Sherry, “Predicting aircraft taxi-out
+
+times,” Jul. 22 2010, uS Patent App. 12/688,131.
+
+[9]   A. Mukherjee, S. R. Grabbe, and B. Sridhar, “Predicting ground
+
+delay program at an airport based on meteorological conditions,” in 
+
+14th AIAA aviation technology, integration, and operations conference ,
+
+2014, p. 2713.
+
+[10]   E. George and S. S. Khan, “Reinforcement learning for taxi-out time
+
+prediction: An improved q-learning approach,” in   2015 International
+
+Conference on Computing and Network Communications (CoCoNet) .
+
+IEEE, 2015, pp. 757–764.
+
+[11]   J. Cox and M. J. Kochenderfer, “Ground delay program planning
+
+using markov decision processes,”   Journal of Aerospace Information
+
+Systems , vol. 13, no. 3, pp. 134–142, 2016.
+
+[12]   L.   Zhu,   Y.   He,   F.   R.   Yu,   B.   Ning,   T.   Tang,   and   N.   Zhao,
+
+“Communication-based train control system performance optimization
+
+using deep reinforcement learning,”   IEEE Transactions on Vehicular
+
+Technology , vol. 66, no. 12, pp. 10 705–10 717, 2017.
+
+[13]   A. M. Kalliguddi and A. K. Leboulluec, “Predictive modeling of
+
+aircraft flight delay,”   Universal Journal of Management , vol. 5, no. 10,
+
+pp. 485–491, 2017.
+
+[14]   E. Yilmaz, O. Sanni, M. Kotwicz Herniczek, and B. German, “Deep
+
+reinforcement learning approach to air traffic optimization using the
+
+muzero algorithm,” in   AIAA AVIATION 2021 FORUM , 2021, p. 2377.
+
+[15]   V. Deshpande and M. Arıkan, “The impact of airline flight schedules
+
+on flight delays,”   Manufacturing & Service Operations Management ,
+
+vol. 14, no. 3, pp. 423–440, 2012.
+
+[16]   K. Liu, Z. Zheng, B. Zou, and M. Hansen, “Airborne flight time:
+
+A comparative analysis between the us and china,”   Journal of Air
+
+Transport Management , vol. 107, p. 102341, 2023.
+
+[17]   B.   Lim,   S.   O.   Arik,   N.   Loeff,   and   T.   Pfister,   “Temporal   fusion
+
+transformers for interpretable multi-horizon time series forecasting,”
+
+2019. [Online]. Available: https://arxiv.org/abs/1912.09363 
