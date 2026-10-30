@@ -1,25 +1,35 @@
-# Presenting at 17:00 · for Hugo (presenter) and Luca (backup)
+# Presenting · Hugo, with Luca as backup
 
-Site: https://fraalliance-runway-forecast.statworx-par-2884.chatgpt.site (Jayden switches sharing on). Locally: `cd web && npm install && npm run build && npx next start`, then open http://localhost:3000.
+Use one **3:35 target** story: planning problem → baseline and model → forecast demonstration → data and evaluation method → historical comparison → aggregate evidence → timing and runway-18 limits → operational pilot. The duration needs a timed human rehearsal.
 
-| Path | What | Owner |
-|---|---|---|
-| `/deck` | Finals slides (about 9, animated 3D scene, live dashboard inside, numbers read from repo files). Presenter notes: `web/public/deck/NOTES.md` | deck lane |
-| `/pitch` | Kai's guided pitch and historical replay | Kai, restyled by the design lane |
-| `/` | The dashboard: plain-language forecast, 48 h bar, "For experts" at the bottom | design lane |
-| `/widget` | iPad view for apron and ground staff | design lane |
+- **Slides:** `/deck/index.html`.
+- **Canonical spoken text and exact demo clicks:** [presentation-script.md](../web/public/deck/presentation-script.md).
+- **Printable cue sheet:** `/deck/presenter-cues.html`.
+- **Historical reveal and separate evaluation:** `/pitch`. Select **2026-10-28** explicitly; the earliest published date opens by default.
+- **Dashboard / iPad view:** `/` and `/widget`, optional during questions.
 
-## Words and numbers to use
-- **Spoken pitch and demo:** `PITCH.md` and `DEMO_SCRIPT.md`. The demo clicks get updated after the dashboard is final at 15:45.
-- **Numbers:** `MODEL_CARD.md`, from `web/public/data/quality.json`. Quote the margins with their 95% ranges, not p-values. On money, use only pitch line 2 of the economic value section in `RESULTS.md`, word for word.
-- **Kai's pitch strategy (German):** `resources/hackathon-pitch-strategy.md`.
-- **Backup video if the site fails:** `assets/airport/previews/airport-demo.mp4` (60 s airport scene).
+Team site: https://fraalliance-runway-forecast.statworx-par-2884.chatgpt.site. Verify access and the deployed model version before presenting; local validation does not verify this deployment. Prepare and check a local served build in advance if an offline fallback is needed. Do not install or rebuild on stage.
 
-## Hard questions, short answers
-- **Runway 18?** Closures are rare (about 0.2% of hours) and have no public record. Our label is inferred from the official 15 kt rule. In 12 test months the model caught none of the 12 closure windows a day ahead; keeping the current state caught 3. With public data, runway 18 isn't predictable beyond persistence. A pilot with DFS wind-sensor data is the fix.
-- **Why not just the rules?** On the measured wind, the official rules match what was flown only about 90% of the time. From 6 h ahead the model beats them by 4 to 5 points, and it beats keeping the current direction by up to 25 points.
-- **Is the test fair?**
-  - Every test month is predicted only from earlier data.
-  - Forecasts are used as they were published.
-  - The jury command reproduces the backtest exactly.
-  - We chose the features on these same months, so today's live forecasts are the clean test.
+## What to emphasize
+
+An hourly runway outlook for ground-handling planning. The challenge has two targets: operating direction and runway-18 weather usability. The measured strength is direction accuracy; operational benefit is the next test, not an established saving.
+
+At 24 h, published v6 direction accuracy is **91.8%**, versus **87.7%** for the base-wind challenge rules, **75.1%** for keeping the current direction, and **89.2%** for the stronger corrected-ensemble rule variant. The twelve monthly folds informed development, so they are not an untouched final validation set.
+
+The October 28 replay illustrates behavior. It is a historical reconstruction with availability limitations, not evidence of a forecast actually issued on that date. Reveal the recorded outcome, read the displayed shared-hour counts, then open **Evaluation** for the separate overall result.
+
+## Limits that belong in the spoken pitch
+
+- **Change timing:** 115/193 unique recorded transitions matched within ±3 h, with 138 false-alarm clusters. The 82.3% change-subset hourly score is not event recall.
+- **Runway 18:** zero hits in twelve positive inferred-closure windows at 24 h; 307 complete windows, 1,125 excluded. These are overlapping windows, not twelve independent closures. Actual runway openings and closures are not recorded labels here.
+- **Certainty:** a probability-margin score, not a calibrated chance of a correct forecast.
+- **Value:** no measured savings claim. End with a pilot alongside a shift lead, logging which warnings change preparation and the costs of false alarms and action.
+
+## Before going on stage
+
+1. Check the deck, chart data, `/pitch` forecast and quality artifact all show the intended model version. Refresh the deck data and speaker figures together after a model update.
+2. Prepare October 28 with its outcome hidden. Use manual deck navigation; autoplay cannot wait for clicks in the demo.
+3. Rehearse forecast → reveal → evaluation → slide 9. If the tab switch is awkward, use the deck's saved chart and describe the same distinction.
+4. Time the full delivery and check audience readability. Keep the original data-source links visible. The airport animation illustrates the setting; it is not observed traffic or a forecast accuracy fallback.
+
+[Model card](../MODEL_CARD.md) and [quality.json](../web/public/data/quality.json) contain full definitions and exclusions. The [companion script](../web/public/deck/presentation-script.md) contains short answers to the likely jury questions.
