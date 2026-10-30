@@ -65,6 +65,7 @@ Operating direction, all recorded hours (accuracy [95% CI], Brier):
 ## Limitations
 - **Runway 18 is weak.** No public record of weather closures exists, so its label is inferred from METAR with the official 15 kt rule, which applies to about 0.2% of hours. In the 12 test months the model catches 3 of 24 closure events at 24 h with no false alarms. The rules on raw forecast wind catch none. DFLD's runway-18 "not in use" row is operational, not weather: only 1 of 2,251 such hours had a tailwind of 15 kt or more.
 - **Wind bias:** the forecast 10 m wind averages 0.59× the METAR wind at the airport. It is corrected by one fixed factor per weather model, fitted once on 2024, before all test months (Nov 2025 – Oct 2026), so there is no leakage. The correction is not conditional on direction or regime.
+- **Threshold:** Fraport's public page describes a lower tailwind threshold for direction changes than the official brief's 10 kt or more. We use the brief's threshold.
 - **Label quality:** DFLD is a public proxy, not a certified movement log. Hours containing a change are excluded from the stable-hour accuracy, and the summer clock offset is unverified.
 
 **Prior work:**
