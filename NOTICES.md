@@ -4,29 +4,25 @@
 
 Open problems across main, branches and worktrees. One line each: time (Berlin) | severity | what is wrong | where | who acts. `STOP` breaks main or makes the submission wrong, `FIX` should be fixed before 16:00, `FYI` is worth knowing. Delete a line once it is fixed. Rules: "Cross-checking" in `AGENTS.md`.
 
-Main at 15:12 runs: `python -m pytest ml/tests -q` passed at 14:37 (54). Lint passes since 2d0d773. The last web build check was cut short by low memory on the build PC.
+Main at 15:20 runs: `python -m pytest ml/tests -q` gives 103 passed. The served model is `walk-forward-v6`, and the model card, pitch and submission quote the same numbers (95.7 / 92.7 / 91.8 / 88.9% at 1/6/24/48 h).
 
 ## STOP
 
-- 14:50 | STOP | Drive C: on the build PC is at 100% (6.0 GB free after it hit 20 MB at 14:17 and git writes failed), and memory is short enough that background builds get killed. Every re-render or `npm ci` eats into it | drive C: | head agent: clear temp folders, node_modules copies and render output before more installs or renders
+- 15:20 | STOP | Drive C: on the build PC is down to 3.0 GB free (5.7 GB at 15:00; it hit 20 MB at 14:17 and git writes failed). Memory is short enough that background builds get killed | drive C: | head agent: free space now, before the final build and deploy
 
 ## FIX
 
-- 15:12 | FIX | Jury test days are still pending from FraAlliance. The model lane is committing the fallback forecasts `2026-10-31.json` and `2026-11-01.json`; its rebase in `aiw-wt-ml` is stuck on conflicts in `latest.json` and `sample.json` | `aiw-wt-ml`, `web/public/forecasts/` | model lane: finish the rebase and push before 15:30
-
-
-
-
-
 - 14:00 | FIX | Jury test days are pending from FraAlliance (README "Jury test days", ea7a492), with 2026-10-31 and 2026-11-01 as the fallback at 15:30. No jury-day forecast files exist yet | README, `web/public/forecasts/` | Jayden or Hugo: dates; cli lane: generate and add to `index.json` by 15:30
 - 13:55 | FIX | The live URL is in `SUBMISSION.md` and README (1a2f59f), but README says the site is private until sharing is switched on. The jury can't open it until then | `SUBMISSION.md:5`, README | Jayden: switch sharing on before 16:00 and check it in a private window
-- 14:15 | FIX | `weather database/` is back to 76 MB with 29 third-party PDFs (76184d1 "consolidate weather research archives"), which undoes dfc3c5e. Copyright risk in the submission repo, and none of it feeds the model | `weather database/` | Luca and head agent: keep it on `luca/weather-database`
+- 15:20 | FIX | `weather database/` is still 76 MB with 29 third-party PDFs. 1a78f00 dropped only the text extracts | `weather database/` | Luca and head agent: keep the PDFs on `luca/weather-database`
 - 14:15 | FIX | Kai's 14:04 push added `assets/` (42 MB of 3D files) and `resources/` (21.6 MB): a second data pipeline (`resources/ml-support/forecast/fetch_forecast_data.py`, `observations/fetch_verify.py`, a 6 MB METAR CSV, Kaggle checks) that duplicates `ml/fetch.py` and `data/`, old copies of `forecast-types.ts` and `hk-model.md` in `resources/ml-support/reference/`, and Condor research for a different challenge | `resources/`, `assets/` | Kai: drop the duplicates, keep only what the app loads
 - 14:50 | FIX | Two spellings of the product name: the app says "Lift-off" (`web/src/app/layout.tsx`, `widget/page.tsx`, `approach/page.tsx`, `BrandLogo.tsx`, from 1355f91), while the deck, `PITCH.md` and `SUBMISSION.md` say "Liftoff" | `web/src/`, `web/public/deck/index.html`, `PITCH.md`, `SUBMISSION.md` | head agent and Kai: pick one
 - 15:15 | FIX | Seven 3D files are committed two or three times with identical content: `assets/airport/exports/*.glb` again in `web/public/deck/models/` and `web/public/models/airport/` (`aircraft-widebody.glb` three times, `airport-environment.glb` 12 MB twice). Tracked files are now 207 MB on a disk with about 6 GB free | `assets/airport/exports/`, `web/public/deck/models/`, `web/public/models/airport/` | Kai and head agent: serve one copy
 
 ## FYI
 
+- 15:20 | FYI | Jury days: the fallback forecasts `2026-10-31.json` and `2026-11-01.json` are on main (4fa213f); the real dates are still pending from FraAlliance | `web/public/forecasts/` | Jayden or Hugo
+- 15:20 | FYI | `web/public/forecasts/__airport_qa.json` is a 3D test fixture ("TEST FIXTURE") in the public forecasts folder, so the live site serves it. It is not in `index.json` | `web/public/forecasts/` | Kai: move it out of `public/`
 - 15:12 | FYI | A future-day forecast holds only that day's 24 hours, while the timeline draws a fixed 48-column grid (`Timeline.tsx:193`), so jury-day views render half empty | `web/src/components/Timeline.tsx` | web owner
 - 14:15 | FYI | The static deck moved to `web/public/deck/` (3beb4b5), so `/pitch` is Kai's React route only. Check README and `PITCH.md` link the deck you present from. Hugo's static prototype `web/prototypes/dfs-forecast/` is also on main | `web/public/deck/`, `web/src/app/pitch/`, README | head agent, Hugo
 - 15:12 | FYI | User requested source attribution in the pitch deck. Source lane owns only the data-slide citation block/styles and source notes in web/public/deck/index.html and NOTES.md; forecast metrics, other slides and calculations remain with their owners. Git operations will use the integration lock | web/public/deck | deck source lane
@@ -71,7 +67,6 @@ Main at 15:12 runs: `python -m pytest ml/tests -q` passed at 14:37 (54). Lint pa
 - 14:33 | FYI | Time-guide lane finished forecast-explanation.ts/tests (12 tests pass), TimeScrubber.tsx/.css and selected-hour/session-key additions in ForecastAssistant; handover additions currently preserve those changes. New DirectionBand.tsx is ready for event-overview owner to import into Hero instead of the separate issue-direction and first-hour blocks. Awaiting Hero integration and shared browser smoke; do not replace these helper exports | web/src/components/DirectionBand.tsx; TimeScrubber; ForecastAssistant; web/src/lib/forecast-explanation | time-guide and event-overview owners
 
 - 14:33 | FIX | SceneHero still imports /pitch/scene.js after the shared scene moved to /deck/scene.js in 3beb4b5; dashboard and widget fall back to the schematic map. Confirmed from pinned 40af4ef paths and mount code | `web/src/components/SceneHero.tsx:11` | web scene owner
-
 
 - 14:40 | FIX | Current full web typecheck fails at PitchApp.tsx:218: number is not assignable to 1|6|24|48. New 3D renderer lint is clean; this independent pitch edit blocks a clean global tsc run | web/src/components/pitch/PitchApp.tsx:218 | pitch owner
 
