@@ -58,9 +58,9 @@ did = {
 
 # Economic value: pitch line 2 of RESULTS.md, verbatim.
 results = (repo / "RESULTS.md").read_text(encoding="utf-8")
-sentence = re.search(r'^2\. "(On EUROCONTROL.*?)"\s*$', results, flags=re.M).group(1)
-low, high = re.search(r"€([\d.]+)M to €([\d.]+)M a year", sentence).groups()
-central = re.search(r"about €([\d.]+)M in our central case", sentence).group(1)
+sentence = re.search(r'^2\. "(.*?)"\s*$', results, flags=re.M).group(1)
+central = re.search(r"about €([\d.]+)M a year", sentence).group(1)
+low, high = re.search(r"range €([\d.]+)M to €([\d.]+)M", sentence).groups()
 value = {"sentence": sentence, "low": low, "high": high, "central": central}
 
 # People: pitch line 3 of RESULTS.md ("about 350 more hours a year" with the right direction than the rules).
