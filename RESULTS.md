@@ -2,6 +2,16 @@
 
 Source of every number: `web/public/data/quality.json` (walk-forward-v5) on main, 30 Oct about 14:05. It uses 12 monthly test folds, Nov 2025 to Oct 2026, never seen in training. Truth is the operating direction actually flown, recorded by DFLD. Each forecast only uses information available at its issue time, including a 6 h publication lag for weather-model runs. The 95% intervals come from resampling whole days. If `quality.json` changes after the 15:30 model update, that file wins.
 
+## In plain words
+
+> - **About a third fewer mistakes than the official rules,** at 24 and 48 hours.
+> - **About three times fewer mistakes than "same as now"** 48 hours ahead.
+> - **The certainty number is about twice as reliable as the rules'.** When the model says "85% sure", that's much closer to reality.
+>
+> **How significant:** it was tested on 12 months that the model never saw, about 350 days and around 1,400 forecasts per horizon. For 6, 24 and 48 hours, the range for our lead never touches zero. The chance that this is luck is below 1 in 1,000.
+
+"The rules" means FraAlliance's official rulebook applied to the weather forecast for each hour. "Same as now" means assuming the direction flown now is still flown later.
+
 ## The five numbers that matter
 
 1. **89.2% correct 48 h ahead**, against 84.0% for the official rules and 64.2% for "same as now". That's +5.2 points over the rules [95% CI +3.2 to +7.1] and +25.0 over persistence.
