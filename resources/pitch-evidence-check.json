@@ -1,0 +1,63 @@
+{
+  "created_at_utc": "2026-10-30T11:05:38.154548+00:00",
+  "scope": "Synthetic arithmetic and transcribed-rule illustrations only. Not historical backtest, model performance, operational clearance or measured capacity.",
+  "source_files": [
+    "frankfurt-airport-operating-direction-forecast.md",
+    "briefing/transcripts/FRAALLIANCE_PITCH_FULL.md"
+  ],
+  "unchanged_direction_example": {
+    "assumptions": [
+      "initial operating direction25",
+      "constant20kt wind magnitude, gust also20kt",
+      "direction changes from250to330degrees true",
+      "challenge headings250and180degrees true",
+      "no nonweather closure factors"
+    ],
+    "scenarios": [
+      {
+        "wind_from_deg_true": 250,
+        "wind_speed_kt": 20,
+        "gust_speed_kt": 20,
+        "od25": {
+          "tailwind_kt": -20.0,
+          "crosswind_kt": 0.0
+        },
+        "runway18": {
+          "tailwind_kt": -6.840403,
+          "crosswind_kt": 18.793852
+        },
+        "od25_has_headwind": true,
+        "runway18_usable_under_transcribed_rules": true
+      },
+      {
+        "wind_from_deg_true": 330,
+        "wind_speed_kt": 20,
+        "gust_speed_kt": 20,
+        "od25": {
+          "tailwind_kt": -3.472964,
+          "crosswind_kt": 19.696155
+        },
+        "runway18": {
+          "tailwind_kt": 17.320508,
+          "crosswind_kt": 10.0
+        },
+        "od25_has_headwind": true,
+        "runway18_usable_under_transcribed_rules": false
+      }
+    ]
+  },
+  "persistence_counterexample": {
+    "synthetic_hours": 8760,
+    "synthetic_direction_changes": 156,
+    "incorrect_one_hour_state_predictions": 156,
+    "one_hour_state_accuracy": 0.9821917808219178,
+    "advance_change_warnings": 0,
+    "interpretation": "Demonstrates that high one-hour state accuracy need not imply advance warning of transitions. Not a 24h/48h score."
+  },
+  "conditional_departure_redistribution": {
+    "runway18_departure_share_from_pitch": 0.6,
+    "other_departure_share_assumed_centre": 0.4,
+    "unchanged_total_demand_multiplier": 2.5,
+    "interpretation": "Conditional requested load only, not executable throughput or measured capacity loss."
+  }
+}

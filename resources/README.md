@@ -7,6 +7,11 @@ The refined [product concept](runway-concept.md) focuses on the next operational
 change to prepare for, with separate runway-18 and 07/25 forecasts and an explicit
 test of planning value.
 
+The [pitch strategy](hackathon-pitch-strategy.md) turns that concept into a
+three-minute narrative, a verifiable demo sequence and priorities before submission.
+Its [arithmetic checks](pitch-evidence-check.json) are explicitly synthetic;
+they do not substitute for measured model performance.
+
 ## Challenge from the supplied transcript
 
 Predict the next 48 hours of:
