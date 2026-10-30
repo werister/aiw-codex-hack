@@ -4,3 +4,5 @@ scikit-learn>=1.5
 requests>=2.32
 pyarrow>=17
 tzdata==2025.2
+pytest==8.4.2
+joblib==1.5.2
