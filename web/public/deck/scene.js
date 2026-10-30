@@ -7,7 +7,7 @@
 // Options: od "25" | "07", r18Open, wind { dir, kt } (optional, derived from od/r18 when left out),
 // story (true: keyframed 12 s loop 25 -> 07 -> 25, ignores setState), intro (tiles settle into runways),
 // labels, view (name in VIEWS or { position: [x,y,z], target: [x,y,z] }), aircraftScale, pixelRatio (number or function),
-// skyline (Frankfurt towers on the horizon, default true), theme "light" | "tower" (the app's dark mode), drift (radians of slow camera sway, 0 = still), onChange({ od, r18Open, wind }).
+// skyline (Frankfurt towers on the horizon, default true), aircraft "narrowbody" | "widebody", mood "day" | "golden", theme "light" | "tower" (the app's dark mode), drift (radians of slow camera sway, 0 = still), onChange({ od, r18Open, wind }).
 // fog: a CSS colour (the host background) to fade the far field; leave it out on a transparent hero.
 // The canvas is transparent, so the host page owns the background. Three.js loads from ./vendor,
 // aircraft and runway models (exported from the team's Blender kit) from ./models; primitives stand in until they load.
@@ -16,16 +16,16 @@ import { GLTFLoader } from "./vendor/addons/GLTFLoader.js";
 import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
 
 const MODELS = new URL("./models/", import.meta.url).href;
-let gltfCache = null;
-function loadModels() {
-  if (!gltfCache) {
+const gltfCache = {};
+function loadModels(aircraftName) {
+  if (!gltfCache[aircraftName]) {
     const loader = new GLTFLoader();
     const get = (name) => loader.loadAsync(MODELS + name + ".glb").then((g) => g.scene, () => null);
-    gltfCache = Promise.all([
-      get("aircraft-narrowbody"), get("runway-07L-25R"), get("runway-07C-25C"), get("runway-07R-25L"), get("runway-18"),
+    gltfCache[aircraftName] = Promise.all([
+      get("aircraft-" + aircraftName), get("runway-07L-25R"), get("runway-07C-25C"), get("runway-07R-25L"), get("runway-18"),
     ]).then(([aircraft, nw, c, s, r18]) => ({ aircraft, runways: { NW: nw, C: c, S: s, R18: r18 } }));
   }
-  return gltfCache;
+  return gltfCache[aircraftName];
 }
 
 const T = THREE;
@@ -176,7 +176,7 @@ function labelSprite(text) {
 }
 
 export function mount(container, options = {}) {
-  const opts = { od: "25", r18Open: true, story: false, intro: true, labels: true, view: "hero", aircraftScale: 1.5, theme: "light", drift: 0, skyline: true, ...options };
+  const opts = { od: "25", r18Open: true, story: false, intro: true, labels: true, view: "hero", aircraftScale: 1.5, theme: "light", drift: 0, skyline: true, aircraft: "narrowbody", mood: "day", ...options };
   let pal = PALETTE[opts.theme] || PALETTE.light;
   if (opts.story) Object.assign(opts, STORY[0]);
 
@@ -206,6 +206,12 @@ export function mount(container, options = {}) {
   sun.shadow.bias = -0.0004;
   sun.shadow.radius = 4;
   scene.add(sun, sun.target);
+  if (opts.mood === "golden") {
+    // Low warm key for long soft shadows; the cool rim below keeps the brand palette from going orange.
+    sun.color.set(0xffd2a6);
+    sun.intensity = 2.3;
+    sun.position.set(-70, 34, 46);
+  }
 
   const catcher = new T.Mesh(new T.PlaneGeometry(500, 500), new T.ShadowMaterial({ opacity: pal.shadow }));
   catcher.rotation.x = -Math.PI / 2;
@@ -379,7 +385,7 @@ export function mount(container, options = {}) {
   // Team Blender kit: real aircraft and runway models replace the primitives once loaded.
   const runwayModels = [];
   let alive = true;
-  loadModels().then(({ aircraft, runways }) => {
+  const modelsReady = loadModels(opts.aircraft === "widebody" ? "widebody" : "narrowbody").then(({ aircraft, runways }) => {
     if (!alive) return;
     if (aircraft) {
       const box = new T.Box3().setFromObject(aircraft);
@@ -426,7 +432,8 @@ export function mount(container, options = {}) {
       holder.add(model);
       model.scale.set(0.95 / (box.max.x - box.min.x), 0.01, rw.len / (box.max.z - box.min.z));
       holder.position.copy(rw.center).setY(DEPTH + 0.005);
-      holder.rotation.y = Math.atan2(rw.dir.x, rw.dir.z);
+      // The kit paints the first designator (07x, 18) at its +Z end; turn it so 07 sits at the west end and 18 at the north end.
+      holder.rotation.y = Math.atan2(rw.dir.x, rw.dir.z) + Math.PI;
       scene.add(holder);
       runwayModels.push({ rw, mats });
     }
@@ -563,6 +570,11 @@ export function mount(container, options = {}) {
     const dt = Math.min(0.05, (now - last) / 1000);
     last = now;
     if (!visible || paused) return;
+    tick(dt);
+  }
+
+  // One step of the scene; manual mode (opts.manual) calls it with a fixed dt to record video frames.
+  function tick(dt) {
     t += dt;
 
     // Intro: tiles settle, then guides, labels and arrow fade in.
@@ -643,11 +655,20 @@ export function mount(container, options = {}) {
     renderer.render(scene, camera);
     emit();
   }
-  raf = requestAnimationFrame(frame);
+  if (!opts.manual) raf = requestAnimationFrame(frame);
 
   if (opts.debug) opts.debug({ slabs, colorNow, state });
   return {
     VIEWS,
+    // Resolves once the model files have loaded (or failed and primitives stay).
+    ready: modelsReady.then(() => true, () => false),
+    step(dt) { tick(dt); },
+    setView(position, target) {
+      camTween = null;
+      camPos.set(...position);
+      camTgt.set(...target);
+    },
+    flights: () => flights.map((f) => ({ kind: f.kind, runway: f.rw.id, age: f.age, position: f.ac.obj.position.toArray(), dir: f.u.toArray() })),
     // Drive from outside, e.g. the hour shown on the dashboard. Ignored while story is on.
     setState(next = {}) {
       const od = next.od === "07" || next.od === "25" ? next.od : target.od;

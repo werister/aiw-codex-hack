@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Liftoff · Finals</title>
+<title>Lift-off · Finals</title>
 <script>
   // Served as /deck (no slash) the relative paths below would resolve against "/". Pin the base to the deck folder.
   (function () {
@@ -79,7 +79,7 @@
   .slide.on .grow { animation: grow 1.1s var(--ease-out) both; }
   @keyframes grow { from { opacity: 0; transform: translateY(40px) scale(0.96); } to { opacity: 1; transform: none; } }
 
-  .eyebrow { font-size: 22px; line-height: 1; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+  .eyebrow { font-size: 22px; line-height: 1; font-weight: 500; letter-spacing: 0.08em; color: var(--muted); }
   h1, h2 { font-weight: 300; letter-spacing: -0.015em; }
   h1 { font-size: 112px; line-height: 1.04; }
   h2 { font-size: 80px; line-height: 1.08; margin-top: 28px; }
@@ -87,7 +87,7 @@
 
   /* 1 · title */
   .s-title { display: flex; flex-direction: column; justify-content: center; }
-  .s-title .eyebrow { margin-bottom: 44px; }
+  .s-title .where { position: absolute; left: 140px; bottom: 104px; font-size: 26px; color: var(--muted); }
   .s-title h1 { max-width: 900px; }
   .s-title h1 + h1 { margin-top: 18px; }
   .team { position: absolute; left: 140px; bottom: 104px; font-size: 26px; color: var(--ink-2); }
@@ -118,7 +118,7 @@
   #hud .row { display: flex; align-items: center; gap: 22px; }
   #hud .row + .row { margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--line); }
   #hud svg { width: 84px; height: 84px; flex: none; }
-  #hud .k { font-size: 16px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 500; }
+  #hud .k { font-size: 16px; letter-spacing: 0.08em; color: var(--muted); font-weight: 500; }
   #hud .v { font-size: 34px; margin-top: 6px; line-height: 1.1; }
   #hud .badge { display: inline-block; font-size: 30px; padding: 10px 20px 11px; border-radius: 999px; color: #fff; background: var(--west); transition: background-color 0.6s var(--ease); }
   #hud .dot { display: inline-block; width: 16px; height: 16px; border-radius: 50%; background: var(--ok); margin-right: 12px; vertical-align: 2px; transition: background-color 0.6s var(--ease); }
@@ -169,13 +169,13 @@
   .detail { position: absolute; left: 140px; right: 140px; bottom: 64px; border-top: 1px solid var(--line); padding-top: 24px; }
   .detail table { border-collapse: collapse; font-size: 21px; color: var(--ink-2); }
   .detail td, .detail th { padding: 3px 34px 3px 0; text-align: left; font-weight: 400; white-space: nowrap; }
-  .detail th { color: var(--muted); font-size: 17px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 500; }
+  .detail th { color: var(--muted); font-size: 17px; letter-spacing: 0.06em; font-weight: 500; }
   .detail td.m { color: var(--accent); }
   .detail .fine { font-size: 16px; color: var(--muted); margin-top: 12px; line-height: 1.5; }
 
   /* 8 · value */
   .s-value { display: flex; flex-direction: column; justify-content: center; }
-  .s-value .big { font-size: 200px; line-height: 0.9; font-weight: 300; color: var(--accent); letter-spacing: -0.035em; margin-top: 40px; }
+  .s-value .big { font-size: 220px; line-height: 0.9; font-weight: 300; color: var(--accent); letter-spacing: -0.035em; }
   .s-value .t { font-size: 40px; margin-top: 26px; }
   .s-value .range { font-size: 30px; color: var(--ink-2); margin-top: 18px; }
   .s-value .quote { font-size: 22px; line-height: 1.5; color: var(--muted); max-width: 1180px; margin-top: 70px; }
@@ -187,6 +187,13 @@
   .next li + li { margin-top: 30px; }
   .next li small { display: block; font-size: 24px; color: var(--muted); font-weight: 400; margin-top: 8px; }
   .thanks { font-size: 150px; font-weight: 300; color: var(--accent); margin-top: 100px; letter-spacing: -0.02em; line-height: 1; }
+
+  /* fly-through: full-bleed video, headline on a soft top shade */
+  .s-fly { padding: 110px 140px; }
+  .s-fly .bleed { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: var(--scene); }
+  .s-fly .fly-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(246,246,251,0.92) 0%, rgba(246,246,251,0.55) 20%, rgba(246,246,251,0) 36%); }
+  .s-fly h2 { position: relative; }
+  .s-fly h2 { font-size: 84px; }
 
   /* viz slides: headline, then the module fills the rest */
   .s-viz { display: flex; flex-direction: column; padding-bottom: 90px; }
@@ -200,12 +207,20 @@
   .changes b { font-weight: 400; color: var(--ink); }
 
   /* people: three icon + number tiles */
-  .ptiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 80px; }
+  .ptiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 60px; }
   .ptile { background: var(--panel-2); border-radius: 10px; padding: 44px 44px 50px; min-height: 520px; display: flex; flex-direction: column; }
   .ptile svg { width: 52px; height: 52px; color: var(--accent); }
   .ptile .n { font-size: 150px; line-height: 1; font-weight: 300; color: var(--accent); letter-spacing: -0.03em; margin-top: 150px; }
   .ptile .t { font-size: 32px; margin-top: 18px; line-height: 1.2; }
   .ptile .s { font-size: 22px; color: var(--muted); margin-top: 10px; }
+
+  /* what we tried: who ran it, one number, one line */
+  .wtiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 70px; }
+  .wtile { background: var(--panel-2); border-radius: 10px; padding: 40px 36px 44px; min-height: 560px; display: flex; flex-direction: column; }
+  .wtile .who { font-size: 24px; color: var(--muted); }
+  .wtile .n { font-size: 120px; line-height: 1; font-weight: 300; color: var(--accent); letter-spacing: -0.03em; margin-top: 160px; }
+  .wtile .t { font-size: 28px; margin-top: 18px; line-height: 1.25; }
+  .wtile .s { font-size: 21px; color: var(--muted); margin-top: 10px; line-height: 1.4; }
 
   /* team */
   .s-team { display: flex; flex-direction: column; justify-content: center; }
@@ -226,77 +241,70 @@
   <div id="veil"><div class="layer left"></div><div class="layer full"></div><div class="layer top"></div></div>
 
   <section class="slide s-title" data-name="title" data-veil="left" data-time="15">
-    <p class="eyebrow rise">Frankfurt Airport · FraAlliance challenge</p>
     <h1 class="rise d1">The wind decides the runway.</h1>
-    <h1 class="rise d2 accent">48 hours earlier.</h1>
+    <h1 class="rise d2 accent">We see it 48 hours earlier.</h1>
+    <p class="where rise d3">Lift-off · runway forecast for Frankfurt Airport</p>
   </section>
 
-  <section class="slide s-problem" data-name="problem" data-veil="full" data-time="20">
-    <div class="left">
-      <p class="eyebrow rise">The problem</p>
-      <div class="stat rise d1" style="margin-top:48px"><div class="num" data-count="156">156</div><div class="lbl">direction changes a year</div></div>
-      <p class="follow rise d3"><span data-count="6">6</span> of 10 departures need runway 18.</p>
-    </div>
-    <div class="rise d2" style="flex:1">
-      <div class="clip"><video id="clip" src="media/airport-demo.mp4" poster="media/airport-demo-poster.jpg" muted loop playsinline preload="auto"></video></div>
-    </div>
+  <section class="slide s-fly" data-name="problem" data-veil="none" data-time="16">
+    <video class="bleed" src="media/flythrough.mp4" poster="media/flythrough-poster.jpg" muted loop playsinline preload="auto"></video>
+    <div class="fly-shade"></div>
+    <h2 class="rise d1"><span data-count="156">156</span> direction changes a year.</h2>
   </section>
 
   <section class="slide s-device" data-name="built" data-veil="full" data-time="30">
     <div class="left">
-      <p class="eyebrow rise">What we built</p>
       <h2 class="rise d1">Every hour, 48 hours ahead.</h2>
     </div>
     <div class="device grow d1"><div class="screen" data-frame="">
       <iframe title="Live dashboard" loading="lazy"></iframe>
-      <div class="fallback"><img src="media/dashboard.jpg" alt="Liftoff dashboard"></div>
+      <div class="fallback"><img src="media/dashboard.jpg" alt="Lift-off dashboard"></div>
     </div></div>
   </section>
 
   <section class="slide s-viz" data-name="data" data-veil="full" data-time="20" data-viz="barcode">
-    <p class="eyebrow rise">The data</p>
     <h2 class="rise d1">Eight years of flown directions.</h2>
     <div class="viz rise d2"></div>
   </section>
 
   <section class="slide s-viz" data-name="model" data-veil="full" data-time="20" data-viz="tree">
-    <p class="eyebrow rise">The model</p>
     <h2 class="rise d1">How the model decides.</h2>
     <div class="viz rise d2"></div>
   </section>
 
+  <section class="slide s-tried" data-name="tried" data-veil="full" data-time="15">
+    <h2 class="rise">What we tried, and who checked it.</h2>
+    <div class="wtiles" id="tried"></div>
+  </section>
+
   <section class="slide s-viz" data-name="day" data-veil="full" data-time="30" data-viz="example">
-    <p class="eyebrow rise">A day in practice</p>
     <h2 class="rise d1">Warned a day ahead.</h2>
     <div class="viz rise d2"><div class="viz-fallback"><div class="device small"><div class="screen" data-frame="pitch">
       <iframe title="Historical replay" loading="lazy"></iframe>
-      <div class="fallback"><img src="media/dashboard.jpg" alt="Liftoff dashboard"></div>
+      <div class="fallback"><img src="media/dashboard.jpg" alt="Lift-off dashboard"></div>
     </div></div></div></div>
   </section>
 
   <section class="slide s-viz" data-name="results" data-veil="full" data-time="25" data-viz="accuracy">
-    <p class="eyebrow rise">Results</p>
     <h2 class="rise d1">A third fewer mistakes than the rules.</h2>
     <div class="viz rise d2"></div>
     <p class="changes rise d3" id="changes"></p>
   </section>
 
   <section class="slide s-value" data-name="value" data-veil="full" data-time="15">
-    <p class="eyebrow rise">Estimated value</p>
     <div class="big rise d1" id="value-big"></div>
     <div class="t rise d2">a year at Frankfurt Airport</div>
     <div class="range rise d3" id="value-range"></div>
     <p class="quote rise d4" id="value-quote"></p>
   </section>
 
-  <section class="slide s-people" data-name="people" data-veil="full" data-time="20">
-    <p class="eyebrow rise">For the people doing the work</p>
+  <section class="slide s-people" data-name="people" data-veil="full" data-time="15">
+    <h2 class="rise">For the people doing the work.</h2>
     <div class="ptiles" id="people"></div>
   </section>
 
-  <section class="slide s-next" data-name="next" data-veil="left" data-time="10">
-    <p class="eyebrow rise">What's next</p>
-    <h1 class="rise d1">Fleet-wide planning.</h1>
+  <section class="slide s-next" data-name="next" data-veil="left" data-time="8">
+    <h1 class="rise d1">Next: fleet-wide planning.</h1>
   </section>
 
   <section class="slide s-team" data-name="team" data-veil="left" data-time="10">
@@ -319,7 +327,7 @@
   </div>
 
   <div id="progress"></div>
-  <div id="auto">AUTO</div>
+  <div id="auto">Auto</div>
   <div id="count"></div>
 </div>
 
@@ -428,6 +436,19 @@
     if (r24 && r24.model_change_acc != null) tiles.push(["bell", num(Math.round(r24.model_change_acc * 100), 0, "%"), "of changes flagged a day ahead", "instead of " + Math.round(r24.persistence_change_acc * 100) + "% when assuming nothing changes"]);
     tiles.push(["clock", "~" + num(SNAPSHOT.people.more_right_hours), "more hours a year planned right", "than with the official rules"]);
     tiles.push(["calendar", num(24) + " h", "to set rosters, equipment, stands", "instead of reshuffling on the spot"]);
+    // What we tried. Hugo's, red-team and Kai's numbers are copied from briefing/experiments/v4-colab-october.md,
+    // briefing/reviews/kai-data-round2.md and resources/ml-depth (via snapshot.py); E-count from EXPERIMENTS.md.
+    var d = SNAPSHOT.did;
+    var tried = [
+      ["Our pipeline", num(d.experiments), "experiments logged", "from the first model to the final one"],
+      ["Hugo's independent Colab", "72/72", "metric rows recomputed outside our pipeline", "two other models did not beat ours"],
+      ["Red team", "15/15", "leakage tests pass", "flagged data crosses no test-month boundary"],
+      ["Kai's data audit", d.raw_files_ok + "/" + d.raw_files, "raw weather files hash-checked", fmt(d.hours_verified, 0) + " hours of directions rebuilt exactly"]
+    ];
+    document.getElementById("tried").innerHTML = tried.map(function (t, i) {
+      return '<div class="wtile rise d' + (i + 1) + '"><div class="who">' + t[0] + '</div><div class="n">' + t[1] + '</div><div class="t">' + t[2] + '</div><div class="s">' + t[3] + '</div></div>';
+    }).join("");
+
     document.getElementById("people").innerHTML = tiles.map(function (t, i) {
       return '<div class="ptile rise d' + (i + 1) + '">' + icon(t[0]) + '<div class="n">' + t[1] + '</div><div class="t">' + t[2] + '</div><div class="s">' + t[3] + '</div></div>';
     }).join("");
@@ -508,7 +529,6 @@
   // ---------- deck ----------
   var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
   var cur = -1;
-  var clip = document.getElementById("clip");
   function go(i) {
     i = Math.max(0, Math.min(slides.length - 1, i));
     if (i === cur) return;
@@ -524,7 +544,10 @@
     loadFrame(slide);
     enterViz(slide);
     if (slides[i + 1]) loadFrame(slides[i + 1]);
-    if (name === "problem") { try { clip.currentTime = 0; clip.play(); } catch (e) {} } else clip.pause();
+    Array.prototype.forEach.call(document.querySelectorAll("video"), function (v) {
+      if (slide.contains(v)) { try { v.currentTime = 0; var p = v.play(); if (p) p.catch(function () {}); } catch (e) {} }
+      else v.pause();
+    });
     if (fra) {
       if (VIEWS[name]) fra.setCamera(VIEWS[name], 1.8);
       if (fra.setPaused) fra.setPaused(!SCENE_SLIDES[name]);
