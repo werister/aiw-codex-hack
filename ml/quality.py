@@ -123,7 +123,8 @@ def r18_events(frame, horizons=(1, 6, 24)):
 
     An issue counts as an actual event when any labelled target hour within H is
     inferred closed, and as predicted when the forecast calls any hour closed.
-    Model calls use p_18_usable < 0.5; rules and persistence use their 0/1 states.
+    Model calls use p_18_usable < 0.5; rules, corrected rules and persistence use
+    their 0/1 states.
     """
     result = []
     rows = frame.dropna(subset=["y_r18"])
@@ -131,8 +132,12 @@ def r18_events(frame, horizons=(1, 6, 24)):
         window = rows.loc[rows.lead_h <= horizon]
         actual = window.y_r18.eq(0).groupby(window.issue_time).any()
         record = {"horizon_h": horizon, "n_issues": int(len(actual)), "n_actual": int(actual.sum())}
-        for name, closed in (("model", window.p_18_usable < 0.5), ("rule", window.rule_18_usable.eq(0)),
-                             ("persistence", window.persistence_18.eq(0))):
+        baselines = [("model", window.p_18_usable < 0.5), ("rule", window.rule_18_usable.eq(0)),
+                     ("persistence", window.persistence_18.eq(0))]
+        if "rule_18_ens" in window:
+            # The official rule on the METAR-scaled ensemble wind: it can close 18, unlike raw 10 m wind.
+            baselines.append(("rule_corrected", window.rule_18_ens.eq(0)))
+        for name, closed in baselines:
             predicted = closed.groupby(window.issue_time).any().reindex(actual.index, fill_value=False)
             hits, misses = int((actual & predicted).sum()), int((actual & ~predicted).sum())
             false_alarms = int((~actual & predicted).sum())

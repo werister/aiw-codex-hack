@@ -91,6 +91,25 @@ Headline scores (`od`, `out_of_sample`, `rows` in `october.json`) still count
 those hours as recorded. The `*_stuck_feed_excluded` fields drop them, which
 favours both the model and the rules; report both.
 
+### Runway 18 events
+
+`r18_events` in `backtest.json` and `quality.json` scores closures per issue: an
+event is any inferred closure within the next 1, 6 or 24 h, and a forecast event
+is any forecast closure in the same window. For each of `model`
+(`p_18_usable < 0.5`), `rule` (official rule on raw forecast wind),
+`rule_corrected` (official rule on the METAR-scaled ensemble wind) and
+`persistence` it gives hits, misses, false alarms, recall, precision and false
+alarm rate, plus the model's hourly Brier score.
+
+Inferred closures are rare. METAR 2018–2026 has 109 closure events (181 hours):
+30, 9, 15, 0, 10, 17, 9, 15 and 4 per year from 2018 to 2026. Forecast inputs
+start in 2024, so only the 12 walk-forward test months are scored. There, the
+raw-wind rule never closes 18. The corrected rule closes it about as often as
+METAR does, but at the wrong times: 1 hit and 64 false alarms for 24 events
+at 24 h. The model gets 3 hits with no false alarms. A closure now persists into
+the next hour 40% of the time, so persistence catches the events already under
+way.
+
 ## Prediction interface
 
 `ml.predict.predict_48h(issue_time_utc, obs, nwp, od_at_issue)` returns the 48-row
