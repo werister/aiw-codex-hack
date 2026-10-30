@@ -10,11 +10,13 @@ v.replay();            // call on slide enter; the module-level replay() restart
 
 | File | Shows | Data source |
 |---|---|---|
-| `barcode.js` | 8 years of flown directions: day (x) by local hour (y), west/east, with total hours, switches and the west/east split | `data/ground_truth/dfld_hourly.csv` |
-| `accuracy.js` | Held-out accuracy at 6/24/48 h: our model vs official rules vs same as now, 95% whiskers on the model | `web/public/data/quality.json` (`out_of_sample.od`, `significance.od`) |
+| `barcode.js` | 8 years of recorded directions: day (x) by local hour (y), west/east, with total hours, switches and the west/east split | `data/ground_truth/dfld_hourly.csv` |
+| `accuracy.js` | Held-out accuracy at 1/6/24 h: our model vs official rules vs same as now, 95% issue-day bootstrap whiskers on the model | `web/public/data/quality.json` (`out_of_sample.od`, `significance.od`) |
 | `tree.js` | Tree 1 of 80 in the real direction model, top 3 levels in plain words, drawn node by node, edge width = hours that pass | `ml/models/forecast.joblib` |
 | `drivers.js` | Top 8 inputs the model relies on, relative bars (held-out shuffle test, Brier based) | `web/public/data/quality.json` (`drivers`) |
-| `example.js` | One real 48 h hindcast (28 to 29 Oct 2026): model chance of west, official rules, actual flown strip, switch at 10:00 marked. `mount(el, { day: "2026-10-29" })` picks the other embedded day | `web/public/forecasts/2026-10-28.json`, `2026-10-29.json` |
+| `example.js` | One real 48 h hindcast (28 to 29 Oct 2026): model chance of west, official rules, recorded-direction strip, switch at 10:00 marked. `mount(el, { day: "2026-10-29" })` picks the other embedded day | `web/public/forecasts/2026-10-28.json`, `2026-10-29.json` |
 | `pipeline.js` | How it works: inputs to 45 signals to 80 trees to the next 48 h with how sure | `ml/models/metadata.json`, `tree.data.js`, `example.data.js` |
 
 `test.html` mounts all of them (serve `web/public` over HTTP, since browsers block ES modules from `file://`). `python web/public/deck/viz/build_data.py` regenerates every `*.data.js` from the sources above.
+
+Refresh from a coherent published bundle: run `python web/public/deck/viz/build_data.py`, then `python web/public/deck/snapshot.py`. The deck keeps one snapshot for all numeric slides; it does not mix live quality updates with cached charts. `snapshot.py` checks the chart values against quality.json and records its SHA-256. Regenerate after any model/quality update.

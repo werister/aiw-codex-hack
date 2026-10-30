@@ -13,6 +13,15 @@ R = str(Path(__file__).resolve().parents[4])
 OUT = str(Path(__file__).resolve().parent)
 BER = ZoneInfo("Europe/Berlin")
 
+# Check the whole bundle before writing any generated chart file.
+q = json.load(open(R + "/web/public/data/quality.json"))
+m = joblib.load(R + "/ml/models/forecast.joblib")
+m2 = json.load(open(R + "/ml/models/metadata.json"))
+examples = {day: json.load(open(R + "/web/public/forecasts/" + day + ".json"))
+            for day in ["2026-10-28", "2026-10-29"]}
+assert m["version"] == m2["version"] == q["model_version"], "Model and quality versions differ"
+assert all(d["model_version"] == q["model_version"] for d in examples.values()), "Example forecast is stale"
+
 # ---------- barcode ----------
 days = OrderedDict()
 prev = None; changes = 0; n = 0; nw = 0; ne = 0
@@ -50,7 +59,6 @@ with open(OUT + "/barcode.data.js", "w", encoding="utf-8") as f:
 print("barcode", bar, len(b64))
 
 # ---------- accuracy ----------
-q = json.load(open(R + "/web/public/data/quality.json"))
 sig = {r["lead_h"]: r for r in q["significance"]["od"]}
 acc = []
 for r in q["out_of_sample"]["od"]:
@@ -70,8 +78,6 @@ with open(OUT + "/drivers.data.js", "w", encoding="utf-8") as f:
     f.write("export const DRIVERS = " + json.dumps(q["drivers"], indent=1) + ";\n")
 
 # ---------- tree ----------
-m = joblib.load(R + "/ml/models/forecast.joblib")
-assert m["version"] == q["model_version"], "Model and quality versions differ"
 od = m["od"]; feats = m["features"]
 p = od._predictors[0][0]
 nodes = p.nodes
@@ -109,8 +115,7 @@ print("tree", json.dumps(td)[:3000])
 # ---------- example ----------
 ex = {}
 for day in ["2026-10-28", "2026-10-29"]:
-    d = json.load(open(R + "/web/public/forecasts/%s.json" % day))
-    assert d["model_version"] == q["model_version"], "Example forecast is stale"
+    d = examples[day]
     obs = {o["time"]: o["od"] for o in d["observed"]}
     hrs = []
     for h in d["hours"]:
@@ -123,7 +128,6 @@ with open(OUT + "/example.data.js", "w", encoding="utf-8") as f:
     f.write("// Generated from web/public/forecasts/*.json (hindcasts with recorded DFLD direction). Do not edit by hand.\n")
     f.write("export const DAYS = " + json.dumps(ex) + ";\n")
 
-m2 = json.load(open(R + "/ml/models/metadata.json"))
 pm = {"n_features": len(m2["features"]), "n_rows": m2["n"], "trained_through": m2["trained_through"], "version": m2["version"], "source": "ml/models/metadata.json"}
 with open(OUT + "/pipeline.data.js", "w", encoding="utf-8") as f:
     f.write("// Generated from ml/models/metadata.json. Do not edit by hand.\n")

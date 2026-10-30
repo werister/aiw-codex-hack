@@ -62,7 +62,6 @@ export function mount(el, opts = {}) {
   const westShare = Math.round((100 * META.west_hours) / META.hours);
   caption.innerHTML =
     `<span>${fmt(META.hours)} hours</span>` +
-    `<span>${fmt(META.changes)} switches</span>` +
     `<span style="display:inline-flex;align-items:center;gap:12px"><i style="width:22px;height:22px;border-radius:4px;background:${west};display:inline-block"></i>west ${westShare}%</span>` +
     `<span style="display:inline-flex;align-items:center;gap:12px"><i style="width:22px;height:22px;border-radius:4px;background:${east};display:inline-block"></i>east ${100 - westShare}%</span>`;
   root.appendChild(plot);
@@ -78,10 +77,10 @@ export function mount(el, opts = {}) {
   let img = null, cw = 0, ch = 0, dpr = 1, raf = 0, t0 = 0;
 
   function layout() {
-    const r = plot.getBoundingClientRect();
+    // Layout uses the unscaled stage dimensions; the deck applies its own transform.
     dpr = Math.min(window.devicePixelRatio || 1, 2);
-    cw = Math.max(200, r.width);
-    ch = Math.max(120, r.height);
+    cw = Math.max(200, plot.clientWidth);
+    ch = Math.max(120, plot.clientHeight);
     canvas.style.left = "0px";
     canvas.style.top = "0px";
     canvas.style.width = cw + "px";

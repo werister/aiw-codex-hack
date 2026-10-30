@@ -8,5 +8,5 @@
 ## 2. Pitch
 
 - [ ] 2.1 Business-case numbers with sources (Luca)
-- [ ] 2.2 Pitch and demo script (Hugo)
+- [x] 2.2 Pitch and demo script (Hugo)
 - [ ] 2.3 Dry run by Luca at 15:00
