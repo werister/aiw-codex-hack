@@ -1,4 +1,4 @@
-# Liftoff | Model card
+# Lift-off | Model card
 
 **Version:** walk-forward-v6 | **Date:** 30 October 2026 | **Challenge:** FraAlliance
 
