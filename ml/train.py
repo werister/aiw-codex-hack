@@ -15,9 +15,9 @@ import pandas as pd
 from sklearn.ensemble import HistGradientBoostingClassifier
 from sklearn.inspection import permutation_importance
 
-from ml.features import FEATURES, PUBLICATION_LAG_H, build_features, normalize_obs
-from ml.predict import od_probability, probability
-from ml.quality import next_change_timing, period, reliability, skill
+from ml.features import BERLIN, FEATURES, PUBLICATION_LAG_H, build_features, normalize_obs
+from ml.predict import HORIZONS, REGIMES, blend_keys, od_probability, probability
+from ml.quality import next_change_timing, period, reliability, skill, suspect_od_runs
 from ml.rules import RULES, od_state_machine, r18_usable
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -34,14 +34,25 @@ def load_truth():
     return truth
 
 
+def issue_times(start, end, stride):
+    """Issues on the local clock from 00:00, so jury-style midnight issues are trained and tested."""
+    days = pd.date_range(start.tz_convert(BERLIN).date(), end.tz_convert(BERLIN).date(), freq="D")
+    local = (days.to_numpy()[:, None] + pd.to_timedelta(np.arange(0, 24, stride), unit="h").to_numpy()).ravel()
+    times = pd.DatetimeIndex(local).tz_localize(BERLIN, ambiguous="NaT", nonexistent="NaT").dropna().tz_convert("UTC")
+    return times[(times >= start) & (times <= end)]
+
+
 def dataset(stride=6):
     truth = load_truth()
     obs = normalize_obs(pd.read_parquet(DATA / "eddf_metar.parquet"))
+    suspect = suspect_od_runs(truth, obs)
+    truth = truth.loc[~suspect].copy()
+    print(f"Excluded {int(suspect.sum())} recorded hours that break the landing limit", flush=True)
     nwp = pd.read_parquet(DATA / "openmeteo_previous_runs.parquet")
     nwp["time"] = pd.to_datetime(nwp.time, utc=True)
     nwp = nwp.sort_values("time")
-    times = pd.date_range(max(truth.available_at.min(), nwp.time.min()),
-                          min(truth.time.max(), nwp.time.max()) - pd.Timedelta(hours=48), freq=f"{stride}h")
+    times = issue_times(max(truth.available_at.min(), nwp.time.min()),
+                        min(truth.time.max(), nwp.time.max()) - pd.Timedelta(hours=48), stride)
     target_obs = pd.merge_asof(truth[["time"]], obs[["time", "wind_kt", "wind_dir_deg", "gust_kt"]],
                                on="time", tolerance=pd.Timedelta(hours=1))
     truth["y_r18"] = [r18_usable(s, d, g) for s, d, g in target_obs[["wind_kt", "wind_dir_deg", "gust_kt"]].itertuples(index=False, name=None)]
@@ -117,15 +128,20 @@ def fit(frame):
     raw = probability(candidate, validation[FEATURES])
     y = validation.y_od.to_numpy(float)
     prior = validation.od_at_issue.to_numpy(float)
-    horizons = np.select([validation.lead_h <= 1, validation.lead_h <= 6, validation.lead_h <= 24], [1, 6, 24], default=48)
+    keys = blend_keys(validation)
+
+    def best_alpha(selected):
+        losses = [(float(np.mean((alpha * raw[selected] + (1 - alpha) * prior[selected] - y[selected]) ** 2)), alpha)
+                  for alpha in np.round(np.linspace(0, 1, 11), 1)]
+        return float(min(losses)[1])
+
     weights = {}
-    for horizon in (1, 6, 24, 48):
-        selected = horizons == horizon
-        losses = []
-        for alpha in (0, 0.25, 0.5, 0.75, 1):
-            p = alpha * raw[selected] + (1 - alpha) * prior[selected]
-            losses.append((float(np.mean((p - y[selected]) ** 2)), alpha))
-        weights[str(horizon)] = min(losses)[1]
+    for horizon in HORIZONS:
+        fallback = best_alpha(np.char.startswith(keys, horizon + ":"))
+        for regime in REGIMES:
+            # Night and calm hours may lean on persistence; sparse regimes use the lead weight.
+            selected = keys == f"{horizon}:{regime}"
+            weights[f"{horizon}:{regime}"] = best_alpha(selected) if selected.sum() >= 50 else fallback
     models = fit_classifiers(frame)
     models["od_model_weight"] = weights
     models["od_blend_validation_period"] = period(validation.issue_time)
@@ -186,6 +202,8 @@ def evaluate(frame, truth, obs, months, stride, skipped):
     labelled = oos[-1].dropna(subset=["y_od"])
     heldout = labelled.sample(n=min(5000, len(labelled)), random_state=42)
     def blended_score(estimator, features, labels):
+        # Blend regimes need the target time, which is not a model feature.
+        features = features.assign(time=heldout.time.loc[features.index])
         p = od_probability({"od": estimator, "od_model_weight": final_fold_models["od_model_weight"]}, features)
         return -float(np.mean((p - labels.to_numpy(float)) ** 2))
 
@@ -212,6 +230,10 @@ def evaluate(frame, truth, obs, months, stride, skipped):
              + pd.to_timedelta(half_hour.minute_local, unit="m"))
     half_hour["time"] = local.dt.tz_localize("Europe/Berlin", ambiguous="NaT", nonexistent="NaT").dt.tz_convert("UTC")
     half_hour = half_hour.dropna(subset=["time"])
+    # Suspect recorded runs are unscored here too: windows touching them become incomplete.
+    recorded = load_truth().time
+    suspect_hours = recorded.loc[~recorded.isin(truth.time)]
+    half_hour.loc[half_hour.time.dt.floor("h").isin(suspect_hours), "od"] = np.nan
     quality = {"schema_version": 1, "evaluation": "expanding monthly walk-forward",
         "r18_label_type": "inferred", "issue_stride_h": stride, "folds": folds,
         "publication_lag_h": PUBLICATION_LAG_H,
@@ -229,14 +251,18 @@ def evaluate(frame, truth, obs, months, stride, skipped):
             {"name": "DFLD recorded operating directions", "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.10.2026", "file": "data/ground_truth/dfld_hourly.csv"},
             {"name": "IEM EDDF METAR", "url": "https://mesonet.agron.iastate.edu/request/download.phtml", "file": "data/eddf_metar.parquet"},
             {"name": "Open-Meteo previous runs", "url": "https://open-meteo.com/en/docs/previous-runs-api", "file": "data/openmeteo_previous_runs.parquet"}],
-        "coverage": {"feature_rows": len(frame), "skipped_issue_times": skipped, "observed_base_rates": base_rates},
+        "coverage": {"feature_rows": len(frame), "skipped_issue_times": skipped, "observed_base_rates": base_rates,
+                     "excluded_suspect_label_hours": len(suspect_hours),
+                     "excluded_suspect_label_period": period(suspect_hours) if len(suspect_hours) else None},
         "limitations": [
             "A six-hour publication lag is applied: previous_day1 for leads 1-18, day2 for 19-42, day3 for 43-48. Each target time minus its offset plus six hours must be no later than issue time. Exact publication timestamps remain unavailable; the six-hour lag is a conservative availability assumption.",
             "DFLD hourly OD is used only after hour end. Upstream publication delays and summer clock offset remain unverified. Recorded OD is a public operational proxy, not a certified movement log.",
             "Stable-hour OD accuracy excludes DFLD transition hours. Next-change scoring instead uses the half-hour source and excludes incomplete windows.",
             "Runway 18 targets are inferred weather usability; missing or variable METAR directions are unlabelled, not assumed open.",
             "In-sample aggregates repeat rows across expanding folds. OOS monthly folds do not overlap; overlapping 48-hour forecast windows are correlated.",
-            "Timing metrics use 6-hourly issue windows by default, not independent events. Persistence blending weights minimize Brier score on a 60-day chronological validation block before each test month; held-out data never selects weights."]}
+            "Timing metrics use 6-hourly issue windows by default, not independent events. Persistence blending weights minimize Brier score on a 60-day chronological validation block before each test month; held-out data never selects weights.",
+            "Issues run every six hours on the Europe/Berlin clock from 00:00, matching jury-day issues. Blend weights are chosen per lead bucket (1, 2-6, 7-24, 25-48 h) and target regime: night (23:00-05:00 local), calm (forecast 10 m wind below 2.5 kt) or active.",
+            "Recorded OD runs with three or more METAR hours at or above the 10 kt landing tailwind limit are treated as a stuck feed and excluded from targets, inputs and timing windows. This removes 8-12 Oct 2026, when DFLD shows 07 against 8-17 kt westerlies also measured by DWD station 01420."]}
     dump(OUTPUT / "backtest.json", backtest)
     dump(OUTPUT / "quality.json", quality)
     return backtest, quality
@@ -247,8 +273,8 @@ def main():
     parser.add_argument("--issue-stride", type=int, default=6)
     parser.add_argument("--months", type=int, default=6)
     args = parser.parse_args()
-    if args.issue_stride < 1 or args.months < 6:
-        parser.error("issue-stride must be positive and months must be at least six")
+    if args.issue_stride < 1 or 24 % args.issue_stride or args.months < 6:
+        parser.error("issue-stride must divide 24 hours and months must be at least six")
     warnings.filterwarnings("ignore", category=DeprecationWarning, message=".*generic.*")
     frame, truth, obs, skipped = cached_dataset(args.issue_stride)
     backtest, quality = evaluate(frame, truth, obs, args.months, args.issue_stride, skipped)
