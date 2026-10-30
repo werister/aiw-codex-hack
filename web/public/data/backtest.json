@@ -1,0 +1,176 @@
+{
+  "train_period": {
+    "start": "2024-01-19T12:00:00+00:00",
+    "end": "2026-09-30T18:00:00+00:00"
+  },
+  "test_period": {
+    "start": "2026-05-01T00:00:00+00:00",
+    "end": "2026-10-27T18:00:00+00:00"
+  },
+  "labels": "OD: recorded DFLD stable-hour proxy. Runway 18: inferred from METAR and official wind limits.",
+  "rules_version": "fraalliance-brief-2026-10-30",
+  "base_rates": {
+    "od25_share": 0.6459708302778456,
+    "changes_per_year": 172.20128272356905,
+    "r18_closed_share": 0.0019978627514751768
+  },
+  "od": [
+    {
+      "lead_h": 1,
+      "n": 709,
+      "model_acc": 0.9379407616361072,
+      "model_brier": 0.04854498226491989,
+      "model_change_acc": 0.4090909090909091,
+      "rule_acc": 0.9689703808180536,
+      "rule_brier": 0.031029619181946404,
+      "rule_change_acc": 0.0,
+      "persistence_acc": 0.9689703808180536,
+      "persistence_brier": 0.031029619181946404,
+      "persistence_change_acc": 0.0,
+      "change_n": 22
+    },
+    {
+      "lead_h": 6,
+      "n": 703,
+      "model_acc": 0.914651493598862,
+      "model_brier": 0.06934112446630909,
+      "model_change_acc": 0.7528089887640449,
+      "rule_acc": 0.8591749644381224,
+      "rule_brier": 0.14082503556187767,
+      "rule_change_acc": 0.7303370786516854,
+      "persistence_acc": 0.8904694167852063,
+      "persistence_brier": 0.10953058321479374,
+      "persistence_change_acc": 0.1348314606741573,
+      "change_n": 89
+    },
+    {
+      "lead_h": 24,
+      "n": 688,
+      "model_acc": 0.9084302325581395,
+      "model_brier": 0.0785251000351821,
+      "model_change_acc": 0.8432203389830508,
+      "rule_acc": 0.8590116279069767,
+      "rule_brier": 0.14098837209302326,
+      "rule_change_acc": 0.8050847457627118,
+      "persistence_acc": 0.7674418604651163,
+      "persistence_brier": 0.23255813953488372,
+      "persistence_change_acc": 0.3220338983050847,
+      "change_n": 236
+    },
+    {
+      "lead_h": 48,
+      "n": 668,
+      "model_acc": 0.8982035928143712,
+      "model_brier": 0.08502778409720686,
+      "model_change_acc": 0.8681318681318682,
+      "rule_acc": 0.8637724550898204,
+      "rule_brier": 0.13622754491017963,
+      "rule_change_acc": 0.8406593406593407,
+      "persistence_acc": 0.6661676646706587,
+      "persistence_brier": 0.3338323353293413,
+      "persistence_change_acc": 0.3873626373626374,
+      "change_n": 364
+    }
+  ],
+  "r18": [
+    {
+      "lead_h": 1,
+      "n": 567,
+      "model_acc": 1.0,
+      "model_brier": 8.123145952255408e-06,
+      "model_change_acc": 1.0,
+      "rule_acc": 1.0,
+      "rule_brier": 0.0,
+      "rule_change_acc": 1.0,
+      "persistence_acc": 1.0,
+      "persistence_brier": 0.0,
+      "persistence_change_acc": 1.0,
+      "change_n": 13
+    },
+    {
+      "lead_h": 6,
+      "n": 528,
+      "model_acc": 1.0,
+      "model_brier": 7.092552313338737e-06,
+      "model_change_acc": 1.0,
+      "rule_acc": 1.0,
+      "rule_brier": 0.0,
+      "rule_change_acc": 1.0,
+      "persistence_acc": 1.0,
+      "persistence_brier": 0.0,
+      "persistence_change_acc": 1.0,
+      "change_n": 54
+    },
+    {
+      "lead_h": 24,
+      "n": 518,
+      "model_acc": 1.0,
+      "model_brier": 1.0007324659440984e-05,
+      "model_change_acc": 1.0,
+      "rule_acc": 1.0,
+      "rule_brier": 0.0,
+      "rule_change_acc": 1.0,
+      "persistence_acc": 1.0,
+      "persistence_brier": 0.0,
+      "persistence_change_acc": 1.0,
+      "change_n": 158
+    },
+    {
+      "lead_h": 48,
+      "n": 502,
+      "model_acc": 1.0,
+      "model_brier": 5.858449986315691e-06,
+      "model_change_acc": 1.0,
+      "rule_acc": 1.0,
+      "rule_brier": 0.0,
+      "rule_change_acc": 1.0,
+      "persistence_acc": 1.0,
+      "persistence_brier": 0.0,
+      "persistence_change_acc": 1.0,
+      "change_n": 262
+    }
+  ],
+  "drivers": [
+    {
+      "feature": "wind_speed_80m",
+      "importance": 0.01776618957896305
+    },
+    {
+      "feature": "od_at_issue",
+      "importance": 0.005386173966405339
+    },
+    {
+      "feature": "tailwind_07_kt",
+      "importance": 0.004797426503585972
+    },
+    {
+      "feature": "tailwind_18_kt",
+      "importance": 0.0035729051651663866
+    },
+    {
+      "feature": "hour_cos",
+      "importance": 0.00335738930903573
+    },
+    {
+      "feature": "rule_od25",
+      "importance": 0.0027233740895193093
+    },
+    {
+      "feature": "season_sin",
+      "importance": 0.0014120458094143418
+    },
+    {
+      "feature": "gust_kt",
+      "importance": 0.001353521118048595
+    },
+    {
+      "feature": "obs_tailwind_18",
+      "importance": 0.0013291907647977792
+    },
+    {
+      "feature": "temperature_2m",
+      "importance": 0.0007734036506419165
+    }
+  ],
+  "r18_label_type": "inferred"
+}

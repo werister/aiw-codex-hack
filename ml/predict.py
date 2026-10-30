@@ -41,7 +41,9 @@ def predict_48h(issue_time_utc, obs, nwp, od_at_issue):
 
     obs: DataFrame with time, wind_dir_deg, wind_kt, gust_kt. IEM aliases
     valid, drct, sknt, gust are accepted. Missing gust uses mean wind.
-    Optional od column with recorded states supplies hours since change;
+    Optional obs.attrs['od_history'] with time, od and available_at supplies
+    full recorded history for hours since change. Otherwise an od column
+    with recorded states supplies hours since change;
     available_at is required for those states, or time + 1h is assumed for
     completed hourly summaries. Observations after issue time are excluded.
 
@@ -57,8 +59,8 @@ def predict_48h(issue_time_utc, obs, nwp, od_at_issue):
     """
     import pandas as pd
 
-    history = None
-    if "od" in obs:
+    history = obs.attrs.get("od_history")
+    if history is None and "od" in obs:
         history = obs.rename(columns={"valid": "time"}).copy()
         if "available_at" not in history:
             history["available_at"] = pd.to_datetime(history.time, utc=True) + pd.Timedelta(hours=1)
@@ -67,5 +69,6 @@ def predict_48h(issue_time_utc, obs, nwp, od_at_issue):
     frame["p_od25"] = probability(models["od"], frame[FEATURES])
     frame["p_18_usable"] = probability(models["r18"], frame[FEATURES])
     frame["r18_label_type"] = "inferred"
+    frame.attrs["model_version"] = models["version"]
     return frame[["time", "lead_h", "wind_dir_deg", "wind_kt", "gust_kt", "tailwind_25_kt",
                   "tailwind_18_kt", "rule_od", "rule_18_usable", "p_od25", "p_18_usable", "r18_label_type"]]

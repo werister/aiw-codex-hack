@@ -45,3 +45,33 @@ def test_no_day0_fallback_and_future_publication():
         select_nwp(issue, nwp)
     with pytest.raises(ValueError, match="issued_at"):
         select_nwp(issue, nwp.drop(columns="issued_at"))
+
+
+def test_hindcast_selects_only_an_earlier_fit(tmp_path, monkeypatch):
+    import ml.predict as predictor
+
+    final = tmp_path / "forecast.joblib"
+    fold = tmp_path / "fold-2026-05.joblib"
+    final.touch()
+    fold.touch()
+    monkeypatch.setattr(predictor, "MODEL_PATH", final)
+    monkeypatch.setattr(predictor, "load_models", lambda path: {
+        "trained_through": "2026-10-01T00:00Z" if path == final else "2026-04-30T22:00Z"})
+    assert predictor.models_at_issue(pd.Timestamp("2026-05-01T00:00Z"))["trained_through"] == "2026-04-30T22:00Z"
+    with pytest.raises(ValueError, match="trained before"):
+        predictor.models_at_issue(pd.Timestamp("2026-04-01T00:00Z"))
+
+
+def test_change_timing_counts_missed_changes():
+    from ml.quality import next_change_timing
+
+    issue = pd.Timestamp("2026-05-01T00:00Z")
+    forecast = pd.DataFrame({"issue_time": issue, "time": pd.date_range(issue + pd.Timedelta(hours=1), periods=48, freq="h"),
+                             "lead_h": range(1, 49), "od_at_issue": 1, "p_od25": 0.9})
+    actual = pd.DataFrame({"time": pd.date_range(issue + pd.Timedelta(minutes=30), periods=96, freq="30min"),
+                           "od": ["25"] * 11 + ["07"] * 85})
+    result = next_change_timing(forecast, actual)
+    assert result["n_actual_change_windows"] == 1
+    assert result["within_1h"] == result["within_3h"] == 0
+    forecast.loc[forecast.lead_h >= 6, "p_od25"] = 0.1
+    assert next_change_timing(forecast, actual)["within_1h"] == 1

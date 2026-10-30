@@ -8,8 +8,8 @@
 
 ## 2. Train and evaluate
 
-- [ ] 2.1 Walk-forward evaluation (expanding window, monthly folds), never random cross-validation on a time series; train two classifiers
-- [ ] 2.1b Report in-sample vs out-of-sample skill side by side
-- [ ] 2.2 Skill table at 1/6/24/48 h vs rules and persistence
-- [ ] 2.3 Permutation importance gives the drivers
-- [ ] 2.4 `web/public/data/backtest.json`
+- [x] 2.1 Walk-forward evaluation (expanding window, monthly folds), never random cross-validation on a time series; train two classifiers
+- [x] 2.1b Report in-sample vs out-of-sample skill side by side
+- [x] 2.2 Skill table at 1/6/24/48 h vs rules and persistence
+- [x] 2.3 Permutation importance gives the drivers
+- [x] 2.4 `web/public/data/backtest.json`
