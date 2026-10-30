@@ -14,12 +14,13 @@ Predict the next 48 hours of:
 - Runway 18 availability for departures, including likely closure/reopening times.
 - Parallel-runway operating direction: 07 (eastbound) or 25 (westbound), including changes.
 
-The intended users plan ground handling, staffing and connections. The official
-brief has now arrived in the team repository:
-[challenge specification](../frankfurt-airport-operating-direction-forecast.md),
-[machine-readable rules](../ml/rules.json). These supersede earlier uncertainty
-about challenge thresholds. Observation gaps, sub-hourly timing and the meaning
-of certainty still require explicit handling.
+The intended users plan ground handling, staffing and connections. The team
+repository contains a [Markdown transcription of the challenge brief](../frankfurt-airport-operating-direction-forecast.md)
+and [derived rules](../ml/rules.json). They provide working thresholds, but the
+original PDF and presentation have not been located or compared in this review.
+The [source audit](challenge-source-audit.md) distinguishes transcribed requirements
+from team assumptions. Observation gaps, sub-hourly timing and the meaning of
+certainty still require explicit handling.
 
 ## Downloaded locally
 
@@ -45,8 +46,9 @@ assumptions. Sources: [wind archive](https://opendata.dwd.de/climate_environment
 
 ## Findings that affect implementation
 
-- The general Fraport page describes a five-knot rule, but the **challenge brief
-  is authoritative for this project**: 10 kt landing tailwind triggers immediate
+- The general Fraport page describes a five-knot rule. Use the **transcribed
+  challenge limits as the working baseline pending original-source verification**:
+  10 kt landing tailwind triggers immediate
   direction change; smaller positive tailwind is tolerated for 30 minutes;
   runway 18 closes at 15 kt tailwind or crosswind including gusts above 40 kt.
   [Challenge rules](../ml/rules.json)
@@ -82,7 +84,9 @@ assumptions. Sources: [wind archive](https://opendata.dwd.de/climate_environment
 
 ## Still needed
 
-1. Apply the received brief consistently, including its 30-minute state rule;
+1. Obtain the original one-pager and pitch deck from the participant dashboard;
+   verify the transcription and distinguish source requirements from assumptions.
+   Apply the working brief consistently, including its 30-minute state rule;
    document how observation gaps and hourly forecast resolution are handled.
 2. Historical **actual** direction and runway-18 availability labels.
 3. Join the verified archived forecast source to actual operating-state labels;
