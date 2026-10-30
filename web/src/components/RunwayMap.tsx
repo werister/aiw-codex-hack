@@ -114,7 +114,7 @@ export function RunwayMap({
         </text>
         <text x="12" y="42" fontSize="12" fill="var(--muted)">{label}</text>
       </svg>
-      <div className="absolute bottom-1 left-2 text-[11px] text-muted">Simulated traffic · schematic, not to scale</div>
+      <div className="mt-1 text-[11px] text-muted sm:absolute sm:bottom-1 sm:left-2 sm:mt-0">Simulated traffic · schematic, not to scale</div>
     </div>
   );
 }
