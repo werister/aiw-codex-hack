@@ -3,10 +3,11 @@
 **Lernen, wann eine Wetterprognose die entscheidenden Bahngrenzen zu früh,
 zu spät oder fälschlich überschreiten lässt – damit die Planung Vorlauf gewinnt.**
 
-Stand: 30. Oktober 2026. Die inzwischen im Team-Repository eingegangene
-[offizielle Aufgabenstellung](../frankfurt-airport-operating-direction-forecast.md)
-und [Regeldatei](../ml/rules.json) ersetzen die früher offenen Grenzwerte. Dieses
-Konzept präzisiert den gewählten Modell-/UI-Ansatz; es ist kein Implementierungsnachweis.
+Stand: 30. Oktober 2026. Die [Abschrift des Challenge-Briefs](../frankfurt-airport-operating-direction-forecast.md)
+und die daraus abgeleitete [Regeldatei](../ml/rules.json) liefern die vorläufige
+Arbeitsgrundlage. Original-PDF und Pitchfolien liegen dieser Prüfung noch nicht
+vor; der [Quellenabgleich](challenge-source-audit.md) hält die offenen Belege fest.
+Dieses Konzept präzisiert den gewählten Modell-/UI-Ansatz; es ist kein Implementierungsnachweis.
 
 ## Der geschärfte Auftrag
 
@@ -49,7 +50,10 @@ Eine gemeinsame 48-Stunden-Zeitleiste mit zwei unabhängigen Spuren:
 Die nächste relevante Änderung steht oben. Ein Klick zeigt Windkomponente,
 Regel bzw. Modellbeitrag, Ausgabezeit der Wetterprognose und Abweichung vom
 vorherigen Prognoselauf. Stundenwerte begründen keine minutengenaue Wechselzeit.
-Ein fehlender oder alter Betriebsstatus wird als unbekannt sichtbar.
+Ein fehlender oder alter Betriebsstatus wird als unbekannt sichtbar. „Bahn 18
+wetterbedingt nutzbar“ und „Bahn 18 tatsächlich freigegeben“ bleiben unterscheidbar:
+Die zweite Aussage braucht einen Betriebsstatus. „Richtung 07“ allein sagt noch
+nichts darüber aus, ob Seitenwind den Betrieb auf dieser Bahn zulässt.
 
 **Beispiel, vollständig fiktiv:** „Bahn 18: Einschränkung könnte morgen zwischen
 14 und 16 Uhr beginnen und zwei bis vier Stunden dauern. Richtung weiter 25.
@@ -87,7 +91,17 @@ höchstens **30 Minuten** bestehen. Eine Stunde mit Rückenwind allein belegt ke
 30-minütige Persistenz. Für Labels braucht es passende Beobachtungsfolgen und
 einen definierten Umgang mit Lücken; unterstündliche Interpolation bleibt eine
 Modellannahme. Beide Zustände werden unabhängig ausgegeben, die zeitlichen
-Übergänge müssen aber konsistent sein. [Verbindliche Regeln](../ml/rules.json)
+Übergänge müssen aber konsistent sein. [Team-Regeldatei](../ml/rules.json)
+
+Zwei Randfälle werden nicht durch zusätzliche Annahmen versteckt: Die Anweisung
+„bei Windstille oder variablem Wind aktuelle Richtung beibehalten“ steht in der Team-Regeldatei,
+aber nicht ausdrücklich in der Abschrift. Variabler Wind ist außerdem weder
+Windstille noch eine fehlende Messung. Und ein Wechsel von 25 auf 07 beseitigt
+keinen zu hohen Seitenwind: Die Bahnachse bleibt gleich. Die binäre
+Richtungsprognose darf deshalb nicht als Betriebsfreigabe dargestellt werden.
+Dies sind Abgleichpunkte für den Original-Brief, keine neu erfundenen Regeln.
+Auch der genaue Geltungsbereich der allgemein formulierten Seitenwindregel
+bleibt bis zum Originalabgleich offen.
 
 Ein synthetisches Gegenbeispiel wurde nachgerechnet, jeweils mit Ausgangsrichtung
 25: 20 Minuten Ostwind mit 6 kt und danach 40 Minuten Windstille behalten 25 bei;
@@ -108,6 +122,9 @@ Die Demo spielt einen belegten historischen Wechsel und ein Zeitfenster ohne
 Wechsel nach. Sie zeigt nur Informationen, die damals verfügbar waren, und blendet
 anschließend den tatsächlich eingetretenen Zustand ein. Ein einzelner Fall zeigt
 den Ablauf; mehrere zeitlich getrennte Ereignisse müssen die Prognosegüte tragen.
+Fehlen echte Betriebslabels, wird dieselbe Ansicht ausdrücklich als Prüfung gegen
+Wetterregel-Ersatzlabels gezeigt. Sie belegt dann die Wetterkorrektur, aber noch
+keinen gewonnenen Vorlauf gegenüber einer tatsächlichen Tower-Entscheidung.
 
 - Vergleich: Zustand beibehalten und reine Wetterregel; Umwelthaus zusätzlich,
   falls dessen damalige Prognosen verfügbar sind.
