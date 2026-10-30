@@ -65,7 +65,7 @@ assumptions. Sources: [wind archive](https://opendata.dwd.de/climate_environment
   A new Point Forecast Testing key succeeded with HTTP 200 on 30 October 2026:
   80 three-hourly timestamps and complete wind, gust and pressure arrays. Repeat
   the check with `python -m ml.windy --json`; configure the key in the environment
-  or ignored root `.env.local` (see [instructions](../ml/README.md#optional-windy-connection-check)).
+  or ignored root `.env.local` (see [instructions](../ml/WINDY.md)).
   The [access check](windy-access-check.json) contains only response metadata.
   Testing values are not used by the operational forecast or model evaluation.
 - Historical DWD wind records include missing values and changes between MEZ

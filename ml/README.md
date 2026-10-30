@@ -18,6 +18,9 @@ python -m pytest ml/tests -q
 model artifacts under `ml/models/` and evaluation JSON under
 `web/public/data/`. The UI contract is `web/src/lib/forecast-types.ts`.
 
+The optional `python -m ml.windy` command checks the Windy connection only;
+see [setup and Testing-tier limitations](WINDY.md).
+
 ## Data and issue-time inputs
 
 - **Observed wind:** EDDF METAR from the Iowa Environmental Mesonet ASOS archive.
