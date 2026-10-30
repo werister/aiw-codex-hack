@@ -1,5 +1,7 @@
 # FRA operating direction forecast (FraAlliance challenge, AI Week Codex Hackathon, 30 Oct 2026)
 
+**Team-Update: Unsere Prognose wurde verbessert.** Sie berücksichtigt jetzt, wie lange der Wind schon aus der kritischen Richtung kommt. Historische Tests prüfen vorhandene Zeitstempel strenger, zählen Richtungswechsel ohne Mehrfachtreffer und zeigen Datenlücken ausdrücklich. Bei 6 Stunden Vorlauf trifft das Modell die Betriebsrichtung in 92,7 % der Teststunden; die offiziellen Regeln erreichen 88,1 %. Das ist der Vergleich mit der Regelmethode, kein belegter Genauigkeitssprung gegenüber unserer vorherigen Modellversion. **[Die Änderungen einfach erklärt](ML_VERBESSERUNGEN.md)** – mit Beispielen, Ergebnissen und den noch offenen Schwächen bei Bahn 18.
+
 > ## 🎤 FINALS PITCH: one page, everyone use this
 > - **Open it:** use the live link below, or locally: pull `main`, run `python -m http.server 8000 -d web/public`, open http://localhost:8000/deck/ (the charts need a server; a double-clicked file only shows the poster). Arrow keys or click to advance, **A** = autoplay.
 > - **Live (THE place to review):** https://fraalliance-runway-forecast.statworx-par-2884.chatgpt.site: `/` dashboard, `/deck/` slides, `/pitch` Kai's real-day replay, `/approach` how we built it, `/widget` iPad view. Republished from main every 15 min, 15:02 to 16:47. Visible to others once Jayden turns sharing on.

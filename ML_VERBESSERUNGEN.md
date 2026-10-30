@@ -73,10 +73,14 @@ Das sind Messwerte aus unserer historischen Auswertung, keine Zusage für jeden 
 
 ## Was geprüft ist – und was noch offen bleibt
 
-Die gezielten Fehlerfälle und die übrige ML-Testsuite bestehen mit **93 Tests**.
+Die gezielten Fehlerfälle und die übrige ML-Testsuite bestehen mit **mehr als 100 Tests**.
 Die zwölf zeitlich getrennten Testmonate, die Vergleichswerte und ihre Grenzen
 stehen im [Modellbericht](MODEL_CARD.md). Dort vergleichen wir das Modell mit
 „Richtung beibehalten“ und mit den offiziellen Regeln auf zwei Wettergrundlagen.
+
+Der Fortschritt liegt vor allem in der zuverlässigeren Berechnung und der
+ehrlicheren Auswertung. Ein allgemeiner Genauigkeitssprung gegenüber unserer
+vorherigen Modellversion ist nicht belegt.
 
 Die aufgezeichnete Betriebsrichtung ist eine öffentliche Näherung. Die Bahn-18-
 Zielwerte werden aus Wetter und Regeln abgeleitet; sie sind keine bestätigte
