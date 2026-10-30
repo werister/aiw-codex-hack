@@ -56,7 +56,7 @@
 - [x] 8.1 Show simultaneous direction/runway-18 event tracks, later hourly transitions, selectable source hours and honest partial/open-ended coverage in cockpit and widget; correct marginal-probability and issue-time labels.
 - [x] 8.2 Add deterministic selected-six-hour handover, runway-18 restrictions and model/rule comparison with source context, clipboard feedback and partial/DST handling.
 - [x] 8.3 Compare historical preparation scenarios with recorded-state evidence without exact switch-time or operational-benefit claims; keep synthetic restriction fixtures outside the published pitch and evaluation, following the later published-values-only decision.
-- [ ] 8.4 Run focused logic tests, typecheck, targeted lint, build and cockpit/widget/pitch browser walkthrough; record results and remaining practitioner-validation limits.
+- [x] 8.4 Run focused logic tests, typecheck, targeted lint, build and cockpit/widget/pitch browser walkthrough; record results and remaining practitioner-validation limits in web/SHIFT_PLANNING.md (Webpack build passed; default Turbopack hit a local port permission error).
 
 ## 9. Approved planning-priority selection
 
