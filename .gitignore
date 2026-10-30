@@ -10,3 +10,4 @@ build/
 data/raw/
 .env.local
 .env*.local
+resources/raw/

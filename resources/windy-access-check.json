@@ -1,0 +1,19 @@
+{
+  "requested_at_utc": "2026-10-30T10:00:29.344995+00:00",
+  "endpoint": "https://api.windy.com/api/point-forecast/v2",
+  "request": {
+    "lat": 50.03,
+    "lon": 8.57,
+    "model": "gfs",
+    "parameters": [
+      "wind",
+      "windGust",
+      "pressure"
+    ],
+    "levels": [
+      "surface"
+    ]
+  },
+  "http_status": 400,
+  "error_response": "{\"message\":\"Invalid API key\",\"error\":\"Bad Request\",\"statusCode\":400}"
+}
