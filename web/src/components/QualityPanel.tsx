@@ -91,7 +91,7 @@ export function QualityPanel() {
 function Stat({ value, label }: { value: string; label: string }) {
   return (
     <div className="flex flex-col justify-between gap-4 rounded-card bg-panel-2 p-4 sm:p-5">
-      <div className="text-[32px] font-light leading-none tracking-[-0.02em] tabular sm:text-[40px]">{value}</div>
+      <div className="text-[26px] font-light leading-none tracking-[-0.02em] tabular sm:text-[40px]">{value}</div>
       <div className="text-[13px] leading-snug text-ink-2">{label}</div>
     </div>
   );
