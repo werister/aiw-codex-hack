@@ -40,6 +40,8 @@ The full product helps the tower controller / shift supervisor plan across airpo
 
 **Model-trace handoff (reviewable research on Hugo's branch):** [Visual trace design](https://github.com/werister/aiw-codex-hack/blob/6667e52545003f4ad4c5944875eb821334a3ae73/briefing/2026-10-30-trace-patterns.md) and [evidence, confidence and required producer outputs](https://github.com/werister/aiw-codex-hack/blob/6667e52545003f4ad4c5944875eb821334a3ae73/briefing/2026-10-30-forecast-evidence.md). The intended UI starts with one planning recommendation and expands into a visual source/feature/model/rules trail. The inference pipeline must retain the actual inputs, versions and intermediate results: a single prediction score cannot reconstruct that trail. These notes distinguish inspected snapshots from proposed contracts; they do not claim a trace integration is implemented.
 
+**Recommendation and model traces: [First-MVP evidence contract and trace wishlist](briefing/forecast-trace-wishlist.md).** Follow the clickable source → features → model/rules → forecast flow, with separate validation links. The wishlist points to committed data-loading and calculation code, distinguishes existing outputs from proposed capture, and invites team comments on what is useful or challenging. Planning actions, buffer minutes and flight-impact counts need their own policy and evidence; forecast probabilities alone do not establish them.
+
 ## Stack
 
 - `ml/`: Python 3.13, pandas, scikit-learn. Data download, labels, model, backtest and the forecast CLI.
