@@ -104,3 +104,7 @@ None of the requested endpoints needs an account or key. No sign-up was attempte
 ## Retrieval failures
 
 None. Source coverage gaps are recorded above.
+
+## Recorded operational history
+
+DFLD history is in [ground_truth/](ground_truth/README.md). It contains 76,588 stable OD hours from local 2018-01-01 through 2026-10-29, plus 28,140 known runway-18 display hours with gaps through May 2022. All 106 monthly pages were checked. Transparent and unknown status bins are excluded, not classified as non-use. Rebuild with `python -m ml.dfld --since 2018-01-01 --until 2026-10-29`.
