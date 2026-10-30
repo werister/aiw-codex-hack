@@ -465,6 +465,7 @@
   import("./scene.js").then(function (m) {
     fra = m.mount(document.getElementById("scene"), {
       story: true,
+      aircraftScale: 2.2,
       view: VIEWS[slides[cur].dataset.name],
       pixelRatio: function () { return (window.devicePixelRatio || 1) * stageScale; },
       onChange: updateHud
