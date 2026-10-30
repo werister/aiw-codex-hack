@@ -12,7 +12,6 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import urljoin
 
-import numpy as np
 import pandas as pd
 import requests
 
@@ -45,17 +44,21 @@ class Downloads:
         self.last_request = 0.0
         self.used = []
 
-    def get(self, url, params=None, suffix=".txt"):
+    def get(self, url, params=None, suffix=".txt", max_age=None, cache_tag=""):
         request = requests.Request("GET", url, params=params).prepare()
-        key = hashlib.sha256(request.url.encode()).hexdigest()[:24]
+        key = hashlib.sha256((request.url + cache_tag).encode()).hexdigest()[:24]
         path = RAW / (key + suffix)
         meta_path = RAW / (key + ".meta.json")
         if path.exists() and meta_path.exists() and not self.refresh:
-            self.used.append(json.loads(meta_path.read_text(encoding="utf-8")))
-            return path
+            meta = json.loads(meta_path.read_text(encoding="utf-8"))
+            age = (utcnow() - datetime.fromisoformat(meta["retrieved_at"])).total_seconds()
+            if max_age is None or age < max_age:
+                self.used.append(meta)
+                return path
         for attempt in range(4):
             time.sleep(max(0, 1.2 - (time.monotonic() - self.last_request)))
-            print(f"GET {request.url}", flush=True)
+            dates = (params or {}).get("start_date", "")
+            print(f"GET {url} {dates}", flush=True)
             try:
                 self.last_request = time.monotonic()
                 with self.session.get(url, params=params, stream=True, timeout=(20, 180)) as response:
@@ -121,7 +124,7 @@ def fetch_metar(dl, since, stop):
     for start, end in intervals(since, stop):
         params = iem_params(start, end) | {"data": ["drct", "sknt", "gust", "metar"],
             "format": "onlycomma", "latlon": "no", "missing": "M", "report_type": [3, 4]}
-        path = dl.get(IEM + "asos.py", params, ".csv")
+        path = dl.get(IEM + "asos.py", params, ".csv", max_age=3600 if end > utcnow().date() else None)
         frame = pd.read_csv(path, na_values=["M"], dtype={"station": "string", "metar": "string"})
         frame["valid"] = pd.to_datetime(frame["valid"], utc=True)
         for col in ["drct", "sknt", "gust"]:
@@ -135,14 +138,17 @@ def fetch_metar(dl, since, stop):
 def fetch_taf(dl, since, stop):
     frames = []
     for start, end in intervals(since, stop):
-        path = dl.get(IEM + "taf.py", iem_params(start, end) | {"fmt": "csv"}, ".csv")
+        path = dl.get(IEM + "taf.py", iem_params(start, end) | {"fmt": "csv"}, ".csv",
+                      max_age=3600 if end > utcnow().date() else None)
         frame = pd.read_csv(path)
         for col in ["valid", "fx_valid", "fx_valid_end"]:
             frame[col] = pd.to_datetime(frame[col], utc=True)
         frames.append(frame)
     frame = pd.concat(frames, ignore_index=True).drop_duplicates().sort_values("valid")
-    save(frame, "eddf_taf", "IEM", dl, "valid",
-         "IEM returned no EDDF TAF records for the requested archive. Empty parquet preserves the returned schema; it is not training data. Live NOAA TAF is saved separately.")
+    note = "TAF issuance and forecast valid times are separate."
+    if frame.empty:
+        note = "IEM returned no EDDF TAF records for the requested archive. Empty parquet preserves the returned schema; it is not training data. Live NOAA TAF is saved separately."
+    save(frame, "eddf_taf", "IEM", dl, "valid", note)
 
 
 def fetch_openmeteo(dl, since, stop, previous=False):
@@ -156,12 +162,14 @@ def fetch_openmeteo(dl, since, stop, previous=False):
         params = {"latitude": 50.033, "longitude": 8.570, "hourly": ",".join(variables),
                   "wind_speed_unit": "kn", "timezone": "UTC", "models": "best_match",
                   "start_date": str(start), "end_date": str(end - timedelta(days=1))}
-        path = dl.get(f"https://{host}-api.open-meteo.com/v1/forecast", params, ".json")
+        path = dl.get(f"https://{host}-api.open-meteo.com/v1/forecast", params, ".json",
+                      max_age=3600 if end > utcnow().date() else None)
         payload = json.loads(path.read_text(encoding="utf-8"))
         if "hourly" not in payload:
             raise ValueError(f"Missing hourly data: {payload}")
         frame = pd.DataFrame(payload["hourly"])
         frame["time"] = pd.to_datetime(frame["time"], utc=True)
+        frame[variables] = frame[variables].astype("float64")
         frames.append(frame)
     if not frames:
         raise ValueError("No dates in requested Open-Meteo archive range")
@@ -175,15 +183,17 @@ def fetch_openmeteo(dl, since, stop, previous=False):
 def fetch_dwd(dl, since, stop):
     for frequency, folders, name in [("hourly", ["historical", "recent"], "hourly"),
                                       ("10_minutes", ["recent"], "10min")]:
+        dl.used = []
         frames = []
         for folder in folders:
             url = f"{DWD}{frequency}/wind/{folder}/"
-            listing = dl.get(url).read_text(encoding="utf-8")
+            listing = dl.get(url, max_age=21600).read_text(encoding="utf-8")
             names = sorted(set(re.findall(r'href="([^"/]*01420[^"/]*\.zip)"', listing)))
             if not names:
                 raise ValueError(f"Station 01420 missing from {url}")
             for filename in names:
-                path = dl.get(urljoin(url, filename), suffix=".zip")
+                path = dl.get(urljoin(url, filename), suffix=".zip",
+                              max_age=21600 if folder == "recent" else None)
                 with zipfile.ZipFile(path) as archive:
                     member = next(n for n in archive.namelist() if n.startswith("produkt"))
                     with archive.open(member) as stream:
@@ -218,9 +228,10 @@ def fetch_live(dl, since, stop):
     frame["retrieved_at"] = retrieved
     save(frame, "live_forecast", "Open-Meteo", dl, "time", "72 hourly values from the current UTC hour; retrieval timestamp retained.")
     for product in ["metar", "taf"]:
-        # NOAA date selects the archive view and supplies an hourly snapshot cache key.
-        params = {"ids": "EDDF", "format": "json", "date": snapshot.strftime("%Y-%m-%dT%H:%M:%SZ")}
-        path = dl.get(f"https://aviationweather.gov/api/data/{product}", params, ".json")
+        dl.used = []
+        params = {"ids": "EDDF", "format": "json"}
+        path = dl.get(f"https://aviationweather.gov/api/data/{product}", params, ".json",
+                      cache_tag=snapshot.isoformat())
         reports = json.loads(path.read_text(encoding="utf-8"))
         if not reports:
             raise ValueError(f"NOAA returned no live {product.upper()} for EDDF")
@@ -239,12 +250,21 @@ def fetch_live(dl, since, stop):
 def write_readme(since, stop, failures):
     inventory = json.loads((DATA / "inventory.json").read_text(encoding="utf-8"))
     lines = ["# EDDF weather data", "", f"Requested observation range: {since} through {stop - timedelta(days=1)}. All timestamps are UTC. Data retrieval times and exact request URLs are recorded per file in [inventory.json](inventory.json).", "",
-        "Rebuild with `python -m ml.fetch --since 2023-01-01`. Raw responses and retrieval metadata are cached in ignored `data/raw/`. Completed calendar chunks are reused; `--refresh` explicitly redownloads. Use `--sources metar previous` to select sources, or `--until YYYY-MM-DD` for an inclusive end date. Live snapshots reuse the current UTC hour. No credentials or accounts are used.", "",
-        "## Inventory", "", "| File | Source | Rows | UTC period | Size MB | Retrieved UTC |", "|---|---|---:|---|---:|---|"]
+        "Rebuild with `python -m ml.fetch --since 2023-01-01`. Raw responses and retrieval metadata are cached in ignored `data/raw/`. Completed calendar chunks are reused; current chunks expire after one hour and DWD recent archives/listings after six hours. `--refresh` explicitly redownloads. Use `--sources metar previous` to select sources, or `--until YYYY-MM-DD` for an inclusive end date. Live snapshots reuse the current UTC hour. No credentials or accounts are used.", "",
+        "## Inventory", "", "| File | Source | Rows | UTC period | Size MB | Retrieved UTC | Columns and units | Terms |", "|---|---|---:|---|---:|---|---|---|"]
     for info in inventory.values():
         dates = [d["retrieved_at"] for d in info["downloads"]]
         period = f"{info['start']} to {info['end']}" if info["rows"] else "No records returned"
-        lines.append(f"| [{info['file']}]({info['file']}) | {info['provider']} | {info['rows']:,} | {period} | {info['bytes']/1_000_000:.3f} | {min(dates)} to {max(dates)} |")
+        if info["provider"] == "Open-Meteo":
+            units = "time UTC; 10/80 m speed and 10 m gust kn; direction degrees; MSL hPa; 2 m temperature Celsius"
+        elif info["provider"] == "DWD":
+            units = "station ID; UTC time; quality code; mean speed m/s and kn; direction degrees"
+        elif "metar" in info["file"]:
+            units = "station; valid UTC; drct degrees; sknt/gust kn; raw METAR"
+        else:
+            units = "station; issuance/validity UTC; raw TAF; IEM schema detailed below"
+        terms = {"Open-Meteo": "CC BY 4.0", "DWD": "CDC CC BY 4.0", "IEM": "Public domain", "NOAA": "US government data"}[info["provider"]]
+        lines.append(f"| [{info['file']}]({info['file']}) | {info['provider']} | {info['rows']:,} | {period} | {info['bytes']/1_000_000:.3f} | {min(dates)} to {max(dates)} | {units} | {terms} |")
     lines += ["", "## Exact URL patterns", "",
         "- IEM METAR: `https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py?station=EDDF&data=drct&data=sknt&data=gust&data=metar&year1={Y1}&month1={M1}&day1={D1}&year2={Y2}&month2={M2}&day2={D2}&tz=Etc/UTC&format=onlycomma&latlon=no&missing=M&report_type=3&report_type=4`. Year chunks; end exclusive. Type 3 alone omits half-hour reports.",
         "- IEM TAF: `https://mesonet.agron.iastate.edu/cgi-bin/request/taf.py?station=EDDF&year1={Y1}&month1={M1}&day1={D1}&year2={Y2}&month2={M2}&day2={D2}&tz=Etc/UTC&fmt=csv`. Year chunks; limits issuance time.",
@@ -253,7 +273,7 @@ def write_readme(since, stop, failures):
         f"- DWD hourly recent: `{DWD}hourly/wind/recent/stundenwerte_FF_01420_akt.zip`.",
         f"- DWD 10-minute recent: `{DWD}10_minutes/wind/recent/10minutenwerte_wind_01420_akt.zip`.",
         "- Live forecast: `https://api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.570&hourly={variables}&wind_speed_unit=kn&timezone=UTC&start_hour={UTC-hour}&end_hour={UTC-hour+71h}`.",
-        "- Live observations/TAF: `https://aviationweather.gov/api/data/{metar|taf}?ids=EDDF&format=json&date={UTC-hour}`.", "",
+        "- Live observations/TAF: `https://aviationweather.gov/api/data/{metar|taf}?ids=EDDF&format=json`. Retrieved in a local hourly cache namespace, without limiting observations to the start of that hour.", "",
         "## Columns and units", "",
         "- METAR: `station` ICAO, `valid` observation timestamp, `drct` wind from degrees true, `sknt` mean wind knots, `gust` reported gust knots, `metar` original text. Missing direction can mean variable wind. Missing gust is unreported, not zero.",
         "- IEM TAF: `station`, `valid` issuance UTC, `fx_valid`/`fx_valid_end` forecast interval UTC, `raw` text, `is_tempo` and `is_amendment` flags, `sknt`/`gust` knots, `drct` degrees true, `visibility` statute miles, `presentwx` weather codes, `skyc` cloud codes, `skyl` cloud heights feet, `ws_level` feet, `ws_drct` degrees, `ws_sknt` knots, `product_id` identifier, `ftype` forecast type. Empty EDDF response is retained honestly.",
