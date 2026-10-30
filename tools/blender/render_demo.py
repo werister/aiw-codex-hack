@@ -12,7 +12,8 @@ Render one actual scene frame without writing into the repository:
 
 The default video samples source frames 1, 3, ..., 1439.  At 12 fps this is
 720 rendered frames and a 60-second playback of the 24 fps, 1440-frame scene.
-The blend file is never saved or modified on disk.
+EEVEE defaults to 960x660 and 8 temporal samples for a low-cost but fully
+geometric/material preview. The blend file is never saved or modified on disk.
 """
 
 from __future__ import annotations
