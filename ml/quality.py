@@ -3,7 +3,27 @@
 import numpy as np
 import pandas as pd
 
+from ml.features import components
+from ml.rules import RULES
+
 LEADS = (1, 6, 24, 48)
+
+
+def suspect_od_runs(truth, obs, min_hours=3):
+    """Flag recorded OD runs that break the official landing limit for several hours.
+
+    A 10 kt landing tailwind forces an immediate change, so a run with three or more
+    such METAR hours points to a stuck feed rather than a flown direction. In
+    2024-2026 this flags only 8-12 Oct 2026, when DWD 01420 also shows westerlies.
+    """
+    truth = truth.sort_values("time")
+    wind = pd.merge_asof(truth[["time"]], obs[["time", "wind_kt", "wind_dir_deg"]], on="time",
+                         tolerance=pd.Timedelta(hours=1))
+    heading = np.where(truth.od.eq("25"), RULES["runway_heading_deg"]["25"], RULES["runway_heading_deg"]["07"])
+    tail = components(wind.wind_kt.to_numpy(float), wind.wind_dir_deg.to_numpy(float), heading)
+    over = pd.Series(tail >= RULES["landing_tailwind_change_now_kt"], index=truth.index)
+    run = truth.od.ne(truth.od.shift()).cumsum()
+    return over.groupby(run).transform("sum") >= min_hours
 
 
 def skill(frame, target):

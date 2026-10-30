@@ -6,9 +6,15 @@ from pathlib import Path
 import joblib
 import numpy as np
 
-from ml.features import FEATURES, build_features
+from ml.features import BERLIN, FEATURES, build_features
 
 MODEL_PATH = Path(__file__).with_name("models") / "forecast.joblib"
+HORIZONS = ("1", "6", "24", "48")
+REGIMES = ("night", "calm", "active")
+# Night flight restrictions at FRA run 23:00-05:00 local.
+NIGHT_HOURS = (23, 0, 1, 2, 3, 4)
+# Open-Meteo 10 m wind is about 0.59x METAR, so 2.5 kt is roughly 4 kt observed.
+CALM_KT = 2.5
 
 
 @lru_cache(maxsize=12)
@@ -37,14 +43,23 @@ def probability(model, features):
     return probabilities[:, classes.index(1)] if 1 in classes else probabilities[:, 0] * 0
 
 
+def blend_keys(frame):
+    """Lead bucket and regime of each target hour, e.g. '6:night'."""
+    horizon = np.select([frame.lead_h <= 1, frame.lead_h <= 6, frame.lead_h <= 24], HORIZONS[:3], default=HORIZONS[3])
+    hour = frame.time.dt.tz_convert(BERLIN).dt.hour.to_numpy()
+    regime = np.select([np.isin(hour, NIGHT_HOURS), frame.wind_kt.to_numpy(float) < CALM_KT],
+                       REGIMES[:2], default=REGIMES[2])
+    return np.char.add(np.char.add(horizon.astype(str), ":"), regime.astype(str))
+
+
 def od_probability(models, frame):
     """Blend with persistence using weights selected before each test fold."""
     p = probability(models["od"], frame[FEATURES])
     weights = models.get("od_model_weight")
     if weights is None:
         return p
-    horizon = np.select([frame.lead_h <= 1, frame.lead_h <= 6, frame.lead_h <= 24], [1, 6, 24], default=48)
-    alpha = np.array([weights[str(lead)] for lead in horizon])
+    # Older artifacts carry lead-only keys such as '6'.
+    alpha = np.array([weights[key] if key in weights else weights[key.split(":")[0]] for key in blend_keys(frame)])
     return alpha * p + (1 - alpha) * frame.od_at_issue.to_numpy(float)
 
 
