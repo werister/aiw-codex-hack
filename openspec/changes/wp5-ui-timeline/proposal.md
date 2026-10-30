@@ -8,9 +8,12 @@ Ops staff need to see in seconds what will change, when, and how sure we are.
 
 ## What Changes
 
-- A Next.js page in `web/` reads `ForecastResponse` JSON and shows 48 hourly cells: OD 25/07, P(18 usable), certainty, and the next change with its window.
+- A tower-staff view first. The people in the tower work under stress, so the screen shows the current OD, runway 18 yes/no and the next change with its confidence in large type, with a click to drill down (team brainstorm, `briefing/brainstorm-268.md`).
+- A Next.js page in `web/` reads `ForecastResponse` JSON and shows 48 hourly cells: OD 25/07, P(18 usable), confidence, and the next change with its window.
+- A simulated ops screen: a schematic FRA runway map with the active direction and traffic flow, labelled as simulated.
+- FraAlliance's look and feel.
 - An iPad-sized widget view for ops or pilots.
-- A backtest panel with skill at 1/6/24 h vs rules and persistence, and a day picker for the jury days.
+- A model quality panel (data from WP8) and a day picker for the jury days.
 - Deployed on Vercel from this repo's `main`.
 
 ## Capabilities

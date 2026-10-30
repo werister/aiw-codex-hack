@@ -8,11 +8,13 @@ Pick yours, read its `proposal.md` and `tasks.md`, and tick tasks off as you go.
 |---|---|---|---|
 | 1 | Data sources and download | Codex worker; Luca checks the data | `wp1-data-sources` |
 | 2 | Labels and rule baseline, with the 30-min hysteresis | Kai | `wp2-labels-rule-baseline` |
-| 3 | Model and held-out backtest at 1/6/24 h | Kai with a Codex worker | `wp3-model-backtest` |
+| 3 | Model and walk-forward backtest at 1/6/24 h | Kai with a Codex worker | `wp3-model-backtest` |
 | 4 | CLI `forecast --day` and the jury-day forecasts | a Codex worker | `wp4-forecast-cli` |
-| 5 | UI: 48 h timeline and iPad widget | Jayden | `wp5-ui-timeline` |
+| 5 | UI: tower-staff view, 48 h timeline, simulated ops screen, quality panel, iPad widget | Jayden | `wp5-ui-timeline` |
 | 6 | Model card, business case, pitch | Hugo, Luca | `wp6-model-card-pitch` |
-| 7 | How the decision is made, and which data exists (`DATA_AND_DECISIONS.md`) | Codex worker | `wp7-data-decisions-research` |
+| 7 | How the decision is made, which data exists, ground truth of flown ODs (`DATA_AND_DECISIONS.md`) | Codex worker | `wp7-data-decisions-research` |
+| 8 | Model quality numbers: walk-forward, in- vs out-of-sample, confidence calibration | a Codex worker | `wp8-model-quality` |
+| 9 | Optional 3D demo scene (drop at 15:00 if not ready) | a separate agent | `wp9-3d-demo` |
 
 Deadline: submissions at 16:00, finals at 17:00. Hugo presents; Jayden leaves at 16:45.
 
