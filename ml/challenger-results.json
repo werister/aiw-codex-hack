@@ -1,0 +1,1340 @@
+{
+  "schema_version": 1,
+  "run_date": "2026-10-30",
+  "baseline": "walk-forward-v6",
+  "decision": "retain baseline; neither candidate meets the improvement criteria",
+  "evaluation_status": "exploratory; these months informed previous development, not an untouched final test",
+  "data_sha256": {
+    "data/ground_truth/dfld_hourly.csv": "4383e3afd68f23c26aeef55df0f036ec2d4c8c7d15673b8991928f2ce5863cd7",
+    "data/eddf_metar.parquet": "8f176d74c9c86bf409146a042b18da30108167c5316ee181ace893ad7fcedd3f",
+    "data/openmeteo_previous_runs.parquet": "cb780f693f9bea6090ee3b8717742e506830c0ac2479bf0306f12d8464bd7934",
+    "data/openmeteo_previous_runs_multimodel.parquet": "55f10a537277b8ac694af89d68c768b0928d258cea0353ff13510d8360327ef7",
+    "data/openmeteo_previous_runs_pressure.parquet": "0b7e5b15cf29fbb1c6dbdd35ea48936011ffbf7273e55aea7ab60526cf84ec54"
+  },
+  "baseline_model_sha256": {
+    "ml/models/fold-2026-07.joblib": "41221b65c2f68bf015e254659a5c34da8befa50d03248ffb80fefb347f7cd6aa",
+    "ml/models/fold-2026-08.joblib": "fa09abb3b5ea1586c6d5f93f110e39d337c2fe481b8e4aa914abe83d34b620f8",
+    "ml/models/fold-2026-09.joblib": "99a5e4b99af5eb3a32d92975363e7887f49faf855c6339d7ae8e76e3bb1e8fbc",
+    "ml/models/fold-2026-10.joblib": "6fea8da8a2256beff0ddc3e4ccd20ec50e2a6ac16439c639fa33a04d4c02d495"
+  },
+  "opposite_direction": {
+    "experiment": "direct prediction of whether OD changes from the known OD at issue",
+    "model": "same HistGradientBoosting settings and 45 existing features",
+    "split": "monthly expanding folds; 1h label-availability purge; last 60 training days for inner validation",
+    "selection": "transition persistence blend weights selected only on that fold's earlier 60-day inner validation with the production horizon/regime groups and sparse-regime fallback",
+    "transition_target_limit": "This predicts the final OD differs from the issue OD. It is not a first-event hazard and does not explicitly model multiple transitions within a 48h window.",
+    "outer_months": [
+      "2026-07",
+      "2026-08",
+      "2026-09",
+      "2026-10"
+    ],
+    "interpretation_limit": "exploratory: these calendar months informed earlier v6 development and do not form a fresh confirmatory benchmark",
+    "folds": [
+      {
+        "month": "2026-07",
+        "validation": {
+          "start": "2026-05-01T16:00:00+00:00",
+          "end": "2026-06-30T16:00:00+00:00",
+          "n_rows": 11229,
+          "transition_brier": 0.05428886065284184,
+          "transition_alpha_by_horizon": {
+            "1:night": 0.3,
+            "1:calm": 0.9,
+            "1:active": 0.9,
+            "6:night": 1.0,
+            "6:calm": 1.0,
+            "6:active": 1.0,
+            "24:night": 0.9,
+            "24:calm": 0.9,
+            "24:active": 1.0,
+            "48:night": 1.0,
+            "48:calm": 1.0,
+            "48:active": 1.0
+          }
+        },
+        "outer_test": {
+          "start": "2026-07-01T04:00:00+00:00",
+          "end": "2026-07-31T22:00:00+00:00",
+          "n_rows": 5952,
+          "frozen_v6": [
+            {
+              "lead_h": 1,
+              "n": 123,
+              "accuracy": 0.967479674796748,
+              "brier": 0.02338044934222135,
+              "change_n": 6,
+              "change_accuracy": 0.3333333333333333
+            },
+            {
+              "lead_h": 6,
+              "n": 121,
+              "accuracy": 0.9421487603305785,
+              "brier": 0.048237685518275425,
+              "change_n": 19,
+              "change_accuracy": 0.631578947368421
+            },
+            {
+              "lead_h": 24,
+              "n": 118,
+              "accuracy": 0.940677966101695,
+              "brier": 0.04943544197989941,
+              "change_n": 47,
+              "change_accuracy": 0.851063829787234
+            },
+            {
+              "lead_h": 48,
+              "n": 114,
+              "accuracy": 0.9210526315789473,
+              "brier": 0.05751404434295683,
+              "change_n": 72,
+              "change_accuracy": 0.875
+            }
+          ],
+          "transition_refit": [
+            {
+              "lead_h": 1,
+              "n": 123,
+              "accuracy": 0.959349593495935,
+              "brier": 0.02537024989064465,
+              "change_n": 6,
+              "change_accuracy": 0.16666666666666666
+            },
+            {
+              "lead_h": 6,
+              "n": 121,
+              "accuracy": 0.9421487603305785,
+              "brier": 0.04606526824033833,
+              "change_n": 19,
+              "change_accuracy": 0.631578947368421
+            },
+            {
+              "lead_h": 24,
+              "n": 118,
+              "accuracy": 0.9576271186440678,
+              "brier": 0.04697031722956208,
+              "change_n": 47,
+              "change_accuracy": 0.8936170212765957
+            },
+            {
+              "lead_h": 48,
+              "n": 114,
+              "accuracy": 0.8947368421052632,
+              "brier": 0.06326645492080275,
+              "change_n": 72,
+              "change_accuracy": 0.8333333333333334
+            }
+          ]
+        }
+      },
+      {
+        "month": "2026-08",
+        "validation": {
+          "start": "2026-06-01T16:00:00+00:00",
+          "end": "2026-07-31T16:00:00+00:00",
+          "n_rows": 11211,
+          "transition_brier": 0.05752068688029535,
+          "transition_alpha_by_horizon": {
+            "1:night": 0.2,
+            "1:calm": 1.0,
+            "1:active": 1.0,
+            "6:night": 0.8,
+            "6:calm": 1.0,
+            "6:active": 1.0,
+            "24:night": 0.9,
+            "24:calm": 1.0,
+            "24:active": 1.0,
+            "48:night": 1.0,
+            "48:calm": 1.0,
+            "48:active": 1.0
+          }
+        },
+        "outer_test": {
+          "start": "2026-08-01T04:00:00+00:00",
+          "end": "2026-08-31T22:00:00+00:00",
+          "n_rows": 5952,
+          "frozen_v6": [
+            {
+              "lead_h": 1,
+              "n": 122,
+              "accuracy": 0.9426229508196722,
+              "brier": 0.04628266860825059,
+              "change_n": 7,
+              "change_accuracy": 0.14285714285714285
+            },
+            {
+              "lead_h": 6,
+              "n": 123,
+              "accuracy": 0.959349593495935,
+              "brier": 0.029667033604918777,
+              "change_n": 17,
+              "change_accuracy": 0.7647058823529411
+            },
+            {
+              "lead_h": 24,
+              "n": 120,
+              "accuracy": 0.9583333333333334,
+              "brier": 0.034381132924182566,
+              "change_n": 42,
+              "change_accuracy": 0.9047619047619048
+            },
+            {
+              "lead_h": 48,
+              "n": 116,
+              "accuracy": 0.9310344827586207,
+              "brier": 0.052646372339046725,
+              "change_n": 71,
+              "change_accuracy": 0.9154929577464789
+            }
+          ],
+          "transition_refit": [
+            {
+              "lead_h": 1,
+              "n": 122,
+              "accuracy": 0.9426229508196722,
+              "brier": 0.04620289520865103,
+              "change_n": 7,
+              "change_accuracy": 0.0
+            },
+            {
+              "lead_h": 6,
+              "n": 123,
+              "accuracy": 0.967479674796748,
+              "brier": 0.03316209785974889,
+              "change_n": 17,
+              "change_accuracy": 0.7647058823529411
+            },
+            {
+              "lead_h": 24,
+              "n": 120,
+              "accuracy": 0.9583333333333334,
+              "brier": 0.03602729893954848,
+              "change_n": 42,
+              "change_accuracy": 0.9047619047619048
+            },
+            {
+              "lead_h": 48,
+              "n": 116,
+              "accuracy": 0.9396551724137931,
+              "brier": 0.046075057392637446,
+              "change_n": 71,
+              "change_accuracy": 0.9154929577464789
+            }
+          ]
+        }
+      },
+      {
+        "month": "2026-09",
+        "validation": {
+          "start": "2026-07-02T16:00:00+00:00",
+          "end": "2026-08-31T16:00:00+00:00",
+          "n_rows": 11280,
+          "transition_brier": 0.04487202485237404,
+          "transition_alpha_by_horizon": {
+            "1:night": 1.0,
+            "1:calm": 1.0,
+            "1:active": 1.0,
+            "6:night": 1.0,
+            "6:calm": 1.0,
+            "6:active": 1.0,
+            "24:night": 1.0,
+            "24:calm": 1.0,
+            "24:active": 1.0,
+            "48:night": 1.0,
+            "48:calm": 1.0,
+            "48:active": 1.0
+          }
+        },
+        "outer_test": {
+          "start": "2026-09-01T04:00:00+00:00",
+          "end": "2026-09-30T22:00:00+00:00",
+          "n_rows": 5760,
+          "frozen_v6": [
+            {
+              "lead_h": 1,
+              "n": 119,
+              "accuracy": 0.9663865546218487,
+              "brier": 0.03106931816757224,
+              "change_n": 5,
+              "change_accuracy": 0.4
+            },
+            {
+              "lead_h": 6,
+              "n": 118,
+              "accuracy": 0.9322033898305084,
+              "brier": 0.05387841051949239,
+              "change_n": 16,
+              "change_accuracy": 0.5
+            },
+            {
+              "lead_h": 24,
+              "n": 115,
+              "accuracy": 0.9304347826086956,
+              "brier": 0.050224518507895805,
+              "change_n": 40,
+              "change_accuracy": 0.8
+            },
+            {
+              "lead_h": 48,
+              "n": 111,
+              "accuracy": 0.9009009009009009,
+              "brier": 0.06713382033457699,
+              "change_n": 56,
+              "change_accuracy": 0.8214285714285714
+            }
+          ],
+          "transition_refit": [
+            {
+              "lead_h": 1,
+              "n": 119,
+              "accuracy": 0.957983193277311,
+              "brier": 0.0307960404176947,
+              "change_n": 5,
+              "change_accuracy": 0.0
+            },
+            {
+              "lead_h": 6,
+              "n": 118,
+              "accuracy": 0.9322033898305084,
+              "brier": 0.054831148825798766,
+              "change_n": 16,
+              "change_accuracy": 0.5
+            },
+            {
+              "lead_h": 24,
+              "n": 115,
+              "accuracy": 0.9304347826086956,
+              "brier": 0.05090135605422649,
+              "change_n": 40,
+              "change_accuracy": 0.8
+            },
+            {
+              "lead_h": 48,
+              "n": 111,
+              "accuracy": 0.9009009009009009,
+              "brier": 0.07153963921721272,
+              "change_n": 56,
+              "change_accuracy": 0.8214285714285714
+            }
+          ]
+        }
+      },
+      {
+        "month": "2026-10",
+        "validation": {
+          "start": "2026-08-01T16:00:00+00:00",
+          "end": "2026-09-30T16:00:00+00:00",
+          "n_rows": 11288,
+          "transition_brier": 0.04544902101187345,
+          "transition_alpha_by_horizon": {
+            "1:night": 1.0,
+            "1:calm": 1.0,
+            "1:active": 0.8,
+            "6:night": 1.0,
+            "6:calm": 1.0,
+            "6:active": 1.0,
+            "24:night": 1.0,
+            "24:calm": 1.0,
+            "24:active": 1.0,
+            "48:night": 1.0,
+            "48:calm": 0.9,
+            "48:active": 1.0
+          }
+        },
+        "outer_test": {
+          "start": "2026-10-01T04:00:00+00:00",
+          "end": "2026-10-27T17:00:00+00:00",
+          "n_rows": 5136,
+          "frozen_v6": [
+            {
+              "lead_h": 1,
+              "n": 105,
+              "accuracy": 0.9047619047619048,
+              "brier": 0.06794153115678137,
+              "change_n": 4,
+              "change_accuracy": 0.0
+            },
+            {
+              "lead_h": 6,
+              "n": 107,
+              "accuracy": 0.822429906542056,
+              "brier": 0.15589216156029098,
+              "change_n": 12,
+              "change_accuracy": 0.75
+            },
+            {
+              "lead_h": 24,
+              "n": 107,
+              "accuracy": 0.8130841121495327,
+              "brier": 0.18222275429581736,
+              "change_n": 33,
+              "change_accuracy": 0.7878787878787878
+            },
+            {
+              "lead_h": 48,
+              "n": 107,
+              "accuracy": 0.794392523364486,
+              "brier": 0.19050460692213275,
+              "change_n": 52,
+              "change_accuracy": 0.7692307692307693
+            }
+          ],
+          "transition_refit": [
+            {
+              "lead_h": 1,
+              "n": 105,
+              "accuracy": 0.8476190476190476,
+              "brier": 0.11023941264575461,
+              "change_n": 4,
+              "change_accuracy": 0.25
+            },
+            {
+              "lead_h": 6,
+              "n": 107,
+              "accuracy": 0.8317757009345794,
+              "brier": 0.15575609274846342,
+              "change_n": 12,
+              "change_accuracy": 0.6666666666666666
+            },
+            {
+              "lead_h": 24,
+              "n": 107,
+              "accuracy": 0.7850467289719626,
+              "brier": 0.18229745087516758,
+              "change_n": 33,
+              "change_accuracy": 0.7878787878787878
+            },
+            {
+              "lead_h": 48,
+              "n": 107,
+              "accuracy": 0.7757009345794392,
+              "brier": 0.1955120607073254,
+              "change_n": 52,
+              "change_accuracy": 0.75
+            }
+          ]
+        }
+      }
+    ],
+    "pooled_outer_test": {
+      "frozen_v6": [
+        {
+          "lead_h": 1,
+          "n": 469,
+          "accuracy": 0.9466950959488273,
+          "brier": 0.0412652248884924,
+          "change_n": 22,
+          "change_accuracy": 0.22727272727272727
+        },
+        {
+          "lead_h": 6,
+          "n": 469,
+          "accuracy": 0.9168443496801706,
+          "brier": 0.06934737486005879,
+          "change_n": 64,
+          "change_accuracy": 0.65625
+        },
+        {
+          "lead_h": 24,
+          "n": 460,
+          "accuracy": 0.9130434782608695,
+          "brier": 0.07659298357084894,
+          "change_n": 162,
+          "change_accuracy": 0.8395061728395061
+        },
+        {
+          "lead_h": 48,
+          "n": 448,
+          "accuracy": 0.8883928571428571,
+          "brier": 0.09040050724159096,
+          "change_n": 251,
+          "change_accuracy": 0.852589641434263
+        }
+      ],
+      "transition_refit": [
+        {
+          "lead_h": 1,
+          "n": 469,
+          "accuracy": 0.929637526652452,
+          "brier": 0.051166654775084475,
+          "change_n": 22,
+          "change_accuracy": 0.09090909090909091
+        },
+        {
+          "lead_h": 6,
+          "n": 469,
+          "accuracy": 0.9211087420042644,
+          "brier": 0.06991218119266501,
+          "change_n": 64,
+          "change_accuracy": 0.640625
+        },
+        {
+          "lead_h": 24,
+          "n": 460,
+          "accuracy": 0.9108695652173913,
+          "brier": 0.07657664455589808,
+          "change_n": 162,
+          "change_accuracy": 0.8518518518518519
+        },
+        {
+          "lead_h": 48,
+          "n": 448,
+          "accuracy": 0.8794642857142857,
+          "brier": 0.09245038608774976,
+          "change_n": 251,
+          "change_accuracy": 0.8366533864541833
+        }
+      ]
+    },
+    "event_metrics_on_complete_issue_windows": {
+      "frozen_v6": {
+        "unique_events": {
+          "n_actual_events": 67,
+          "n_matched_events": 44,
+          "event_recall": 0.6567164179104478,
+          "n_forecast_warnings": 267,
+          "n_false_alarm_clusters": 50,
+          "precision": 0.46808510638297873,
+          "false_alarms_per_exposure_day": 0.4158004158004158,
+          "n_exposure_days": 120.25,
+          "false_alarms_per_issue_day": 0.423728813559322,
+          "n_issue_days": 118,
+          "n_duplicate_warnings_suppressed": 173,
+          "mean_event_time_error_h": 0.8977272727272727,
+          "median_event_time_error_h": 0.5,
+          "median_warning_lead_h": 17.75,
+          "tolerance_h": 3,
+          "excluded_incomplete_windows": 8,
+          "excluded_windows_by_reason": {
+            "incomplete_truth_coverage": 8
+          },
+          "truth": "Unique transitions in complete half-hour DFLD windows; overlapping forecast warnings matched one to one"
+        },
+        "first_change_windows": {
+          "n_actual_change_windows": 269,
+          "within_1h": 0.29739776951672864,
+          "within_3h": 0.5539033457249071,
+          "n_wrong_direction": 6,
+          "n_no_change_windows": 198,
+          "false_alarm_rate": 0.14646464646464646,
+          "n_predicted_changes": 267,
+          "excluded_incomplete_windows": 8,
+          "excluded_windows_by_reason": {
+            "incomplete_truth_coverage": 8
+          },
+          "mean_absolute_error_h_when_predicted": 5.676470588235294,
+          "truth": "DFLD half-hour bins, including observed state at issue time; overlapping issue windows are not independent"
+        }
+      },
+      "transition_refit": {
+        "unique_events": {
+          "n_actual_events": 67,
+          "n_matched_events": 42,
+          "event_recall": 0.6268656716417911,
+          "n_forecast_warnings": 267,
+          "n_false_alarm_clusters": 59,
+          "precision": 0.4158415841584158,
+          "false_alarms_per_exposure_day": 0.49064449064449067,
+          "n_exposure_days": 120.25,
+          "false_alarms_per_issue_day": 0.5,
+          "n_issue_days": 118,
+          "n_duplicate_warnings_suppressed": 166,
+          "mean_event_time_error_h": 0.9047619047619048,
+          "median_event_time_error_h": 0.5,
+          "median_warning_lead_h": 16.75,
+          "tolerance_h": 3,
+          "excluded_incomplete_windows": 8,
+          "excluded_windows_by_reason": {
+            "incomplete_truth_coverage": 8
+          },
+          "truth": "Unique transitions in complete half-hour DFLD windows; overlapping forecast warnings matched one to one"
+        },
+        "first_change_windows": {
+          "n_actual_change_windows": 269,
+          "within_1h": 0.275092936802974,
+          "within_3h": 0.550185873605948,
+          "n_wrong_direction": 7,
+          "n_no_change_windows": 198,
+          "false_alarm_rate": 0.13636363636363635,
+          "n_predicted_changes": 267,
+          "excluded_incomplete_windows": 8,
+          "excluded_windows_by_reason": {
+            "incomplete_truth_coverage": 8
+          },
+          "mean_absolute_error_h_when_predicted": 5.654166666666667,
+          "truth": "DFLD half-hour bins, including observed state at issue time; overlapping issue windows are not independent"
+        }
+      }
+    }
+  },
+  "physical_blend": {
+    "experiment": "mix served OD forecast with ensemble-rule probability",
+    "model_version_baseline": "walk-forward-v6",
+    "outer_evaluation_months": [
+      "2026-07",
+      "2026-08",
+      "2026-09",
+      "2026-10"
+    ],
+    "outer_period_was_not_used_to_select_weights": true,
+    "selection": {
+      "metric": "Brier score",
+      "grid": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ],
+      "formula": "lambda * (raw model plus existing persistence blend) + (1-lambda) * ensemble rule",
+      "unit": "one lambda per existing horizon bucket (1, 2-6, 7-24, 25-48 h)",
+      "tie_break": "prefer lambda 1.0, retaining current forecast when validation ties",
+      "fallback": "if ensemble rule is missing, use the current baseline probability",
+      "validation": "last 60 days of each outer training fold; model used for validation is fit strictly before that block"
+    },
+    "aggregate_out_of_sample": {
+      "1": {
+        "n": 469,
+        "change_n": 22,
+        "candidate": {
+          "accuracy": 0.9445628997867804,
+          "brier": 0.040967505245361704,
+          "change_accuracy": 0.18181818181818182
+        },
+        "baseline_raw_plus_persistence": {
+          "accuracy": 0.9466950959488273,
+          "brier": 0.0412652248884924,
+          "change_accuracy": 0.22727272727272727
+        },
+        "ensemble_rule": {
+          "accuracy": 0.9125799573560768,
+          "brier": 0.08742004264392324
+        },
+        "candidate_minus_baseline": {
+          "accuracy": -0.002132196162046851,
+          "brier": -0.0002977196431306964,
+          "change_accuracy": -0.04545454545454544
+        }
+      },
+      "6": {
+        "n": 469,
+        "change_n": 64,
+        "candidate": {
+          "accuracy": 0.9189765458422174,
+          "brier": 0.06948432585432934,
+          "change_accuracy": 0.671875
+        },
+        "baseline_raw_plus_persistence": {
+          "accuracy": 0.9168443496801706,
+          "brier": 0.06934737486005879,
+          "change_accuracy": 0.65625
+        },
+        "ensemble_rule": {
+          "accuracy": 0.8656716417910447,
+          "brier": 0.13432835820895522
+        },
+        "candidate_minus_baseline": {
+          "accuracy": 0.002132196162046851,
+          "brier": 0.00013695099427055157,
+          "change_accuracy": 0.015625
+        }
+      },
+      "24": {
+        "n": 460,
+        "change_n": 162,
+        "candidate": {
+          "accuracy": 0.9130434782608695,
+          "brier": 0.07655989208813996,
+          "change_accuracy": 0.845679012345679
+        },
+        "baseline_raw_plus_persistence": {
+          "accuracy": 0.9130434782608695,
+          "brier": 0.07659298357084894,
+          "change_accuracy": 0.8395061728395061
+        },
+        "ensemble_rule": {
+          "accuracy": 0.8782608695652174,
+          "brier": 0.12173913043478261
+        },
+        "candidate_minus_baseline": {
+          "accuracy": 0.0,
+          "brier": -3.309148270898288e-05,
+          "change_accuracy": 0.006172839506172867
+        }
+      },
+      "48": {
+        "n": 448,
+        "change_n": 251,
+        "candidate": {
+          "accuracy": 0.8816964285714286,
+          "brier": 0.0917658176860822,
+          "change_accuracy": 0.8446215139442231
+        },
+        "baseline_raw_plus_persistence": {
+          "accuracy": 0.8883928571428571,
+          "brier": 0.09040050724159097,
+          "change_accuracy": 0.852589641434263
+        },
+        "ensemble_rule": {
+          "accuracy": 0.8370535714285714,
+          "brier": 0.16294642857142858
+        },
+        "candidate_minus_baseline": {
+          "accuracy": -0.006696428571428492,
+          "brier": 0.00136531044449123,
+          "change_accuracy": -0.007968127490039834
+        }
+      }
+    },
+    "folds": [
+      {
+        "month": "2026-07",
+        "train_rows": 171336,
+        "validation_period_start": "2026-05-01T16:00:00+00:00",
+        "validation_rows": 11400,
+        "test_rows": 5736,
+        "ensemble_coverage": 1.0,
+        "weights_selected_on_validation_only": {
+          "1": {
+            "lambda_baseline": 0.9,
+            "validation_n": 239,
+            "validation_brier": 0.03802142081337783,
+            "validation_start": "2026-05-01T16:00:00+00:00",
+            "validation_end": "2026-06-30T16:00:00+00:00"
+          },
+          "6": {
+            "lambda_baseline": 0.9,
+            "validation_n": 1185,
+            "validation_brier": 0.0421496011926015,
+            "validation_start": "2026-05-01T16:00:00+00:00",
+            "validation_end": "2026-06-30T16:00:00+00:00"
+          },
+          "24": {
+            "lambda_baseline": 0.9,
+            "validation_n": 4237,
+            "validation_brier": 0.050295124526035975,
+            "validation_start": "2026-05-01T16:00:00+00:00",
+            "validation_end": "2026-06-30T10:00:00+00:00"
+          },
+          "48": {
+            "lambda_baseline": 0.8,
+            "validation_n": 5568,
+            "validation_brier": 0.05953483467123282,
+            "validation_start": "2026-05-01T16:00:00+00:00",
+            "validation_end": "2026-06-29T16:00:00+00:00"
+          }
+        },
+        "out_of_sample": {
+          "1": {
+            "n": 123,
+            "change_n": 6,
+            "baseline_raw_plus_persistence": {
+              "accuracy": 0.967479674796748,
+              "brier": 0.02338044934222135,
+              "change_accuracy": 0.3333333333333333
+            },
+            "ensemble_rule": {
+              "accuracy": 0.9512195121951219,
+              "brier": 0.04878048780487805,
+              "change_accuracy": 0.3333333333333333
+            },
+            "candidate": {
+              "accuracy": 0.967479674796748,
+              "brier": 0.023554072476461557,
+              "change_accuracy": 0.3333333333333333
+            },
+            "candidate_minus_baseline": {
+              "accuracy": 0.0,
+              "brier": 0.00017362313424020698,
+              "change_accuracy": 0.0
+            },
+            "baseline_lambda": 0.9
+          },
+          "6": {
+            "n": 121,
+            "change_n": 19,
+            "baseline_raw_plus_persistence": {
+              "accuracy": 0.9421487603305785,
+              "brier": 0.048237685518275425,
+              "change_accuracy": 0.631578947368421
+            },
+            "ensemble_rule": {
+              "accuracy": 0.8842975206611571,
+              "brier": 0.11570247933884298,
+              "change_accuracy": 0.6842105263157895
+            },
+            "candidate": {
+              "accuracy": 0.9504132231404959,
+              "brier": 0.04876851209937367,
+              "change_accuracy": 0.6842105263157895
+            },
+            "candidate_minus_baseline": {
+              "accuracy": 0.008264462809917439,
+              "brier": 0.000530826581098244,
+              "change_accuracy": 0.052631578947368474
+            },
+            "baseline_lambda": 0.9
+          },
+          "24": {
+            "n": 118,
+            "change_n": 47,
+            "baseline_raw_plus_persistence": {
+              "accuracy": 0.940677966101695,
+              "brier": 0.04943544197989941,
+              "change_accuracy": 0.851063829787234
+            },
+            "ensemble_rule": {
+              "accuracy": 0.9152542372881356,
+              "brier": 0.0847457627118644,
+              "change_accuracy": 0.8297872340425532
+            },
+            "candidate": {
+              "accuracy": 0.940677966101695,
+              "brier": 0.04997475575522785,
+              "change_accuracy": 0.8723404255319149
+            },
+            "candidate_minus_baseline": {
+              "accuracy": 0.0,
+              "brier": 0.0005393137753284399,
+              "change_accuracy": 0.021276595744680882
+            },
+            "baseline_lambda": 0.9
+          },
+          "48": {
+            "n": 114,
+            "change_n": 72,
+            "baseline_raw_plus_persistence": {
+              "accuracy": 0.9210526315789473,
+              "brier": 0.05751404434295683,
+              "change_accuracy": 0.875
+            },
+            "ensemble_rule": {
+              "accuracy": 0.8771929824561403,
+              "brier": 0.12280701754385964,
+              "change_accuracy": 0.8194444444444444
+            },
+            "candidate": {
+              "accuracy": 0.8947368421052632,
+              "brier": 0.061626486699246,
+              "change_accuracy": 0.8472222222222222
+            },
+            "candidate_minus_baseline": {
+              "accuracy": -0.02631578947368418,
+              "brier": 0.004112442356289173,
+              "change_accuracy": -0.02777777777777779
+            },
+            "baseline_lambda": 0.8
+          }
+        }
+      },
+      {
+        "month": "2026-08",
+        "train_rows": 177288,
+        "validation_period_start": "2026-06-01T16:00:00+00:00",
+        "validation_rows": 11400,
+        "test_rows": 5736,
+        "ensemble_coverage": 1.0,
+        "weights_selected_on_validation_only": {
+          "1": {
+            "lambda_baseline": 0.9,
+            "validation_n": 239,
+            "validation_brier": 0.04254164948857728,
+            "validation_start": "2026-06-01T16:00:00+00:00",
+            "validation_end": "2026-07-31T16:00:00+00:00"
+          },
+          "6": {
+            "lambda_baseline": 1.0,
+            "validation_n": 1182,
+            "validation_brier": 0.04630688724276835,
+            "validation_start": "2026-06-01T16:00:00+00:00",
+            "validation_end": "2026-07-31T16:00:00+00:00"
+          },
+          "24": {
+            "lambda_baseline": 0.9,
+            "validation_n": 4230,
+            "validation_brier": 0.05494741714145804,
+            "validation_start": "2026-06-01T16:00:00+00:00",
+            "validation_end": "2026-07-31T10:00:00+00:00"
+          },
+          "48": {
+            "lambda_baseline": 0.9,
+            "validation_n": 5560,
+            "validation_brier": 0.06064383732550259,
+            "validation_start": "2026-06-01T16:00:00+00:00",
+            "validation_end": "2026-07-30T16:00:00+00:00"
+          }
+        },
+        "out_of_sample": {
+          "1": {
+            "n": 122,
+            "change_n": 7,
+            "baseline_raw_plus_persistence": {
+              "accuracy": 0.9426229508196722,
+              "brier": 0.04628266860825059,
+              "change_accuracy": 0.14285714285714285
+            },
+            "ensemble_rule": {
+              "accuracy": 0.9508196721311475,
+              "brier": 0.04918032786885246,
+              "change_accuracy": 0.14285714285714285
+            },
+            "candidate": {
+              "accuracy": 0.9344262295081968,
+              "brier": 0.044963109934973176,
+              "change_accuracy": 0.0
+            },
+            "candidate_minus_baseline": {
+              "accuracy": -0.008196721311475419,
+              "brier": -0.0013195586732774114,
+              "change_accuracy": -0.14285714285714285
+            },
+            "baseline_lambda": 0.9
+          },
+          "6": {
+            "n": 123,
+            "change_n": 17,
+            "baseline_raw_plus_persistence": {
+              "accuracy": 0.959349593495935,
+              "brier": 0.029667033604918777,
+              "change_accuracy": 0.7647058823529411
+            },
+            "ensemble_rule": {
+              "accuracy": 0.9349593495934959,
+              "brier": 0.06504065040650407,
+              "change_accuracy": 0.7647058823529411
+            },
+            "candidate": {
+              "accuracy": 0.959349593495935,
+              "brier": 0.029667033604918777,
+              "change_accuracy": 0.7647058823529411
+            },
+            "candidate_minus_baseline": {
+              "accuracy": 0.0,
+              "brier": 0.0,
+              "change_accuracy": 0.0
+            },
+            "baseline_lambda": 1.0
+          },
+          "24": {
+            "n": 120,
+            "change_n": 42,
+            "baseline_raw_plus_persistence": {
+              "accuracy": 0.9583333333333334,
+              "brier": 0.034381132924182566,
+              "change_accuracy": 0.9047619047619048
+            },
+            "ensemble_rule": {
+              "accuracy": 0.9416666666666667,
+              "brier": 0.058333333333333334,
+              "change_accuracy": 0.9047619047619048
+            },
+            "candidate": {
+              "accuracy": 0.9583333333333334,
+              "brier": 0.033723957028058485,
+              "change_accuracy": 0.9047619047619048
+            },
+            "candidate_minus_baseline": {
+              "accuracy": 0.0,
+              "brier": -0.0006571758961240806,
+              "change_accuracy": 0.0
+            },
+            "baseline_lambda": 0.9
+          },
+          "48": {
+            "n": 116,
+            "change_n": 71,
+            "baseline_raw_plus_persistence": {
+              "accuracy": 0.9310344827586207,
+              "brier": 0.052646372339046725,
+              "change_accuracy": 0.9154929577464789
+            },
+            "ensemble_rule": {
+              "accuracy": 0.9051724137931034,
+              "brier": 0.09482758620689655,
+              "change_accuracy": 0.8732394366197183
+            },
+            "candidate": {
+              "accuracy": 0.9310344827586207,
+              "brier": 0.053877757257280404,
+              "change_accuracy": 0.9154929577464789
+            },
+            "candidate_minus_baseline": {
+              "accuracy": 0.0,
+              "brier": 0.0012313849182336786,
+              "change_accuracy": 0.0
+            },
+            "baseline_lambda": 0.9
+          }
+        }
+      },
+      {
+        "month": "2026-09",
+        "train_rows": 183240,
+        "validation_period_start": "2026-07-02T16:00:00+00:00",
+        "validation_rows": 11400,
+        "test_rows": 5544,
+        "ensemble_coverage": 1.0,
+        "weights_selected_on_validation_only": {
+          "1": {
+            "lambda_baseline": 1.0,
+            "validation_n": 240,
+            "validation_brier": 0.02497528159019154,
+            "validation_start": "2026-07-02T16:00:00+00:00",
+            "validation_end": "2026-08-31T16:00:00+00:00"
+          },
+          "6": {
+            "lambda_baseline": 1.0,
+            "validation_n": 1191,
+            "validation_brier": 0.038821978914292905,
+            "validation_start": "2026-07-02T16:00:00+00:00",
+            "validation_end": "2026-08-31T16:00:00+00:00"
+          },
+          "24": {
+            "lambda_baseline": 1.0,
+            "validation_n": 4257,
+            "validation_brier": 0.04179579545214136,
+            "validation_start": "2026-07-02T16:00:00+00:00",
+            "validation_end": "2026-08-31T10:00:00+00:00"
+          },
+          "48": {
+            "lambda_baseline": 1.0,
+            "validation_n": 5592,
+            "validation_brier": 0.04547787245748916,
+            "validation_start": "2026-07-02T16:00:00+00:00",
+            "validation_end": "2026-08-30T16:00:00+00:00"
+          }
+        },
+        "out_of_sample": {
+          "1": {
+            "n": 119,
+            "change_n": 5,
+            "baseline_raw_plus_persistence": {
+              "accuracy": 0.9663865546218487,
+              "brier": 0.03106931816757224,
+              "change_accuracy": 0.4
+            },
+            "ensemble_rule": {
+              "accuracy": 0.9159663865546218,
+              "brier": 0.08403361344537816,
+              "change_accuracy": 0.0
+            },
+            "candidate": {
+              "accuracy": 0.9663865546218487,
+              "brier": 0.03106931816757224,
+              "change_accuracy": 0.4
+            },
+            "candidate_minus_baseline": {
+              "accuracy": 0.0,
+              "brier": 0.0,
+              "change_accuracy": 0.0
+            },
+            "baseline_lambda": 1.0
+          },
+          "6": {
+            "n": 118,
+            "change_n": 16,
+            "baseline_raw_plus_persistence": {
+              "accuracy": 0.9322033898305084,
+              "brier": 0.05387841051949239,
+              "change_accuracy": 0.5
+            },
+            "ensemble_rule": {
+              "accuracy": 0.8728813559322034,
+              "brier": 0.1271186440677966,
+              "change_accuracy": 0.75
+            },
+            "candidate": {
+              "accuracy": 0.9322033898305084,
+              "brier": 0.05387841051949239,
+              "change_accuracy": 0.5
+            },
+            "candidate_minus_baseline": {
+              "accuracy": 0.0,
+              "brier": 0.0,
+              "change_accuracy": 0.0
+            },
+            "baseline_lambda": 1.0
+          },
+          "24": {
+            "n": 115,
+            "change_n": 40,
+            "baseline_raw_plus_persistence": {
+              "accuracy": 0.9304347826086956,
+              "brier": 0.050224518507895805,
+              "change_accuracy": 0.8
+            },
+            "ensemble_rule": {
+              "accuracy": 0.8782608695652174,
+              "brier": 0.12173913043478261,
+              "change_accuracy": 0.775
+            },
+            "candidate": {
+              "accuracy": 0.9304347826086956,
+              "brier": 0.050224518507895805,
+              "change_accuracy": 0.8
+            },
+            "candidate_minus_baseline": {
+              "accuracy": 0.0,
+              "brier": 0.0,
+              "change_accuracy": 0.0
+            },
+            "baseline_lambda": 1.0
+          },
+          "48": {
+            "n": 111,
+            "change_n": 56,
+            "baseline_raw_plus_persistence": {
+              "accuracy": 0.9009009009009009,
+              "brier": 0.06713382033457699,
+              "change_accuracy": 0.8214285714285714
+            },
+            "ensemble_rule": {
+              "accuracy": 0.8468468468468469,
+              "brier": 0.15315315315315314,
+              "change_accuracy": 0.7678571428571429
+            },
+            "candidate": {
+              "accuracy": 0.9009009009009009,
+              "brier": 0.06713382033457699,
+              "change_accuracy": 0.8214285714285714
+            },
+            "candidate_minus_baseline": {
+              "accuracy": 0.0,
+              "brier": 0.0,
+              "change_accuracy": 0.0
+            },
+            "baseline_lambda": 1.0
+          }
+        }
+      },
+      {
+        "month": "2026-10",
+        "train_rows": 189000,
+        "validation_period_start": "2026-08-01T16:00:00+00:00",
+        "validation_rows": 11400,
+        "test_rows": 5136,
+        "ensemble_coverage": 1.0,
+        "weights_selected_on_validation_only": {
+          "1": {
+            "lambda_baseline": 1.0,
+            "validation_n": 240,
+            "validation_brier": 0.02856287441610166,
+            "validation_start": "2026-08-01T16:00:00+00:00",
+            "validation_end": "2026-09-30T16:00:00+00:00"
+          },
+          "6": {
+            "lambda_baseline": 1.0,
+            "validation_n": 1192,
+            "validation_brier": 0.035449493884451365,
+            "validation_start": "2026-08-01T16:00:00+00:00",
+            "validation_end": "2026-09-30T16:00:00+00:00"
+          },
+          "24": {
+            "lambda_baseline": 1.0,
+            "validation_n": 4260,
+            "validation_brier": 0.04253179126203083,
+            "validation_start": "2026-08-01T16:00:00+00:00",
+            "validation_end": "2026-09-30T10:00:00+00:00"
+          },
+          "48": {
+            "lambda_baseline": 1.0,
+            "validation_n": 5596,
+            "validation_brier": 0.04459725112672122,
+            "validation_start": "2026-08-01T16:00:00+00:00",
+            "validation_end": "2026-09-29T16:00:00+00:00"
+          }
+        },
+        "out_of_sample": {
+          "1": {
+            "n": 105,
+            "change_n": 4,
+            "baseline_raw_plus_persistence": {
+              "accuracy": 0.9047619047619048,
+              "brier": 0.06794153115678137,
+              "change_accuracy": 0.0
+            },
+            "ensemble_rule": {
+              "accuracy": 0.819047619047619,
+              "brier": 0.18095238095238095,
+              "change_accuracy": 0.25
+            },
+            "candidate": {
+              "accuracy": 0.9047619047619048,
+              "brier": 0.06794153115678137,
+              "change_accuracy": 0.0
+            },
+            "candidate_minus_baseline": {
+              "accuracy": 0.0,
+              "brier": 0.0,
+              "change_accuracy": 0.0
+            },
+            "baseline_lambda": 1.0
+          },
+          "6": {
+            "n": 107,
+            "change_n": 12,
+            "baseline_raw_plus_persistence": {
+              "accuracy": 0.822429906542056,
+              "brier": 0.15589216156029098,
+              "change_accuracy": 0.75
+            },
+            "ensemble_rule": {
+              "accuracy": 0.7570093457943925,
+              "brier": 0.24299065420560748,
+              "change_accuracy": 0.75
+            },
+            "candidate": {
+              "accuracy": 0.822429906542056,
+              "brier": 0.15589216156029098,
+              "change_accuracy": 0.75
+            },
+            "candidate_minus_baseline": {
+              "accuracy": 0.0,
+              "brier": 0.0,
+              "change_accuracy": 0.0
+            },
+            "baseline_lambda": 1.0
+          },
+          "24": {
+            "n": 107,
+            "change_n": 33,
+            "baseline_raw_plus_persistence": {
+              "accuracy": 0.8130841121495327,
+              "brier": 0.18222275429581736,
+              "change_accuracy": 0.7878787878787878
+            },
+            "ensemble_rule": {
+              "accuracy": 0.7663551401869159,
+              "brier": 0.2336448598130841,
+              "change_accuracy": 0.7575757575757576
+            },
+            "candidate": {
+              "accuracy": 0.8130841121495327,
+              "brier": 0.18222275429581736,
+              "change_accuracy": 0.7878787878787878
+            },
+            "candidate_minus_baseline": {
+              "accuracy": 0.0,
+              "brier": 0.0,
+              "change_accuracy": 0.0
+            },
+            "baseline_lambda": 1.0
+          },
+          "48": {
+            "n": 107,
+            "change_n": 52,
+            "baseline_raw_plus_persistence": {
+              "accuracy": 0.794392523364486,
+              "brier": 0.19050460692213275,
+              "change_accuracy": 0.7692307692307693
+            },
+            "ensemble_rule": {
+              "accuracy": 0.7102803738317757,
+              "brier": 0.2897196261682243,
+              "change_accuracy": 0.7692307692307693
+            },
+            "candidate": {
+              "accuracy": 0.794392523364486,
+              "brier": 0.19050460692213275,
+              "change_accuracy": 0.7692307692307693
+            },
+            "candidate_minus_baseline": {
+              "accuracy": 0.0,
+              "brier": 0.0,
+              "change_accuracy": 0.0
+            },
+            "baseline_lambda": 1.0
+          }
+        }
+      }
+    ],
+    "limitations": [
+      "This is exploratory selection over four outer months; those months are already part of the ongoing v6 evaluation, so it is not a fresh untouched confirmation set.",
+      "Only the probability mixture is changed. Features, labels, training classifier, issue schedule and test rows are unchanged.",
+      "The ensemble rule shares weather inputs with the learned model; it is a useful physical benchmark, not independent evidence.",
+      "Overlapping issue windows remain correlated; the row counts are not independent samples.",
+      "The coarse 0.1 validation grid tests 11 weights per horizon. Validation weights may still overfit the preceding 60-day sample."
+    ],
+    "row_predictions": {
+      "file": "blend-challenger-v6-oos.parquet",
+      "rows": 22152,
+      "complete_48h_issue_windows": 451,
+      "row_comparison_cohort": "all four outer months; exact lead metrics require an available ensemble rule",
+      "event_cohort": "same complete 48-hour outer-test issue windows for all probability sources"
+    },
+    "unique_event_comparison_complete_windows": {
+      "baseline_raw_plus_persistence": {
+        "n_actual_events": 65,
+        "n_matched_events": 41,
+        "event_recall": 0.6307692307692307,
+        "n_forecast_warnings": 252,
+        "n_false_alarm_clusters": 49,
+        "precision": 0.45555555555555555,
+        "false_alarms_per_exposure_day": 0.4100418410041841,
+        "n_exposure_days": 119.5,
+        "false_alarms_per_issue_day": 0.4260869565217391,
+        "n_issue_days": 115,
+        "n_duplicate_warnings_suppressed": 162,
+        "mean_event_time_error_h": 0.9146341463414634,
+        "median_event_time_error_h": 0.5,
+        "median_warning_lead_h": 17.0,
+        "tolerance_h": 3,
+        "excluded_incomplete_windows": 8,
+        "excluded_windows_by_reason": {
+          "incomplete_truth_coverage": 8
+        },
+        "truth": "Unique transitions in complete half-hour DFLD windows; overlapping forecast warnings matched one to one"
+      },
+      "candidate": {
+        "n_actual_events": 65,
+        "n_matched_events": 41,
+        "event_recall": 0.6307692307692307,
+        "n_forecast_warnings": 257,
+        "n_false_alarm_clusters": 53,
+        "precision": 0.43617021276595747,
+        "false_alarms_per_exposure_day": 0.4435146443514644,
+        "n_exposure_days": 119.5,
+        "false_alarms_per_issue_day": 0.4608695652173913,
+        "n_issue_days": 115,
+        "n_duplicate_warnings_suppressed": 163,
+        "mean_event_time_error_h": 0.8658536585365854,
+        "median_event_time_error_h": 0.5,
+        "median_warning_lead_h": 15.5,
+        "tolerance_h": 3,
+        "excluded_incomplete_windows": 8,
+        "excluded_windows_by_reason": {
+          "incomplete_truth_coverage": 8
+        },
+        "truth": "Unique transitions in complete half-hour DFLD windows; overlapping forecast warnings matched one to one"
+      },
+      "ensemble_rule": {
+        "n_actual_events": 65,
+        "n_matched_events": 39,
+        "event_recall": 0.6,
+        "n_forecast_warnings": 308,
+        "n_false_alarm_clusters": 78,
+        "precision": 0.3333333333333333,
+        "false_alarms_per_exposure_day": 0.6527196652719666,
+        "n_exposure_days": 119.5,
+        "false_alarms_per_issue_day": 0.6782608695652174,
+        "n_issue_days": 115,
+        "n_duplicate_warnings_suppressed": 191,
+        "mean_event_time_error_h": 1.0769230769230769,
+        "median_event_time_error_h": 1.0,
+        "median_warning_lead_h": 14.0,
+        "tolerance_h": 3,
+        "excluded_incomplete_windows": 8,
+        "excluded_windows_by_reason": {
+          "incomplete_truth_coverage": 8
+        },
+        "truth": "Unique transitions in complete half-hour DFLD windows; overlapping forecast warnings matched one to one"
+      }
+    }
+  }
+}

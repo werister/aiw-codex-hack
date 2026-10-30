@@ -91,3 +91,8 @@ Zielwerte werden aus Wetter und Regeln abgeleitet; sie sind keine bestätigte
 Historie betrieblicher Schließungen. Die Testmonate haben bereits mehrere
 Entwicklungsentscheidungen beeinflusst. Ein späterer, bisher unberührter Zeitraum
 bleibt deshalb der nächste wichtige Praxistest.
+
+
+Zwei zusätzlich trainierte Modellideen und ihre Grenzen sind im
+[Vergleich der Prognoseansätze](ml/PREDICTION_EXPERIMENTS.md) erklärt. Die
+Messwerte rechtfertigen bisher keinen Austausch des bestehenden Modells.

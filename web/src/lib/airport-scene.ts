@@ -9,6 +9,9 @@ type State = AirportSceneState & {
   forecastHour?: Pick<HourForecast, "time" | "local" | "lead_h" | "p_18_usable" | "certainty">;
 };
 type Options = State & { theme?: "light" | "tower"; paused?: boolean; onReady?: () => void; onError?: (error: unknown) => void };
+type SceneManifest = Parameters<typeof buildTrafficPlan>[0] & {
+  surface_levels: { movement_surface: number; route_highlight: number };
+};
 const MODEL_ROOT = "/models/airport/";
 const ROLES: FlightRole[] = ["arrive_north", "arrive_south", "depart_center", "depart_flex"];
 const CYCLE_SECONDS = 20;
@@ -153,7 +156,7 @@ export function mount(host: HTMLElement, options: Options) {
   const windLabel = label("Wind", new THREE.Vector3(345, 4, -120));
   let westLabel: HTMLSpanElement | null = null;
   let bounds: THREE.Box3 | null = null;
-  let manifest: Parameters<typeof buildTrafficPlan>[0] | null = null;
+  let manifest: SceneManifest | null = null;
   let plan: ReturnType<typeof buildTrafficPlan> | null = null;
   const planes = new Map<FlightRole, THREE.Object3D>();
   let routeLine: THREE.Line | null = null;
@@ -209,8 +212,14 @@ export function mount(host: HTMLElement, options: Options) {
     if (wind) windArrow.setDirection(heading(wind.dir + 180));
     windLabel.textContent = wind ? `Wind from ${Math.round(wind.dir)}° · ${Math.round(wind.kt)} kt` : "Calm / variable wind";
     if (routeLine) { scene.remove(routeLine); release([routeLine]); }
-    // The path is the actual generated taxi route; omit its airborne takeoff end.
-    const taxi = plan.routes.depart_flex.slice(0, -2).map((p) => world([p[0], p[1], 2.15]));
+    // Draw the same rounded ground trajectory that the aircraft follows.
+    const taxi: THREE.Vector3[] = [];
+    for (let step = 0; step <= 480; step++) {
+      const p = sampleFlight(plan, "depart_flex", step / 480).position;
+      if (p[2] > manifest.surface_levels.movement_surface + 0.01) continue;
+      const point = world([p[0], p[1], manifest.surface_levels.route_highlight]);
+      if (!taxi.length || taxi[taxi.length - 1].distanceToSquared(point) > 0.0001) taxi.push(point);
+    }
     routeLine = new THREE.Line(new THREE.BufferGeometry().setFromPoints(taxi), new THREE.LineBasicMaterial({ color: state.r18Open ? 0x15803d : 0xd9381e }));
     scene.add(routeLine);
     dirty = true;
@@ -279,7 +288,7 @@ export function mount(host: HTMLElement, options: Options) {
     const environment = (loaded[0] as PromiseFulfilledResult<THREE.Group>).value;
     const narrowbody = (loaded[1] as PromiseFulfilledResult<THREE.Group>).value;
     const widebody = (loaded[2] as PromiseFulfilledResult<THREE.Group>).value;
-    const layout = (loaded[3] as PromiseFulfilledResult<Parameters<typeof buildTrafficPlan>[0]>).value;
+    const layout = (loaded[3] as PromiseFulfilledResult<SceneManifest>).value;
     if (disposed) { release([environment, narrowbody, widebody]); return; }
     manifest = layout;
     environment.traverse((o) => {

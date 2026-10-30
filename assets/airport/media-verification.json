@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "result": "passed",
+  "verified_at_utc": "2026-10-30T14:31:00+00:00",
+  "scope": "Nine final still previews, native Blender scene, nine exported GLBs, and the three browser-published GLBs plus manifest. Motion video is excluded until the final render is complete and verified.",
+  "source_verification": {
+    "file": "verification.json",
+    "result": "passed",
+    "sha256": "1ab311eb77e634f47f410b80ed54ea91d978d092aa10840fd48afd243c7c85f2"
+  },
+  "native_scene": {
+    "file": "fra-airport.blend",
+    "bytes": 3487914,
+    "sha256": "178b16d2d5f3391b633b2bf529148731bc7e9e90873a6ccb7d2d15c9f4f71b4a",
+    "fps": 60,
+    "frame_start": 1,
+    "frame_end": 3600,
+    "frame_count": 3600
+  },
+  "glb_assets": [
+    {
+      "file": "exports/aircraft-narrowbody.glb",
+      "bytes": 980996,
+      "sha256": "1419ea100e103c977ecedba1e598743f3e9d8125fefc808955efc053cb630522"
+    },
+    {
+      "file": "exports/aircraft-widebody.glb",
+      "bytes": 1307208,
+      "sha256": "273e1210c3986b2fa371edbe4ef56c500ab239d19d608485b28ba3cf17a21d4f"
+    },
+    {
+      "file": "exports/tower.glb",
+      "bytes": 4020524,
+      "sha256": "51cdf8e55ecbbb49a8c0cb38318be3a2ace5618c0ec8d33ec663ad8dfa8c2b8d"
+    },
+    {
+      "file": "exports/runway-07L-25R.glb",
+      "bytes": 156504,
+      "sha256": "5e20f197a5cc5d1cb883d6dc2de10b80607aa7fa44991ae7c206cb5ff3c4cb45"
+    },
+    {
+      "file": "exports/runway-07C-25C.glb",
+      "bytes": 197540,
+      "sha256": "8c2ed66dc0deca697aebf9d67e192e40d2ea9f27bb5420bcb41d5cb659882f3e"
+    },
+    {
+      "file": "exports/runway-07R-25L.glb",
+      "bytes": 184780,
+      "sha256": "ece2609a520ea1b594eac083449d53caa61413c644957fc741ffac435f135433"
+    },
+    {
+      "file": "exports/runway-18.glb",
+      "bytes": 152332,
+      "sha256": "29ccc195d033b0a2083d6d27e3d5ef331e87dc8dd878e8c1641f01fd767784dd"
+    },
+    {
+      "file": "exports/airport-environment.glb",
+      "bytes": 12359196,
+      "sha256": "de75c43127ebe0d3f14871267b17d5eeb3df79bc72c5b760646b2729a2a21ecf"
+    },
+    {
+      "file": "exports/airport-traffic-demo.glb",
+      "bytes": 4638676,
+      "sha256": "52afd987c80e9dae68bbf159d49356b9f5b7b9bae00d8a60d027067ca8acf961"
+    }
+  ],
+  "browser_package": {
+    "manifest": {
+      "file": "web/public/models/airport/manifest.json",
+      "sha256": "0fcf1eb726cf721cb160f80857932f10c73f064c4be7f379cd1199bead674b63",
+      "matches_asset_manifest": true
+    },
+    "models": [
+      {
+        "file": "web/public/models/airport/airport-environment.glb",
+        "bytes": 12359196,
+        "sha256": "de75c43127ebe0d3f14871267b17d5eeb3df79bc72c5b760646b2729a2a21ecf"
+      },
+      {
+        "file": "web/public/models/airport/aircraft-narrowbody.glb",
+        "bytes": 980996,
+        "sha256": "1419ea100e103c977ecedba1e598743f3e9d8125fefc808955efc053cb630522"
+      },
+      {
+        "file": "web/public/models/airport/aircraft-widebody.glb",
+        "bytes": 1307208,
+        "sha256": "273e1210c3986b2fa371edbe4ef56c500ab239d19d608485b28ba3cf17a21d4f"
+      }
+    ]
+  },
+  "still_images": [
+    {
+      "file": "previews/aircraft-narrowbody.png",
+      "width": 2400,
+      "height": 1650,
+      "bytes": 3840422,
+      "sha256": "c5406fd61f6eafd0b9674f93cd580f00f19993fb5770dac73f25b0e81ac96b06"
+    },
+    {
+      "file": "previews/aircraft-widebody.png",
+      "width": 2400,
+      "height": 1650,
+      "bytes": 3846531,
+      "sha256": "7d307630924a806b667166c3d82401fea2d2ad52dba341fdcd15e5aa5e0ad7ab"
+    },
+    {
+      "file": "previews/airport-07.png",
+      "width": 2400,
+      "height": 1650,
+      "bytes": 4022431,
+      "sha256": "c4437306cae39ddcbbd62bb9c69e96a41cec4773ff0bcab18bb3bf7c5e990fa8"
+    },
+    {
+      "file": "previews/airport-18-closed.png",
+      "width": 2400,
+      "height": 1650,
+      "bytes": 4027595,
+      "sha256": "effb6483bf5932c959a06eb9d67351b5582e3c961a0a87ba2b6af8372e9b6ffd"
+    },
+    {
+      "file": "previews/airport-25.png",
+      "width": 2400,
+      "height": 1650,
+      "bytes": 4022295,
+      "sha256": "4d341bf2b929ba9b35a30e538a2d717172c04181d9f11d0389fbd9a5b664fc2b"
+    },
+    {
+      "file": "previews/airport-plan.png",
+      "width": 2400,
+      "height": 1650,
+      "bytes": 4047500,
+      "sha256": "1c19e6a5b2005b59999240c8f336bd409efb217897a1b5a8df051d1991841361"
+    },
+    {
+      "file": "previews/runway-detail.png",
+      "width": 2400,
+      "height": 1650,
+      "bytes": 4089879,
+      "sha256": "cfa5721f9b3121bb134cd77abaeeea4013d7084fbb97b16459662ee387b7ea28"
+    },
+    {
+      "file": "previews/terminal-detail.png",
+      "width": 2400,
+      "height": 1650,
+      "bytes": 4143185,
+      "sha256": "ff2ce08d6d8204a304700c045ba9d1b2f77961943b98a93b29253a82037d0423"
+    },
+    {
+      "file": "previews/tower.png",
+      "width": 2400,
+      "height": 1650,
+      "bytes": 4099192,
+      "sha256": "e02493f267c8914d573ff0f7140098d4d53e3b2657cf8c8232ece29ab30b0f08"
+    }
+  ]
+}
