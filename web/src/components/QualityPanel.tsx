@@ -37,6 +37,11 @@ export function QualityPanel() {
       title="Model quality · held out, walk-forward"
       aside={<span className="text-[13px] text-muted">{q.evaluation}</span>}
     >
+      <p className="-mt-1 mb-5 max-w-[110ch] text-[15px] leading-snug text-ink-2">
+        Evidence about the model on months it never saw. It is measured separately and does not change the forecast
+        probabilities above. Direction is scored against DFLD-recorded directions, with transition hours left out;
+        runway 18 against {q.r18_label_type} labels from METAR and the official rules.
+      </p>
       <div className="grid grid-cols-2 gap-2.5 lg:grid-cols-4">
         <Stat
           value={`${months.length} months`}
@@ -44,17 +49,17 @@ export function QualityPanel() {
         />
         <Stat
           value={`${Math.round(q.rule_label_comparison.agreement * 100)}%`}
-          label="of flown hours match the official rules on observed wind. The rules alone are not the truth."
+          label="of recorded hours match the official rules on observed wind. The rules alone are not the truth."
         />
         <Stat
           value={`${Math.round(q.next_change.within_3h * 100)}%`}
           label={`of direction changes timed within ±3 h (${Math.round(q.next_change.within_1h * 100)}% within ±1 h)`}
         />
         <Stat
-          value={bin80?.observed_frequency != null ? `${Math.round(bin80.observed_frequency * 100)}%` : "n/a"}
+          value={bin80?.observed_frequency != null ? `${Math.round(bin80.observed_frequency * 100)}%` : "unavailable"}
           label={
             bin80?.mean_predicted != null
-              ? `of hours forecast at about ${Math.round(bin80.mean_predicted * 100)}% west were flown west. The confidence is calibrated.`
+              ? `of hours forecast at about ${Math.round(bin80.mean_predicted * 100)}% west were recorded west. The probability is calibrated.`
               : "calibration check"
           }
         />
