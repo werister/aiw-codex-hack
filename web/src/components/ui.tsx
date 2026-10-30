@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { OD } from "@/lib/forecast-types";
+import type { HourForecast, OD } from "@/lib/forecast-types";
 
 export function cx(...parts: (string | false | null | undefined)[]) {
   return parts.filter(Boolean).join(" ");
@@ -51,6 +51,18 @@ export function Arrow({ className }: { className?: string }) {
       <path d="M0 4h16M12.5 0.5 16 4l-3.5 3.5" stroke="currentColor" />
     </svg>
   );
+}
+
+// Unsure: the probability behind a call is under 60%, for direction or runway 18.
+export function isUnsure(h: HourForecast) {
+  return Math.abs(h.p_od25 - 0.5) < 0.1 || Math.abs(h.p_18_usable - 0.5) < 0.1;
+}
+
+// Why, from the file only: the weather models split on the rule call, or the hour sits near a limit.
+export function unsureReason(h: HourForecast) {
+  const v = h.inputs?.ens_votes_25;
+  const split = Math.abs(h.p_od25 - 0.5) < 0.1 && v != null && v > 0 && v < 1;
+  return split ? "models disagree" : "close to the limit";
 }
 
 // Local ISO without zone ("2026-10-31T13:00") is read as written: it is already Europe/Berlin.
