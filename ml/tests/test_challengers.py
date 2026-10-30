@@ -68,8 +68,12 @@ def test_output_path_cannot_target_production_artifacts(tmp_path: Path):
     assert sentinel.read_text() == "keep this report"
 
     link = tmp_path / "repo-link"
-    link.symlink_to(root / "verification", target_is_directory=True)
-    with pytest.raises(ValueError, match="through a symlink"):
-        safe_output(link / "challengers", root)
+    try:
+        link.symlink_to(root / "verification", target_is_directory=True)
+    except OSError:
+        link = None  # Windows without the symlink privilege (WinError 1314)
+    if link is not None:
+        with pytest.raises(ValueError, match="through a symlink"):
+            safe_output(link / "challengers", root)
     with pytest.raises(ValueError, match="repository root"):
         safe_output(root, root)
