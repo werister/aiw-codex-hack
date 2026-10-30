@@ -7,11 +7,12 @@ export function HourDetail({ h }: { h: HourForecast }) {
   const r18 = h.p_18_usable >= 0.5;
   const agree = h.od === h.rule_od && r18 === h.rule_18_usable;
   return (
-    <Panel title={`${dayLabel(h.local)} ${hhmm(h.local)} · +${h.lead_h} h`}>
+    <Panel title={`Inspecting ${dayLabel(h.local)} ${hhmm(h.local)} · +${h.lead_h} h`}>
       <p className="-mt-2 mb-5 text-[13px] text-muted tabular">
         Valid {hhmm(h.local)} {utcOffset(h.time, h.local)} · {h.time.slice(11, 16)} UTC · {h.lead_h} h after issue
       </p>
 
+      <div className="grid gap-x-10 lg:grid-cols-[2fr_1fr_1.2fr_1.6fr]">
       <Group title="Inputs · forecast weather">
         <Field k="Wind">
           {h.wind_dir_deg == null ? "Direction unavailable / calm" : `${Math.round(h.wind_dir_deg)}° ${Math.round(h.wind_kt)} kt`}
@@ -25,18 +26,18 @@ export function HourDetail({ h }: { h: HourForecast }) {
         </Field>
       </Group>
 
-      <Group title="Official rules">
+      <Group title="Official rules" narrow>
         <Field k="Direction">
           <span className={cx("font-medium", odText(h.rule_od))}>
             {h.rule_od} {OD_LABEL[h.rule_od]}
           </span>
         </Field>
         <Field k="Runway 18">
-          <span className={h.rule_18_usable ? "text-ok" : "text-bad"}>{h.rule_18_usable ? "usable" : "closed"}</span>
+          <span className={h.rule_18_usable ? "" : "text-bad"}>{h.rule_18_usable ? "usable" : "closed"}</span>
         </Field>
       </Group>
 
-      <Group title="Model">
+      <Group title="Model" narrow>
         <Field k="Direction">
           <span className={cx("font-medium", odText(h.od))}>
             {h.od} {OD_LABEL[h.od]}
@@ -44,12 +45,12 @@ export function HourDetail({ h }: { h: HourForecast }) {
           <span className="text-[15px] text-muted">P(25) {pct(h.p_od25)}</span>
         </Field>
         <Field k="Runway 18">
-          <span className={r18 ? "text-ok" : "text-bad"}>{r18 ? "usable" : "closed"}</span>{" "}
+          <span className={r18 ? "" : "text-bad"}>{r18 ? "usable" : "closed"}</span>{" "}
           <span className="text-[15px] text-muted">P(usable) {pct(h.p_18_usable)}</span>
         </Field>
       </Group>
 
-      <div className="rounded-[8px] bg-panel-2 p-4">
+      <div className="mb-5 self-start rounded-[8px] bg-panel-2 p-4">
         <div className="flex items-baseline justify-between gap-3">
           <span className="text-[12px] text-muted">Certainty score</span>
           <span className="text-[20px] tabular">{h.certainty}/100</span>
@@ -60,19 +61,20 @@ export function HourDetail({ h }: { h: HourForecast }) {
           measured accuracy.
         </p>
       </div>
+      </div>
 
-      <p className={cx("mt-4 text-[13px] leading-snug", agree ? "text-muted" : "rounded-[8px] border-[0.5px] border-ink px-3 py-2 text-ink")}>
+      <p className={cx("text-[13px] leading-snug", agree ? "text-muted" : "rounded-[8px] border-[0.5px] border-ink px-3 py-2 text-ink")}>
         {agree ? "Model and official rules agree for this hour." : "Model and official rules disagree here. The model has learned from recorded directions."}
       </p>
     </Panel>
   );
 }
 
-function Group({ title, children }: { title: string; children: React.ReactNode }) {
+function Group({ title, narrow, children }: { title: string; narrow?: boolean; children: React.ReactNode }) {
   return (
     <div className="mb-5">
       <div className="eyebrow mb-3 text-muted">{title}</div>
-      <div className="grid grid-cols-2 gap-x-6 gap-y-3 text-[17px] leading-snug">{children}</div>
+      <div className={cx("grid grid-cols-2 gap-x-6 gap-y-3 text-[17px] leading-snug", narrow && "lg:grid-cols-1")}>{children}</div>
     </div>
   );
 }
