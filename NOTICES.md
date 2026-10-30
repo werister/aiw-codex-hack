@@ -2,7 +2,7 @@
 
 Open problems across main, branches and worktrees. One line each: time (Berlin) | severity | what is wrong | where | who acts. `STOP` breaks main or makes the submission wrong, `FIX` should be fixed before 16:00, `FYI` is worth knowing. Delete a line once it is fixed. Rules: "Cross-checking" in `AGENTS.md`.
 
-Main at 12:16 runs: `python -m pytest ml/tests -q` gives 25 passed, `python -m ml.forecast --day 2026-10-31` prints 48 rows, and `web/` passes lint and build.
+Main at 12:24 runs: `python -m pytest ml/tests -q` gives 25 passed, `python -m ml.forecast --day 2026-10-31` prints 48 rows, and `web/` passes lint and build.
 
 ## STOP
 
@@ -11,14 +11,14 @@ Main at 12:16 runs: `python -m pytest ml/tests -q` gives 25 passed, `python -m m
 
 ## FIX
 
-- 12:16 | FIX | No trained model on main. Every published forecast says `rules-fallback`, and the quality panel shows "missing" because `web/public/data/backtest.json` does not exist | `ml/train.py`, `ml/quality.py`, `ml/models/` untracked in `aiw-wt-ml` (jayden/model) | hk-model2: commit and push
+- 12:16 | FIX | No trained model on main. Every published forecast says `rules-fallback`, and the quality panel shows "missing". The models and `backtest.json` are committed as 5b82df2 (12:15) but not pushed | `aiw-wt-ml` (jayden/model) | hk-model2: push, then regenerate the forecasts
+- 12:24 | FIX | In that backtest the model loses at 1 h: OD accuracy 93.8% vs 96.9% for both rules and persistence (Brier 0.049 vs 0.031). It wins at 6 h and 24 h | `web/public/data/backtest.json` in 5b82df2 | model owner: use persistence for the first hours or blend
 - 12:16 | FIX | `MODEL_CARD.md` does not exist. It is a required deliverable, and the demo path in README and AGENTS.md points to it | repo root | Hugo, Luca (wp6)
 - 12:16 | FIX | The jury test days are not written down anywhere, so nobody can generate them | `openspec/changes/wp4-forecast-cli/tasks.md` 2.3 | Jayden or Hugo: put the dates in README
 - 12:16 | FIX | Open-Meteo 10 m wind at the airport grid cell averages 0.59x the METAR wind (3.97 vs 6.95 kt). On it, the rules never close runway 18 (0.0% of hours vs 0.21% in METAR), so the rules fallback and the rule baseline understate closures | rule features in `ml/features.py`, `ml/forecast.py:68-84` | model owner: bias-correct or use `wind_speed_80m`
 - 12:16 | FIX | Train and serve differ. `hours_since_change` gets the full DFLD history in training but only 48 h in the CLI (NaN if no change in 48 h), and `live.normalize_metar` handles missing values differently from `features.normalize_obs` | `ml/live.py:42,55`, `ml/predict.py:61-64` vs `train.py` in `aiw-wt-ml` | model and cli owners
 - 12:16 | FIX | Two runway 18 truths. The backtest takes the latest METAR up to 2 h old, the hindcast overlay up to 1 h old | `train.py:45-47` in `aiw-wt-ml` vs `ml/forecast.py:173-180` | model and cli owners: pick one
 - 12:16 | FIX | Run commands name modules that are not on main: `ml.labels` exists nowhere and has no owner, `ml.train` is untracked | `README.md` Run, `AGENTS.md` Project, `ml/README.md:8-11`, `ml/predict.py:16` | head lane: drop `ml.labels` or assign it
-- 12:16 | FIX | `weather database/` is off scope: a German analysis of US BTS delay causes. It came from an account not on the team list (`spxtargettracker-design`), its links to `bts/` and `empirical/` point to files that are not in the repo, and the folder name has a space | commits a69c371, baf1a28 | head lane: confirm who this is, move it to a branch
 - 12:16 | FIX | AI vendor names and unused config: both `.env.example` files hold `OPENAI_API_KEY` and `OPENAI_MODEL`, and `web/package.json` lists `openai`, `@openai/agents` and `zod`, which nothing imports | `.env.example`, `web/.env.example`, `web/package.json` | Jayden (web)
 
 ## FYI
@@ -28,6 +28,7 @@ Main at 12:16 runs: `python -m pytest ml/tests -q` gives 25 passed, `python -m m
 - 12:16 | FYI | `latest.json` was issued at 12:00. It will be 5 h old at the 17:00 demo | `web/public/forecasts/latest.json` | cli owner: re-run `--now --out` before 16:00 and before the demo
 - 12:16 | FYI | DFLD ground truth has no extraction script anywhere, so it can't be rebuilt from code. It is cited with URLs and hashes | `data/ground_truth/` | data owner
 - 12:16 | FYI | `origin/codex/condor-research` (Kai) has sources main lacks: DWD 01420 hourly gusts, MOSMIX station 10637, and Fraport's live OD and runway 18 status script, which would suit `--now`. Its README uses a 5 kt rule as the direction rule, which the official brief doesn't | branch `codex/condor-research` | Kai
-- 12:16 | FYI | `origin/jayden/research` and `origin/jayden/data` hold nothing that isn't on main | remote branches | head lane: delete when convenient
+- 12:16 | FYI | `origin/jayden/research`, `origin/jayden/data` and `origin/luca/weather-database` hold nothing that isn't on main | remote branches | head lane: delete when convenient
+- 12:24 | FYI | `weather database/` (from Luca's branch) is a German analysis of US BTS delay causes, outside the runway forecast. Its links to `bts/` and `empirical/` point to files that are not in the repo, and the folder name has a space | `weather database/` | Luca
 - 12:16 | FYI | OpenSpec tasks for wp1, wp5 and wp7 are all unchecked although the work landed. `briefs/hk-cli.md` and `hk-model.md` still say "PUSH IS PAUSED" | `openspec/changes/*/tasks.md`, `briefs/` | head lane
 - 12:16 | FYI | `briefing/brainstorm-268.md:12,35` names a model and an agent account | `briefing/` | head lane
