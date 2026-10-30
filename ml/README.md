@@ -49,6 +49,11 @@ Training uses 6-hourly issues by default, each with all 48 hourly leads, and the
 last six calendar months as expanding walk-forward folds. Change this with
 `--issue-stride` and `--months`. Training labels must end before the fold starts.
 Early stopping is disabled to avoid a random internal validation split.
+OD probabilities blend the classifier with persistence. For each fold, a separate
+fit and the final 60 days of its training period select the blend by Brier score.
+The inner fit excludes labels crossing that validation boundary. Weights are
+selected for lead buckets 1, 2–6, 7–24 and 25–48 hours, then the classifier is
+refitted on the full pre-test history. The held-out month never selects weights.
 Saved monthly fits allow hindcasts to select a model trained before issue time;
 the final fit uses all available targets for future forecasts.
 
@@ -92,6 +97,7 @@ type QualityResult = {
   folds: {
     month: string; train_period: Period; train_target_end: string;
     test_period: Period; train_n: number; test_n: number;
+    od_model_weight: Record<string, number>; od_blend_validation_period: Period;
     in_sample: Scores; out_of_sample: Scores;
   }[];
   in_sample: Scores; out_of_sample: Scores;
@@ -132,3 +138,6 @@ while `test_period` spans all six held-out months. Those summary periods overlap
 because earlier test months become training data in later folds. Each individual
 fold remains separated in time. Inferred runway 18 targets require a METAR no
 more than one hour old, matching the CLI's observed overlay.
+Fold sizes count feature rows, including unlabelled transition-hour targets;
+each score's `n` counts usable labelled targets. Permutation importance measures
+the blended forecast's Brier score on the final held-out month.

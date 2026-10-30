@@ -4,6 +4,7 @@ from functools import lru_cache
 from pathlib import Path
 
 import joblib
+import numpy as np
 
 from ml.features import FEATURES, build_features
 
@@ -36,6 +37,17 @@ def probability(model, features):
     return probabilities[:, classes.index(1)] if 1 in classes else probabilities[:, 0] * 0
 
 
+def od_probability(models, frame):
+    """Blend with persistence using weights selected before each test fold."""
+    p = probability(models["od"], frame[FEATURES])
+    weights = models.get("od_model_weight")
+    if weights is None:
+        return p
+    horizon = np.select([frame.lead_h <= 1, frame.lead_h <= 6, frame.lead_h <= 24], [1, 6, 24], default=48)
+    alpha = np.array([weights[str(lead)] for lead in horizon])
+    return alpha * p + (1 - alpha) * frame.od_at_issue.to_numpy(float)
+
+
 def predict_48h(issue_time_utc, obs, nwp, od_at_issue):
     """Return 48 rows for leads 1..48 after an explicitly zoned issue time.
 
@@ -66,7 +78,7 @@ def predict_48h(issue_time_utc, obs, nwp, od_at_issue):
             history["available_at"] = pd.to_datetime(history.time, utc=True) + pd.Timedelta(hours=1)
     frame = build_features(issue_time_utc, obs, nwp, od_at_issue, history)
     models = models_at_issue(pd.Timestamp(issue_time_utc))
-    frame["p_od25"] = probability(models["od"], frame[FEATURES])
+    frame["p_od25"] = od_probability(models, frame)
     frame["p_18_usable"] = probability(models["r18"], frame[FEATURES])
     frame["r18_label_type"] = "inferred"
     frame.attrs["model_version"] = models["version"]

@@ -75,3 +75,30 @@ def test_change_timing_counts_missed_changes():
     assert result["within_1h"] == result["within_3h"] == 0
     forecast.loc[forecast.lead_h >= 6, "p_od25"] = 0.1
     assert next_change_timing(forecast, actual)["within_1h"] == 1
+
+
+def test_blend_validation_purges_crossing_labels(monkeypatch):
+    import ml.train as training
+
+    class Constant:
+        classes_ = [0, 1]
+
+        def predict_proba(self, features):
+            return np.full((len(features), 2), 0.5)
+
+    issues = pd.date_range("2025-01-01", periods=100, freq="D", tz="UTC")
+    frame = pd.DataFrame([{**{feature: 0 for feature in FEATURES}, "issue_time": issue,
+                            "label_available_at": issue + pd.Timedelta(hours=lead + 1),
+                            "lead_h": lead, "y_od": 1} for issue in issues for lead in (1, 6, 24, 48)])
+    fits = []
+
+    def capture_fit(rows):
+        fits.append(rows)
+        return {"od": Constant(), "r18": Constant()}
+
+    monkeypatch.setattr(training, "fit_classifiers", capture_fit)
+    models = training.fit(frame)
+    validation_start = frame.issue_time.max() - pd.Timedelta(days=60)
+    assert fits[0].label_available_at.max() < validation_start
+    assert fits[1] is frame
+    assert pd.Timestamp(models["od_blend_validation_period"]["start"]) >= validation_start
