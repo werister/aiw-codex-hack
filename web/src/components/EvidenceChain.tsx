@@ -97,8 +97,8 @@ export function EvidenceChain({
       summary: planHeadline(plan),
       rows: [
         ["Window", planWindow(plan)],
-        [probLabel(plan), `${pct(plan.p)} likely`],
-        ["Certainty", `${plan.certainty}/100. ${CERTAINTY_DEF}`],
+        [probLabel(plan), plan.kind === "hold" && !plan.hasHours ? "Unavailable" : pct(plan.p)],
+        [plan.kind === "hold" ? "Lowest supplied certainty score" : "Certainty at event hour", `${plan.kind === "hold" && !plan.hasHours ? "Unavailable" : `${plan.certainty}/100`}. ${CERTAINTY_DEF}`],
         ["Traffic", "demand data unavailable"],
         ["Policy", PLAN_POLICY],
       ],
@@ -125,7 +125,7 @@ export function EvidenceChain({
       <div className="mb-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-[15px]">
         <span>
           <span className="text-muted">Recommendation for </span>
-          {planHour ? `${dayLabel(planHour.local)} ${hhmm(planHour.local)}` : "the next 48 h"}
+          {planHour ? `${dayLabel(planHour.local)} ${hhmm(planHour.local)}` : "the supplied forecast coverage"}
         </span>
         <span className={cx(!atPlan && "font-medium")}>
           <span className="text-muted">Inspecting </span>
@@ -165,7 +165,8 @@ export function EvidenceChain({
         ))}
       </ol>
       <p className="mt-4 text-[13px] text-muted">
-        Every value comes from this forecast file. Tap an hour in the timeline to follow it here.
+        Values come from this forecast file. Features, model and rules, and forecast follow the selected hour;
+        the planning response summarizes the earliest supplied event or the available coverage.
       </p>
     </Panel>
   );

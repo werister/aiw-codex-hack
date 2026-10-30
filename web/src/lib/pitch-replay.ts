@@ -11,7 +11,11 @@ export interface ReplayScore {
 export interface RecordedOpposite {
   time: string;
   od: OD;
+  /** Last post-issue recorded hour still matching current_od, if available. */
+  previousMatchingTime: string | null;
 }
+
+export type PreparationTimingStatus = "before-recorded-change-interval" | "late" | "unknown" | "insufficient-lead";
 
 export interface PlanningEvent {
   kind: "direction" | "runway18";
@@ -75,7 +79,11 @@ export function scoreReplay(f: ForecastResponse): ReplayScore {
   return result;
 }
 
-/** Earliest recorded OD that differs from the issued operating direction. */
+/**
+ * Find the first post-issue recorded OD that differs from the issue direction.
+ * The preceding matching sample bounds the possible switch; neither endpoint
+ * is asserted to be the exact transition time.
+ */
 export function firstRecordedOpposite(f: ForecastResponse): RecordedOpposite | null {
   if (!Array.isArray(f.observed) || !isTime(f.issued_at) || !isOD(f.current_od)) return null;
   const issueTime = Date.parse(f.issued_at);
@@ -88,12 +96,46 @@ export function firstRecordedOpposite(f: ForecastResponse): RecordedOpposite | n
     byTime.set(row.time, values);
   }
 
-  const first = [...byTime.entries()]
+  const sorted = [...byTime.entries()]
     .filter(([, values]) => uniqueValues(values) !== null)
-    .sort(([a], [b]) => Date.parse(a) - Date.parse(b))
-    .find(([, values]) => uniqueValues(values) !== f.current_od);
+    .sort(([a], [b]) => Date.parse(a) - Date.parse(b));
+  const firstIndex = sorted.findIndex(([, values]) => uniqueValues(values) !== f.current_od);
+  if (firstIndex < 0) return null;
 
-  return first ? { time: first[0], od: uniqueValues(first[1])! } : null;
+  const [time, values] = sorted[firstIndex];
+  const previousMatching = sorted
+    .slice(0, firstIndex)
+    .reverse()
+    .find(([, priorValues]) => uniqueValues(priorValues) === f.current_od);
+  return {
+    time,
+    od: uniqueValues(values)!,
+    previousMatchingTime: previousMatching?.[0] ?? null,
+  };
+}
+
+/** Compare a scenario review deadline with the available hourly OD evidence. */
+export function preparationTimingStatus(
+  issuedAt: string,
+  reviewAt: string,
+  opposite: RecordedOpposite | null,
+): PreparationTimingStatus {
+  if (!isTime(issuedAt) || !isTime(reviewAt)) return "unknown";
+  const issueMs = Date.parse(issuedAt);
+  const reviewMs = Date.parse(reviewAt);
+  if (reviewMs < issueMs) return "insufficient-lead";
+  if (!opposite || !isTime(opposite.time)) return "unknown";
+
+  const firstDifferentMs = Date.parse(opposite.time);
+  // A review at/after the first differing recorded hour is late even when
+  // the historical coverage has no earlier matching sample to bound the gap.
+  if (reviewMs >= firstDifferentMs) return "late";
+  if (!opposite.previousMatchingTime || !isTime(opposite.previousMatchingTime)) return "unknown";
+
+  const previousMatchingMs = Date.parse(opposite.previousMatchingTime);
+  if (firstDifferentMs <= previousMatchingMs) return "unknown";
+  if (reviewMs <= previousMatchingMs) return "before-recorded-change-interval";
+  return "unknown";
 }
 
 /** Earliest forecast direction-change window or Runway 18 closure after issue time. */
@@ -132,6 +174,20 @@ export function formatPitchTime(utcISO: string): string {
     month: "2-digit",
     hour: "2-digit",
     minute: "2-digit",
+    hourCycle: "h23",
+  }).format(new Date(utcISO));
+}
+
+/** Format a Berlin timestamp with its UTC offset so repeated DST hours differ. */
+export function formatPitchTimeWithOffset(utcISO: string): string {
+  if (!isTime(utcISO)) return "—";
+  return new Intl.DateTimeFormat("de-DE", {
+    timeZone: "Europe/Berlin",
+    day: "2-digit",
+    month: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZoneName: "shortOffset",
     hourCycle: "h23",
   }).format(new Date(utcISO));
 }

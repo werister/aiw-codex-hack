@@ -42,7 +42,8 @@ export function QualityPanel() {
       </p>
       <dl className="mt-5 flex flex-wrap gap-x-10 gap-y-3 text-[15px]">
         <Fact k="Held-out months" v={`${months.length} · ${months[0]} to ${months[months.length - 1]}`} />
-        <Fact k="Changes timed within ±3 h" v={`${Math.round(q.next_change.within_3h * 100)}% (±1 h: ${Math.round(q.next_change.within_1h * 100)}%)`} />
+        <Fact k="Changes timed within ±3 h" v={`${measuredRate(q.next_change.within_3h)} (±1 h: ${measuredRate(q.next_change.within_1h)})`} />
+        <Fact k="False alarms in no-change windows" v={measuredRate(q.next_change.false_alarm_rate)} />
         <Fact k="Recorded hours matching the rules" v={`${Math.round(q.rule_label_comparison.agreement * 100)}%`} />
       </dl>
 
@@ -68,10 +69,14 @@ export function QualityPanel() {
             <li key={l}>{l}</li>
           ))}
         </ul>
-        <p className="mt-2">Runway 18 labels are {q.r18_label_type}: no public record of weather closures exists.</p>
+        <p className="mt-2">Runway 18 labels are {q.r18_label_type}; this evaluation supplies no actual operational closure history.</p>
       </details>
     </Panel>
   );
+}
+
+function measuredRate(value: number | null | undefined) {
+  return typeof value === "number" && Number.isFinite(value) ? `${Math.round(value * 100)}%` : "Unavailable";
 }
 
 function Fact({ k, v }: { k: string; v: string }) {

@@ -50,3 +50,16 @@
 - [ ] 7.1 Verify latest and hindcast day selection, keyboard/touch drilldown, change/closure display and backtest evidence at laptop/iPad widths
 - [ ] 7.2 Verify missing/malformed files, absent reference rows, null change, closures continuing after hour 48, index failure, overlapping requests and Berlin daylight-saving repeated hours
 - [ ] 7.3 Confirm every displayed value comes from the selected payload, no simulated feed appears live, and recorded, inferred and unknown references remain correctly labelled per target
+
+## 8. Approved preparation and handover refinement
+
+- [ ] 8.1 Show simultaneous direction/runway-18 event tracks, later hourly transitions, selectable source hours and honest partial/open-ended coverage in cockpit and widget; correct marginal-probability and issue-time labels.
+- [ ] 8.2 Add deterministic selected-six-hour handover, runway-18 restrictions and model/rule comparison with source context, clipboard feedback and partial/DST handling.
+- [ ] 8.3 Compare historical preparation scenarios with recorded-state evidence without exact switch-time or operational-benefit claims; add a separately labelled synthetic runway-18 restriction example excluded from evaluation.
+- [ ] 8.4 Run focused logic tests, typecheck, targeted lint, build and cockpit/widget/pitch browser walkthrough; record results and remaining practitioner-validation limits.
+
+## 9. Approved planning-priority selection
+
+- [ ] 9.1 Produce fixed planning candidates and two perspective selections from pre-outcome forecast evidence; provide validated API answers, deterministic fallback, single-candidate bypass and exact artifact binding.
+- [ ] 9.2 Integrate the saved review into the cockpit with perspective selection, source-hour navigation, preparation-time scenarios and explicit unavailable/fallback/provenance states.
+- [ ] 9.3 Verify producer/browser contracts, failure cases, the two approved live-test forecasts, rendered interaction and build compatibility; document measured results and operational-evaluation limits.

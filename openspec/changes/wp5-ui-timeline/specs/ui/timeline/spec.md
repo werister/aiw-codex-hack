@@ -5,6 +5,39 @@ Show the 48 h forecast, its certainty and the next change at a glance, on a lapt
 
 ## ADDED Requirements
 
+### Requirement: Preparation overview retains both forecast risks
+The UI SHALL show operating-direction changes and runway-18 restriction periods together, including additional transitions derivable from supplied hourly states. It SHALL support selecting each event's source hour, preserve only supplied change windows, label hourly marginal probabilities accurately, and distinguish issue-time references from first-hour predictions. Unvalidated operational firmness and joint no-change probability claims SHALL NOT be shown.
+
+#### Scenario: Direction change and runway restriction overlap
+- **WHEN** a forecast contains both risks in the same or different hours
+- **THEN** both remain visible and selectable, and an earlier event does not hide the later one
+
+#### Scenario: Restriction or coverage ends without a known reopening
+- **WHEN** the last available hour is restricted or the supplied hours have a gap
+- **THEN** the overview identifies the coverage limit and does not invent continuous availability or reopening
+
+### Requirement: Handover answers use a bounded forecast window
+The forecast guide SHALL offer a deterministic briefing, runway-18 restriction summary and separate direction/runway-18 model-rule comparison for the selected hour and up to five following consecutive UTC hours. Answers SHALL include issuance, actual coverage and supplied provenance; a copy action SHALL report success or failure. Unsupported questions SHALL NOT create new operational recommendations.
+
+#### Scenario: The selected window crosses a clock change
+- **WHEN** two UTC hours share a Berlin clock time
+- **THEN** the guide preserves both hours and identifies their offsets rather than losing or duplicating an hour
+
+#### Scenario: Fewer than six consecutive hours remain
+- **WHEN** the forecast ends or has a gap before the window is complete
+- **THEN** the answer states the actual coverage and does not extrapolate missing hours
+
+### Requirement: Preparation demonstrations preserve evidence boundaries
+The historical replay SHALL compare a user-entered preparation scenario with available recorded-state timing without asserting an exact transition time or validated operational benefit. A synthetic runway-18 restriction demonstration SHALL be distinct from historical forecasts, derive its states from the challenge weather rules, display its synthetic status, and contribute no observations or evaluation scores.
+
+#### Scenario: Review time follows the first recorded opposite direction
+- **WHEN** the scenario's calculated review time is later than an available recorded opposite-direction label
+- **THEN** the replay identifies that the changed state was already recorded by then, without presenting the scenario as successful preparation
+
+#### Scenario: Jury opens the runway-18 illustration
+- **WHEN** the synthetic weather-rule case is displayed
+- **THEN** the restriction and conditional preparation time are explained while the case remains excluded from historical results and aggregate 1/6/24-hour evidence
+
 ### Requirement: Timeline shows every deliverable
 The timeline SHALL show, for each of the 48 hours, the OD, P(runway 18 usable) and the certainty, and SHALL highlight the next likely change time.
 
@@ -179,3 +212,18 @@ The UI SHALL display WP8 data sources, walk-forward folds, in/out-of-sample resu
 #### Scenario: Only the existing backtest artifact is available
 - **WHEN** `backtest.json` is valid but `quality.json` or its agreed contract is absent
 - **THEN** the UI shows the existing backtest metrics and marks the additional WP8 evidence unavailable without claiming measured calibration or walk-forward validation
+
+### Requirement: Planning priorities select only supported forecast issues
+The cockpit SHALL offer ground-operations and forecast-review perspectives using a saved selection from fixed forecast-derived candidates. The selection SHALL NOT modify weather probabilities or use later observed outcomes. Candidate titles, actions, source hours and preparation arithmetic SHALL be deterministic. An API error or refusal SHALL produce a labelled fallback; a single candidate SHALL need no external selection. The viewer SHALL require an exact match to the selected forecast's pre-outcome basis. Historical reviews SHALL be identified as newly generated from saved evidence, and selection confidence SHALL remain distinct from weather probability and measured accuracy.
+
+#### Scenario: Review before preparation
+- **WHEN** a model/rule disagreement precedes a predicted direction change
+- **THEN** both issues are eligible for selection, and the user can inspect the selected issue's source hour without losing the other forecast events
+
+#### Scenario: Forecast regenerated after review
+- **WHEN** forecast values or source metadata no longer match the saved review
+- **THEN** the viewer shows the review as unavailable with retry while preserving the forecast
+
+#### Scenario: Conditional preparation time
+- **WHEN** a preparation candidate is shown and the user supplies a duration
+- **THEN** the viewer subtracts the duration in UTC, displays Berlin time, identifies insufficient lead from issuance and labels the result as a scenario rather than an operational deadline

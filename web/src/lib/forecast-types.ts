@@ -135,7 +135,7 @@ export interface QualityResult {
   in_sample: { od: SkillAtLead[]; r18: SkillAtLead[] };
   out_of_sample: { od: SkillAtLead[]; r18: SkillAtLead[] };
   reliability: { od: ReliabilityBin[]; r18?: ReliabilityBin[] };
-  next_change: { within_1h: number; within_3h: number; false_alarm_rate: number; n_actual_change_windows: number };
+  next_change: { within_1h: number | null; within_3h: number | null; false_alarm_rate: number | null; n_actual_change_windows: number };
   rule_label_comparison: { n: number; agreement: number };
   data_sources: { name: string; url: string; file?: string }[];
   limitations: string[];

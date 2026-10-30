@@ -1,6 +1,13 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { firstRecordedOpposite, formatPitchTime, planningEvent, scoreReplay } from "./pitch-replay.ts";
+import {
+  firstRecordedOpposite,
+  formatPitchTime,
+  formatPitchTimeWithOffset,
+  planningEvent,
+  preparationTimingStatus,
+  scoreReplay,
+} from "./pitch-replay.ts";
 
 function hour(time, od, rule_od = od, local = time.slice(0, 16)) {
   return { time, local, od, rule_od };
@@ -93,7 +100,38 @@ test("returns the earliest recorded opposite OD after issue time, not an exact t
     ],
   });
 
-  assert.deepEqual(firstRecordedOpposite(f), { time: "2026-10-28T03:00:00Z", od: "07" });
+  assert.deepEqual(firstRecordedOpposite(f), {
+    time: "2026-10-28T03:00:00Z",
+    od: "07",
+    previousMatchingTime: "2026-10-28T02:00:00Z",
+  });
+});
+
+test("preparation comparison keeps an hourly transition gap bounded", () => {
+  const transition = {
+    time: "2026-10-28T03:00:00Z",
+    od: "07",
+    previousMatchingTime: "2026-10-28T02:00:00Z",
+  };
+
+  assert.equal(preparationTimingStatus("2026-10-27T23:00:00Z", "2026-10-28T01:59:00Z", transition), "before-recorded-change-interval");
+  assert.equal(preparationTimingStatus("2026-10-27T23:00:00Z", "2026-10-28T02:30:00Z", transition), "unknown");
+  assert.equal(preparationTimingStatus("2026-10-27T23:00:00Z", "2026-10-28T03:00:00Z", transition), "late");
+  assert.equal(preparationTimingStatus("2026-10-27T23:00:00Z", "2026-10-27T22:59:00Z", transition), "insufficient-lead");
+});
+
+test("partial direction coverage without a prior matching sample stays unknown", () => {
+  const f = forecast({ observed: [{ time: "2026-10-28T03:00:00Z", od: "07", r18_usable: true }] });
+  const transition = firstRecordedOpposite(f);
+
+  assert.deepEqual(transition, {
+    time: "2026-10-28T03:00:00Z",
+    od: "07",
+    previousMatchingTime: null,
+  });
+  assert.equal(preparationTimingStatus(f.issued_at, "2026-10-28T01:00:00Z", transition), "unknown");
+  assert.equal(preparationTimingStatus(f.issued_at, "2026-10-28T03:00:00Z", transition), "late");
+  assert.equal(preparationTimingStatus(f.issued_at, "2026-10-28T01:00:00Z", null), "unknown");
 });
 
 test("chooses the earliest planning event and maps the local window to its forecast UTC hour", () => {
@@ -144,4 +182,13 @@ test("falls back when an autumn clock-change local hour maps to two UTC hours", 
 test("formats UTC timestamps in Berlin local day, month, hour, and minute", () => {
   assert.equal(formatPitchTime("2026-10-28T00:00:00Z"), "28.10., 01:00");
   assert.equal(formatPitchTime("not-a-time"), "—");
+});
+
+test("formats the repeated Berlin clock hour with distinct UTC offsets", () => {
+  const summerTime = formatPitchTimeWithOffset("2026-10-25T00:00:00Z");
+  const standardTime = formatPitchTimeWithOffset("2026-10-25T01:00:00Z");
+
+  assert.match(summerTime, /02:00/);
+  assert.match(standardTime, /02:00/);
+  assert.notEqual(summerTime, standardTime);
 });

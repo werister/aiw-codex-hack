@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import type { OD } from "@/lib/forecast-types";
+import type { HourForecast, OD } from "@/lib/forecast-types";
 
-type SceneState = { od: OD; r18Open: boolean; wind?: { dir: number; kt: number } };
+type SceneState = { od: OD; r18Open: boolean; wind?: { dir: number; kt: number }; forecastHour?: Pick<HourForecast, "time" | "local" | "lead_h" | "p_18_usable" | "certainty"> };
 type Theme = "light" | "tower";
 type Scene = { setState: (s: SceneState) => void; destroy: () => void };
 
