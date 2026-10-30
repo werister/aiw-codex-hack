@@ -20,11 +20,16 @@ It is built for tower and apron staff: one planning recommendation first, the ev
 ## Data (public)
 - Recorded operating directions from DFLD.de, 2018 to 2026, half-hourly.
 - EDDF METAR from the Iowa Environmental Mesonet.
-- Archived ECMWF, GFS and ICON wind forecasts, as they were issued 1–3 days ahead, from Open-Meteo.
+- Archived ECMWF, GFS and ICON wind forecasts and pressure differences, as they were issued 1–3 days ahead, from Open-Meteo.
 - The official FraAlliance rules as the baseline.
 
-## Quality (held out, walk-forward, six-hour publication lag)
-Operating direction at 6 / 24 / 48 h: model 90.7 / 89.6 / 84.9%, official rules 86.3 / 86.3 / 82.5%, keep-current 88.3 / 76.3 / 65.9%. The model's Brier score is 40–60% better than either baseline. [final numbers at 15:30]
+## Quality (12 held-out months, walk-forward, six-hour publication lag)
+Operating direction at 1 / 6 / 24 / 48 h:
+- **model:** 96.0 / 92.8 / 91.7 / 89.2%
+- **official rules:** 95.9 / 88.1 / 87.7 / 84.0%
+- **keep-current:** 95.9 / 88.8 / 75.1 / 64.2%
+
+From 6 h the model is significantly better than both baselines (McNemar and Diebold-Mariano, p < 10⁻⁵), with a Brier score about half the rules'. Runway 18 is inferred from METAR and still weak: 3 of 24 closure events caught at 24 h, with no false alarms.
 
 ## Jury test days
 `python -m pip install -r ml/requirements.txt`, then `python -m ml.forecast --day YYYY-MM-DD` (add `--json` for machine-readable output). Forecasts for the jury days: `web/public/forecasts/<day>.json`.

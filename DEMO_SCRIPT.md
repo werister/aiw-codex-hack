@@ -23,7 +23,7 @@ Click the hour just before the change. Then click **Show evidence**.
 
 ## 1:20 · Is it any good? (25 s)
 Scroll to **Model quality**.
-> "Tested on six months the model never saw. At 6 hours it beats the official rules by 4 points and keep-current by 2. At 24 hours it's 89.6% against 86.3% and 76.3%. When it says 85%, it happens 85% of the time." [update the numbers at 15:30]
+> "Tested on twelve months the model never saw. From 6 hours ahead it beats FraAlliance's own rules by 4 to 5 points and keeping the current direction by up to 25, and that's statistically significant. At 48 hours it's 89% against 84% and 64%. When it says 85%, it happens 85% of the time, and when it's unsure, it says so."
 
 ## 1:45 · Close (15 s)
 Click **iPad widget** (top right).
