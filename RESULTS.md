@@ -59,6 +59,66 @@ Each lead has about 1,340 to 1,420 forecasts over about 350 test days.
 
 Details: `MODEL_CARD.md`, `EXPERIMENTS.md`, `briefing/weather-database-review-response.md` (reviewer cautions).
 
-## Economic value
+## Economic value (illustrative estimate)
 
-Being researched now: an illustrative estimate from public unit costs, not measured savings. This section will be filled in shortly.
+**This is an illustrative estimate from public unit costs, not measured FRA savings.** No public source gives a cost per operating-direction change at FRA. Every FRA-specific number below is either an assumption (marked *A*) or one of our own results.
+
+### Inputs
+
+| Input | Value | Source |
+|---|---|---|
+| Airline cost of tactical delay, incl. knock-on (at gate, 2022 €) | €45/min for delays under 30 min; €166/min across all delays | [EUROCONTROL Standard Inputs 10.0.2, cost of delay](https://ansperformance.eu/economics/cba/standard-inputs/latest/chapters/cost_of_delay.html) |
+| Network average cost of ATFM delay | €100/min ("a high-level average… use with considerable caution") | same; [Univ. of Westminster v4.1, Table 30](https://www.eurocontrol.int/sites/default/files/publication/files/european-airline-delay-cost-reference-values-final-report-4-1.pdf) |
+| Airline hard cost per delayed passenger (rebooking, care, compensation), 2010 € | €52 / €173 / €525 per misconnected passenger (2 h / 3 h / 5 h) | [Westminster v4.1, Table 17](https://www.eurocontrol.int/sites/default/files/publication/files/european-airline-delay-cost-reference-values-final-report-4-1.pdf) |
+| EU261 | €250/400/600, but weather counts as an extraordinary circumstance, so compensation is usually not owed. Care and rerouting are still owed. | [Your Europe, air passenger rights](https://europa.eu/youreurope/citizens/travel/passenger-rights/air/index_en.htm) |
+| Throughput loss around a direction change (Singapore Changi, one day with 10 changes) | Throughput drops 10–15 min before the change. Losses run from 3–6 movements/h for 30–45 min up to 8–15 movements/h for 45–60 min. Planned metering cut overload by 81% in simulation. | [Asadi, Enea, Alam, Schultz, SESAR Innovation Days 2025](https://www.unibw.de/lvk-en/publications/2025_implications_of_runway_direction_changes) |
+| Value of better configuration decisions | 20–30% congestion-cost saving against heuristics that mimic practice (JFK model) | [Jacquillat, Odoni, Webster 2017](https://dspace.mit.edu/handle/1721.1/102975) |
+| Lead time ATC needs | 10–15 min is enough to reschedule arrivals, so the 24–48 h value lies in planning (rosters, equipment, buffers, connections), not in the tower | [Zelinski, NASA/AIAA 2014](https://ntrs.nasa.gov/api/citations/20180004219/downloads/20180004219.pdf) |
+| Benchmark | Best entry in NASA's US configuration challenge caught 41% of changes 2 h ahead, at 49% precision | [NASA challenge](https://www.drivendata.org/competitions/89/competition-nasa-airport-configuration/) |
+| Prior work at FRA | The national weather service already built a probabilistic wind forecast and decision support for the FRA direction choice | [DWD, DACH 2019](https://meetingorganizer.copernicus.org/DACH2019/DACH2019-189.pdf) |
+
+### Scenario (per year, 24 h lead, about 156 changes/yr)
+
+Value per change: **V = D·s·c + M·p + H·w**
+
+| Term | Low | Mid | High |
+|---|---|---|---|
+| D: aircraft delay minutes per change (*A*, scaled from Changi) | 50 | 200 | 600 |
+| s: share of D avoidable with 24 h notice (*A*; 81% from Changi is the ceiling) | 10% | 25% | 50% |
+| c: €/min | 45 | 100 | 166 |
+| M: misconnections avoided per change (*A*) × p: €/passenger | 0 × 52 | 10 × 173 | 40 × 525 |
+| H: handling staff-hours saved (*A*) × w: €40/h (*A*) | 0 | 20 h | 60 h |
+| **V per change** | **€225** | **€7,530** | **€73,200** |
+| **A. vs persistence:** 156 × (0.82 − 0.28) = **84 more changes anticipated** × V | €19k | **€0.63M** | €6.1M |
+| B1. vs rules: 156 × (0.82 − 0.80) = 3 more changes anticipated × V | €0.7k | €23k | €220k |
+| B2. vs rules: 8,760 h × (0.917 − 0.877) = **350 fewer hours planned for the wrong direction** × €50 / €200 / €1,000 per hour (*A*) | €18k | €70k | €350k |
+| **B. vs rules, total** | **≈€18k** | **≈€93k** | **≈€570k** |
+
+At 48 h the picture is similar: 76 more changes anticipated than persistence, about 5 more than the rules, and about 455 fewer wrong-direction hours.
+
+### What this means
+
+- **Against "assume nothing changes",** 24 h foresight is worth about **€0.6M a year** in the central case. The range runs from €19k to €6M because nobody has published what one FRA change costs.
+- **Against the official rules on the same forecast,** the central case is about **€0.1M a year**. About three quarters comes from better-calibrated probabilities, roughly 350 fewer hours a year planned for the wrong direction, not from extra changes caught.
+- **The realistic baseline sits in between.** FRA already uses weather forecasts and decision support, so the rules comparison is the honest, conservative number.
+- **The value comes from planning:** rosters, equipment positioning, schedule buffers and protecting connections. ATC itself needs only minutes of notice.
+
+### Caveats and data needed to measure it
+
+- **Assumptions:** D, s, M, H and w are assumed. Changi is not FRA. EUROCONTROL's unit costs are indicators. Price years are mixed and not inflated. Weather delays usually trigger no EU261 compensation, so only hard costs are counted and passenger time is excluded.
+- **At 6 h the rules catch more changes** (76% vs 62%), so use the rules at short lead and the model at 24–48 h. No value is claimed for runway 18.
+- **False alarms** (about 20 a year) would reduce scenario A by €0 / €16k / €48k. This deduction is not applied above.
+- **Threshold mismatch:** the airport's public page describes a lower tailwind threshold than the official brief (≥10 kt). We use the brief.
+- **Data needed for the real saving:**
+  - time-stamped direction changes, with decision and announcement times
+  - hourly demand and capacity per direction
+  - flight-level delay by cause around each change
+  - hourly misconnection counts from hub control
+  - handling rosters and equipment moves on change days
+  - a comparison of change days with and without a 24 h warning
+
+### Pitch lines
+
+1. "Frankfurt changes operating direction about 156 times a year. 24 hours ahead, our model anticipates 82% of those changes, against 28% if you assume today's direction holds."
+2. "Using EUROCONTROL's public delay costs and stated assumptions, that is worth an illustrative €0.1M a year against the official rules and €0.6M against no forecast, in central scenarios. This is an estimate, not a measured FRA saving."
+3. "Compared with the official rules, it catches about as many changes, but its probabilities are about half as wrong. That means fewer hours planned for the wrong direction, and FraAlliance data would let us measure the real saving."
