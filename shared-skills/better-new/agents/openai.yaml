@@ -1,0 +1,4 @@
+interface:
+  display_name: "Better New"
+  short_description: "Findet belegte Chancen für neue Produktfunktionen."
+  default_prompt: "Nutze $better-new, um neue Produktchancen aus den verfügbaren Belegen zu finden."

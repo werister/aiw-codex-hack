@@ -1,0 +1,7 @@
+interface:
+  display_name: "Better"
+  short_description: "Vertieft eine Aufgabe, ohne ihren Umfang zu vergrößern."
+  default_prompt: "Nutze $better, um diese Aufgabe fundierter, aber nicht umfangreicher neu zu formulieren."
+
+policy:
+  allow_implicit_invocation: false

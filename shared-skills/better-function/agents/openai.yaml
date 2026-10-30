@@ -1,0 +1,4 @@
+interface:
+  display_name: "Better Function"
+  short_description: "Verbessert eine benannte Produktfunktion ganzheitlich."
+  default_prompt: "Nutze $better-function, um diese benannte Funktion anhand der Belege durchgängig zu verbessern."
