@@ -17,7 +17,7 @@ Source of every number: `web/public/data/quality.json` (walk-forward-v5) on main
 1. **89.2% correct 48 h ahead**, against 84.0% for the official rules and 64.2% for "same as now". That's +5.2 points over the rules [95% CI +3.2 to +7.1] and +25.0 over persistence.
 2. **91.7% correct 24 h ahead**, against 87.7% for the rules and 75.1% for persistence: +4.0 over the rules [+2.4 to +5.6] and +16.6 over persistence [+13.4 to +19.6].
 3. **About 50% better probabilities than the rules at every lead from 6 to 48 h.** Brier score 0.053 vs 0.119 at 6 h, 0.063 vs 0.123 at 24 h, 0.082 vs 0.160 at 48 h. The certainty score means something.
-4. **82 to 83% of real direction changes are seen 24 to 48 h ahead.** "Same as now" sees 28 to 34%, and the rules 80%.
+4. **When the direction will be different 24 to 48 h later, the model predicts the new direction in 82 to 83% of those hours.** "Same as now" gets 28 to 34% of them, and the rules 80%. Counted as events: 115 of 193 direction changes caught within ±3 h.
 5. **Significant at every lead from 6 to 48 h,** against both baselines. McNemar and Diebold-Mariano both give p < 0.001.
 
 ## Full table (operating direction, held-out)
@@ -85,7 +85,7 @@ Details: `MODEL_CARD.md`, `EXPERIMENTS.md`, `briefing/weather-database-review-re
 2. **Airline cost** of all change-related delay at €45 / **€100** / €166 per minute (EUROCONTROL Standard Inputs): **€0.74M / €4.2M / €14M a year**.
 3. **Share avoidable with 24 h notice** (*A*): 10 / 25 / 40%. That's anchored on a 20 to 30% congestion-cost saving from better configuration control at JFK, with the 81% Changi simulation as the ceiling.
 4. **Changes our forecast anticipates better:**
-   - against "same as now": 84 more a year at 24 h (82% vs 28% of 156)
+   - against "same as now": about 1,450 fewer wrong-direction planning hours a year at 24 h ((0.917 − 0.751) × 8,760), the equivalent of about 75 changes
    - against the rules: about 350 fewer wrong-direction hours a year, the equivalent of about 18 changes. That's 19.4 wrong planning hours per missed change, derived from our own results.
 5. **Which baseline applies where:**
    - 24 to 48 h rostering, equipment, stands and connection protection: planners largely plan as if nothing changes, so persistence applies (still to be verified).
@@ -121,6 +121,6 @@ Details: `MODEL_CARD.md`, `EXPERIMENTS.md`, `briefing/weather-database-review-re
 
 ### Pitch lines
 
-1. "Frankfurt changes direction about 156 times a year. 24 hours ahead, our model anticipates 82% of those changes, against 28% if planners assume today's direction holds."
+1. "Frankfurt changes direction about 156 times a year. A day ahead, our plan is in the wrong direction for about 1,450 fewer hours a year than planning as if nothing changes, and about 350 fewer than with the official rules."
 2. "Estimated value: about €0.4M a year at Frankfurt (range €0.13M to €3.2M), plus a similar amount in passengers' time. Based on EUROCONTROL delay costs and published studies of runway direction changes."
 3. "Against the official rules it catches about as many changes but has the right direction for about 350 more hours a year, and FraAlliance's change logs would let us measure what that is worth."
