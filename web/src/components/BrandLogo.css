@@ -1,0 +1,28 @@
+.lift-off-logo {
+  position: relative;
+  display: block;
+  flex-shrink: 0;
+  width: 140px;
+  aspect-ratio: 1584 / 408;
+  overflow: hidden;
+}
+
+/* Frame the approved artwork without its transparent export margins. */
+.lift-off-logo__image {
+  position: absolute;
+  width: calc(100% * 2172 / 1584);
+  max-width: none;
+  height: auto;
+  left: calc(-100% * 336 / 1584);
+  top: calc(-100% * 152 / 408);
+}
+
+[data-theme="tower"] .lift-off-logo__image {
+  filter: brightness(0) invert(1);
+}
+
+@media (min-width: 640px) {
+  .lift-off-logo {
+    width: 160px;
+  }
+}

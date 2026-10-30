@@ -1,5 +1,15 @@
 # Design tokens
 
+## Product identity
+
+The product is **Lift-off**. Its approved runway wordmark lives at
+`public/brand/lift-off-runway.png` and is shared by the cockpit, widget and pitch
+through `src/components/BrandLogo.tsx`. The component frames the artwork inside
+the transparent export margins. It uses the original indigo/violet on light
+surfaces and a white monochrome treatment in tower mode.
+
+## Interface palette
+
 The UI follows FraAlliance's public website. All brand values come from one stylesheet, `https://www.fraalliance.de/assets/dist/assets/index.c0b57268.css` (called "brand CSS" below), read on 30 Oct 2026. We copy no logo, photo or copy from their site. The name FraAlliance appears as plain text only.
 
 Their brand is light, so light is the default. Tower mode is a dark variant for dim rooms, built from their own dark scheme.
