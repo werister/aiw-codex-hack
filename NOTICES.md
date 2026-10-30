@@ -10,7 +10,6 @@ Main at 14:00 runs: `python -m pytest ml/tests -q` gives 52 passed, `python -m m
 
 ## FIX
 
-- 13:25 | FIX | The refreshed airport exports fail the independent verifier: aircraft-narrowbody.glb measures 5,000 x 5,000 m instead of a 37.6 m aircraft. The saved scene report also records terminal/runway and aircraft/terminal overlaps. Publication is explicitly requested; these checks remain failed | `tools/blender/verify_assets.py`, `assets/airport/verification.json` | airport asset owner: repair exported scene selection and rerun checks
 
 
 - 12:17 | FIX | Archived offset inputs bypass explicit `issued_at`/`retrieved_at` filtering: a fixture issued at T+2h is accepted for all 48 forecast rows at T despite the function contract | `ml/features.py:43-58` | model owner: enforce explicit availability metadata on archived inputs too
@@ -28,7 +27,12 @@ Main at 14:00 runs: `python -m pytest ml/tests -q` gives 52 passed, `python -m m
 
 ## FYI
 
-- 13:15 | FYI | Blender lane owns `tools/blender/` and `assets/airport/` through final spatial/playback checks; source scripts are already copied identically, replacing only stale intermediate media with the completed render. Preserved prior main media in `/tmp/fra-main-preserved-1315`. Do not stage these paths until verification is passed. OpenSpec CLI is unavailable; no spec artifacts changed | shared main | Blender lane
+- 13:30 | FYI | Airport rebuild from shared main now passes all 9 GLB reimports, 1440-frame hull clearance/state/end-point checks, same-height surface checks and 3530 ground-position raycasts; verification.json hashes match current .blend and GLBs. Old-worktree media are stale; use main only. Motion preview is under separate validation | assets/airport/verification.json | Blender lane
+
+- 13:29 | FYI | Publishing checkpoint: finish only the currently running airport rebuild and logo checks, then stop all source writes until the integration coordinator completes fetch/rebase/push. The user explicitly requests all work on main and publication; do not start another change during this checkpoint | shared main | all active file owners
+
+- 13:31 | FYI | At 320 px, the widget recommendation's “Demand data unavailable” text overflows the viewport; its logo/header fits. Reproduced during branding verification | `web/src/components/Recommendation.tsx` via `/widget` | web owner: allow the compact traffic field to wrap
+
 
 - 13:20 | FYI | `weather database/` is down to 5.7 MB on main after dfc3c5e moved the PDFs and the BTS zip to Luca's branch. It is still outside the runway forecast and has a space in its name | `weather database/` | cleanup agent at the end
 - 14:00 | FYI | October midnight issues: persistence still beats the model at 1-6 h (now 83.0% for the model; at lead 1 it is 86.2% vs 100%, n=29). The model card states it | `web/public/data/october.json` | model lane
