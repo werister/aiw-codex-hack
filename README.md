@@ -66,6 +66,18 @@ cd web && npm install && npm run dev            # http://localhost:3000
 
 Some of these commands land during the day. Each work package says when its part is ready.
 
+## Jury test days
+
+**Dates: pending from FraAlliance** (asked on the floor, 30 Oct). Each day is produced by one command, using only the information available at 00:00 local time on that day:
+
+```bash
+python -m pip install -r ml/requirements.txt
+python -m ml.forecast --day YYYY-MM-DD                 # readable 48 h table
+python -m ml.forecast --day YYYY-MM-DD --json --out web/public/forecasts/YYYY-MM-DD.json
+```
+
+Published so far: `web/public/forecasts/index.json`. Fallback if no dates arrive by 15:30: 2026-10-31 and 2026-11-01.
+
 ## Demo path
 
 1. Open the web app: the next 48 h, with OD per hour, runway 18, certainty and the next change.
