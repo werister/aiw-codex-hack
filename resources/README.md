@@ -14,9 +14,12 @@ Predict the next 48 hours of:
 - Runway 18 availability for departures, including likely closure/reopening times.
 - Parallel-runway operating direction: 07 (eastbound) or 25 (westbound), including changes.
 
-The intended users plan ground handling, staffing and connections. The presentation
-and one-pager are **pending from the user**. Exact challenge thresholds, averaging
-periods, gust handling and evaluation criteria remain unconfirmed.
+The intended users plan ground handling, staffing and connections. The official
+brief has now arrived in the team repository:
+[challenge specification](../frankfurt-airport-operating-direction-forecast.md),
+[machine-readable rules](../ml/rules.json). These supersede earlier uncertainty
+about challenge thresholds. Observation gaps, sub-hourly timing and the meaning
+of certainty still require explicit handling.
 
 ## Downloaded locally
 
@@ -42,9 +45,11 @@ assumptions. Sources: [wind archive](https://opendata.dwd.de/climate_environment
 
 ## Findings that affect implementation
 
-- Fraport describes a five-knot tailwind rule for changing the **parallel-runway
-  direction**. This does not establish the runway-18 closure threshold. Upper
-  winds and forecasts also influence the decision. [Fraport](https://www.fraport.com/en/sustainability/dialog-with-neighbors/noise-and-air/flight-operations/operation-direction.html)
+- The general Fraport page describes a five-knot rule, but the **challenge brief
+  is authoritative for this project**: 10 kt landing tailwind triggers immediate
+  direction change; smaller positive tailwind is tolerated for 30 minutes;
+  runway 18 closes at 15 kt tailwind or crosswind including gusts above 40 kt.
+  [Challenge rules](../ml/rules.json)
 - Windy Point Forecast returns the latest forecast, without historical forecast
   retrieval. Its Testing tier modifies/shuffles data; service-specific API keys
   are distinct. [Plans](https://api.windy.com/point-forecast/pricing),
@@ -77,17 +82,19 @@ assumptions. Sources: [wind archive](https://opendata.dwd.de/climate_environment
 
 ## Still needed
 
-1. Presentation and one-pager: confirm exact runway rules and scoring.
+1. Apply the received brief consistently, including its 30-minute state rule;
+   document how observation gaps and hourly forecast resolution are handled.
 2. Historical **actual** direction and runway-18 availability labels.
 3. Join the verified archived forecast source to actual operating-state labels;
    establish historical publication/availability times. Fixed +48 h samples
    support point scoring; individual runs are needed to replay a complete
    48-hour planning view. [Open-Meteo documentation](https://open-meteo.com/en/docs/historical-forecast-api)
 
-Implementation inference: start with a rule-based weather baseline after the
-rules arrive, then evaluate ML against actual operating-state labels using
-chronological splits. Rule-derived labels would measure agreement with those
-rules, not real airport decisions.
+The team's model can learn forecast error by using past forecasts as inputs and
+rules applied to later observed winds as proxy labels. This can outperform the
+rules applied directly to forecast winds; it does not establish performance
+against actual airport decisions. Report proxy-label skill and operational
+validation separately, using chronological splits.
 
 ## Verification
 
@@ -97,5 +104,5 @@ row counts and wind-field coverage. The deeper [data-quality check](data-quality
 records archive overlap, variable/missing directions, station geography and
 48-hour forecast coverage at the stated replay cutoff. The
 [forecast access check](forecast-access-check.json) records the archived API
-samples and their units. No application or trained model exists yet;
-there is no app startup or model-accuracy result to report.
+samples and their units. These resource/concept checks do not establish app
+startup, model accuracy or the status of the team's separate implementation.
