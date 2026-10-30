@@ -37,6 +37,10 @@
     {
       "label": "Early artifact-version names verified in saved metadata",
       "url": "https://github.com/werister/aiw-codex-hack/blob/5b82df2c80bb89ccffd6485b526b4543504c3d84/ml/models/metadata.json"
+    },
+    {
+      "label": "Hugo’s merged evidence PR #3",
+      "url": "https://github.com/werister/aiw-codex-hack/pull/3"
     }
   ],
   "versions": [
@@ -526,5 +530,69 @@
     "Runway 18 remains weak: 0 warnings in 12 positive 24 h windows among 307 complete windows; 1,125 windows excluded. Labels are inferred from weather, not actual runway closures. The positive windows overlap.",
     "DFLD is a public proxy for operations. A weather-rule contradiction does not prove the recorded direction is wrong. Windy connection-test values do not enter these models.",
     "The independent October comparisons use restricted data and historical reference models. Their scores cannot be used as an accuracy gain against current twelve-month v6."
-  ]
+  ],
+  "independent_review": {
+    "description": "Hugo’s merged PR #3 adds reviewer reports, executed notebook evidence and independent recalculation of the recorded results. These checks support the evidence trail; they are not another accuracy increase.",
+    "checks": [
+      {
+        "label": "Completed external training runs",
+        "value": "2",
+        "note": "Colab CPU runs completed with six-hour and twelve-hour weather-availability assumptions. Both exited successfully; roughly 287 seconds each."
+      },
+      {
+        "label": "Tests on the frozen source",
+        "value": "54 passed",
+        "note": "The recorded source snapshot passed its existing test suite before training. This is a historical test result, separate from current-main test totals."
+      },
+      {
+        "label": "Original result rows recalculated",
+        "value": "80 / 80",
+        "note": "Forty headline metric rows per availability assumption were recomputed from prediction traces. The expanded audit CSV contains 88 rows; these are metric rows, not additional flights or models."
+      },
+      {
+        "label": "Version-ledger rows checked",
+        "value": "152 / 152",
+        "note": "An independent review matched the ledger to notebook results, the audited CSV or pinned historical v5/v6 artifacts. Historical v5/v6 rows were not independently retrained."
+      }
+    ],
+    "outcome": "Decision: keep the served v6 model. Added ICON weather features improved some long-range results, but did not show a consistent advantage across forecast leads. Model selection by weather conditions also gave mixed results. Neither candidate was promoted.",
+    "limits": [
+      "The paired October experiment uses restricted 2025+ training data: 122,280 training rows and 5,068 scored direction rows. It is not the twelve-month evaluation of current v6.",
+      "Both runs use the same original 45 features and matched rows within each comparison; the ICON candidate adds seven weather features. Six- and twelve-hour delays are availability assumptions, not verified historical publication times.",
+      "Seven-day paired uncertainty intervals include zero for all nonzero primary Brier differences. The apparent small gains do not establish a general improvement.",
+      "The October runway-18 comparison has no closure-positive complete windows. Its 100% hourly accuracy is not proof of detecting closures.",
+      "Some archived tests demonstrate a problematic case, and suite totals overlap. Their passing counts must not be added together or described as proof that every reported weakness was fixed.",
+      "No causal reduction in Frankfurt delays or financial savings was measured. October informed development; a fresh forward test is still needed."
+    ],
+    "sources": [
+      {
+        "label": "Merged PR #3",
+        "url": "https://github.com/werister/aiw-codex-hack/pull/3"
+      },
+      {
+        "label": "Results and decision",
+        "url": "https://github.com/werister/aiw-codex-hack/blob/4c6c1143ee69cd131b1d4c1fe5593a18a0ffa756/briefing/experiments/COLAB_ICON_FIRST_FINDINGS.md"
+      },
+      {
+        "label": "Executed notebook",
+        "url": "https://github.com/werister/aiw-codex-hack/blob/4c6c1143ee69cd131b1d4c1fe5593a18a0ffa756/briefing/experiments/v5-icon/executed-evidence.ipynb"
+      },
+      {
+        "label": "Audited metric rows",
+        "url": "https://github.com/werister/aiw-codex-hack/blob/4c6c1143ee69cd131b1d4c1fe5593a18a0ffa756/briefing/experiments/v5-icon/audited_headline_all_lags.csv"
+      },
+      {
+        "label": "Version ledger",
+        "url": "https://github.com/werister/aiw-codex-hack/blob/4c6c1143ee69cd131b1d4c1fe5593a18a0ffa756/briefing/experiments/MODEL_VERSION_RESULTS.csv"
+      },
+      {
+        "label": "Colab result chart",
+        "url": "https://github.com/werister/aiw-codex-hack/blob/4c6c1143ee69cd131b1d4c1fe5593a18a0ffa756/briefing/experiments/v5-icon/colab_comparison.svg"
+      },
+      {
+        "label": "Review checks and limitations",
+        "url": "https://github.com/werister/aiw-codex-hack/blob/4c6c1143ee69cd131b1d4c1fe5593a18a0ffa756/briefing/experiments/redteam/README.md"
+      }
+    ]
+  }
 }

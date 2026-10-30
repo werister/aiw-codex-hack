@@ -253,6 +253,9 @@
   .history-step { border-top: 2px solid var(--line); padding-top: 20px; font-size: 25px; line-height: 1.4; }
   .history-step strong { display: block; margin-bottom: 5px; font-weight: 500; }
   .history-step p { font-size: 23px; color: var(--muted); }
+  .history-audit { display: flex; align-items: baseline; gap: 24px; margin-top: 26px; font-size: 23px; color: var(--muted); }
+  .history-audit a { color: var(--accent); text-underline-offset: 5px; }
+  .history-audit a:focus-visible { outline: 3px solid var(--accent); outline-offset: 6px; }
   .history-footer { display: flex; justify-content: space-between; align-items: center; gap: 30px; margin-top: 32px; font-size: 21px; color: var(--muted); }
   .history-footer a { color: var(--accent); font-size: 25px; text-underline-offset: 5px; }
   .history-footer a:focus-visible { outline: 3px solid var(--accent); outline-offset: 6px; }
@@ -381,6 +384,7 @@
       <div class="history-step"><strong>v3–v4 · Make the test fairer</strong><p>Allow for delayed weather data and different operating conditions.</p></div>
       <div class="history-step"><strong>v5–v6 · Improve, then challenge</strong><p>Add weather signals; check timing, missing data and false alarms.</p></div>
     </div>
+    <p class="history-audit rise d4"><a href="history.html#independent-review">Hugo’s checks · PR #3</a><span>2 Colab runs · 80 result rows recomputed · 152 ledger rows checked</span></p>
     <div class="history-footer rise d4"><span>Test months informed development. Full history includes rejected and untested ideas.</span><a href="history.html">Full development history →</a></div>
   </section>
 

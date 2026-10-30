@@ -46,6 +46,8 @@ Windy is only a separate connection test. Its Testing-tier values are excluded f
 
 **Show:** Point to the matched twelve-month comparison. The left pair is the rounded E12 experiment-log result (earlier features versus v5); the separate right score is current v6. The full history link is for questions, outside the timed pitch. These test months informed development.
 
+**Hugo’s PR #3:** The linked appendix now explains two completed external runs, 54 frozen-source tests, 80/80 recalculated headline metric rows and 152/152 reviewed ledger rows. These are checks of the evidence, not four new performance gains. The ICON and model-selection candidates were not promoted.
+
 ### 8 · 2:01–2:26 · Direction accuracy
 
 **Say:** “At twenty-four hours, the model gets the direction right in 91.8 percent of scored hours, versus 87.7 for the challenge wind rules and 75.1 for keeping the current direction. At one hour, keeping the current direction is slightly better. These scores measure direction, not exact change timing.”

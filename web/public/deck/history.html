@@ -257,6 +257,7 @@
           <ul class="contents">
             <li><a href="#versions">Version history</a></li>
             <li><a href="#comparisons">Comparisons</a></li>
+            <li><a href="#independent-review">Hugo’s checks · PR #3</a></li>
             <li><a href="#experiments">All experiments</a></li>
             <li><a href="#rejected">Not adopted</a></li>
             <li><a href="#challengers">Challengers</a></li>
@@ -276,6 +277,11 @@
           <p class="section-intro">These cards show the values recorded for each comparison. The note and test group matter: scores from different test rows are not one continuous trend.</p>
           <div class="compare-grid" id="comparisons-content"></div>
           <p class="explain"><strong>Percentage points:</strong> when both values are percentages, subtract the before percentage from the after percentage. For example, a change from 80% to 82% is +2 percentage points. That is different from saying it improved by 2%.</p>
+        </section>
+
+        <section class="section" id="independent-review" aria-labelledby="independent-review-title">
+          <h2 id="independent-review-title">Hugo’s independent checks · PR #3</h2>
+          <div id="independent-review-content"></div>
         </section>
 
         <section class="section" id="experiments" aria-labelledby="experiments-title">
@@ -527,6 +533,36 @@
         });
       }
 
+      function renderIndependentReview(data) {
+        var host = document.getElementById("independent-review-content");
+        host.replaceChildren();
+        var review = data.independent_review;
+        if (!review || !Array.isArray(review.checks)) {
+          host.appendChild(sectionEmpty("Independent-review details are not available in this history file."));
+          return;
+        }
+        host.appendChild(node("p", "section-intro", review.description));
+        var grid = node("div", "compare-grid");
+        review.checks.forEach(function (check) {
+          var card = node("article", "compare-card");
+          card.appendChild(node("h3", "", check.label));
+          card.appendChild(node("strong", "value-number", check.value));
+          card.appendChild(node("p", "compare-note", check.note));
+          grid.appendChild(card);
+        });
+        host.appendChild(grid);
+        host.appendChild(node("p", "explain", review.outcome));
+        var limits = node("ul", "limits-list");
+        (review.limits || []).forEach(function (limit) { limits.appendChild(node("li", "", limit)); });
+        host.appendChild(limits);
+        var links = node("p", "compare-note");
+        (review.sources || []).forEach(function (source, index) {
+          if (index) links.appendChild(document.createTextNode(" · "));
+          links.appendChild(safeLink(source.label, source.url));
+        });
+        host.appendChild(links);
+      }
+
       function renderExperiments(data) {
         var host = document.getElementById("experiments-content");
         host.replaceChildren();
@@ -697,12 +733,15 @@
           renderSummary(data);
           renderVersions(data);
           renderComparisons(data);
+          renderIndependentReview(data);
           renderExperiments(data);
           renderRejected(data);
           renderChallengers(data);
           renderLimits(data);
           renderSources(data);
           historyContent.hidden = false;
+          var linkedSection = document.getElementById(window.location.hash.slice(1));
+          if (linkedSection && historyContent.contains(linkedSection)) linkedSection.scrollIntoView({ block: "start" });
         })
         .catch(function (error) {
           errorMessage.textContent = "No history figures are shown. " + (error && error.message ? error.message + " " : "") + "Serve this page with the deck files and check that history.data.json is present next to it.";
