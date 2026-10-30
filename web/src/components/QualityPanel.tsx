@@ -115,7 +115,7 @@ function SkillTable({ rows, inSample }: { rows: SkillAtLead[]; inSample: SkillAt
             <th className="pb-1 font-medium">Model</th>
             <th className="pb-1 font-medium">Official rules</th>
             <th className="pb-1 font-medium">Keep current</th>
-            <th className="pb-1 font-medium">Changes caught</th>
+            <th className="pb-1 font-medium">Changes caught · model / rules</th>
             <th className="pb-1 font-medium text-muted">In-sample</th>
           </tr>
         </thead>
@@ -132,7 +132,9 @@ function SkillTable({ rows, inSample }: { rows: SkillAtLead[]; inSample: SkillAt
                 {cell(r.rule_acc)}
                 {cell(r.persistence_acc)}
                 <td className="py-2 tabular text-ink-2">
-                  {r.model_change_acc != null && r.change_n ? `${Math.round(r.model_change_acc * 100)}% of ${r.change_n}` : "–"}
+                  {r.model_change_acc != null && r.change_n
+                    ? `${Math.round(r.model_change_acc * 100)}% / ${r.rule_change_acc != null ? `${Math.round(r.rule_change_acc * 100)}%` : "unavailable"} of ${r.change_n}`
+                    : "unavailable"}
                 </td>
                 <td className="py-2 tabular text-muted">
                   {ins.get(r.lead_h) ? `${(ins.get(r.lead_h)!.model_acc * 100).toFixed(1)}%` : "–"}
