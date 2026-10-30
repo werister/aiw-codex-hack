@@ -1,7 +1,7 @@
 # FRA operating direction forecast (FraAlliance challenge, AI Week Codex Hackathon, 30 Oct 2026)
 
 > ## 🎤 FINALS PITCH: one page, everyone use this
-> - **Open it:** pull `main`, then open `web/public/deck/index.html` in a browser. It works offline. Arrow keys or click to advance, **A** = autoplay.
+> - **Open it:** use the live link below, or locally: pull `main`, run `python -m http.server 8000 -d web/public`, open http://localhost:8000/deck/ (the charts need a server; a double-clicked file only shows the poster). Arrow keys or click to advance, **A** = autoplay.
 > - **Live:** https://fraalliance-runway-forecast.statworx-par-2884.chatgpt.site/deck/ (visible once Jayden turns sharing on)
 > - **Presenter:** Hugo. The script and timings are in `web/public/deck/NOTES.md`. 4 minutes max.
 > - **Freeze:** final version 15:50, no changes after 16:30 except fixes. Finals at 17:00.
