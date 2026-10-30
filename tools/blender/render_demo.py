@@ -45,6 +45,8 @@ def arguments():
     blender_args = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--smoke", action="store_true", help="render one real scene frame to /tmp")
+    parser.add_argument("--benchmark", action="store_true",
+                        help="render three consecutive samples in one process to /tmp")
     parser.add_argument("--frame", type=int, help="source frame for --smoke (defaults to saved current frame)")
     parser.add_argument("--smoke-output", type=Path, default=SMOKE_OUTPUT,
                         help=f"single-frame output path (default: {SMOKE_OUTPUT})")
@@ -160,6 +162,37 @@ def render_smoke(scene, engine, args):
     print(f"SMOKE_SECONDS={elapsed:.2f}", flush=True)
 
 
+def render_benchmark(scene, engine, args):
+    start_frame = args.frame if args.frame is not None else scene.frame_current
+    frames = [start_frame + SAMPLE_STEP * index for index in range(3)]
+    if frames[0] < scene.frame_start or frames[-1] > scene.frame_end:
+        raise SystemExit(f"Benchmark frames {frames[0]}..{frames[-1]} are outside "
+                         f"{scene.frame_start}..{scene.frame_end}")
+    output_dir = Path("/tmp/fra-video-benchmark")
+    output_dir.mkdir(parents=True, exist_ok=True)
+    durations = []
+    for source_frame in frames:
+        destination = output_dir / f"fra-bench-{source_frame}.png"
+        started = time.monotonic()
+        try:
+            render_one(scene, source_frame, destination)
+        except Exception as exc:
+            if engine == "BLENDER_WORKBENCH" or "BLENDER_WORKBENCH" not in available_engines():
+                raise
+            print(f"EEVEE_HEADLESS_RENDER_FAILED={type(exc).__name__}: {exc}", flush=True)
+            set_workbench(scene)
+            engine = "BLENDER_WORKBENCH"
+            print("RENDER_FALLBACK=Workbench material/studio shading (lower preview fidelity)", flush=True)
+            render_one(scene, source_frame, destination)
+        elapsed = time.monotonic() - started
+        durations.append(elapsed)
+        print(f"BENCHMARK_FRAME={source_frame} SECONDS={elapsed:.2f} ENGINE={engine}", flush=True)
+    print(f"BENCHMARK_ENGINE={engine}", flush=True)
+    print(f"BENCHMARK_FRAMES={','.join(map(str, frames))}", flush=True)
+    print(f"BENCHMARK_AVERAGE_SECONDS={sum(durations) / len(durations):.2f}", flush=True)
+    print(f"BENCHMARK_OUTPUT_DIR={output_dir}", flush=True)
+
+
 def ffmpeg_path():
     candidate = shutil.which("ffmpeg")
     if candidate:
@@ -228,6 +261,8 @@ def render_sequence(scene, engine, args, encoder):
 
 def main():
     args = arguments()
+    if args.smoke and args.benchmark:
+        raise SystemExit("Choose either --smoke or --benchmark")
     if args.width <= 0 or args.height <= 0:
         raise SystemExit("Render dimensions must be positive")
     if args.samples <= 0:
@@ -235,6 +270,9 @@ def main():
     scene = select_scene()
     set_common_render_settings(scene, args.width, args.height)
     engine = configure_engine(scene, args.samples)
+    if args.benchmark:
+        render_benchmark(scene, engine, args)
+        return
     if args.smoke:
         render_smoke(scene, engine, args)
         return
