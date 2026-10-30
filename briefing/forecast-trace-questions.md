@@ -238,7 +238,16 @@ Have you already tried Extra Trees/random forests, calibrated linear models, cha
 
 **Snapshot:** the first Colab inputs were frozen at `44d5abd3363248b1de0a3ed96ff32982aafdd7b3` (v4). F1–F6 now report v5 and trace capture at `ccba644`; therefore the pinned experiment must be labelled a v4 comparison, not a comparison against current v5. Identify the exact v5 source/data/artifact snapshot for a subsequent matched rerun.
 
-**Answer:** Pending.
+**Answer:** v5 snapshot: `walk-forward-v5`, code [2300db6](../ml/train.py) plus evidence [ccba644](../ml/predict.py), outputs a494af2. Everything that was tested is in [EXPERIMENTS.md §4](../EXPERIMENTS.md), E1–E16, including the negative results:
+- **Tried:**
+  - official rules (E1, E16)
+  - gradient-boosted trees (`HistGradientBoostingClassifier`, E2)
+  - a persistence blend per lead (E3) and per lead × regime (E9)
+  - a publication lag (E4)
+  - separate weather models with spread (E10) and wind scaling (E11)
+  - pressure boxes (E13)
+- **No gain, dropped (E14):** deeper trees, monotonic constraints, per-lead models, extra observation-state features.
+- **Not tested:** Extra Trees, linear or logistic models (the only logistic is the untrained rules-fallback transform in [`ml/forecast.py`](../ml/forecast.py)), a direct direction-change or change-time target, and stacking beyond the persistence blend.
 
 ### F18 — Which data sources actually reach the estimator? (Kai + data owner)
 
@@ -246,7 +255,16 @@ For the selected training version, provide a compact source → loader/join → 
 
 At the pinned v4 snapshot, `ml.train.dataset()` reads `openmeteo_previous_runs.parquet`. Please identify any additional source loaded inside feature construction, join key/timezone, missing-data treatment, availability timestamp and fallback. Link the actual ordered feature manifest rather than only a data inventory. Which connections changed in v5?
 
-**Answer:** Pending.
+**Answer:** v5, from [`ml/train.py`](../ml/train.py) `dataset()`/`archived_inputs()` and [`ml/live.py`](../ml/live.py):
+
+| Source | Loader | Features or label | Training | Inference |
+|---|---|---|---|---|
+| DFLD recorded OD (`data/ground_truth/dfld_hourly.csv`) | `train.load_truth`, [`ml/dfld.py`](../ml/dfld.py) | label `y_od`; `od_at_issue`, `hours_since_change` | yes | hindcast: yes; live: OD at issue from the source in `evidence.issue_inputs.od_source` |
+| EDDF METAR (`data/eddf_metar.parquet`) | `features.normalize_obs` | `obs_*` wind, gust, tailwinds, 3 h trends; label `y_r18` (official rule) | yes | yes (latest METAR) |
+| Open-Meteo previous runs, best match | `train.archived_inputs` | wind, gust, direction, tailwind 25/07/18, 80 m wind, pressure, temperature, rules on the forecast | yes | yes (Forecast API) |
+| Same, ECMWF IFS, GFS, ICON | `archived_inputs`, `live.add_live_models` | per-model tailwinds, ensemble mean and spread, votes, rules on the ensemble | yes | yes |
+| Same, pressure at 4 boxes about 200 km away | [`ml/synoptic.py`](../ml/synoptic.py) | `dp_ns`, `dp_ew`, geostrophic tailwinds | yes | yes (`add_live_pressure`) |
+| DWD 01420, Open-Meteo historical forecast, IEM TAF | — | none | no | no (DWD only cross-checks the stuck feed; TAF returned 0 rows) |
 
 ### F19 — What can we safely use as the direction-change target? (Kai + label owner)
 
@@ -254,7 +272,12 @@ Are DFLD hour-end availability (`time + 1h`), upstream reporting delay and summe
 
 For R3, distinguish “target-hour OD differs from current OD” from “at least one change occurs within the horizon”: two changes can return to the initial direction. Which target matches the intended use? Should change-event learning use the half-hour source so that stable-hour filtering does not remove the very events being learned? State the label construction, censoring/missing-window rules and tests before training it.
 
-**Answer:** Pending.
+**Answer:**
+- **Direction label:** DFLD half-hour bins, converted to hourly stable labels only where both bins agree. Hours containing a change are excluded from stable-hour accuracy.
+- **Timing:** a label counts as known only after its hour ends. DST gap and repeat hours are excluded. The Berlin clock is assumed for DFLD pages; the summer offset is unverified ([`data/ground_truth/README.md`](../data/ground_truth/README.md)).
+- **Forecast availability:** forecast runs count as available 6 h after their nominal start. That is a proxy: no original publication times exist.
+- **Change-event target:** next-change timing is scored on the half-hour source (`quality.json` `next_change`: within ±1 h / ±3 h, false alarms), with incomplete windows excluded. Change hours in the stable-hour metric are `changed_within_lead`.
+- **Not tested:** a dedicated change-time model.
 
 ### F20 — Can exclusions use information from after a fold boundary? (ML implementer + independent reviewer)
 
@@ -262,7 +285,10 @@ At the pinned v4 snapshot, `dataset()` computes `suspect_od_runs()` on the full 
 
 **Proposed answer:** preserve all-recorded headline scores and report retrospective stuck-feed exclusion as a sensitivity analysis. For a strict chronological experiment, derive any training exclusions from information available before the relevant training/validation cutoff. Confirm whether v5 changes this and link the check.
 
-**Answer:** Pending.
+**Answer:** **Yes, in principle.** [`suspect_od_runs()`](../ml/quality.py) counts METAR hours over the 10 kt landing limit across a whole recorded run, so it can use hours after a fold boundary. In practice it flags only the 8–12 Oct 2026 run, which lies inside the last test month. So it never removed training rows for any walk-forward fold. Only the final live model (`ml/train.py` `fit(without_stuck_feed(...))`) trains without those hours.
+- **Headline scores use all recorded hours:** 1/6/24/48 h model 96.0 / 92.8 / 91.7 / 89.2% vs rules 95.9 / 88.1 / 87.7 / 84.0% (`quality.json` `out_of_sample`).
+- **Stuck-feed exclusion is a sensitivity analysis only** (`out_of_sample_stuck_feed_excluded`): 96.4 / 94.1 / 93.0 / 90.4%.
+- **Not tested:** a fold-causal version of the flag.
 
 ### F21 — Which tests, holdouts and metrics decide whether an experiment wins? (Kai + evaluation owner)
 
@@ -270,7 +296,12 @@ Name the existing test commands and validation artifacts we must reproduce, the 
 
 Which objective is primary: Brier score, accuracy, missed changes, false alarms or next-change timing? What tradeoff would reject a candidate? Report raw and blended results, matched row counts, lead/regime slices and change-event counts; do not select a method or blend weight using the final test outcomes. How should uncertainty account for overlapping 48-hour forecast windows?
 
-**Answer:** Pending.
+**Answer:**
+- **Holdout:** expanding monthly walk-forward, 12 test months (Nov 2025 – Oct 2026), 6 h publication lag, no random CV. Blend weights come from an inner chronological validation block before each test month ([`ml/train.py`](../ml/train.py) `fit`).
+- **Primary objective:** Brier score of P(OD 25) at 6, 24 and 48 h. Accuracy at 1/6/24/48 h against both baselines is reported next to it.
+- **A win means:** the day-bootstrap 95% CI of the margin over both rules and persistence lies above 0 at 6/24/48 h, and 1 h is not worse. McNemar and Diebold-Mariano p-values are reported in [`ml/significance.py`](../ml/significance.py), but correlated hours overstate them, so the CIs decide.
+- **Also reported:** change-hour accuracy, next-change timing, false alarms, reliability.
+- **Caveat:** E10–E14 were compared on these same 12 folds, so feature selection saw them. The untouched test is the live forecasts from 30 Oct on.
 
 ### F22 — Which baseline and evidence should the Colab run freeze? (Jayden + Kai)
 
@@ -278,7 +309,14 @@ Which source commit, data hashes, fitted artifact and quality/backtest files are
 
 **Proposed evidence bundle:** source and input hashes; environment versions; unchanged-test output; training/validation/test cutoffs; feature order; model parameters and fitted artifacts; per-row raw, blended and combined probabilities; matched metrics and exclusions. Colab's Drive quota prevented a saved notebook in Hugo's account, so the current attempt uses an unsaved runtime and a verified upload; it must be exported before being treated as a durable result. Who reviews that bundle, and which result warrants a subsequent full walk-forward rerun?
 
-**Answer:** Pending.
+**Answer:**
+- **Authoritative:**
+  - code at 2300db6 (features and model) plus ccba644 (evidence)
+  - published outputs at a494af2
+  - artifacts `ml/models/forecast.joblib` (live, trained through 2026-10-29T18:00Z) and `ml/models/fold-YYYY-MM.joblib` for hindcasts
+  - each published forecast records its artifact file and SHA-256 in `evidence.model_artifact`
+- **Data hashes:** only the DFLD extraction is hashed per month (`data/ground_truth/dfld_manifest.json`). METAR and Open-Meteo parquet files are **not hashed**, so freezing them needs a hash step.
+- **The two 1 h numbers measure different things.** v4 (94.6% blend vs 95.2% persistence) was 6 test months (May–Oct 2026) on the new local-midnight issue grid. v5 (96.0 vs 95.9) is 12 test months (Nov 2025 – Oct 2026). On the same 12 folds, the v4 feature set scores 95.5% at 1 h ([EXPERIMENTS.md E12 table](../EXPERIMENTS.md)).
 
 **Independent experiment completed (Hugo, 30 October):** [Executed Colab notebook and matched v4 October results](experiments/v4-colab-october.md). Unchanged tests: **50 passed**. Extra Trees and a fixed 50/50 combination did not improve accuracy over the original blend on any reported lead. Muse independently recomputed **72/72 metric rows**; the coordinator reran its 29 checks and Opus's 15 focused leakage/rules tests. The constructed full-history exclusion leak exists, but the observed flagged run crosses no current fold boundary. This is exploratory v4 evidence, not a v5 result or promotion. F17–F22 still require the owners' answers.
 
@@ -297,4 +335,6 @@ Two additional candidates were not found in the inspected v5 training path or E1
 
 **Recommendation:** prioritize the already proposed R1/R2 controlled comparison; make R3 the next task-level research move once F19 defines the event labels, and R4 the smaller probability-quality experiment. R5 follows if residual wind errors show a systematic pattern. These can use CPU Colab; do not reserve GPU capacity as a prerequisite. Calibration must use data disjoint from base fitting ([official calibration guidance](https://scikit-learn.org/stable/modules/calibration.html)); Colab resources are not guaranteed ([Colab FAQ](https://research.google.com/colaboratory/faq.html)).
 
-**Answer:** Pending.
+**Answer:**
+- **R4 calibration:** no separate calibration step exists (no isotonic or Platt scaling). Probabilities are the classifier's plus the persistence blend. Calibration is measured only: `quality.json` `reliability`; the mean absolute gap between predicted and observed frequency over 10 bins is 0.013 for OD.
+- **R5 conditional wind correction:** not implemented. [`ml/features.py`](../ml/features.py) `WIND_SCALE` holds one fixed multiplicative factor per weather model (and 80 m), fitted on 2024 only. A correction by direction, speed or regime is **not tested**. It is the most promising next variant for runway 18, which v5 catches only 3 of 24 events at 24 h, with no false alarms.
