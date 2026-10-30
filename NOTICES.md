@@ -2,25 +2,24 @@
 
 Open problems across main, branches and worktrees. One line each: time (Berlin) | severity | what is wrong | where | who acts. `STOP` breaks main or makes the submission wrong, `FIX` should be fixed before 16:00, `FYI` is worth knowing. Delete a line once it is fixed. Rules: "Cross-checking" in `AGENTS.md`.
 
-Main at 13:30 runs: `python -m pytest ml/tests -q` gives 50 passed, `python -m ml.forecast --day 2026-10-31` gives `walk-forward-v4` issued at the current hour.
+Main at 13:55 runs: `python -m pytest ml/tests -q` gives 52 passed, `python -m ml.forecast --day 2026-10-31` gives `walk-forward-v5` issued at the current hour, and `web/` passes lint and build (with `/approach`).
 
 ## STOP
 
-- None open.
+- 13:55 | STOP | Two hours to submission and the jury test days are still not written down anywhere (README, `SUBMISSION.md`, `index.json`), and no jury-day forecasts exist. The deliverable is forecasts for those days | README, `web/public/forecasts/` | Jayden or Hugo: get the dates from FraAlliance and put them in README; cli lane: generate them
 
 ## FIX
 
-- 12:16 | FIX | The jury test days are still not written down anywhere (README, model card, `index.json`), and there are no forecasts for them. Submission is at 16:00 | README | Jayden or Hugo: put the dates in README so the cli lane can generate them
-- 12:16 | FIX | Open-Meteo 10 m wind at the airport grid cell averages 0.59x the METAR wind (3.97 vs 6.95 kt). On it, the rules never close runway 18 (0.0% of hours vs 0.21% in METAR), so the rules fallback and the rule baseline understate closures | rule features in `ml/features.py`, `ml/forecast.py:68-84` | model owner: bias-correct or use `wind_speed_80m`
 - 13:10 | FIX | `ml.labels` does not exist. I removed it from the README run block; `ml/README.md:8` still lists it | `ml/README.md` | model lane, when committing
 - 13:20 | FYI | `weather database/` is down to 5.7 MB on main after dfc3c5e moved the PDFs and the BTS zip to Luca's branch. It is still outside the runway forecast and has a space in its name | `weather database/` | cleanup agent at the end
 - 13:10 | FYI | October midnight issues: persistence still beats the model at 1-6 h (95.3% vs 84.2%). `MODEL_CARD.md` states it, and the model lane is tuning the blend | `web/public/data/october.json` | model lane
 - 13:00 | FIX | Main now has the FraAlliance styling and the recommendation view (0cf65aa, c5d906e), but `origin/hugo/forecast-ui-spec` still carries a separate static prototype (`web/prototypes/dfs-forecast/`) and a wp5 spec written against the old placeholder page (`briefing/2026-10-30-ui-atc-context.md`). Hugo presents from an outdated picture of the UI | branch `hugo/forecast-ui-spec` | Hugo: rebase and review the current app
-- 13:20 | FYI | The stuck-feed filter is now reported separately (`out_of_sample_stuck_feed_excluded` in `quality.json`, `ml/README.md`); the headline keeps those hours. `MODEL_CARD.md` doesn't mention it yet | `MODEL_CARD.md` | model-card owner
-- 13:30 | FIX | Quality numbers disagree. `PITCH.md`, `DEMO_SCRIPT.md` and `SUBMISSION.md` use the current `backtest.json` (6/24/48 h: 90.7/89.6/84.9%), while `MODEL_CARD.md` still shows older numbers (91.5/90.3/84.1%, and 97.0% at 1 h). The pitch and submission leave out the required 1 h lead, where the model is now 94.6% against 95.2% for rules and keep-current | `MODEL_CARD.md`, `PITCH.md`, `SUBMISSION.md` | head agent: one set of numbers everywhere, 1 h included
-- 13:30 | FIX | `SUBMISSION.md` and `PITCH.md` say the model uses archived ECMWF, GFS and ICON forecasts. The model on main reads only the Open-Meteo best-match previous runs; the multi-model archive (4875dc5) isn't used by `ml/features.py` or `ml/train.py` | `SUBMISSION.md`, `PITCH.md` | head agent: match the claim to what ships
+- 13:55 | FIX | Every doc quotes stale numbers. `backtest.json` is now a 12-month walk-forward (2025-11 to 2026-10); OD accuracy model/rules/persistence: 1 h 96.0/95.9/95.9, 6 h 92.8/88.1/88.8, 24 h 91.7/87.7/75.1, 48 h 89.2/84.0/64.2. `MODEL_CARD.md:33,41-44` has 97.0/91.5/90.3/84.1, and `PITCH.md:24-26`, `SUBMISSION.md:27`, `DEMO_SCRIPT.md:26` have 90.7/89.6/84.9 and say six months. Include the 1 h row | `MODEL_CARD.md`, `PITCH.md`, `SUBMISSION.md`, `DEMO_SCRIPT.md` | head agent
 - 13:30 | FIX | `SUBMISSION.md` still has `LIVE_URL` as a placeholder. No deployed URL is in the repo | `SUBMISSION.md` | Jayden: deploy and fill it in
 - 13:30 | FIX | Kai's `origin/codex/blender-airport-assets` branched from 9558d79 (about 11:20) and carries 11 duplicate copies of early main commits, 51 MB of 3D files (`airport-environment.glb` is 16 MB, plus a 3 MB `.blend`), a 71-line README rewrite, AGENTS.md edits, and old file versions that name an AI model as head agent. Merging it as is would conflict and bring that back | branch `codex/blender-airport-assets` | Kai and head agent: take only the needed assets, no merge
+- 13:55 | FIX | `MODEL_CARD.md` is stale beyond the numbers: inputs and data table lack the separate-model and pressure features (:16,24-30), drivers are the v4 list (:51), the wind-bias correction is called "in progress" though `WIND_SCALE` is applied (:55), runway 18 test events are now 5/12/24 at 1/6/24 h, not one (:54), and the October midnight scores are now 83.0/81.0/78.5 with the model at 86.2% vs 100% at lead 1 (:46). It also doesn't mention the stuck-feed filter | `MODEL_CARD.md` | model-card owner
+- 13:55 | FIX | The feature set was chosen on the same 12 test folds (`EXPERIMENTS.md` E10, E13, E14 keep only variants that gained there). Fitting is walk-forward, but model selection saw the test months, so "months it never saw" needs a caveat in the model card and pitch | `EXPERIMENTS.md`, `MODEL_CARD.md`, `PITCH.md` | model-card owner
+- 13:55 | FIX | Significance is overstated. McNemar (`ml/significance.py:298-306`) treats overlapping hourly issues as independent, so E12's p < 1e-5 (down to 3e-55) is too strong; quote the day-resampled bootstrap CIs instead, which clear zero at 6/24/48 h. Diebold-Mariano at 1 h tests Brier, not accuracy (the 1 h accuracy CI is -0.1 to +1.1 points) | `EXPERIMENTS.md` E12, `ml/significance.py` | model lane
 
 ## FYI
 
