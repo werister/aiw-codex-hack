@@ -1,0 +1,113 @@
+﻿Bibliographischer Extrakt aus nasa-runway-configurations-2023.pdf; Seitenmarker erhalten; Extraktion 2026-10-30. Vollständige Referenzliste des PDFs, keine Prüfung aller zitierten Werke.
+
+R EFERENCES
+
+[1]   C. Provan, S. Atkins, Tactical airport configuration management, 2011
+
+Integrated Communications, Navigation, and Surveillance Conference
+
+Proceedings, Herndon, VA, USA (2011).   doi:10.1109/ICNSURV.
+
+2011.5935346 .
+
+[2]   R. Oseguera-Lohr, N. Phojanamongkolkij, G. Lohr, J. Fenber, Benefits
+
+assessment for tactical runway configuration management tool, 2013
+
+Aviation Technology, Integration, and Operations Conference, Los An-
+
+geles, CA (2013).   doi:10.2514/6.2013-4395 .
+
+[3]   J. Avery, H. Balakrishnan, Data-driven modeling and prediction of the
+
+process for selecting runway configurations, Transportation Research
+
+Record 2600 (2016).   doi:10.3141/2600-01 .
+
+[4]   A.   Jacquillat,   A.   Odoni,   M.   Webster,   Dynamic   control   of   runway
+
+configurations and of arrival and departure service rates at JFK airport
+
+under stochastic queue conditions, Transportation Science 51 (1) (2016)
+
+155–176.   doi:10.1287/trsc.2015.0644 .
+
+[5]   S. Badrinath, M. Li, H. Balakrishnan, Integrated surface–airspace model
+
+of airport departures, Journal of Guidance, Control, and Dynamics 42 (5)
+
+(2019) 1049–1063.
+
+[6]   D. Bertsimas, M. Frankovich, O. A., Optimal selection of airport runway
+
+configurations, Operations Research 59 (6) (2011) 1407–1419.
+
+[7]   X. Bai, P. Menon, Decision support for optimal runway reconfiguration,
+
+2013 Aviation Technology, Integration, and Operations Conference, Los
+
+Angeles, CA (2013).   doi:10.2514/6.2013-4397 . 
+
+===== PDF PAGE 9 / 9 =====
+
+[8]   L. Li, J. Clarke, H. Chien, T. Melconian, A probabilistic decision-
+
+making model for runway configuration planning under stochastic wind
+
+conditions,   IEEE/AIAA   28th   Digital   Avionics   Systems   Conference
+
+(2009).   doi:10.1109/DASC.2009.5347528 .
+
+[9]   M. Memarzadeh, T. Puranik, K. Kalyanam, W. Ryan, Airport runway
+
+configuration management with offline model-free reinforcement learn-
+
+ing, AIAA SciTech 2023 Forum, p. 0504 (2023).   doi:10.2514/6.
+
+2023-0504 .
+
+[10]   S. Khater, J. Rebollo, W. Coupe, A recursive multi-step machine learning
+
+approach for airport configuration prediction, AIAA Aviation Forum
+
+(2021).   doi:10.2514/6.2021-2406 .
+
+[11]   A. Churchill, W. Coupe, Y. Jung, Predicting arrival and departure
+
+runway assignments with machine learning, AIAA Aviation Forum
+
+(2021) 10.2514/6.2021–2400.
+
+[12]   M. Ahmed, S. Alam, M. Barlow, A multi-layer artificial neural network
+
+approach for runway configuration prediction, Proceedings of the ICRAT
+
+2018, 8th International Conference on Research in Air Transportation,
+
+Castelldefels, Catalonia, Spain (2018).
+
+[13]   R. Raju, R. Mital, B. Wilson, K. Shetty, M. Albert, Predicting runway
+
+configurations and arrival and departure rates at airports: Comparing the
+
+accuracy of multiple machine learning models, 2021 IEEE/AIAA 40th
+
+Digital Avionics Systems Conference (DASC), San Antonio, TX, USA
+
+(2021).   doi:10.1109/DASC52595.2021.9594389 .
+
+[14]   P. Razzaghi, A. Tabrizian, W. Guo, S. Chen, A. Taye, E. Thompson,
+
+A. Bregeon, A. Baheri, P. Wei, A survey on reinforcement learning in
+
+aviation applications, arXiv (2022).   doi:10.48550/arXiv.2211.
+
+02147 .
+
+[15]   S. Khater, J. Rebollo, W. Coupe, Predicting runway configurations at
+
+airports, Transportation Research Board (TRB) Annual Meeting (2012)
+
+12–3682.
+
+[16]   L. Breiman, Random forests, Machine Learning 45 (2001) 5–32. 

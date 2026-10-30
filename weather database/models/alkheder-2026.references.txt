@@ -1,0 +1,74 @@
+Quelle: https://link.springer.com/article/10.1007/s00521-026-11862-1 ; 2026-10-30; bibliographische Referenzen aus frei sichtbarem Verlagspreview, kein Volltext.
+L124: ## References
+L125: 
+L126:   1. Air Transport Action Group (ATAG) (2005) (rep.) The economic and social benefits of air transport, Geneva
+L127: 
+L128:   2. AlKheder S, AlKandari A (2020) The impact of dust on Kuwait International Airport operations: a case study. Int J Environ Sci Technol 17(7):3467–3474. 【36†https://doi.org/10.1007/s13762-020-02710-3†doi.org】
+L129:   3. Alla H, Moumoun L, Balouki Y (2021) A multilayer perceptron neural network with selective-data training for flight arrival delay prediction. Sci Program. 【37†https://doi.org/10.1155/2021/5558918†doi.org】
+L130: 
+L131:   4. Alsumaiei AA (2020) Monitoring hydrometeorological droughts using a simplified precipitation index. Climate. 【38†https://doi.org/10.3390/cli8020019†doi.org】
+L132:   5. Ball M, Barnhart C, Dresner M, Hansen M, Neels K, Odoni A et al (2010) Total delay impact study: a comprehensive assessment of the costs and impacts of flight delay in the United States. Technical Report. National Center of Excellence for Aviation Operations Research. Report No.: 01219967
+L133:   6. Baumgarten P, Malina R, Lange A (2014) The impact of hubbing concentration on flight delays within airline networks: an empirical analysis of the US domestic market. Transport Res Part E Logist Transport Rev 66:103–114. 【39†https://doi.org/10.1016/j.tre.2014.03.007†doi.org】
+L134: 
+L135:   7. Belcastro L, Marozzo F, Talia D, Trunfio P (2016) Using scalable data mining for predicting flight delays. ACM Trans Intell Syst Technol. 【40†https://doi.org/10.1145/2888402†doi.org】
+L136:   8. Bureau of Transportation Statistics (BTS) (2022) Airline on-time statistics and delay causes. . bureau of transport. 【41†https://www.transtats.bts.gov/OT_Delay/OT_DelayCause1.asp†www.transtats.bts.gov】
+L137: 
+L138:   9. Chen J, Li M (2019) Chained predictions of flight delay using machine learning. In: AIAA scitech 2019 forum, p 1661
+L139: 
+L140:   10. Esmaeilzadeh E, Mokhtarimousavi S (2020) Machine learning approach for flight departure delay prediction and analysis. Transp Res Rec 2674(8):145–159
+L141:   11. Federal Aviation Administration (FAA) (2021) FAQ: weather delay. Retrieved April 28, 2022, from 【42†https://www.faa.gov/nextgen/programs/weather/faq/†www.faa.gov】
+L142: 
+L143:   12. Federal Aviation Administration. United States Department of Transport (2017) 【43†https://www.faa.gov/nextgen/programs/weather/†www.faa.gov】
+L144:   13. Fleurquin P, Ramasco JJ, Eguiluz VM (2013) Data-driven modeling of systemic delay propagation under severe meteorological conditions. In: Proceedings of the 10th USA/Europe air traffic management research and development seminar, ATM 2013
+L145: 
+L146:   14. Goodman CJ, Small Griswold JD (2019) Meteorological impacts on commercial aviation delays and cancellations in the continental United States. J Appl Meteorol Climatol 58(3):479–494. 【44†https://doi.org/10.1175/jamc-d-17-0277.1†doi.org】
+L147:   15. Hamidi M (2019) Atmospheric investigation of frontal dust storms in Southwest Asia. Asia-Pacifc J Atmos Sci 55(2):177–193
+L148: 
+L149:   16. Henriques R, Feiteira I (2018) Predictive modelling: flight delays and associated factors, Hartsfield–Jackson Atlanta International airport. Procedia Comput Sci 138:638–645
+L150: 
+L151:   17. Hudson E, Aihoshi D, Gaines T, Simard G, Mulluck J (2001) The weather of Nunavut and the Arctic. Nav Canada, Ottawa, p 233
+L152:   18. Huo J, Keung KL, Lee CKM, Ng KK, Li KC (2020) The prediction of flight delay: big data-driven machine learning approach. In: 2020 IEEE international conference on industrial engineering and engineering management (IEEM). IEEE, pp 190–194‏
+L153: 
+L154:   19. Industry High Level Group (IHLG) (2019) Aviation benefits report
+L155: 
+L156:   20. International Civil Aviation Organization (ICAO) (2019) Future of aviation summit. Future of Aviation
+L157:   21. Joint Economic Committee (JEC) (2008) Your flight has been delayed again: flight delays cost passengers, airlines, and the US Economy Billions. Report. Washingtion DC, USA
+L158: 
+L159:   22. Kafle N, Zou B (2016) Modeling flight delay propagation: a new analytical-econometric approach. Transport Res Part B Methodol 93:520–542. 【45†https://doi.org/10.1016/j.trb.2016.08.012†doi.org】
+L160:   23. Kazemi Asfe M, Jangi Zehi M, Shahiki Tash MN, Yaghoubi NM (2014) Ranking different factors influencing flight delay. Manag Sci Lett 4(7):1397–1400. 【46†https://doi.org/10.5267/j.msl.2014.6.030†doi.org】
+L161: 
+L162:   24. Kotsiantis SB, Zaharakis ID, Pintelas PE (2006) Machine learning: a review of classification and combining techniques. Artif Intell Rev 26(3):159–190. 【47†https://doi.org/10.1007/s10462-007-9052-3†doi.org】
+L163: 
+L164:   25. Kuhn N, Jamadagni N (2017) Application of machine learning algorithms
+L165:   26. Kulesa G (2003) Weather and aviation: How does weather affect the safety and operations of airports and aviation, and how does FAA work to manage weather-related effects? In: Conference on the potential impacts of climate change on transportation, Washington DC, U.S. Department of Transportation, p 10. 【48†https://trid.trb.org/view/663829†trid.trb.org】
+L166:   27. Li C, Qi X, Yang Y, Zeng Z, Zhang L, Mao J (2024) FAST-CA: fusion-based adaptive spatial–temporal learning with coupled attention for airport network delay propagation prediction. Inf Fusion 107:102326
+L167: 
+L168:   28. Liu Y, Liu Y, Hansen M, Pozdnukhov A, Zhang D (2019) Using machine learning to analyze air traffic management actions: ground delay program case study. Transp Res Part E Logist Transp Rev 131:80–95. 【49†https://doi.org/10.1016/j.tre.2019.09.012†doi.org】
+L169:   29. Mamdouh M, Ezzat M, Hefny H (2024) Improving flight delays prediction by developing attention-based bidirectional LSTM network. Expert Syst Appl 238:121747
+L170: 
+L171:   30. Manna S, Biswas S, Kundu R, Rakshit S, Gupta P, Barman S (2017) A statistical approach to predict flight delay using gradient boosted decision tree. In: 2017 International conference on computational intelligence in data science (ICCIDS). IEEE, pp 1–5‏
+L172:   31. Meel P, Singhal M, Tanwar M, Saini N (2020) Predicting flight delays with error calculation using machine learned classifiers. In: 2020 7th International conference on signal processing and integrated networks (SPIN). IEEE, pp 71–76‏
+L173:   32. Moreira L, Dantas C, Oliveira L, Soares J, Ogasawara E (2018) On evaluating data preprocessing methods for machine learning models for flight delays. In: Proceedings of the international joint conference on neural networks, 2018-July(C), pp 1–8. 【50†https://doi.org/10.1109/IJCNN.2018.8489294†doi.org】
+L174: 
+L175:   33. Nigam R, Govinda K (2017) Cloud based flight delay prediction using logistic regression. In: 2017 International conference on intelligent sustainable systems (ICISS). IEEE, pp 662–667‏
+L176:   34. Peterson E, Neels K, Barczi N, Graham T (2013) The economic cost of airline flight delay. J Transport Econ Policy 47:229
+L177: 
+L178:   35. Qu J, Xiao M, Yang L, Xie W (2023) Flight delay regression prediction model based on Att-Conv-LSTM. Entropy 25(5):770
+L179: 
+L180:   36. Rebollo JJ, Balakrishnan H (2012) A network-based model for predicting air traffic delays. In: 5th International conference on research in air transportation
+L181:   37. Saeed TM, Al-Dashti H (2011) Optical and physical characterization of “Iraqi freedom” dust storm, a case study. Theor Appl Climatol 104(1–2):123–137. 【51†https://doi.org/10.1007/s00704-010-0334-3†doi.org】
+L182: 
+L183:   38. Shalev-Shwartz S, Ben-David S (2014) Understanding machine learning: from theory to algorithms. Cambridge University Press, Cambridge
+L184:   39. Sismanidou A, Tarradellas J, Suau-Sanchez P (2022) The uneven geography of US air traffic delays: quantifying the impact of connecting passengers on delay propagation. J Transp Geogr 98:103260. 【52†https://doi.org/10.1016/j.jtrangeo.2021.103260†doi.org】
+L185: 
+L186:   40. Skiena SS (1998) The algorithm design manual, vol 1. Springer, Berlin
+L187:   41. Škultéty F, Jarošová M, Rostáš J (2022) Dangerous weather phenomena and their effect on en-route flight delays in Europe. Transp Res Procedia 59:174–182. 【53†https://doi.org/10.1016/j.trpro.2021.11.109†doi.org】
+L188: 
+L189:   42. Sternberg A, Carvalho D, Murta L, Soares J, Ogasawara E (2016) An analysis of Brazilian flight delays based on frequent patterns. Transp Res Part E Logist Transp Rev 95:282–298. 【54†https://doi.org/10.1016/j.tre.2016.09.013†doi.org】
+L190:   43. Takeichi N, Kaida R, Shimomura A, Yamauchi T (2017) Prediction of delay due to air traffic control by machine learning. AIAA Model Simul Technol Conf. 【55†https://doi.org/10.2514/6.2017-1323†doi.org】
+L191: 
+L192:   44. Tu Y, Ball MO, Jank WS (2008) Estimating flight departure delay distributions—a statistical approach with long-term trend and short-term pattern. J Am 103:112–125
+L193:   45. Xu N, Sherry L, Laskey KB (2008) Multifactor model for predicting delays at U.S. airports. Transp Res Rec 2052(1):62–71. 【56†https://doi.org/10.3141/2052-08†doi.org】
+L194: 
+L195:   46. Yogita B, Dhruvin J, Shreyash S, Viral V, Aakash Z (2020) Flight delay prediction system. Int J Eng Res. 【57†https://doi.org/10.17577/ijertv9is030148†doi.org】
+L196:   47. Zhong Q, Yu Y, Huang Y, Zhang T (2025) Prediction and optimization of civil aviation flight delays based on machine learning algorithms. Int J Comput Intell Syst 18(1):1–26
