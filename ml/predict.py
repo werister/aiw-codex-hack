@@ -6,10 +6,13 @@ from pathlib import Path
 import joblib
 import numpy as np
 
-from ml.features import BERLIN, FEATURES, build_features
+from ml.features import BERLIN, FEATURES, WIND_SCALE, build_features
 
 MODEL_PATH = Path(__file__).with_name("models") / "forecast.joblib"
 HORIZONS = ("1", "6", "24", "48")
+EVIDENCE_COLUMNS = ["nwp_offset_days", "wind_kt_metar_scaled", "ens_tailwind_25_mean", "ens_tailwind_25_std",
+                    "ens_tailwind_18_mean", "ens_dir_spread", "ens_votes_25", "rule_od25_ens", "dp_ns", "dp_ew",
+                    "blend_key", "blend_weight", "p_od25_raw"]
 REGIMES = ("night", "calm", "active")
 # Night flight restrictions at FRA run 23:00-05:00 local.
 NIGHT_HOURS = (23, 0, 1, 2, 3, 4)
@@ -24,7 +27,7 @@ def load_models(path=MODEL_PATH):
     return joblib.load(path)
 
 
-def models_at_issue(issue):
+def model_file_at_issue(issue):
     """Hindcasts use a saved fit whose target labels precede issue time."""
     import pandas as pd
 
@@ -33,8 +36,19 @@ def models_at_issue(issue):
         if path.exists():
             models = load_models(path)
             if pd.Timestamp(models["trained_through"]) < issue:
-                return models
+                return path, models
     raise ValueError("No model trained before this issue time; choose a later hindcast date")
+
+
+def models_at_issue(issue):
+    return model_file_at_issue(issue)[1]
+
+
+@lru_cache(maxsize=24)
+def file_sha256(path):
+    import hashlib
+
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
 def probability(model, features):
@@ -96,10 +110,19 @@ def predict_48h(issue_time_utc, obs, nwp, od_at_issue):
         if "available_at" not in history:
             history["available_at"] = pd.to_datetime(history.time, utc=True) + pd.Timedelta(hours=1)
     frame = build_features(issue_time_utc, obs, nwp, od_at_issue, history)
-    models = models_at_issue(pd.Timestamp(issue_time_utc))
+    path, models = model_file_at_issue(pd.Timestamp(issue_time_utc))
     frame["p_od25"] = od_probability(models, frame)
     frame["p_18_usable"] = probability(models["r18"], frame[FEATURES])
     frame["r18_label_type"] = "inferred"
-    frame.attrs["model_version"] = models["version"]
+    # Evidence: the values each probability was computed from.
+    frame["p_od25_raw"] = probability(models["od"], frame[FEATURES])
+    frame["blend_key"] = blend_keys(frame)
+    weights = models.get("od_model_weight") or {}
+    frame["blend_weight"] = [weights.get(key, weights.get(key.split(":")[0], 1.0)) for key in frame.blend_key]
+    frame["wind_kt_metar_scaled"] = frame.wind_kt * WIND_SCALE["best_match"]
+    frame.attrs.update({"model_version": models["version"], "model_file": path.name,
+                        "model_sha256": file_sha256(path), "trained_through": models["trained_through"],
+                        "metar_time": frame.obs_time_max.iloc[0], "hours_since_change": frame.hours_since_change.iloc[0]})
     return frame[["time", "lead_h", "wind_dir_deg", "wind_kt", "gust_kt", "tailwind_25_kt",
-                  "tailwind_18_kt", "rule_od", "rule_18_usable", "p_od25", "p_18_usable", "r18_label_type"]]
+                  "tailwind_18_kt", "rule_od", "rule_18_usable", "p_od25", "p_18_usable", "r18_label_type",
+                  *EVIDENCE_COLUMNS]]
