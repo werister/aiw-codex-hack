@@ -9,7 +9,7 @@ Within each lag, the baseline and candidate use identical training/test rows and
 122,280 training rows; 5,136 October forecast rows; 5,068 rows with usable OD labels/comparators. At leads 1/6/24/48 there are 105/107/107/107 scored rows. The separate runway-18 population has 3,744 rows. The restricted 2025+ training population differs from the team's full-history evaluation.
 
 ## First measured results
-Numbers below are rounded from completed Colab stdout. The next evidence commit will add independently recomputed CSVs.
+Numbers below are rounded from completed Colab stdout. [Independently recomputed CSV](v5-icon/audited_headline_all_lags.csv), [version decision ledger](MODEL_VERSION_RESULTS.csv), [chart](v5-icon/colab_comparison.svg), and [executed evidence](v5-icon/executed-evidence.ipynb) are committed. All 80 original headline rows (40 per lag) recomputed successfully; the expanded CSV has 88 rows. An independent reviewer checked all 152 ledger rows against those outputs and pinned v5/v6 artifacts. Seven-day paired block intervals include zero for all nonzero primary Brier differences. October runway-18 evaluation contains no closure-positive complete windows, so its 100% hourly accuracy does not demonstrate closure detection.
 
 | Lag proxy | Method | 1 h accuracy | 6 h accuracy | 24 h accuracy | 48 h accuracy | Brier 6 / 24 / 48 h |
 |---|---|---:|---:|---:|---:|---|
