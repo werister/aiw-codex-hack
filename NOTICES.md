@@ -2,25 +2,26 @@
 
 Open problems across main, branches and worktrees. One line each: time (Berlin) | severity | what is wrong | where | who acts. `STOP` breaks main or makes the submission wrong, `FIX` should be fixed before 16:00, `FYI` is worth knowing. Delete a line once it is fixed. Rules: "Cross-checking" in `AGENTS.md`.
 
-Main at 13:10 runs: `python -m pytest ml/tests -q` gives 38 passed, `python -m ml.forecast --day 2026-10-31` gives `walk-forward-v3` issued at the current hour.
+Main at 13:20 runs: `python -m pytest ml/tests -q` gives 50 passed, `python -m ml.forecast --day 2026-10-31` gives `walk-forward-v4` issued at the current hour.
 
 ## STOP
 
-- None open. The AI trailer on the model commit was amended (now 18cc95b, not pushed yet).
+- None open.
 
 ## FIX
 
 - 12:16 | FIX | The jury test days are still not written down anywhere (README, model card, `index.json`), and there are no forecasts for them. Submission is at 16:00 | README | Jayden or Hugo: put the dates in README so the cli lane can generate them
 - 12:16 | FIX | Open-Meteo 10 m wind at the airport grid cell averages 0.59x the METAR wind (3.97 vs 6.95 kt). On it, the rules never close runway 18 (0.0% of hours vs 0.21% in METAR), so the rules fallback and the rule baseline understate closures | rule features in `ml/features.py`, `ml/forecast.py:68-84` | model owner: bias-correct or use `wind_speed_80m`
 - 13:10 | FIX | `ml.labels` does not exist. I removed it from the README run block; `ml/README.md:8` still lists it | `ml/README.md` | model lane, when committing
-- 12:30 | FIX | `weather database/` is now 12.9 MB on main and outside the runway forecast: US BTS delay data stored twice (`delay_causes_2025.zip` and `raw2025/Airline_Delay_Cause.csv`), four third-party papers as PDFs (Borsky2019, Schultz2018, Rodriguez2021, an OIG report) plus their full text, and saved HTML pages. Third-party PDFs in the submission repo are a copyright risk, and the folder name has a space | `weather database/` (2ea41df) | Luca: keep it on `luca/weather-database`, take it off main
+- 13:20 | FYI | `weather database/` is down to 5.7 MB on main after dfc3c5e moved the PDFs and the BTS zip to Luca's branch. It is still outside the runway forecast and has a space in its name | `weather database/` | cleanup agent at the end
 - 13:10 | FYI | October midnight issues: persistence still beats the model at 1-6 h (95.3% vs 84.2%). `MODEL_CARD.md` states it, and the model lane is tuning the blend | `web/public/data/october.json` | model lane
-- 12:40 | FIX | Ola references: seven agent briefs contain local `C:\olawt\...` worktree paths (`c27-design.md` has two). No Ola names in commit messages, authors or other files | `briefs/c27-design.md`, `hk-cli.md`, `hk-cli3.md`, `hk-data.md`, `hk-model.md`, `hk-research.md`, `hk-scrape.md` | cleanup agent at the end
+- 13:20 | FIX | Ola references: seven agent briefs contain local `C:\olawt\...` worktree paths (`c27-design.md` has two), and the guardian's own commit message f57b695 on main contains the word. Changing that message would mean rewriting main, so leave it to the cleanup decision | `briefs/c27-design.md`, `hk-cli.md`, `hk-cli3.md`, `hk-data.md`, `hk-model.md`, `hk-research.md`, `hk-scrape.md`, commit f57b695 | cleanup agent at the end
 - 13:00 | FIX | Main now has the FraAlliance styling and the recommendation view (0cf65aa, c5d906e), but `origin/hugo/forecast-ui-spec` still carries a separate static prototype (`web/prototypes/dfs-forecast/`) and a wp5 spec written against the old placeholder page (`briefing/2026-10-30-ui-atc-context.md`). Hugo presents from an outdated picture of the UI | branch `hugo/forecast-ui-spec` | Hugo: rebase and review the current app
-- 13:00 | FIX | Commit 18cc95b (not pushed) drops recorded OD hours that contradict the METAR rules (runs of 3+ hours with landing tailwind >= 10 kt, which removes 8-12 Oct) from targets and evaluation. That removes the cases where the rules fail and flatters both model and rules. `MODEL_CARD.md` doesn't mention it yet | `ml/train.py`, `ml/quality.py` in `aiw-wt-ml` | model lane: report scores with and without the filter, add it to the model card
+- 13:20 | FYI | The stuck-feed filter is now reported separately (`out_of_sample_stuck_feed_excluded` in `quality.json`, `ml/README.md`); the headline keeps those hours. `MODEL_CARD.md` doesn't mention it yet | `MODEL_CARD.md` | model-card owner
 
 ## FYI
 
+- 13:20 | FYI | The optional tower briefing (c0d210e) brings back `OPENAI_API_KEY` and `OPENAI_MODEL` in both `.env.example` files and `openai` in `ml/requirements.txt`. It reads keys only from git-ignored `.env.local` files and is off by default. Keep it that way, and don't show briefing text as model output | `ml/forecast.py:196`, `.env.example` | head lane
 - 13:10 | FYI | UI details: the backup option says "Live sample (rules only)" but `sample.json` is the trained model (`ForecastApp.tsx:30`); the 40 kt crosswind limit is shown nowhere; nothing reads `backtest.json` or `october.json` | `web/src/components/` | web owner
 - 13:00 | FYI | `data/ground_truth/dfld_hourly.csv` grew to 6.1 MB (history from 2018, 33a7847), and two new runway 18 CSVs add 3.9 MB. `ml/dfld.py` can rebuild them; gzip them like `dfld_half_hourly.csv.gz` if size matters | `data/ground_truth/` | data owner
 - 13:00 | FYI | `origin/luca/weather-database` has one more commit (0c8f4da, 72 files, about 101k lines of weather archive and an advisory board) that is not on main. Keep it off main | branch `luca/weather-database` | Luca
