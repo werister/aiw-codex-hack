@@ -26,6 +26,7 @@ Main at 14:15 runs: `python -m pytest ml/tests -q` gives 53 passed, `python -m m
 - 14:15 | FIX | `weather database/` is back to 76 MB with 29 third-party PDFs (76184d1 "consolidate weather research archives"), which undoes dfc3c5e. Copyright risk in the submission repo, and none of it feeds the model | `weather database/` | Luca and head lane: keep it on `luca/weather-database`
 - 14:15 | FIX | Kai's 14:04 push added `assets/` (42 MB of 3D files) and `resources/` (21.6 MB): a second data pipeline (`resources/ml-support/forecast/fetch_forecast_data.py`, `observations/fetch_verify.py`, a 6 MB METAR CSV, Kaggle checks) that duplicates `ml/fetch.py` and `data/`, old copies of `forecast-types.ts` and `hk-model.md` in `resources/ml-support/reference/`, and Condor research for a different challenge | `resources/`, `assets/` | Kai: drop the duplicates, keep only what the app loads
 - 14:15 | FIX | AI model names are back in files: `resources/ml-support/reference/forecast-types.ts:1`, `resources/ml-support/reference/hk-model.md:3`, `shared-skills/better/SKILL.md:6`. `resources/condor-challenge-research.md:69` cites Anthropic as a source | `resources/`, `shared-skills/` | Kai
+- 14:15 | FIX | `npm run lint` in `web/` now fails with 23 errors, all `no-this-alias` in the vendored `web/public/pitch/vendor/three.module.min.js` (plus 1,441 warnings from the same file). `npm run build` still passes and serves `/pitch` from the React route | `web/eslint.config.mjs` | web owner: ignore `public/**/vendor/**`
 
 ## FYI
 
