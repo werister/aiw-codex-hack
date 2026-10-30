@@ -1,6 +1,6 @@
 # Pitch · Liftoff (FraAlliance challenge)
 
-Draft for Hugo (presenter) and Luca (backup). Numbers come from `web/public/data/quality.json`; final numbers land at 15:30.
+Draft for Hugo (presenter) and Luca (backup). Numbers come from `web/public/data/quality.json` (walk-forward-v5). The approach story is on the app's `/approach` page.
 
 ## 1. Problem (20 s)
 At Frankfurt the wind alone decides which way aircraft land and take off. Frankfurt changes its operating direction about 156 times a year, three times a week. Six in ten departures use runway 18, and a strong north wind closes it. When the direction changes, everyone reacts at once: ground handling repositions, transfer passengers miss connections, flights are rescheduled. Today that reaction starts when the decision is made. We want it to start a day earlier.
@@ -17,16 +17,17 @@ See `DEMO_SCRIPT.md`.
   - Walk-forward: every test month is predicted by a model trained only on earlier months.
   - Forecasts are used as they were published, with a six-hour delay, and no hindsight.
   - The command the jury runs gives exactly the backtest's numbers.
-- **It beats both baselines** on months it never saw. Accuracy for model / official rules / keep current:
+- **It beats both baselines** on 12 months it never saw, and the margins are statistically significant. Accuracy for model / official rules / keep current:
 
   | Lead | Model | Official rules | Keep current |
   |---|---|---|---|
-  | 6 h | 90.7% | 86.3% | 88.3% |
-  | 24 h | 89.6% | 86.3% | 76.3% |
-  | 48 h | 84.9% | 82.5% | 65.9% |
+  | 1 h | 96.0% | 95.9% | 95.9% |
+  | 6 h | 92.8% | 88.1% | 88.8% |
+  | 24 h | 91.7% | 87.7% | 75.1% |
+  | 48 h | 89.2% | 84.0% | 64.2% |
 
-  Its probabilities are also 40–60% sharper by Brier score, and they're calibrated: when it says 85%, it happens about 85% of the time. [update at 15:30]
-- **All public data:** DFLD.de recorded directions, EDDF METAR, and archived forecasts from three weather models through Open-Meteo. Cited in `MODEL_CARD.md`.
+  1 h is a tie. From 6 h it wins by +4 to +5 points over the rules and up to +25 over keep-current, with p < 10⁻⁵. Its probability error (Brier) is about half the rules'. When it says 85%, it happens about 85% of the time. When it's unsure, the screen says so.
+- **All public data:** DFLD.de recorded directions, EDDF METAR, and archived forecasts from three weather models (ECMWF, GFS, ICON) plus pressure about 200 km around FRA, all through Open-Meteo. Cited in `MODEL_CARD.md`.
 
 ## 5. Built with Codex (15 s)
 Spec-driven with OpenSpec in nine work packages. Codex workers built the data pipeline, the official rule engine with its tests, the model, the forecast CLI and the design scrape in parallel, each on its own branch and landing on main.
