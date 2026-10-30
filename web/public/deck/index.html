@@ -261,7 +261,7 @@
 
   <section class="slide s-viz" data-name="model" data-veil="full" data-time="20" data-viz="tree">
     <p class="eyebrow rise">The model</p>
-    <h2 class="rise d1">It learned how the wind decides.</h2>
+    <h2 class="rise d1">How the model decides.</h2>
     <div class="viz rise d2"></div>
   </section>
 
@@ -282,9 +282,9 @@
   </section>
 
   <section class="slide s-value" data-name="value" data-veil="full" data-time="15">
-    <p class="eyebrow rise">What it could be worth</p>
+    <p class="eyebrow rise">Estimated value</p>
     <div class="big rise d1" id="value-big"></div>
-    <div class="t rise d2">a year at Frankfurt Airport, central case</div>
+    <div class="t rise d2">a year at Frankfurt Airport</div>
     <div class="range rise d3" id="value-range"></div>
     <p class="quote rise d4" id="value-quote"></p>
   </section>
@@ -294,11 +294,15 @@
     <div class="ptiles" id="people"></div>
   </section>
 
-  <section class="slide s-team" data-name="team" data-veil="left" data-time="15">
+  <section class="slide s-next" data-name="next" data-veil="left" data-time="10">
+    <p class="eyebrow rise">What's next</p>
+    <h1 class="rise d1">Fleet-wide planning.</h1>
+  </section>
+
+  <section class="slide s-team" data-name="team" data-veil="left" data-time="10">
     <p class="thanks rise">Thank you.</p>
     <p class="team rise d1">Hugo Hader<span>·</span>Kai Detmers<span>·</span>Luca Schultz<span>·</span>Jayden Bruck</p>
     <p class="credits rise d2">3D airport model and data verification: Kai Detmers · Built with Codex</p>
-    <p class="nexts rise d3">Next: ensemble spread for certainty · fleet-wide planning</p>
   </section>
 
   <div id="hud" aria-hidden="true">
@@ -331,15 +335,16 @@
   // Snapshot of web/public/data/quality.json and repo facts, written by snapshot.py (copied exactly, never edited by hand).
   // The live file replaces the quality numbers at render time when the deck is served over http.
   /* SNAPSHOT:BEGIN */
-  var SNAPSHOT = {"quality": {"test": {"start": "2025-11-01T05:00:00+00:00", "end": "2026-10-27T17:00:00+00:00", "months": 12}, "od": [{"lead_h": 1, "n": 1416, "n_days": 361, "model_acc": 0.9597457627118644, "model_acc_ci": [0.9499638817737515, 0.9695699062578719], "rule_acc": 0.9590395480225988, "persistence_acc": 0.9590395480225988, "model_change_acc": 0.20689655172413793, "rule_change_acc": 0.0, "persistence_change_acc": 0.0, "mcnemar_p_vs_rule": 1.0, "dm_p_vs_rule": 0.1352421163826404, "mcnemar_p_vs_persistence": 1.0, "dm_p_vs_persistence": 0.1352421163826404}, {"lead_h": 6, "n": 1416, "n_days": 361, "model_acc": 0.9279661016949152, "model_acc_ci": [0.9089625970359916, 0.944721035449915], "rule_acc": 0.8813559322033898, "persistence_acc": 0.8884180790960452, "model_change_acc": 0.6235955056179775, "rule_change_acc": 0.7640449438202247, "persistence_change_acc": 0.11235955056179775, "mcnemar_p_vs_rule": 2.326921468571164e-07, "dm_p_vs_rule": 1.1572507267012964e-15, "mcnemar_p_vs_persistence": 9.593942024706217e-07, "dm_p_vs_persistence": 5.230600194137753e-10}, {"lead_h": 24, "n": 1383, "n_days": 357, "model_acc": 0.9168474331164136, "model_acc_ci": [0.8972447735255628, 0.9350208791613602], "rule_acc": 0.8770788141720897, "persistence_acc": 0.7505422993492408, "model_change_acc": 0.8208333333333333, "rule_change_acc": 0.8020833333333334, "persistence_change_acc": 0.28125, "mcnemar_p_vs_rule": 1.6535332124342004e-06, "dm_p_vs_rule": 2.963160293577706e-13, "mcnemar_p_vs_persistence": 3.166016329404732e-36, "dm_p_vs_persistence": 4.576149569348425e-25}, {"lead_h": 48, "n": 1338, "n_days": 346, "model_acc": 0.8916292974588939, "model_acc_ci": [0.8702151185318853, 0.9117449198201555], "rule_acc": 0.8400597907324364, "persistence_acc": 0.6420029895366218, "model_change_acc": 0.8335625859697386, "rule_change_acc": 0.796423658872077, "persistence_change_acc": 0.34112792297111416, "mcnemar_p_vs_rule": 4.710881528708642e-08, "dm_p_vs_rule": 1.69183773233844e-14, "mcnemar_p_vs_persistence": 2.7080503029520278e-55, "dm_p_vs_persistence": 2.9651264744544344e-31}], "next_change": {"within_3h": 0.5254901960784314, "false_alarm_rate": 0.12802768166089964}}, "did": {"labels_since": "2018", "weather_models": 3, "weather_model_names": "ECMWF, GFS, ICON", "experiments": 17, "tests_passed": 54, "hours_verified": 76588, "half_hours": 154752, "changes": 1681, "raw_files_ok": 46, "raw_files": 46, "winds_rechecked": 144072}, "value": {"sentence": "On EUROCONTROL unit costs that is worth an illustrative €0.13M to €3.2M a year at FRA, about €0.4M in our central case, plus a similar amount in passengers' time. These are estimates, not measured FRA savings.", "low": "0.13", "high": "3.2", "central": "0.4"}, "people": {"more_right_hours": 350}};
+  var SNAPSHOT = {"quality": {"test": {"start": "2025-11-01T05:00:00+00:00", "end": "2026-10-27T17:00:00+00:00", "months": 12}, "od": [{"lead_h": 1, "n": 1416, "n_days": 361, "model_acc": 0.9597457627118644, "model_acc_ci": [0.9499638817737515, 0.9695699062578719], "rule_acc": 0.9590395480225988, "persistence_acc": 0.9590395480225988, "model_change_acc": 0.20689655172413793, "rule_change_acc": 0.0, "persistence_change_acc": 0.0, "mcnemar_p_vs_rule": 1.0, "dm_p_vs_rule": 0.1352421163826404, "mcnemar_p_vs_persistence": 1.0, "dm_p_vs_persistence": 0.1352421163826404}, {"lead_h": 6, "n": 1416, "n_days": 361, "model_acc": 0.9279661016949152, "model_acc_ci": [0.9089625970359916, 0.944721035449915], "rule_acc": 0.8813559322033898, "persistence_acc": 0.8884180790960452, "model_change_acc": 0.6235955056179775, "rule_change_acc": 0.7640449438202247, "persistence_change_acc": 0.11235955056179775, "mcnemar_p_vs_rule": 2.326921468571164e-07, "dm_p_vs_rule": 1.1572507267012964e-15, "mcnemar_p_vs_persistence": 9.593942024706217e-07, "dm_p_vs_persistence": 5.230600194137753e-10}, {"lead_h": 24, "n": 1383, "n_days": 357, "model_acc": 0.9168474331164136, "model_acc_ci": [0.8972447735255628, 0.9350208791613602], "rule_acc": 0.8770788141720897, "persistence_acc": 0.7505422993492408, "model_change_acc": 0.8208333333333333, "rule_change_acc": 0.8020833333333334, "persistence_change_acc": 0.28125, "mcnemar_p_vs_rule": 1.6535332124342004e-06, "dm_p_vs_rule": 2.963160293577706e-13, "mcnemar_p_vs_persistence": 3.166016329404732e-36, "dm_p_vs_persistence": 4.576149569348425e-25}, {"lead_h": 48, "n": 1338, "n_days": 346, "model_acc": 0.8916292974588939, "model_acc_ci": [0.8702151185318853, 0.9117449198201555], "rule_acc": 0.8400597907324364, "persistence_acc": 0.6420029895366218, "model_change_acc": 0.8335625859697386, "rule_change_acc": 0.796423658872077, "persistence_change_acc": 0.34112792297111416, "mcnemar_p_vs_rule": 4.710881528708642e-08, "dm_p_vs_rule": 1.69183773233844e-14, "mcnemar_p_vs_persistence": 2.7080503029520278e-55, "dm_p_vs_persistence": 2.9651264744544344e-31}], "next_change": {"within_3h": 0.5254901960784314, "false_alarm_rate": 0.12802768166089964}}, "did": {"labels_since": "2018", "weather_models": 3, "weather_model_names": "ECMWF, GFS, ICON", "experiments": 17, "tests_passed": 54, "hours_verified": 76588, "half_hours": 154752, "changes": 1681, "raw_files_ok": 46, "raw_files": 46, "winds_rechecked": 144072}, "value": {"sentence": "Estimated value: about €0.4M a year at Frankfurt (range €0.13M to €3.2M), plus a similar amount in passengers' time. Based on EUROCONTROL delay costs and published studies of runway direction changes.", "low": "0.13", "high": "3.2", "central": "0.4"}, "people": {"more_right_hours": 350}};
   /* SNAPSHOT:END */
 
   // Camera per slide for the shared scene (scene.js).
   var VIEWS = {
     title: { position: [-18, 30, 106], target: [-18, 3, -8] },
-    team: { position: [-30, 44, 96], target: [-36, 0, 0] }
+    next: { position: [-4, 104, 30], target: [-30, 0, 8] },
+    team: { position: [-18, 30, 106], target: [-30, 3, -8] }
   };
-  var SCENE_SLIDES = { title: 1, team: 1 };
+  var SCENE_SLIDES = { title: 1, next: 1, team: 1 };
 
   // ---------- stage fit ----------
   var stage = document.getElementById("stage");
@@ -415,7 +420,7 @@
     // Value: the agreed sentence, verbatim, always next to the figure.
     var v = SNAPSHOT.value;
     document.getElementById("value-big").innerHTML = "~€" + v.central + "M";
-    document.getElementById("value-range").textContent = "€" + v.low + "M to €" + v.high + "M, plus similar value in passengers' time";
+    document.getElementById("value-range").textContent = "Range €" + v.low + "M to €" + v.high + "M, plus a similar amount in passengers' time";
     document.getElementById("value-quote").textContent = "“" + v.sentence + "”";
 
     // People: 82% vs 28% from quality.json, 350 hours from RESULTS.md pitch line 3.
@@ -547,6 +552,7 @@
       if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen().catch(function () {});
     }
     else if (/^[1-9]$/.test(k)) go(+k - 1);
+    else if (k === "0") go(9);
   }
   document.addEventListener("keydown", onKey);
   document.addEventListener("click", function (e) {
