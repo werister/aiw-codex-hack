@@ -26,7 +26,9 @@ daylight. Detail comes from form and construction, not noisy photo textures.
   departure-only 18 to the south; example paths for both ODs and 18 closure;
   readable renders and self-contained GLBs; no building on a runway or taxi
   route; no competing coplanar pavement faces; clear OD25/OD07/18-closed labels;
-  the rerouted departure must reach the end of its centre-runway departure.
+  the rerouted departure must reach the end of its centre-runway departure;
+  smooth curved surfaces, anti-aliased renders and 60 fps animation with gentle
+  starts/stops. The MP4 must contain 3,600 individually rendered frames.
 
 The airport layout is an illustrative compressed diagram, not surveyed geometry
 or an operational taxi clearance. The demonstration paths explain the supplied

@@ -26,9 +26,14 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--no-render', action='store_true')
 parser.add_argument('--preview-only', action='store_true')
 parser.add_argument('--export-only', action='store_true')
-parser.add_argument('--samples', type=int, default=40)
+parser.add_argument('--samples', type=int, default=128)
 parser.add_argument('--preview-filter', default='')
 args = parser.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [])
+if not args.preview_only:
+    (OUT/'verification.json').write_text(json.dumps({
+        'result':'pending',
+        'reason':'Model exports are being regenerated; run verify_assets.py on the completed files.'
+    },indent=2)+'\n')
 
 
 def scene(name):
@@ -38,8 +43,14 @@ def scene(name):
     s.render.engine='CYCLES'
     s.cycles.samples=args.samples
     s.cycles.use_denoising=True
-    s.render.resolution_x=1600
-    s.render.resolution_y=1100
+    s.cycles.pixel_filter_type='BLACKMAN_HARRIS'
+    s.cycles.filter_width=1.5
+    s.cycles.adaptive_threshold=.01
+    s.eevee.taa_samples=64
+    s.eevee.taa_render_samples=64
+    s.render.filter_size=1.5
+    s.render.resolution_x=2400
+    s.render.resolution_y=1650
     s.render.resolution_percentage=100
     s.render.image_settings.file_format='PNG'
     s.view_settings.view_transform='AgX'
@@ -48,7 +59,7 @@ def scene(name):
     s.world.use_nodes=True
     s.world.node_tree.nodes['Background'].inputs[0].default_value=(.73,.80,.86,1)
     s.world.node_tree.nodes['Background'].inputs[1].default_value=.35
-    s.render.fps=24
+    s.render.fps=60
     return s
 
 
@@ -203,7 +214,7 @@ if not args.preview_only:
     s.camera=cam
     camera('Camera · terminal detail',(110,-190,290),(-45,120,15),400)
     camera('Camera · top plan',(0,-55,1400),(0,-55,0),1220)
-    s['README']='Three illustrative states; markers at 1, 481, 961. Space plays. Models in Asset scenes.'
+    s['README']='Three illustrative states; markers at 1, 1201, 2401. Space plays. Models in Asset scenes.'
     s['forecast_contract']='web/src/lib/forecast-types.ts; animations are fixtures, not forecast output.'
     # Friendly initial viewport: camera composition in solid material colour.
     for screen in bpy.data.screens:
@@ -211,6 +222,8 @@ if not args.preview_only:
             if area.type=='VIEW_3D':
                 area.spaces.active.region_3d.view_perspective='CAMERA'
                 area.spaces.active.shading.color_type='MATERIAL'
+                area.spaces.active.shading.type='MATERIAL'
+                area.spaces.active.region_3d.view_camera_zoom=16
                 area.spaces.active.clip_end=10000
                 area.spaces.active.overlay.show_overlays=False
     manifest={'version':2,'blender_version':bpy.app.version_string,
@@ -221,7 +234,10 @@ if not args.preview_only:
         'display_scale':{'runway_length':.12,'runway_width':.30,'tower':.70,
                          'moving_narrowbody':.60,'moving_widebody':.42,'parked_narrowbody':.42},
         'surface_levels':{'landscape':.7,'movement_surface':1.85,'taxi_paint':1.895,'route_highlight':1.98},
-        'runway_obstacle_clearance':12,'runways':specs,'fps':24,'demonstration_phases':routes,
+        'runway_obstacle_clearance':12,'runways':specs,'fps':60,'demonstration_phases':routes,
+        'rendering':{'still_pixels':[2400,1650],'cycles_samples':args.samples,
+           'pixel_filter':'Blackman-Harris','filter_width':1.5,'eevee_taa_samples':64,
+           'native_fps':60,'motion':'60 Hz samples with short eased starts and stops'},
         'integration':{'od':'HourForecast.od (one shared value for all parallel runways)',
            'runway18':'HourForecast.p_18_usable (show probability; a binary display threshold is a UI policy)',
            'certainty':'HourForecast.certainty; not aircraft-assignment confidence',
@@ -237,10 +253,11 @@ if not args.no_render:
                        ('Asset · Runway 07C-25C','runway-detail.png')]:
         render(bpy.data.scenes[name],file)
     s=bpy.data.scenes['FRA · Airport demonstration']
-    for frame,name in [(240,'airport-25.png'),(720,'airport-07.png'),(1260,'airport-18-closed.png')]:
+    for frame,name in [(600,'airport-25.png'),(1800,'airport-07.png'),(3150,'airport-18-closed.png')]:
         render(s,name,bpy.data.objects['Camera · airport overview'],frame)
-    render(s,'terminal-detail.png',bpy.data.objects['Camera · terminal detail'],240)
-    render(s,'airport-plan.png',bpy.data.objects['Camera · top plan'],240)
-    s.camera=bpy.data.objects['Camera · airport overview'];s.frame_set(240)
-    bpy.ops.wm.save_as_mainfile(filepath=str(OUT/'fra-airport.blend'))
+    render(s,'terminal-detail.png',bpy.data.objects['Camera · terminal detail'],600)
+    render(s,'airport-plan.png',bpy.data.objects['Camera · top plan'],600)
+    s.camera=bpy.data.objects['Camera · airport overview'];s.frame_set(600)
+    if not args.preview_only:
+        bpy.ops.wm.save_as_mainfile(filepath=str(OUT/'fra-airport.blend'))
 print('FRA_ASSET_BUILD_COMPLETE', flush=True)

@@ -3,7 +3,7 @@
     {
       "file": "aircraft-narrowbody.glb",
       "bytes": 980996,
-      "sha256": "c28a394527410e2eadefb06522dfec604268fbf81ba4c8dc5c908fc53f0c1440",
+      "sha256": "1419ea100e103c977ecedba1e598743f3e9d8125fefc808955efc053cb630522",
       "triangles_unique": 27380,
       "mesh_nodes": 15,
       "dimensions_blender_m": [
@@ -17,7 +17,7 @@
     {
       "file": "aircraft-widebody.glb",
       "bytes": 1307208,
-      "sha256": "2c3428a7ec0138fceb68a060ed53b1fa70f48fe2e0446ed95d0f89a78ea9b7dc",
+      "sha256": "273e1210c3986b2fa371edbe4ef56c500ab239d19d608485b28ba3cf17a21d4f",
       "triangles_unique": 36332,
       "mesh_nodes": 15,
       "dimensions_blender_m": [
@@ -31,7 +31,7 @@
     {
       "file": "tower.glb",
       "bytes": 4020524,
-      "sha256": "459db526c6b31411353f0f556f9958d585f7c6cf71d51aa2d2bba15633a7800e",
+      "sha256": "51cdf8e55ecbbb49a8c0cb38318be3a2ace5618c0ec8d33ec663ad8dfa8c2b8d",
       "triangles_unique": 77668,
       "mesh_nodes": 8,
       "dimensions_blender_m": [
@@ -100,9 +100,9 @@
     },
     {
       "file": "airport-environment.glb",
-      "bytes": 12351840,
-      "sha256": "8eac4e62bac6f9a4250f071680f251cf745aae3fb3adae3f0f9099b172b7b5c8",
-      "triangles_unique": 260312,
+      "bytes": 12359196,
+      "sha256": "de75c43127ebe0d3f14871267b17d5eeb3df79bc72c5b760646b2729a2a21ecf",
+      "triangles_unique": 260864,
       "mesh_nodes": 208,
       "dimensions_blender_m": [
         900.0,
@@ -114,9 +114,9 @@
     },
     {
       "file": "airport-traffic-demo.glb",
-      "bytes": 4284008,
-      "sha256": "619fc1f3f9311a24535f82c350418c4ecabc1ff73dff0fefc542fac7e9560c71",
-      "triangles_unique": 124412,
+      "bytes": 4638676,
+      "sha256": "52afd987c80e9dae68bbf159d49356b9f5b7b9bae00d8a60d027067ca8acf961",
+      "triangles_unique": 124988,
       "mesh_nodes": 109,
       "dimensions_blender_m": [
         707.3952,
@@ -140,23 +140,24 @@
     "18 departures always southbound",
     "18 closure redirects the flexible departure to the centre runway",
     "Native scene opens; playback states and aircraft transforms valid",
-    "3530 ground positions raycast onto actual movement pavement at z=1.85"
+    "8685 ground positions raycast onto actual movement pavement at z=1.85"
   ],
   "scene_checks": [
+    "PASS: native demonstration scene is authored at 60 fps",
     "INFO: minimum obstacle-to-runway clearance beyond the 12 m envelope: 30.95 display m (Building.Terminal / north)",
     "PASS: 25 semantic obstacle roots clear all runway envelopes",
-    "PASS: no positive-area same-height XY triangle overlap between apron and runway tops (apron 146 triangles; runway 5666 triangles)",
-    "INFO: horizontal surface layers: apron z=[(1.85, 146)]; taxi paint z=[(1.895, 348), (1.932, 458)]; runway tops z=[(1.7, 8), (1.85, 8), (1.8925, 16), (1.905, 668), (1.908, 1373), (1.912, 1373), (2.425, 2220)]",
+    "PASS: no positive-area same-height XY triangle overlap between apron and runway tops (apron 257 triangles; runway 5666 triangles)",
+    "INFO: horizontal surface layers: apron z=[(1.85, 257)]; taxi paint z=[(1.895, 586), (1.932, 458)]; runway tops z=[(1.7, 8), (1.85, 8), (1.8925, 16), (1.905, 668), (1.908, 1373), (1.912, 1373), (2.425, 2220)]",
     "INFO: measured taxi-paint/apron top separation: 0.0450 display m (paint 1.8950, apron 1.8500)",
-    "PASS: exactly one State.N overlay has scale 1 at every integer frame 1..1440; others are 0",
-    "INFO: minimum moving-aircraft center separation: 31.67 display m (depart_center / depart_flex, frame 1025)",
+    "PASS: exactly one State.N overlay has scale 1 at every integer frame 1..3600; others are 0",
+    "INFO: minimum moving-aircraft center separation: 31.60 display m (depart_center / depart_flex, frame 2571)",
     "PASS: all visible moving-aircraft pairs stay at least 20 display m apart",
-    "INFO: minimum moving-flight/obstacle hull/Z gap: 11.63 display m (arrive_north / Building.Service.1, frame 61)",
-    "PASS: moving-flight convex hulls/Z intervals do not intersect semantic obstacle hulls (1440 integer frames)",
+    "INFO: minimum moving-flight/obstacle hull/Z gap: 11.63 display m (arrive_north / Building.Service.1, frame 187)",
+    "PASS: moving-flight convex hulls/Z intervals do not intersect semantic obstacle hulls (3600 integer frames)",
     "PASS: all four aircraft roles reach each phase's manifest endpoint by its phase end",
     "PASS: all route start/finish timings are normalized within 0..1",
     "PASS: closed phase is represented as a distinct manifest state"
   ],
-  "blend_sha256": "55c5aaa3b0bba23e48863d7f3c75a7ee10ef31a7bbb1543af1e45b3cdd0137b5",
+  "blend_sha256": "178b16d2d5f3391b633b2bf529148731bc7e9e90873a6ccb7d2d15c9f4f71b4a",
   "result": "passed"
 }

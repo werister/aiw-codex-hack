@@ -16,7 +16,7 @@ from mathutils import Vector
 RUNWAY_CLEARANCE = 12.0
 AIRCRAFT_SEPARATION = 20.0
 GROUND_HEIGHT_MAX = 4.0
-PHASE_FRAMES = ((1, 480), (481, 960), (961, 1440))
+PHASE_FRAMES = ((1, 1200), (1201, 2400), (2401, 3600))
 FLIGHT_ROLES = ("arrive_north", "arrive_south", "depart_center", "depart_flex")
 OBSTACLE_KINDS = {"building", "tree", "parked_aircraft"}
 
@@ -283,6 +283,11 @@ def check_scene(scene, manifest) -> list[str]:
             failed(f"scene starts at frame {scene.frame_start}; expected {PHASE_FRAMES[0][0]}")
         if scene.frame_end != PHASE_FRAMES[-1][1]:
             failed(f"scene ends at frame {scene.frame_end}; expected {PHASE_FRAMES[-1][1]}")
+        scene_fps = scene.render.fps / scene.render.fps_base
+        if abs(scene_fps - 60.0) > 1e-6:
+            failed(f"scene frame rate is {scene_fps:g} fps; expected 60 fps")
+        else:
+            passed("native demonstration scene is authored at 60 fps")
 
         # Static obstacle geometry is measured from evaluated descendant meshes.
         scene.frame_set(1)

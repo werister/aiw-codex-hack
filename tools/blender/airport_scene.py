@@ -12,7 +12,7 @@ from geometry import root, box, cylinder, sphere, mesh, text
 from terminal_architecture import build_terminal
 
 GROUND = 1.85
-PHASE_FRAMES = 480
+PHASE_FRAMES = 1200
 U = Vector((math.sin(math.radians(70)), math.cos(math.radians(70)), 0))
 V = Vector((-U.y, U.x, 0))
 
@@ -35,11 +35,19 @@ def fillet(points):
         d = min(18, (b-a).length*.25, (c-b).length*.25)
         entry, end = b+(a-b).normalized()*d, b+(c-b).normalized()*d
         result.append(entry)
-        for j in range(1, 13):
-            t = j/12
+        for j in range(1, 25):
+            t = j/24
             result.append((1-t)**2*entry + 2*(1-t)*t*b + t*t*end)
     result.append(Vector(points[-1]))
     return result
+
+
+def smooth_progress(t):
+    # Short acceleration/deceleration ramps keep holds from snapping into motion.
+    ramp=.08
+    if t < ramp:return t*t/(2*ramp*(1-ramp))
+    if t > 1-ramp:return 1-(1-t)**2/(2*ramp*(1-ramp))
+    return (t-ramp/2)/(1-ramp)
 
 
 def sample(points, t):
@@ -246,7 +254,7 @@ def animate_demo(s, assets, specs, m, clone):
             for frame in range(start,end+1):
                 t=(frame-start)/(PHASE_FRAMES-1)
                 progress=max(0,min(1,(t-clock['start'])/(clock['finish']-clock['start'])))
-                pos,tangent=sample(points,progress)
+                pos,tangent=sample(points,smooth_progress(progress))
                 yaw=math.atan2(-tangent.x,tangent.y)
                 if last_yaw is not None:
                     while yaw-last_yaw>math.pi:yaw-=math.tau
@@ -286,7 +294,7 @@ def animate_demo(s, assets, specs, m, clone):
         # visibly follows the same departure runway as the first aircraft.
         route=fillet(routes['depart_flex'][:-2])
         route_ribbon('Assigned departure route',route,1.15,m['green' if usable else 'yellow'],state)
-        for f in (1,480,481,960,961,1440):
+        for f in sorted({value for index in range(3) for value in (index*PHASE_FRAMES+1,(index+1)*PHASE_FRAMES)}):
             active=(f-1)//PHASE_FRAMES==phase
             state.scale=(1,1,1) if active else (0,0,0)
             state.keyframe_insert(data_path='scale',frame=f)
@@ -299,5 +307,5 @@ def animate_demo(s, assets, specs, m, clone):
                     for curve in bag.fcurves:
                         for key in curve.keyframe_points:
                             key.interpolation='CONSTANT' if curve.data_path=='scale' else 'LINEAR'
-    s.frame_start=1; s.frame_end=PHASE_FRAMES*3; s.frame_set(240)
+    s.frame_start=1; s.frame_end=PHASE_FRAMES*3; s.frame_set(600)
     return demo,records

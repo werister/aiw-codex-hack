@@ -83,7 +83,7 @@
       "root": "Runway.west"
     }
   },
-  "fps": 24,
+  "fps": 60,
   "demonstration_phases": [
     {
       "wind_fixture": {
@@ -92,7 +92,7 @@
         "runway18_tailwind_kt": 0
       },
       "start_frame": 1,
-      "end_frame": 480,
+      "end_frame": 1200,
       "od": "25",
       "runway_18_usable": true,
       "paths": {
@@ -220,8 +220,8 @@
         "speed_kt": 12,
         "runway18_tailwind_kt": 4.1
       },
-      "start_frame": 481,
-      "end_frame": 960,
+      "start_frame": 1201,
+      "end_frame": 2400,
       "od": "07",
       "runway_18_usable": true,
       "paths": {
@@ -349,8 +349,8 @@
         "speed_kt": 20,
         "runway18_tailwind_kt": 18.79
       },
-      "start_frame": 961,
-      "end_frame": 1440,
+      "start_frame": 2401,
+      "end_frame": 3600,
       "od": "07",
       "runway_18_usable": false,
       "paths": {
@@ -473,6 +473,18 @@
       }
     }
   ],
+  "rendering": {
+    "still_pixels": [
+      2400,
+      1650
+    ],
+    "cycles_samples": 128,
+    "pixel_filter": "Blackman-Harris",
+    "filter_width": 1.5,
+    "eevee_taa_samples": 64,
+    "native_fps": 60,
+    "motion": "60 Hz samples with short eased starts and stops"
+  },
   "integration": {
     "od": "HourForecast.od (one shared value for all parallel runways)",
     "runway18": "HourForecast.p_18_usable (show probability; a binary display threshold is a UI policy)",

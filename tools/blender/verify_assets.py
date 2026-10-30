@@ -87,7 +87,7 @@ report['checks']+=['All three parallel runways share OD','18 departures always s
 # Verify the native project, including evaluated playback at every phase.
 bpy.ops.wm.open_mainfile(filepath=str(OUT/'fra-airport.blend'))
 s=bpy.data.scenes['FRA · Airport demonstration'];bpy.context.window.scene=s
-for f in (1,240,480,481,720,960,961,1200,1440):
+for f in (1,600,1200,1201,1800,2400,2401,3000,3600):
     s.frame_set(f)
     active=[o for o in s.objects if o.name.startswith('State.') and o.type=='EMPTY' and o.scale.x>.5]
     assert len(active)==1,(f,'state visibility')
