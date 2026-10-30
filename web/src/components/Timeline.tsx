@@ -211,12 +211,26 @@ function Cell({
   change: boolean;
   children: React.ReactNode;
 }) {
-  const label = `${dayLabel(h.local)} ${hhmm(h.local)}: OD ${h.od}, runway 18 ${h.p_18_usable >= 0.5 ? "usable" : "closed"} ${Math.round(h.p_18_usable * 100)}%, certainty ${h.certainty}/100${isUnsure(h) ? `, unsure: ${unsureReason(h)}` : ""}`;
+  const label = `${dayLabel(h.local)} ${hhmm(h.local)}: OD ${h.od}, runway 18 ${h.p_18_usable >= 0.5 ? "usable" : "closed"}, probability of usability ${Math.round(h.p_18_usable * 100)}%, certainty ${h.certainty}/100${isUnsure(h) ? `, unsure: ${unsureReason(h)}` : ""}`;
   return (
     <button
+      type="button"
+      tabIndex={i === sel ? 0 : -1}
       onClick={() => onSelect(i)}
+      onKeyDown={(event) => {
+        const cells = event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>("button");
+        if (!cells?.length) return;
+        const next = event.key === "ArrowRight" ? Math.min(i + 1, cells.length - 1)
+          : event.key === "ArrowLeft" ? Math.max(0, i - 1)
+          : event.key === "Home" ? 0
+          : event.key === "End" ? cells.length - 1 : null;
+        if (next === null) return;
+        event.preventDefault();
+        onSelect(next);
+        cells[next].focus();
+      }}
       className={cx(
-        "relative cursor-pointer py-1 outline-none transition-colors duration-150 hover:bg-select/60 focus-visible:bg-select",
+        "relative cursor-pointer py-1 transition-colors duration-150 hover:bg-select/60 focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-ink motion-reduce:transition-none",
         i === sel && "bg-select",
         change && "before:absolute before:inset-y-0 before:-left-[2px] before:w-0.5 before:bg-ink",
       )}

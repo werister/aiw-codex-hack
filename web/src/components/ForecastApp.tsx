@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { ForecastResponse } from "@/lib/forecast-types";
 import { EvidenceChain } from "./EvidenceChain";
 import { HourDetail } from "./HourDetail";
+import { ForecastAssistant } from "./ForecastAssistant";
 import { Hero } from "./Hero";
 import { Numbers } from "./Numbers";
 import { QualityPanel } from "./QualityPanel";
@@ -13,6 +14,7 @@ import { planFrom } from "./Recommendation";
 import { RunwayMap } from "./RunwayMap";
 import { SceneHero } from "./SceneHero";
 import { Timeline } from "./Timeline";
+import { TimeScrubber } from "./TimeScrubber";
 import { ThemeToggle } from "./ThemeToggle";
 import { Arrow, Panel, dayLabel, hhmm } from "./ui";
 
@@ -29,14 +31,15 @@ export async function loadOptions(): Promise<Option[]> {
     for (const d of idx.days ?? []) opts.push({ label: `${dayLabel(d + "T00:00")} (hindcast)`, file: `${d}.json` });
     if (opts.length) return opts;
   } catch {}
-  return [{ label: "Live sample (rules only)", file: "sample.json" }];
+  return [{ label: "Sample forecast", file: "sample.json" }];
 }
 
 export function useForecast() {
   const [options, setOptions] = useState<Option[]>([]);
   const [file, setFile] = useState<string | null>(null);
-  const [f, setF] = useState<ForecastResponse | null>(null);
-  const [error, setError] = useState(false);
+  const [attempt, setAttempt] = useState(0);
+  const [result, setResult] = useState<{ key: string; forecast?: ForecastResponse; error?: true } | null>(null);
+  const requestKey = `${file}:${attempt}`;
 
   useEffect(() => {
     loadOptions().then((opts) => {
@@ -51,20 +54,31 @@ export function useForecast() {
 
   useEffect(() => {
     if (!file) return;
-    fetch(`/forecasts/${file}`, { cache: "no-store" })
+    const controller = new AbortController();
+    fetch(`/forecasts/${file}`, { cache: "no-store", signal: controller.signal })
       .then((r) => (r.ok ? r.json() : Promise.reject()))
       .then((d: ForecastResponse) => {
-        setF(d);
-        setError(false);
+        if (!Array.isArray(d.hours)) throw new Error("Missing forecast hours");
+        if (!controller.signal.aborted) setResult({ key: requestKey, forecast: d });
       })
-      .catch(() => setError(true));
-  }, [file]);
+      .catch(() => {
+        if (!controller.signal.aborted) setResult({ key: requestKey, error: true });
+      });
+    return () => controller.abort();
+  }, [file, requestKey]);
 
-  return { options, file, setFile, f, error };
+  const current = result?.key === requestKey ? result : null;
+  return {
+    options, file, setFile,
+    f: current?.forecast ?? null,
+    error: current?.error ?? false,
+    loading: current === null,
+    retry: () => setAttempt((value) => value + 1),
+  };
 }
 
 export function ForecastApp() {
-  const { options, file, setFile, f, error } = useForecast();
+  const { options, file, setFile, f, error, loading, retry } = useForecast();
   const [sel, setSel] = useState(0);
   const [evidenceOpen, setEvidenceOpen] = useState(false);
   const evidenceRef = useRef<HTMLDivElement>(null);
@@ -121,11 +135,14 @@ export function ForecastApp() {
         </nav>
       </header>
 
+      {loading && <p role="status" className="py-8 text-[15px] text-muted">Loading forecast…</p>}
       {error && (
-        <p className="rounded-card border border-line bg-panel-2 px-4 py-3 text-[15px]">
-          Forecast unavailable: this day&apos;s file could not be loaded. Pick another day or reload the page.
-        </p>
+        <div role="alert" className="flex flex-wrap items-center gap-4 rounded-card border border-line bg-panel-2 px-4 py-3 text-[15px]">
+          <p>This forecast could not be loaded. Try again or choose another day.</p>
+          <button type="button" onClick={retry} className="pill-btn bg-accent text-accent-ink">Try again</button>
+        </div>
       )}
+      {f && !h && <p role="status" className="py-8 text-[15px] text-muted">This forecast has no hourly data. Choose another day.</p>}
 
       {f && h && (
         <>
@@ -167,6 +184,7 @@ export function ForecastApp() {
                   </span>
                 }
               >
+                <TimeScrubber f={f} selected={sel} onSelect={setSel} />
                 <Timeline f={f} selected={sel} onSelect={setSel} />
               </Panel>
             </section>
@@ -183,6 +201,7 @@ export function ForecastApp() {
               />
             </div>
 
+            <ForecastAssistant key={`${file}:${f.issued_at}:${h.time}`} f={f} h={h} />
             <QualityPanel />
           </div>
 

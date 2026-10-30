@@ -9,13 +9,13 @@ import { RunwayMap } from "./RunwayMap";
 import { SceneHero } from "./SceneHero";
 import { ThemeToggle } from "./ThemeToggle";
 import { Timeline } from "./Timeline";
+import { TimeScrubber } from "./TimeScrubber";
 import { Arrow, Panel, hhmm } from "./ui";
 
 // iPad widget for ops staff and pilots: now, next, and the 48 h strip.
 export function Widget() {
-  const { f } = useForecast();
+  const { f, loading, error, retry } = useForecast();
   const [sel, setSel] = useState(0);
-  if (!f) return null;
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-[1180px] flex-col gap-2.5 px-4 pb-5 sm:px-5">
       <header className="flex h-[56px] items-center gap-3">
@@ -27,6 +27,15 @@ export function Widget() {
           </Link>
         </nav>
       </header>
+      {loading && <p role="status" className="py-8 text-muted">Loading forecast…</p>}
+      {error && (
+        <div role="alert" className="flex flex-wrap items-center gap-4 py-8">
+          <p>This forecast could not be loaded.</p>
+          <button type="button" onClick={retry} className="pill-btn bg-accent text-accent-ink">Try again</button>
+        </div>
+      )}
+      {f && !f.hours.length && <p role="status" className="py-8 text-muted">This forecast has no hourly data. Open the full view to choose another day.</p>}
+      {f && f.hours.length > 0 && <>
       <Hero
         f={f}
         compact
@@ -49,8 +58,10 @@ export function Widget() {
         }
       />
       <Panel title="Next 48 hours">
+        <TimeScrubber f={f} selected={sel} onSelect={setSel} />
         <Timeline f={f} selected={sel} onSelect={setSel} rows={["od", "unsure", "r18", "conf"]} />
       </Panel>
+      </>}
     </div>
   );
 }
