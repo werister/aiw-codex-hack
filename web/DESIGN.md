@@ -2,11 +2,13 @@
 
 ## Product identity
 
-The product is **Lift-off**. Its runway wordmark with a compass inside the **o** lives at
-`public/brand/lift-off-compass.png` and is shared by the cockpit, widget and pitch
-through `src/components/BrandLogo.tsx`. The component frames the artwork inside
-the transparent export margins. It uses the original indigo/violet on light
-surfaces and a white monochrome treatment in tower mode.
+The product is **Lift-off**. Its light lowercase wordmark with a compass inside the
+**o** lives at `public/brand/lift-off-wordmark.png`. Cockpit, widget, pitch and
+methodology use `src/components/BrandLogo.tsx`; the `Brand` wrapper adds an optional
+subtitle. The component frames the transparent export margins and preserves its
+proportions. The wordmark is charcoal on light surfaces and white in tower mode.
+`src/app/icon.svg` uses the compass alone, with a filled north needle and an outlined
+south needle; it adapts to the browser's light or dark color scheme.
 
 ## Interface palette
 

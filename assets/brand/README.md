@@ -1,5 +1,16 @@
 # Lift-off
 
+Current logo: `../../web/public/brand/lift-off-wordmark.png` (1882 × 836 px,
+transparent PNG). The lowercase wordmark uses its **o** as a compass, with a
+filled north needle and outlined south needle. Use the shared `BrandLogo`
+component in all app headers; it frames the export and handles tower mode.
+The browser icon is `../../web/src/app/icon.svg`.
+
+Production export prompt: [lift-off-wordmark.md](lift-off-wordmark.md).
+The files below are retained as earlier design directions, not active branding.
+
+## Archived first direction
+
 Logo: `../../web/public/brand/lift-off-logo.png` (2172 × 724 px, transparent PNG).
 
 An L-shaped runway and ascending wing pair with the exact name **Lift-off**.
