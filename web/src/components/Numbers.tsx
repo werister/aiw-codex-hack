@@ -1,14 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { QualityResult, ReliabilityBin } from "@/lib/forecast-types";
+import type { QualityResult } from "@/lib/forecast-types";
 
-// quality.json also carries certainty-score reliability; only the fields read here are typed.
-type Quality = QualityResult & { certainty_reliability?: ReliabilityBin[] };
+// RESULTS.md, pitch line 2, word for word. It is an estimate, not a number from quality.json.
+const MONEY_LINE =
+  "Using EUROCONTROL's public delay costs and stated assumptions, that is worth an illustrative €0.1M a year against the official rules and €0.6M against no forecast, in central scenarios. This is an estimate, not a measured FRA saving.";
 
-// Held-out scores, read from web/public/data/quality.json at runtime and counted up when scrolled into view.
+// The scores in plain words, read from web/public/data/quality.json at runtime and counted up on scroll.
 export function Numbers() {
-  const [q, setQ] = useState<Quality | null>(null);
+  const [q, setQ] = useState<QualityResult | null>(null);
   const [missing, setMissing] = useState(false);
 
   useEffect(() => {
@@ -18,101 +19,73 @@ export function Numbers() {
       .catch(() => setMissing(true));
   }, []);
 
-  if (missing) return <p className="py-10 text-[15px] text-muted">Model scores unavailable.</p>;
-  if (!q) return <div className="h-[260px]" />;
-
-  const rows = [6, 24, 48].map((lead) => ({ lead, r: q.out_of_sample.od.find((x) => x.lead_h === lead) }));
-  const bins = q.certainty_reliability ?? [];
-  const total = bins.reduce((s, b) => s + b.n, 0);
-  const top = bins.find((b) => b.lower >= 0.9 && b.n > 0 && b.observed_frequency != null);
+  const two = q?.out_of_sample.od.find((x) => x.lead_h === 48);
+  const inTen = two ? Math.round(two.model_acc * 10) : null;
+  // Share of the rulebook's wrong hours that the forecast gets right, two days ahead.
+  const fewer = two && two.rule_acc < 1 ? Math.round((1 - (1 - two.model_acc) / (1 - two.rule_acc)) * 100) : null;
 
   return (
-    <section className="py-10 sm:py-14" aria-label="Model scores">
-      <p className="eyebrow text-muted">Tested on {q.folds.length} months it never saw</p>
-      <h2 className="mt-2 max-w-[24ch] text-[28px] font-light leading-tight sm:text-[36px]">How often the direction call was right</h2>
-
-      <div className="mt-8 grid grid-cols-2 gap-2.5 lg:grid-cols-4">
-        {rows.map(({ lead, r }) => (
-          <Card key={lead} label={`${lead} h ahead`}>
-            {r ? (
-              <>
-                <Big value={r.model_acc * 100} />
-                <Vs k="Rules" v={r.rule_acc} />
-                <Vs k="Same as now" v={r.persistence_acc} />
-              </>
-            ) : (
-              <p className="text-[17px] text-muted">unavailable</p>
-            )}
-          </Card>
-        ))}
-        <Card label="When certainty ≥ 90">
-          {top && total ? (
-            <>
-              <Big value={(top.observed_frequency as number) * 100} />
-              <p className="mt-3 text-[15px] text-ink-2">
-                right · <span className="tabular">{Math.round((top.n / total) * 100)}%</span> of hours
-              </p>
-            </>
-          ) : (
-            <p className="text-[17px] text-muted">unavailable</p>
-          )}
-        </Card>
+    <section className="py-16 sm:py-24" aria-label="How good it is">
+      <div className="grid gap-12 md:grid-cols-3 md:gap-8">
+        <Item
+          big={inTen == null ? null : <><Count to={inTen} /> in 10</>}
+          line="hours called right, 2 days ahead"
+          missing={missing}
+        />
+        <Item
+          big={fewer == null ? null : <><Count to={fewer} />%</>}
+          line="fewer mistakes than the official rulebook, 2 days ahead"
+          missing={missing}
+        />
+        <Item big={<>€0.1M to €0.6M</>} line="a year, estimated" note={`${MONEY_LINE} Source: RESULTS.md.`} />
       </div>
+      <p className="mt-10 text-[13px] text-muted">
+        Measured on {q ? `${q.folds.length} months` : "past months"} the forecast had never seen.
+      </p>
     </section>
   );
 }
 
-function Card({ label, children }: { label: string; children: React.ReactNode }) {
+function Item({ big, line, note, missing }: { big: React.ReactNode; line: string; note?: string; missing?: boolean }) {
   return (
-    <div className="rounded-card bg-panel-2 p-5 sm:p-6">
-      <div className="eyebrow text-muted">{label}</div>
-      <div className="mt-4">{children}</div>
+    <div>
+      <div className="text-[56px] font-light leading-none tracking-[-0.03em] tabular sm:text-[72px]">
+        {big ?? <span className="text-muted">{missing ? "unavailable" : "…"}</span>}
+      </div>
+      <p className="mt-4 max-w-[28ch] text-[20px] leading-snug">{line}</p>
+      {note && <p className="mt-3 max-w-[48ch] text-[13px] leading-snug text-muted">{note}</p>}
     </div>
   );
 }
 
-function Vs({ k, v }: { k: string; v: number }) {
-  return (
-    <p className="mt-1 flex justify-between gap-3 text-[15px] text-ink-2 first-of-type:mt-3">
-      <span>{k}</span>
-      <span className="tabular">{(v * 100).toFixed(1)}%</span>
-    </p>
-  );
-}
-
-// Counts from 0 to value once the number scrolls into view; jumps straight there with reduced motion.
-// It starts at the final value, so a page that never animates still shows the right number.
-function Big({ value }: { value: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [shown, setShown] = useState(value);
+// Counts from 0 to `to` when scrolled into view. Starts on the final value, so a page that never animates is still right.
+function Count({ to }: { to: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [shown, setShown] = useState(to);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     let raf = 0;
     let done = 0;
-    const run = () => {
-      const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const t0 = performance.now();
-      const step = (t: number) => {
-        const k = still ? 1 : Math.min(1, (t - t0) / 1200);
-        setShown(value * (1 - Math.pow(1 - k, 3)));
-        if (k < 1) raf = requestAnimationFrame(step);
-      };
-      raf = requestAnimationFrame(step);
-      done = window.setTimeout(() => {
-        cancelAnimationFrame(raf);
-        setShown(value);
-      }, 1600);
-    };
     const io = new IntersectionObserver(
       (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          io.disconnect();
-          run();
-        }
+        if (!entries.some((e) => e.isIntersecting)) return;
+        io.disconnect();
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        const t0 = performance.now();
+        const step = (t: number) => {
+          const k = Math.min(1, (t - t0) / 1200);
+          setShown(Math.round(to * (1 - Math.pow(1 - k, 3))));
+          if (k < 1) raf = requestAnimationFrame(step);
+        };
+        raf = requestAnimationFrame(step);
+        done = window.setTimeout(() => {
+          cancelAnimationFrame(raf);
+          setShown(to);
+        }, 1600);
       },
-      { threshold: 0.4 },
+      { threshold: 0.5 },
     );
     io.observe(el);
     return () => {
@@ -120,12 +93,7 @@ function Big({ value }: { value: number }) {
       cancelAnimationFrame(raf);
       clearTimeout(done);
     };
-  }, [value]);
+  }, [to]);
 
-  return (
-    <div ref={ref} className="text-[44px] font-light leading-none tracking-[-0.02em] tabular sm:text-[56px]">
-      {shown.toFixed(1)}
-      <span className="text-[0.5em] text-muted">%</span>
-    </div>
-  );
+  return <span ref={ref}>{shown}</span>;
 }
