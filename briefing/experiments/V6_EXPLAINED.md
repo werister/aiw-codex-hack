@@ -16,6 +16,6 @@ The interface also preserves recorded direction observations when only runway-18
 
 These changes improve correctness and make the report more faithful to what was tested. A general accuracy improvement over v5 has not been established. The current twelve-month report gives 95.7%, 92.7%, 91.8% and 88.9% OD accuracy at 1, 6, 24 and 48 hours. Those historical folds influenced development.
 
-Independent Colab status at this document's creation: 31 source/reference files and six input-file hashes verified; 103 software tests passed in 3.98 seconds. Fresh October fits and January/April/July comparisons are in progress. Their accuracy results are not claimed before completion.
+Independent Colab status at this document's creation: 31 source/reference files and six input-file hashes verified; 103 software tests passed in 3.98 seconds. Two fresh October fits and the daily-midnight January/April/July comparison have completed. Results are mixed, with no general v6 superiority established. See [completed results](v6-colab/RESULTS.md), including the failed full-schedule attempt and the clearly separated midnight sampling.
 
 Source: [pinned v6 explanation](https://github.com/werister/aiw-codex-hack/blob/4c6c1143ee69cd131b1d4c1fe5593a18a0ffa756/ML_VERBESSERUNGEN.md), [model card](https://github.com/werister/aiw-codex-hack/blob/4c6c1143ee69cd131b1d4c1fe5593a18a0ffa756/MODEL_CARD.md), [metadata](https://github.com/werister/aiw-codex-hack/blob/4c6c1143ee69cd131b1d4c1fe5593a18a0ffa756/ml/models/metadata.json).
