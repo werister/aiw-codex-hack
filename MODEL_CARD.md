@@ -43,6 +43,20 @@ DFLD publication delay and summer-clock alignment remain unverified. Wind scales
 are existing fixed constants documented as fitted on 2024; this change neither
 refits them per fold nor independently reconstructs that calibration.
 
+### Independent data verification (Kai Detmers)
+
+Offline checks, all exit 0 ([`resources/ml-depth/verification.md`](resources/ml-depth/verification.md)):
+- **DFLD labels:** all 76,588 hourly labels are rebuilt exactly from 154,752 half-hour values; the 788 excluded hours and 2,880 raw HTML samples match.
+- **METAR:** 46/46 raw file hashes match, with 32,156 wind groups and zero normalisation deviations.
+- **Forecast wind:** 144,072 values from 22 monthly responses re-checked. 72 hourly ICON vectors match their assigned runs; the six-hour publication buffer is still an assumption.
+- **TAF:** the IEM archive returned zero EDDF rows, so TAF is not used ([`resources/ml-support/taf/findings.md`](resources/ml-support/taf/findings.md)).
+- **Wind bias:** ICON surface wind runs about 3.3 kt below the airport sensor, stable across 22 months (7-day blocks −3.49 to −3.15 kt; against the DWD station −3.07 kt). That is why forecast wind is scaled to airport level.
+
+**Further limits:**
+- **Change hours:** 770 of the 1,681 detectable direction changes fall in transition hours that the stable-hour accuracy excludes, so changes are scored on the half-hour data instead.
+- **Runway 18 and variable wind:** 4,289 VRB reports and 24 direction ranges make the 15 kt rule ambiguous. VRB hours with wind stay unlabelled (2,067 DFLD hours, 2024-12 to 2026-10). Labelling them usable is planned, not applied.
+- **Threshold:** Fraport's public page describes a lower tailwind threshold for direction changes than the official brief's 10 kt or more. We use the brief's.
+
 ## Evaluation
 
 Twelve expanding monthly folds, 2025-11 to 2026-10,
