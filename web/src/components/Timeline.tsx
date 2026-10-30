@@ -21,6 +21,7 @@ export function Timeline({
   const show = (r: string) => rows.includes(r as never) && (r !== "observed" || observed.size > 0);
 
   return (
+    <>
     <div className="overflow-x-auto">
       <div className="min-w-[760px]">
         {/* hour axis */}
@@ -43,7 +44,7 @@ export function Timeline({
         {show("od") && (
           <Row label="Direction">
             {H.map((h, i) => (
-              <Cell key={h.time} i={i} sel={selected} onSelect={onSelect} change={i === changeIdx}>
+              <Cell key={h.time} i={i} h={h} sel={selected} onSelect={onSelect} change={i === changeIdx}>
                 <div
                   className={cx("relative h-10 w-full rounded-[2px]", odBg(h.od))}
                   style={{ opacity: 0.35 + 0.65 * Math.abs(2 * h.p_od25 - 1) }}
@@ -61,7 +62,7 @@ export function Timeline({
         {show("r18") && (
           <Row label="Runway 18">
             {H.map((h, i) => (
-              <Cell key={h.time} i={i} sel={selected} onSelect={onSelect} change={i === changeIdx}>
+              <Cell key={h.time} i={i} h={h} sel={selected} onSelect={onSelect} change={i === changeIdx}>
                 <div
                   className={cx("h-6 w-full rounded-[2px]", h.p_18_usable >= 0.5 ? "bg-ok" : "stripes bg-bad")}
                   style={{ opacity: 0.3 + 0.7 * Math.abs(2 * h.p_18_usable - 1) }}
@@ -73,14 +74,14 @@ export function Timeline({
         )}
 
         {show("conf") && (
-          <Row label="Confidence">
+          <Row label="Certainty">
             {H.map((h, i) => (
-              <Cell key={h.time} i={i} sel={selected} onSelect={onSelect} change={i === changeIdx}>
+              <Cell key={h.time} i={i} h={h} sel={selected} onSelect={onSelect} change={i === changeIdx}>
                 <div className="flex h-7 items-end">
                   <div
                     className={cx("w-full rounded-t-[2px]", h.certainty >= 60 ? "bg-muted" : "border border-b-0 border-muted")}
                     style={{ height: `${Math.max(6, h.certainty)}%` }}
-                    title={`${h.certainty}% confidence`}
+                    title={`Certainty score ${h.certainty}/100`}
                   />
                 </div>
               </Cell>
@@ -91,7 +92,7 @@ export function Timeline({
         {show("wind") && (
           <Row label="Wind (kt)">
             {H.map((h, i) => (
-              <Cell key={h.time} i={i} sel={selected} onSelect={onSelect} change={i === changeIdx}>
+              <Cell key={h.time} i={i} h={h} sel={selected} onSelect={onSelect} change={i === changeIdx}>
                 <WindGlyph h={h} />
               </Cell>
             ))}
@@ -99,11 +100,11 @@ export function Timeline({
         )}
 
         {show("observed") && (
-          <Row label="Flown">
+          <Row label="Recorded">
             {H.map((h, i) => {
               const o = observed.get(h.time);
               return (
-                <Cell key={h.time} i={i} sel={selected} onSelect={onSelect} change={i === changeIdx}>
+                <Cell key={h.time} i={i} h={h} sel={selected} onSelect={onSelect} change={i === changeIdx}>
                   {o ? (
                     <div
                       className={cx(
@@ -111,12 +112,12 @@ export function Timeline({
                         odBg(o.od),
                         o.od !== h.od && "ring-2 ring-ink ring-inset",
                       )}
-                      title={`Flown ${o.od} · forecast ${h.od}`}
+                      title={`Recorded ${o.od} · forecast ${h.od}`}
                     >
                       {o.od === h.od ? "" : "✕"}
                     </div>
                   ) : (
-                    <div className="h-6" />
+                    <div className="h-6 rounded-[2px] border border-dashed border-muted/60" title="No record for this hour" />
                   )}
                 </Cell>
               );
@@ -130,6 +131,15 @@ export function Timeline({
           <Key cls="bg-ok" label="18 usable" />
           <Key cls="stripes bg-bad" label="18 closed" />
           <span className="text-muted">Paler = less sure</span>
+          {show("observed") && (
+            <>
+              <Key cls="border border-dashed border-muted" label="no record" />
+              <span className="inline-flex items-center gap-1.5">
+                <span className="flex size-3.5 items-center justify-center rounded-[2px] text-[9px] ring-2 ring-ink ring-inset">✕</span>
+                forecast differs from record
+              </span>
+            </>
+          )}
           {changeIdx >= 0 && (
             <span className="inline-flex items-center gap-1.5">
               <span className="h-3.5 w-0.5 bg-ink" />
@@ -139,6 +149,14 @@ export function Timeline({
         </div>
       </div>
     </div>
+    {show("observed") && (
+      <p className="mt-3 max-w-[110ch] text-[13px] leading-snug text-muted">
+        Recorded is the operating direction logged by DFLD.de, a public proxy rather than a certified movement log.
+        Hours without a record, including the direction-change hours DFLD leaves out, show as no record. Runway 18 has
+        no public record, so its reference is inferred from METAR and the official rules.
+      </p>
+    )}
+    </>
   );
 }
 
@@ -153,17 +171,20 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
 
 function Cell({
   i,
+  h,
   sel,
   onSelect,
   change,
   children,
 }: {
   i: number;
+  h: HourForecast;
   sel: number;
   onSelect: (i: number) => void;
   change: boolean;
   children: React.ReactNode;
 }) {
+  const label = `${dayLabel(h.local)} ${hhmm(h.local)}: OD ${h.od}, runway 18 ${h.p_18_usable >= 0.5 ? "usable" : "closed"} ${Math.round(h.p_18_usable * 100)}%, certainty ${h.certainty}/100`;
   return (
     <button
       onClick={() => onSelect(i)}
@@ -172,7 +193,8 @@ function Cell({
         i === sel && "bg-select",
         change && "before:absolute before:inset-y-0 before:-left-[2px] before:w-0.5 before:bg-ink",
       )}
-      aria-label={`Hour ${i + 1}`}
+      aria-label={label}
+      aria-pressed={i === sel}
     >
       {children}
     </button>
