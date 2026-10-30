@@ -1,0 +1,28 @@
+{
+  "source_url": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py?station=EDDF&data=drct&data=sknt&data=gust&data=metar&year1=2025&month1=10&day1=1&year2=2025&month2=10&day2=8&tz=Etc%2FUTC&format=onlycomma&latlon=no&elev=no&missing=M&trace=T&direct=no&report_type=3&report_type=4",
+  "retrieved_at_utc": "2026-10-30T10:49:32.793034+00:00",
+  "http_status": 200,
+  "file": "eddf-metar-2025-10-01_07.csv",
+  "bytes": 32944,
+  "sha256": "e4b390ad3b172e21a38cd8bba80d79ad785a253638b402ada4c8a60cff62abab",
+  "rows": 336,
+  "start": "2025-10-01 00:20",
+  "end": "2025-10-07 23:50",
+  "columns": [
+    "station",
+    "valid",
+    "drct",
+    "sknt",
+    "gust",
+    "metar"
+  ],
+  "missing_by_column": {
+    "station": 0,
+    "valid": 0,
+    "drct": 18,
+    "sknt": 0,
+    "gust": 330,
+    "metar": 0
+  },
+  "duplicate_valid_times": 0
+}
