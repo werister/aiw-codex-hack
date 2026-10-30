@@ -2,6 +2,7 @@
 
 from datetime import date
 import json
+from types import SimpleNamespace
 
 import pandas as pd
 import pytest
@@ -188,3 +189,92 @@ def test_metar_loader_excludes_reports_after_cutoff(monkeypatch, tmp_path):
     assert reports.time.max() <= cutoff
     assert reports.wind_kt.iloc[-1] == 8
     assert reports.gust_kt.iloc[-1] == 8
+
+
+@pytest.mark.parametrize("error", [
+    FileNotFoundError("No fitted forecast file"),
+    ValueError("No model trained before this issue time; choose a later hindcast date"),
+])
+def test_predict_adapter_uses_fallback_when_fit_is_unavailable(monkeypatch, error):
+    issue = pd.Timestamp("2026-10-02T00:00Z")
+    obs, nwp = pd.DataFrame(), pd.DataFrame()
+    expected = pd.DataFrame({"p_od25": [0.7], "p_18_usable": [0.9]})
+    calls = []
+
+    def unavailable(*args):
+        raise error
+
+    def fallback(*args):
+        calls.append(args)
+        return expected
+
+    module = SimpleNamespace(predict_48h=unavailable)
+    monkeypatch.setattr(forecast, "importlib", SimpleNamespace(import_module=lambda name: module))
+    monkeypatch.setattr(forecast, "fallback_predict", fallback)
+    actual, version = forecast.predict(issue, obs, nwp, "25")
+    assert actual is expected
+    assert version == "rules-fallback"
+    assert len(calls) == 1
+    assert calls[0][0] == issue
+    assert calls[0][1] is obs
+    assert calls[0][2] is nwp
+    assert calls[0][3] == "25"
+
+
+def test_predict_adapter_propagates_other_validation_errors(monkeypatch):
+    error = ValueError("Incomplete 48-hour archived wind coverage")
+
+    def invalid(*args):
+        raise error
+
+    module = SimpleNamespace(predict_48h=invalid)
+    monkeypatch.setattr(forecast, "importlib", SimpleNamespace(import_module=lambda name: module))
+    with pytest.raises(ValueError, match="Incomplete 48-hour archived wind coverage") as caught:
+        forecast.predict(pd.Timestamp("2026-10-02T00:00Z"), pd.DataFrame(), pd.DataFrame(), "25")
+    assert caught.value is error
+
+
+def test_predict_adapter_preserves_fitted_output_and_version(monkeypatch):
+    issue = pd.Timestamp("2026-10-02T00:00Z")
+    obs, nwp = pd.DataFrame(), pd.DataFrame()
+    expected = pd.DataFrame({"p_od25": [0.123, 0.987], "p_18_usable": [0.82, 0.35]})
+    expected.attrs["model_version"] = "forecast-v2"
+    calls = []
+
+    def fitted(*args):
+        calls.append(args)
+        return expected
+
+    module = SimpleNamespace(predict_48h=fitted)
+    monkeypatch.setattr(forecast, "importlib", SimpleNamespace(import_module=lambda name: module))
+    actual, version = forecast.predict(issue, obs, nwp, "07")
+    assert actual is expected
+    assert list(actual.p_od25) == [0.123, 0.987]
+    assert list(actual.p_18_usable) == [0.82, 0.35]
+    assert version == "forecast-v2"
+    assert calls[0][0] == issue
+    assert calls[0][1] is obs
+    assert calls[0][2] is nwp
+    assert calls[0][3] == "07"
+
+
+@pytest.mark.parametrize("hours_ahead", [-1, 0, 1])
+def test_predict_adapter_stale_metar_fallback_requires_future_issue(monkeypatch, hours_ahead):
+    issue = NOW.floor("h") + pd.Timedelta(hours=hours_ahead)
+    obs, nwp = pd.DataFrame(), pd.DataFrame()
+    expected = pd.DataFrame({"p_od25": [0.8]})
+
+    def stale(*args):
+        raise ValueError("No METAR within two hours before issue")
+
+    module = SimpleNamespace(predict_48h=stale)
+    monkeypatch.setattr(forecast, "importlib", SimpleNamespace(import_module=lambda name: module))
+    monkeypatch.setattr(forecast, "pd", SimpleNamespace(Timestamp=SimpleNamespace(now=lambda tz: NOW)))
+    monkeypatch.setattr(forecast, "fallback_predict", lambda *args: expected)
+    if hours_ahead > 0:
+        actual, version = forecast.predict(issue, obs, nwp, "25")
+        assert actual is expected
+        assert version == "rules-fallback"
+    else:
+        with pytest.raises(ValueError, match="No METAR within two hours before issue"):
+            forecast.predict(issue, obs, nwp, "25")
