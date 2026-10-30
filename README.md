@@ -1,0 +1,69 @@
+# FRA operating direction forecast (FraAlliance challenge, AI Week Codex Hackathon, 30 Oct 2026)
+
+## Work packages (OpenSpec: `openspec/changes/`)
+
+Pick yours, read its `proposal.md` and `tasks.md`, and tick tasks off as you go. `openspec list` shows progress.
+
+| # | Package | Owner | Change |
+|---|---|---|---|
+| 1 | Data sources and download | Codex worker; Luca checks the data | `wp1-data-sources` |
+| 2 | Labels and rule baseline, with the 30-min hysteresis | Kai | `wp2-labels-rule-baseline` |
+| 3 | Model and held-out backtest at 1/6/24 h | Kai with a Codex worker | `wp3-model-backtest` |
+| 4 | CLI `forecast --day` and the jury-day forecasts | a Codex worker | `wp4-forecast-cli` |
+| 5 | UI: 48 h timeline and iPad widget | Jayden | `wp5-ui-timeline` |
+| 6 | Model card, business case, pitch | Hugo, Luca | `wp6-model-card-pitch` |
+| 7 | How the decision is made, and which data exists (`DATA_AND_DECISIONS.md`) | Codex worker | `wp7-data-decisions-research` |
+
+Deadline: submissions at 16:00, finals at 17:00. Hugo presents; Jayden leaves at 16:45.
+
+## What we are building
+
+A 48 h hourly forecast for Frankfurt Airport. For each hour it gives:
+- the operating direction (OD 25 west or OD 07 east)
+- the probability that runway 18 is usable for departures
+- a certainty score
+- the next likely direction change
+
+The model learns from public data: EDDF METAR, archived weather-model forecasts and DWD observations. It must beat the official rule baseline (`ml/rules.json`), measured on held-out days at 1, 6 and 24 h ahead. The jury compares our forecasts for their test days with the directions actually flown.
+
+Official brief: `frankfurt-airport-operating-direction-forecast.md`. Background: `CHALLENGE_FRAALLIANCE.md`, `briefing/`.
+
+## Stack
+
+- `ml/`: Python 3.13, pandas, scikit-learn. Data download, labels, model, backtest and the forecast CLI.
+- `web/`: Next.js 16, TypeScript, Tailwind 4 (npm). The ops timeline, deployed on Vercel with `web/` as the root.
+- Contracts: `ml/rules.json` holds the official limits. `web/src/lib/forecast-types.ts` defines the JSON the CLI writes and the UI reads.
+
+## Run
+
+```bash
+python -m pip install -r ml/requirements.txt
+python -m ml.fetch                              # data into data/ (cached)
+python -m ml.labels                             # labels from METAR + official rules
+python -m ml.train                              # model + backtest
+python -m ml.forecast --day 2026-10-31          # 48 h hourly table for any day
+python -m ml.forecast --day 2026-10-31 --json   # same as JSON for the UI
+
+cd web && npm install && npm run dev            # http://localhost:3000
+```
+
+Some of these commands land during the day. Each work package says when its part is ready.
+
+## Demo path
+
+1. Open the web app: the next 48 h, with OD per hour, runway 18, certainty and the next change.
+2. Switch to a jury test day and show the forecast against what the rules say happened.
+3. Open the backtest: skill at 1, 6 and 24 h against the rule baseline and persistence.
+4. Show `MODEL_CARD.md`.
+
+## Data
+
+All sources are public and cited. The details are in `data/README.md` (files) and `DATA_AND_DECISIONS.md` (how FRA decides and which data exists).
+- EDDF METAR and TAF from the Iowa Environmental Mesonet archive.
+- Open-Meteo Previous Runs and Historical Forecast APIs: archived model forecasts, for an honest 48 h backtest.
+- The Open-Meteo Forecast API for the live forecast.
+- DWD Open Data, station 01420 Frankfurt/Main.
+
+## Team
+
+Kai Detmers (ML co-lead), Jayden Bruck (agents and UI), Hugo Hader (pitch), Luca Schultz (data, numbers, backup presenter). Rules for everyone, humans and agents: `AGENTS.md`.
