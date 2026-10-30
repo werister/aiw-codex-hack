@@ -57,8 +57,8 @@ for r in q["out_of_sample"]["od"]:
     L = r["lead_h"]
     acc.append({"lead_h": L, "n": r["n"], "model": r["model_acc"], "rules": r["rule_acc"], "same": r["persistence_acc"],
                 "model_ci": sig[L]["model_acc_ci"], "n_days": sig[L]["n_days"]})
-accd = {"rows": acc, "test_period": q["folds"][0]["test_period"]["start"][:10] + " to " + q["folds"][-1]["test_period"]["end"][:10],
-        "source": "web/public/data/quality.json out_of_sample.od + significance.od (95% CI)"}
+accd = {"model_version": q["model_version"], "rows": acc, "test_period": q["folds"][0]["test_period"]["start"][:10] + " to " + q["folds"][-1]["test_period"]["end"][:10],
+        "source": "web/public/data/quality.json out_of_sample.od + significance.od (95% issue-day bootstrap CI)"}
 with open(OUT + "/accuracy.data.js", "w", encoding="utf-8") as f:
     f.write("// Generated from web/public/data/quality.json. Do not edit by hand.\n")
     f.write("export const DATA = " + json.dumps(accd, indent=1) + ";\n")
@@ -71,6 +71,7 @@ with open(OUT + "/drivers.data.js", "w", encoding="utf-8") as f:
 
 # ---------- tree ----------
 m = joblib.load(R + "/ml/models/forecast.joblib")
+assert m["version"] == q["model_version"], "Model and quality versions differ"
 od = m["od"]; feats = m["features"]
 p = od._predictors[0][0]
 nodes = p.nodes
@@ -109,6 +110,7 @@ print("tree", json.dumps(td)[:3000])
 ex = {}
 for day in ["2026-10-28", "2026-10-29"]:
     d = json.load(open(R + "/web/public/forecasts/%s.json" % day))
+    assert d["model_version"] == q["model_version"], "Example forecast is stale"
     obs = {o["time"]: o["od"] for o in d["observed"]}
     hrs = []
     for h in d["hours"]:

@@ -1,4 +1,4 @@
-// How often we are right: held-out accuracy at 6 / 24 / 48 h for our model vs official rules vs same as now.
+// How often we are right: held-out accuracy at 1 / 6 / 24 h for our model vs official rules vs same as now.
 // Data: ./accuracy.data.js (generated from web/public/data/quality.json, out_of_sample.od + significance.od).
 // Usage: import { mount } from './viz/accuracy.js'; const v = mount(el); v.replay();
 import { DATA } from "./accuracy.data.js";
@@ -24,7 +24,7 @@ const easeOut = (t) => 1 - Math.pow(1 - t, 3);
 const pct = (v) => (100 * v).toFixed(1) + "%";
 
 export function mount(el, opts = {}) {
-  const leads = opts.leads ?? [6, 24, 48];
+  const leads = opts.leads ?? [1, 6, 24];
   el.innerHTML = "";
   const fg = cssVar(el, ["--fg", "--ink"], "#1b1b1f");
   const muted = cssVar(el, ["--muted"], "#6b6b78");
@@ -88,8 +88,8 @@ export function mount(el, opts = {}) {
       anims.push({ rect, txt, whisk, v, ci: isModel ? r.model_ci : null, delay: gi * 260 + si * 110, isModel });
     });
   });
-  const note = svg("text", { x: W - right, y: 43, "text-anchor": "end", "font-size": 24, fill: muted }, s);
-  note.textContent = "12 months the model never saw · whisker = 95% range";
+  const note = svg("text", { x: W - right, y: 84, "text-anchor": "end", "font-size": 24, fill: muted }, s);
+  note.textContent = "12 monthly test folds · whisker = 95% issue-day bootstrap CI";
 
   let raf = 0, t0 = 0;
   const dur = 1100;
@@ -107,7 +107,7 @@ export function mount(el, opts = {}) {
       const labelTop = a.ci ? y(v + (a.ci[1] - a.v) * e) : y(v);
       a.txt.setAttribute("y", labelTop - 16);
       a.txt.setAttribute("opacity", Math.min(1, t * 2));
-      a.txt.textContent = pct(v);
+      a.txt.textContent = pct(a.v);
       if (a.whisk) a.whisk.setAttribute("opacity", Math.max(0, (t - 0.75) / 0.25));
     }
     if (!done) raf = requestAnimationFrame(frame);

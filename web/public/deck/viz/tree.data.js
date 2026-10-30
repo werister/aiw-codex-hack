@@ -6,114 +6,112 @@ export const TREE = {
  "n_nodes": 29,
  "learning_rate": 0.08,
  "max_leaf_nodes": 15,
- "baseline": 0.6115617703981753,
- "version": "walk-forward-v5",
+ "baseline": 0.6010683291068342,
+ "version": "walk-forward-v6",
  "trained_through": "2026-10-29T18:00:00+00:00",
  "class_1": "west (25)",
  "note": "left branch = value <= threshold; leaf value = log-odds push toward west (positive) or east (negative)",
  "root": {
-  "count": 191366,
-  "lean": 0.00012794179519963857,
+  "count": 192398,
+  "lean": 7.264593948327216e-05,
   "feature": "ens_tailwind_25_mean",
-  "threshold": 1.348702473554569,
+  "threshold": 1.484939890885488,
   "missing_left": true,
   "left": {
-   "count": 124577,
-   "lean": 0.10127191801073013,
+   "count": 126756,
+   "lean": 0.09820411343163131,
    "feature": "rule_od25_ens",
    "threshold": 0.5,
    "missing_left": false,
    "left": {
-    "count": 12880,
-    "lean": 0.0014719526265438352,
+    "count": 14108,
+    "lean": -0.002161145000950111,
     "feature": "geo_tailwind_25",
-    "threshold": -0.5382503390580646,
+    "threshold": -0.5897259152289305,
     "missing_left": true,
     "left": {
-     "count": 7410,
-     "lean": 0.04335055076824711,
+     "count": 7989,
+     "lean": 0.04005889369704156,
      "feature": "od_at_issue",
      "threshold": 0.5,
      "missing_left": false,
      "more": true
     },
     "right": {
-     "count": 5470,
-     "lean": -0.05525938416139425,
-     "feature": "season_cos",
-     "threshold": -0.16587819893463143,
-     "missing_left": true,
-     "more": true
+     "count": 6119,
+     "lean": -0.057283859359220334,
+     "leaf": true,
+     "value": -0.057283859359220334
     }
    },
    "right": {
-    "count": 111697,
-    "lean": 0.11278004763057954,
+    "count": 112648,
+    "lean": 0.11077382675070363,
     "feature": "ens_votes_25",
     "threshold": 0.875,
     "missing_left": false,
     "left": {
-     "count": 17881,
-     "lean": 0.08046594836386342,
+     "count": 17983,
+     "lean": 0.08018961079203887,
      "feature": "geo_tailwind_25",
-     "threshold": -0.7597006588600613,
+     "threshold": -0.7766291113544515,
      "missing_left": true,
      "more": true
     },
     "right": {
-     "count": 93816,
-     "lean": 0.1189390014229833,
-     "leaf": true,
-     "value": 0.1189390014229833
+     "count": 94665,
+     "lean": 0.11658374547023745,
+     "feature": "season_sin",
+     "threshold": -0.981947190186646,
+     "missing_left": false,
+     "more": true
     }
    }
   },
   "right": {
-   "count": 66789,
-   "lean": -0.18852906946417156,
+   "count": 65642,
+   "lean": -0.18942115823215555,
    "feature": "ens_tailwind_25_mean",
-   "threshold": 2.895745945169816,
+   "threshold": 2.934672356363653,
    "missing_left": false,
    "left": {
-    "count": 15007,
-    "lean": -0.1015129505250324,
+    "count": 14337,
+    "lean": -0.10622248653065319,
     "feature": "dp_ns",
-    "threshold": -0.39999999999997726,
-    "missing_left": false,
+    "threshold": -0.1999999999999318,
+    "missing_left": true,
     "left": {
-     "count": 6998,
-     "lean": -0.05544213507614248,
+     "count": 7250,
+     "lean": -0.06364109167196073,
      "feature": "od_at_issue",
      "threshold": 0.5,
      "missing_left": false,
      "more": true
     },
     "right": {
-     "count": 8009,
-     "lean": -0.1417681092853435,
-     "feature": "ecmwf_ifs025_tailwind_25",
-     "threshold": -0.07331581420238416,
-     "missing_left": false,
-     "more": true
+     "count": 7087,
+     "lean": -0.14978324746271474,
+     "leaf": true,
+     "value": -0.14978324746271474
     }
    },
    "right": {
-    "count": 51782,
-    "lean": -0.21374730933361774,
+    "count": 51305,
+    "lean": -0.21267073149371757,
     "feature": "ens_tailwind_25_mean",
-    "threshold": 4.178045460562162,
+    "threshold": 4.158115558266678,
     "missing_left": false,
     "left": {
-     "count": 14260,
-     "lean": -0.18818246011922346,
+     "count": 13583,
+     "lean": -0.18726172815069647,
      "leaf": true,
-     "value": -0.18818246011922346
+     "value": -0.18726172815069647
     },
     "right": {
-     "count": 37522,
-     "lean": -0.22346306941562996,
+     "count": 37722,
+     "lean": -0.22182004734145247,
      "leaf": true,
-     "value": -0.22346306941562996
+     "value": -0.2218200473414525
     }
    }
   }

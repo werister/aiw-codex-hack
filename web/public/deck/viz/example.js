@@ -1,4 +1,4 @@
-// One real day: a 48 h hindcast vs what was actually flown. Model chance of west (smooth line),
+// One real day: a 48 h hindcast vs what was recorded direction. Model chance of west (smooth line),
 // official rules (thin step line), recorded direction (strip), and the moment of the switch.
 // Data: ./example.data.js (generated from web/public/forecasts/2026-10-28.json and 2026-10-29.json).
 // Usage: import { mount } from './viz/example.js'; const v = mount(el, { day: "2026-10-28" }); v.replay();
@@ -75,12 +75,12 @@ export function mount(el, opts = {}) {
   // legend
   const leg = svg("g", {}, s);
   svg("line", { x1: 0, x2: 44, y1: 30, y2: 30, stroke: accent, "stroke-width": 7, "stroke-linecap": "round" }, leg);
-  svg("text", { x: 58, y: 40, "font-size": 30, "font-weight": 700, fill: fg }, leg).textContent = "our model: how sure of west";
+  svg("text", { x: 58, y: 40, "font-size": 30, "font-weight": 700, fill: fg }, leg).textContent = "our model: probability of west";
   svg("line", { x1: 520, x2: 564, y1: 30, y2: 30, stroke: rulesCol, "stroke-width": 3 }, leg);
   svg("text", { x: 578, y: 40, "font-size": 30, "font-weight": 500, fill: muted }, leg).textContent = "official rules";
   svg("rect", { x: 820, y: 14, width: 18, height: 32, rx: 3, fill: west }, leg);
   svg("rect", { x: 840, y: 14, width: 18, height: 32, rx: 3, fill: east }, leg);
-  svg("text", { x: 872, y: 40, "font-size": 30, "font-weight": 500, fill: muted }, leg).textContent = "actually flown";
+  svg("text", { x: 872, y: 40, "font-size": 30, "font-weight": 500, fill: muted }, leg).textContent = "recorded direction";
 
   // frame: west/east labels and 50/50 guide
   svg("line", { x1: L, x2: L, y1: T, y2: T + PH, stroke: line, "stroke-width": 2 }, s);
@@ -121,7 +121,7 @@ export function mount(el, opts = {}) {
 
   // actual strip
   const strip = svg("g", {}, s);
-  svg("text", { x: L - 18, y: stripY + stripH / 2 + 9, "text-anchor": "end", "font-size": 24, "font-weight": 600, fill: muted }, s).textContent = "flown";
+  svg("text", { x: L - 18, y: stripY + stripH / 2 + 9, "text-anchor": "end", "font-size": 24, "font-weight": 600, fill: muted }, s).textContent = "recorded";
   const cells = hrs.map((h, i) => svg("rect", {
     x: xEdge(i) + 0.5, y: stripY, width: pw / N - 1, height: stripH,
     fill: h.actual === "25" ? west : h.actual === "07" ? east : line, opacity: 0,
@@ -141,7 +141,7 @@ export function mount(el, opts = {}) {
     sub.textContent = `${startOd === "25" ? "west" : "east"} → ${hrs[sw].actual === "25" ? "west" : "east"}`;
   }
   const note = svg("text", { x: W - R, y: H - 4, "text-anchor": "end", "font-size": 22, fill: muted }, s);
-  note.textContent = `forecast made ${first.getUTCDate()} Oct 00:00 · grey = no record`;
+  note.textContent = `${D.model_version} · issued ${D.issued_local.slice(0, 16).replace("T", " ")} · grey = no record`;
 
   const lenM = modelPath.getTotalLength ? modelPath.getTotalLength() || 3000 : 3000;
   const lenR = rulesPath.getTotalLength ? rulesPath.getTotalLength() || 3000 : 3000;

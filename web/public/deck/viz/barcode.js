@@ -1,4 +1,4 @@
-// 8 years of flown directions: one column per day, one row per local hour, west vs east.
+// 8 years of recorded directions: one column per day, one row per local hour, west vs east.
 // Data: ./barcode.data.js (generated from data/ground_truth/dfld_hourly.csv).
 // Usage: import { mount } from './viz/barcode.js'; const v = mount(el); v.replay();
 import { META, BITS } from "./barcode.data.js";

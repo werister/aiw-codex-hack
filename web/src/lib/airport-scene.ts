@@ -151,6 +151,7 @@ export function mount(host: HTMLElement, options: Options) {
     return element;
   }
   const windLabel = label("Wind", new THREE.Vector3(345, 4, -120));
+  let westLabel: HTMLSpanElement | null = null;
   let bounds: THREE.Box3 | null = null;
   let manifest: Parameters<typeof buildTrafficPlan>[0] | null = null;
   let plan: ReturnType<typeof buildTrafficPlan> | null = null;
@@ -198,6 +199,11 @@ export function mount(host: HTMLElement, options: Options) {
       arrow.visible = index !== 3 || state.r18Open;
     });
     closure.visible = !state.r18Open;
+    if (westLabel) {
+      westLabel.textContent = state.r18Open ? "18 · departures" : `18 closed · use ${state.od}C`;
+      westLabel.style.color = state.r18Open ? "#273a4a" : "#a32216";
+      westLabel.style.background = state.r18Open ? "rgba(248,250,248,.88)" : "rgba(255,239,232,.96)";
+    }
     const wind = state.wind;
     windArrow.visible = !!wind && wind.kt > 0;
     if (wind) windArrow.setDirection(heading(wind.dir + 180));
@@ -294,8 +300,11 @@ export function mount(host: HTMLElement, options: Options) {
       const position = world([x, y, 2.3]).add(offset);
       const arrow = new THREE.ArrowHelper(heading(index === 3 ? 180 : 250), position, 65, 0x3c36da, 17, 10);
       arrows.push(arrow); indicators.add(arrow);
-      label(index === 3 ? "18 · departures" : ["07L / 25R · arrivals", "07C / 25C · departures", "07R / 25L · arrivals"][index], world([x, y, 3]).add(new THREE.Vector3(0, 0, 24)));
-      if (index === 3) closure.position.copy(position);
+      const runwayLabel = label(index === 3 ? "18 · departures" : ["07L / 25R · arrivals", "07C / 25C · departures", "07R / 25L · arrivals"][index], world([x, y, 3]).add(new THREE.Vector3(0, 0, 24)));
+      if (index === 3) {
+        westLabel = runwayLabel;
+        closure.position.copy(world([x, y, 3]));
+      }
     });
     applyState(); updateTraffic(); resize(); ready = true;
     canvas.dataset.ready = "true";

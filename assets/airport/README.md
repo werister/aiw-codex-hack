@@ -36,8 +36,10 @@ Native playback uses 60 fps. Each phase takes 20 seconds; jump to frame 1, 1201 
 - `verification.json`: native export hashes, dimensions, geometry, runway and
   scene checks. Its `result` must be `passed` before publishing.
 - `runtime-verification.json`: sampled browser traffic checked against actual
-  Blender runway/apron surfaces. Read its `result` separately from the native
-  asset report.
+  Blender runway/apron surfaces. The current report passes 19,200 samples
+  across four states and four roles; all 12,097 ground samples hit pavement,
+  with no recorded obstacle or aircraft-hull collisions. This validates the
+  illustrative geometry, not operational clearance.
 - `BRIEF.md`: visual brief, scope and reference sources.
 
 ## Integration
