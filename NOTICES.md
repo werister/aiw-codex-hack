@@ -2,7 +2,7 @@
 
 Open problems across main, branches and worktrees. One line each: time (Berlin) | severity | what is wrong | where | who acts. `STOP` breaks main or makes the submission wrong, `FIX` should be fixed before 16:00, `FYI` is worth knowing. Delete a line once it is fixed. Rules: "Cross-checking" in `AGENTS.md`.
 
-Main at 13:20 runs: `python -m pytest ml/tests -q` gives 50 passed, `python -m ml.forecast --day 2026-10-31` gives `walk-forward-v4` issued at the current hour.
+Main at 13:30 runs: `python -m pytest ml/tests -q` gives 50 passed, `python -m ml.forecast --day 2026-10-31` gives `walk-forward-v4` issued at the current hour.
 
 ## STOP
 
@@ -18,9 +18,14 @@ Main at 13:20 runs: `python -m pytest ml/tests -q` gives 50 passed, `python -m m
 - 13:20 | FIX | Ola references: seven agent briefs contain local `C:\olawt\...` worktree paths (`c27-design.md` has two), and the guardian's own commit message f57b695 on main contains the word. Changing that message would mean rewriting main, so leave it to the cleanup decision | `briefs/c27-design.md`, `hk-cli.md`, `hk-cli3.md`, `hk-data.md`, `hk-model.md`, `hk-research.md`, `hk-scrape.md`, commit f57b695 | cleanup agent at the end
 - 13:00 | FIX | Main now has the FraAlliance styling and the recommendation view (0cf65aa, c5d906e), but `origin/hugo/forecast-ui-spec` still carries a separate static prototype (`web/prototypes/dfs-forecast/`) and a wp5 spec written against the old placeholder page (`briefing/2026-10-30-ui-atc-context.md`). Hugo presents from an outdated picture of the UI | branch `hugo/forecast-ui-spec` | Hugo: rebase and review the current app
 - 13:20 | FYI | The stuck-feed filter is now reported separately (`out_of_sample_stuck_feed_excluded` in `quality.json`, `ml/README.md`); the headline keeps those hours. `MODEL_CARD.md` doesn't mention it yet | `MODEL_CARD.md` | model-card owner
+- 13:30 | FIX | Quality numbers disagree. `PITCH.md`, `DEMO_SCRIPT.md` and `SUBMISSION.md` use the current `backtest.json` (6/24/48 h: 90.7/89.6/84.9%), while `MODEL_CARD.md` still shows older numbers (91.5/90.3/84.1%, and 97.0% at 1 h). The pitch and submission leave out the required 1 h lead, where the model is now 94.6% against 95.2% for rules and keep-current | `MODEL_CARD.md`, `PITCH.md`, `SUBMISSION.md` | head lane: one set of numbers everywhere, 1 h included
+- 13:30 | FIX | `SUBMISSION.md` and `PITCH.md` say the model uses archived ECMWF, GFS and ICON forecasts. The model on main reads only the Open-Meteo best-match previous runs; the multi-model archive (4875dc5) isn't used by `ml/features.py` or `ml/train.py` | `SUBMISSION.md`, `PITCH.md` | head lane: match the claim to what ships
+- 13:30 | FIX | `SUBMISSION.md` still has `LIVE_URL` as a placeholder. No deployed URL is in the repo | `SUBMISSION.md` | Jayden: deploy and fill it in
+- 13:30 | FIX | Kai's `origin/codex/blender-airport-assets` branched from 9558d79 (about 11:20) and carries 11 duplicate copies of early main commits, 51 MB of 3D files (`airport-environment.glb` is 16 MB, plus a 3 MB `.blend`), a 71-line README rewrite, AGENTS.md edits, and old file versions that name an AI model as head agent. Merging it as is would conflict and bring that back | branch `codex/blender-airport-assets` | Kai and head lane: take only the needed assets, no merge
 
 ## FYI
 
+- 13:30 | FYI | `PITCH.md` section 5 is titled "Built with Codex" and names Codex workers. That fits a Codex hackathon if intended, but AGENTS.md bans AI names in files | `PITCH.md:30-31` | head lane: decide
 - 13:20 | FYI | The optional tower briefing (c0d210e) brings back `OPENAI_API_KEY` and `OPENAI_MODEL` in both `.env.example` files and `openai` in `ml/requirements.txt`. It reads keys only from git-ignored `.env.local` files and is off by default. Keep it that way, and don't show briefing text as model output | `ml/forecast.py:196`, `.env.example` | head lane
 - 13:10 | FYI | UI details: the backup option says "Live sample (rules only)" but `sample.json` is the trained model (`ForecastApp.tsx:30`); the 40 kt crosswind limit is shown nowhere; nothing reads `backtest.json` or `october.json` | `web/src/components/` | web owner
 - 13:00 | FYI | `data/ground_truth/dfld_hourly.csv` grew to 6.1 MB (history from 2018, 33a7847), and two new runway 18 CSVs add 3.9 MB. `ml/dfld.py` can rebuild them; gzip them like `dfld_half_hourly.csv.gz` if size matters | `data/ground_truth/` | data owner
