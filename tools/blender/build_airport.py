@@ -44,6 +44,7 @@ def scene(name):
     s.render.resolution_percentage=100
     s.render.image_settings.file_format='PNG'
     s.view_settings.view_transform='AgX'
+    s.view_settings.exposure=.45
     s.world=bpy.data.worlds.new(name+' World')
     s.world.use_nodes=True
     s.world.node_tree.nodes['Background'].inputs[0].default_value=(.73,.80,.86,1)
@@ -181,6 +182,14 @@ def airport_layout(m,assets):
         line('Taxi center',[(x,95,1.8),(x,38,1.8),(x+15,-11,1.8)],.3,m['yellow'],r)
     pavement('West connector',[(-140,86,1.6),(-230,86,1.6),(-275,114,1.6)],10,m['shoulder'],r)
     line('West centerline',[(-140,86,1.9),(-230,86,1.9),(-275,114,1.9)],.3,m['yellow'],r)
+    # Use the same curves for demonstration motion and its paved connectors.
+    for layer,od in enumerate(('07','25')):
+        taxi=routes_for(specs,od,True)['depart_center'][:-2]
+        points=[(v.x,v.y,1.76+layer*.025) for v in fillet(taxi)]
+        pavement('Departure taxi connector',points,9,m['shoulder'],r)
+        line('Departure taxi guide',[(x,y,1.94) for x,y,z in points],.27,m['yellow'],r)
+    pavement('Apron west link',[(-160,86,1.76),(30,81,1.76)],9,m['shoulder'],r)
+    line('Apron west guide',[(-160,86,1.94),(30,81,1.94)],.27,m['yellow'],r)
     # Terminal: matte roof, glass band, roof ribs, articulated gate bridges.
     box('Terminal glazing',(60,131,9),(240,24,14),m['glass'],r,2)
     box('Terminal podium',(60,131,3),(245,27,3),m['concrete'],r,2)
@@ -241,14 +250,15 @@ def routes_for(specs,od,usable):
               runway_point(s,-direction*(half-25),2),runway_point(s,direction*(half-65),2)]
     s=specs['center'];half=s['length']/2
     entry=runway_point(s,-direction*(half-16),2)
-    routes['depart_center']=[(30,81,2),(entry[0],entry[1]+25,2),entry,
+    taxi_y=lambda x:62+(x-60)*math.tan(math.radians(20))
+    routes['depart_center']=[(30,81,2),(30,taxi_y(30),2),(entry[0],taxi_y(entry[0]),2),entry,
             runway_point(s,direction*110,2),runway_point(s,direction*(half+105),38)]
     if usable:
         s=specs['west'];half=s['length']/2
-        routes['depart_flex']=[(-160,86,2),(-245,101,2),runway_point(s,-half+16,2),
+        routes['depart_flex']=[(-160,86,2),(-230,86,2),(-275,114,2),runway_point(s,-half+16,2),
              runway_point(s,110,2),runway_point(s,half+75,38)]
     else:
-        routes['depart_flex']=[(-160,86,2)]+routes['depart_center'][1:]
+        routes['depart_flex']=[(-160,86,2)]+routes['depart_center']
     return routes
 
 
@@ -298,7 +308,7 @@ def animate_demo(s,assets,env,specs,m):
             for frame in range(start,start+240):
                 # Two centre departures are staggered in the closure demonstration.
                 t=(frame-start)/239
-                if not usable and key=='depart_flex':t=max(0,(t-.40)/.60)
+                if not usable and key=='depart_flex':t=max(0,t-.40)
                 pos,tangent=sample(points,t)
                 yaw=math.atan2(-tangent.x,tangent.y)
                 if last_yaw is not None:
@@ -355,7 +365,7 @@ if not args.preview_only:
         r=runway('Runway.'+key,m,length,width,labels,heading);consolidate(r)
         assets[key]=r;asset_scenes[key]=s
         export_glb(s,r,'runway-'+key+'.glb')
-        studio(s,r,m,(100,-length*.48+140,145),(0,-length*.48+140,0),240)
+        studio(s,r,m,(180,-length/2-260,350),(0,-length/2+220,0),650)
     s=scene('FRA · Airport demonstration')
     env,specs=airport_layout(m,assets);consolidate(env)
     # Parked aircraft are linked geometry with independently selectable roots.
@@ -379,6 +389,7 @@ if not args.preview_only:
             if area.type=='VIEW_3D':
                 area.spaces.active.region_3d.view_perspective='CAMERA'
                 area.spaces.active.shading.color_type='MATERIAL'
+                area.spaces.active.clip_end=10000
                 area.spaces.active.overlay.show_overlays=False
     manifest={'version':1,'blender_version':bpy.app.version_string,
         'coordinate_system':{'blend':{'up':'+Z','north':'+Y','east':'+X','aircraft_forward':'+Y'},

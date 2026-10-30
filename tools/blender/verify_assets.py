@@ -1,5 +1,6 @@
 """Independent export and route smoke checks, run with Blender in background."""
 import json
+import hashlib
 import math
 import struct
 from pathlib import Path
@@ -52,7 +53,7 @@ for filename in expected:
         assert doc.get('animations'),filename
         assert len([o for o in bpy.context.scene.objects if o.name.startswith('Flight.') and o.type=='EMPTY'])==4
     assert len(raw)<15_000_000,(filename,'size budget')
-    report['assets'].append({'file':filename,'bytes':len(raw),'triangles_unique':triangles,
+    report['assets'].append({'file':filename,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'triangles_unique':triangles,
         'mesh_nodes':len(meshes),'dimensions_blender_m':dims,'reimport':'passed',
         'animation_clips':len(doc.get('animations',[]))})
 report['checks']+=['9 GLBs reimport successfully','All geometry finite','Self-contained buffers',
@@ -74,7 +75,7 @@ for phase in manifest['demonstration_phases']:
         assert abs(flexible[-1][0]-flexible[-2][0])<1e-5
         assert flexible[-1][1]<flexible[-2][1]
     else:
-        assert flexible[1:]==phase['paths']['depart_center'][1:]
+        assert flexible[1:]==phase['paths']['depart_center']
 report['checks']+=['All three parallel runways share OD','18 departures always southbound',
                   '18 closure redirects the flexible departure to the centre runway']
 
@@ -90,6 +91,7 @@ for f in (1,125,240,241,365,480,481,605,720):
             assert all(math.isfinite(v) for v in o.location)
             assert o.location.z>=1.9
 report['checks'].append('Native scene opens; playback states and aircraft transforms valid')
+report['blend_sha256']=hashlib.sha256((OUT/'fra-airport.blend').read_bytes()).hexdigest()
 report['result']='passed'
 (OUT/'verification.json').write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps(report,indent=2),flush=True)
