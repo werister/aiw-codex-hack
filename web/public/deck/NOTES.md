@@ -62,15 +62,11 @@ Windy is only a separate connection test. Its Testing-tier values are excluded f
 
 ### 10 · 2:51–3:06 · Next-change timing
 
-**On the slide:** the value estimate (~€0.4M a year). If you read it, use only pitch line 2 of `RESULTS.md`, verbatim: "Estimated value: about €0.4M a year at Frankfurt (range €0.13M to €3.2M), plus a similar amount in passengers' time. Based on EUROCONTROL delay costs and published studies of runway direction changes."
-
 **Say:** “Direction accuracy does not guarantee exact change timing. The separate event evaluation matches 115 of 193 recorded changes within three hours, with 138 false-alarm clusters. That limits how warnings should be used.”
 
 **Keep straight:** The median lead applies only to matched events. The separate window score is 394 of 750 overlapping change windows within three hours (52.5%); the false-alarm rate is 87 of 593 no-change windows (14.7%). These are different denominators, not independent events.
 
 ### 11 · 3:06–3:21 · Runway 18 and certainty
-
-**On the slide:** planning hours, computed from `quality.json` as the 24 h accuracy gap × 8,760 h: about 1,450 fewer hours a year planned for the wrong direction than keeping the current direction, about 350 fewer than the official rules.
 
 **Say:** “Runway eighteen remains weak: no warnings in twelve positive twenty-four-hour windows. The labels are inferred from weather, not actual closures. Our certainty score is not a calibrated chance of being correct.”
 

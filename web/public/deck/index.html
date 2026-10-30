@@ -174,11 +174,6 @@
   .detail .fine { font-size: 16px; color: var(--muted); margin-top: 12px; line-height: 1.5; }
 
   /* 8 · value */
-  .s-value { display: flex; flex-direction: column; justify-content: center; }
-  .s-value .big { font-size: 220px; line-height: 0.9; font-weight: 300; color: var(--accent); letter-spacing: -0.035em; }
-  .s-value .t { font-size: 40px; margin-top: 26px; }
-  .s-value .range { font-size: 30px; color: var(--ink-2); margin-top: 18px; }
-  .s-value .quote { font-size: 22px; line-height: 1.5; color: var(--muted); max-width: 1180px; margin-top: 70px; }
 
   /* 9 · next */
   .s-next { display: flex; flex-direction: column; justify-content: center; }
@@ -256,7 +251,8 @@
   /* team: thanks on the left, a big QR to the audience page on the right */
   .s-team { flex-direction: row !important; align-items: center; justify-content: space-between; }
   .team-left { flex: 1; }
-  .s-team .logo { display: block; height: 120px; width: auto; margin-bottom: 70px; }
+  .s-team .logo { position: relative; display: block; width: 400px; aspect-ratio: 1362 / 414; overflow: hidden; margin-bottom: 70px; }
+  .s-team .logo img { position: absolute; width: calc(100% * 1882 / 1362); max-width: none; height: auto; left: calc(-100% * 260 / 1362); top: calc(-100% * 225 / 414); }
   .qr-card { flex: none; display: flex; flex-direction: column; align-items: center; gap: 22px; padding: 34px 34px 30px; border-radius: 10px; background: #ffffff; box-shadow: 0 0 0 1px var(--line) inset, 0 40px 80px -50px rgba(29,26,120,0.45); text-decoration: none; }
   .qr-card .qr { display: block; width: 470px; height: 470px; }
   .qr-cap { font-size: 32px; color: var(--ink); }
@@ -283,14 +279,14 @@
 
   <section class="slide s-title" data-name="title" data-veil="left" data-time="15">
     <h1 class="rise d1">The wind decides the runway.</h1>
-    <h1 class="rise d2 accent">We see it 48 hours earlier.</h1>
+    <h1 class="rise d2 accent">We look 48 hours ahead.</h1>
     <p class="where rise d3">Lift-off · runway forecast for Frankfurt Airport</p>
   </section>
 
   <section class="slide s-fly" data-name="problem" data-veil="none" data-time="16">
     <video class="bleed" src="media/flythrough.mp4" poster="media/flythrough-poster.jpg" autoplay muted loop playsinline preload="auto"></video>
     <div class="fly-shade"></div>
-    <h2 class="rise d1"><span data-count="156">156</span> direction changes a year.</h2>
+    <h2 class="rise d1">About <span data-count="170">170</span> direction changes a year.</h2>
   </section>
 
   <section class="slide s-today" data-name="today" data-veil="full" data-time="15">
@@ -325,7 +321,7 @@
   </section>
 
   <section class="slide s-viz" data-name="model" data-veil="full" data-time="20" data-viz="tree">
-    <h2 class="rise d1">80 trees, learned from 8 years.</h2>
+    <h2 class="rise d1">80 trees, trained on data since 2024.</h2>
     <div class="viz rise d2"></div>
   </section>
 
@@ -340,7 +336,7 @@
   </section>
 
   <section class="slide s-viz" data-name="data" data-veil="full" data-time="20" data-viz="barcode">
-    <h2 class="rise d1">Eight years of flown directions.</h2>
+    <h2 class="rise d1">Eight years of recorded directions.</h2>
     <div class="viz rise d2"></div>
     <div class="sources rise d3" aria-label="Data sources">
       <dl class="source-list">
@@ -371,25 +367,23 @@
     <p class="changes rise d3" id="changes"></p>
   </section>
 
-  <section class="slide s-value" data-name="value" data-veil="full" data-time="15">
-    <div class="big rise d1" id="value-big"></div>
-    <div class="t rise d2">a year at Frankfurt Airport</div>
-    <div class="range rise d3" id="value-range"></div>
-    <p class="quote rise d4" id="value-quote"></p>
+  <section class="slide s-people" data-name="timing" data-veil="full" data-time="15">
+    <h2 class="rise">Exact timing is harder.</h2>
+    <div class="ptiles" id="timing"></div>
   </section>
 
-  <section class="slide s-people" data-name="people" data-veil="full" data-time="15">
-    <h2 class="rise">For the people doing the work.</h2>
-    <div class="ptiles" id="people"></div>
+  <section class="slide s-people" data-name="runway18" data-veil="full" data-time="15">
+    <h2 class="rise">Runway 18 is not solved.</h2>
+    <div class="ptiles" id="runway18"></div>
   </section>
 
   <section class="slide s-next" data-name="next" data-veil="left" data-time="6">
-    <h1 class="rise d1">Next: fleet-wide planning.</h1>
+    <h1 class="rise d1">Next: test alongside<br>a shift lead.</h1>
   </section>
 
   <section class="slide s-team" data-name="team" data-veil="full" data-time="8">
     <div class="team-left">
-      <img class="logo rise" src="../brand/lift-off-logo.png" alt="Lift-off">
+      <div class="logo rise"><img src="../brand/lift-off-wordmark.png" alt="Lift-off" width="1882" height="836"></div>
       <p class="thanks rise d1">Thank you.</p>
       <p class="team rise d2">Hugo Hader<span>·</span>Kai Detmers<span>·</span>Luca Schultz<span>·</span>Jayden Bruck</p>
       <p class="credits rise d3">3D airport model and data verification: Kai Detmers</p>
@@ -437,7 +431,7 @@
   // Snapshot of web/public/data/quality.json and repo facts, written by snapshot.py (copied exactly, never edited by hand).
   // The live file replaces the quality numbers at render time when the deck is served over http.
   /* SNAPSHOT:BEGIN */
-  var SNAPSHOT = {"source": "web/public/data/quality.json", "sha256": "d746d32eca0571685df6aad592f163a4d333ece6a346cd0135ea52affa0d970c", "quality": {"model_version": "walk-forward-v6", "test": {"start": "2025-11-01T05:00:00+00:00", "end": "2026-10-27T17:00:00+00:00", "months": 12}, "od": [{"lead_h": 1, "n": 1416, "n_days": 361, "model_acc": 0.9569209039548022, "model_acc_ci": [0.9470263747110941, 0.9674693241115879], "rule_acc": 0.9307909604519774, "persistence_acc": 0.9590395480225988, "model_change_acc": 0.1896551724137931, "rule_change_acc": 0.29310344827586204, "persistence_change_acc": 0.0, "mcnemar_p_vs_rule": 1.9336816600800142e-05, "dm_p_vs_rule": 4.337696182956402e-07, "mcnemar_p_vs_persistence": 0.6891565167793516, "dm_p_vs_persistence": 0.0606833209854239}, {"lead_h": 6, "n": 1416, "n_days": 361, "model_acc": 0.9272598870056498, "model_acc_ci": [0.9090219764063255, 0.9435446851704585], "rule_acc": 0.8813559322033898, "persistence_acc": 0.8884180790960452, "model_change_acc": 0.6235955056179775, "rule_change_acc": 0.7640449438202247, "persistence_change_acc": 0.11235955056179775, "mcnemar_p_vs_rule": 2.738571197473617e-07, "dm_p_vs_rule": 7.503501978195561e-16, "mcnemar_p_vs_persistence": 1.6535332124342004e-06, "dm_p_vs_persistence": 6.873686413898137e-10}, {"lead_h": 24, "n": 1383, "n_days": 357, "model_acc": 0.918293564714389, "model_acc_ci": [0.8982783276895024, 0.9364989271966175], "rule_acc": 0.8770788141720897, "persistence_acc": 0.7505422993492408, "model_change_acc": 0.8229166666666666, "rule_change_acc": 0.8020833333333334, "persistence_change_acc": 0.28125, "mcnemar_p_vs_rule": 5.477265099378213e-07, "dm_p_vs_rule": 4.727697549037699e-13, "mcnemar_p_vs_persistence": 4.8109483733247965e-37, "dm_p_vs_persistence": 6.070974516853339e-25}, {"lead_h": 48, "n": 1338, "n_days": 346, "model_acc": 0.8886397608370703, "model_acc_ci": [0.865167918326116, 0.9102581009796533], "rule_acc": 0.8400597907324364, "persistence_acc": 0.6420029895366218, "model_change_acc": 0.8294360385144429, "rule_change_acc": 0.796423658872077, "persistence_change_acc": 0.34112792297111416, "mcnemar_p_vs_rule": 1.9063393999315243e-07, "dm_p_vs_rule": 3.238524760735735e-14, "mcnemar_p_vs_persistence": 1.7530517024696403e-54, "dm_p_vs_persistence": 7.530254836993131e-31}], "next_change": {"within_3h": 0.5253333333333333, "false_alarm_rate": 0.1467116357504216}, "od_change_events": {"n_actual_events": 193, "n_matched_events": 115, "tolerance_h": 3}}, "did": {"labels_since": "2018", "weather_models": 3, "weather_model_names": "ECMWF, GFS, ICON", "experiments": 23, "tests_passed": 103, "hours_verified": 76588, "half_hours": 154752, "raw_files_ok": 46, "raw_files": 46, "winds_rechecked": 144072}, "value": {"sentence": "Estimated value: about €0.4M a year at Frankfurt (range €0.13M to €3.2M), plus a similar amount in passengers' time. Based on EUROCONTROL delay costs and published studies of runway direction changes.", "low": "0.13", "high": "3.2", "central": "0.4"}};
+  var SNAPSHOT = {"source": "web/public/data/quality.json", "sha256": "1ec1a416ceb46124862bdac28c84a0701cbc478ff0b4f1db116eb94fe288e76c", "quality": {"model_version": "walk-forward-v6", "test": {"start": "2025-11-01T05:00:00+00:00", "end": "2026-10-27T17:00:00+00:00", "months": 12}, "od": [{"lead_h": 1, "n": 1416, "n_days": 361, "model_acc": 0.9569209039548022, "model_acc_ci": [0.9470263747110941, 0.9674693241115879], "rule_acc": 0.9307909604519774, "persistence_acc": 0.9590395480225988, "model_change_acc": 0.1896551724137931, "rule_change_acc": 0.29310344827586204, "persistence_change_acc": 0.0, "mcnemar_p_vs_rule": 1.9336816600800142e-05, "dm_p_vs_rule": 4.337696182956402e-07, "mcnemar_p_vs_persistence": 0.6891565167793516, "dm_p_vs_persistence": 0.0606833209854239}, {"lead_h": 6, "n": 1416, "n_days": 361, "model_acc": 0.9272598870056498, "model_acc_ci": [0.9090219764063255, 0.9435446851704585], "rule_acc": 0.8813559322033898, "persistence_acc": 0.8884180790960452, "model_change_acc": 0.6235955056179775, "rule_change_acc": 0.7640449438202247, "persistence_change_acc": 0.11235955056179775, "mcnemar_p_vs_rule": 2.738571197473617e-07, "dm_p_vs_rule": 7.503501978195561e-16, "mcnemar_p_vs_persistence": 1.6535332124342004e-06, "dm_p_vs_persistence": 6.873686413898137e-10}, {"lead_h": 24, "n": 1383, "n_days": 357, "model_acc": 0.918293564714389, "model_acc_ci": [0.8982783276895024, 0.9364989271966175], "rule_acc": 0.8770788141720897, "persistence_acc": 0.7505422993492408, "model_change_acc": 0.8229166666666666, "rule_change_acc": 0.8020833333333334, "persistence_change_acc": 0.28125, "mcnemar_p_vs_rule": 5.477265099378213e-07, "dm_p_vs_rule": 4.727697549037699e-13, "mcnemar_p_vs_persistence": 4.8109483733247965e-37, "dm_p_vs_persistence": 6.070974516853339e-25}, {"lead_h": 48, "n": 1338, "n_days": 346, "model_acc": 0.8886397608370703, "model_acc_ci": [0.865167918326116, 0.9102581009796533], "rule_acc": 0.8400597907324364, "persistence_acc": 0.6420029895366218, "model_change_acc": 0.8294360385144429, "rule_change_acc": 0.796423658872077, "persistence_change_acc": 0.34112792297111416, "mcnemar_p_vs_rule": 1.9063393999315243e-07, "dm_p_vs_rule": 3.238524760735735e-14, "mcnemar_p_vs_persistence": 1.7530517024696403e-54, "dm_p_vs_persistence": 7.530254836993131e-31}], "next_change": {"within_1h": 0.272, "within_3h": 0.5253333333333333, "false_alarm_rate": 0.1467116357504216}, "od_change_events": {"n_actual_events": 193, "n_matched_events": 115, "tolerance_h": 3, "n_false_alarm_clusters": 138, "n_exposure_days": 358.4583333333333}, "r18_events": [{"horizon_h": 1, "n_issues": 1073, "n_actual": 5, "n_positive_issue_windows": 5, "excluded_issues": 359, "excluded_issues_by_reason": {"unknown_prediction_window": 139, "unknown_truth_window": 220}, "model": {"hits": 0, "misses": 5, "false_alarms": 0, "recall": 0.0, "precision": null, "false_alarm_rate": 0.0}, "rule": {"hits": 0, "misses": 5, "false_alarms": 0, "recall": 0.0, "precision": null, "false_alarm_rate": 0.0}, "persistence": {"hits": 3, "misses": 2, "false_alarms": 0, "recall": 0.6, "precision": 1.0, "false_alarm_rate": 0.0}, "rule_ensemble": {"hits": 0, "misses": 5, "false_alarms": 5, "recall": 0.0, "precision": 0.0, "false_alarm_rate": 0.0046816479400749065}, "rule_corrected": {"hits": 0, "misses": 5, "false_alarms": 5, "recall": 0.0, "precision": 0.0, "false_alarm_rate": 0.0046816479400749065}, "model_brier": 0.0045876151244899546}, {"horizon_h": 6, "n_issues": 760, "n_actual": 10, "n_positive_issue_windows": 10, "excluded_issues": 672, "excluded_issues_by_reason": {"incomplete_lead_window": 4, "unknown_prediction_window": 64, "unknown_truth_window": 604}, "model": {"hits": 0, "misses": 10, "false_alarms": 0, "recall": 0.0, "precision": null, "false_alarm_rate": 0.0}, "rule": {"hits": 0, "misses": 10, "false_alarms": 0, "recall": 0.0, "precision": null, "false_alarm_rate": 0.0}, "persistence": {"hits": 3, "misses": 7, "false_alarms": 0, "recall": 0.3, "precision": 1.0, "false_alarm_rate": 0.0}, "rule_ensemble": {"hits": 0, "misses": 10, "false_alarms": 16, "recall": 0.0, "precision": 0.0, "false_alarm_rate": 0.021333333333333333}, "rule_corrected": {"hits": 0, "misses": 10, "false_alarms": 16, "recall": 0.0, "precision": 0.0, "false_alarm_rate": 0.021333333333333333}, "model_brier": 0.003880750311578093}, {"horizon_h": 24, "n_issues": 307, "n_actual": 12, "n_positive_issue_windows": 12, "excluded_issues": 1125, "excluded_issues_by_reason": {"incomplete_lead_window": 37, "unknown_prediction_window": 20, "unknown_truth_window": 1068}, "model": {"hits": 0, "misses": 12, "false_alarms": 0, "recall": 0.0, "precision": null, "false_alarm_rate": 0.0}, "rule": {"hits": 0, "misses": 12, "false_alarms": 0, "recall": 0.0, "precision": null, "false_alarm_rate": 0.0}, "persistence": {"hits": 3, "misses": 9, "false_alarms": 0, "recall": 0.25, "precision": 1.0, "false_alarm_rate": 0.0}, "rule_ensemble": {"hits": 0, "misses": 12, "false_alarms": 10, "recall": 0.0, "precision": 0.0, "false_alarm_rate": 0.03389830508474576}, "rule_corrected": {"hits": 0, "misses": 12, "false_alarms": 10, "recall": 0.0, "precision": 0.0, "false_alarm_rate": 0.03389830508474576}, "model_brier": 0.007811353102674153}]}, "did": {"labels_since": "2018", "weather_models": 3, "weather_model_names": "ECMWF, GFS, ICON", "experiments": 23, "tests_passed": 103, "hours_verified": 76588, "half_hours": 154752, "raw_files_ok": 46, "raw_files": 46, "winds_rechecked": 144072}};
   /* SNAPSHOT:END */
 
   // Camera per slide for the shared scene (scene.js).
@@ -500,7 +494,8 @@
       test: folds.length ? { start: folds[0].test_period.start, end: folds[folds.length - 1].test_period.end, months: folds.length } : null,
       od: (q.significance && q.significance.od) || q.out_of_sample.od,
       next_change: q.next_change,
-      od_change_events: q.od_change_events
+      od_change_events: q.od_change_events,
+      r18_events: q.r18_events
     };
   }
   function monthName(iso) {
@@ -511,11 +506,11 @@
   function render(data, fromFile) {
     var byLead = {};
     data.od.forEach(function (r) { byLead[r.lead_h] = r; });
-    var r24 = byLead[24], nc = data.next_change;
+    var nc = data.next_change;
 
     // Results: mistakes = 100 - accuracy (hours with the wrong direction per 100), bars start at zero.
-    var leads = [6, 24, 48].map(function (l) { return byLead[l]; }).filter(Boolean);
-    var W = 1640, H = 600, top = 70, base = 520, maxV = 40, groupW = W / leads.length, bw = 120, gap = 22;
+    var leads = [1, 6, 24, 48].map(function (l) { return byLead[l]; }).filter(Boolean);
+    var W = 1640, H = 600, top = 70, base = 520, maxV = 40, groupW = W / leads.length, bw = 100, gap = 16;
     var y = function (v) { return base - (v / maxV) * (base - top); };
     var series = [["model_acc", "Our model", "var(--accent)"], ["rule_acc", "Official rules", "#9a9cc0"], ["persistence_acc", "Same as now", "#d3d4e2"]];
     var svg = '<svg viewBox="0 0 ' + W + ' ' + (H + 30) + '" font-family="Inter Tight, system-ui, sans-serif">';
@@ -532,7 +527,7 @@
       });
       svg += '<text x="' + (x0 + (3 * bw + 2 * gap) / 2) + '" y="' + (base + 50) + '" text-anchor="middle" font-size="28" fill="#1d1a78">' + r.lead_h + ' h ahead</text>';
     });
-    svg += '<text x="' + W + '" y="20" text-anchor="end" font-size="22" fill="#5d5b94">wrong hours per 100 · 12 months the model never saw</text>';
+    svg += '<text x="' + W + '" y="20" text-anchor="end" font-size="22" fill="#5d5b94">wrong hours per 100 · 12 test months, each trained on earlier data</text>';
     series.forEach(function (s, k) {
       svg += '<rect x="' + (k * 230) + '" y="2" width="22" height="22" rx="4" fill="' + s[2] + '"/><text x="' + (k * 230 + 32) + '" y="20" font-size="22" fill="#1d1a78">' + s[1] + '</text>';
     });
@@ -545,20 +540,22 @@
     document.getElementById("changes").innerHTML = bits.join(" · ");
     document.getElementById("changes").dataset.source = fromFile ? "quality.json" : "snapshot";
 
-    // Value: the agreed sentence, verbatim, always next to the figure.
-    var v = SNAPSHOT.value;
-    document.getElementById("value-big").innerHTML = "~€" + v.central + "M";
-    document.getElementById("value-range").textContent = "Range €" + v.low + "M to €" + v.high + "M, plus a similar amount in passengers' time";
-    document.getElementById("value-quote").textContent = "“" + v.sentence + "”";
+    // Timing and runway 18 always state their denominators and limits.
+    var tileHtml = function (t, i) {
+      return '<div class="ptile rise d' + (i + 1) + '">' + icon(t[0]) + '<div class="n">' + t[1] + '</div><div class="t">' + t[2] + '</div><div class="s">' + t[3] + '</div></div>';
+    };
+    document.getElementById("timing").innerHTML = [
+      ["clock", num(ev.n_matched_events), "of " + num(ev.n_actual_events) + " recorded changes matched", "within ±" + ev.tolerance_h + " h, as unique events"],
+      ["bell", num(ev.n_false_alarm_clusters), "false-alarm clusters", "over about " + num(Math.round(ev.n_exposure_days)) + " days"],
+      ["calendar", pct(nc.within_3h) + "%", "of change windows within ±3 h", pct(nc.within_1h) + "% within ±1 h; windows overlap"]
+    ].map(tileHtml).join("");
+    var r18 = data.r18_events.filter(function (e) { return e.horizon_h === 24; })[0];
+    document.getElementById("runway18").innerHTML = [
+      ["bell", num(r18.model.hits), "of " + num(r18.n_positive_issue_windows) + " positive windows caught", "24 h ahead; overlapping windows, inferred from weather"],
+      ["calendar", num(r18.n_issues), "complete windows scored", num(r18.excluded_issues) + " more excluded for missing data"],
+      ["clock", "0–100", "certainty is a ranking", "not a calibrated chance of being right"]
+    ].map(tileHtml).join("");
 
-    // People: fewer hours a year planned for the wrong direction = accuracy gap at 24 h x 8,760 h, to the nearest 50.
-    var tiles = [];
-    if (r24) {
-      var hrs = function (other) { return Math.round((r24.model_acc - other) * 8760 / 50) * 50; };
-      tiles.push(["clock", "~" + num(hrs(r24.persistence_acc)), "fewer hours a year planned for the wrong direction", "than assuming it stays like now, 24 h ahead"]);
-      tiles.push(["bell", "~" + num(hrs(r24.rule_acc)), "fewer than with the official rules", "same count, 24 h ahead"]);
-    }
-    tiles.push(["calendar", num(24) + " h", "to set rosters, equipment, stands", "instead of reshuffling on the spot"]);
     // What we tried. Colab, red-team and audit numbers are copied from briefing/experiments/v4-colab-october.md,
     // briefing/reviews/kai-data-round2.md and resources/ml-depth (via snapshot.py); E-count from EXPERIMENTS.md.
     var d = SNAPSHOT.did;
@@ -570,10 +567,6 @@
     ];
     document.getElementById("tried").innerHTML = tried.map(function (t, i) {
       return '<div class="wtile rise d' + (i + 1) + '"><div class="who">' + t[0] + '</div><div class="n">' + t[1] + '</div><div class="t">' + t[2] + '</div><div class="s">' + t[3] + '</div></div>';
-    }).join("");
-
-    document.getElementById("people").innerHTML = tiles.map(function (t, i) {
-      return '<div class="ptile rise d' + (i + 1) + '">' + icon(t[0]) + '<div class="n">' + t[1] + '</div><div class="t">' + t[2] + '</div><div class="s">' + t[3] + '</div></div>';
     }).join("");
   }
 

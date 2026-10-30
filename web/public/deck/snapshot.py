@@ -2,8 +2,8 @@
 
 Run after viz/build_data.py, from the repo root: python web/public/deck/snapshot.py
 Sources: web/public/data/quality.json (+ ml/models/metadata.json for the version check), viz/accuracy.data.js,
-EXPERIMENTS.md, RESULTS.md, ml/tests (pytest), resources/ml-depth/*/report.json (independent data verification).
-The deck needs every block below (quality, did, value); dropping one breaks a slide.
+EXPERIMENTS.md, ml/tests (pytest), resources/ml-depth/*/report.json (independent data verification).
+The deck needs every block below (quality, did); dropping one breaks a slide.
 """
 import hashlib
 import json
@@ -34,8 +34,9 @@ quality = {
     "model_version": q["model_version"],
     "test": {"start": folds[0]["test_period"]["start"], "end": folds[-1]["test_period"]["end"], "months": len(folds)} if folds else None,
     "od": [{k: r[k] for k in keys if k in r} for r in od],
-    "next_change": {k: q["next_change"][k] for k in ("within_3h", "false_alarm_rate")},
-    "od_change_events": {k: q["od_change_events"][k] for k in ("n_actual_events", "n_matched_events", "tolerance_h")},
+    "next_change": {k: q["next_change"][k] for k in ("within_1h", "within_3h", "false_alarm_rate")},
+    "od_change_events": {k: q["od_change_events"][k] for k in ("n_actual_events", "n_matched_events", "tolerance_h", "n_false_alarm_clusters", "n_exposure_days")},
+    "r18_events": q["r18_events"],
 }
 
 # The accuracy chart must come from the same model version and rows: no mixed bundles.
@@ -70,15 +71,8 @@ did = {
     "winds_rechecked": comparability["raw_source_integrity"]["open_meteo"]["raw_wind_values_compared"],
 }
 
-# Value: RESULTS.md pitch line 2, verbatim.
-results = read("RESULTS.md")
-sentence = re.search(r'^2\. "(.*?)"\s*$', results, flags=re.M).group(1)
-central = re.search(r"about €([\d.]+)M a year", sentence).group(1)
-low, high = re.search(r"range €([\d.]+)M to €([\d.]+)M", sentence).groups()
-value = {"sentence": sentence, "low": low, "high": high, "central": central}
-
 snap = {"source": "web/public/data/quality.json", "sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
-        "quality": quality, "did": did, "value": value}
+        "quality": quality, "did": did}
 page = here / "index.html"
 html = page.read_text(encoding="utf-8")
 block = "/* SNAPSHOT:BEGIN */\n  var SNAPSHOT = " + json.dumps(snap, ensure_ascii=False) + ";\n  /* SNAPSHOT:END */"
@@ -88,4 +82,3 @@ page.write_text(html, encoding="utf-8", newline="\n")
 print(q["model_version"], snap["sha256"][:12])
 print("quality:", [(r["lead_h"], round(r["model_acc"], 4)) for r in od], quality["next_change"], quality["od_change_events"])
 print("did:", did)
-print("value:", value["central"], value["low"], value["high"])
