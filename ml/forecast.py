@@ -325,7 +325,13 @@ def build_forecast(day=None, *, now=None, include_observed=True, include_briefin
     # Supply only completed, known hourly states to the predictor's optional history.
     known = history.loc[history.available_at <= cutoff, ["time", "od", "available_at"]]
     if len(known):
-        obs = pd.merge_asof(obs.sort_values("time"), known.rename(columns={"time": "od_time"}),
+        # Parquet observations may be nanosecond-resolution while CSV history is
+        # microsecond-resolution; merge_asof requires matching datetime dtypes.
+        merge_left = obs.sort_values("time").copy()
+        merge_right = known.rename(columns={"time": "od_time"}).copy()
+        merge_left["time"] = merge_left["time"].astype("datetime64[ns, UTC]")
+        merge_right["available_at"] = merge_right["available_at"].astype("datetime64[ns, UTC]")
+        obs = pd.merge_asof(merge_left, merge_right,
                             left_on="time", right_on="available_at", direction="backward")
     obs.attrs["od_history"] = known.copy()
     frame, version = predict(issue, obs, nwp, current_od)

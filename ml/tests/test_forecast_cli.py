@@ -93,6 +93,16 @@ def test_fixed_hindcast_contract_and_no_future_inputs(hindcast_inputs):
     json.dumps(result, allow_nan=False)
 
 
+def test_hindcast_merge_normalizes_mixed_datetime_resolutions(hindcast_inputs):
+    _, observations, history, _, _ = hindcast_inputs
+    observations["time"] = observations["time"].astype("datetime64[ns, UTC]")
+    history["available_at"] = history["available_at"].astype("datetime64[us, UTC]")
+
+    result = forecast.build_forecast(DAY, now=NOW)
+
+    assert len(result["hours"]) == 48
+
+
 def test_archived_loader_and_fallback_share_buffered_offsets(hindcast_inputs, monkeypatch, tmp_path):
     from ml.features import select_nwp
 
