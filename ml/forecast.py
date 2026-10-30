@@ -95,6 +95,13 @@ def predict(issue, obs, nwp, current_od):
         frame = module.predict_48h(issue, obs, nwp, current_od)
     except FileNotFoundError:
         return fallback_predict(issue, obs, nwp, current_od), "rules-fallback"
+    except ValueError as error:
+        unavailable = str(error).startswith("No model trained before this issue time")
+        future = (str(error) == "No METAR within two hours before issue"
+                  and issue > pd.Timestamp.now(tz="UTC").floor("h"))
+        if not (unavailable or future):
+            raise
+        return fallback_predict(issue, obs, nwp, current_od), "rules-fallback"
     version = frame.attrs.get("model_version", "trained-forecast")
     return frame, version
 
