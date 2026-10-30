@@ -5,7 +5,7 @@ export function BrandLogo() {
   return (
     <span className="lift-off-logo">
       <Image
-        src="/brand/lift-off-runway.png"
+        src="/brand/lift-off-compass.png"
         alt="Lift-off"
         width={2172}
         height={724}

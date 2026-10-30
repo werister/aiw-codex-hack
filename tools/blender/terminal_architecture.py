@@ -23,7 +23,7 @@ def _roof_height(v, center, half_width, edge_z, crown):
 
 
 def _curved_roof(name, u0, u1, v_center, half_width, edge_z, crown,
-                 thickness, mat, parent, uv, u_steps=18, v_steps=12):
+                 thickness, mat, parent, uv, u_steps=6, v_steps=24):
     """Create a capped, shallow vaulted roof.  Coordinates remain in airport UV."""
     upper = []
     lower = []
@@ -56,13 +56,17 @@ def _curved_roof(name, u0, u1, v_center, half_width, edge_z, crown,
         faces.append((a, b, b + n, a + n))
         a, b = u_steps * row + j, u_steps * row + j + 1
         faces.append((a, a + n, b + n, b))
-    return mesh(name, upper + lower, faces, mat, parent)
+    roof = mesh(name, upper + lower, faces, mat, parent)
+    smooth_face_count = u_steps * v_steps * 2
+    for polygon in roof.data.polygons[:smooth_face_count]:
+        polygon.use_smooth = True
+    return roof
 
 
 def _concourse_roof(name, center_u, v0, v1, half_width, edge_z, crown,
                     thickness, mat, parent, uv):
     """Vault a narrow pier roof across u, along the terminal-to-gate axis."""
-    longitudinal_steps, cross_steps = 12, 8
+    longitudinal_steps, cross_steps = 6, 16
     upper, lower = [], []
     for i in range(longitudinal_steps + 1):
         v = v0 + (v1 - v0) * i / longitudinal_steps
@@ -93,7 +97,11 @@ def _concourse_roof(name, center_u, v0, v1, half_width, edge_z, crown,
         faces.append((a, a + n, b + n, b))
         a, b = longitudinal_steps * row + j, longitudinal_steps * row + j + 1
         faces.append((a, b, b + n, a + n))
-    return mesh(name, upper + lower, faces, mat, parent)
+    roof = mesh(name, upper + lower, faces, mat, parent)
+    smooth_face_count = longitudinal_steps * cross_steps * 2
+    for polygon in roof.data.polygons[:smooth_face_count]:
+        polygon.use_smooth = True
+    return roof
 
 
 def _facade_bays(name, u0, u1, v_face, z_base, z_top, parent, m, uv,
