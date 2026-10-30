@@ -5,9 +5,9 @@ Press **Space** to play the 60-second example; timeline markers identify:
 
 | Frames | Example state |
 | --- | --- |
-| 1–480 | OD 25, Runway 18 open |
-| 481–960 | OD 07, Runway 18 open |
-| 961–1440 | OD 07, Runway 18 closed; its example departure goes to the centre runway |
+| 1–1200 | OD 25, Runway 18 open |
+| 1201–2400 | OD 07, Runway 18 open |
+| 2401–3600 | OD 07, Runway 18 closed; its example departure goes to the centre runway |
 
 Each state is a separate example. The cuts between states reset traffic; they
 are not a simulation of clearing the airport during a real direction change.
@@ -16,7 +16,7 @@ The radar and three landing-gear groups are separately parented for animation.
 The three example winds are 250°/12 kt, 070°/12 kt and 020°/20 kt.
 In the last example, Runway 18 has 18.79 kt tailwind, so its departure waits
 and then completes its route via 07C. These are fixed explanatory examples.
-Each phase takes 20 seconds; jump to frame 1, 481 or 961 to choose a state.
+Native playback uses 60 fps. Each phase takes 20 seconds; jump to frame 1, 1201 or 2401 to choose a state.
 
 ## Files
 
@@ -91,13 +91,26 @@ render the saved project. `-- --preview-only --preview-filter tower.png`
 renders just that preview. Output stays under `assets/airport/`.
 
 Checks include all nine GLB reimports, dimensions and finite geometry;
-all 1,440 native animation frames; actual obstacle footprints outside runway
+all 3,600 native animation frames; actual obstacle footprints outside runway
 clearance bands; aircraft/obstacle convex-envelope separation; complete phase
 endpoints; nonoverlapping runway/apron top triangles; and raycasts verifying
 that every ground-route sample lies on the generated movement surface.
 `verification.json` records the measurements and model hashes. Read the result
 field; an earlier export-only check is not evidence of spatial correctness.
 
-Preview images are rendered in Cycles. The optional playback MP4 is a separate
-motion review; use `tools/blender/render_demo.py` through Blender to regenerate
-it. Browser/device performance and live forecast integration remain separate.
+Preview images use Cycles at 2,400 × 1,650 pixels, 128 samples, denoising
+and a 1.5 px Blackman–Harris filter. EEVEE viewport sampling is set to 64.
+Curved roofs use smooth normals with crisp fascia edges. Ground motion has
+short acceleration/deceleration ramps and 60 Hz animation samples.
+Anti-aliasing belongs to the renderer; a GLB viewer must also enable it.
+
+The playback MP4 is a 60-second motion review at 60 fps and 1280 × 880,
+rendered in EEVEE with 32 temporal anti-aliasing samples. Every output frame
+samples a distinct native animation frame. Regenerate it with:
+
+```sh
+blender --background --threads 2 --python-exit-code 1 --python tools/blender/render_demo.py
+```
+
+Native viewport speed depends on the device and shading mode. Browser/device
+performance and live forecast integration remain separate.

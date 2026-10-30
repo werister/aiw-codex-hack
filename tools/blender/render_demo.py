@@ -1,4 +1,4 @@
-"""Render the saved FRA demo playback as a low-cost, real-camera MP4 preview.
+"""Render the saved FRA demo playback as a high-frame-rate, real-camera MP4.
 
 Usage from the repository root:
 
@@ -10,15 +10,16 @@ Render one actual scene frame without writing into the repository:
     blender --background assets/airport/fra-airport.blend \
       --python tools/blender/render_demo.py -- --smoke
 
-The default video samples source frames 1, 3, ..., 1439.  At 12 fps this is
-720 rendered frames and a 60-second playback of the 24 fps, 1440-frame scene.
-EEVEE defaults to 960x660 and 8 temporal samples for a low-cost but fully
-geometric/material preview. The blend file is never saved or modified on disk.
+The output is 60 fps for 60 seconds. A 24 fps source is rendered at actual
+subframe times; a 60 fps native scene renders every frame. EEVEE renders at
+1280x880 with 32 temporal samples. No optical-flow interpolation is used. The
+blend file is never saved or modified on disk.
 """
 
 from __future__ import annotations
 
 import argparse
+import math
 import shutil
 import subprocess
 import sys
@@ -34,11 +35,12 @@ BLEND_PATH = REPO_ROOT / "assets" / "airport" / "fra-airport.blend"
 DEFAULT_OUTPUT = REPO_ROOT / "assets" / "airport" / "previews" / "airport-demo.mp4"
 SMOKE_OUTPUT = Path("/tmp/fra-video-smoke.png")
 TARGET_SCENE = "FRA · Airport demonstration"
-VIDEO_FPS = 12
-SAMPLE_STEP = 2
-SAMPLES = 8
-WIDTH = 960
-HEIGHT = 660
+VIDEO_FPS = 60
+SAMPLES = 32
+WIDTH = 1280
+HEIGHT = 880
+OUTPUT_WIDTH = 1280
+OUTPUT_HEIGHT = 880
 
 
 def arguments():
@@ -47,13 +49,21 @@ def arguments():
     parser.add_argument("--smoke", action="store_true", help="render one real scene frame to /tmp")
     parser.add_argument("--benchmark", action="store_true",
                         help="render three consecutive samples in one process to /tmp")
-    parser.add_argument("--frame", type=int, help="source frame for --smoke (defaults to saved current frame)")
+    parser.add_argument("--benchmark-frames", type=int, default=3,
+                        help="sample count for --benchmark (default: 3)")
+    parser.add_argument("--workbench", action="store_true",
+                        help="force Workbench material/studio shading for engine comparisons")
+    parser.add_argument("--frame", type=int, help="source start frame for --smoke/--benchmark")
     parser.add_argument("--smoke-output", type=Path, default=SMOKE_OUTPUT,
                         help=f"single-frame output path (default: {SMOKE_OUTPUT})")
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT,
                         help=f"MP4 output path (default: {DEFAULT_OUTPUT})")
     parser.add_argument("--width", type=int, default=WIDTH, help=f"render width (default: {WIDTH})")
     parser.add_argument("--height", type=int, default=HEIGHT, help=f"render height (default: {HEIGHT})")
+    parser.add_argument("--output-width", type=int, default=OUTPUT_WIDTH,
+                        help=f"downsampled MP4 width (default: {OUTPUT_WIDTH})")
+    parser.add_argument("--output-height", type=int, default=OUTPUT_HEIGHT,
+                        help=f"downsampled MP4 height (default: {OUTPUT_HEIGHT})")
     parser.add_argument("--samples", type=int, default=SAMPLES,
                         help=f"EEVEE temporal samples (default: {SAMPLES})")
     return parser.parse_args(blender_args)
@@ -90,7 +100,7 @@ def set_common_render_settings(scene, width, height):
     scene.render.image_settings.file_format = "PNG"
     scene.render.image_settings.color_mode = "RGB"
     scene.render.image_settings.color_depth = "8"
-    scene.render.image_settings.compression = 10
+    scene.render.image_settings.compression = 0
     scene.render.film_transparent = False
     scene.render.use_file_extension = True
 
@@ -109,16 +119,27 @@ def set_workbench(scene):
     shading.color_type = "MATERIAL"
     shading.show_shadows = True
     shading.show_cavity = True
-    shading.cavity_type = "BOTH"
+    shading.cavity_type = "WORLD"
     shading.background_type = "WORLD"
+    if hasattr(shading, "show_object_outline"):
+        shading.show_object_outline = False
+    if hasattr(shading, "show_outline_selected"):
+        shading.show_outline_selected = False
     if hasattr(scene.display, "render_aa"):
-        scene.display.render_aa = "16"
+        scene.display.render_aa = "32"
 
 
-def configure_engine(scene, samples):
+def configure_engine(scene, samples, force_workbench=False):
     engines = available_engines()
     print(f"BLENDER_VERSION={bpy.app.version_string}", flush=True)
     print(f"AVAILABLE_RENDER_ENGINES={','.join(sorted(engines)) or 'unavailable'}", flush=True)
+    if force_workbench:
+        try:
+            set_workbench(scene)
+        except Exception as exc:
+            raise SystemExit(f"Workbench is not available in this Blender build: {exc}")
+        print("RENDER_ENGINE=Workbench material/studio shading (lower preview fidelity)", flush=True)
+        return "BLENDER_WORKBENCH"
     for engine in ("BLENDER_EEVEE_NEXT", "BLENDER_EEVEE"):
         if engine in engines:
             try:
@@ -134,7 +155,8 @@ def configure_engine(scene, samples):
 
 
 def render_one(scene, source_frame, output_path):
-    scene.frame_set(source_frame)
+    whole_frame = math.floor(source_frame)
+    scene.frame_set(whole_frame, subframe=source_frame - whole_frame)
     scene.render.filepath = str(output_path)
     bpy.ops.render.render(write_still=True)
 
@@ -163,16 +185,18 @@ def render_smoke(scene, engine, args):
 
 
 def render_benchmark(scene, engine, args):
-    start_frame = args.frame if args.frame is not None else scene.frame_current
-    frames = [start_frame + SAMPLE_STEP * index for index in range(3)]
+    start_frame = float(args.frame if args.frame is not None else scene.frame_current)
+    source_fps = scene.render.fps / scene.render.fps_base
+    sample_step = source_fps / VIDEO_FPS
+    frames = [start_frame + sample_step * index for index in range(args.benchmark_frames)]
     if frames[0] < scene.frame_start or frames[-1] > scene.frame_end:
         raise SystemExit(f"Benchmark frames {frames[0]}..{frames[-1]} are outside "
                          f"{scene.frame_start}..{scene.frame_end}")
     output_dir = Path("/tmp/fra-video-benchmark")
     output_dir.mkdir(parents=True, exist_ok=True)
     durations = []
-    for source_frame in frames:
-        destination = output_dir / f"fra-bench-{source_frame}.png"
+    for index, source_frame in enumerate(frames):
+        destination = output_dir / f"fra-bench-{index:03d}.png"
         started = time.monotonic()
         try:
             render_one(scene, source_frame, destination)
@@ -186,9 +210,10 @@ def render_benchmark(scene, engine, args):
             render_one(scene, source_frame, destination)
         elapsed = time.monotonic() - started
         durations.append(elapsed)
-        print(f"BENCHMARK_FRAME={source_frame} SECONDS={elapsed:.2f} ENGINE={engine}", flush=True)
+        print(f"BENCHMARK_FRAME={source_frame:.3f} SECONDS={elapsed:.2f} ENGINE={engine}", flush=True)
     print(f"BENCHMARK_ENGINE={engine}", flush=True)
-    print(f"BENCHMARK_FRAMES={','.join(map(str, frames))}", flush=True)
+    print(f"BENCHMARK_SOURCE_FPS={source_fps:g}", flush=True)
+    print(f"BENCHMARK_FRAMES={','.join(f'{frame:.3f}' for frame in frames)}", flush=True)
     print(f"BENCHMARK_AVERAGE_SECONDS={sum(durations) / len(durations):.2f}", flush=True)
     print(f"BENCHMARK_OUTPUT_DIR={output_dir}", flush=True)
 
@@ -204,14 +229,14 @@ def ffmpeg_path():
 
 
 def render_sequence(scene, engine, args, encoder):
-    frames = list(range(scene.frame_start, scene.frame_end + 1, SAMPLE_STEP))
-    expected_frames = (scene.frame_end - scene.frame_start) // SAMPLE_STEP + 1
-    if len(frames) != expected_frames or len(frames) != 720:
-        raise SystemExit(f"Expected 720 samples from frames 1,3,...,1439; got {len(frames)} "
-                         f"from scene range {scene.frame_start}..{scene.frame_end}")
-    duration = len(frames) / VIDEO_FPS
-    if abs(duration - 60.0) > 1e-9:
-        raise SystemExit(f"Expected a 60-second video at {VIDEO_FPS} fps; got {duration:.3f}s")
+    source_fps = scene.render.fps / scene.render.fps_base
+    duration = (scene.frame_end - scene.frame_start + 1) / source_fps
+    output_frames = round(duration * VIDEO_FPS)
+    if abs(duration - 60.0) > 1e-6 or output_frames != 3600:
+        raise SystemExit(f"Expected a 60-second scene and 3,600 output frames; "
+                         f"scene is {duration:.3f}s ({scene.frame_start}..{scene.frame_end} at {source_fps:g} fps)")
+    sample_step = source_fps / VIDEO_FPS
+    frames = [scene.frame_start + index * sample_step for index in range(output_frames)]
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     started = time.monotonic()
@@ -222,8 +247,8 @@ def render_sequence(scene, engine, args, encoder):
             for index, source_frame in enumerate(frames, start=1):
                 destination = frames_dir / f"frame_{index:06d}.png"
                 render_one(scene, source_frame, destination)
-                if index == 1 or index % 60 == 0 or index == len(frames):
-                    print(f"RENDER_PROGRESS={index}/{len(frames)} source_frame={source_frame}", flush=True)
+                if index == 1 or index % 120 == 0 or index == len(frames):
+                    print(f"RENDER_PROGRESS={index}/{len(frames)} source_frame={source_frame:.3f}", flush=True)
 
         try:
             render_all()
@@ -238,23 +263,29 @@ def render_sequence(scene, engine, args, encoder):
             print("RENDER_FALLBACK=Workbench material/studio shading (lower preview fidelity)", flush=True)
             render_all()
 
+        temporary_output = frames_dir / "airport-demo.mp4"
         command = [
             encoder, "-hide_banner", "-loglevel", "warning", "-y",
             "-framerate", str(VIDEO_FPS), "-start_number", "1",
             "-i", str(frames_dir / "frame_%06d.png"),
             "-frames:v", str(len(frames)),
+            "-vf", f"scale={args.output_width}:{args.output_height}:flags=lanczos",
             "-c:v", "libx264", "-preset", "medium", "-crf", "20",
             "-pix_fmt", "yuv420p", "-movflags", "+faststart",
-            str(args.output),
+            str(temporary_output),
         ]
         subprocess.run(command, check=True)
+        shutil.move(str(temporary_output), str(args.output))
 
     elapsed = time.monotonic() - started
     print(f"VIDEO_ENGINE={engine}", flush=True)
-    print(f"VIDEO_SOURCE_FRAMES={frames[0]}..{frames[-1]} step {SAMPLE_STEP}", flush=True)
+    print(f"VIDEO_SOURCE_FPS={source_fps:g}", flush=True)
+    print(f"VIDEO_SOURCE_FRAMES={frames[0]:.3f}..{frames[-1]:.3f} step {sample_step:.6f}", flush=True)
     print(f"VIDEO_FRAMES={len(frames)}", flush=True)
     print(f"VIDEO_FPS={VIDEO_FPS}", flush=True)
     print(f"VIDEO_DURATION_SECONDS={duration:.2f}", flush=True)
+    print(f"VIDEO_RENDER_SIZE={args.width}x{args.height}", flush=True)
+    print(f"VIDEO_OUTPUT_SIZE={args.output_width}x{args.output_height}", flush=True)
     print(f"VIDEO_OUTPUT={args.output}", flush=True)
     print(f"VIDEO_SECONDS={elapsed:.2f}", flush=True)
 
@@ -265,11 +296,17 @@ def main():
         raise SystemExit("Choose either --smoke or --benchmark")
     if args.width <= 0 or args.height <= 0:
         raise SystemExit("Render dimensions must be positive")
+    if args.output_width <= 0 or args.output_height <= 0:
+        raise SystemExit("Output video dimensions must be positive")
+    if args.output_width > args.width or args.output_height > args.height:
+        raise SystemExit("Output dimensions must not exceed the supersampled render dimensions")
     if args.samples <= 0:
         raise SystemExit("EEVEE sample count must be positive")
+    if args.benchmark_frames <= 0:
+        raise SystemExit("Benchmark frame count must be positive")
     scene = select_scene()
     set_common_render_settings(scene, args.width, args.height)
-    engine = configure_engine(scene, args.samples)
+    engine = configure_engine(scene, args.samples, args.workbench)
     if args.benchmark:
         render_benchmark(scene, engine, args)
         return
