@@ -1,24 +1,26 @@
 "use client";
 
 import type { ForecastResponse, HourForecast } from "@/lib/forecast-types";
-import { cx, dayLabel, hhmm, odBg } from "./ui";
+import { cx, dayLabel, hhmm, isUnsure, odBg, unsureReason } from "./ui";
 
 // 48 hourly columns. Rows: OD, runway 18, certainty, wind, and (for past days) the recorded direction.
 export function Timeline({
   f,
   selected,
   onSelect,
-  rows = ["od", "r18", "conf", "wind", "observed"],
+  rows = ["od", "unsure", "r18", "conf", "wind", "observed"],
 }: {
   f: ForecastResponse;
   selected: number;
   onSelect: (i: number) => void;
-  rows?: ("od" | "r18" | "conf" | "wind" | "observed")[];
+  rows?: ("od" | "unsure" | "r18" | "conf" | "wind" | "observed")[];
 }) {
   const H = f.hours;
   const observed = new Map((f.observed ?? []).map((o) => [o.time, o]));
   const changeIdx = f.next_change ? H.findIndex((h) => h.time === f.next_change!.time) : -1;
-  const show = (r: string) => rows.includes(r as never) && (r !== "observed" || observed.size > 0);
+  const anyUnsure = H.some(isUnsure);
+  const show = (r: string) =>
+    rows.includes(r as never) && (r !== "observed" || observed.size > 0) && (r !== "unsure" || anyUnsure);
 
   return (
     <>
@@ -52,6 +54,25 @@ export function Timeline({
                 >
                   {(i === 0 || H[i - 1].od !== h.od) && (
                     <span className="absolute left-1 top-1 text-[11px] font-medium leading-none text-on-signal">{h.od}</span>
+                  )}
+                </div>
+              </Cell>
+            ))}
+          </Row>
+        )}
+
+        {show("unsure") && (
+          <Row label="Unsure">
+            {H.map((h, i) => (
+              <Cell key={h.time} i={i} h={h} sel={selected} onSelect={onSelect} change={i === changeIdx}>
+                <div className="flex h-5 items-center justify-center">
+                  {isUnsure(h) && (
+                    <span
+                      className="flex size-4 items-center justify-center rounded-full bg-ink text-[10px] font-medium text-bg"
+                      title={`Unsure: ${unsureReason(h)}`}
+                    >
+                      ?
+                    </span>
                   )}
                 </div>
               </Cell>
@@ -128,9 +149,15 @@ export function Timeline({
         <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 pl-24 text-[13px] text-ink-2">
           <Key cls="bg-west" label="25 West" />
           <Key cls="bg-east" label="07 East" />
-          <Key cls="bg-ok" label="18 usable" />
+          <Key cls="bg-ok" label="18 open" />
           <Key cls="stripes bg-bad" label="18 closed" />
           <span className="text-muted">Paler = less sure</span>
+          {anyUnsure && rows.includes("unsure") && (
+            <span className="inline-flex items-center gap-1.5">
+              <span className="flex size-3.5 items-center justify-center rounded-full bg-ink text-[9px] text-bg">?</span>
+              unsure, under 60%
+            </span>
+          )}
           {show("observed") && (
             <>
               <Key cls="border border-dashed border-muted" label="no record" />
@@ -184,7 +211,7 @@ function Cell({
   change: boolean;
   children: React.ReactNode;
 }) {
-  const label = `${dayLabel(h.local)} ${hhmm(h.local)}: OD ${h.od}, runway 18 ${h.p_18_usable >= 0.5 ? "usable" : "closed"} ${Math.round(h.p_18_usable * 100)}%, certainty ${h.certainty}/100`;
+  const label = `${dayLabel(h.local)} ${hhmm(h.local)}: OD ${h.od}, runway 18 ${h.p_18_usable >= 0.5 ? "usable" : "closed"} ${Math.round(h.p_18_usable * 100)}%, certainty ${h.certainty}/100${isUnsure(h) ? `, unsure: ${unsureReason(h)}` : ""}`;
   return (
     <button
       onClick={() => onSelect(i)}
