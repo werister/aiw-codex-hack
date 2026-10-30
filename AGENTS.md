@@ -24,27 +24,17 @@ Keep this section current. If you change the stack, the run command or the entry
 
 ## Git workflow
 
-Before starting any task:
+**User decision, 30 October 2026: all work happens on `main`. This applies to every agent and ALL worktrees.** Do not create or continue feature, task or coordination branches. Consolidate existing work into `main` without losing uncommitted files.
 
-```bash
-git fetch origin
-git rebase origin/main
-```
+- Use the single worktree that has `main` checked out; find it with `git worktree list`. During consolidation it is `/private/tmp/aiw-commit-integration`.
+- Older worktrees are temporary preservation/read-only copies until their changes are integrated. Do not force-checkout `main` in multiple worktrees or delete a worktree containing work.
+- Before editing, check `git status --short --branch`, read `NOTICES.md`, and agree on disjoint file ownership. Serialize staging, commits, rebases and pushes; stage only the files belonging to your change.
+- Fetch and rebase unpublished local commits onto `origin/main` only from a clean tree, when nobody else is changing it. Preserve published history and human authorship.
+- Before pushing, run the relevant checks and the documented app/demo checks, fetch again, review new upstream changes, and rebase if necessary.
+- Push with `git push origin main`. Never force-push `main`, including `--force-with-lease`. Keep history linear; no merge commits.
+- If a conflict in someone else's code requires a product or implementation decision, preserve the work and ask instead of guessing.
 
-Work on a short-lived branch named `<person>/<feature>` (e.g. `aditya/upload-ui`), or directly on `main` for trivial fixes if the team agrees.
-
-Before every push:
-
-```bash
-git fetch origin
-git rebase origin/main      # resolve conflicts, keep both sides' intent
-# run the app / quick check, confirm it still starts
-git push --force-with-lease # on your own branch only
-```
-
-- Never `git push --force` to `main`. Never use plain `--force`; always `--force-with-lease`.
-- Land branches on `main` via fast-forward (rebase first, then `git merge --ff-only` or a PR with "Rebase and merge").
-- If a rebase conflict is non-trivial and touches someone else's code, stop and ask instead of guessing.
+Follow `INTEGRATION.md` for consolidation records, serialization and checks. This decision replaces older branch/worktree instructions in work-package briefs and other documents.
 
 **No AI names anywhere.** Never name an AI assistant, agent, model or vendor in commit messages, trailers (no `Co-Authored-By:` agent lines, no session links), author fields or files. Say "head agent" or "our agents". Commits are authored by the human who runs the agent.
 
@@ -88,9 +78,9 @@ docs: update run instructions
 
 ## Cross-checking
 
-Four people and several agents work in parallel branches and worktrees. Nobody sees unpushed work, so:
+Four people and several agents share `main`, with disjoint file ownership and serialized Git operations:
 
-- Before each task, and at least every 15 minutes, pull main (`git fetch origin && git rebase origin/main`) and read `NOTICES.md`.
+- Before each task, and at least every 15 minutes, read `NOTICES.md` and coordinate a clean-tree fetch/rebase of `main`; never rebase while another agent is editing.
 - Use subagents to look at what the other branches and worktrees are doing (`git branch -r`, `git log origin/main..origin/<branch>`, `git worktree list`) before you build something. If it already exists, use it.
 - When you see something wrong anywhere in the repo or in any workspace, add one line to `NOTICES.md` or message the head lane. Examples: main doesn't run, the same thing built twice, code that disagrees with `frankfurt-airport-operating-direction-forecast.md`, leakage in the backtest, a committed secret, an AI name.
 - Commit to main as soon as your change runs. Small commits, rebased, never force-pushed.
@@ -99,7 +89,7 @@ Four people and several agents work in parallel branches and worktrees. Nobody s
 
 ## Skills and delegated work
 
-- Work from the assigned worktree. Read this file, the relevant work package, and its producer briefs/contracts before starting; interfaces and worker briefs must be checked together.
+- Work from the shared `main` worktree in your assigned files. Read this file, the relevant work package, and its producer briefs/contracts before starting; interfaces and worker briefs must be checked together.
 - Read the matching repository `SKILL.md` in full: investigate → `openspec-explore`; propose → `openspec-propose`; revise planning artifacts → `openspec-update-change`; implement approved tasks → `openspec-apply-change`; reconcile durable specs → `openspec-sync-specs`; archive completed work → `openspec-archive-change`. The adapters live in `.agents/skills/` and `.claude/skills/`; use the directory supported by your runner, without copying skills globally.
 - Every delegated prompt must include the absolute worktree path, task and allowed files, work package, exact skill path, producer briefs/contracts, and required evidence. Each receiving agent reads these files itself and reports its inspected commit and skill used. A session started outside the repo must receive explicit paths; inherited conversation is not evidence that the skill was loaded.
 - Check `openspec --version` and run `openspec list --json` from the worktree before using a workflow. If the CLI is unavailable, report the missing prerequisite and continue unaffected investigation; never claim CLI validation or initialize a second project as a workaround. Validate changed artifacts with `openspec validate <change-name> --strict --no-interactive`.
@@ -107,6 +97,6 @@ Four people and several agents work in parallel branches and worktrees. Nobody s
 ## Team notes
 
 - Kai Detmers: ML and data pipeline co-lead (`ml/`).
-- Jayden Bruck (head agent, with our agents in separate worktrees on branches `jayden/<package>`): owns `web/` and integration, and drives the worker packages. Leaves at 16:45.
+- Jayden Bruck (head agent, coordinating our agents on `main`): owns `web/` and integration, and drives the worker packages. Leaves at 16:45.
 - Hugo Hader: pitch and demo at 17:00. Luca Schultz: data review, sanity checks, business-case numbers, backup presenter.
 - Decision 11:40: labels come from the official rules on EDDF METAR, validated against flown ODs if a public source exists. The model must beat the rule baseline on held-out days.
