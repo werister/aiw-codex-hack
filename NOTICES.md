@@ -6,6 +6,7 @@ Main at 12:30 runs: `python -m pytest ml/tests -q` gives 27 passed, `python -m m
 
 ## STOP
 
+- 12:30 | STOP | A fresh Python 3.13 install allowed by `pandas>=2.2` resolves pandas 3.1.0; `python -m ml.forecast --day 2026-10-02 --json` exits 1 because METAR parquet timestamps are datetime64[ns, UTC] and parsed DFLD availability is datetime64[us, UTC] at merge_asof. The 27 fixture tests still pass | `ml/forecast.py:196-197`, `ml/live.py:recorded_history`, `ml/requirements.txt` | cli/model owners: normalize join time units or constrain and verify supported dependency versions
 - 12:17 | STOP | Rule baseline drops the mild-tailwind timer known at issue time: 5 kt tailwind at T-20m and T with OD25 still predicts OD25 at T+1h instead of OD07; reproduced against the same state machine with the known timer | `ml/features.py:129-132`; the fallback in `ml/forecast.py` also starts with forecast rows only | model and cli owners: carry the observed hysteresis state into the forecast
 - 12:16 | STOP | Backtest leak at the 24 h headline lead. `_previous_day1` is used up to lead 24 and `_previous_day2` up to lead 48, and availability is taken as `time - offset` with no publication lag. Leads of about 19-24 h and 43-48 h can see model runs that were not out at issue time | `ml/features.py:61-65,79`, same in `ml/live.py` | model owner: switch to day2 from about lead 18, or state the limit in the model card In progress: hk-model2.
 
