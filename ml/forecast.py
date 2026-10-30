@@ -18,7 +18,7 @@ import pandas as pd
 import requests
 
 from ml import live
-from ml.features import nwp_offset_days
+from ml.features import MULTIMODELS, PUBLICATION_LAG_H, nwp_offset_days
 from ml.quality import suspect_od_runs
 from ml.rules import RULES, crosswind, od_state_machine, r18_usable, tailwind
 
@@ -168,8 +168,67 @@ def format_hours(frame, issue):
                 "rule_od": row["rule_od"], "rule_18_usable": bool(row["rule_18_usable"]),
                 "p_od25": p_od, "od": "25" if p_od >= 0.5 else "07", "p_18_usable": p_18,
                 "certainty": round(100 * min(abs(2 * p_od - 1), abs(2 * p_18 - 1)))}
+        if "p_od25_raw" in row:
+            hour["inputs"] = hour_inputs(row)
         hours.append(hour)
     return hours
+
+
+def number(value):
+    return None if value is None or pd.isna(value) else float(value)
+
+
+def hour_inputs(row):
+    """Per-hour evidence; missing inputs stay null."""
+    return {"nwp_offset_days": int(row["nwp_offset_days"]), "wind_kt_metar_scaled": float(row["wind_kt_metar_scaled"]),
+            **{name: number(row[name]) for name in ("ens_tailwind_25_mean", "ens_tailwind_25_std",
+                                                     "ens_tailwind_18_mean", "ens_dir_spread", "ens_votes_25")},
+            "rule_od25_ens": int(row["rule_od25_ens"]), "dp_ns_hpa": number(row["dp_ns"]),
+            "dp_ew_hpa": number(row["dp_ew"]), "blend_key": str(row["blend_key"]),
+            "blend_weight": float(row["blend_weight"]), "p_od25_raw": float(row["p_od25_raw"])}
+
+
+def input_sources(nwp, obs, known, issue):
+    """Which inputs were present and when each became available (no later than issue)."""
+    def latest(column):
+        values = pd.to_datetime(nwp[column], utc=True).dropna() if column in nwp else pd.Series(dtype="datetime64[ns, UTC]")
+        return utc_text(values.max()) if len(values) else None
+
+    def present(prefix):
+        return any(column.startswith(prefix) and nwp[column].notna().any() for column in nwp)
+
+    base = latest("available_at")
+    sources = [{"name": "Open-Meteo best_match", "available_at": base}]
+    if latest("issued_at"):
+        sources[0]["issued_at"] = latest("issued_at")
+    for model in MULTIMODELS:
+        sources.append({"name": f"Open-Meteo {model}", "available_at": latest(f"{model}__available_at") or base,
+                        "missing": not present(f"{model}__wind_speed_10m")})
+    sources.append({"name": "Open-Meteo pressure boxes N/S/W/E", "available_at": latest("pressure__available_at") or base,
+                    "missing": not present("pressure_n")})
+    sources.append({"name": "IEM EDDF METAR", "available_at": utc_text(obs.loc[obs.time <= issue].time.max())})
+    if len(known):
+        sources.append({"name": "DFLD recorded OD", "available_at": utc_text(known.available_at.max())})
+    return sources
+
+
+def evidence(frame, hours, issue, obs, known, nwp, current_od, provenance):
+    import hashlib
+
+    attrs = frame.attrs
+    now = obs.loc[obs.time <= issue].sort_values("time").iloc[-1]
+    issue_inputs = {"metar_time": utc_text(now.time), "metar_wind_dir_deg": number(now.wind_dir_deg),
+                    "metar_wind_kt": float(now.wind_kt), "metar_gust_kt": float(now.gust_kt),
+                    "od_at_issue": current_od, "od_source": provenance,
+                    "hours_since_change": number(attrs.get("hours_since_change"))}
+    artifact = {"version": attrs["model_version"], "file": attrs["model_file"], "sha256": attrs["model_sha256"],
+                "trained_through": pd.Timestamp(attrs["trained_through"]).isoformat()}
+    payload = json.dumps([utc_text(issue), artifact["sha256"], issue_inputs, [hour.get("inputs") for hour in hours]],
+                         sort_keys=True, default=str)
+    return {"run_id": hashlib.sha256(payload.encode()).hexdigest()[:12], "model_artifact": artifact,
+            "feature_set": "base+ensemble+synoptic", "rules_version": RULES["version"],
+            "publication_lag_h": PUBLICATION_LAG_H, "issue_inputs": issue_inputs,
+            "sources": input_sources(nwp, obs, known, issue)}
 
 
 def observed_overlay(issue, history):
@@ -286,6 +345,8 @@ def build_forecast(day=None, *, now=None, include_observed=True, include_briefin
         result["note"] = note
     if mode == "hindcast" and include_observed:
         result["observed"] = observed_overlay(issue, history)
+    if "model_sha256" in frame.attrs:
+        result["evidence"] = evidence(frame, hours, issue, obs, known, nwp, current_od, provenance)
     result["briefing"] = tower_briefing(result) if include_briefing else None
     return result
 
