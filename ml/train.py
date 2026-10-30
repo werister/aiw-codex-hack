@@ -16,7 +16,7 @@ from sklearn.ensemble import HistGradientBoostingClassifier
 from sklearn.inspection import permutation_importance
 
 from ml.features import FEATURES, build_features, normalize_obs
-from ml.predict import probability
+from ml.predict import od_probability, probability
 from ml.quality import next_change_timing, period, reliability, skill
 from ml.rules import RULES, od_state_machine, r18_usable
 
@@ -96,7 +96,7 @@ def cached_dataset(stride):
     return result
 
 
-def fit(frame):
+def fit_classifiers(frame):
     models = {}
     for name, label in (("od", "y_od"), ("r18", "y_r18")):
         rows = frame.dropna(subset=[label])
@@ -107,9 +107,34 @@ def fit(frame):
     return models
 
 
+def fit(frame):
+    # Choose persistence weights on an earlier, chronological validation block.
+    # The external walk-forward test month never selects these weights.
+    validation_start = frame.issue_time.max() - pd.Timedelta(days=60)
+    earlier = frame.loc[frame.label_available_at < validation_start]
+    validation = frame.loc[frame.issue_time >= validation_start].dropna(subset=["y_od"])
+    candidate = fit_classifiers(earlier)["od"]
+    raw = probability(candidate, validation[FEATURES])
+    y = validation.y_od.to_numpy(float)
+    prior = validation.od_at_issue.to_numpy(float)
+    horizons = np.select([validation.lead_h <= 1, validation.lead_h <= 6, validation.lead_h <= 24], [1, 6, 24], default=48)
+    weights = {}
+    for horizon in (1, 6, 24, 48):
+        selected = horizons == horizon
+        losses = []
+        for alpha in (0, 0.25, 0.5, 0.75, 1):
+            p = alpha * raw[selected] + (1 - alpha) * prior[selected]
+            losses.append((float(np.mean((p - y[selected]) ** 2)), alpha))
+        weights[str(horizon)] = min(losses)[1]
+    models = fit_classifiers(frame)
+    models["od_model_weight"] = weights
+    models["od_blend_validation_period"] = period(validation.issue_time)
+    return models
+
+
 def predict(models, frame):
     frame = frame.copy()
-    frame["p_od25"] = probability(models["od"], frame[FEATURES])
+    frame["p_od25"] = od_probability(models, frame)
     frame["p_18_usable"] = probability(models["r18"], frame[FEATURES])
     return frame
 
@@ -134,7 +159,7 @@ def evaluate(frame, truth, obs, months, stride, skipped):
         assert train.label_available_at.max() < test.issue_time.min()
         models = fit(train)
         models["trained_through"] = train.label_available_at.max().isoformat()
-        models["version"] = "walk-forward-v1"
+        models["version"] = "walk-forward-v2"
         MODELS.mkdir(parents=True, exist_ok=True)
         joblib.dump(models, MODELS / f"fold-{month}.joblib", compress=3)
         train_predictions = predict(models, train)
@@ -146,6 +171,8 @@ def evaluate(frame, truth, obs, months, stride, skipped):
         folds.append({"month": str(month), "train_period": period(train.issue_time),
             "train_target_end": train.label_available_at.max().isoformat(), "test_period": period(test.issue_time),
             "train_n": len(train), "test_n": len(test),
+            "od_model_weight": models["od_model_weight"],
+            "od_blend_validation_period": models["od_blend_validation_period"],
             "in_sample": {name: skill(train_predictions, name) for name in ("od", "r18")},
             "out_of_sample": {name: skill(test_predictions, name) for name in ("od", "r18")}})
         print(f"Walk-forward {month}: train {len(train):,}, test {len(test):,}", flush=True)
@@ -156,8 +183,12 @@ def evaluate(frame, truth, obs, months, stride, skipped):
     # Permutations use only the final held-out month and its preceding fit.
     labelled = oos[-1].dropna(subset=["y_od"])
     heldout = labelled.sample(n=min(5000, len(labelled)), random_state=42)
+    def blended_score(estimator, features, labels):
+        p = od_probability({"od": estimator, "od_model_weight": final_fold_models["od_model_weight"]}, features)
+        return -float(np.mean((p - labels.to_numpy(float)) ** 2))
+
     permutation = permutation_importance(final_fold_models["od"], heldout[FEATURES], heldout.y_od.astype(int),
-        scoring="neg_brier_score", n_repeats=3, random_state=42, n_jobs=1)
+        scoring=blended_score, n_repeats=3, random_state=42, n_jobs=1)
     drivers = sorted([{"feature": feature, "importance": float(value)}
                       for feature, value in zip(FEATURES, permutation.importances_mean)],
                      key=lambda row: row["importance"], reverse=True)[:10]
@@ -198,7 +229,7 @@ def evaluate(frame, truth, obs, months, stride, skipped):
             "Stable-hour OD accuracy excludes DFLD transition hours. Next-change scoring instead uses the half-hour source and excludes incomplete windows.",
             "Runway 18 targets are inferred weather usability; missing or variable METAR directions are unlabelled, not assumed open.",
             "In-sample aggregates repeat rows across expanding folds. OOS monthly folds do not overlap; overlapping 48-hour forecast windows are correlated.",
-            "Timing metrics use 6-hourly issue windows by default, not independent events. No probability recalibration was fitted to held-out data."]}
+            "Timing metrics use 6-hourly issue windows by default, not independent events. Persistence blending weights minimize Brier score on a 60-day chronological validation block before each test month; held-out data never selects weights."]}
     dump(OUTPUT / "backtest.json", backtest)
     dump(OUTPUT / "quality.json", quality)
     return backtest, quality
@@ -217,11 +248,12 @@ def main():
     models = fit(frame)
     models["features"] = FEATURES
     models["trained_through"] = frame.label_available_at.max().isoformat()
-    models["version"] = "walk-forward-v1"
+    models["version"] = "walk-forward-v2"
     MODELS.mkdir(parents=True, exist_ok=True)
     joblib.dump(models, MODELS / "forecast.joblib", compress=3)
     dump(MODELS / "metadata.json", {"version": models["version"], "features": FEATURES,
-        "trained_through": models["trained_through"], "n": len(frame), "r18_label_type": "inferred"})
+        "trained_through": models["trained_through"], "n": len(frame), "r18_label_type": "inferred",
+        "od_model_weight": models["od_model_weight"], "od_blend_validation_period": models["od_blend_validation_period"]})
     print("Outputs written to web/public/data/; final models saved to ml/models/", flush=True)
     print("Observed base rates, runway 18 inferred:", json.dumps(backtest["base_rates"]), flush=True)
     print(pd.DataFrame(backtest["od"]).to_string(index=False), flush=True)

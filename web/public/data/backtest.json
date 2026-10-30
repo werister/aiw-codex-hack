@@ -18,9 +18,9 @@
     {
       "lead_h": 1,
       "n": 709,
-      "model_acc": 0.9379407616361072,
-      "model_brier": 0.04854498226491989,
-      "model_change_acc": 0.4090909090909091,
+      "model_acc": 0.9689703808180536,
+      "model_brier": 0.02804338277012554,
+      "model_change_acc": 0.0,
       "rule_acc": 0.9689703808180536,
       "rule_brier": 0.031029619181946404,
       "rule_change_acc": 0.0,
@@ -32,9 +32,9 @@
     {
       "lead_h": 6,
       "n": 703,
-      "model_acc": 0.914651493598862,
-      "model_brier": 0.06934112446630909,
-      "model_change_acc": 0.7528089887640449,
+      "model_acc": 0.9089615931721194,
+      "model_brier": 0.06013301342049755,
+      "model_change_acc": 0.5955056179775281,
       "rule_acc": 0.8591749644381224,
       "rule_brier": 0.14082503556187767,
       "rule_change_acc": 0.7303370786516854,
@@ -133,43 +133,43 @@
   "drivers": [
     {
       "feature": "wind_speed_80m",
-      "importance": 0.01776618957896305
+      "importance": 0.01675963137121485
     },
     {
       "feature": "od_at_issue",
-      "importance": 0.005386173966405339
+      "importance": 0.015597129557269968
     },
     {
       "feature": "tailwind_07_kt",
-      "importance": 0.004797426503585972
+      "importance": 0.004775506013177906
     },
     {
       "feature": "tailwind_18_kt",
-      "importance": 0.0035729051651663866
+      "importance": 0.003780548715827864
+    },
+    {
+      "feature": "lead_h",
+      "importance": 0.0034320710841741577
     },
     {
       "feature": "hour_cos",
-      "importance": 0.00335738930903573
+      "importance": 0.003252088945122624
     },
     {
       "feature": "rule_od25",
-      "importance": 0.0027233740895193093
+      "importance": 0.002285377490840531
     },
     {
       "feature": "season_sin",
-      "importance": 0.0014120458094143418
+      "importance": 0.0013794320739471955
     },
     {
       "feature": "gust_kt",
-      "importance": 0.001353521118048595
+      "importance": 0.0013301268501286028
     },
     {
       "feature": "obs_tailwind_18",
-      "importance": 0.0013291907647977792
-    },
-    {
-      "feature": "temperature_2m",
-      "importance": 0.0007734036506419165
+      "importance": 0.0013149006092811426
     }
   ],
   "r18_label_type": "inferred"
