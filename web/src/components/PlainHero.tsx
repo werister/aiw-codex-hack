@@ -34,13 +34,13 @@ export function PlainHero({
     <section
       className={cx(
         "relative flex flex-col gap-10 overflow-hidden rounded-card bg-panel-2 p-6 sm:p-10 md:block md:p-0",
-        compact ? "min-h-[560px]" : "min-h-[calc(100svh-96px)] lg:min-h-[640px]",
+        compact ? "min-h-[900px] md:min-h-[640px]" : "min-h-[960px] md:min-h-[680px]",
       )}
       aria-label="Forecast summary and hour selection"
     >
       {/* Scene sits right of the words on wide screens, below them on narrow ones. */}
       {hour && (
-        <div className="relative order-2 h-[280px] md:absolute md:inset-x-0 md:bottom-[130px] md:left-[30%] md:top-0 md:h-auto">
+        <div className="relative order-2 h-[280px] md:absolute md:inset-x-0 md:bottom-[210px] md:left-[46%] md:top-0 md:h-auto">
           <SceneHero
             od={hour.od}
             r18Open={r18Open}
@@ -62,11 +62,9 @@ export function PlainHero({
           />
         </div>
       )}
-      {/* Keeps the words readable over the scene. */}
-      {hour && <div className="pointer-events-none absolute inset-0 hidden bg-gradient-to-r from-panel-2 from-35% to-transparent to-60% md:block" />}
 
-      <div className={cx("pointer-events-none contents md:relative md:flex md:h-full md:flex-col md:justify-between md:gap-10 md:p-10", compact ? "min-h-[560px]" : "min-h-[inherit]")}>
-        <div className="pointer-events-auto order-1 max-w-[760px]">
+      <div className={cx("pointer-events-none contents md:relative md:flex md:h-full md:flex-col md:justify-between md:gap-10 md:p-10", "min-h-[inherit]")}>
+        <div className="pointer-events-auto order-1 max-w-[760px] md:max-w-[44%]">
           <p className="eyebrow text-muted">Operating direction at issue · {formatForecastInstant(f.issued_at, f.issued_local)}</p>
           <h2
             className={cx(

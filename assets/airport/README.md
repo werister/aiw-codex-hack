@@ -33,7 +33,11 @@ Native playback uses 60 fps. Each phase takes 20 seconds; jump to frame 1, 1201 
 - `previews/`: nine rendered overview and detail images.
 - `manifest.json`: axes, display scales, runway names, scenario paths and
   forecast-field mapping. Path coordinates use Blender axes.
-- `verification.json`: measured export sizes, geometry counts, spatial clearance, surface and full-timeline checks.
+- `verification.json`: native export hashes, dimensions, geometry, runway and
+  scene checks. Its `result` must be `passed` before publishing.
+- `runtime-verification.json`: sampled browser traffic checked against actual
+  Blender runway/apron surfaces. Read its `result` separately from the native
+  asset report.
 - `BRIEF.md`: visual brief, scope and reference sources.
 
 ## Integration
@@ -56,18 +60,44 @@ with `rotation_euler.z = -radians(heading)`; in Three.js use
 axis is +Y before export, −Z afterwards. The manifest's runway heading describes
 its intended geographic placement, not an already-applied standalone rotation.
 
-Use **one shared `HourForecast.od`** for the three parallel runways. Runway 18
-always departs south and is independent of OD. Display `p_18_usable` as a
-probability; choosing a threshold for an open/closed illustration is a product
-decision, not an extra model prediction. Certainty describes the forecast, not
-individual aircraft assignments. Retain the existing forecast contract.
+## Web demonstration
+
+The cockpit and widget load the Blender environment and aircraft as GLBs. The
+currently selected `HourForecast` drives the scene: its single `od` selects the
+direction for all three parallel runways, and `p_18_usable >= 0.5` selects the
+illustrated open/closed state for Runway 18. The caption also shows the exact
+probability and forecast certainty. The 50% cutoff is a display policy; it is
+not an operational clearance or a second model output. Certainty describes the
+forecast, not an aircraft assignment.
+
+All four combinations (OD 25/07 × Runway 18 open/closed) are supported. Runway
+18 traffic, when shown, departs south; when closed, the flexible example
+departure uses the selected parallel-runway direction. Selecting a different
+forecast hour resets the illustrative flow. The web scene displays forecast
+wind when available, but its route and timing fixtures do not infer ATC or
+individual aircraft assignments from the weather.
 
 The airport is deliberately compressed: runway length ×0.12, width ×0.30;
 tower ×0.70; moving aircraft ×0.42–0.60. It is a presentation model, not a
-georeferenced airport map. Taxi routes, traffic timing and assignments are
-illustrative fixtures. They are not connected to the ML forecast, use a checked illustrative layout and timing, and are not an operational
-separation or clearance model. Individual
-aircraft and the tower are original interpretations rather than exact replicas.
+georeferenced airport map. The native `.blend` playback remains three fixed
+examples; it is not driven by ML. Neither version is an operational taxi,
+separation or clearance model. Individual aircraft and the tower are original
+interpretations rather than exact replicas.
+
+Publish the three browser GLBs and matching manifest from the repository root:
+
+```sh
+python3 tools/blender/publish_web_assets.py --dry-run
+python3 tools/blender/publish_web_assets.py
+python3 tools/blender/publish_web_assets.py --check
+```
+
+The publisher checks each GLB against its SHA-256 and byte count in
+`verification.json`, stages all four files, then atomically replaces each web
+copy. `--dry-run` verifies sources without writing; `--check` also verifies the
+published copies. The native report does not contain a manifest hash, so the
+publisher copies the manifest byte-for-byte and checks it against the source
+when verifying the web package.
 
 ## Rebuild and verify
 
@@ -104,13 +134,16 @@ Curved roofs use smooth normals with crisp fascia edges. Ground motion has
 short acceleration/deceleration ramps and 60 Hz animation samples.
 Anti-aliasing belongs to the renderer; a GLB viewer must also enable it.
 
-The playback MP4 is a 60-second motion review at 60 fps and 1280 × 880,
-rendered in EEVEE with 32 temporal anti-aliasing samples. Every output frame
-samples a distinct native animation frame. Regenerate it with:
+The native Blender scene is authored at 60 fps for 60 seconds (3,600 frames).
+The MP4 is a separate render deliverable; the script is configured for 60 fps
+at 1280 × 880 with 32 temporal anti-aliasing samples, but check the current
+render and its verification before presenting an MP4 as final. Regenerate it
+with:
 
 ```sh
 blender --background --threads 2 --python-exit-code 1 --python tools/blender/render_demo.py
 ```
 
-Native viewport speed depends on the device and shading mode. Browser/device
-performance and live forecast integration remain separate.
+Native viewport and browser frame rates depend on the device and shading mode.
+The web 3D scene is connected to the selected forecast hour; it illustrates
+the resulting state and does not make operational decisions.

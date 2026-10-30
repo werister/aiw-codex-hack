@@ -58,8 +58,7 @@ export function PitchApp() {
       {step === 0 && <ReplayPicker onContinue={() => setStep(1)} />}
       {step === 1 && <PitchQuality />}
       <footer className="border-t border-line pt-4 text-xs leading-relaxed text-muted">
-        For ground-handling planning. Runway clearance remains an operational decision.
-        Times use Europe/Berlin. The historical forecast and aggregate evaluation are separate.
+        For ground-handling planning only. Runway clearance remains an operational decision. Times use Europe/Berlin.
       </footer>
     </main>
   );
@@ -136,7 +135,7 @@ function HistoricalReplay({ day, onContinue }: { day: string; onContinue: () => 
             <Metric label="Keep current · matching direction" value={`${scores.persistenceCorrect}/${scores.matchedHours}`} />
           </div>
           <p className="text-sm text-ink-2">{firstOpposite ? `First different recorded direction: ${firstOpposite.od} at ${formatPitchTimeWithOffset(firstOpposite.time)}.` : "No different direction appears in the saved hourly records."} These scores count matching hourly states; they do not measure change-event detection or exact switch timing.</p>
-          {firstOpposite?.previousMatchingTime && <p className="text-sm text-ink-2">Last matching sample: {formatPitchTimeWithOffset(firstOpposite.previousMatchingTime)}. First different sample: {formatPitchTimeWithOffset(firstOpposite.time)}. The switch was between those samples; hourly records may miss temporary changes.</p>}
+          {firstOpposite?.previousMatchingTime && <p className="text-sm text-ink-2">Recorded direction last matched at {formatPitchTimeWithOffset(firstOpposite.previousMatchingTime)} and first differed at {formatPitchTimeWithOffset(firstOpposite.time)}. Hourly records do not show when it changed and may miss temporary changes.</p>}
           <details className="text-sm"><summary className="cursor-pointer text-ink-2">Inspect all forecast and recorded hours</summary><div className="mt-3 overflow-x-auto"><table className="w-full min-w-[520px] text-left text-xs tabular">
             <thead><tr className="text-muted"><th className="p-2">Berlin time</th><th>Model</th><th>Rules</th><th>Keep current</th><th>Recorded OD</th></tr></thead>
             <tbody>{f.hours.map((hour) => {
@@ -180,7 +179,7 @@ function historicalPreparationEvidence({
   if (!firstOpposite) return "No different recorded direction is available for comparison.";
 
   const firstDifferent = formatPitchTimeWithOffset(firstOpposite.time);
-  if (status === "insufficient-lead") return "Insufficient lead: the review time is before forecast issue time. No earlier action is inferred.";
+  if (status === "insufficient-lead") return "The review time is before forecast issuance; no forecast lead remains for this scenario.";
   if (status === "late") return `Late: review is at or after the first different recorded direction (${firstDifferent}). The hourly record does not show the exact transition time or prove an operational action was missed.`;
   if (status === "before-recorded-change-interval" && firstOpposite.previousMatchingTime) {
     return `Before the recorded change: the last matching sample was ${formatPitchTimeWithOffset(firstOpposite.previousMatchingTime)} and the first different sample was ${firstDifferent}. Hourly records may miss temporary changes.`;

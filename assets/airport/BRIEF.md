@@ -31,9 +31,16 @@ daylight. Detail comes from form and construction, not noisy photo textures.
   starts/stops. The MP4 must contain 3,600 individually rendered frames.
 
 The airport layout is an illustrative compressed diagram, not surveyed geometry
-or an operational taxi clearance. The demonstration paths explain the supplied
-forecast; they do not predict individual flight assignments or implement ATC.
-No web UI or ML contract changes are part of this asset task.
+or an operational taxi clearance. In the browser demo, the currently selected
+`HourForecast.od` drives all three parallel runways, and
+`HourForecast.p_18_usable >= 0.5` selects the illustrated Runway 18 state. The
+scene shows the selected hour's probability, certainty and wind when supplied;
+the 50% cutoff is a display policy, not an operational clearance. All four OD
+25/07 × Runway 18 open/closed combinations are supported. A new selected hour
+restarts the example flow. Routes and timing remain illustrative; they do not
+predict individual flight assignments or implement ATC. The native Blender
+file still contains fixed examples rather than ML-driven playback. No forecast
+schema change is required.
 
 References (consulted 2026-10-30):
 

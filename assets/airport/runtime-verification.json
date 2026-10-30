@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "result": "FAIL",
+  "result": "PASS",
   "scope": "illustrative web runtime paths against this Blender scene; not an operational clearance claim",
   "evidence": {
     "blend_file": "/Users/U751725/aiw-codex-hack/assets/airport/fra-airport.blend",
@@ -49,21 +49,151 @@
   "semantic_obstacles": 25,
   "ground_surface_check": {
     "height_threshold_m": 4.0,
-    "samples_checked": 0,
+    "samples_checked": 12097,
     "misses": 0,
-    "coverage_percent": 0,
+    "coverage_percent": 100.0,
     "miss_examples": []
   },
-  "runtime_states": [],
+  "runtime_states": [
+    {
+      "od": "25",
+      "runway_18_open": true,
+      "samples_per_role": 1200,
+      "ground_samples_by_role": {
+        "depart_center": 776,
+        "depart_flex": 809,
+        "arrive_north": 782,
+        "arrive_south": 765
+      },
+      "expected_runway_ground_hits_by_role": {
+        "arrive_north": 782,
+        "arrive_south": 765,
+        "depart_center": 365,
+        "depart_flex": 448
+      },
+      "depart_flex_runway18_ground_hits": 448,
+      "static_obstacle_collisions": 0,
+      "aircraft_hull_collisions": 0,
+      "final_tangent_alignment_dot": {
+        "arrive_north": 1.0,
+        "arrive_south": 1.0,
+        "depart_center": 0.98048,
+        "depart_flex": 0.98312
+      }
+    },
+    {
+      "od": "25",
+      "runway_18_open": false,
+      "samples_per_role": 1200,
+      "ground_samples_by_role": {
+        "depart_center": 381,
+        "depart_flex": 1024,
+        "arrive_north": 782,
+        "arrive_south": 765
+      },
+      "expected_runway_ground_hits_by_role": {
+        "arrive_north": 782,
+        "arrive_south": 765,
+        "depart_center": 192,
+        "depart_flex": 168
+      },
+      "depart_flex_runway18_ground_hits": 0,
+      "static_obstacle_collisions": 0,
+      "aircraft_hull_collisions": 0,
+      "final_tangent_alignment_dot": {
+        "arrive_north": 1.0,
+        "arrive_south": 1.0,
+        "depart_center": 0.98048,
+        "depart_flex": 0.98837
+      }
+    },
+    {
+      "od": "07",
+      "runway_18_open": true,
+      "samples_per_role": 1200,
+      "ground_samples_by_role": {
+        "depart_center": 776,
+        "depart_flex": 809,
+        "arrive_north": 782,
+        "arrive_south": 765
+      },
+      "expected_runway_ground_hits_by_role": {
+        "arrive_north": 782,
+        "arrive_south": 765,
+        "depart_center": 366,
+        "depart_flex": 448
+      },
+      "depart_flex_runway18_ground_hits": 448,
+      "static_obstacle_collisions": 0,
+      "aircraft_hull_collisions": 0,
+      "final_tangent_alignment_dot": {
+        "arrive_north": 1.0,
+        "arrive_south": 1.0,
+        "depart_center": 0.98048,
+        "depart_flex": 0.98312
+      }
+    },
+    {
+      "od": "07",
+      "runway_18_open": false,
+      "samples_per_role": 1200,
+      "ground_samples_by_role": {
+        "depart_center": 380,
+        "depart_flex": 954,
+        "arrive_north": 782,
+        "arrive_south": 765
+      },
+      "expected_runway_ground_hits_by_role": {
+        "arrive_north": 782,
+        "arrive_south": 765,
+        "depart_center": 191,
+        "depart_flex": 280
+      },
+      "depart_flex_runway18_ground_hits": 0,
+      "static_obstacle_collisions": 0,
+      "aircraft_hull_collisions": 0,
+      "final_tangent_alignment_dot": {
+        "arrive_north": 1.0,
+        "arrive_south": 1.0,
+        "depart_center": 0.98048,
+        "depart_flex": 0.98837
+      }
+    }
+  ],
   "closed_runway18_ground_hits": {
     "OD25": 0,
     "OD07": 0
   },
   "open_runway18_ground_hits": {
-    "OD25": 0,
-    "OD07": 0
+    "OD25": 448,
+    "OD07": 448
   },
-  "direction_checks": {},
+  "direction_checks": {
+    "OD25-R18-open": {
+      "arrive_north": 1.0,
+      "arrive_south": 1.0,
+      "depart_center": 0.98048,
+      "depart_flex": 0.98312
+    },
+    "OD25-R18-closed": {
+      "arrive_north": 1.0,
+      "arrive_south": 1.0,
+      "depart_center": 0.98048,
+      "depart_flex": 0.98837
+    },
+    "OD07-R18-open": {
+      "arrive_north": 1.0,
+      "arrive_south": 1.0,
+      "depart_center": 0.98048,
+      "depart_flex": 0.98312
+    },
+    "OD07-R18-closed": {
+      "arrive_north": 1.0,
+      "arrive_south": 1.0,
+      "depart_center": 0.98048,
+      "depart_flex": 0.98837
+    }
+  },
   "static_obstacle_collisions": {
     "count": 0,
     "examples": []
@@ -72,9 +202,30 @@
     "count": 0,
     "examples": []
   },
-  "minimum_clearance": [],
-  "failures": [
-    "checker raised AttributeError: 'tuple' object has no attribute 'items'"
+  "minimum_clearance": [
+    {
+      "minimum_conservative_aircraft_to_obstacle_gap_m": 11.6337,
+      "at": {
+        "od": "25",
+        "r18_open": true,
+        "role": "arrive_north",
+        "obstacle": "Building.Service.1",
+        "sample": 186
+      }
+    },
+    {
+      "minimum_aircraft_center_distance_m": 31.5941,
+      "at": {
+        "od": "07",
+        "r18_open": false,
+        "roles": [
+          "depart_center",
+          "depart_flex"
+        ],
+        "sample": 170
+      }
+    }
   ],
-  "elapsed_seconds": 3.49
+  "failures": [],
+  "elapsed_seconds": 367.31
 }

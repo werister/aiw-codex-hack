@@ -30,14 +30,11 @@ Main at 14:50 runs: `python -m pytest ml/tests -q` gives 54 passed (14:37). Lint
 
 ## FYI
 
-<<<<<<< HEAD
 - 14:50 | FYI | `aiw-wt-ml` has an uncommitted change to `ml/rules.py` and `ml/features.py` since 14:33 (variable-direction wind counts runway 18 as usable when the mean wind is under 15 kt and the peak at most 40 kt). It matches the official limits. Land it or drop it before the final forecasts | `aiw-wt-ml` | model lane
 - 14:16 | FYI | User-approved shift-planning implementation in progress: event overview owns Hero/Recommendation/ForecastEvents and forecast-events; handover owns ForecastAssistant/forecast-explanation; demo owns pitch components/pitch-replay/runway18-demo; head agent owns ForecastApp/Widget and WP5/docs. Preserve these edits; staging and commits are serialized by this head agent | shared main, `web/`, WP5 | shift-planning lane
-=======
 - 14:56 | FYI | User approved a Windy test-only connection command. This lane owns new ml/windy.py and ml/tests/test_windy.py, plus narrow .env.example and ml/README.md additions. Modified Testing-tier weather will not enter forecasts, training or the UI; existing ML/UI owners retain their files. Git operations remain serialized | ml/windy.py | Windy integration lane
 
 - 14:52 | FYI | Shift-planning integration follows the new PlainHero/expert layout and published-values-only pitch. Parent owns ForecastApp event navigation and WP5 section 8/docs; one worker owns PlainHero selected-hour/time-label adaptation; handover helper is now frozen with 13 passing regressions. Preserve these edits. Final shared build and current-main browser verification pending; no rebase during active writes | shared main, web/, WP5 | shift-planning lane
->>>>>>> 5d880fc (Refactor PitchApp component for clarity and updated terminology)
 
 
 - 13:29 | FYI | Publishing checkpoint: finish only the currently running airport rebuild and logo checks, then stop all source writes until the integration coordinator completes fetch/rebase/push. The user explicitly requests all work on main and publication; do not start another change during this checkpoint | shared main | all active file owners
