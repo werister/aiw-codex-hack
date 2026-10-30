@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Arrow } from "./ui";
 
 const STEPS = [
@@ -53,6 +54,9 @@ export function HowItWorks() {
           </li>
         ))}
       </ol>
+      <Link href="/pitch" className="pill-btn mt-12 bg-accent text-accent-ink [--btn-ring:var(--accent)]">
+        See a real day replayed <Arrow />
+      </Link>
     </section>
   );
 }

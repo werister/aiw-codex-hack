@@ -35,7 +35,8 @@ export function PlainHero({ f, compact }: { f: ForecastResponse; compact?: boole
       )}
       aria-label="Now and next"
     >
-      <div className="absolute inset-0">
+      {/* Scene sits right of the words on wide screens, below them on narrow ones. */}
+      <div className="absolute inset-x-0 bottom-[150px] top-[38%] md:inset-y-0 md:left-[30%] md:top-0">
         <SceneHero
           od={first.od}
           r18Open={r18Open}
@@ -56,7 +57,7 @@ export function PlainHero({ f, compact }: { f: ForecastResponse; compact?: boole
         />
       </div>
       {/* Keeps the words readable over the scene. */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-panel-2 via-panel-2/85 to-transparent md:via-panel-2/60" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-panel-2 from-30% to-transparent to-55% md:bg-gradient-to-r md:from-35% md:to-60%" />
 
       <div className={cx("relative flex h-full flex-col justify-between gap-10 p-6 sm:p-10", compact ? "min-h-[560px]" : "min-h-[inherit]")}>
         <div className="max-w-[760px]">

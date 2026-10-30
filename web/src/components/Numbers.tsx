@@ -37,7 +37,7 @@ export function Numbers() {
           line="fewer mistakes than the official rulebook, 2 days ahead"
           missing={missing}
         />
-        <Item big={<>€0.1M to €0.6M</>} line="a year, estimated" note={`${MONEY_LINE} Source: RESULTS.md.`} />
+        <Item big={<>€0.1–0.6M</>} line="a year, estimated" note={`${MONEY_LINE} Source: RESULTS.md.`} />
       </div>
       <p className="mt-10 text-[13px] text-muted">
         Measured on {q ? `${q.folds.length} months` : "past months"} the forecast had never seen.
