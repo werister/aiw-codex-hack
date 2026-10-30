@@ -11,7 +11,7 @@ Site: https://fraalliance-runway-forecast.statworx-par-2884.chatgpt.site (Jayden
 
 ## Words and numbers to use
 - **Spoken pitch and demo:** `PITCH.md` and `DEMO_SCRIPT.md`. The demo clicks get updated after the dashboard is final at 15:45.
-- **Numbers:** `MODEL_CARD.md`, from `web/public/data/quality.json`. Quote the margins with their 95% ranges, not p-values. On money, use only pitch line 2 of "Economic value (illustrative estimate)" in `RESULTS.md`, word for word.
+- **Numbers:** `MODEL_CARD.md`, from `web/public/data/quality.json`. Quote the margins with their 95% ranges, not p-values. On money, use only pitch line 2 of the economic value section in `RESULTS.md`, word for word.
 - **Kai's pitch strategy (German):** `resources/hackathon-pitch-strategy.md`.
 - **Backup video if the site fails:** `assets/airport/previews/airport-demo.mp4` (60 s airport scene).
 
