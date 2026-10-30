@@ -10,7 +10,8 @@ here = pathlib.Path(__file__).resolve().parent
 q = json.loads((here.parent / "data" / "quality.json").read_text(encoding="utf-8"))
 folds = q.get("folds") or []
 od = (q.get("significance") or {}).get("od") or q["out_of_sample"]["od"]
-keys = ("lead_h", "n", "model_acc", "model_acc_ci", "rule_acc", "persistence_acc", "acc_diff_vs_rule", "acc_diff_vs_rule_ci")
+keys = ("lead_h", "n", "model_acc", "model_acc_ci", "rule_acc", "persistence_acc", "acc_diff_vs_rule", "acc_diff_vs_rule_ci",
+        "model_change_acc", "rule_change_acc", "persistence_change_acc")
 snap = {
     "test": {"start": folds[0]["test_period"]["start"], "end": folds[-1]["test_period"]["end"], "months": len(folds)} if folds else None,
     "od": [{k: r[k] for k in keys if k in r} for r in od],
