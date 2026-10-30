@@ -4,7 +4,7 @@
 
 Open problems across main, branches and worktrees. One line each: time (Berlin) | severity | what is wrong | where | who acts. `STOP` breaks main or makes the submission wrong, `FIX` should be fixed before 16:00, `FYI` is worth knowing. Delete a line once it is fixed. Rules: "Cross-checking" in `AGENTS.md`.
 
-Main at 16:00: tests passed at 15:20 (103). `/play` landed (ee5477f) with the official limits (10 kt landing, 15 kt runway 18 tailwind, crosswind above 40 kt).
+Main at 16:08: `python -m pytest ml/tests -q` gives 110 passed, 1 failed (see FIX). `python -m ml.forecast --day 2026-10-31` gives `walk-forward-v6`.
 
 ## STOP
 
@@ -17,6 +17,7 @@ Main at 16:00: tests passed at 15:20 (103). `/play` landed (ee5477f) with the of
 - 15:20 | FIX | `weather database/` is still 76 MB with 29 third-party PDFs. 1a78f00 dropped only the text extracts | `weather database/` | Luca and head agent: keep the PDFs on `luca/weather-database`
 - 14:15 | FIX | Kai's 14:04 push added `assets/` (42 MB of 3D files) and `resources/` (21.6 MB): a second data pipeline (`resources/ml-support/forecast/fetch_forecast_data.py`, `observations/fetch_verify.py`, a 6 MB METAR CSV, Kaggle checks) that duplicates `ml/fetch.py` and `data/`, old copies of `forecast-types.ts` and `hk-model.md` in `resources/ml-support/reference/`, and Condor research for a different challenge | `resources/`, `assets/` | Kai: drop the duplicates, keep only what the app loads
 - 15:15 | FIX | Seven 3D files are committed two or three times with identical content: `assets/airport/exports/*.glb` again in `web/public/deck/models/` and `web/public/models/airport/` (`aircraft-widebody.glb` three times, `airport-environment.glb` 12 MB twice). Tracked files are now 207 MB on a disk with about 6 GB free | `assets/airport/exports/`, `web/public/deck/models/`, `web/public/models/airport/` | Kai and head agent: serve one copy
+- 16:08 | FIX | `ml/tests/test_challengers.py::test_output_path_cannot_target_production_artifacts` fails on Windows: it creates a symlink, which needs an extra privilege there (`WinError 1314`). The code is fine; the test needs a skip when symlinks can't be created | `ml/tests/test_challengers.py` | Kai
 
 ## FYI
 
@@ -107,6 +108,5 @@ Main at 16:00: tests passed at 15:20 (103). `/play` landed (ee5477f) with the of
 - 15:42 | FYI | Airport delivery complete on main: Blender scene, nine GLBs/AA stills, 60 s / 60 fps MP4, selected-forecast 3D control and browser evidence. Four runtime states passed 19,200 pose checks; typecheck, scoped lint and 9 traffic tests pass. Scene caption retains the runway-18 probability and marks open/closed as likely; 50% display policy is available in the tooltip/accessibility text. Production build limitation remains in the separate notice. | assets/airport; tools/blender; web/src/components/SceneHero.tsx | Blender lane
 
 - 15:48 | FYI | User requests full model-development history and measured progress in the deck. ML/history lane owns only slide7 (tried) in index.html, new history.html/history.data.json, and narrow matching speaker-note text. The released13-slide order and otherdeckcontent stay preserved. Mainpitch retainsitsduration; fullhistory is a linkedappendix. New ML experiment CLIs remain research-only; no servingmodelpromotion | web/public/deck | ML/history lane
-
 
 - 15:58 | FYI | User clarifies the ChatGPT-hosted deck and the 48h gain. Published Site version11 from source54153fe: result heading explicitly6/24/48h; test-month label no longer claims untouched months. Hosting deployment succeeded and authenticated live slide9 verified. Main heading already included in39fa639; preserve it in scheduled deployments. Published48h accuracy88.9% vs84.0% rules/64.2% persistence | web/public/deck/index.html; hosted /deck/#9 | deck lane complete
