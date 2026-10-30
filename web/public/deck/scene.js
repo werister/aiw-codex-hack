@@ -8,8 +8,25 @@
 // story (true: keyframed 12 s loop 25 -> 07 -> 25, ignores setState), intro (tiles settle into runways),
 // labels, view (name in VIEWS or { position: [x,y,z], target: [x,y,z] }), aircraftScale, pixelRatio (number or function),
 // theme "light" | "tower" (the app's dark mode), onChange({ od, r18Open, wind }).
-// The canvas is transparent, so the host page owns the background. Three.js loads from ./vendor.
+// fog: a CSS colour (the host background) to fade the far field; leave it out on a transparent hero.
+// The canvas is transparent, so the host page owns the background. Three.js loads from ./vendor,
+// aircraft and runway models (exported from the team's Blender kit) from ./models; primitives stand in until they load.
 import * as THREE from "./vendor/three.module.min.js";
+import { GLTFLoader } from "./vendor/addons/GLTFLoader.js";
+import { RoomEnvironment } from "./vendor/addons/RoomEnvironment.js";
+
+const MODELS = new URL("./models/", import.meta.url).href;
+let gltfCache = null;
+function loadModels() {
+  if (!gltfCache) {
+    const loader = new GLTFLoader();
+    const get = (name) => loader.loadAsync(MODELS + name + ".glb").then((g) => g.scene, () => null);
+    gltfCache = Promise.all([
+      get("aircraft-narrowbody"), get("runway-07L-25R"), get("runway-07C-25C"), get("runway-07R-25L"), get("runway-18"),
+    ]).then(([aircraft, nw, c, s, r18]) => ({ aircraft, runways: { NW: nw, C: c, S: s, R18: r18 } }));
+  }
+  return gltfCache;
+}
 
 const T = THREE;
 const rad = (d) => (d * Math.PI) / 180;
@@ -173,6 +190,10 @@ export function mount(container, options = {}) {
 
   const scene = new T.Scene();
   const camera = new T.PerspectiveCamera(30, 16 / 9, 0.5, 600);
+  if (opts.fog) scene.fog = new T.Fog(opts.fog, 110, 240);
+  const pmrem = new T.PMREMGenerator(renderer);
+  const envTex = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
+  scene.environment = envTex;
 
   scene.add(new T.HemisphereLight(0xffffff, 0xd9dafd, 2.1));
   const sun = new T.DirectionalLight(0xffffff, 1.9);
@@ -227,9 +248,10 @@ export function mount(container, options = {}) {
     return { rw, mesh, mat, centre, startQ, endQ, startP: new T.Vector3(...st.p), size: st.s, delay: i * 0.16, geoKey: "" };
   });
 
+  let slabW = 0.9;
   function placeSlab(sl, k) {
     const e = easeInOut(clamp01(k));
-    const w = lerp(sl.size, 0.9, e), l = lerp(sl.size, sl.rw.len, e), r = lerp(sl.size * 0.24, 0.25, e);
+    const w = lerp(sl.size, slabW, e), l = lerp(sl.size, sl.rw.len + (slabW > 0.9 ? 0.6 : 0), e), r = lerp(sl.size * 0.24, 0.25, e);
     const key = w.toFixed(3) + l.toFixed(3);
     if (key !== sl.geoKey) {
       sl.mesh.geometry.dispose();
@@ -317,6 +339,67 @@ export function mount(container, options = {}) {
   }
   const pool = [makeAircraft(), makeAircraft(), makeAircraft(), makeAircraft()];
   const flights = [];
+  let groundY = Y0;
+
+  // Team Blender kit: real aircraft and runway models replace the primitives once loaded.
+  const runwayModels = [];
+  let alive = true;
+  loadModels().then(({ aircraft, runways }) => {
+    if (!alive) return;
+    if (aircraft) {
+      const box = new T.Box3().setFromObject(aircraft);
+      const k = 1.75 / (box.max.z - box.min.z);
+      groundY = DEPTH + 0.03;
+      for (const ac of pool) {
+        const model = aircraft.clone(true);
+        const mats = [];
+        model.traverse((m) => {
+          if (!m.isMesh) return;
+          m.material = m.material.clone();
+          const name = m.material.name || "";
+          if (name.startsWith("Livery")) m.material.color.set(TAIL);
+          if (name.startsWith("Flow")) m.material.color.set("#3c36da");
+          m.material.transparent = true;
+          m.material.envMapIntensity = 0.7;
+          m.castShadow = true;
+          mats.push(m.material);
+        });
+        model.scale.setScalar(k);
+        model.rotation.y = Math.PI; // GLB faces -Z, ours +Z
+        ac.obj.clear();
+        ac.obj.add(model);
+        ac.mats = mats;
+      }
+    }
+    for (const rw of RUNWAYS) {
+      const src = runways[rw.id];
+      if (!src) continue;
+      const model = src.clone(true);
+      const box = new T.Box3().setFromObject(model);
+      const mats = [];
+      model.traverse((m) => {
+        if (!m.isMesh) return;
+        m.material = m.material.clone();
+        if (/^(Runway|Shoulder)/.test(m.material.name || "")) m.material.color.multiplyScalar(0.62);
+        m.material.envMapIntensity = 0.5;
+        m.material.transparent = true;
+        m.material.opacity = 0;
+        m.receiveShadow = true;
+        mats.push(m.material);
+      });
+      const holder = new T.Group();
+      holder.add(model);
+      model.scale.set(0.95 / (box.max.x - box.min.x), 0.01, rw.len / (box.max.z - box.min.z));
+      holder.position.copy(rw.center).setY(DEPTH + 0.005);
+      holder.rotation.y = Math.atan2(rw.dir.x, rw.dir.z);
+      scene.add(holder);
+      runwayModels.push({ rw, mats });
+    }
+    if (runwayModels.length === RUNWAYS.length) {
+      slabW = 1.35;
+      for (const sl of slabs) sl.centre.visible = false;
+    }
+  });
 
   function spawn(kind, rw, od, startAge = 0) {
     const ac = pool.find((a) => !a.busy);
@@ -337,7 +420,7 @@ export function mount(container, options = {}) {
   function flightPos(f, age, out) {
     const s = f.kind === "arr" ? arrivalS(age) : departureS(age);
     const h = f.kind === "arr" ? arrivalH(s) : departureH(s);
-    return out.copy(f.u).multiplyScalar(s).add(f.origin).setY(Y0 + h);
+    return out.copy(f.u).multiplyScalar(s).add(f.origin).setY(groundY + h);
   }
   function updateFlights(dt) {
     for (let i = flights.length - 1; i >= 0; i--) {
@@ -458,6 +541,10 @@ export function mount(container, options = {}) {
       sl.centre.material.opacity = 0.75 * clamp01((ki - 0.85) / 0.25) * (sl.rw.id === "R18" && !state.r18Open ? 0.4 : 1);
     }
     const settled = clamp01((ki - 0.8) / 0.3);
+    for (const rm of runwayModels) {
+      const target = settled * (rm.rw.id === "R18" && !state.r18Open ? 0.35 : 1);
+      for (const m of rm.mats) m.opacity = lerp(m.opacity, target, Math.min(1, dt * 4));
+    }
     arrowMat.opacity = 0.9 * settled;
     arrow.castShadow = settled > 0.5;
     for (const sp of labels) sp.material.opacity = settled;
@@ -560,7 +647,10 @@ export function mount(container, options = {}) {
     getState: () => ({ od: state.od, r18Open: state.r18Open, wind: { ...state.wind } }),
     resize,
     destroy() {
+      alive = false;
       cancelAnimationFrame(raf);
+      envTex.dispose();
+      pmrem.dispose();
       if (ro) ro.disconnect();
       if (io) io.disconnect();
       renderer.dispose();
