@@ -95,7 +95,7 @@ function SkillTable({ rows, inSample }: { rows: SkillAtLead[]; inSample: SkillAt
             <th className="pb-1 font-medium">Lead</th>
             <th className="pb-1 font-medium">Model</th>
             <th className="pb-1 font-medium">Official rules</th>
-            <th className="pb-1 font-medium">Keep current</th>
+            <th className="pb-1 font-medium">Same as now</th>
             <th className="pb-1 font-medium">Changes caught · model / rules</th>
             <th className="pb-1 font-medium text-muted">In-sample</th>
           </tr>
@@ -127,7 +127,7 @@ function SkillTable({ rows, inSample }: { rows: SkillAtLead[]; inSample: SkillAt
       </table>
       </div>
       <div className="mt-2 text-[12px] text-muted">
-        Best per row in bold. &quot;Keep current&quot; is persistence. In-sample is shown only to make overfitting visible.
+        Best per row in bold. &quot;Same as now&quot; is persistence. In-sample is shown only to make overfitting visible.
       </div>
     </div>
   );
