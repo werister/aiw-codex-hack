@@ -2,10 +2,11 @@
 
 Open problems across main, branches and worktrees. One line each: time (Berlin) | severity | what is wrong | where | who acts. `STOP` breaks main or makes the submission wrong, `FIX` should be fixed before 16:00, `FYI` is worth knowing. Delete a line once it is fixed. Rules: "Cross-checking" in `AGENTS.md`.
 
-Main at 14:15 runs: `python -m pytest ml/tests -q` gives 53 passed, `python -m ml.forecast --day 2026-10-31` gives `walk-forward-v5`. The repo is now 165 MB of tracked files (`.git` 247 MB) after 33 commits from Kai's branch landed at 14:04.
+Main at 14:32 runs: `python -m pytest ml/tests -q` gives 54 passed. Lint ignores the vendored bundles since 2d0d773. No web build check this round because the disk is nearly full.
 
 ## STOP
 
+- 14:32 | STOP | Drive C: on the build PC ran out of space at 14:17 (20 MB free). Git commits and fetches failed in the worktrees. The guardian deleted its own scratch build copies; 4.3 GB is free now, which is about eight `npm ci` runs or one large render | drive C: | head lane: check temp folders, node_modules copies and render output before more installs or renders
 - 12:17 | STOP | Rule baseline drops the mild-tailwind timer known at issue time: 5 kt tailwind at T-20m and T with OD25 still predicts OD25 at T+1h instead of OD07; reproduced against the same state machine with the known timer | `ml/features.py:129-132`; the fallback in `ml/forecast.py` also starts with forecast rows only | model and cli owners: carry the observed hysteresis state into the forecast
 
 ## FIX
@@ -23,8 +24,7 @@ Main at 14:15 runs: `python -m pytest ml/tests -q` gives 53 passed, `python -m m
 - 13:55 | FIX | The live URL is in `SUBMISSION.md` and README (1a2f59f), but README says the site is private until sharing is switched on. The jury can't open it until then | `SUBMISSION.md:5`, README | Jayden: switch sharing on before 16:00 and check it in a private window
 - 14:15 | FIX | `weather database/` is back to 76 MB with 29 third-party PDFs (76184d1 "consolidate weather research archives"), which undoes dfc3c5e. Copyright risk in the submission repo, and none of it feeds the model | `weather database/` | Luca and head lane: keep it on `luca/weather-database`
 - 14:15 | FIX | Kai's 14:04 push added `assets/` (42 MB of 3D files) and `resources/` (21.6 MB): a second data pipeline (`resources/ml-support/forecast/fetch_forecast_data.py`, `observations/fetch_verify.py`, a 6 MB METAR CSV, Kaggle checks) that duplicates `ml/fetch.py` and `data/`, old copies of `forecast-types.ts` and `hk-model.md` in `resources/ml-support/reference/`, and Condor research for a different challenge | `resources/`, `assets/` | Kai: drop the duplicates, keep only what the app loads
-- 14:15 | FIX | AI model names are back in files: `resources/ml-support/reference/forecast-types.ts:1`, `resources/ml-support/reference/hk-model.md:3`, `shared-skills/better/SKILL.md:6`. `resources/condor-challenge-research.md:69` cites Anthropic as a source | `resources/`, `shared-skills/` | Kai
-- 14:15 | FIX | `npm run lint` in `web/` now fails with 23 errors, all `no-this-alias` in the vendored `web/public/deck/vendor/three.module.min.js (moved from `pitch/`)` (plus 1,441 warnings from the same file). `npm run build` still passes and serves `/pitch` from the React route | `web/eslint.config.mjs` | web owner: ignore `public/**/vendor/**`
+- 14:32 | FIX | AI model names in files: `resources/ml-support/reference/forecast-types.ts:1`, `resources/ml-support/reference/hk-model.md:3`, `shared-skills/better/SKILL.md:6`, and new `briefing/experiments/v4-colab-october.md:30,32` and `briefing/reviews/kai-data-round2.md:50` ("Opus" as a reviewer). `resources/condor-challenge-research.md:69` cites Anthropic as a source | `resources/`, `shared-skills/`, `briefing/` | Kai, Hugo
 
 ## FYI
 
