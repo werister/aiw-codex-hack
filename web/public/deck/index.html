@@ -175,7 +175,8 @@
   .s-value { display: flex; flex-direction: column; justify-content: center; }
   .s-value .big { font-size: 200px; line-height: 0.9; font-weight: 300; color: var(--accent); letter-spacing: -0.035em; margin-top: 40px; }
   .s-value .t { font-size: 40px; margin-top: 26px; }
-  .s-value .quote { font-size: 24px; line-height: 1.5; color: var(--muted); max-width: 1180px; margin-top: 70px; }
+  .s-value .range { font-size: 30px; color: var(--ink-2); margin-top: 18px; }
+  .s-value .quote { font-size: 22px; line-height: 1.5; color: var(--muted); max-width: 1180px; margin-top: 70px; }
 
   /* 9 · next */
   .s-next { display: flex; flex-direction: column; justify-content: center; }
@@ -211,7 +212,7 @@
       <p class="follow rise d3">Every switch moves staff, transfers, flights.</p>
     </div>
     <div class="rise d2" style="flex:1">
-      <div class="clip"><video id="clip" src="media/airport-demo.mp4" muted loop playsinline preload="auto"></video></div>
+      <div class="clip"><video id="clip" src="media/airport-demo.mp4" poster="media/airport-demo-poster.jpg" muted loop playsinline preload="auto"></video></div>
       <p class="cap">West, east, then east with runway 18 closed. 3D model: Kai Detmers</p>
     </div>
     <p class="src">Numbers: FraAlliance challenge pitch, 30 Oct 2026</p>
@@ -276,8 +277,9 @@
   <section class="slide s-value" data-name="value" data-veil="full" data-time="20">
     <p class="eyebrow rise">What it could be worth</p>
     <div class="big rise d1" id="value-big"></div>
-    <div class="t rise d2">a year · illustrative estimate</div>
-    <p class="quote rise d3" id="value-quote"></p>
+    <div class="t rise d2">a year at FRA, central case · illustrative estimate</div>
+    <div class="range rise d3" id="value-range"></div>
+    <p class="quote rise d4" id="value-quote"></p>
   </section>
 
   <section class="slide s-next" data-name="next" data-veil="left" data-time="20">
@@ -319,7 +321,7 @@
   // Snapshot of web/public/data/quality.json and repo facts, written by snapshot.py (copied exactly, never edited by hand).
   // The live file replaces the quality numbers at render time when the deck is served over http.
   /* SNAPSHOT:BEGIN */
-  var SNAPSHOT = {"quality": {"test": {"start": "2025-11-01T05:00:00+00:00", "end": "2026-10-27T17:00:00+00:00", "months": 12}, "od": [{"lead_h": 1, "n": 1416, "n_days": 361, "model_acc": 0.9597457627118644, "model_acc_ci": [0.9499638817737515, 0.9695699062578719], "rule_acc": 0.9590395480225988, "persistence_acc": 0.9590395480225988, "model_change_acc": 0.20689655172413793, "rule_change_acc": 0.0, "persistence_change_acc": 0.0, "mcnemar_p_vs_rule": 1.0, "dm_p_vs_rule": 0.1352421163826404, "mcnemar_p_vs_persistence": 1.0, "dm_p_vs_persistence": 0.1352421163826404}, {"lead_h": 6, "n": 1416, "n_days": 361, "model_acc": 0.9279661016949152, "model_acc_ci": [0.9089625970359916, 0.944721035449915], "rule_acc": 0.8813559322033898, "persistence_acc": 0.8884180790960452, "model_change_acc": 0.6235955056179775, "rule_change_acc": 0.7640449438202247, "persistence_change_acc": 0.11235955056179775, "mcnemar_p_vs_rule": 2.326921468571164e-07, "dm_p_vs_rule": 1.1572507267012964e-15, "mcnemar_p_vs_persistence": 9.593942024706217e-07, "dm_p_vs_persistence": 5.230600194137753e-10}, {"lead_h": 24, "n": 1383, "n_days": 357, "model_acc": 0.9168474331164136, "model_acc_ci": [0.8972447735255628, 0.9350208791613602], "rule_acc": 0.8770788141720897, "persistence_acc": 0.7505422993492408, "model_change_acc": 0.8208333333333333, "rule_change_acc": 0.8020833333333334, "persistence_change_acc": 0.28125, "mcnemar_p_vs_rule": 1.6535332124342004e-06, "dm_p_vs_rule": 2.963160293577706e-13, "mcnemar_p_vs_persistence": 3.166016329404732e-36, "dm_p_vs_persistence": 4.576149569348425e-25}, {"lead_h": 48, "n": 1338, "n_days": 346, "model_acc": 0.8916292974588939, "model_acc_ci": [0.8702151185318853, 0.9117449198201555], "rule_acc": 0.8400597907324364, "persistence_acc": 0.6420029895366218, "model_change_acc": 0.8335625859697386, "rule_change_acc": 0.796423658872077, "persistence_change_acc": 0.34112792297111416, "mcnemar_p_vs_rule": 4.710881528708642e-08, "dm_p_vs_rule": 1.69183773233844e-14, "mcnemar_p_vs_persistence": 2.7080503029520278e-55, "dm_p_vs_persistence": 2.9651264744544344e-31}], "next_change": {"within_3h": 0.5254901960784314, "false_alarm_rate": 0.12802768166089964}}, "did": {"labels_since": "2018", "weather_models": 3, "weather_model_names": "ECMWF, GFS, ICON", "experiments": 17, "tests_passed": 54, "hours_verified": 76588, "half_hours": 154752, "changes": 1681, "raw_files_ok": 46, "raw_files": 46, "winds_rechecked": 144072}, "value": {"sentence": "Using EUROCONTROL's public delay costs and stated assumptions, that is worth an illustrative €0.1M a year against the official rules and €0.6M against no forecast, in central scenarios. This is an estimate, not a measured FRA saving.", "low": "0.1", "high": "0.6"}};
+  var SNAPSHOT = {"quality": {"test": {"start": "2025-11-01T05:00:00+00:00", "end": "2026-10-27T17:00:00+00:00", "months": 12}, "od": [{"lead_h": 1, "n": 1416, "n_days": 361, "model_acc": 0.9597457627118644, "model_acc_ci": [0.9499638817737515, 0.9695699062578719], "rule_acc": 0.9590395480225988, "persistence_acc": 0.9590395480225988, "model_change_acc": 0.20689655172413793, "rule_change_acc": 0.0, "persistence_change_acc": 0.0, "mcnemar_p_vs_rule": 1.0, "dm_p_vs_rule": 0.1352421163826404, "mcnemar_p_vs_persistence": 1.0, "dm_p_vs_persistence": 0.1352421163826404}, {"lead_h": 6, "n": 1416, "n_days": 361, "model_acc": 0.9279661016949152, "model_acc_ci": [0.9089625970359916, 0.944721035449915], "rule_acc": 0.8813559322033898, "persistence_acc": 0.8884180790960452, "model_change_acc": 0.6235955056179775, "rule_change_acc": 0.7640449438202247, "persistence_change_acc": 0.11235955056179775, "mcnemar_p_vs_rule": 2.326921468571164e-07, "dm_p_vs_rule": 1.1572507267012964e-15, "mcnemar_p_vs_persistence": 9.593942024706217e-07, "dm_p_vs_persistence": 5.230600194137753e-10}, {"lead_h": 24, "n": 1383, "n_days": 357, "model_acc": 0.9168474331164136, "model_acc_ci": [0.8972447735255628, 0.9350208791613602], "rule_acc": 0.8770788141720897, "persistence_acc": 0.7505422993492408, "model_change_acc": 0.8208333333333333, "rule_change_acc": 0.8020833333333334, "persistence_change_acc": 0.28125, "mcnemar_p_vs_rule": 1.6535332124342004e-06, "dm_p_vs_rule": 2.963160293577706e-13, "mcnemar_p_vs_persistence": 3.166016329404732e-36, "dm_p_vs_persistence": 4.576149569348425e-25}, {"lead_h": 48, "n": 1338, "n_days": 346, "model_acc": 0.8916292974588939, "model_acc_ci": [0.8702151185318853, 0.9117449198201555], "rule_acc": 0.8400597907324364, "persistence_acc": 0.6420029895366218, "model_change_acc": 0.8335625859697386, "rule_change_acc": 0.796423658872077, "persistence_change_acc": 0.34112792297111416, "mcnemar_p_vs_rule": 4.710881528708642e-08, "dm_p_vs_rule": 1.69183773233844e-14, "mcnemar_p_vs_persistence": 2.7080503029520278e-55, "dm_p_vs_persistence": 2.9651264744544344e-31}], "next_change": {"within_3h": 0.5254901960784314, "false_alarm_rate": 0.12802768166089964}}, "did": {"labels_since": "2018", "weather_models": 3, "weather_model_names": "ECMWF, GFS, ICON", "experiments": 17, "tests_passed": 54, "hours_verified": 76588, "half_hours": 154752, "changes": 1681, "raw_files_ok": 46, "raw_files": 46, "winds_rechecked": 144072}, "value": {"sentence": "On EUROCONTROL unit costs that is worth an illustrative €0.13M to €3.2M a year at FRA, about €0.4M in our central case, plus a similar amount in passengers' time. These are estimates, not measured FRA savings.", "low": "0.13", "high": "3.2", "central": "0.4"}};
   /* SNAPSHOT:END */
 
   // Camera per slide for the shared scene (scene.js).
@@ -395,7 +397,7 @@
     var leads = [6, 24, 48].map(function (h) { return byLead[h]; }).filter(Boolean);
 
     // What we did
-    var days = Math.max.apply(null, leads.map(function (r) { return r.n_days || 0; }));
+    var days = leads.reduce(function (a, r) { return a + (r.n_days || 0); }, 0) / leads.length;
     var per = Math.round(leads.reduce(function (a, r) { return a + r.n; }, 0) / leads.length / 100) * 100;
     var tiles = [
       ["plane", did.hours_verified, "hours of flown directions", "since " + did.labels_since + ", rebuilt exactly from " + fmt(did.half_hours, 0) + " half-hours"],
@@ -445,7 +447,8 @@
 
     // Value: the agreed sentence, verbatim, always next to the figure.
     var v = SNAPSHOT.value;
-    document.getElementById("value-big").innerHTML = "€" + v.low + "–" + v.high + "M";
+    document.getElementById("value-big").innerHTML = "~€" + v.central + "M";
+    document.getElementById("value-range").textContent = "Range €" + v.low + "M to €" + v.high + "M, plus a similar amount in passengers' time";
     document.getElementById("value-quote").textContent = "“" + v.sentence + "”";
   }
 
@@ -472,7 +475,7 @@
       try {
         var d = frame.contentDocument;
         var text = d && d.body ? (d.title + " " + d.body.innerText.slice(0, 300)) : "";
-        if (!d || !d.body || !d.body.childElementCount || /404|not found|sign in required|unauthorized/i.test(text)) screen.classList.add("failed");
+        if (!d || !d.body || !d.body.childElementCount || /404|not found|sign in required|unauthorized|directory listing|index of/i.test(text)) screen.classList.add("failed");
         // Clicker keys inside the app still drive the deck.
         frame.contentWindow.addEventListener("keydown", function (e) {
           if (e.key === "PageDown" || e.key === "PageUp" || ((e.key === "ArrowRight" || e.key === "ArrowLeft") && !e.defaultPrevented)) onKey(e);

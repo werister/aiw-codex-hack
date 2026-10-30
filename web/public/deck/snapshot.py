@@ -58,9 +58,10 @@ did = {
 
 # Economic value: pitch line 2 of RESULTS.md, verbatim.
 results = (repo / "RESULTS.md").read_text(encoding="utf-8")
-sentence = re.search(r'^2\. "(Using EUROCONTROL.*?)"\s*$', results, flags=re.M).group(1)
-low, high = re.search(r"€([\d.]+)M a year against the official rules and €([\d.]+)M", sentence).groups()
-value = {"sentence": sentence, "low": low, "high": high}
+sentence = re.search(r'^2\. "(On EUROCONTROL.*?)"\s*$', results, flags=re.M).group(1)
+low, high = re.search(r"€([\d.]+)M to €([\d.]+)M a year", sentence).groups()
+central = re.search(r"about €([\d.]+)M in our central case", sentence).group(1)
+value = {"sentence": sentence, "low": low, "high": high, "central": central}
 
 snap = {"quality": quality, "did": did, "value": value}
 page = here / "index.html"
@@ -71,4 +72,4 @@ assert n == 1, "snapshot markers not found"
 page.write_text(html, encoding="utf-8", newline="\n")
 print("quality:", [(r["lead_h"], round(r["model_acc"], 4)) for r in od], quality["next_change"])
 print("did:", did)
-print("value:", value["low"], value["high"])
+print("value:", value["central"], value["low"], value["high"])
