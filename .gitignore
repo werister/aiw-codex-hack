@@ -10,3 +10,6 @@ build/
 data/raw/
 .env.local
 .env*.local
+
+# design scrape (never committed)
+.design-scrape/
