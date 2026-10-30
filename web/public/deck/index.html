@@ -199,6 +199,12 @@
   .s-viz { display: flex; flex-direction: column; padding-bottom: 90px; }
   .s-viz h2 { font-size: 72px; }
   .s-viz .viz { position: relative; flex: 1 1 auto; min-height: 0; margin-top: 44px; }
+  .sources { flex: none; margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 22px; line-height: 1.4; color: var(--ink-2); }
+  .source-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .source-list dt { font-size: 19px; color: var(--muted); margin-bottom: 4px; }
+  .sources a { color: var(--accent); text-underline-offset: 4px; }
+  .sources a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+  .source-note { margin-top: 12px; font-size: 18px; color: var(--muted); }
   .viz-fallback { display: none; height: 100%; align-items: center; justify-content: center; }
   .viz.missing .viz-fallback { display: flex; }
   .device.small { flex: none; width: 1050px; height: 660px; }
@@ -326,6 +332,14 @@
   <section class="slide s-viz" data-name="data" data-veil="full" data-time="20" data-viz="barcode">
     <h2 class="rise d1">Eight years of flown directions.</h2>
     <div class="viz rise d2"></div>
+    <div class="sources rise d3" aria-label="Data sources">
+      <dl class="source-list">
+        <div><dt>Weather forecasts</dt><dd><a href="https://open-meteo.com/en/docs" target="_blank" rel="noopener noreferrer">Open-Meteo</a> · live forecasts<br><a href="https://open-meteo.com/en/docs/previous-runs-api" target="_blank" rel="noopener noreferrer">Previous Runs</a> · archived model forecasts</dd></div>
+        <div><dt>Observed airport weather</dt><dd><a href="https://mesonet.agron.iastate.edu/request/download.phtml?network=DE__ASOS" target="_blank" rel="noopener noreferrer">Iowa Environmental Mesonet (IEM)</a><br>EDDF METAR · measured wind and gusts</dd></div>
+        <div><dt>Recorded operating directions</dt><dd><a href="https://www.dfld.de/Mess/StatWetter.php?R=1" target="_blank" rel="noopener noreferrer">DFLD</a> · Frankfurt direction archive<br>Reference data for training and evaluation</dd></div>
+      </dl>
+      <p class="source-note">Open-Meteo data: <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>; processed into runway features. Windy is not used in forecasts, training or evaluation.</p>
+    </div>
   </section>
 
   <section class="slide s-tried" data-name="tried" data-veil="full" data-time="12">
@@ -651,6 +665,7 @@
 
   function onKey(e) {
     var k = e.key;
+    if (k === "Enter" && e.target.closest(".sources a")) return;
     if (k === "ArrowRight" || k === "ArrowDown" || k === "PageDown" || k === " " || k === "Enter") { go(cur + 1); e.preventDefault(); }
     else if (k === "ArrowLeft" || k === "ArrowUp" || k === "PageUp" || k === "Backspace") { go(cur - 1); e.preventDefault(); }
     else if (k === "Home") go(0);

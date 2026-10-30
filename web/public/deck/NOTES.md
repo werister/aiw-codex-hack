@@ -28,6 +28,10 @@ This is the live dashboard, running inside the slide. The top line is the planni
 ## 6 · Eight years of flown directions · 1:31–1:51
 Every column is a day, every row an hour, eight years of directions actually flown at Frankfurt: blue is west, berry is east. That's what we learn from and what we test against, all public data.
 
+Sources on this slide: [DFLD](https://www.dfld.de/Mess/StatWetter.php?R=1) supplies the recorded directions shown in the chart. Weather inputs come from [Open-Meteo live forecasts](https://open-meteo.com/en/docs) and [archived Previous Runs](https://open-meteo.com/en/docs/previous-runs-api), plus [EDDF METAR observations via the Iowa Environmental Mesonet](https://mesonet.agron.iastate.edu/request/download.phtml). Open-Meteo data are attributed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+
+Windy is only a separate connection test. Its Testing-tier values are excluded from forecasts, training and evaluation.
+
 ## 7 · What we tried, and who checked it · 1:51–2:03
 23 experiments in our pipeline. The comparison was rerun independently in Colab, a red team's leakage tests pass 15 of 15, and an independent data audit hash-checked every raw weather file.
 
