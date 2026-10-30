@@ -279,3 +279,20 @@ Which source commit, data hashes, fitted artifact and quality/backtest files are
 **Proposed evidence bundle:** source and input hashes; environment versions; unchanged-test output; training/validation/test cutoffs; feature order; model parameters and fitted artifacts; per-row raw, blended and combined probabilities; matched metrics and exclusions. Colab's Drive quota prevented a saved notebook in Hugo's account, so the current attempt uses an unsaved runtime and a verified upload; it must be exported before being treated as a durable result. Who reviews that bundle, and which result warrants a subsequent full walk-forward rerun?
 
 **Answer:** Pending.
+
+### F23 — Should the next Colab variants calibrate probabilities or learn wind correction? (Kai + Jayden + ML implementer)
+
+Two additional candidates were not found in the inspected v5 training path or E1–E16 at [376faa8](https://github.com/werister/aiw-codex-hack/tree/376faa8f81bf4396f7d3f7df04fa0995a663d076). Please confirm whether either exists in unpublished work before assigning it. These are optional experiments after the R0–R2 comparison in F17, not new submission commitments.
+
+| Proposed version | One controlled change | Evidence required to retain it |
+|---|---|---|
+| R4 — calibrated served predictor | Fit a sigmoid calibration step to the existing blended OD probability using a separate chronological calibration block or inner out-of-fold predictions. Keep an unchanged identity-calibration control. | Lower later-period Brier/log loss and improved reliability with sample counts, without an unacceptable change-warning/false-alarm tradeoff. Fit, blend selection, calibration and final evaluation must have explicit temporal boundaries. |
+| R5 — conditional wind correction | Replace fixed 2024 mean-speed ratios with a small correction learned from earlier data by wind direction, season or lead. Change one grouping at a time and fall back to the existing scalar when coverage is sparse. | Improved held-out wind-vector/tailwind error followed by a matched downstream OD evaluation; report runway-18 event counts separately and do not infer closure skill from overall accuracy. |
+
+**Why these:** the inspected [training code](https://github.com/werister/aiw-codex-hack/blob/376faa8f81bf4396f7d3f7df04fa0995a663d076/ml/train.py) fits classifiers and persistence weights but no probability calibrator. The [feature code](https://github.com/werister/aiw-codex-hack/blob/376faa8f81bf4396f7d3f7df04fa0995a663d076/ml/features.py) uses fixed `WIND_SCALE` coefficients. A reliability chart measures calibration; it does not fit a correction. Wind-speed correction and probability calibration are different experiments.
+
+**Follow-ups:** which of R3 (change-event learning), R4 and R5 addresses the most useful remaining failure? Can we export the row-level chronological predictions needed for R4, including fold, issue/target times, raw/blended probabilities, labels, regime and artifact identity? For R5, where is the reproducible 2024 coefficient-fitting script and input hash, and how do we ensure every correction and selection uses only data available before its fold boundary? If a candidate has already been tested, link its negative result as well as any gain.
+
+**Recommendation:** prioritize the already proposed R1/R2 controlled comparison; make R3 the next task-level research move once F19 defines the event labels, and R4 the smaller probability-quality experiment. R5 follows if residual wind errors show a systematic pattern. These can use CPU Colab; do not reserve GPU capacity as a prerequisite. Calibration must use data disjoint from base fitting ([official calibration guidance](https://scikit-learn.org/stable/modules/calibration.html)); Colab resources are not guaranteed ([Colab FAQ](https://research.google.com/colaboratory/faq.html)).
+
+**Answer:** Pending.
