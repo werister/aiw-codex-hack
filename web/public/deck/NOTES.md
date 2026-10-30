@@ -1,6 +1,6 @@
 # Presenter notes — FraAlliance finals
 
-These cues follow the current 14-slide deck and canonical speaker script. The timings total 3:41 (221 seconds) and match autoplay. Lead with the planning task, then show the model and the evidence separately.
+These cues follow the current 13-slide deck and canonical speaker script. The timings total 3:16 (196 seconds) and match autoplay. Lead with the planning task, then show the model and the evidence separately.
 
 Use the browser-hosted `/deck/index.html`. Arrow keys or the clicker advance; `A` toggles autoplay; `End` jumps to the last slide. The dashboard is a planning forecast, not an operational clearance.
 
@@ -46,27 +46,19 @@ Windy is only a separate connection test. Its Testing-tier values are excluded f
 
 **Show:** Point to the matched twelve-month comparison. The left pair is the rounded E12 experiment-log result (earlier features versus v5); the separate right score is current v6. The full history link is for questions, outside the timed pitch. These test months informed development.
 
-### 8 · 2:01–2:26 · Historical forecast against the record
-
-**Say:** “This October twenty-eighth reconstruction shows the forecast against the later record. Both methods anticipate a change, but neither gets its timing exactly right. The example explains the product; the separate twelve-month evaluation measures its quality.”
-
-**Demo path:** In the prepared `/pitch` tab choose **2026-10-28**, show the hidden outcome, then click **Reveal recorded outcome**. Read the shared-hour counts shown on screen. If the tab switch is not rehearsed, stay with the chart.
-
-**Keep straight:** The saved file currently has 47 recorded hours: model 41/47, rules 39/47, persistence 33/47. Refresh these figures after forecast regeneration. The first different hourly record is 29 October at 10:00 Europe/Berlin; the previous matching sample is 09:00. Hourly bins cannot establish the exact transition instant or rule out temporary changes. Do not use the earlier 40-hour subset.
-
-### 9 · 2:26–2:51 · Direction accuracy
+### 8 · 2:01–2:26 · Direction accuracy
 
 **Say:** “At twenty-four hours, the model gets the direction right in 91.8 percent of scored hours, versus 87.7 for the challenge wind rules and 75.1 for keeping the current direction. At one hour, keeping the current direction is slightly better. These scores measure direction, not exact change timing.”
 
 **Keep straight:** Transition hours are excluded from this accuracy score. The stronger corrected-ensemble rule comparison is 93.3%, 88.8% and 89.2% at 1, 6 and 24 hours; include it if asked about baseline strength.
 
-### 10 · 2:51–3:06 · Next-change timing
+### 9 · 2:26–2:41 · Next-change timing
 
 **Say:** “Direction accuracy does not guarantee exact change timing. The separate event evaluation matches 115 of 193 recorded changes within three hours, with 138 false-alarm clusters. That limits how warnings should be used.”
 
 **Keep straight:** The median lead applies only to matched events. The separate window score is 394 of 750 overlapping change windows within three hours (52.5%); the false-alarm rate is 87 of 593 no-change windows (14.7%). These are different denominators, not independent events.
 
-### 11 · 3:06–3:21 · Runway 18 and certainty
+### 10 · 2:41–2:56 · Runway 18 and certainty
 
 **Say:** “Runway eighteen remains weak: no warnings in twelve positive twenty-four-hour windows. The labels are inferred from weather, not actual closures. Our certainty score is not a calibrated chance of being correct.”
 
@@ -74,15 +66,15 @@ Windy is only a separate connection test. Its Testing-tier values are excluded f
 
 **Certainty:** “The 0–100 score is the smaller probability margin across the direction and runway-18 calls. It is not a calibrated chance that either forecast is correct.”
 
-### 12 · 3:21–3:27 · Next step
+### 11 · 2:56–3:02 · Next step
 
 **Say:** “Test alongside a shift lead: which warnings change preparation?”
 
-### 13 · 3:27–3:35 · Team
+### 12 · 3:02–3:10 · Team
 
 **Say:** “Thank you.”
 
-### 14 · 3:35–3:41 · Model card
+### 13 · 3:10–3:16 · Model card
 
 **Say:** “The full model card is public on our site. Scan to read it.”
 
