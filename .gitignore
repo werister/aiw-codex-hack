@@ -7,6 +7,6 @@ node_modules/
 Thumbs.db
 dist/
 build/
-ml/data/raw/
+data/raw/
 .env.local
 .env*.local
