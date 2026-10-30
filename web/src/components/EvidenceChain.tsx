@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import type { ForecastResponse, HourForecast } from "@/lib/forecast-types";
-import { PLAN_POLICY, planFrom, planHeadline, planWindow } from "./Recommendation";
+import { PLAN_POLICY, planFrom, planHeadline, planWindow, probLabel } from "./Recommendation";
 import { Arrow, OD_LABEL, Panel, cx, dayLabel, hhmm, pct } from "./ui";
 
 type Node = { title: string; summary: string; rows: [string, string][] };
@@ -19,7 +19,8 @@ export function EvidenceChain({
 }) {
   const plan = planFrom(f);
   const r18 = h.p_18_usable >= 0.5;
-  const wind = h.wind_dir_deg == null ? "calm" : `${Math.round(h.wind_dir_deg)}° ${Math.round(h.wind_kt)} kt`;
+  const wind =
+    h.wind_dir_deg == null ? "Direction unavailable / calm" : `${Math.round(h.wind_dir_deg)}° ${Math.round(h.wind_kt)} kt`;
   const agree = h.od === h.rule_od && r18 === h.rule_18_usable;
 
   const nodes: Node[] = [
@@ -59,7 +60,7 @@ export function EvidenceChain({
       rows: [
         ["Direction", `${h.od} ${OD_LABEL[h.od]}`],
         ["Runway 18", r18 ? "open" : "closed"],
-        ["Confidence", `${h.certainty}%`],
+        ["Certainty score", `${h.certainty}/100`],
         ["Against rules", agree ? "agrees" : "differs"],
       ],
     },
@@ -68,7 +69,7 @@ export function EvidenceChain({
       summary: planHeadline(plan),
       rows: [
         ["Window", planWindow(plan)],
-        ["Probability", plan.kind === "hold" ? `lowest confidence ${plan.minCertainty}%` : pct(plan.p)],
+        [probLabel(plan), plan.kind === "hold" ? `${plan.minCertainty}/100` : pct(plan.p)],
         ["Traffic", "demand data unavailable"],
         ["Policy", PLAN_POLICY],
       ],
