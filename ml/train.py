@@ -15,7 +15,7 @@ import pandas as pd
 from sklearn.ensemble import HistGradientBoostingClassifier
 from sklearn.inspection import permutation_importance
 
-from ml.features import FEATURES, build_features, normalize_obs
+from ml.features import FEATURES, PUBLICATION_LAG_H, build_features, normalize_obs
 from ml.predict import od_probability, probability
 from ml.quality import next_change_timing, period, reliability, skill
 from ml.rules import RULES, od_state_machine, r18_usable
@@ -134,6 +134,7 @@ def fit(frame):
 
 def predict(models, frame):
     frame = frame.copy()
+    frame["p_od25_raw"] = probability(models["od"], frame[FEATURES])
     frame["p_od25"] = od_probability(models, frame)
     frame["p_18_usable"] = probability(models["r18"], frame[FEATURES])
     return frame
@@ -159,7 +160,8 @@ def evaluate(frame, truth, obs, months, stride, skipped):
         assert train.label_available_at.max() < test.issue_time.min()
         models = fit(train)
         models["trained_through"] = train.label_available_at.max().isoformat()
-        models["version"] = "walk-forward-v2"
+        models["version"] = "walk-forward-v3"
+        models["publication_lag_h"] = PUBLICATION_LAG_H
         MODELS.mkdir(parents=True, exist_ok=True)
         joblib.dump(models, MODELS / f"fold-{month}.joblib", compress=3)
         train_predictions = predict(models, train)
@@ -176,7 +178,7 @@ def evaluate(frame, truth, obs, months, stride, skipped):
             "in_sample": {name: skill(train_predictions, name) for name in ("od", "r18")},
             "out_of_sample": {name: skill(test_predictions, name) for name in ("od", "r18")}})
         print(f"Walk-forward {month}: train {len(train):,}, test {len(test):,}", flush=True)
-        print(pd.DataFrame(skill(test_predictions, "od"))[["lead_h", "n", "model_acc", "rule_acc", "persistence_acc", "model_brier"]].to_string(index=False), flush=True)
+        print(pd.DataFrame(skill(test_predictions, "od"))[["lead_h", "n", "raw_model_acc", "blend_acc", "rule_acc", "persistence_acc", "blend_brier"]].to_string(index=False), flush=True)
         final_fold_models = models
     out = pd.concat(oos, ignore_index=True)
     inside = pd.concat(ins, ignore_index=True)
@@ -203,7 +205,8 @@ def evaluate(frame, truth, obs, months, stride, skipped):
         "labels": "OD: recorded DFLD stable-hour proxy. Runway 18: inferred from METAR and official wind limits.",
         "rules_version": RULES["version"], "base_rates": base_rates,
         "od": skill(out, "od"), "r18": skill(out, "r18"), "drivers": drivers,
-        "r18_label_type": "inferred"}
+        "r18_label_type": "inferred", "publication_lag_h": PUBLICATION_LAG_H,
+        "served_prediction": "blend", "model_fields": "model_* aliases blend_*; raw_model_* scores the unblended classifier"}
     half_hour = pd.read_csv(DATA / "ground_truth" / "dfld_half_hourly.csv.gz", dtype={"od": str})
     local = (pd.to_datetime(half_hour.date_local) + pd.to_timedelta(half_hour.hour_local, unit="h")
              + pd.to_timedelta(half_hour.minute_local, unit="m"))
@@ -211,6 +214,10 @@ def evaluate(frame, truth, obs, months, stride, skipped):
     half_hour = half_hour.dropna(subset=["time"])
     quality = {"schema_version": 1, "evaluation": "expanding monthly walk-forward",
         "r18_label_type": "inferred", "issue_stride_h": stride, "folds": folds,
+        "publication_lag_h": PUBLICATION_LAG_H,
+        "forecast_offsets": [{"lead_start": 1, "lead_end": 18, "previous_day": 1},
+                             {"lead_start": 19, "lead_end": 42, "previous_day": 2},
+                             {"lead_start": 43, "lead_end": 48, "previous_day": 3}],
         "in_sample": {name: skill(inside, name) for name in ("od", "r18")},
         "out_of_sample": {name: skill(out, name) for name in ("od", "r18")},
         "reliability": {name: reliability(out, name) for name in ("od", "r18")},
@@ -224,7 +231,7 @@ def evaluate(frame, truth, obs, months, stride, skipped):
             {"name": "Open-Meteo previous runs", "url": "https://open-meteo.com/en/docs/previous-runs-api", "file": "data/openmeteo_previous_runs.parquet"}],
         "coverage": {"feature_rows": len(frame), "skipped_issue_times": skipped, "observed_base_rates": base_rates},
         "limitations": [
-            "Previous-day offsets proxy availability. No original publication timestamps are present; strict publication-before-T cannot be verified, especially at leads 24 and 48 where the proxy equals T.",
+            "A six-hour publication lag is applied: previous_day1 for leads 1-18, day2 for 19-42, day3 for 43-48. Each target time minus its offset plus six hours must be no later than issue time. Exact publication timestamps remain unavailable; the six-hour lag is a conservative availability assumption.",
             "DFLD hourly OD is used only after hour end. Upstream publication delays and summer clock offset remain unverified. Recorded OD is a public operational proxy, not a certified movement log.",
             "Stable-hour OD accuracy excludes DFLD transition hours. Next-change scoring instead uses the half-hour source and excludes incomplete windows.",
             "Runway 18 targets are inferred weather usability; missing or variable METAR directions are unlabelled, not assumed open.",
@@ -248,12 +255,14 @@ def main():
     models = fit(frame)
     models["features"] = FEATURES
     models["trained_through"] = frame.label_available_at.max().isoformat()
-    models["version"] = "walk-forward-v2"
+    models["version"] = "walk-forward-v3"
+    models["publication_lag_h"] = PUBLICATION_LAG_H
     MODELS.mkdir(parents=True, exist_ok=True)
     joblib.dump(models, MODELS / "forecast.joblib", compress=3)
     dump(MODELS / "metadata.json", {"version": models["version"], "features": FEATURES,
         "trained_through": models["trained_through"], "n": len(frame), "r18_label_type": "inferred",
-        "od_model_weight": models["od_model_weight"], "od_blend_validation_period": models["od_blend_validation_period"]})
+        "od_model_weight": models["od_model_weight"], "od_blend_validation_period": models["od_blend_validation_period"],
+        "publication_lag_h": PUBLICATION_LAG_H})
     print("Outputs written to web/public/data/; final models saved to ml/models/", flush=True)
     print("Observed base rates, runway 18 inferred:", json.dumps(backtest["base_rates"]), flush=True)
     print(pd.DataFrame(backtest["od"]).to_string(index=False), flush=True)

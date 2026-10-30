@@ -104,7 +104,7 @@
     "file": "openmeteo_previous_runs.parquet",
     "provider": "Open-Meteo",
     "rows": 24816,
-    "bytes": 777096,
+    "bytes": 962523,
     "time_column": "time",
     "start": "2024-01-01 00:00:00+00:00",
     "end": "2026-10-30 23:00:00+00:00",
@@ -130,215 +130,222 @@
       "pressure_msl_previous_day2": "float64",
       "temperature_2m_previous_day2": "float64",
       "wind_speed_80m_previous_day2": "float64",
-      "wind_direction_80m_previous_day2": "float64"
+      "wind_direction_80m_previous_day2": "float64",
+      "wind_speed_10m_previous_day3": "float64",
+      "wind_direction_10m_previous_day3": "float64",
+      "wind_gusts_10m_previous_day3": "float64",
+      "pressure_msl_previous_day3": "float64",
+      "temperature_2m_previous_day3": "float64",
+      "wind_speed_80m_previous_day3": "float64",
+      "wind_direction_80m_previous_day3": "float64"
     },
     "downloads": [
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2024-01-01&end_date=2024-01-31",
-        "retrieved_at": "2026-10-30T10:56:52.877628+00:00",
-        "bytes": 90648,
-        "cache_file": "raw/ca5fe2fc22d4a2098073f7da.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2024-01-01&end_date=2024-01-31",
+        "retrieved_at": "2026-10-30T11:29:32.406070+00:00",
+        "bytes": 116746,
+        "cache_file": "raw/a79ab26db3d1e6b80dffd37b.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2024-02-01&end_date=2024-02-29",
-        "retrieved_at": "2026-10-30T10:56:54.073316+00:00",
-        "bytes": 82552,
-        "cache_file": "raw/27651198f2fcc61ba281062c.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2024-02-01&end_date=2024-02-29",
+        "retrieved_at": "2026-10-30T11:29:34.014438+00:00",
+        "bytes": 105789,
+        "cache_file": "raw/5b939544d5277f0386ddfa14.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2024-03-01&end_date=2024-03-31",
-        "retrieved_at": "2026-10-30T10:56:55.083172+00:00",
-        "bytes": 85230,
-        "cache_file": "raw/ad2020219d5ffc40ad110f15.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2024-03-01&end_date=2024-03-31",
+        "retrieved_at": "2026-10-30T11:29:34.673188+00:00",
+        "bytes": 108978,
+        "cache_file": "raw/3568c3d6932e822d9d35952a.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2024-04-01&end_date=2024-04-30",
-        "retrieved_at": "2026-10-30T10:56:56.083186+00:00",
-        "bytes": 84603,
-        "cache_file": "raw/0af3dc19c1486602e7157d22.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2024-04-01&end_date=2024-04-30",
+        "retrieved_at": "2026-10-30T11:29:35.949003+00:00",
+        "bytes": 108133,
+        "cache_file": "raw/b489cbb59608297a4e7cbf16.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2024-05-01&end_date=2024-05-31",
-        "retrieved_at": "2026-10-30T10:56:57.943335+00:00",
-        "bytes": 86896,
-        "cache_file": "raw/82fb0bf288d4e94bad199df9.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2024-05-01&end_date=2024-05-31",
+        "retrieved_at": "2026-10-30T11:29:37.293146+00:00",
+        "bytes": 111091,
+        "cache_file": "raw/28b2927e8aba18cac2b8c4c8.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2024-06-01&end_date=2024-06-30",
-        "retrieved_at": "2026-10-30T10:56:59.326984+00:00",
-        "bytes": 84650,
-        "cache_file": "raw/6a3458b2af2779fe0297b02a.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2024-06-01&end_date=2024-06-30",
+        "retrieved_at": "2026-10-30T11:29:38.451542+00:00",
+        "bytes": 108267,
+        "cache_file": "raw/b3b2ba5ce2031f0edc6f4310.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2024-07-01&end_date=2024-07-31",
-        "retrieved_at": "2026-10-30T10:57:00.668587+00:00",
-        "bytes": 87133,
-        "cache_file": "raw/04916794da3cf415a5429c25.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2024-07-01&end_date=2024-07-31",
+        "retrieved_at": "2026-10-30T11:29:39.616985+00:00",
+        "bytes": 111341,
+        "cache_file": "raw/c465632659698510b989ab29.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2024-08-01&end_date=2024-08-31",
-        "retrieved_at": "2026-10-30T10:57:01.719090+00:00",
-        "bytes": 86986,
-        "cache_file": "raw/e52d45fff555f308589b88a8.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2024-08-01&end_date=2024-08-31",
+        "retrieved_at": "2026-10-30T11:29:40.837530+00:00",
+        "bytes": 111228,
+        "cache_file": "raw/87e7af34134927a592ca0846.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2024-09-01&end_date=2024-09-30",
-        "retrieved_at": "2026-10-30T10:57:03.005372+00:00",
-        "bytes": 84352,
-        "cache_file": "raw/5070cd92ba6b71a03630d69c.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2024-09-01&end_date=2024-09-30",
+        "retrieved_at": "2026-10-30T11:29:42.116878+00:00",
+        "bytes": 107809,
+        "cache_file": "raw/2c8536c4f5c0ca72d3f0eb4f.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2024-10-01&end_date=2024-10-31",
-        "retrieved_at": "2026-10-30T10:57:04.342774+00:00",
-        "bytes": 85655,
-        "cache_file": "raw/8334e0f8639eebd7865e43b8.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2024-10-01&end_date=2024-10-31",
+        "retrieved_at": "2026-10-30T11:29:43.355227+00:00",
+        "bytes": 109367,
+        "cache_file": "raw/4249d828da4ed679d0a2596d.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2024-11-01&end_date=2024-11-30",
-        "retrieved_at": "2026-10-30T10:57:05.541911+00:00",
-        "bytes": 82321,
-        "cache_file": "raw/b9dd89ab66e116b05d1c5c77.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2024-11-01&end_date=2024-11-30",
+        "retrieved_at": "2026-10-30T11:29:44.662795+00:00",
+        "bytes": 105181,
+        "cache_file": "raw/a21aeb0c83cee42a66725ce9.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2024-12-01&end_date=2024-12-31",
-        "retrieved_at": "2026-10-30T10:57:06.650934+00:00",
-        "bytes": 86334,
-        "cache_file": "raw/d3af42f7f40f90ba9b1bbf73.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2024-12-01&end_date=2024-12-31",
+        "retrieved_at": "2026-10-30T11:29:45.731212+00:00",
+        "bytes": 110305,
+        "cache_file": "raw/d40b252e798d37b072e11e8b.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2025-01-01&end_date=2025-01-31",
-        "retrieved_at": "2026-10-30T10:57:07.738783+00:00",
-        "bytes": 85909,
-        "cache_file": "raw/66be9e9ef13263760bd3db5c.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2025-01-01&end_date=2025-01-31",
+        "retrieved_at": "2026-10-30T11:29:46.751691+00:00",
+        "bytes": 109749,
+        "cache_file": "raw/5440b8125b1b5fde4455cbde.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2025-02-01&end_date=2025-02-28",
-        "retrieved_at": "2026-10-30T10:57:09.240441+00:00",
-        "bytes": 76181,
-        "cache_file": "raw/bca7fc1689b0499b8c6a7454.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2025-02-01&end_date=2025-02-28",
+        "retrieved_at": "2026-10-30T11:29:47.902617+00:00",
+        "bytes": 97290,
+        "cache_file": "raw/5f47f5e09942819278f5db8f.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2025-03-01&end_date=2025-03-31",
-        "retrieved_at": "2026-10-30T10:57:10.450465+00:00",
-        "bytes": 84054,
-        "cache_file": "raw/c2b2b2e398168c263aeb5fbe.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2025-03-01&end_date=2025-03-31",
+        "retrieved_at": "2026-10-30T11:29:49.315606+00:00",
+        "bytes": 107341,
+        "cache_file": "raw/9185c1d56c0104315fb5b0d7.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2025-04-01&end_date=2025-04-30",
-        "retrieved_at": "2026-10-30T10:57:11.537092+00:00",
-        "bytes": 82566,
-        "cache_file": "raw/7703a551aef14407c5e683cf.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2025-04-01&end_date=2025-04-30",
+        "retrieved_at": "2026-10-30T11:29:50.598916+00:00",
+        "bytes": 105427,
+        "cache_file": "raw/2db2f7327deabf72c94b4be2.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2025-05-01&end_date=2025-05-31",
-        "retrieved_at": "2026-10-30T10:57:12.722978+00:00",
-        "bytes": 86841,
-        "cache_file": "raw/7dd1a7cd0eaa2d746e9e4517.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2025-05-01&end_date=2025-05-31",
+        "retrieved_at": "2026-10-30T11:29:51.661993+00:00",
+        "bytes": 111088,
+        "cache_file": "raw/571cc107d95edc3daef6b65d.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2025-06-01&end_date=2025-06-30",
-        "retrieved_at": "2026-10-30T10:57:14.033981+00:00",
-        "bytes": 84849,
-        "cache_file": "raw/74b480f1c1c3d3dcc31261d3.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2025-06-01&end_date=2025-06-30",
+        "retrieved_at": "2026-10-30T11:29:52.964982+00:00",
+        "bytes": 108604,
+        "cache_file": "raw/ff1275fcd352d2723529f965.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2025-07-01&end_date=2025-07-31",
-        "retrieved_at": "2026-10-30T10:57:15.604134+00:00",
-        "bytes": 87594,
-        "cache_file": "raw/8579b0c8f45244a960f96cbd.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2025-07-01&end_date=2025-07-31",
+        "retrieved_at": "2026-10-30T11:29:54.141251+00:00",
+        "bytes": 112104,
+        "cache_file": "raw/d3a2a3687904d050fd5094ec.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2025-08-01&end_date=2025-08-31",
-        "retrieved_at": "2026-10-30T10:57:16.777826+00:00",
-        "bytes": 86696,
-        "cache_file": "raw/1f3f4c5201ddf3e170cdca8b.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2025-08-01&end_date=2025-08-31",
+        "retrieved_at": "2026-10-30T11:29:55.461438+00:00",
+        "bytes": 110814,
+        "cache_file": "raw/5840da533db909ea2ed99ee2.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2025-09-01&end_date=2025-09-30",
-        "retrieved_at": "2026-10-30T10:57:18.009452+00:00",
-        "bytes": 84435,
-        "cache_file": "raw/110a341798c491dcd8aefccb.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2025-09-01&end_date=2025-09-30",
+        "retrieved_at": "2026-10-30T11:29:56.643615+00:00",
+        "bytes": 107984,
+        "cache_file": "raw/db8e4cb5b08bdf52eb2bbc0b.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2025-10-01&end_date=2025-10-31",
-        "retrieved_at": "2026-10-30T10:57:18.958840+00:00",
-        "bytes": 86688,
-        "cache_file": "raw/027752004cfefd00ba35d726.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2025-10-01&end_date=2025-10-31",
+        "retrieved_at": "2026-10-30T11:29:57.601108+00:00",
+        "bytes": 110785,
+        "cache_file": "raw/6915614f46274ead1a2f7340.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2025-11-01&end_date=2025-11-30",
-        "retrieved_at": "2026-10-30T10:57:20.336348+00:00",
-        "bytes": 82944,
-        "cache_file": "raw/54d5c787085615ca56be54bf.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2025-11-01&end_date=2025-11-30",
+        "retrieved_at": "2026-10-30T11:29:58.984170+00:00",
+        "bytes": 105915,
+        "cache_file": "raw/21a8bcde0bf0d36fc41e06d0.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2025-12-01&end_date=2025-12-31",
-        "retrieved_at": "2026-10-30T10:57:21.432917+00:00",
-        "bytes": 84684,
-        "cache_file": "raw/d7492dc63ef27106025f8e38.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2025-12-01&end_date=2025-12-31",
+        "retrieved_at": "2026-10-30T11:30:00.108891+00:00",
+        "bytes": 108178,
+        "cache_file": "raw/2d6eea5886cdbbe570ee7870.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2026-01-01&end_date=2026-01-31",
-        "retrieved_at": "2026-10-30T10:57:22.780297+00:00",
-        "bytes": 84994,
-        "cache_file": "raw/950f98bbc0e1fd89a486c0ce.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2026-01-01&end_date=2026-01-31",
+        "retrieved_at": "2026-10-30T11:30:01.419903+00:00",
+        "bytes": 108506,
+        "cache_file": "raw/569995064c540603c745ba02.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2026-02-01&end_date=2026-02-28",
-        "retrieved_at": "2026-10-30T10:57:23.611785+00:00",
-        "bytes": 76720,
-        "cache_file": "raw/8379f190039555c31f4d8638.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2026-02-01&end_date=2026-02-28",
+        "retrieved_at": "2026-10-30T11:30:02.713324+00:00",
+        "bytes": 98053,
+        "cache_file": "raw/2c575946b5d886128c798dd1.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2026-03-01&end_date=2026-03-31",
-        "retrieved_at": "2026-10-30T10:57:24.976208+00:00",
-        "bytes": 85180,
-        "cache_file": "raw/252f709d8e3cedc8fc9b7a0b.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2026-03-01&end_date=2026-03-31",
+        "retrieved_at": "2026-10-30T11:30:04.720305+00:00",
+        "bytes": 108734,
+        "cache_file": "raw/45526757555a1eb63ef624ea.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2026-04-01&end_date=2026-04-30",
-        "retrieved_at": "2026-10-30T10:57:26.243894+00:00",
-        "bytes": 82813,
-        "cache_file": "raw/866fa2e09c411ce6dc639d46.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2026-04-01&end_date=2026-04-30",
+        "retrieved_at": "2026-10-30T11:30:06.103386+00:00",
+        "bytes": 105834,
+        "cache_file": "raw/2089f9474d118137b29f34cb.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2026-05-01&end_date=2026-05-31",
-        "retrieved_at": "2026-10-30T10:57:27.465897+00:00",
-        "bytes": 86551,
-        "cache_file": "raw/0ccbb1825a9438713f6ec157.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2026-05-01&end_date=2026-05-31",
+        "retrieved_at": "2026-10-30T11:30:08.226116+00:00",
+        "bytes": 110629,
+        "cache_file": "raw/14dace32960428ad2d973f79.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2026-06-01&end_date=2026-06-30",
-        "retrieved_at": "2026-10-30T10:57:28.707323+00:00",
-        "bytes": 84361,
-        "cache_file": "raw/000b77f8719149ea688c7f00.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2026-06-01&end_date=2026-06-30",
+        "retrieved_at": "2026-10-30T11:30:09.949001+00:00",
+        "bytes": 107942,
+        "cache_file": "raw/ae4e9f09e44e05365bc2e146.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2026-07-01&end_date=2026-07-31",
-        "retrieved_at": "2026-10-30T10:57:29.946220+00:00",
-        "bytes": 87331,
-        "cache_file": "raw/729def987303dd4d2b7b0a1e.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2026-07-01&end_date=2026-07-31",
+        "retrieved_at": "2026-10-30T11:30:10.960936+00:00",
+        "bytes": 111716,
+        "cache_file": "raw/12691add5c84ca09a7a196d2.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2026-08-01&end_date=2026-08-31",
-        "retrieved_at": "2026-10-30T10:57:31.150076+00:00",
-        "bytes": 87078,
-        "cache_file": "raw/5a54fef8f181e6241e1e2769.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2026-08-01&end_date=2026-08-31",
+        "retrieved_at": "2026-10-30T11:30:12.250785+00:00",
+        "bytes": 111399,
+        "cache_file": "raw/1535f4c457a727e4d3f5d9dc.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2026-09-01&end_date=2026-09-30",
-        "retrieved_at": "2026-10-30T10:57:32.361924+00:00",
-        "bytes": 84085,
-        "cache_file": "raw/787cba062e2e9589ebd32a6c.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2026-09-01&end_date=2026-09-30",
+        "retrieved_at": "2026-10-30T11:30:14.000179+00:00",
+        "bytes": 107515,
+        "cache_file": "raw/4fd4731c27ad78bf0d255085.json"
       },
       {
-        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2026-10-01&end_date=2026-10-30",
-        "retrieved_at": "2026-10-30T10:57:33.514399+00:00",
-        "bytes": 83340,
-        "cache_file": "raw/718c285760f4094ad8560bff.json"
+        "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.57&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Cpressure_msl%2Ctemperature_2m%2Cwind_speed_80m%2Cwind_direction_80m%2Cwind_speed_10m_previous_day1%2Cwind_direction_10m_previous_day1%2Cwind_gusts_10m_previous_day1%2Cpressure_msl_previous_day1%2Ctemperature_2m_previous_day1%2Cwind_speed_80m_previous_day1%2Cwind_direction_80m_previous_day1%2Cwind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2%2Cwind_gusts_10m_previous_day2%2Cpressure_msl_previous_day2%2Ctemperature_2m_previous_day2%2Cwind_speed_80m_previous_day2%2Cwind_direction_80m_previous_day2%2Cwind_speed_10m_previous_day3%2Cwind_direction_10m_previous_day3%2Cwind_gusts_10m_previous_day3%2Cpressure_msl_previous_day3%2Ctemperature_2m_previous_day3%2Cwind_speed_80m_previous_day3%2Cwind_direction_80m_previous_day3&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date=2026-10-01&end_date=2026-10-30",
+        "retrieved_at": "2026-10-30T11:30:15.598151+00:00",
+        "bytes": 106658,
+        "cache_file": "raw/be2d2bf26377b5aab93dedcb.json"
       }
     ],
-    "notes": "Day 0 is a stitched series of short forecast leads, not a fixed archived issuance. Offsets denote 24/48 hours before valid time, not explicit run initialization timestamps. Early archive offsets can be null; inspect non-null coverage before backtesting."
+    "notes": "Day 0 is a stitched series of short forecast leads, not a fixed archived issuance. Offsets denote 24/48/72 hours before valid time, not explicit run initialization timestamps. Evaluation adds a six-hour publication lag. Early archive offsets can be null; inspect non-null coverage before backtesting."
   },
   "openmeteo_historical_forecast": {
     "file": "openmeteo_historical_forecast.parquet",

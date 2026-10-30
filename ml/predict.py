@@ -60,7 +60,8 @@ def predict_48h(issue_time_utc, obs, nwp, od_at_issue):
     completed hourly summaries. Observations after issue time are excluded.
 
     nwp: time plus wind_speed_10m, wind_direction_10m, wind_gusts_10m,
-    suffixed _previous_day1 and _previous_day2 for archived offsets. Never
+    suffixed _previous_day1, _previous_day2 and _previous_day3 for archived
+    offsets, selected at leads 1..18, 19..42 and 43..48 respectively. Never
     use unsuffixed historical day0. Live data accepts wind_kt, wind_dir_deg,
     gust_kt or the unsuffixed source names, with issued_at or retrieved_at
     no later than issue time. Optional pressure_msl, temperature_2m and

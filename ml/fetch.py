@@ -154,7 +154,7 @@ def fetch_taf(dl, since, stop):
 def fetch_openmeteo(dl, since, stop, previous=False):
     kind = "previous_runs" if previous else "historical_forecast"
     host = "previous-runs" if previous else "historical-forecast"
-    variables = VARIABLES + ([f"{v}_previous_day{day}" for day in (1, 2) for v in VARIABLES] if previous else [])
+    variables = VARIABLES + ([f"{v}_previous_day{day}" for day in (1, 2, 3) for v in VARIABLES] if previous else [])
     # Offset fields are not archived before 2024; day 0 is the stitched forecast.
     start_date = max(since, date(2024, 1, 1)) if previous else since
     frames = []
@@ -176,7 +176,7 @@ def fetch_openmeteo(dl, since, stop, previous=False):
     frame = pd.concat(frames, ignore_index=True).drop_duplicates("time").sort_values("time")
     notes = "Day 0 is a stitched series of short forecast leads, not a fixed archived issuance."
     if previous:
-        notes += " Offsets denote 24/48 hours before valid time, not explicit run initialization timestamps. Early archive offsets can be null; inspect non-null coverage before backtesting."
+        notes += " Offsets denote 24/48/72 hours before valid time, not explicit run initialization timestamps. Evaluation adds a six-hour publication lag. Early archive offsets can be null; inspect non-null coverage before backtesting."
     save(frame, "openmeteo_" + kind, "Open-Meteo", dl, "time", notes)
 
 
@@ -268,7 +268,7 @@ def write_readme(since, stop, failures):
     lines += ["", "## Exact URL patterns", "",
         "- IEM METAR: `https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py?station=EDDF&data=drct&data=sknt&data=gust&data=metar&year1={Y1}&month1={M1}&day1={D1}&year2={Y2}&month2={M2}&day2={D2}&tz=Etc/UTC&format=onlycomma&latlon=no&missing=M&report_type=3&report_type=4`. Year chunks; end exclusive. Type 3 alone omits half-hour reports.",
         "- IEM TAF: `https://mesonet.agron.iastate.edu/cgi-bin/request/taf.py?station=EDDF&year1={Y1}&month1={M1}&day1={D1}&year2={Y2}&month2={M2}&day2={D2}&tz=Etc/UTC&fmt=csv`. Year chunks; limits issuance time.",
-        "- Open-Meteo: `https://{previous-runs|historical-forecast}-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.570&hourly={variables}&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date={YYYY-MM-DD}&end_date={YYYY-MM-DD}`. Month chunks, both dates inclusive. Previous runs start 2024-01-01; historical forecast starts at the requested date. Variables listed below; previous runs request each unsuffixed, `_previous_day1`, and `_previous_day2`.",
+        "- Open-Meteo: `https://{previous-runs|historical-forecast}-api.open-meteo.com/v1/forecast?latitude=50.033&longitude=8.570&hourly={variables}&wind_speed_unit=kn&timezone=UTC&models=best_match&start_date={YYYY-MM-DD}&end_date={YYYY-MM-DD}`. Month chunks, both dates inclusive. Previous runs start 2024-01-01; historical forecast starts at the requested date. Variables listed below; previous runs request each unsuffixed, `_previous_day1`, `_previous_day2`, and `_previous_day3`.",
         f"- DWD hourly historical directory: `{DWD}hourly/wind/historical/`, station file `stundenwerte_FF_01420_{{start}}_{{end}}_hist.zip`.",
         f"- DWD hourly recent: `{DWD}hourly/wind/recent/stundenwerte_FF_01420_akt.zip`.",
         f"- DWD 10-minute recent: `{DWD}10_minutes/wind/recent/10minutenwerte_wind_01420_akt.zip`.",

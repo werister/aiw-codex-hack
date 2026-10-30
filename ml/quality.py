@@ -13,7 +13,8 @@ def skill(frame, target):
     for lead in LEADS:
         rows = frame.loc[frame.lead_h.eq(lead)].dropna(subset=[ycol, pcol, rcol, bcol])
         record = {"lead_h": lead, "n": len(rows)}
-        for name, col in (("model", pcol), ("rule", rcol), ("persistence", bcol)):
+        raw_col = "p_od25_raw" if target == "od" and "p_od25_raw" in rows else pcol
+        for name, col in (("model", pcol), ("raw_model", raw_col), ("blend", pcol), ("rule", rcol), ("persistence", bcol)):
             y, p = rows[ycol].to_numpy(float), rows[col].to_numpy(float)
             record[name + "_acc"] = float(np.mean((p >= 0.5) == y)) if len(y) else None
             record[name + "_brier"] = float(np.mean((p - y) ** 2)) if len(y) else None

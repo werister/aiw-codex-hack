@@ -27,13 +27,13 @@ def hindcast_inputs(monkeypatch):
                             "od": ["25" if t < issue else "07" for t in history_times]})
     targets = live.target_hours(issue)
     weather = pd.DataFrame({"time": targets})
-    for offset, speed in ((1, 12.0), (2, 22.0)):
+    for offset, speed in ((1, 12.0), (2, 22.0), (3, 32.0)):
         weather[f"wind_speed_10m_previous_day{offset}"] = speed
         weather[f"wind_gusts_10m_previous_day{offset}"] = speed + 2
         weather[f"wind_direction_10m_previous_day{offset}"] = (
             [250.0] * 6 + [90.0] * 18 + [330.0] * 24)
-    weather["available_at"] = [t - pd.Timedelta(days=1 if i < 24 else 2)
-                               for i, t in enumerate(targets)]
+    weather["available_at"] = [t - pd.Timedelta(days=live.nwp_offset_days(lead)) + pd.Timedelta(hours=6)
+                               for lead, t in enumerate(targets, 1)]
     captured = {}
 
     def capture_predict(issue_time, obs, nwp, current_od):
@@ -68,8 +68,8 @@ def test_fixed_hindcast_contract_and_no_future_inputs(hindcast_inputs):
     assert captured["obs"].od_time.dropna().max() < issue
     assert captured["nwp"].available_at.max() <= issue
     assert list(captured["nwp"].available_at) == [
-        t - pd.Timedelta(days=1 if i < 24 else 2)
-        for i, t in enumerate(live.target_hours(issue))]
+        t - pd.Timedelta(days=live.nwp_offset_days(lead)) + pd.Timedelta(hours=6)
+        for lead, t in enumerate(live.target_hours(issue), 1)]
     expected_fields = {"time", "local", "lead_h", "wind_dir_deg", "wind_kt", "gust_kt",
                        "tailwind_25_kt", "tailwind_18_kt", "rule_od", "rule_18_usable",
                        "p_od25", "od", "p_18_usable", "certainty"}
@@ -77,7 +77,7 @@ def test_fixed_hindcast_contract_and_no_future_inputs(hindcast_inputs):
         assert set(hour) == expected_fields
         assert hour["time"] == forecast.utc_text(issue + pd.Timedelta(hours=lead))
         assert hour["lead_h"] == lead
-        assert hour["wind_kt"] == (12.0 if lead <= 24 else 22.0)
+        assert hour["wind_kt"] == (12.0 if lead <= 18 else 22.0 if lead <= 42 else 32.0)
         assert hour["od"] in ("25", "07")
         assert hour["rule_od"] in ("25", "07")
         assert type(hour["rule_18_usable"]) is bool
@@ -89,6 +89,23 @@ def test_fixed_hindcast_contract_and_no_future_inputs(hindcast_inputs):
     assert result["next_change"] is not None
     assert result["closures_18"]
     json.dumps(result, allow_nan=False)
+
+
+def test_archived_loader_and_fallback_share_buffered_offsets(hindcast_inputs, monkeypatch, tmp_path):
+    from ml.features import select_nwp
+
+    issue, _, _, weather, _ = hindcast_inputs
+    weather.to_parquet(tmp_path / "openmeteo_previous_runs.parquet")
+    monkeypatch.setattr(live, "DATA", tmp_path)
+    archived, _ = live.archived_weather(issue)
+    features = select_nwp(issue, archived)
+    assert list(archived.available_at) == list(features.nwp_available_proxy)
+    fallback = forecast.selected_wind(issue, archived)
+    columns = ["time", "wind_kt", "wind_dir_deg", "gust_kt"]
+    pd.testing.assert_frame_equal(fallback[columns], features[columns])
+    assert live.covers(archived, live.target_hours(issue), archived=True)
+    missing_day3 = archived.drop(columns=[name for name in archived if name.endswith("_previous_day3")])
+    assert not live.covers(missing_day3, live.target_hours(issue), archived=True)
 
 
 def test_future_recorded_labels_cannot_change_forecast(hindcast_inputs):
