@@ -4,9 +4,9 @@ The user requires all work on `main`, including the work previously held in sepa
 
 ## Shared work
 
-Use `git worktree list` to locate the single writable `main` worktree. During consolidation this is `/private/tmp/aiw-commit-integration`. Coordinate disjoint file ownership and serialize all Git mutations. Do not force-checkout the same branch in multiple worktrees. Older worktrees remain preservation/read-only copies until their work is incorporated; never overwrite another owner's pending files.
+Use `git worktree list` to locate the single writable `main` worktree. The shared worktree is `/Users/U751725/aiw-codex-hack`. Coordinate disjoint file ownership and serialize all Git mutations. Do not force-checkout the same branch in multiple worktrees. Older worktrees remain preservation/read-only copies until their work is incorporated; never overwrite another owner's pending files.
 
-All existing worktrees are explicitly authorized for consolidation. Review exact committed and uncommitted snapshots, preserve human authorship, and record original/resulting SHAs. Import the unique changes, not stale inherited history. Existing patches must not be applied twice. No additional ready-handoff document is required for this consolidation. New work is committed directly on `main`.
+All existing local and remote branches and worktrees are explicitly authorized for consolidation. Review exact committed and uncommitted snapshots, preserve human authorship, and record original/resulting SHAs. Import the unique changes, not stale inherited history. Existing patches must not be applied twice. No additional ready-handoff document is required for this consolidation. New work is committed directly on `main`.
 
 ## Each monitor cycle
 
