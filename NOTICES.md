@@ -12,8 +12,6 @@ Main at 14:00 runs: `python -m pytest ml/tests -q` gives 52 passed, `python -m m
 
 - 14:00 | FIX | Jury test days are pending from FraAlliance (README "Jury test days", ea7a492), with 2026-10-31 and 2026-11-01 as the fallback at 15:30. No jury-day forecast files exist yet | README, `web/public/forecasts/` | Jayden or Hugo: dates; cli lane: generate and add to `index.json` by 15:30
 - 13:10 | FIX | `ml.labels` does not exist. I removed it from the README run block; `ml/README.md:8` still lists it | `ml/README.md` | model lane, when committing
-- 13:20 | FYI | `weather database/` is down to 5.7 MB on main after dfc3c5e moved the PDFs and the BTS zip to Luca's branch. It is still outside the runway forecast and has a space in its name | `weather database/` | cleanup agent at the end
-- 13:10 | FYI | October midnight issues: persistence still beats the model at 1-6 h (95.3% vs 84.2%). `MODEL_CARD.md` states it, and the model lane is tuning the blend | `web/public/data/october.json` | model lane
 - 13:20 | FIX | Ola references: seven agent briefs contain local `C:\olawt\...` worktree paths (`c27-design.md` has two), and the guardian's own commit message f57b695 on main contains the word. Changing that message would mean rewriting main, so leave it to the cleanup decision | `briefs/c27-design.md`, `hk-cli.md`, `hk-cli3.md`, `hk-data.md`, `hk-model.md`, `hk-research.md`, `hk-scrape.md`, commit f57b695 | cleanup agent at the end
 - 13:00 | FIX | Main now has the FraAlliance styling and the recommendation view (0cf65aa, c5d906e), but `origin/hugo/forecast-ui-spec` still carries a separate static prototype (`web/prototypes/dfs-forecast/`) and a wp5 spec written against the old placeholder page (`briefing/2026-10-30-ui-atc-context.md`). Hugo presents from an outdated picture of the UI | branch `hugo/forecast-ui-spec` | Hugo: rebase and review the current app
 - 13:55 | FIX | The live URL is in `SUBMISSION.md` and README (1a2f59f), but README says the site is private until sharing is switched on. The jury can't open it until then | `SUBMISSION.md:5`, README | Jayden: switch sharing on before 16:00 and check it in a private window
@@ -21,6 +19,8 @@ Main at 14:00 runs: `python -m pytest ml/tests -q` gives 52 passed, `python -m m
 
 ## FYI
 
+- 13:20 | FYI | `weather database/` is down to 5.7 MB on main after dfc3c5e moved the PDFs and the BTS zip to Luca's branch. It is still outside the runway forecast and has a space in its name | `weather database/` | cleanup agent at the end
+- 14:00 | FYI | October midnight issues: persistence still beats the model at 1-6 h (now 83.0% for the model; at lead 1 it is 86.2% vs 100%, n=29). The model card states it | `web/public/data/october.json` | model lane
 - 13:30 | FYI | `PITCH.md` section 5 is titled "Built with Codex" and names Codex workers. That fits a Codex hackathon if intended, but AGENTS.md bans AI names in files | `PITCH.md:30-31` | head lane: decide
 - 13:20 | FYI | The optional tower briefing (c0d210e) brings back `OPENAI_API_KEY` and `OPENAI_MODEL` in both `.env.example` files and `openai` in `ml/requirements.txt`. It reads keys only from git-ignored `.env.local` files and is off by default. Keep it that way, and don't show briefing text as model output | `ml/forecast.py:196`, `.env.example` | head lane
 - 13:10 | FYI | UI details: the backup option says "Live sample (rules only)" but `sample.json` is the trained model (`ForecastApp.tsx:30`); the 40 kt crosswind limit is shown nowhere; nothing reads `backtest.json` or `october.json` | `web/src/components/` | web owner
