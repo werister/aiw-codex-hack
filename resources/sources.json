@@ -178,5 +178,35 @@
     "sha256": "142011a9e7850fdb5342456351e0a39987c3e6269d84757930f3b72cc339e1b3",
     "content_type": "application/zip",
     "status": "downloaded"
+  },
+  {
+    "path": "resources/raw/dwd/mosmix-element-definitions.xml",
+    "url": "https://opendata.dwd.de/weather/lib/MetElementDefinition.xml",
+    "resolved_url": "https://opendata.dwd.de/weather/lib/MetElementDefinition.xml",
+    "retrieved_at_utc": "2026-10-30T10:15:50.844697+00:00",
+    "bytes": 26484,
+    "sha256": "dc3f5190f86bfeddcd979ab7b7e1ae86a0a64ea26e7062afe1f508d7c8509775",
+    "content_type": "text/xml",
+    "status": "downloaded"
+  },
+  {
+    "path": "resources/raw/open-meteo/previous-runs-48h-sample.json",
+    "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.03&longitude=8.57&wind_speed_unit=kn&models=icon_eu&timezone=UTC&hourly=wind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2&start_date=2026-10-27&end_date=2026-10-29",
+    "resolved_url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=50.03&longitude=8.57&wind_speed_unit=kn&models=icon_eu&timezone=UTC&hourly=wind_speed_10m_previous_day2%2Cwind_direction_10m_previous_day2&start_date=2026-10-27&end_date=2026-10-29",
+    "retrieved_at_utc": "2026-10-30T10:20:18.263560+00:00",
+    "bytes": 2284,
+    "sha256": "593e27ffc520fca158fbc10f8d03b63dd1c7a05e73271411763c09ceede33098",
+    "content_type": "application/json; charset=utf-8",
+    "status": "downloaded"
+  },
+  {
+    "path": "resources/raw/open-meteo/single-run-2026102800-sample.json",
+    "url": "https://single-runs-api.open-meteo.com/v1/forecast?latitude=50.03&longitude=8.57&wind_speed_unit=kn&models=icon_eu&timezone=UTC&hourly=wind_speed_10m%2Cwind_direction_10m&run=2026-10-28T00%3A00&forecast_days=3",
+    "resolved_url": "https://single-runs-api.open-meteo.com/v1/forecast?latitude=50.03&longitude=8.57&wind_speed_unit=kn&models=icon_eu&timezone=UTC&hourly=wind_speed_10m%2Cwind_direction_10m&run=2026-10-28T00%3A00&forecast_days=3",
+    "retrieved_at_utc": "2026-10-30T10:20:18.358620+00:00",
+    "bytes": 2198,
+    "sha256": "37aebb565877033ba794ba6e65b5030e19f514c50ebf6fd9214a18c5df4ea3a1",
+    "content_type": "application/json; charset=utf-8",
+    "status": "downloaded"
   }
 ]

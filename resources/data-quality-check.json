@@ -1,0 +1,47 @@
+{
+  "manifest_files_verified": 21,
+  "archive_checks": "CRC passed",
+  "archive_pairs": {
+    "wind": {
+      "overlap_rows": 5847,
+      "overlap_value_conflicts": 0,
+      "unique_rows": 510492,
+      "duplicate_timestamps_within_files": 0,
+      "variable_direction_990_rows": 7173,
+      "missing_direction_rows": 56936,
+      "missing_speed_rows": 286
+    },
+    "gust": {
+      "overlap_rows": 5839,
+      "overlap_value_conflicts": 0,
+      "unique_rows": 226432,
+      "duplicate_timestamps_within_files": 0
+    }
+  },
+  "station_geography_source": "resources/raw/dwd/wind-01420-recent.zip::Metadaten_Geographie_01420.txt",
+  "station_geography_metadata": [
+    "Stations_id;Stationshoehe;Geogr.Breite;Geogr.Laenge;von_datum;bis_datum;Stationsname",
+    "  1420;  110.00; 50.0496;  8.5887;19350701;19480229;Frankfurt/Main",
+    "  1420;  110.00; 50.0496;  8.5887;19480301;19490131;Frankfurt/Main",
+    "  1420;  110.00; 50.0496;  8.5887;19490201;19520731;Frankfurt/Main",
+    "  1420;  110.00; 50.0496;  8.5887;19520801;19530630;Frankfurt/Main",
+    "  1420;  110.00; 50.0496;  8.5887;19530701;19560930;Frankfurt/Main",
+    "  1420;  110.00; 50.0452;  8.5976;19561001;19590331;Frankfurt/Main",
+    "  1420;  112.00; 50.0452;  8.5976;19590401;19591031;Frankfurt/Main",
+    "  1420;  112.00; 50.0452;  8.5976;19591101;19840630;Frankfurt/Main",
+    "  1420;  112.00; 50.0449;  8.5979;19840701;20141021;Frankfurt/Main",
+    "  1420;   99.70; 50.0259;  8.5213;20141022;        ;Frankfurt/Main"
+  ],
+  "forecast": {
+    "issue_time": "2026-10-30T03:00:00.000Z",
+    "replay_cutoff_utc": "2026-10-30T10:00:00+00:00",
+    "next_48_hourly_steps_present": true,
+    "wind_fields_complete": [
+      "DD",
+      "FF",
+      "FX1"
+    ],
+    "timesteps": 247,
+    "note": "Coverage checked at the stated cutoff, not an assertion of current freshness or prediction accuracy."
+  }
+}
