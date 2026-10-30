@@ -10,7 +10,7 @@ FraAlliance wants a machine-learning model that beats the rule baseline, evaluat
 
 - Gradient boosting (scikit-learn) predicts P(OD 25) and P(runway 18 usable) for every lead from 1 to 48 h.
 - Features use only what was known at issue time: the observed state, forecasts from runs issued before it, the rule baseline, hour and season.
-- A time-split backtest on held-out months reports accuracy and Brier score at 1, 6, 24 and 48 h against persistence and the rule baseline. It writes `web/src/data/backtest.json` and the top drivers.
+- A walk-forward backtest (expanding window, folds by month) on held-out months reports accuracy and Brier score at 1, 6, 24 and 48 h against persistence and the rule baseline. It writes `web/src/data/backtest.json` and the top drivers.
 
 ## Capabilities
 
