@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Liftoff · Finals</title>
+<script>
+  // Served as /pitch (no slash) the relative paths below would resolve against "/". Pin the base to the deck folder.
+  (function () {
+    var p = location.pathname;
+    if (location.protocol !== "file:" && !/\/$|\.html?$/.test(p)) document.write('<base href="' + p + '/">');
+  })();
+</script>
+<style>
+  @font-face {
+    font-family: "Inter Tight";
+    src: url("fonts/inter-tight-latin-wght-normal.woff2") format("woff2");
+    font-weight: 100 900;
+    font-display: swap;
+  }
+
+  /* FraAlliance tokens, same values as web/src/app/globals.css (sources in web/DESIGN.md). */
+  :root {
+    --bg: #ffffff;
+    --scene: #f6f6fb;
+    --panel-2: #f1f1f8;
+    --line: #dcdcea;
+    --ink: #1d1a78;
+    --ink-2: #3b3990;
+    --muted: #5d5b94;
+    --accent: #3c36da;
+    --west: #3c36da;
+    --east: #9d2f7f;
+    --ok: #15803d;
+    --bad: #d9381e;
+    --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: var(--scene); }
+  body {
+    font-family: "Inter Tight", system-ui, sans-serif;
+    color: var(--ink);
+    letter-spacing: 0.005em;
+    -webkit-font-smoothing: antialiased;
+    font-variant-numeric: tabular-nums;
+  }
+  body.idle { cursor: none; }
+
+  /* Fixed 1920x1080 stage, scaled to fit the window. */
+  #stage {
+    position: absolute; left: 0; top: 0;
+    width: 1920px; height: 1080px;
+    transform-origin: 0 0;
+    overflow: hidden;
+    background: var(--scene);
+  }
+  #scene { position: absolute; inset: 0; width: 1920px; height: 1080px; }
+
+  #veil {
+    position: absolute; inset: 0; pointer-events: none;
+    transition: opacity 0.9s var(--ease), background 0.9s var(--ease);
+  }
+  #veil .layer { position: absolute; inset: 0; opacity: 0; transition: opacity 0.9s var(--ease); }
+  #veil .left { background: linear-gradient(90deg, rgba(246,246,251,0.97) 0%, rgba(246,246,251,0.9) 30%, rgba(246,246,251,0) 58%); }
+  #veil .soft { background: rgba(246,246,251,0.82); }
+  #veil .full { background: rgba(255,255,255,0.97); }
+  #veil .top { background: linear-gradient(180deg, rgba(246,246,251,0.95) 0%, rgba(246,246,251,0.6) 22%, rgba(246,246,251,0) 40%); }
+  [data-veil="left"] #veil .left,
+  [data-veil="soft"] #veil .soft,
+  [data-veil="full"] #veil .full,
+  [data-veil="top"] #veil .top { opacity: 1; }
+
+  .slide {
+    position: absolute; inset: 0;
+    padding: 120px 140px;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.7s var(--ease), visibility 0s linear 0.7s;
+  }
+  .slide.on { opacity: 1; visibility: visible; transition: opacity 0.7s var(--ease) 0.15s, visibility 0s; }
+  .slide .rise { opacity: 0; transform: translateY(18px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+  .slide.on .rise { opacity: 1; transform: none; }
+  .slide.on .d1 { transition-delay: 0.25s; }
+  .slide.on .d2 { transition-delay: 0.45s; }
+  .slide.on .d3 { transition-delay: 0.65s; }
+  .slide.on .d4 { transition-delay: 0.85s; }
+
+  .eyebrow {
+    font-size: 22px; line-height: 1; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+  h1, h2 { font-weight: 300; letter-spacing: -0.015em; }
+  h1 { font-size: 112px; line-height: 1.04; }
+  h2 { font-size: 84px; line-height: 1.08; }
+  .accent { color: var(--accent); }
+  .small { font-size: 22px; line-height: 1.5; color: var(--muted); font-weight: 400; }
+
+  /* 1 · title */
+  .s-title { display: flex; flex-direction: column; justify-content: center; }
+  .s-title .eyebrow { margin-bottom: 44px; }
+  .s-title h1 { max-width: 900px; }
+  .s-title h1 + h1 { margin-top: 18px; }
+  .s-title .team { position: absolute; left: 140px; bottom: 110px; font-size: 26px; color: var(--ink-2); font-weight: 400; }
+  .s-title .team span { color: var(--line); margin: 0 14px; }
+
+  /* 2 · problem */
+  .s-problem { display: flex; flex-direction: column; justify-content: center; }
+  .stats { display: flex; gap: 160px; margin-top: 60px; }
+  .stat .num { font-size: 230px; line-height: 0.9; font-weight: 300; color: var(--accent); letter-spacing: -0.03em; }
+  .stat .lbl { margin-top: 30px; font-size: 40px; line-height: 1.2; font-weight: 400; color: var(--ink); }
+  .s-problem .follow { margin-top: 110px; font-size: 48px; font-weight: 300; color: var(--ink-2); }
+  .src { position: absolute; left: 140px; bottom: 80px; font-size: 18px; color: var(--muted); }
+
+  /* 3 · what we built */
+  .s-built h2 { margin-top: 28px; max-width: 900px; }
+  .chips { display: flex; gap: 14px; margin-top: 40px; flex-wrap: wrap; max-width: 980px; }
+  .chip {
+    font-size: 28px; line-height: 1; padding: 18px 28px 19px;
+    border-radius: 999px; background: rgba(255,255,255,0.92); color: var(--ink);
+    box-shadow: 0 0 0 1px var(--line) inset;
+  }
+  #hud {
+    position: absolute; left: 140px; bottom: 110px; width: 380px;
+    padding: 30px 32px; border-radius: 10px;
+    background: rgba(255,255,255,0.93); box-shadow: 0 0 0 1px var(--line) inset;
+    opacity: 0; transform: translateY(12px);
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+    pointer-events: none;
+  }
+  [data-slide="built"] #hud { opacity: 1; transform: none; transition-delay: 0.6s; }
+  #hud .row { display: flex; align-items: center; gap: 22px; }
+  #hud .row + .row { margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--line); }
+  #hud svg { width: 84px; height: 84px; flex: none; }
+  #hud .k { font-size: 16px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 500; }
+  #hud .v { font-size: 34px; font-weight: 400; margin-top: 6px; line-height: 1.1; }
+  #hud .badge {
+    display: inline-block; font-size: 30px; padding: 10px 20px 11px; border-radius: 999px;
+    color: #fff; background: var(--west); transition: background-color 0.6s var(--ease);
+  }
+  #hud .dot { display: inline-block; width: 16px; height: 16px; border-radius: 50%; background: var(--ok); margin-right: 12px; vertical-align: 2px; transition: background-color 0.6s var(--ease); }
+
+  /* 4 · demo */
+  .s-demo { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+  .s-demo h2 { font-size: 110px; margin-top: 30px; }
+  .btns { display: flex; gap: 22px; margin-top: 64px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 16px;
+    font-size: 34px; line-height: 1; padding: 26px 44px 28px; border-radius: 999px;
+    text-decoration: none; background: var(--accent); color: #fff;
+    transition: box-shadow 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .btn:hover { box-shadow: 0 0 0 5px rgba(60,54,218,0.25); }
+  .btn.ghost { background: #fff; color: var(--accent); box-shadow: 0 0 0 1.5px var(--accent) inset; }
+  .btn.ghost:hover { box-shadow: 0 0 0 1.5px var(--accent) inset, 0 0 0 5px rgba(60,54,218,0.18); }
+  .btn svg { width: 30px; height: 30px; }
+  .url { margin-top: 44px; font-size: 24px; color: var(--muted); }
+
+  /* 5 · results */
+  .s-results h2 { margin-top: 28px; font-size: 76px; }
+  .cols { display: flex; gap: 0; margin-top: 64px; }
+  .col { flex: 1; padding-right: 60px; }
+  .col + .col { padding-left: 60px; border-left: 1px solid var(--line); }
+  .col .lead { font-size: 24px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 500; }
+  .col .big { font-size: 150px; line-height: 1; font-weight: 300; color: var(--accent); margin-top: 22px; letter-spacing: -0.03em; }
+  .col .big small { font-size: 0.42em; margin-left: 4px; letter-spacing: 0; }
+  .col .who { font-size: 22px; color: var(--accent); margin-top: 10px; }
+  .col .base { display: flex; justify-content: space-between; font-size: 28px; color: var(--ink-2); margin-top: 14px; max-width: 420px; }
+  .col .who + .base { margin-top: 34px; }
+  .col .lift { font-size: 20px; color: var(--muted); margin-top: 16px; }
+  .changes { display: flex; gap: 70px; margin-top: 54px; padding-top: 30px; border-top: 1px solid var(--line); font-size: 28px; color: var(--ink-2); }
+  .changes b { font-weight: 400; color: var(--ink); font-size: 40px; margin-right: 12px; }
+  .col .base b { font-weight: 400; color: var(--muted); }
+  .fine { position: absolute; left: 140px; right: 140px; bottom: 76px; font-size: 19px; line-height: 1.55; color: var(--muted); }
+
+  /* 6 · how it works */
+  .flow { display: flex; align-items: stretch; margin-top: 110px; }
+  .card { flex: 1; background: var(--panel-2); border-radius: 10px; padding: 44px 44px 50px; }
+  .card .n { font-size: 22px; color: var(--muted); font-weight: 500; letter-spacing: 0.08em; }
+  .card h3 { font-size: 50px; font-weight: 300; margin-top: 70px; line-height: 1.1; }
+  .card p { font-size: 25px; line-height: 1.45; color: var(--muted); margin-top: 18px; }
+  .card.last { background: var(--accent); color: #fff; }
+  .card.last .n, .card.last p { color: #d9dafd; }
+  .arrow { flex: 0 0 90px; display: flex; align-items: center; justify-content: center; }
+  .arrow svg { width: 44px; height: 44px; }
+  .codex { position: absolute; left: 140px; bottom: 100px; font-size: 26px; color: var(--ink-2); }
+  .codex span { color: var(--muted); }
+
+  /* 7 · next */
+  .s-next { display: flex; flex-direction: column; justify-content: center; }
+  .next { margin-top: 46px; }
+  .next li { list-style: none; font-size: 52px; font-weight: 300; line-height: 1.15; }
+  .next li + li { margin-top: 34px; }
+  .next li small { display: block; font-size: 24px; color: var(--muted); font-weight: 400; margin-top: 8px; }
+  .thanks { font-size: 150px; font-weight: 300; color: var(--accent); margin-top: 110px; letter-spacing: -0.02em; line-height: 1; }
+
+  #progress { position: absolute; left: 0; bottom: 0; height: 4px; background: var(--accent); transition: width 0.6s var(--ease); }
+  #count { position: absolute; right: 60px; bottom: 34px; font-size: 18px; color: var(--muted); letter-spacing: 0.06em; }
+</style>
+</head>
+<body>
+<div id="stage" data-slide="title" data-veil="left">
+  <div id="scene"></div>
+  <div id="veil"><div class="layer left"></div><div class="layer soft"></div><div class="layer full"></div><div class="layer top"></div></div>
+
+  <section class="slide s-title" data-name="title" data-veil="left">
+    <p class="eyebrow rise">Liftoff · FraAlliance challenge</p>
+    <h1 class="rise d1">The wind decides the runway.</h1>
+    <h1 class="rise d2 accent">We see it 48 hours earlier.</h1>
+    <p class="team rise d3">Hugo Hader<span>·</span>Kai Detmers<span>·</span>Luca Schultz<span>·</span>Jayden Bruck</p>
+  </section>
+
+  <section class="slide s-problem" data-name="problem" data-veil="full">
+    <p class="eyebrow rise">The problem</p>
+    <div class="stats">
+      <div class="stat rise d1"><div class="num">156</div><div class="lbl">direction changes a year</div></div>
+      <div class="stat rise d2"><div class="num">6 of 10</div><div class="lbl">departures use runway 18</div></div>
+    </div>
+    <p class="follow rise d3">Staff, transfers and delays follow every change.</p>
+    <p class="src">Source: FraAlliance challenge pitch, 30 Oct 2026</p>
+  </section>
+
+  <section class="slide s-built" data-name="built" data-veil="top">
+    <p class="eyebrow rise">What we built</p>
+    <h2 class="rise d1">Every hour, 48 hours ahead.</h2>
+    <div class="chips rise d2">
+      <span class="chip">Direction 25 or 07</span>
+      <span class="chip">Runway 18 usable?</span>
+      <span class="chip">Certainty</span>
+      <span class="chip">Next change</span>
+    </div>
+  </section>
+
+  <section class="slide s-demo" data-name="demo" data-veil="soft">
+    <p class="eyebrow rise">Live demo</p>
+    <h2 class="rise d1">The next 48 hours.</h2>
+    <div class="btns rise d2">
+      <a class="btn" id="open-app" href="#" target="_blank" rel="noopener">Open the forecast
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn ghost" id="open-widget" href="#" target="_blank" rel="noopener">Widget view
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <p class="url rise d3" id="live-url"></p>
+  </section>
+
+  <section class="slide s-results" data-name="results" data-veil="full">
+    <p class="eyebrow rise">Results · months the model never saw</p>
+    <h2 class="rise d1">From 6 hours out, it beats both baselines.</h2>
+    <div class="cols rise d2" id="result-cols"></div>
+    <div class="changes rise d3" id="result-changes"></div>
+    <p class="fine rise d3" id="result-fine"></p>
+  </section>
+
+  <section class="slide s-how" data-name="how" data-veil="full">
+    <p class="eyebrow rise">How it works</p>
+    <div class="flow">
+      <div class="card rise d1"><div class="n">01</div><h3>Public data</h3><p>EDDF METAR, archived weather forecasts, DFLD flown directions</p></div>
+      <div class="arrow rise d1"><svg viewBox="0 0 24 24" fill="none" stroke="#5d5b94" stroke-width="1.2"><path d="M3 12h18M14 5l7 7-7 7"/></svg></div>
+      <div class="card rise d2"><div class="n">02</div><h3>Trained over time</h3><p>Each month tested by a model that never saw it</p></div>
+      <div class="arrow rise d2"><svg viewBox="0 0 24 24" fill="none" stroke="#5d5b94" stroke-width="1.2"><path d="M3 12h18M14 5l7 7-7 7"/></svg></div>
+      <div class="card last rise d3"><div class="n">03</div><h3>Forecast and certainty</h3><p>Every hour, 48 hours ahead</p></div>
+    </div>
+    <p class="codex rise d4">Built with Codex. <span>Optional tower briefing text from an OpenAI model.</span></p>
+  </section>
+
+  <section class="slide s-next" data-name="next" data-veil="left">
+    <p class="eyebrow rise">What's next</p>
+    <ul class="next">
+      <li class="rise d1">Test ensemble spread for the certainty score<small>Candidate feature: DWD ICON-D2-EPS</small></li>
+      <li class="rise d2">Fleet-wide planning</li>
+    </ul>
+    <p class="thanks rise d3">Thank you.</p>
+  </section>
+
+  <div id="hud" aria-hidden="true">
+    <div class="row">
+      <svg viewBox="-50 -50 100 100">
+        <circle r="46" fill="none" stroke="#dcdcea" stroke-width="1.5"/>
+        <text x="0" y="-31" text-anchor="middle" font-size="13" fill="#5d5b94" font-family="Inter Tight, sans-serif">N</text>
+        <g id="hud-arrow"><path d="M0 -26 L0 22 M-9 12 L0 24 L9 12" fill="none" stroke="#1d1a78" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></g>
+      </svg>
+      <div><div class="k">Wind</div><div class="v" id="hud-wind">250° · 12 kt</div></div>
+    </div>
+    <div class="row"><div><div class="k">Operating direction</div><div class="v"><span class="badge" id="hud-od">25 West</span></div></div></div>
+    <div class="row"><div><div class="k">Runway 18</div><div class="v"><span class="dot" id="hud-r18-dot"></span><span id="hud-r18">open</span></div></div></div>
+  </div>
+
+  <div id="progress"></div>
+  <div id="count"></div>
+</div>
+
+
+<script>
+(function () {
+  "use strict";
+
+  var LIVE = "https://fraalliance-runway-forecast.statworx-par-2884.chatgpt.site";
+
+  // Snapshot of web/public/data/quality.json, written by snapshot.py (copied exactly, never edited by hand).
+  // The live file replaces it at render time when the deck is served over http.
+  /* SNAPSHOT:BEGIN */
+  var SNAPSHOT = {"test": {"start": "2025-11-01T05:00:00+00:00", "end": "2026-10-27T17:00:00+00:00", "months": 12}, "od": [{"lead_h": 1, "n": 1416, "model_acc": 0.9597457627118644, "model_acc_ci": [0.9499638817737515, 0.9695699062578719], "rule_acc": 0.9590395480225988, "persistence_acc": 0.9590395480225988, "acc_diff_vs_rule": 0.0007062146892655718, "acc_diff_vs_rule_ci": [-0.0063740506100388086, 0.0078444224214304]}, {"lead_h": 6, "n": 1416, "model_acc": 0.9279661016949152, "model_acc_ci": [0.9089625970359916, 0.944721035449915], "rule_acc": 0.8813559322033898, "persistence_acc": 0.8884180790960452, "acc_diff_vs_rule": 0.04661016949152541, "acc_diff_vs_rule_ci": [0.029034265725178462, 0.06431780051009796]}, {"lead_h": 24, "n": 1383, "model_acc": 0.9168474331164136, "model_acc_ci": [0.8972447735255628, 0.9350208791613602], "rule_acc": 0.8770788141720897, "persistence_acc": 0.7505422993492408, "acc_diff_vs_rule": 0.03976861894432393, "acc_diff_vs_rule_ci": [0.02361714760032737, 0.055999510063351104]}, {"lead_h": 48, "n": 1338, "model_acc": 0.8916292974588939, "model_acc_ci": [0.8702151185318853, 0.9117449198201555], "rule_acc": 0.8400597907324364, "persistence_acc": 0.6420029895366218, "acc_diff_vs_rule": 0.05156950672645744, "acc_diff_vs_rule_ci": [0.03206562266964952, 0.07138883087590328]}], "next_change": {"within_3h": 0.5254901960784314, "false_alarm_rate": 0.12802768166089964}};
+  /* SNAPSHOT:END */
+
+  // Camera per slide for the shared scene (scene.js). The title keeps the field to the right of the text.
+  var VIEWS = {
+    title: { position: [-34, 78, 100], target: [-34, 0, 10] },
+    problem: { position: [-4, 80, 96], target: [-4, 0, 8] },
+    built: { position: [-30, 78, 96], target: [-30, 0, 4] },
+    demo: { position: [-4, 104, 30], target: [-4, 0, 8] },
+    results: { position: [-4, 80, 96], target: [-4, 0, 8] },
+    how: { position: [-4, 80, 96], target: [-4, 0, 8] },
+    next: { position: [-30, 50, 92], target: [-36, 0, 4] }
+  };
+
+  // ---------- stage fit ----------
+  var stage = document.getElementById("stage");
+  var stageScale = 1;
+  var fra = null;
+  function fit() {
+    var w = window.innerWidth, h = window.innerHeight;
+    stageScale = Math.min(w / 1920, h / 1080);
+    var x = (w - 1920 * stageScale) / 2, y = (h - 1080 * stageScale) / 2;
+    stage.style.transform = "translate(" + x + "px," + y + "px) scale(" + stageScale + ")";
+    if (fra) fra.resize();
+  }
+
+  // ---------- results ----------
+  function pct(x) { return (Math.round(x * 1000) / 10).toFixed(1); }
+  function monthName(iso) {
+    var d = new Date(iso);
+    return d.toLocaleString("en-GB", { month: "short", timeZone: "UTC" }) + " " + d.getUTCFullYear();
+  }
+  function pickQuality(q) {
+    var folds = q.folds || [];
+    return {
+      test: folds.length ? { start: folds[0].test_period.start, end: folds[folds.length - 1].test_period.end, months: folds.length } : null,
+      od: (q.significance && q.significance.od) || q.out_of_sample.od,
+      next_change: q.next_change
+    };
+  }
+  function ci(r, key) {
+    var c = r[key + "_ci"];
+    return c ? pct(c[0]) + "\u2013" + pct(c[1]) : null;
+  }
+  function pts(x) { return (x >= 0 ? "+" : "\u2212") + pct(Math.abs(x)); }
+  function renderResults(data, fromFile) {
+    var byLead = {};
+    data.od.forEach(function (r) { byLead[r.lead_h] = r; });
+    var html = "";
+    [6, 24, 48].forEach(function (h) {
+      var r = byLead[h];
+      if (!r) return;
+      var mci = ci(r, "model_acc");
+      html += '<div class="col"><div class="lead">' + h + ' hours ahead</div>' +
+        '<div class="big">' + pct(r.model_acc) + '<small>%</small></div>' +
+        '<div class="who">Our model' + (mci ? ' \u00b7 95% CI ' + mci : '') + '</div>' +
+        '<div class="base"><span>Official rules</span><b>' + pct(r.rule_acc) + '%</b></div>' +
+        '<div class="base"><span>Same as now</span><b>' + pct(r.persistence_acc) + '%</b></div>';
+      if (r.acc_diff_vs_rule_ci) {
+        var d = r.acc_diff_vs_rule_ci;
+        html += '<div class="lift">Lead over rules ' + pts(r.acc_diff_vs_rule) + ' pts, CI ' + pts(d[0]) + ' to ' + pts(d[1]) + '</div>';
+      }
+      html += '</div>';
+    });
+    document.getElementById("result-cols").innerHTML = html;
+    var nc = data.next_change;
+    document.getElementById("result-changes").innerHTML = nc
+      ? '<span><b>' + pct(nc.within_3h) + '%</b>of direction changes caught within 3 h</span>' +
+        '<span><b>' + pct(nc.false_alarm_rate) + '%</b>false alarms in quiet windows</span>'
+      : "";
+    var one = byLead[1];
+    var n = [6, 24, 48].map(function (h) { return byLead[h] ? byLead[h].n : "?"; }).join(" / ");
+    var fine = "Share of hours with the right operating direction. Walk-forward over " +
+      (data.test ? data.test.months + " held-out months, " + monthName(data.test.start) + " to " + monthName(data.test.end) : "held-out months") +
+      ", n = " + n + " hours. 95% intervals: bootstrap over whole days. ";
+    if (one) fine += "At 1 hour: " + pct(one.model_acc) + "% against " + pct(one.rule_acc) + "% (rules) and " + pct(one.persistence_acc) + "% (same as now). ";
+    fine += "Features were chosen on these months; the live forecasts are the clean test. Runway 18 labels are inferred, so not scored here.";
+    var el = document.getElementById("result-fine");
+    el.textContent = fine;
+    el.dataset.source = fromFile ? "quality.json" : "snapshot";
+  }
+  function loadQuality() {
+    if (SNAPSHOT) renderResults(SNAPSHOT, false);
+    if (location.protocol === "file:") return;
+    fetch("../data/quality.json", { cache: "no-store" })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (q) { renderResults(pickQuality(q), true); })
+      .catch(function () {});
+  }
+
+  // ---------- links ----------
+  document.getElementById("open-app").href = LIVE + "/";
+  document.getElementById("open-widget").href = LIVE + "/widget";
+  document.getElementById("live-url").textContent = LIVE.replace(/^https:\/\//, "");
+
+  // ---------- HUD ----------
+  function updateHud(s) {
+    document.getElementById("hud-arrow").setAttribute("transform", "rotate(" + s.wind.dir + ")");
+    var dir = Math.round(s.wind.dir / 10) * 10 % 360;
+    document.getElementById("hud-wind").textContent = String(dir === 0 ? 360 : dir).padStart(3, "0") + "° · " + s.wind.kt + " kt";
+    var od = document.getElementById("hud-od");
+    od.textContent = s.od === "25" ? "25 West" : "07 East";
+    od.style.background = s.od === "25" ? "var(--west)" : "var(--east)";
+    var tail18 = Math.round(s.wind.kt * Math.cos(s.wind.dir * Math.PI / 180));
+    document.getElementById("hud-r18").textContent = s.r18Open ? "open" : "closed, tailwind " + tail18 + " kt";
+    document.getElementById("hud-r18-dot").style.background = s.r18Open ? "var(--ok)" : "var(--bad)";
+  }
+
+  // ---------- deck ----------
+  var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+  var cur = -1;
+  function go(i) {
+    i = Math.max(0, Math.min(slides.length - 1, i));
+    if (i === cur) return;
+    cur = i;
+    slides.forEach(function (s, k) { s.classList.toggle("on", k === i); });
+    var name = slides[i].dataset.name;
+    stage.dataset.slide = name;
+    stage.dataset.veil = slides[i].dataset.veil || "none";
+    document.getElementById("progress").style.width = ((i + 1) / slides.length * 100) + "%";
+    document.getElementById("count").textContent = (i + 1) + " / " + slides.length;
+    try { history.replaceState(null, "", "#" + (i + 1)); } catch (e) {}
+    if (fra) fra.setCamera(VIEWS[name], 1.8);
+  }
+  document.addEventListener("keydown", function (e) {
+    var k = e.key;
+    if (k === "ArrowRight" || k === "ArrowDown" || k === "PageDown" || k === " " || k === "Enter") { go(cur + 1); e.preventDefault(); }
+    else if (k === "ArrowLeft" || k === "ArrowUp" || k === "PageUp" || k === "Backspace") { go(cur - 1); e.preventDefault(); }
+    else if (k === "Home") go(0);
+    else if (k === "End") go(slides.length - 1);
+    else if (k === "f" || k === "F") {
+      if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen().catch(function () {});
+    }
+    else if (/^[1-9]$/.test(k)) go(+k - 1);
+  });
+  document.addEventListener("click", function (e) {
+    if (e.target.closest("a, button")) return;
+    go(cur + 1);
+  });
+  document.addEventListener("contextmenu", function (e) { e.preventDefault(); go(cur - 1); });
+  var touchX = null;
+  document.addEventListener("touchstart", function (e) { touchX = e.touches[0].clientX; }, { passive: true });
+  document.addEventListener("touchend", function (e) {
+    if (touchX === null) return;
+    var dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1));
+    touchX = null;
+  });
+  var idleTimer;
+  document.addEventListener("mousemove", function () {
+    document.body.classList.remove("idle");
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(function () { document.body.classList.add("idle"); }, 2500);
+  });
+
+  window.addEventListener("resize", fit);
+  fit();
+  loadQuality();
+  var start = parseInt((location.hash || "").slice(1), 10);
+  go(isNaN(start) ? 0 : start - 1);
+
+  // ---------- shared 3D scene ----------
+  // Module scripts don't load from file:// in Chrome; the deck then runs without the scene.
+  import("./scene.js").then(function (m) {
+    fra = m.mount(document.getElementById("scene"), {
+      story: true,
+      view: VIEWS[slides[cur].dataset.name],
+      pixelRatio: function () { return (window.devicePixelRatio || 1) * stageScale; },
+      onChange: updateHud
+    });
+  }).catch(function (err) {
+    stage.classList.add("no3d");
+    console.warn("3D scene off:", err);
+  });
+})();
+</script>
+</body>
+</html>
