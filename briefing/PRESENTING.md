@@ -1,6 +1,6 @@
 # Presenting · Hugo, with Luca as backup
 
-Use one **3:41 target** story: planning problem → baseline and model → forecast demonstration → data and evaluation method → historical comparison → aggregate evidence → timing and runway-18 limits → operational pilot. The duration needs a timed human rehearsal.
+Use one **2:46 target** story: planning problem → baseline and model → forecast demonstration → data and development history → aggregate evidence → future planning extension → model card. The duration needs a timed human rehearsal.
 
 - **Slides:** `/deck/index.html`.
 - **Canonical spoken text and exact demo clicks:** [presentation-script.md](../web/public/deck/presentation-script.md).
@@ -21,18 +21,18 @@ The October 28 replay illustrates behavior. It is a historical reconstruction wi
 
 The development-history slide separates the logged, matched twelve-month feature gain (**84.9% → 89.2% at 48 h; +4.3 percentage points**, earlier features versus v5) from current v6 (**88.9%**). The earlier pair is rounded evidence from `EXPERIMENTS.md`, not a newly replayed before/after run. v6 improves state handling and evaluation; it did not produce a broad accuracy jump. Keep the complete history appendix for questions.
 
-## Limits that belong in the spoken pitch
+## Limits to keep ready for questions
 
 - **Change timing:** 115/193 unique recorded transitions matched within ±3 h, with 138 false-alarm clusters. The 82.3% change-subset hourly score is not event recall.
 - **Runway 18:** zero hits in twelve positive inferred-closure windows at 24 h; 307 complete windows, 1,125 excluded. These are overlapping windows, not twelve independent closures. Actual runway openings and closures are not recorded labels here.
 - **Certainty:** a probability-margin score, not a calibrated chance of a correct forecast.
-- **Value:** no measured savings claim. End with a pilot alongside a shift lead, logging which warnings change preparation and the costs of false alarms and action.
+- **Value:** no measured savings claim. Fleet-wide planning is a future extension. Any operational pilot should log which warnings change preparation and the costs of false alarms and action.
 
 ## Before going on stage
 
 1. Check the deck, chart data, `/pitch` forecast and quality artifact all show the intended model version. Refresh the deck data and speaker figures together after a model update.
 2. Prepare October 28 with its outcome hidden. Use manual deck navigation; autoplay cannot wait for clicks in the demo.
-3. Rehearse forecast → reveal → evaluation → slide 9. If the tab switch is awkward, use the deck's saved chart and describe the same distinction.
+3. Keep the historical replay for questions: rehearse forecast → reveal → evaluation → slide 8. The main deck goes directly from development history to aggregate results.
 4. Time the full delivery and check audience readability. Keep the original data-source links visible. The airport animation illustrates the setting; it is not observed traffic or a forecast accuracy fallback.
 
 [Model card](../MODEL_CARD.md) and [quality.json](../web/public/data/quality.json) contain full definitions and exclusions. The [companion script](../web/public/deck/presentation-script.md) contains short answers to the likely jury questions.

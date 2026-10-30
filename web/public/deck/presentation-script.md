@@ -1,6 +1,6 @@
 # Lift-off · finals presentation
 
-Hugo presents; Luca is the backup. One fourteen-slide version, **3:41 target duration**, matching the deck's slide times. This is a rehearsal target, not a measured delivery time. The [printable cue sheet](presenter-cues.html) mirrors the spoken text below. No separate two-, three- or five-minute narrative.
+Hugo presents; Luca is the backup. One eleven-slide version, **2:46 target duration**, matching the deck's slide times. This is a rehearsal target, not a measured delivery time. The [printable cue sheet](presenter-cues.html) mirrors the spoken text below. No separate two-, three- or five-minute narrative.
 
 Core claim: an hourly runway outlook for ground-handling planning, with measured direction accuracy and explicit limits on change timing and runway 18. Model: **walk-forward-v6**. Figures come from the published [quality artifact](../data/quality.json), not an illustrative savings calculation. The historical example explains the product; the twelve-month evaluation supplies the performance evidence.
 
@@ -46,57 +46,53 @@ Core claim: an hourly runway outlook for ground-handling planning, with measured
 
 **Say:** “Better weather inputs raised our logged forty-eight-hour score from 84.9 to 89.2 percent. The current, corrected version scores 88.9 percent.”
 
-## 8 · A historical example · 2:01–2:26
-
-**Show:** 28–29 October chart. For the interactive reveal, use the prepared `/pitch` tab: choose **2026-10-28**, show the hidden outcome, then **Reveal recorded outcome**. Read the current shared-hour counts on screen. Open **Evaluation** and return to slide 9. If the tab switch was not rehearsed, stay with the chart.
-
-**Say:** “This October twenty-eighth reconstruction shows the forecast against the later record. Both methods anticipate a change, but neither gets its timing exactly right. The example explains the product; the separate twelve-month evaluation measures its quality.”
-
-## 9 · The measured result · 2:26–2:51
+## 8 · The measured result · 2:01–2:26
 
 **Show:** Results at 1, 6 and 24 hours. Point to the 24-hour comparison; the 48-hour extension is secondary.
 
 **Say:** “At twenty-four hours, the model gets the direction right in 91.8 percent of scored hours, versus 87.7 for the challenge wind rules and 75.1 for keeping the current direction. At one hour, keeping the current direction is slightly better. These scores measure direction, not exact change timing.”
 
-## 10 · Change timing · 2:51–3:06
+## 9 · What's next · 2:26–2:32
 
-**Show:** Distinct-event result and false-alarm count together. Do not describe the separate change-subset hourly accuracy as event detection.
+**Show:** Fleet-wide planning as a future extension, not a demonstrated operational benefit.
 
-**Say:** “Direction accuracy does not guarantee exact change timing. The separate event evaluation matches 115 of 193 recorded changes within three hours, with 138 false-alarm clusters. That limits how warnings should be used.”
+**Say:** “Next, fleet-wide planning: connect the forecast to flight demand so each shift sees which flights a change will hit.”
 
-## 11 · Runway 18 and certainty · 3:06–3:21
-
-**Show:** Zero of twelve positive 24-hour windows; 307 complete windows and 1,125 exclusions. These are overlapping windows, not twelve independent closures.
-
-**Say:** “Runway eighteen remains weak: no warnings in twelve positive twenty-four-hour windows. The labels are inferred from weather, not actual closures. Our certainty score is not a calibrated chance of being correct.”
-
-## 12 · The pilot · 3:21–3:27
-
-**Show:** Next step: frozen forecasts, a shift lead and recorded preparation decisions.
-
-**Say:** “Test alongside a shift lead: which warnings change preparation?”
-
-## 13 · Thank you · 3:27–3:35
+## 10 · Thank you · 2:32–2:40
 
 **Show:** Team and invitation to questions.
 
 **Say:** “Thank you. We would welcome that operational test.”
 
-## 14 · Model card · 3:35–3:41
+## 11 · Model card · 2:40–2:46
 
 **Show:** QR to `/model-card/`, generated from `MODEL_CARD.md`.
 
 **Say:** “The full model card is public on our site. Scan to read it.”
 
-## Exact demo path and fallback
+## Timing and runway-18 limits for questions
+
+### Change timing
+
+**Show:** Distinct-event result and false-alarm count together. Do not describe the separate change-subset hourly accuracy as event detection.
+
+**Say:** “Direction accuracy does not guarantee exact change timing. The separate event evaluation matches 115 of 193 recorded changes within three hours, with 138 false-alarm clusters. That limits how warnings should be used.”
+
+### Runway 18 and certainty
+
+**Show:** Zero of twelve positive 24-hour windows; 307 complete windows and 1,125 exclusions. These are overlapping windows, not twelve independent closures.
+
+**Say:** “Runway eighteen remains weak: no warnings in twelve positive twenty-four-hour windows. The labels are inferred from weather, not actual closures. Our certainty score is not a calibrated chance of being correct.”
+
+## Optional historical replay for questions
 
 1. Before presenting, serve the same checked build for `/deck/index.html` and `/pitch`. Use manual slide navigation; autoplay is only a timing aid and cannot wait for an interactive demo.
 2. In `/pitch`, choose **2026-10-28**. The earliest available date opens by default, so select the case explicitly. Leave the outcome hidden until the demonstration.
 3. Point to **Issue time**, **First forecast direction change** and the hourly outlook. Say “historical reconstruction”; archived publication times and initial direction reporting delays are not verified.
 4. Click **Reveal recorded outcome**. All methods use the same recorded hours. Read the displayed numerator and denominator; do not carry over the earlier 40-hour subset. The current saved file has 47 recorded hours: model 41/47, rules 39/47, persistence 33/47. Refresh these checks after any forecast regeneration.
 5. The first different hourly record is 29 October at 10:00 Europe/Berlin. The previous matching sample is 09:00. An hourly series cannot establish the exact transition instant or rule out temporary changes.
-6. Click **Evaluation** or **View evaluation →**, then return to deck slide 9. Separate the individual replay score from the twelve-month scores.
-7. If interaction fails, continue with the deck's saved historical chart and results. Do not build, install packages or change the model on stage. The airport video illustrates the setting; it does not replace forecast evidence. Verify the local served deck and its assets before relying on an offline fallback.
+6. Click **Evaluation** or **View evaluation →**, then return to deck slide 8. Separate the individual replay score from the twelve-month scores.
+7. If interaction fails, continue with the deck's aggregate results. Do not build, install packages or change the model on stage. The airport video illustrates the setting; it does not replace forecast evidence. Verify the local served deck and its assets before relying on an offline fallback.
 
 ## Q&A figures · published v6
 
