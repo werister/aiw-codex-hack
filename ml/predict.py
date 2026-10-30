@@ -79,8 +79,11 @@ def predict_48h(issue_time_utc, obs, nwp, od_at_issue):
     offsets, selected at leads 1..18, 19..42 and 43..48 respectively. Never
     use unsuffixed historical day0. Live data accepts wind_kt, wind_dir_deg,
     gust_kt or the unsuffixed source names, with issued_at or retrieved_at
-    no later than issue time. Optional pressure_msl, temperature_2m and
-    wind_speed_80m follow the same suffix convention.
+    no later than issue time. Optional pressure_msl, temperature_2m,
+    wind_speed_80m, wind_direction_80m, separate models
+    (<model>__wind_speed_10m, <model>__wind_direction_10m for ecmwf_ifs025,
+    gfs_seamless, icon_seamless) and pressure boxes pressure_n/s/w/e follow
+    the same suffix convention; missing ones stay NaN.
 
     od_at_issue: recorded current OD string '25' or '07', known by issue time.
     rule_18_usable and p_18_usable describe INFERRED weather usability.

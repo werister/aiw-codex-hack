@@ -116,3 +116,31 @@ def next_change_timing(frame, truth):
 
 def period(values):
     return {"start": values.min().isoformat(), "end": values.max().isoformat()}
+
+
+def r18_events(frame, horizons=(1, 6, 24)):
+    """Issue-level runway 18 closure detection within the next H hours.
+
+    An issue counts as an actual event when any labelled target hour within H is
+    inferred closed, and as predicted when the forecast calls any hour closed.
+    Model calls use p_18_usable < 0.5; rules and persistence use their 0/1 states.
+    """
+    result = []
+    rows = frame.dropna(subset=["y_r18"])
+    for horizon in horizons:
+        window = rows.loc[rows.lead_h <= horizon]
+        actual = window.y_r18.eq(0).groupby(window.issue_time).any()
+        record = {"horizon_h": horizon, "n_issues": int(len(actual)), "n_actual": int(actual.sum())}
+        for name, closed in (("model", window.p_18_usable < 0.5), ("rule", window.rule_18_usable.eq(0)),
+                             ("persistence", window.persistence_18.eq(0))):
+            predicted = closed.groupby(window.issue_time).any().reindex(actual.index, fill_value=False)
+            hits, misses = int((actual & predicted).sum()), int((actual & ~predicted).sum())
+            false_alarms = int((~actual & predicted).sum())
+            record[name] = {"hits": hits, "misses": misses, "false_alarms": false_alarms,
+                            "recall": hits / (hits + misses) if hits + misses else None,
+                            "precision": hits / (hits + false_alarms) if hits + false_alarms else None,
+                            "false_alarm_rate": false_alarms / int((~actual).sum()) if (~actual).any() else None}
+        y, p = window.y_r18.to_numpy(float), window.p_18_usable.to_numpy(float)
+        record["model_brier"] = float(np.mean((p - y) ** 2)) if len(y) else None
+        result.append(record)
+    return result

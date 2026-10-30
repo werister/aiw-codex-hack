@@ -165,3 +165,7 @@ None of the requested endpoints needs an account or key. No sign-up was attempte
 ## Retrieval failures
 
 None. Source coverage gaps are recorded above.
+
+## Synoptic pressure (`openmeteo_previous_runs_pressure.parquet`)
+
+`python -m ml.synoptic` caches Open-Meteo Previous Runs (best_match) `pressure_msl` day 1/2/3 at four points about 200 km from EDDF: north (51.83 N, 8.57 E), south (48.23 N, 8.57 E), west (50.03 N, 5.77 E) and east (50.03 N, 11.37 E). Columns are `time` (UTC) and `pressure_{n,s,w,e}_previous_day{1,2,3}` in hPa, 2024-01-01 to 2026-10-30, about 2% missing. They feed north-south and east-west gradient features under the same six-hour publication lag as the airport forecast.
