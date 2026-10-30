@@ -1,0 +1,12 @@
+{
+  "project_id": "appgprj_6ae4ab7358188191a77a060362c594ca",
+  "site_url": "https://lift-off-model-card.statworx-par-2884.chatgpt.site",
+  "pdf_url": "https://lift-off-model-card.statworx-par-2884.chatgpt.site/model-card.pdf",
+  "access": "public",
+  "version_id": "appgprj_6ae4ab7358188191a77a060362c594ca~appgver_25d58a16352481918adab23c2e9b846b",
+  "source_commit": "0b21e40ef7c9b0a8c92b1f5ae9f18fd59342965f",
+  "pdf_sha256": "56094959c61522a5e9678a1ba30e4fc57420d81ed95a74ea8d1e6f082366fc17",
+  "qr_png": "output/qr/lift-off-model-card-qr.png",
+  "qr_svg": "output/qr/lift-off-model-card-qr.svg",
+  "verification": "Anonymous HTTP 200 application/pdf; downloaded PDF matches source SHA-256; QR decoded to pdf_url."
+}
