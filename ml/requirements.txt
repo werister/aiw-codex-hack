@@ -3,3 +3,4 @@ numpy>=2.0
 scikit-learn>=1.5
 requests>=2.32
 pyarrow>=17
+tzdata==2025.2
