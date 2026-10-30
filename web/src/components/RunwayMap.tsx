@@ -74,8 +74,8 @@ export function RunwayMap({
         </text>
         {!r18Open && (
           <g>
-            <rect x={R18.x + 14} y={R18.top + 70} width="74" height="24" rx="4" fill="var(--bad)" />
-            <text x={R18.x + 51} y={R18.top + 86} textAnchor="middle" fontSize="12" fontWeight="700" fill="var(--bg)">CLOSED</text>
+            <rect x={R18.x + 14} y={R18.top + 70} width="74" height="24" rx="12" fill="var(--bad)" />
+            <text x={R18.x + 51} y={R18.top + 86} textAnchor="middle" fontSize="12" fontWeight="500" letterSpacing="0.06em" fill="var(--on-signal)">CLOSED</text>
           </g>
         )}
 
@@ -109,12 +109,12 @@ export function RunwayMap({
           </text>
         </g>
 
-        <text x="12" y="20" fontSize="13" fontWeight="700" fill={color}>
+        <text x="12" y="22" fontSize="16" fontWeight="500" fill={color}>
           OD {od} · {west ? "toward 250° (west)" : "toward 070° (east)"}
         </text>
-        <text x="12" y="38" fontSize="11" fill="var(--muted)">{label}</text>
+        <text x="12" y="42" fontSize="12" fill="var(--muted)">{label}</text>
       </svg>
-      <div className="absolute bottom-1 left-2 text-[10px] text-muted">Simulated traffic · schematic, not to scale</div>
+      <div className="absolute bottom-1 left-2 text-[11px] text-muted">Simulated traffic · schematic, not to scale</div>
     </div>
   );
 }

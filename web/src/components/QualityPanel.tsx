@@ -22,7 +22,7 @@ export function QualityPanel() {
   if (state !== "ready" || !q) {
     return (
       <Panel title="Model quality">
-        <p className="text-sm text-muted">
+        <p className="text-[15px] text-muted">
           {state === "loading" ? "Loading…" : "The walk-forward backtest is still running. Its results appear here when they land."}
         </p>
       </Panel>
@@ -35,9 +35,9 @@ export function QualityPanel() {
   return (
     <Panel
       title="Model quality · held out, walk-forward"
-      aside={<span className="text-xs text-muted">{q.evaluation}</span>}
+      aside={<span className="text-[13px] text-muted">{q.evaluation}</span>}
     >
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-2.5 lg:grid-cols-4">
         <Stat
           value={`${months.length} months`}
           label={`tested one month at a time, never trained on (${months[0]} to ${months[months.length - 1]})`}
@@ -60,13 +60,13 @@ export function QualityPanel() {
         />
       </div>
 
-      <div className="mt-5 grid gap-6 xl:grid-cols-[3fr_2fr]">
+      <div className="mt-8 grid gap-8 xl:grid-cols-[3fr_2fr]">
         <SkillTable rows={q.out_of_sample.od} inSample={q.in_sample.od} />
         <Reliability bins={q.reliability.od} />
       </div>
 
-      <details className="mt-4 border-t border-line pt-3 text-xs text-muted">
-        <summary className="cursor-pointer text-ink-2">Data sources and limitations</summary>
+      <details className="mt-6 border-t border-line pt-4 text-[13px] leading-relaxed text-muted">
+        <summary className="cursor-pointer text-[15px] text-ink">Data sources and limitations</summary>
         <ul className="mt-2 space-y-1">
           {q.data_sources.map((s) => (
             <li key={s.name}>
@@ -90,9 +90,9 @@ export function QualityPanel() {
 
 function Stat({ value, label }: { value: string; label: string }) {
   return (
-    <div className="rounded-lg bg-panel-2 p-3">
-      <div className="text-2xl font-bold tabular">{value}</div>
-      <div className="mt-1 text-xs leading-snug text-muted">{label}</div>
+    <div className="flex flex-col justify-between gap-4 rounded-card bg-panel-2 p-4 sm:p-5">
+      <div className="text-[32px] font-light leading-none tracking-[-0.02em] tabular sm:text-[40px]">{value}</div>
+      <div className="text-[13px] leading-snug text-ink-2">{label}</div>
     </div>
   );
 }
@@ -101,10 +101,11 @@ function SkillTable({ rows, inSample }: { rows: SkillAtLead[]; inSample: SkillAt
   const ins = new Map(inSample.map((r) => [r.lead_h, r]));
   return (
     <div>
-      <div className="mb-2 text-sm font-semibold">Operating direction: accuracy on unseen months</div>
-      <table className="w-full text-sm">
+      <div className="mb-3 text-[20px] font-light leading-tight">Operating direction: accuracy on unseen months</div>
+      <div className="overflow-x-auto">
+      <table className="w-full min-w-[520px] text-[15px]">
         <thead>
-          <tr className="text-left text-xs text-muted">
+          <tr className="text-left text-[12px] text-muted">
             <th className="pb-1 font-medium">Lead</th>
             <th className="pb-1 font-medium">Model</th>
             <th className="pb-1 font-medium">Official rules</th>
@@ -117,18 +118,18 @@ function SkillTable({ rows, inSample }: { rows: SkillAtLead[]; inSample: SkillAt
           {rows.map((r) => {
             const best = Math.max(r.model_acc, r.rule_acc, r.persistence_acc);
             const cell = (v: number) => (
-              <td className={cx("py-1.5 tabular", v === best ? "font-bold text-ok" : "text-ink-2")}>{(v * 100).toFixed(1)}%</td>
+              <td className={cx("py-2 tabular", v === best ? "font-semibold text-ink" : "text-muted")}>{(v * 100).toFixed(1)}%</td>
             );
             return (
               <tr key={r.lead_h} className="border-t border-line">
-                <td className="py-1.5 tabular">{r.lead_h} h</td>
+                <td className="py-2 tabular">{r.lead_h} h</td>
                 {cell(r.model_acc)}
                 {cell(r.rule_acc)}
                 {cell(r.persistence_acc)}
-                <td className="py-1.5 tabular text-ink-2">
+                <td className="py-2 tabular text-ink-2">
                   {r.model_change_acc != null && r.change_n ? `${Math.round(r.model_change_acc * 100)}% of ${r.change_n}` : "–"}
                 </td>
-                <td className="py-1.5 tabular text-muted">
+                <td className="py-2 tabular text-muted">
                   {ins.get(r.lead_h) ? `${(ins.get(r.lead_h)!.model_acc * 100).toFixed(1)}%` : "–"}
                 </td>
               </tr>
@@ -136,8 +137,9 @@ function SkillTable({ rows, inSample }: { rows: SkillAtLead[]; inSample: SkillAt
           })}
         </tbody>
       </table>
-      <div className="mt-1 text-[11px] text-muted">
-        Best per row in green. &quot;Keep current&quot; is persistence. In-sample is shown only to make overfitting visible.
+      </div>
+      <div className="mt-2 text-[12px] text-muted">
+        Best per row in bold. &quot;Keep current&quot; is persistence. In-sample is shown only to make overfitting visible.
       </div>
     </div>
   );
@@ -147,7 +149,7 @@ function Reliability({ bins }: { bins: ReliabilityBin[] }) {
   const pts = bins.filter((b) => b.n > 0 && b.mean_predicted != null && b.observed_frequency != null);
   return (
     <div>
-      <div className="mb-2 text-sm font-semibold">Is the probability honest?</div>
+      <div className="mb-3 text-[20px] font-light leading-tight">Is the probability honest?</div>
       <svg viewBox="0 0 220 180" className="w-full max-w-[300px]">
         <rect x="30" y="10" width="180" height="140" fill="var(--panel-2)" />
         <line x1="30" y1="150" x2="210" y2="10" stroke="var(--muted)" strokeDasharray="4 4" />
@@ -163,7 +165,7 @@ function Reliability({ bins }: { bins: ReliabilityBin[] }) {
         <text x="120" y="170" textAnchor="middle" fontSize="9" fill="var(--muted)">predicted P(OD 25)</text>
         <text x="12" y="80" textAnchor="middle" fontSize="9" fill="var(--muted)" transform="rotate(-90 12 80)">observed share 25</text>
       </svg>
-      <div className="text-[11px] text-muted">Dots on the dashed line mean the stated probability matches what happened.</div>
+      <div className="text-[12px] text-muted">Dots on the dashed line mean the stated probability matches what happened.</div>
     </div>
   );
 }
