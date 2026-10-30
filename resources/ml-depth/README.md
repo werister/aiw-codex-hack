@@ -4,12 +4,10 @@ Stand: 30.10.2026; geprüfter Projektstand `33a7847`. Die erste Datenübergabe
 wurde anhand der Rohdaten und des inzwischen vorhandenen Modellcodes geprüft.
 Training, Modellparameter und Anwendungscode bleiben beim zuständigen Kollegen.
 
-**Vor der Demo beheben:** Der zusätzliche CLI-Starttest deckte einen
-`ns`-/`us`-Konflikt beim METAR/DFLD-Join auf. Die laufende Integration behebt
-diesen; der nächste Starttest scheitert beim Laden des Modellartefakts in
-einer anderen scikit-learn-Version. [Reproduktion und eingegrenzte Abhilfe](runtime-check.md)
-sind für den ML/CLI-Verantwortlichen dokumentiert; der vollständige Start ist hier nicht
-als bestanden markiert.
+**CLI nachgeprüft:** Die gefundenen Zeitstempel-/Laufzeitprobleme wurden durch
+die zentrale Integration behoben. Der dokumentierte Tagesaufruf und `--now`
+mit 48 Stunden laufen jetzt erfolgreich mit dem vorhandenen Modell.
+[Reproduktion und Bestätigung](runtime-check.md).
 
 **Die vorhandenen Trainingsdaten behalten.** Das Projekt trainiert inzwischen
 mit Open-Meteo `best_match` und aufgezeichneten DFLD-Betriebsrichtungen. Unser

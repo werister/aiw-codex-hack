@@ -18,9 +18,10 @@ Die unabhängige Gegenprüfung prüfte außerdem Sommerzeitlücke, doppelte Stun
 Unterscheidung von Windpfeilen und OD-Titeln sowie Beobachtung gegenüber
 TREND-Windgruppen. Es wurde kein Modell trainiert.
 
-Der echte CLI-Start ist **nicht bestanden**: erst unterschiedliche
-Zeitauflösungen, nach der laufenden Integrationskorrektur ein Fehler beim
-Modellladen. Siehe [Laufzeitprotokoll](runtime-check.md).
+Der echte CLI-Start wurde nach den Integrationskorrekturen erneut geprüft:
+Tagesaufruf und `--now` mit 48 Stunden enden mit Exit 0 und dem vorhandenen
+Modell `walk-forward-v3`. Frühere Fehler, Laufzeitversionen und die erfolgreichen
+Folgeprüfungen sind im [Laufzeitprotokoll](runtime-check.md) getrennt dokumentiert.
 
 `openspec --version` und `openspec list --json` waren nicht ausführbar
 (`command not found`). Keine OpenSpec-Artefakte wurden geändert und keine
