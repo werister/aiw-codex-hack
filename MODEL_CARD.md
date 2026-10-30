@@ -64,12 +64,12 @@ Operating direction, all recorded hours (accuracy [95% CI], Brier):
 
 ## Limitations
 - **Runway 18 is weak.** No public record of weather closures exists, so its label is inferred from METAR with the official 15 kt rule, which applies to about 0.2% of hours. In the 12 test months the model catches 3 of 24 closure events at 24 h with no false alarms. The rules on raw forecast wind catch none. DFLD's runway-18 "not in use" row is operational, not weather: only 1 of 2,251 such hours had a tailwind of 15 kt or more.
-- **Wind bias:** the forecast 10 m wind averages 0.59× the METAR wind at the airport. It is corrected on training folds before computing tailwinds.
+- **Wind bias:** the forecast 10 m wind averages 0.59× the METAR wind at the airport. It is corrected by one fixed factor per weather model, fitted once on 2024, before all test months (Nov 2025 – Oct 2026), so there is no leakage. The correction is not conditional on direction or regime.
 - **Label quality:** DFLD is a public proxy, not a certified movement log. Hours containing a change are excluded from the stable-hour accuracy, and the summer clock offset is unverified.
 
 **Prior work:**
-- Zinkhan et al. (2023), DWD Offenbach with a university group: "Intrinsic Explainable Self-Enforcing Networks Using the ICON-D2-Ensemble Prediction System for Runway Configurations", *Engineering Proceedings* 39, 41 (CC BY). They forecast FRA's runway configuration from ensemble weather forecasts.
-- Puranik et al. (2023), NASA Ames: "Predicting airport runway configurations for decision-support using supervised learning". A method reference for METAR-derived features only. It is not a comparable benchmark: different airports, horizons, labels, and a random rather than chronological split.
+- Zinkhan et al. (2023), DWD Offenbach with a university group: "Intrinsic Explainable Self-Enforcing Networks Using the ICON-D2-Ensemble Prediction System for Runway Configurations", *Engineering Proceedings* 39, 41 (CC BY). This is related work, not a benchmark: it shows one illustrative 15 h case at FRA with no backtest score and no calibration, and its text uses COSMO-DE-EPS although the title names ICON-D2. Review: Luca Schultz, `weather database/models/NOTES.md` (commit 0c8f4da on his branch).
+- Puranik et al. (2023), NASA Ames: "Predicting airport runway configurations for decision-support using supervised learning". This is a method reference for METAR-derived features. Their 93.9% (CLT) and 73.5% (DEN) predict the configuration only **15 minutes** ahead, on a **random 80:20 split**, against baselines of 81.6% and 53.7%. That is not comparable to our 6–48 h chronological walk-forward.
 
 **Next (not yet tested):**
 - ICON-D2 ensemble spread as a *candidate* certainty feature. Zinkhan et al. motivate it, but Open-Meteo has no ensemble archive before 29 Jul 2026, so it can't be backtested yet.
