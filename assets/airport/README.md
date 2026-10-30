@@ -137,10 +137,10 @@ short acceleration/deceleration ramps and 60 Hz animation samples.
 Anti-aliasing belongs to the renderer; a GLB viewer must also enable it.
 
 The native Blender scene is authored at 60 fps for 60 seconds (3,600 frames).
-The MP4 is a separate render deliverable; the script is configured for 60 fps
-at 1280 × 880 with 32 temporal anti-aliasing samples, but check the current
-render and its verification before presenting an MP4 as final. Regenerate it
-with:
+The final EEVEE MP4 is verified at 1280 × 880, 60 fps and 3,600 frames, with
+32 temporal anti-aliasing samples. The encoded video is H.264 and runs for
+60 seconds. Its file size and SHA-256, plus the still-image and model hashes,
+are recorded in `media-verification.json`. Regenerate it with:
 
 ```sh
 blender --background --threads 2 --python-exit-code 1 --python tools/blender/render_demo.py

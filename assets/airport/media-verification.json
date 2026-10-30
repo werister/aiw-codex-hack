@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "result": "passed",
-  "verified_at_utc": "2026-10-30T14:31:00+00:00",
-  "scope": "Nine final still previews, native Blender scene, nine exported GLBs, and the three browser-published GLBs plus manifest. Motion video is excluded until the final render is complete and verified.",
+  "verified_at_utc": "2026-10-30T14:43:25+00:00",
+  "scope": "Nine final still previews, native Blender scene, nine exported GLBs, browser-published models, and the final rendered motion video.",
   "source_verification": {
     "file": "verification.json",
     "result": "passed",
@@ -152,5 +152,38 @@
       "bytes": 4099192,
       "sha256": "e02493f267c8914d573ff0f7140098d4d53e3b2657cf8c8232ece29ab30b0f08"
     }
-  ]
+  ],
+  "motion_video": {
+    "file": "previews/airport-demo.mp4",
+    "format": "H.264",
+    "width": 1280,
+    "height": 880,
+    "frame_rate": "60/1",
+    "frame_count": 3600,
+    "duration_seconds": 60.0,
+    "bytes": 2058881,
+    "sha256": "97d34bb28bf966537bd62a8952c92903e009a00279fa8f3c5d6be4572dfa827e",
+    "rendering": {
+      "engine": "EEVEE",
+      "temporal_anti_aliasing_samples": 32,
+      "native_frame_sampling": "60 fps; no optical flow"
+    },
+    "motion_check": {
+      "decoded_samples": 60,
+      "sample_interval_seconds": 1,
+      "unique_samples": 59,
+      "duplicate_sample_seconds": [
+        0,
+        1
+      ],
+      "duplicate_reason": "Expected initial hold before the first 0.08 start ramp.",
+      "inspected_frames": [
+        1200,
+        1201,
+        2400,
+        2401,
+        3600
+      ]
+    }
+  }
 }
