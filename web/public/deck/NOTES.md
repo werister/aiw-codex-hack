@@ -1,5 +1,11 @@
 # Presenter notes: finals, 17:00
 
+## Hugo’s story-first script and speaker cues
+
+Start with the [speaker cue sheet](presenter-cues.html), then use the [full presentation script](presentation-script.md) for the two-minute story/demo opening, five-minute version and three-minute backup. The script includes source-pinned results, illustrative money assumptions, claim corrections and named rehearsal checks. These are review drafts; reconcile the final timing and figures before presenting.
+
+After deployment, the cue sheet is at `/deck/presenter-cues.html` and the script at `/deck/presentation-script.md`. The original seven-slide notes below are preserved for comparison.
+
 Hugo presents. About 3 minutes in total. Advance with the arrow keys, a click or the clicker; press F for full screen. Keys 1 to 7 jump to a slide.
 
 ## 1 · Title (15 s)
