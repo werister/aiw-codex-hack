@@ -111,6 +111,11 @@ export function PlayApp() {
             </button>
           ))}
         </div>
+        <p className="rounded-card border border-line p-4 text-[15px] leading-snug">
+          {!r.r18Open && r.od === "25"
+            ? "Done: runway 18 is closed and planes still land toward the west."
+            : "Your turn: close runway 18 while planes keep landing toward the west."}
+        </p>
         <p className="text-[13px] text-muted">
           Rules from the FraAlliance challenge: turn around at {LANDING_CHANGE_NOW_KT} kt tailwind, runway 18 closes at{" "}
           {R18_TAILWIND_LIMIT_KT} kt tailwind.
@@ -190,6 +195,11 @@ function Dial({ dir, onChange }: { dir: number; onChange: (deg: number) => void 
         onPointerCancel={() => (dragging.current = false)}
       >
         <circle cx="100" cy="100" r="78" fill="var(--panel-2)" stroke="var(--line)" strokeWidth="2" />
+        {/* Runways for reference: the parallel runways 07/25 and runway 18 (north to south). */}
+        <g stroke="var(--line)" strokeWidth="6" strokeLinecap="round">
+          <path d={`M${100 - 60 * Math.sin((70 * Math.PI) / 180)} ${100 + 60 * Math.cos((70 * Math.PI) / 180)} L${100 + 60 * Math.sin((70 * Math.PI) / 180)} ${100 - 60 * Math.cos((70 * Math.PI) / 180)}`} />
+          <path d="M70 60 L70 140" />
+        </g>
         {[
           ["N", 100, 36],
           ["E", 166, 104],
