@@ -7,7 +7,6 @@ Main at 12:30 runs: `python -m pytest ml/tests -q` gives 27 passed, `python -m m
 ## STOP
 
 - 12:16 | STOP | Backtest leak at the 24 h headline lead. `_previous_day1` is used up to lead 24 and `_previous_day2` up to lead 48, and availability is taken as `time - offset` with no publication lag. Leads of about 19-24 h and 43-48 h can see model runs that were not out at issue time | `ml/features.py:61-65,79`, same in `ml/live.py` | model owner: switch to day2 from about lead 18, or state the limit in the model card In progress: hk-model2.
-- 12:16 | STOP | For a future `--day`, the CLI skips the model and quietly uses the rules. The issue time is local midnight of that day, there is no METAR before it, and `predict_48h` raises "No METAR within two hours". If the jury days are after today, every jury forecast is just the rule baseline | `ml/forecast.py:31-36,99-104`, `ml/features.py:98-99` | cli owner: issue at "now" and take that day's hours from the 48 h In progress: hk-cli3 (`briefs/hk-cli3.md`).
 
 ## FIX
 
@@ -15,7 +14,6 @@ Main at 12:30 runs: `python -m pytest ml/tests -q` gives 27 passed, `python -m m
 - 12:16 | FIX | `MODEL_CARD.md` does not exist. It is a required deliverable, and the demo path in README and AGENTS.md points to it | repo root | Hugo, Luca (wp6)
 - 12:16 | FIX | The jury test days are not written down anywhere, so nobody can generate them | `openspec/changes/wp4-forecast-cli/tasks.md` 2.3 | Jayden or Hugo: put the dates in README
 - 12:16 | FIX | Open-Meteo 10 m wind at the airport grid cell averages 0.59x the METAR wind (3.97 vs 6.95 kt). On it, the rules never close runway 18 (0.0% of hours vs 0.21% in METAR), so the rules fallback and the rule baseline understate closures | rule features in `ml/features.py`, `ml/forecast.py:68-84` | model owner: bias-correct or use `wind_speed_80m`
-- 12:22 | FIX | Predictor now accepts full recorded history via obs.attrs["od_history"], but CLI still passes only asof-merged 48 h METAR history; attach the full known OD history before predict to retain long holds and changes after the latest METAR | `ml/predict.py`, `ml/forecast.py` | cli owner
 - 12:22 | FIX | ml.train, fitted artifacts and runtime metrics have landed. ml.labels still does not exist and is outside the model lane brief | `ml/README.md`, `openspec/changes/wp2-labels-rule-baseline/tasks.md` | head lane: assign or drop the unused label command
 - 12:16 | FIX | AI vendor names and unused config: both `.env.example` files hold `OPENAI_API_KEY` and `OPENAI_MODEL`, and `web/package.json` lists `openai`, `@openai/agents` and `zod`, which nothing imports | `.env.example`, `web/.env.example`, `web/package.json` | Jayden (web)
 - 12:22 | FIX | QualityResult schema is documented in ml/README.md and quality.json is published at /data/quality.json, including bins for the displayed certainty margin; UI type and quality loader still need integration | `ml/README.md`, `web/public/data/quality.json` | head lane, WP5
