@@ -4,6 +4,15 @@ Worktree `C:\olawt\aiw-wt-model`, branch `jayden/research`. This is research onl
 
 Read first: `AGENTS.md` (repo rules; **never mention any AI agent in commit messages or trailers**), `frankfurt-airport-operating-direction-forecast.md` (official brief), `CHALLENGE_FRAALLIANCE.md`, `briefing/`.
 
+## TOP PRIORITY (first 30 minutes): ground-truth labels
+The jury grades against **the operating directions actually flown at FRA**, so we need their hourly history. Check these in this order and report which works:
+1. **DFLD.de** operating-direction (Betriebsrichtung) history for Frankfurt.
+2. **UNH (umwelthaus.org)** monthly reports and any INAA exports.
+3. **OpenSky Network** flights API: EDDF departures and arrivals with runway or track. Does it work without an account, and for which period?
+4. **Deriving the OD from ADS-B departure or arrival headings** (OpenSky live state vectors are anonymous; history may need an account).
+
+If a source is downloadable without an account, fetch it into `data/ground_truth/` (you own that folder) as hourly UTC rows (`time`, `od`, `source`) and document it. If none is usable, the fallback is labels from METAR plus the official rules, and they must be marked **INFERRED** everywhere. If a source needs an account, write ONE line for Jayden with the source, why we need it and the sign-up URL. **No agent creates accounts.**
+
 ## Deliverable: `DATA_AND_DECISIONS.md` (repo root), cited, plain English
 1. **Who decides and how.** Who sets the operating direction (OD 25/07) and closes runway 18 at Frankfurt: the DFS tower supervisor, Fraport (Verkehrsleitung, Vorfeldkontrolle), FraAlliance? How the decision is made in practice: lead time, coordination, and the official rules (tailwind limits, the 30-minute tolerance, any noise-abatement preference for 25). Separate clearly what the official brief states from what other sources say.
 2. **The data points behind the decision.** For each one, where it comes from and whether we can get it publicly:
