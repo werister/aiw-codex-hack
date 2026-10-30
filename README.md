@@ -1,5 +1,7 @@
 # FRA operating direction forecast (FraAlliance challenge, AI Week Codex Hackathon, 30 Oct 2026)
 
+**Live app:** https://fraalliance-runway-forecast.statworx-par-2884.chatgpt.site (private until sharing is switched on; the pitch deck will be at `/pitch` after the next redeploy)
+
 ## Work packages (OpenSpec: `openspec/changes/`)
 
 Pick yours, read its `proposal.md` and `tasks.md`, and tick tasks off as you go. `openspec list` shows progress.
