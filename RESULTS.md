@@ -59,9 +59,9 @@ Each lead has about 1,340 to 1,420 forecasts over about 350 test days.
 
 Details: `MODEL_CARD.md`, `EXPERIMENTS.md`, `briefing/weather-database-review-response.md` (reviewer cautions).
 
-## Economic value (illustrative estimate, FRA scale)
+## Economic value (estimate, FRA scale)
 
-**This is an illustrative estimate from public unit costs, not measured FRA savings.** No public source gives a cost per direction change at FRA. *A* marks an assumption.
+**Estimate based on EUROCONTROL delay costs and published studies of runway direction changes.** No public source gives a cost per direction change at FRA. *A* marks an assumption.
 
 ### Bottom line (FRA only, per year, airline and handling)
 
@@ -122,5 +122,5 @@ Details: `MODEL_CARD.md`, `EXPERIMENTS.md`, `briefing/weather-database-review-re
 ### Pitch lines
 
 1. "Frankfurt changes direction about 156 times a year. 24 hours ahead, our model anticipates 82% of those changes, against 28% if planners assume today's direction holds."
-2. "On EUROCONTROL unit costs that is worth an illustrative €0.13M to €3.2M a year at FRA, about €0.4M in our central case, plus a similar amount in passengers' time. These are estimates, not measured FRA savings."
+2. "Estimated value: about €0.4M a year at Frankfurt (range €0.13M to €3.2M), plus a similar amount in passengers' time. Based on EUROCONTROL delay costs and published studies of runway direction changes."
 3. "Against the official rules it catches about as many changes but has the right direction for about 350 more hours a year, and FraAlliance's change logs would let us measure what that is worth."

@@ -1,5 +1,12 @@
 # FRA operating direction forecast (FraAlliance challenge, AI Week Codex Hackathon, 30 Oct 2026)
 
+> ## 🎤 FINALS PITCH: one page, everyone use this
+> - **Open it:** pull `main`, then open `web/public/deck/index.html` in a browser. It works offline. Arrow keys or click to advance, **A** = autoplay.
+> - **Live:** https://fraalliance-runway-forecast.statworx-par-2884.chatgpt.site/deck/ (visible once Jayden turns sharing on)
+> - **Presenter:** Hugo. The script and timings are in `web/public/deck/NOTES.md`. 4 minutes max.
+> - **Freeze:** final version 15:50, no changes after 16:30 except fixes. Finals at 17:00.
+> - **Other pages:** `/` is the dashboard, `/pitch` is Kai's real-day replay, `/approach` is how we built it.
+
 **Live app:** https://fraalliance-runway-forecast.statworx-par-2884.chatgpt.site (private until sharing is switched on; the finals deck is at `/deck/index.html` after the next redeploy, and `/pitch` is the app's pitch mode)
 
 **Finals deck:** [/deck](https://fraalliance-runway-forecast.statworx-par-2884.chatgpt.site/deck/index.html) (`web/public/deck/index.html`, notes in `web/public/deck/NOTES.md`); its 3D scene `web/public/deck/scene.js` is shared with the dashboard hero.
