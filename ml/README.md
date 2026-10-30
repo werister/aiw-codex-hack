@@ -4,8 +4,8 @@ Owners: Kai (co-lead) and the Codex workers `hk-data` and `hk-model`. Rules: `ml
 
 ```bash
 python -m pip install -r ml/requirements.txt
-python -m ml.fetch            # raw data into ml/data/raw/ (cached)
-python -m ml.labels           # ml/data/labels.parquet (half-hourly states from METAR + rules)
+python -m ml.fetch            # raw data into data/raw/ (cached)
+python -m ml.labels           # data/labels.parquet (half-hourly states from METAR + rules)
 python -m ml.train            # model + backtest -> ml/models/, web/src/data/backtest.json
 python -m ml.forecast --day 2026-10-31            # 48 h hourly table from 00:00 local that day
 python -m ml.forecast --day 2026-10-31 --json     # same, as ForecastResponse JSON (web/src/lib/forecast-types.ts)
