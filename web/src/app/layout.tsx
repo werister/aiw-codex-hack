@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "FRA Runway Forecast",
+  title: "FRA Runway Outlook",
   description:
     "48 h hourly forecast of the Frankfurt Airport operating direction and runway 18.",
 };

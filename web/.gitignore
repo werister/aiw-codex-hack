@@ -42,3 +42,6 @@ next-env.d.ts
 
 # keep the empty key template
 !.env.example
+
+# local UI test fixture
+public/forecasts/ui-test.json
