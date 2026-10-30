@@ -26,7 +26,7 @@ Keep this section current. If you change the stack, the run command or the entry
 
 **User decision, 30 October 2026: all work happens on `main`. This applies to every agent and ALL worktrees.** Do not create or continue feature, task or coordination branches. Consolidate existing work into `main` without losing uncommitted files.
 
-- Use the single worktree that has `main` checked out; find it with `git worktree list`. During consolidation it is `/private/tmp/aiw-commit-integration`.
+- Use the single worktree that has `main` checked out; find it with `git worktree list`. The shared worktree is `/Users/U751725/aiw-codex-hack`.
 - Older worktrees are temporary preservation/read-only copies until their changes are integrated. Do not force-checkout `main` in multiple worktrees or delete a worktree containing work.
 - Before editing, check `git status --short --branch`, read `NOTICES.md`, and agree on disjoint file ownership. Serialize staging, commits, rebases and pushes; stage only the files belonging to your change.
 - Fetch and rebase unpublished local commits onto `origin/main` only from a clean tree, when nobody else is changing it. Preserve published history and human authorship.
