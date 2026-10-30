@@ -14,6 +14,7 @@ from zoneinfo import ZoneInfo
 import pandas as pd
 
 from ml.fetch import DATA, Downloads, intervals
+from ml.rules import RULES, tailwind
 
 BERLIN = ZoneInfo("Europe/Berlin")
 OUTPUT = DATA / "ground_truth"
@@ -153,13 +154,46 @@ def extract(start, stop, refresh=False):
         row["url"].split("D=")[1], "%d.%m.%Y")), indent=2) + "\n", encoding="utf-8")
 
 
+def compare_metar():
+    """Use the same hour-start observation alignment as the training labels."""
+    runway = pd.read_csv(OUTPUT / "dfld_r18_hourly.csv")
+    runway["time"] = pd.to_datetime(runway.time, utc=True)
+    reports = pd.read_parquet(DATA / "eddf_metar.parquet")
+    weather = reports.rename(columns={"valid": "time", "sknt": "wind_kt", "drct": "wind_dir_deg"})
+    weather = weather.dropna(subset=["wind_kt"]).sort_values("time").drop_duplicates("time", keep="last")
+    joined = pd.merge_asof(runway, weather[["time", "wind_kt", "wind_dir_deg"]],
+                           on="time", tolerance=pd.Timedelta(hours=1))
+    known = joined.wind_kt.notna() & (joined.wind_dir_deg.notna() | joined.wind_kt.eq(0))
+    closed = pd.Series([tailwind(speed, direction, RULES["runway_heading_deg"]["18"])
+                        >= RULES["departure_tailwind_limit_kt"]
+                        for speed, direction in zip(joined.wind_kt, joined.wind_dir_deg)], index=joined.index)
+    not_in_use = ~joined.r18_in_use
+    result = {"alignment": "latest METAR at or before UTC hour start, maximum age 1 hour",
+              "tailwind_threshold_kt": RULES["departure_tailwind_limit_kt"],
+              "r18_known_status_hours": len(runway), "r18_not_in_use_hours": int(not_in_use.sum()),
+              "matched_known_wind_hours": int(known.sum()),
+              "not_in_use_with_known_wind": int((not_in_use & known).sum()),
+              "tailwind_closure_hours_on_status_overlap": int((closed & known).sum()),
+              "not_in_use_and_tailwind_closure_hours": int((not_in_use & closed & known).sum()),
+              "metar_rows": len(reports), "metar_start": str(reports.valid.min()),
+              "metar_end": str(reports.valid.max())}
+    payload = json.dumps(result, indent=2) + "\n"
+    (OUTPUT / "dfld_r18_tailwind_overlap.json").write_text(payload, encoding="utf-8")
+    print(payload, end="")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--since", type=date.fromisoformat, default=date(2018, 1, 1))
     parser.add_argument("--until", type=date.fromisoformat,
                         default=datetime.now(tz=BERLIN).date() - timedelta(days=1))
     parser.add_argument("--refresh", action="store_true")
+    parser.add_argument("--compare-metar", action="store_true",
+                        help="Compare saved runway-18 display hours with METAR tailwind, without downloading")
     args = parser.parse_args()
+    if args.compare_metar:
+        compare_metar()
+        return
     if args.since > args.until or args.until >= datetime.now(tz=BERLIN).date():
         parser.error("Use a nonempty range of completed local days")
     extract(args.since, args.until + timedelta(days=1), args.refresh)

@@ -2,10 +2,10 @@
   "eddf_metar": {
     "file": "eddf_metar.parquet",
     "provider": "IEM",
-    "rows": 67119,
-    "bytes": 1536388,
+    "rows": 154718,
+    "bytes": 3428683,
     "time_column": "valid",
-    "start": "2023-01-01 00:20:00+00:00",
+    "start": "2018-01-01 00:20:00+00:00",
     "end": "2026-10-30 10:20:00+00:00",
     "columns": {
       "station": "string",
@@ -39,6 +39,36 @@
         "retrieved_at": "2026-10-30T10:56:47.716128+00:00",
         "bytes": 1384068,
         "cache_file": "raw/47e9ccd04a68405d95ab3cbe.csv"
+      },
+      {
+        "url": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py?station=EDDF&year1=2018&month1=1&day1=1&year2=2019&month2=1&day2=1&tz=Etc%2FUTC&data=drct&data=sknt&data=gust&data=metar&format=onlycomma&latlon=no&missing=M&report_type=3&report_type=4",
+        "retrieved_at": "2026-10-30T11:49:56.057007+00:00",
+        "bytes": 1655028,
+        "cache_file": "raw/804817557f79d4d60b3041b5.csv"
+      },
+      {
+        "url": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py?station=EDDF&year1=2019&month1=1&day1=1&year2=2020&month2=1&day2=1&tz=Etc%2FUTC&data=drct&data=sknt&data=gust&data=metar&format=onlycomma&latlon=no&missing=M&report_type=3&report_type=4",
+        "retrieved_at": "2026-10-30T11:49:57.967532+00:00",
+        "bytes": 1626630,
+        "cache_file": "raw/39581ce723b76cdcbb788a42.csv"
+      },
+      {
+        "url": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py?station=EDDF&year1=2020&month1=1&day1=1&year2=2021&month2=1&day2=1&tz=Etc%2FUTC&data=drct&data=sknt&data=gust&data=metar&format=onlycomma&latlon=no&missing=M&report_type=3&report_type=4",
+        "retrieved_at": "2026-10-30T11:49:59.644284+00:00",
+        "bytes": 1638330,
+        "cache_file": "raw/95ca50c56fa2a27245bd7185.csv"
+      },
+      {
+        "url": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py?station=EDDF&year1=2021&month1=1&day1=1&year2=2022&month2=1&day2=1&tz=Etc%2FUTC&data=drct&data=sknt&data=gust&data=metar&format=onlycomma&latlon=no&missing=M&report_type=3&report_type=4",
+        "retrieved_at": "2026-10-30T11:50:01.459598+00:00",
+        "bytes": 1676384,
+        "cache_file": "raw/8842f7cb07c773f371e10208.csv"
+      },
+      {
+        "url": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py?station=EDDF&year1=2022&month1=1&day1=1&year2=2023&month2=1&day2=1&tz=Etc%2FUTC&data=drct&data=sknt&data=gust&data=metar&format=onlycomma&latlon=no&missing=M&report_type=3&report_type=4",
+        "retrieved_at": "2026-10-30T11:50:03.622330+00:00",
+        "bytes": 1638887,
+        "cache_file": "raw/fc547956ae64421d9fbaf3b2.csv"
       }
     ],
     "notes": "Types 3 and 4 retain routine and additional METARs, including half-hour reports. Missing direction includes VRB; missing gust means no gust reported, not zero."
