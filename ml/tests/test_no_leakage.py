@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from ml.features import FEATURES, build_features
+from ml.features import BASE_FEATURES, FEATURES, build_features
 
 
 @pytest.mark.parametrize("timestamp", ["2026-01-03T00:00Z", "2026-03-29T00:00Z", "2026-10-25T00:00Z"])
@@ -32,7 +32,8 @@ def test_issue_time_and_offsets(timestamp):
     history.loc[history.available_at > issue, "od"] = "25"
     changed = build_features(issue, obs, nwp, "25", history)
     pd.testing.assert_frame_equal(frame[FEATURES], changed[FEATURES])
-    required = frame[FEATURES].drop(columns=["hours_since_change", "pressure_msl", "temperature_2m", "wind_speed_80m"])
+    # Separate-model and 80 m inputs are optional and may be missing.
+    required = frame[BASE_FEATURES].drop(columns=["hours_since_change", "pressure_msl", "temperature_2m", "wind_speed_80m"])
     assert np.isfinite(required.to_numpy(dtype=float)).all()
 
 

@@ -18,6 +18,20 @@ python -m pytest ml/tests -q                      # rule and leakage tests
 - **Live forecast**, Open-Meteo Forecast API: `https://api.open-meteo.com/v1/forecast`, same variable names.
 - **Flown operating directions**, if found (DFLD, UNH/Fraport statistics, OpenSky): used to validate the METAR-derived labels. See `ml/SOURCES.md`.
 
+## Forecast inputs and features
+
+`ml.features.FEATURES` = base + ensemble + synoptic + state groups:
+- **Base:** recorded OD at issue, hours since change, METAR wind now and its 3 h trend, best-match forecast wind, runway tailwinds and the rule states, hour and season, lead.
+- **Ensemble:** ECMWF IFS, GFS and ICON previous runs (`data/openmeteo_previous_runs_multimodel.parquet`), each scaled to METAR level with `WIND_SCALE` (fitted on 2024 only, before every test month). Per-model tailwind on 25 and 18, the ensemble mean and spread of those tailwinds, direction spread (1 minus mean resultant length), share of models favouring 25, 80 m tailwinds, and the official state machine rerun on the corrected ensemble-mean wind (`rule_od25_ens`, `rule_18_ens`).
+- **Synoptic:** forecast pressure about 200 km north, south, west and east of FRA (`ml/synoptic.py`), as north-south and east-west differences and their geostrophic tailwind on 25 and 18.
+- **State:** observed tailwind on the direction in use now, how many hours it has stayed positive (max 5), the ensemble tailwind on the current direction, and the METAR direction.
+
+All forecast inputs use the same day1/day2/day3 offsets and six-hour lag. Live runs
+take separate models and pressure from a pre-issue snapshot, otherwise from a dated
+run with a 12 h publication proxy. A missing model stays missing; it is never filled
+with another model. The ICON-D2 ensemble spread (Zinkhan et al. 2023) has no archive
+before 29 Jul 2026, so it cannot be backtested and is not used.
+
 ## Labels
 The official rules run as a state machine over the half-hourly METARs:
 - A tailwind of 10 kt or more on the landing direction switches the OD immediately.
@@ -51,7 +65,7 @@ that timestamp exceeds T.
 
 Training uses 6-hourly issues on the Europe/Berlin clock (00:00, 06:00, 12:00,
 18:00 local, like the jury days), each with all 48 hourly leads, and the
-last six calendar months as expanding walk-forward folds. Change this with
+last twelve calendar months as expanding walk-forward folds. Change this with
 `--issue-stride` and `--months`. Training labels must end before the fold starts.
 Early stopping is disabled to avoid a random internal validation split.
 OD probabilities blend the classifier with persistence. For each fold, a separate

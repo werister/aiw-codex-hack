@@ -17,8 +17,9 @@ from sklearn.inspection import permutation_importance
 
 from ml.features import BERLIN, FEATURES, PUBLICATION_LAG_H, build_features, normalize_obs
 from ml.predict import HORIZONS, REGIMES, blend_keys, od_probability, probability
-from ml.quality import next_change_timing, period, reliability, skill, suspect_od_runs
+from ml.quality import next_change_timing, period, r18_events, reliability, skill, suspect_od_runs
 from ml.rules import RULES, od_state_machine, r18_usable
+from ml.significance import compare
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
@@ -42,14 +43,22 @@ def issue_times(start, end, stride):
     return times[(times >= start) & (times <= end)]
 
 
+def archived_inputs():
+    """Best-match previous runs plus separate models and pressure boxes, all day1/2/3 offsets."""
+    nwp = pd.read_parquet(DATA / "openmeteo_previous_runs.parquet")
+    for name in ("openmeteo_previous_runs_multimodel.parquet", "openmeteo_previous_runs_pressure.parquet"):
+        if (DATA / name).exists():
+            nwp = nwp.merge(pd.read_parquet(DATA / name), on="time", how="left", validate="one_to_one")
+    nwp["time"] = pd.to_datetime(nwp.time, utc=True)
+    return nwp.sort_values("time").reset_index(drop=True)
+
+
 def dataset(stride=6):
     truth = load_truth()
     obs = normalize_obs(pd.read_parquet(DATA / "eddf_metar.parquet"))
     truth["suspect"] = suspect_od_runs(truth, obs)
     print(f"Flagged {int(truth.suspect.sum())} recorded hours as a stuck feed", flush=True)
-    nwp = pd.read_parquet(DATA / "openmeteo_previous_runs.parquet")
-    nwp["time"] = pd.to_datetime(nwp.time, utc=True)
-    nwp = nwp.sort_values("time")
+    nwp = archived_inputs()
     times = issue_times(max(truth.available_at.min(), nwp.time.min()),
                         min(truth.time.max(), nwp.time.max()) - pd.Timedelta(hours=48), stride)
     target_obs = pd.merge_asof(truth[["time"]], obs[["time", "wind_kt", "wind_dir_deg", "gust_kt"]],
@@ -97,7 +106,8 @@ def cached_dataset(stride):
     import tempfile
 
     sources = [DATA / "ground_truth" / "dfld_hourly.csv", DATA / "eddf_metar.parquet",
-               DATA / "openmeteo_previous_runs.parquet", Path(__file__), ROOT / "ml" / "features.py"]
+               DATA / "openmeteo_previous_runs.parquet", DATA / "openmeteo_previous_runs_multimodel.parquet",
+               DATA / "openmeteo_previous_runs_pressure.parquet", Path(__file__), ROOT / "ml" / "features.py"]
     signature = str(stride) + "".join(f"{p}:{p.stat().st_size}:{p.stat().st_mtime_ns}" for p in sources)
     digest = hashlib.sha256(signature.encode()).hexdigest()[:16]
     cache = Path(tempfile.gettempdir()) / f"eddf-features-{digest}.joblib"
@@ -185,7 +195,7 @@ def evaluate(frame, truth, obs, months, stride, skipped):
         assert train.label_available_at.max() < test.issue_time.min()
         models = fit(without_stuck_feed(train))
         models["trained_through"] = train.label_available_at.max().isoformat()
-        models["version"] = "walk-forward-v4"
+        models["version"] = "walk-forward-v5"
         models["publication_lag_h"] = PUBLICATION_LAG_H
         MODELS.mkdir(parents=True, exist_ok=True)
         joblib.dump(models, MODELS / f"fold-{month}.joblib", compress=3)
@@ -222,6 +232,9 @@ def evaluate(frame, truth, obs, months, stride, skipped):
     drivers = sorted([{"feature": feature, "importance": float(value)}
                       for feature, value in zip(FEATURES, permutation.importances_mean)],
                      key=lambda row: row["importance"], reverse=True)[:10]
+    # Day-clustered bootstrap CIs, McNemar and Diebold-Mariano against both baselines.
+    significance = {"od": compare(out, "od"), "od_stuck_feed_excluded": compare(without_stuck_feed(out), "od"),
+                    "r18": compare(out, "r18")}
     observed_od = od_state_machine(obs[["time", "wind_dir_deg", "wind_kt", "gust_kt"]].itertuples(index=False, name=None))
     observed = obs[["time"]].assign(rule_od=observed_od)
     comparison = pd.merge_asof(truth, observed, on="time", tolerance=pd.Timedelta(hours=2)).dropna(subset=["rule_od"])
@@ -234,6 +247,8 @@ def evaluate(frame, truth, obs, months, stride, skipped):
         "rules_version": RULES["version"], "base_rates": base_rates,
         "od": skill(out, "od"), "r18": skill(out, "r18"), "drivers": drivers,
         "od_stuck_feed_excluded": skill(without_stuck_feed(out), "od"),
+        "significance": significance,
+        "r18_events": r18_events(out),
         "r18_label_type": "inferred", "publication_lag_h": PUBLICATION_LAG_H,
         "served_prediction": "blend", "model_fields": "model_* aliases blend_*; raw_model_* scores the unblended classifier"}
     half_hour = pd.read_csv(DATA / "ground_truth" / "dfld_half_hourly.csv.gz", dtype={"od": str})
@@ -250,6 +265,8 @@ def evaluate(frame, truth, obs, months, stride, skipped):
         "in_sample": {name: skill(inside, name) for name in ("od", "r18")},
         "out_of_sample": {name: skill(out, name) for name in ("od", "r18")},
         "out_of_sample_stuck_feed_excluded": {"od": skill(without_stuck_feed(out), "od")},
+        "significance": significance,
+        "r18_events": r18_events(out),
         "reliability": {name: reliability(out, name) for name in ("od", "r18")},
         "confidence_reliability": {name: reliability(out, name, confidence=True) for name in ("od", "r18", "combined")},
         "certainty_reliability": reliability(out, "certainty"),
@@ -270,6 +287,8 @@ def evaluate(frame, truth, obs, months, stride, skipped):
             "In-sample aggregates repeat rows across expanding folds. OOS monthly folds do not overlap; overlapping 48-hour forecast windows are correlated.",
             "Timing metrics use 6-hourly issue windows by default, not independent events. Persistence blending weights minimize Brier score on a 60-day chronological validation block before each test month; held-out data never selects weights.",
             "Issues run every six hours on the Europe/Berlin clock from 00:00, matching jury-day issues. Blend weights are chosen per lead bucket (1, 2-6, 7-24, 25-48 h) and target regime: night (23:00-05:00 local), calm (forecast 10 m wind below 2.5 kt) or active.",
+            "Inputs add ECMWF IFS, GFS and ICON previous runs and forecast pressure about 200 km N/S/W/E of FRA, under the same day1/day2/day3 offsets and six-hour lag. Wind speeds are scaled to METAR level with ratios fitted on 2024 only, before every test month. ICON-D2 ensemble spread has no archive before 29 Jul 2026 and is not used.",
+            "Runway 18 events are scored per issue: any inferred closure within the next 1, 6 or 24 h, against any forecast closure in the same window. Inferred closures are rare (about 0.3% of hours), so recall and precision rest on few events.",
             "Recorded OD runs with three or more METAR hours at or above the 10 kt landing tailwind limit are treated as a stuck feed: 8-12 Oct 2026 (103 h), when DFLD shows 07 against 8-17 kt westerlies also measured by DWD station 01420. Those rows are left out of fitting and blend selection. Headline scores (od, out_of_sample) still count them as recorded; od_stuck_feed_excluded and out_of_sample_stuck_feed_excluded drop OD targets and issue states from that run, which favours both the model and the rules."]}
     dump(OUTPUT / "backtest.json", backtest)
     dump(OUTPUT / "quality.json", quality)
@@ -279,7 +298,7 @@ def evaluate(frame, truth, obs, months, stride, skipped):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--issue-stride", type=int, default=6)
-    parser.add_argument("--months", type=int, default=6)
+    parser.add_argument("--months", type=int, default=12)
     args = parser.parse_args()
     if args.issue_stride < 1 or 24 % args.issue_stride or args.months < 6:
         parser.error("issue-stride must divide 24 hours and months must be at least six")
@@ -289,7 +308,7 @@ def main():
     models = fit(without_stuck_feed(frame))
     models["features"] = FEATURES
     models["trained_through"] = frame.label_available_at.max().isoformat()
-    models["version"] = "walk-forward-v4"
+    models["version"] = "walk-forward-v5"
     models["publication_lag_h"] = PUBLICATION_LAG_H
     MODELS.mkdir(parents=True, exist_ok=True)
     joblib.dump(models, MODELS / "forecast.joblib", compress=3)
