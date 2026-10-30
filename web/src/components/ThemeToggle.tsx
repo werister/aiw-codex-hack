@@ -10,6 +10,11 @@ function subscribeTheme(cb: () => void) {
 
 const isTower = () => document.documentElement.dataset.theme === "tower";
 
+// True while tower mode is on; false on the server.
+export function useTower() {
+  return useSyncExternalStore(subscribeTheme, isTower, () => false);
+}
+
 // Light is the brand; tower mode is the dim-room variant. Saved per device.
 export function ThemeToggle() {
   const tower = useSyncExternalStore(subscribeTheme, isTower, () => false);

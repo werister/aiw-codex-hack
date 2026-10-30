@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import type { OD } from "@/lib/forecast-types";
 
 type SceneState = { od: OD; r18Open: boolean; wind?: { dir: number; kt: number } };
+type Theme = "light" | "tower";
 type Scene = { setState: (s: SceneState) => void; destroy: () => void };
 
 // The shared FRA 3D scene lives at /deck/scene.js (also used by the finals deck).
@@ -16,7 +17,8 @@ export function SceneHero({
   wind,
   fallback,
   className,
-}: SceneState & { fallback: ReactNode; className?: string }) {
+  theme = "light",
+}: SceneState & { fallback: ReactNode; className?: string; theme?: Theme }) {
   const box = useRef<HTMLDivElement>(null);
   const scene = useRef<Scene | null>(null);
   const [failed, setFailed] = useState(false);
@@ -28,7 +30,7 @@ export function SceneHero({
     import(/* webpackIgnore: true */ /* turbopackIgnore: true */ SCENE_URL)
       .then((m: { mount: (el: HTMLElement, o: object) => Scene }) => {
         if (!alive || !box.current) return;
-        scene.current = m.mount(box.current, { ...state.current, intro: true, labels: true });
+        scene.current = m.mount(box.current, { ...state.current, intro: true, labels: true, theme });
       })
       .catch(() => alive && setFailed(true));
     return () => {
@@ -36,7 +38,7 @@ export function SceneHero({
       scene.current?.destroy();
       scene.current = null;
     };
-  }, []);
+  }, [theme]);
 
   // Drive the scene from the forecast, not from a demo loop.
   useEffect(() => {
