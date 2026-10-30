@@ -1,0 +1,213 @@
+Complete reference-list extraction from Rodriguez2021.pdf. Original PDF is authoritative; extraction may contain OCR/font or line-break errors. Bibliography inventoried, not every cited source read.
+
+References 
+
+[1]   Janić M 1997 The flow management problem in air traffic control: a model of assigning 
+
+priorities for landings at a congested airport   Transp. Plan. Technol.   20   131–62 
+
+[2]   AhmadBeygi S, Cohn A, Guan Y and Belobaba P 2008 Analysis of the potential for delay
+
+propagation in passenger airline networks   J. Air Transp. Manag.   14   221–36 
+
+[3]   Wu C L 2005 Inherent delays and operational reliability of airline schedules   J. Air Transp.
+
+Manag.   11   273–82 
+
+[4]   Cook A, Tanner G, Cristobal S and Zanin M 2015 Delay propagation: new metrics, new
+
+insights   Proceedings of the 11th USA/Europe Air Traffic Management Research and
+
+Development Seminar   (Lisbon, Portugal) 
+
+[5]   Beatty R, Hsu R, Berry L and Rome J 1999 Preliminary Evaluation of Flight Delay
+
+Propagation through an Airline Schedule   Air Track Control Quarterly   vol 7 pp 259–70 
+
+[6]   Jacquillat A and Odoni A R 2015 An Integrated Scheduling and Operations Approach to
+
+Airport Congestion Mitigation   Oper. Res.   63   1390–410 
+
+[7]   Jacquillat A and Odoni A R 2017 A roadmap toward airport demand and capacity
+
+management   Transp. Res. Part A Policy Pract. 
+
+[8]   Campanelli B, Fleurquin P, Arranz A, Etxebarria I, Ciruelos C, Eguíluz V M and Ramasco J J
+
+2016 Comparing the modeling of delay propagation in the US and European air traffic
+
+networks   J. Air Transp. Manag.   56   12–8 
+
+[9]   Rebollo J J and Balakrishnan H 2014 Characterization and prediction of air traffic delays 
+
+Transp. Res. Part C Emerg. Technol.   44   231–41 
+
+[10]   Gopalakrishnan K, Balakrishnan H and Jordan R 2016 Deconstructing Delay Dynamics: An
+
+Air Traffic Delay Example   Proceedings of the 7th International Conference on Research in Air
+
+Transportation (ICRAT) 
+
+[11]   Ashford N J, Stanton H P M, Moore C A, Coutu P and Beasley J R 2013   Airport Operations 
+
+(New York: McGraw-Hill) 
+
+[12]   Zografos K G, Salouras Y and Madas M A 2012 Dealing with the efficient allocation of scarce
+
+resources at congested airports   Transp. Res. Part C Emerg. Technol.   21   244–56 
+
+[13]   Schmitt D and Gollnick V 2016   Air Transport System   (Vienna: Springer-Verlag Wien) 
+
+[14]   Cook A 2007   European Air Traffic Management: principles, practice and research   ed A Cook
+
+(Aldershot: Ashgate) 
+
+[15]   Daley B 2010   Air Transport and the Environment   (Routledge) 
+
+[16]   Wu C L 2012   Airline operations and delay management: Insights from airline economics,
+
+networks and strategic schedule planning 
+
+[17]   Filar J A, Manyem P and White K 2001 How Airlines and Airports Recover from Schedule
+
+Perturbations: A Survey   Ann. Oper. Res.   108   315–33 
+
+[18]   Ciruelos C, Arranz A, Etxebarria I and Peces S 2015 Modelling Delay Propagation Trees for
+
+Scheduled Flights   Proc. 11th USA/Europe Air Traffic Manag. Res. Dev. Semin. 
+
+[19]   Pyrgiotis N, Malone K M and Odoni A 2013 Modelling delay propagation within an airport
+
+network   Transp. Res. Part C Emerg. Technol.   27   60–75 
+
+[20]   EUROCONTROL 2020   CODA (Central Office for Delay Analysis) Digest: All-Causes Delay
+
+and Cancellations to Air Transport in Europe - 2019   (Brussels: European Organisation for the
+
+Safety of Air Navigation) 
+
+[21]   Cook A and Tanner G 2014   European airline delay cost reference   (Brussels: University of
+
+Westminster comissioned by EUROCONTROL Performance Review Unit) 
+
+[22]   Wu C L and Caves R E 2000 Aircraft operational costs and turnaround efficiency at airports   J.
+
+Air Transp. Manag.   6   201–8 
+
+[23]   Bazargan M 2010   Airline Operations and Scheduling   (Aldershot: Ashgate) 
+
+===== PDF PAGE 9 / 9 =====
+
+10th EASN 2020 
+
+IOP Conf. Series: Materials Science and Engineering   1024   (2021) 012107 
+
+IOP Publishing 
+
+doi:10.1088/1757-899X/1024/1/012107 
+
+8 
+
+[24]   Bronsvoort J, McDonald G, Porteous R and Gutt E 2009 Study of aircraft derived temporal
+
+prediction accuracy using FANS   Proceedings of the 13th ATRS World Conference   (Abu Dhabi,
+
+UAE) 
+
+[25]   Mueller E and Chatterji G 2002 Analysis of Aircraft Arrival and Departure Delay
+
+Characteristics   Proceedings of the AIAA Aviation Technology, Integration, and Operations
+
+Conference   (Los Angeles, CA, USA) 
+
+[26]   Reitmann S, Alam S and Schultz M 2019 Advanced Quantification of Weather Impact on Air
+
+Traffic Management   13th USA/Europe Air Traffic Management Research and Development
+
+Seminar 2019 
+
+[27]   Schultz M, Lorenz S, Schmitz R and Delgado L 2018 Weather Impact on Airport Performance 
+
+Aerospace   5 
+
+[28]   Performance Review Commission 2017   Performance Review Report—An Assessment of Air
+
+Traffic Management in Europe during the Calendar Year 2017   (Brussels: European
+
+Organisation for the Safety of Air Navigation (EUROCONTROL)) 
+
+[29]   Steinheimer M, Kern C and Kerschbaum M 2019 Quantification of weather impact on arrival
+
+management   13th USA/Europe Air Traffic Management Research and Development Seminar
+
+2019 
+
+[30]   Rodríguez-Sanz Á, Comendador F G, Valdés R A and Pérez-Castán J A 2018 Characterization
+
+and prediction of the airport operational saturation   J. Air Transp. Manag.   69   147–72 
+
+[31]   Rodríguez-Sanz Á, Comendador F G, Valdés R A, Pérez-Castán J, Montes R B and Serrano S
+
+C 2019 Assessment of airport arrival congestion and delay: Prediction and reliability   Transp.
+
+Res. Part C Emerg. Technol.   98   255–83 
+
+[32]   Wu C L and Caves R E 2004 Modelling and optimization of aircraft turnaround time at an
+
+airport   Transp. Plan. Technol.   27   47–66 
+
+[33]   Lin L C and Hong C H 2006 Operational performance evaluation of international major
+
+airports: An application of data envelopment analysis   J. Air Transp. Manag.   12   342–51 
+
+[34]   Rodríguez-Sanz Á, Álvarez D Á, Comendador F G, Valdés R A, Pérez-Castán J and Godoy M
+
+N 2018 Air Traffic Management based on 4D Trajectories: A Reliability Analysis using Multi-
+
+State Systems Theory   Transp. Res. Procedia 
+
+[35]   Rodríguez-Sanz Á, Fernández B R, Comendador F G, Valdés R A, Cordero García J M and
+
+Bagamanova M 2018 Operational Reliability of the Airport System: Monitoring and
+
+Forecasting   Transp. Res. Procedia   33   363–70 
+
+[36]   Horonjeff R M, McKelvey F X, Sproule W J and Young S 2010   Planning and Design of
+
+Airports   (New York: McGraw-Hill) 
+
+[37]   Wells A T and Young S B 2014   Airport Planning & Management 
+
+[38]   EUROCONTROL 2015   Additional ASMA Time Performance Indicator document.
+
+Performance Review Unit 
+
+[39]   SESAR Joint Undertaking 2017   SESAR 2020 Concept Of Operations 
+
+[40]   EUROCONTROL, ACI and IATA 2012   Airport CDM Implementation: The Manual 
+
+(Brussels: European Organisation for the Safety of Air Navigation) 
+
+[41]   Neapolitan R E 2003   Learning Bayesian Networks   (New Jersey: Prentice Hall) 
+
+[42]   Pearl J 2000 Causality   New York Cambridge 
+
+[43]   Kjærulff U B and Madsen A L 2013   Bayesian Networks and Influence Diagrams - A guide to
+
+construction and analysis   (New York: Springer) 
+
+[44]   Nielsen T D and Jensen F V 2007   Bayesian Network and Decision Graph 
+
+[45]   Koski T and Noble J M 2009   Bayesian Networks: An Introduction   (Chichester, West Sussex:
+
+Wiley & Sons) 
+
+[46]   Krauthausen P and Hanebeck U D 2010 Parameter learning for hybrid bayesian networks with
+
+gaussian mixture and dirac mixture conditional densities   Proceedings of the 2010 American
+
+Control Conference, ACC 2010 
+
+[47]   EUROCONTROL 2011   ATMAP: Algorithm to Describe Weather Conditions at European
+
+Airports   (Brussels: European Organisation for the Safety of Air Navigation) 

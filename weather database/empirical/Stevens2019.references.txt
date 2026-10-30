@@ -1,0 +1,26 @@
+Complete bibliography, Stevens 2019, printed page 620. All 24 entries, bibliographic facts transcribed from publisher-version PDF in NOAA repository. DOI punctuation normalized where PDF extraction uses commas instead of angle brackets. These references were inventoried, not all read.
+
+1. Ball, M., and coauthors (2010). Total delay impact study: A comprehensive assessment of the costs and impacts of flight delay in the United States. National Center of Excellence for Aviation Operations Research, 89 pp. http://www.nextor.org/pubs/TDI_Report_Final_11_03_10.pdf
+2. Belorid, M.; Lee, C.; Kim, J.-C.; Cheon, T.-H. (2015). Distribution and long-term trends in various fog types over South Korea. Theoretical and Applied Climatology 122, 699–710. doi:10.1007/s00704-014-1321-x
+3. Brown, P. J.; DeGaetano, A. T. (2013). Trends in U.S. surface humidity, 1930–2010. Journal of Applied Meteorology and Climatology 52, 147–163. doi:10.1175/JAMC-D-12-035.1
+4. Bureau of Transportation Statistics (2004). Airline on-time statistics and delay causes. U.S. Department of Transportation, accessed 26 January 2018. https://www.transtats.bts.gov/OT_Delay/ot_delaycause1.asp
+5. Clark, D. A. (1995). Characterizing the causes of low ceiling and visibility at U.S. airports. Preprints, Sixth Conference on Aviation Weather Systems, Dallas, TX, AMS, 325–330.
+6. Croft, P. J.; Pfost, R. L.; Medlin, J. M.; Johnson, G. A. (1997). Fog forecasting for the southern region: A conceptual model approach. Weather and Forecasting 12, 545–556. doi:10.1175/1520-0434(1997)012<0545:FFFTSR>2.0.CO;2
+7. Dai, A. (2006). Recent climatology, variability, and trends in global surface humidity. Journal of Climate 19, 3589–3606. doi:10.1175/JCLI3816.1
+8. Dai, A.; Karl, T. R.; Sun, B.; Trenberth, K. E. (2006). Recent trends in cloudiness over the United States: A tale of monitoring inadequacies. Bulletin of the American Meteorological Society 87, 597–606. doi:10.1175/BAMS-87-5-597
+9. Easterling, D. R., and coauthors (1997). Maximum and minimum temperature trends for the globe. Science 277, 364–367. doi:10.1126/science.277.5324.364
+10. FAA (2012). Airport design. Advisory Circular AC 150/5300-13A, 322 pp. https://www.faa.gov/documentLibrary/media/Advisory_Circular/150-5300-13A-chg1-interactive-201612.pdf
+11. FAA (2017). Air traffic control. FAA Order JO 7110.65X, 614 pp. https://www.faa.gov/documentLibrary/media/Order/JO_7110.65X_Air_Traffic_Control.pdf
+12. FAA (2018). SFO AAR [Airport Acceptance Rate]. Accessed 20 July 2018. https://www.fly.faa.gov/Information/west/zoa/sfo/sfo_aar.htm
+13. Folland, C. K., and coauthors (2001). Observed climate variability and change. Climate Change 2001: The Scientific Basis. Cambridge University Press, 99–181.
+14. Held, I. M.; Soden, B. J. (2006). Robust responses of the hydrological cycle to global warming. Journal of Climate 19, 5686–5699. doi:10.1175/JCLI3990.1
+15. Karl, T. R., and coauthors (1993). A new perspective on recent global warming: Asymmetric trends of daily maximum and minimum temperature. Bulletin of the American Meteorological Society 74, 1007–1023. doi:10.1175/1520-0477(1993)074<1007:ANPORG>2.0.CO;2
+16. Klemm, O.; Lin, N.-H. (2016). What causes observed fog trends: Air quality or climate change? Aerosol and Air Quality Research 16, 1131–1142. doi:10.4209/aaqr.2015.05.0353
+17. LaDochy, S.; Witiw, M. (2012). The continued reduction in dense fog in the Southern California region: Possible causes. Pure and Applied Geophysics 169, 1157–1163. doi:10.1007/s00024-011-0366-3
+18. Lin, X.; Hubbard, K. G. (2004). Uncertainties of derived dewpoint temperature and relative humidity. Journal of Applied Meteorology 43, 821–825. doi:10.1175/2100.1
+19. Sachweh, M.; Koepke, P. (1995). Radiation fog and urban climate. Geophysical Research Letters 22, 1073–1076. doi:10.1029/95GL00907
+20. Sun, B.; Groisman, P. Ya. (2004). Variations in low cloud cover over the United States during the second half of the twentieth century. Journal of Climate 17, 1883–1888. doi:10.1175/1520-0442(2004)017<1883:VILCCO>2.0.CO;2
+21. Trenberth, K. E.; Fasullo, J.; Smith, L. (2005). Trends and variability in column-integrated atmospheric water vapor. Climate Dynamics 24, 741–758. doi:10.1007/s00382-005-0017-4
+22. Vautard, R.; Yiou, P.; van Oldenborgh, G. J. (2009). Decline of fog, mist and haze in Europe over the past 30 years. Nature Geoscience 2, 115–119. doi:10.1038/ngeo414
+23. Willett, K. M.; Gillet, N. P.; Jones, P. D.; Thorne, P. W. (2007). Attribution of observed surface humidity changes to human influence. Nature 449, 710–713. doi:10.1038/nature06207
+24. Williams, A. P.; Schwartz, R. E.; Iacobellis, S.; Seager, R.; Cook, B. I.; Still, C. J.; Husak, G.; Michaelsen, J. (2015). Urbanization causes increased cloud base height and decreased fog in coastal Southern California. Geophysical Research Letters 42, 1527–1536. doi:10.1002/2015GL063266

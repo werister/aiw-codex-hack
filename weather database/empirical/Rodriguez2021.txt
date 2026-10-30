@@ -1,0 +1,974 @@
+
+
+===== PDF PAGE 1 / 9 =====
+
+IOP Conference Series:
+
+Materials Science and
+
+Engineering 
+
+PAPER • OPEN ACCESS 
+
+Impact of Weather Conditions on Airport Arrival
+
+Delay and Throughput 
+
+To cite this article: Álvaro Rodríguez-Sanz
+et al 2021
+IOP Conf. Ser.: Mater. Sci. Eng. 1024 012107 
+
+View the article online for updates and enhancements. 
+
+You may also like 
+
+Tactical Runway Scheduling for Demand
+
+and Delay Management
+
+Álvaro Rodríguez-Sanz, Pablo López
+
+Cózar, Javier A. Pérez-Castán et al.
+
+-
+
+Research on Flight Time Optimization of
+
+Short-term Airport Group Based on
+
+Weather Conditions
+
+Shouwen Ji, Dan Zhang, Huaiyuan Liu et
+
+al.
+
+-
+
+Towards understanding the impact of
+
+convective weather on aircraft arrival traffic
+
+at the Hong Kong International Airport
+
+Gonam Lui, Rheapatricia Liem and
+
+Kaikwong Hon
+
+- 
+
+This content was downloaded from IP address 188.92.131.122 on 30/10/2026 at 10:55 
+
+===== PDF PAGE 2 / 9 =====
+
+Content from this work may be used under the terms of the Creative Commons Attribution 3.0 licence. Any further distribution
+
+of this work must maintain attribution to the author(s) and the title of the work, journal citation and DOI.
+
+Published under licence by IOP Publishing Ltd 
+10th EASN 2020 
+
+IOP Conf. Series: Materials Science and Engineering   1024   (2021) 012107 
+
+IOP Publishing 
+
+doi:10.1088/1757-899X/1024/1/012107 
+
+1 
+
+Impact of Weather Conditions on Airport Arrival Delay and
+
+Throughput 
+
+Álvaro Rodríguez-Sanz  
+a, 1 
+, Javier Cano  
+b, c 
+, Beatriz Rubio Fernández  
+a 
+
+a  
+Universidad Politécnica de Madrid, 28040, Plaza Cardenal Cisneros N3, Madrid, Spain. 
+
+b  
+Department of Computer Science and Statistics, Universidad Rey Juan Carlos, Spain. 
+
+c  
+Department of Statistics, University of Auckland, New Zealand. 
+
+1  
+e--mail: alvaro.rodriguez.sanz@upm.es 
+
+Abstract.   Weather events have a significant impact on airport arrival performance and may
+
+cause delays in operations and/or constraints in airport capacity. In Europe, almost half of all
+
+regulated airport traffic delay is due to adverse weather conditions. Moreover, the closer airports
+
+operate to their maximum capacity, the more severe is the impact of a capacity loss due to
+
+external events such as weather. Various weather uncertainties occurring during airport
+
+operations can significantly delay some arrival processes and cause network-wide effects on the
+
+overall Air Traffic Management (ATM) system. Quantifying the impact of weather is, therefore,
+
+a key feature to improve the decision-making process that enhances airport performance. It
+
+would allow airport operators to identify the relevant weather information needed, and help them
+
+decide on the appropriate actions to mitigate the consequences of adverse weather events. We
+
+present a methodology to evaluate the impact of adverse weather events on airport arrival
+
+performance (delay and throughput) and to define operational thresholds for significant weather
+
+conditions. Our results are computed from a dataset of over 750,000 flights on a major European
+
+hub and from local weather data during the period 2015-2018. We combine delay and capacity
+
+metrics at different airport operational stages for the arrival process (final approach, taxi-in and
+
+in-block). We introduce a new approach for modelling causal relationships between airport
+
+arrival performance indicators and meteorological events, which can be used to quantify the
+
+impact of weather in airport arrival conditions, predict the evolution of airport operational
+
+scenarios and support airport decision-making processes. 
+
+Keywords:   airport performance; weather impact; uncertainty management; METAR data;
+
+Bayesian Networks; operational thresholds. 
+
+1.   Introduction and problem statement 
+
+Airport arrival performance is a key element of air traffic network efficiency, as it is one of the main
+
+drivers for congestion (capacity limitation) and potentially lengthy flight delays, which spread over the
+
+network and make it vulnerable [1–5]. Airport arrival demand management involves a trade-off between
+
+mitigating congestion and maximizing capacity utilization [6,7]. This balance is also affected by the
+
+impact of air traffic delays: a significant portion of delay generation occurs at airports, where aircraft
+
+connectivity acts as a key driver for delay propagation [4,8–10]. 
+
+The airport arrival system is defined by the processes, stakeholders, infrastructures and external
+
+conditions involved in the arrival of an aircraft at an airport [11,12]. Uncertainty with respect to the
+
+circumstances of the approach (e.g. aircraft performance, air traffic procedures, weather conditions)
+
+introduce a certain degree of randomness in airport arrivals and makes traffic supply a stochastic-like
+
+queue sequencing and merging problem. To ensure continuous traffic demand at airports and maximize
+
+infrastructure usage, a minimum level of queuing is required. However, additional time in holding is
+
+detrimental to operational efficiency, fuel consumption and environmental sustainability [13–15]. 
+
+===== PDF PAGE 3 / 9 =====
+
+10th EASN 2020 
+
+IOP Conf. Series: Materials Science and Engineering   1024   (2021) 012107 
+
+IOP Publishing 
+
+doi:10.1088/1757-899X/1024/1/012107 
+
+2 
+
+Therefore, there is a trade-off between approach efficiency and runway throughput (capacity). Arrival
+
+operations also depend on the times when flights are scheduled and, as such, constitute a time-varying
+
+system [1,16,17]. The combined stochastic and time-varying nature of the arrival system creates a set of
+
+“dynamics” that affect the way airlines, ANSPs and airports manage their operations [4,18,19]. 
+
+Bad weather can distort transport planning and operations. Particularly, in air traffic management, poor
+
+meteorological conditions are the cause of an estimated 20% of all traffic delays in Europe [20]. Weather
+
+related delays are reported as the second most common cause of en-route air traffic flow management
+
+(ATFM) delays [20]. Apart from the associated economic costs for all involved stakeholders [21], delays
+
+have a substantial impact on the schedule adherence of airports and airlines, passenger experience,
+
+customer satisfaction and system reliability [16,22,23]. 
+
+Regarding airport operations, bad weather can result in operational disruptions like Low Visibility
+
+Procedures (LVP), capacity reductions holding patterns for arrival aircraft, deviations and de-icing
+
+procedures [11,16]. 
+
+From an air transportation system view, a flight could be seen as a sequence of phases. Typical standard
+
+deviations for airborne flights are 30 s at 20 min before arrival [24], but could increase to 15 min when
+
+the aircraft is still on the ground [25]. As Schultz and Reitmann demonstrated [26,27], the average time
+
+variability (measured as standard deviation) is higher during the flight phase (5.3 min) than in the taxi-
+
+out (3.8 min) and taxi-in (2.0 min) phase, but it is significantly lower than the variability of both
+
+departure (16.6 min) and arrival (18.6 min) timestamps [28]. The arrival flight phase presents a wider
+
+time-variability and therefore is subject to greater uncertainties. 
+
+Quantifying the impact of weather is, therefore, a key feature to improve the decision-making process
+
+that enhances airport performance, particularly when referring to arrival processes [29]. It would allow
+
+airport operators to identify the relevant weather information needed and help them decide on the
+
+appropriate actions to mitigate the consequences of adverse weather events. 
+
+We present a methodology to evaluate the impact of adverse weather events on airport arrival
+
+performance (delay and throughput) and to define operational thresholds for significant weather
+
+conditions. 
+
+2.   Background 
+
+Operational efficiency is one of the main topics addressed by current research in the field of airport
+
+operations [12,30]. Predicting the generation and propagation of delay in the network is paramount when
+
+assessing the impact of congestion [31–34]. This is particularly critical when estimating the resilience
+
+of the ATM system, including airports as the nodes that connects the network, and the effect of different
+
+measures to achieve the expected performance [35]. Improved capacity utilisation and demand
+
+management fall within the realm of Air Traffic Flow and Capacity Management (ATFCM) [7]. 
+
+Weather conditions change the flow patterns of the traffic registered at airports. Quantifying these
+
+pattern deviations is necessary when optimising arrival operations at airports under uncertainty [29]. 
+
+Thus, delay generation and capacity reduction due to weather impacts are relevant to capture the
+
+complexity of the system dynamics [35]. 
+
+The performance of an airport is mainly related to the number of aircraft movements handled (airport
+
+capacity–throughput)   [11]. The   term   capacity   generally   refers   to   the   ability of   the   airport   to
+
+accommodate a traffic volume (e.g., movements) in a given time period (e.g., on hourly, daily, or yearly
+
+basis) [36]. If the air traffic demand approaches or exceeds the given airport capacity, the congestion of
+
+provided infrastructure increases which results in delays and cancellations. This demand–capacity
+
+imbalance is a key cause of unpunctual operations and affects different components of the whole airport
+
+system on both airside (e.g., runways, taxiways, aprons) and landside (e.g., passenger handling) [16,37]. 
+
+Results of a data analysis from Madrid airport (our case study scenario) show that, during winter, more
+
+than 45% of the variability in daily punctuality is related to local weather impacts [20]. 
+
+Regarding the spatial boundaries for the problem, in this study we will consider the Arrival Sequencing
+
+and Metering Area (ASMA) for performance reviews. The ASMA is described as a virtual cylinder
+
+(volume) of a given radius around an aerodrome and taken as a reference for measuring the efficiency
+
+in handling the arrival flow [28,38]. It is aligned with the “extended arrival” operational concepts like 
+
+===== PDF PAGE 4 / 9 =====
+
+10th EASN 2020 
+
+IOP Conf. Series: Materials Science and Engineering   1024   (2021) 012107 
+
+IOP Publishing 
+
+doi:10.1088/1757-899X/1024/1/012107 
+
+3 
+
+E-TMA (Extended Terminal Manoeuvring Area) and E-AMAN (Extended Arrival Manager) [39].
+
+Therefore, the spatial boundary of this study is not only the airport but also its surrounding airspace, in
+
+order to take potential holding patterns into consideration. We combine delay and capacity metrics at
+
+different airport operational stages for the arrival process (final approach, taxi-in and in-block). This
+
+allows us to study the airspace / airport (airside) integrated operations [30]. 
+
+In time, we restrict actions to a tactical phase (day of operations) in order to consider the primary and
+
+initial inefficiencies of the system. We make use of the Milestones Approach, which is one of the
+
+conceptual core elements for the Airport Collaborative Decision Making (A-CDM) implementation
+
+[40]. It describes the progress of a flight from the initial planning to the take off by defining Milestones
+
+to enable close monitoring of significant events.   Flight delays are defined as the difference between the
+
+scheduled and actual   time (timestamps). Schedule delay is a term in transport modelling which refers to
+
+a difference between a desired time of arrival or departure and the actual time. 
+
+Current weather conditions (Table 1) are usually recorded at each airport in the form of METARs
+
+(Meteorological Aviation Routine Weather Report), which our proposed models use for post-operational
+
+analysis and TAFs (Terminal Area/Aerodrome Forecast), which are useful for predictive analysis. 
+
+Table 1.   Meteorological information considered in the study. 
+
+Parameter   Measurement 
+
+Wind direction & intensity   Azimuth [degrees] / Speed [kn] 
+
+Visibility   Horizontal visibility [m] 
+
+Significant weather phenomena   Rain, snow, dust, fog, etc. 
+
+Cloudiness   Cloud quantity, altitude [feet], type 
+
+Temperature & dew point   Air temperature [◦C] 
+
+Pressure   Barometric pressure adjusted to sea level (QNH) [hPa] 
+
+Runway Visual Range (RVR)   
+Distance over which a pilot of an aircraft on the centreline of the runway can see the
+
+runway surface markings delineating the runway or identifying its centreline [m] 
+
+Runway state   Dry, deposit (wet, puddles, snow, ice), friction coefficient 
+
+3.   Objectives 
+
+Main objectives of the study arise from the needs observed in the literature review of the topic. The gaps
+
+we aim to fill are: 
+
+•   Provide a methodology to evaluate the impact of adverse weather events on airport arrival
+
+performance (delay and throughput) and to define operational thresholds for significant weather
+
+conditions. 
+
+•   Relate weather data from meteorological reports (METAR) and airport arrival performance data
+
+with scheduled and actual movements as well as arrival delays. Understand the relationships
+
+between weather phenomena and their impacts on arrival delay and throughput. 
+
+•   Find the values of the explanatory variables (weather events) that leads to certain operational
+
+thresholds in the target variables (arrival delay and throughput). 
+
+•   Quantification of the airport performance with regards to an aggregated weather-performance
+
+metric. 
+
+4.   Data management and methodology 
+
+4.1.   Data 
+
+The data preparation phase covers all activities required to set up the final dataset from the initial raw
+
+aircraft operational data (airlines, infrastructure usage, capacity, operational timestamps, delays and
+
+resource allocation) and weather data. 
+
+We combine a dataset of over 750,000 flights on a major European hub (Adolfo Suárez Madrid-Barajas
+
+airport) and local weather data during the period 2015-2018. 
+
+We integrate delay and capacity metrics at different airport operational stages for the arrival process
+
+(final approach, taxi-in and in-block). Data describes: (a) various meteorological conditions at landing;
+
+(b) the expected and actual times of different events, whose eventual discrepancy would result into 
+
+===== PDF PAGE 5 / 9 =====
+
+10th EASN 2020 
+
+IOP Conf. Series: Materials Science and Engineering   1024   (2021) 012107 
+
+IOP Publishing 
+
+doi:10.1088/1757-899X/1024/1/012107 
+
+4 
+
+operational delays; and (c) some related count variables that illustrate airport performance, e.g. the
+
+experimented congestion or the accomplished throughput at different airspace locations. 
+
+Variables (a) will be taken as explicative whereas (b) and (c) will be considered as dependent variables.
+
+Our goal is to find relationships between explicative and dependent variables, which will help us explain
+
+how changes in the former would induce alterations in the latter. 
+
+4.2.   Methodology 
+
+We use a Bayesian Network (BN) approach to relate weather data from meteorological reports
+
+(METAR) and airport arrival performance data with scheduled and actual movements as well as arrival
+
+delays. This allows us to understand the relationships between weather phenomena and their impacts on
+
+arrival delay and throughput. Bayesian Networks (BNs) are a type of probabilistic graphical model that
+
+uses Bayesian inference for probability computations [41]. BNs aim to model conditional dependence,
+
+and therefore causation, by representing conditional dependence by edges in a directed graph. Through
+
+these relationships, one can efficiently conduct inference on the random variables in the graph through
+
+the use of factors. A BN is a directed acyclic graph (DAG), in which each node denotes a random
+
+variable, and each arc denotes a direct dependence between variables (nodes that are not connected
+
+symbolize variables that are conditionally independent of each other) [42–44]. Each node is associated
+
+with a probability function that takes, as input, a particular set of values for the node's parent variables,
+
+and gives (as output) the probability (or probability distribution, if applicable) of the variable represented
+
+by the node [43]. 
+
+The dataset comprises 102 variables, after the data preparation phase we finally came up with a suitable
+
+minimal subset of 13 variables. We selected 7 explicative variables (Table 2), which account for the
+
+relevant meteorological information. We have, in turn, considered 6 dependent variables (Table 3),
+
+which describe key performance (delay and throughput) indicators. 
+
+Table 2.   Explicative variables of the model. 
+
+Variable   Description 
+
+X2, wind intensity (wi)   A numeric variable, measured in whole knots. 
+
+X3, wind direction (wd)   A numeric variable, measured in tens of degrees. 
+
+X4, temperature (temp)   A numeric variable, measured in whole Celsius degrees. 
+
+X5, dew point (dp)   numeric variable, measured in whole Celsius degrees. 
+
+X6, QNH   
+This stands for the atmospheric pressure at sea-level, i.e., at zero altitude. It is a numeric
+
+variable, measured in whole hPa. 
+
+X7, visibility (vis)   
+A numeric variable, measured in m, and highly discretized, with unevenly spaced threshold
+
+values, ranging from 50; 100; 150; 200... up to 7,000; 8,000; 9,000; 9,999 and 1,0000+. 
+
+X2, wind intensity (wi)   A numeric variable, measured in whole knots. 
+
+X3, wind direction (wd)   A numeric variable, measured in tens of degrees. 
+
+Table 3.   Dependent variables of the model. 
+
+Variable   Description 
+
+Y1, Additional Arrival
+
+Sequencing and Metering
+
+Area (ASMA) at 60NM 
+
+A continuous variable measured in seconds. The additional ASMA time is a proxy for the
+
+average arrival runway queuing time on the inbound traffic flow, during congestion periods
+
+at airports. 
+
+Y2, congestion index at
+
+60NM 
+
+A discrete count variable, taking integer values, computed as the number of other aircraft
+
+ahead in the arrival queue, i.e. the number of aircraft that landed between the time the flight
+
+under consideration crossed the ASMA border and its own landing. 
+
+Y3, arrival throughput at
+
+60NM 
+
+A discrete count variable, taking integer values, calculated as the total number of landings
+
+at the airport, observed in the hour preceding the actual landing time (ALDT). 
+
+Y4, in-block delay.   
+A continuous variable measured in seconds. It represents the difference between the
+
+Scheduled In-Block Time (SIBT) and the Actual In-Block Time (AIBT). 
+
+Y5, additional taxi-in.   
+A continuous variable measured in seconds. It represents the difference between the
+
+scheduled and the actual taxi time. 
+
+Y6, off-block delay. 
+
+A continuous variable measured in seconds. measured in seconds. It represents the
+
+difference between the Scheduled Off-Block Time (SOBT) and the Actual On-Block Time
+
+(AIBT). It allows us to consider the “knock-on effect”: the transmission of delays from
+
+arrivals to departures. 
+
+Due to the characteristics of the problem attributes (heterogeneous nature -continuous or discrete /
+
+categorical- and different conditional distributions) we use a Hybrid Bayesian Network (HBN), which 
+
+===== PDF PAGE 6 / 9 =====
+
+10th EASN 2020 
+
+IOP Conf. Series: Materials Science and Engineering   1024   (2021) 012107 
+
+IOP Publishing 
+
+doi:10.1088/1757-899X/1024/1/012107 
+
+5 
+
+allows to accommodate any type of variable as well as any kind of distribution for the network nodes
+
+[43]. Learning the structure of an HBN is an iterative process which, in the light of the available evidence
+
+and experts' opinion, builds, tests and reformulates a sequence of tentative networks (different
+
+algorithms can be useful, e.g. Tabu search, Max-Min Hill Climbing,…) [45]. Several metrics have been
+
+devised to assess the goodness-of-fit of the tentative networks, e.g. the Schwarz's Bayesian Information
+
+Criterion (BIC), which assigns higher scores to networks that fit the data better [41]. As an illustrative
+
+example we present the learning algorithm and network structure for the variable Y1 (Figure 1). 
+
+Figure 1.   Algorithm for learning HBN (left) [46] and BN structure for Y1 (right). 
+
+5.   Results 
+
+The BN model allows us to identify and assess the dependencies between the relevant variables in our
+
+study, as well as to model their conditional probability distributions (CDF). To obtain the conditional
+
+probabilities at the different nodes (elicit the distributions) we followed the natural order induced by the
+
+dependence structure of the BN. We relied on Markov chain Monte Carlo (MCMC) simulations to
+
+estimate the model parameters: 3 chains, 100,000 iterations, 10% burn-in batch, and 5% thinning rate.
+
+Suitable initial values for the different chains were generated from relatively vague normal priors centred
+
+on the estimates provided by the Levenberg-Marquardt (LM) algorithm. This method minimizes the
+
+sum of the differences between the empirical cumulative relative frequencies calculated for some
+
+predefined intervals of the incumbent variable and the mixture CDF evaluated at the upper limit of the
+
+corresponding interval. For example, this procedure allows us the modelling of temperature (X4) in terms
+
+of cloud quantity (X1) and wind direction (X3); i.e. X4 | X1, X3. 
+
+Inference over a BN can come in two forms: (a) direct & (b) backward. 
+
+(a) The first is simply evaluating the joint probability of a particular assignment of values for each
+
+variable (or a subset) in the network. For this, we already have a factorized form of the joint distribution,
+
+so we simply evaluate that product using the provided conditional probabilities. 
+
+(b) The second to find the probability of some assignment of a subset of the variables (x) given
+
+assignments of other variables (our evidence, e). For this, we must marginalize the joint probability
+
+distribution over the variables that do not appear in x or e, which we will denote as y. The proposed
+
+model also provides us with the values of the explanatory variables (weather events) that leads to certain
+
+operational thresholds in the target variables (arrival delay and throughput). 
+
+As an example, a probability > 70% of having Additional ASMA 60 NM values > 15 min (delay in the
+
+arrival process) is achieved with:   X1, cloud quantity (cq) = BKN or OVC; X2, wind intensity (wi) > 12
+
+kt; X3 , wind direction (wd) = 180˚   -   360˚ (east) ; X4 , temperature (temp) > 25˚C ; X5, dew point (dp) < 
+
+10˚C ; X6, QNH < 1,020 hPa and X7, visibility (vis) < 2,500 m. 
+
+Finally, we perform a quantification of the airport performance with regards to an aggregated weather-
+
+performance metric. Specific weather phenomena are categorized through a synthetic index, which aims
+
+to quantify weather conditions at a given airport, based on aviation routine meteorological reports. This
+
+allow us to manage uncertainty at airport arrival operations by relating index levels with airport
+
+performance results. The indicator is developed with different parameters and thresholds depending on
+
+the actual nominal conditions of the airport and validated according to those conditions. The indicator
+
+itself is a specific value composed by different inputs coming from each of the categories of the METAR 
+
+===== PDF PAGE 7 / 9 =====
+
+10th EASN 2020 
+
+IOP Conf. Series: Materials Science and Engineering   1024   (2021) 012107 
+
+IOP Publishing 
+
+doi:10.1088/1757-899X/1024/1/012107 
+
+6 
+
+report: 1) wind speed, 2) shear wind conditions, 3) visibility, 4) meteorological phenomena and 5)
+
+cloudiness. Each of these categories has different weights and the final value of the indicator will be the
+
+sum of each individual category value. Thresholds are provided by the BN, which allows us to quantify
+
+the impact of each category on the output variables (clustering according to the effect of each variable). 
+
+Main findings of the proposed models are: 
+
+•   Threshold in the Airport meteorological indicator (value = 12) allows to differentiate between
+
+“good” and “bad weather”. 
+
+•   Significant correlation (R 
+2  
+> 0.7) between “bad weather” conditions and proportion of both rate
+
+of cancellations (reduction of expected throughput) and delayed flights. 
+
+•   There is a strong correlation between the proposed index and a quantified arrival delay measure
+
+(using a linear regression). If the daily weather score increases by 1, the average arrival delay
+
+(by means of median) increases by 3.39 min. The linear correlation results in R 
+2  
+= 87%. 
+
+•   Departure delay results confirm the ability of airport ground operations to absorb arrival delays
+
+(lower median and variation values for departure delays). 
+
+•   Wind conditions (intensity and speed) present the highest impact on airport arrival performance. 
+
+•   Apart from wind, the greatest impact comes from low visibility or thunderstorm conditions. 
+
+•   Additional ASMA 60 NM transit time is higher in the periods of temperature above   25˚C. 
+
+•   Cloud height is strongly dependent on phenomena type and intensity. 
+
+•   Predominant visibility shows high dependence to atmospheric pressure and temperature. 
+
+6.   Conclusions and future work 
+
+Weather has a big impact on airport arrival throughput (capacity) and on traffic delays. Meteorological
+
+conditions cannot be changed, but accurate forecasts help to be prepared and to minimize weather
+
+impact. Therefore, quantification of weather impact is a prerequisite to identify optimal mitigation
+
+measures. We propose a new approach for modelling causal relationships between airport arrival
+
+performance indicators and meteorological events. Our approach complements the traditional weather
+
+categorization tools, e.g. EUROCONTROL’s ATMAP (Air traffic management airport performance)
+
+algorithm [47], because it follows an effect-to-cause relation and provides the relationships between
+
+variables. 
+
+The functionalities of the proposed models provide us with information on relationships between
+
+variables, inference (direct & backward), operational thresholds and a weather index to classify the
+
+operational status regarding meteorological conditions. The models may be used as a post -operational
+
+tool but also for a predictive analysis.   Our approach can be applied to quantify the impact of weather in
+
+airport arrival conditions (capacity and delay), predict the evolution of airport operational scenarios and
+
+support airport decision-making processes, perform a sensitivity analysis to dynamically quantify
+
+weather influences as conditions change, and generate a weather-related decision support for future
+
+airport operations. Moreover, probability distributions provided in this study could allow airports and
+
+airlines operators to forecast the average delay expected at the infrastructure as a function of the foreseen
+
+weather, in order to apply mitigation strategies. 
+
+Future work seeks to: 
+
+•   Improve   the   accuracy   of   the   model   (more   complete   testing   data   and   methodological
+
+enhancements) 
+
+•   Compare the results when the methodology is applied to other airports (generalisation of the case
+
+study). 
+
+•   Develop a feedback control loop and analyse potential response strategies / measures (how
+
+specific actions impact the airport arrival system state). 
+
+•   Extend airport characterisation to areas other than capacity and delay (e.g. safety and financial
+
+performance). 
+
+•   Research and include impact on other flight phases, particularly departure (knock-on effect). 
+
+•   Identify which part of the registered arrival delay is primary and which part is due to the
+
+propagation of reactionary delay as this will help stakeholders to optimise operations. 
+
+===== PDF PAGE 8 / 9 =====
+
+10th EASN 2020 
+
+IOP Conf. Series: Materials Science and Engineering   1024   (2021) 012107 
+
+IOP Publishing 
+
+doi:10.1088/1757-899X/1024/1/012107 
+
+7 
+
+•   Implement a network view: variables   aggregated at a higher level creating the possibility of
+
+estimating the amount of delay experienced at airports (systems or air transport network) as a
+
+function of weather conditions. 
+
+References 
+
+[1]   Janić M 1997 The flow management problem in air traffic control: a model of assigning 
+
+priorities for landings at a congested airport   Transp. Plan. Technol.   20   131–62 
+
+[2]   AhmadBeygi S, Cohn A, Guan Y and Belobaba P 2008 Analysis of the potential for delay
+
+propagation in passenger airline networks   J. Air Transp. Manag.   14   221–36 
+
+[3]   Wu C L 2005 Inherent delays and operational reliability of airline schedules   J. Air Transp.
+
+Manag.   11   273–82 
+
+[4]   Cook A, Tanner G, Cristobal S and Zanin M 2015 Delay propagation: new metrics, new
+
+insights   Proceedings of the 11th USA/Europe Air Traffic Management Research and
+
+Development Seminar   (Lisbon, Portugal) 
+
+[5]   Beatty R, Hsu R, Berry L and Rome J 1999 Preliminary Evaluation of Flight Delay
+
+Propagation through an Airline Schedule   Air Track Control Quarterly   vol 7 pp 259–70 
+
+[6]   Jacquillat A and Odoni A R 2015 An Integrated Scheduling and Operations Approach to
+
+Airport Congestion Mitigation   Oper. Res.   63   1390–410 
+
+[7]   Jacquillat A and Odoni A R 2017 A roadmap toward airport demand and capacity
+
+management   Transp. Res. Part A Policy Pract. 
+
+[8]   Campanelli B, Fleurquin P, Arranz A, Etxebarria I, Ciruelos C, Eguíluz V M and Ramasco J J
+
+2016 Comparing the modeling of delay propagation in the US and European air traffic
+
+networks   J. Air Transp. Manag.   56   12–8 
+
+[9]   Rebollo J J and Balakrishnan H 2014 Characterization and prediction of air traffic delays 
+
+Transp. Res. Part C Emerg. Technol.   44   231–41 
+
+[10]   Gopalakrishnan K, Balakrishnan H and Jordan R 2016 Deconstructing Delay Dynamics: An
+
+Air Traffic Delay Example   Proceedings of the 7th International Conference on Research in Air
+
+Transportation (ICRAT) 
+
+[11]   Ashford N J, Stanton H P M, Moore C A, Coutu P and Beasley J R 2013   Airport Operations 
+
+(New York: McGraw-Hill) 
+
+[12]   Zografos K G, Salouras Y and Madas M A 2012 Dealing with the efficient allocation of scarce
+
+resources at congested airports   Transp. Res. Part C Emerg. Technol.   21   244–56 
+
+[13]   Schmitt D and Gollnick V 2016   Air Transport System   (Vienna: Springer-Verlag Wien) 
+
+[14]   Cook A 2007   European Air Traffic Management: principles, practice and research   ed A Cook
+
+(Aldershot: Ashgate) 
+
+[15]   Daley B 2010   Air Transport and the Environment   (Routledge) 
+
+[16]   Wu C L 2012   Airline operations and delay management: Insights from airline economics,
+
+networks and strategic schedule planning 
+
+[17]   Filar J A, Manyem P and White K 2001 How Airlines and Airports Recover from Schedule
+
+Perturbations: A Survey   Ann. Oper. Res.   108   315–33 
+
+[18]   Ciruelos C, Arranz A, Etxebarria I and Peces S 2015 Modelling Delay Propagation Trees for
+
+Scheduled Flights   Proc. 11th USA/Europe Air Traffic Manag. Res. Dev. Semin. 
+
+[19]   Pyrgiotis N, Malone K M and Odoni A 2013 Modelling delay propagation within an airport
+
+network   Transp. Res. Part C Emerg. Technol.   27   60–75 
+
+[20]   EUROCONTROL 2020   CODA (Central Office for Delay Analysis) Digest: All-Causes Delay
+
+and Cancellations to Air Transport in Europe - 2019   (Brussels: European Organisation for the
+
+Safety of Air Navigation) 
+
+[21]   Cook A and Tanner G 2014   European airline delay cost reference   (Brussels: University of
+
+Westminster comissioned by EUROCONTROL Performance Review Unit) 
+
+[22]   Wu C L and Caves R E 2000 Aircraft operational costs and turnaround efficiency at airports   J.
+
+Air Transp. Manag.   6   201–8 
+
+[23]   Bazargan M 2010   Airline Operations and Scheduling   (Aldershot: Ashgate) 
+
+===== PDF PAGE 9 / 9 =====
+
+10th EASN 2020 
+
+IOP Conf. Series: Materials Science and Engineering   1024   (2021) 012107 
+
+IOP Publishing 
+
+doi:10.1088/1757-899X/1024/1/012107 
+
+8 
+
+[24]   Bronsvoort J, McDonald G, Porteous R and Gutt E 2009 Study of aircraft derived temporal
+
+prediction accuracy using FANS   Proceedings of the 13th ATRS World Conference   (Abu Dhabi,
+
+UAE) 
+
+[25]   Mueller E and Chatterji G 2002 Analysis of Aircraft Arrival and Departure Delay
+
+Characteristics   Proceedings of the AIAA Aviation Technology, Integration, and Operations
+
+Conference   (Los Angeles, CA, USA) 
+
+[26]   Reitmann S, Alam S and Schultz M 2019 Advanced Quantification of Weather Impact on Air
+
+Traffic Management   13th USA/Europe Air Traffic Management Research and Development
+
+Seminar 2019 
+
+[27]   Schultz M, Lorenz S, Schmitz R and Delgado L 2018 Weather Impact on Airport Performance 
+
+Aerospace   5 
+
+[28]   Performance Review Commission 2017   Performance Review Report—An Assessment of Air
+
+Traffic Management in Europe during the Calendar Year 2017   (Brussels: European
+
+Organisation for the Safety of Air Navigation (EUROCONTROL)) 
+
+[29]   Steinheimer M, Kern C and Kerschbaum M 2019 Quantification of weather impact on arrival
+
+management   13th USA/Europe Air Traffic Management Research and Development Seminar
+
+2019 
+
+[30]   Rodríguez-Sanz Á, Comendador F G, Valdés R A and Pérez-Castán J A 2018 Characterization
+
+and prediction of the airport operational saturation   J. Air Transp. Manag.   69   147–72 
+
+[31]   Rodríguez-Sanz Á, Comendador F G, Valdés R A, Pérez-Castán J, Montes R B and Serrano S
+
+C 2019 Assessment of airport arrival congestion and delay: Prediction and reliability   Transp.
+
+Res. Part C Emerg. Technol.   98   255–83 
+
+[32]   Wu C L and Caves R E 2004 Modelling and optimization of aircraft turnaround time at an
+
+airport   Transp. Plan. Technol.   27   47–66 
+
+[33]   Lin L C and Hong C H 2006 Operational performance evaluation of international major
+
+airports: An application of data envelopment analysis   J. Air Transp. Manag.   12   342–51 
+
+[34]   Rodríguez-Sanz Á, Álvarez D Á, Comendador F G, Valdés R A, Pérez-Castán J and Godoy M
+
+N 2018 Air Traffic Management based on 4D Trajectories: A Reliability Analysis using Multi-
+
+State Systems Theory   Transp. Res. Procedia 
+
+[35]   Rodríguez-Sanz Á, Fernández B R, Comendador F G, Valdés R A, Cordero García J M and
+
+Bagamanova M 2018 Operational Reliability of the Airport System: Monitoring and
+
+Forecasting   Transp. Res. Procedia   33   363–70 
+
+[36]   Horonjeff R M, McKelvey F X, Sproule W J and Young S 2010   Planning and Design of
+
+Airports   (New York: McGraw-Hill) 
+
+[37]   Wells A T and Young S B 2014   Airport Planning & Management 
+
+[38]   EUROCONTROL 2015   Additional ASMA Time Performance Indicator document.
+
+Performance Review Unit 
+
+[39]   SESAR Joint Undertaking 2017   SESAR 2020 Concept Of Operations 
+
+[40]   EUROCONTROL, ACI and IATA 2012   Airport CDM Implementation: The Manual 
+
+(Brussels: European Organisation for the Safety of Air Navigation) 
+
+[41]   Neapolitan R E 2003   Learning Bayesian Networks   (New Jersey: Prentice Hall) 
+
+[42]   Pearl J 2000 Causality   New York Cambridge 
+
+[43]   Kjærulff U B and Madsen A L 2013   Bayesian Networks and Influence Diagrams - A guide to
+
+construction and analysis   (New York: Springer) 
+
+[44]   Nielsen T D and Jensen F V 2007   Bayesian Network and Decision Graph 
+
+[45]   Koski T and Noble J M 2009   Bayesian Networks: An Introduction   (Chichester, West Sussex:
+
+Wiley & Sons) 
+
+[46]   Krauthausen P and Hanebeck U D 2010 Parameter learning for hybrid bayesian networks with
+
+gaussian mixture and dirac mixture conditional densities   Proceedings of the 2010 American
+
+Control Conference, ACC 2010 
+
+[47]   EUROCONTROL 2011   ATMAP: Algorithm to Describe Weather Conditions at European
+
+Airports   (Brussels: European Organisation for the Safety of Air Navigation) 

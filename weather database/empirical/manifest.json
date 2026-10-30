@@ -1,0 +1,176 @@
+{
+  "checked_on": "2026-10-30",
+  "documents": [
+    {
+      "id": "Borsky2019",
+      "title": "Bad weather and flight delays: The impact of sudden and slow onset weather events",
+      "authors": [
+        "Stefan Borsky",
+        "Christian Unterberger"
+      ],
+      "year": 2019,
+      "doi": "10.1016/j.ecotra.2019.02.002",
+      "landing_url": "https://doi.org/10.1016/j.ecotra.2019.02.002",
+      "download_url": "https://static.uni-graz.at/fileadmin/_Persoenliche_Webseite/borsky_stefan/Papers/Borskyetal2019_Bad_weather_and_Flight_Delays_ECONTRANS.pdf",
+      "local_file": "Borsky2019.pdf",
+      "access_status": "downloaded_original_pdf",
+      "read_status": "complete_17_pages_including_appendix_and_references; numerical tables additionally inspected as rendered pages",
+      "license": "CC BY-NC-ND 4.0",
+      "role": "core",
+      "cited_by": [],
+      "archive_recommendation": "unaltered PDF and attribution in private noncommercial research archive; no modification of PDF",
+      "bytes": 3227281,
+      "sha256": "c6a3442eba97a510b0292f0b3b6114970b07cc207e19b49fb47e56fecc7941af"
+    },
+    {
+      "id": "Schultz2018",
+      "title": "Weather Impact on Airport Performance",
+      "authors": [
+        "Michael Schultz",
+        "Sandro Lorenz",
+        "Reinhard Schmitz",
+        "Luis Delgado"
+      ],
+      "year": 2018,
+      "doi": "10.3390/aerospace5040109",
+      "landing_url": "https://elib.dlr.de/123469/",
+      "download_url": "https://elib.dlr.de/123469/1/aerospace-05-00109.pdf",
+      "local_file": "Schultz2018.pdf",
+      "access_status": "downloaded_original_pdf",
+      "read_status": "complete_19_pages_including_references",
+      "license": "CC BY 4.0",
+      "role": "core",
+      "cited_by": [
+        "Rodriguez2021"
+      ],
+      "archive_recommendation": "PDF and extract with attribution",
+      "bytes": 1335636,
+      "sha256": "4dd15d177c8812e51e00137e9076eb1f6056e68774a5d3e461c2df71250e947b"
+    },
+    {
+      "id": "Sasse2003",
+      "title": "A study of thunderstorm-induced delays at Frankfurt Airport, Germany",
+      "authors": [
+        "M. Sasse",
+        "T. Hauf"
+      ],
+      "year": 2003,
+      "doi": "10.1017/S1350482703005036",
+      "landing_url": "https://rmets.onlinelibrary.wiley.com/doi/abs/10.1017/S1350482703005036",
+      "download_url": "https://rmets.onlinelibrary.wiley.com/doi/pdf/10.1017/S1350482703005036",
+      "local_file": null,
+      "access_status": "publisher_free_access_web_pdf_readable; direct download blocked by Cloudflare",
+      "read_status": "complete_10_pages_via_web_including_tables_and_all_8_references",
+      "license": "Copyright Royal Meteorological Society 2003; publisher labels Free Access; no open redistribution license verified",
+      "role": "core_and_followed_reference",
+      "cited_by": [
+        "Borsky2019"
+      ],
+      "archive_recommendation": "link, bibliography and own notes; original PDF unavailable locally"
+    },
+    {
+      "id": "Rodriguez2021",
+      "title": "Impact of Weather Conditions on Airport Arrival Delay and Throughput",
+      "authors": [
+        "Álvaro Rodríguez-Sanz",
+        "Javier Cano",
+        "Beatriz Rubio Fernández"
+      ],
+      "year": 2021,
+      "doi": "10.1088/1757-899X/1024/1/012107",
+      "landing_url": "https://doi.org/10.1088/1757-899X/1024/1/012107",
+      "download_url": "https://iopscience.iop.org/article/10.1088/1757-899X/1024/1/012107/pdf",
+      "local_file": "Rodriguez2021.pdf",
+      "access_status": "downloaded_original_pdf",
+      "read_status": "complete_9_pdf_pages_including_all_47_references",
+      "license": "CC BY 3.0",
+      "role": "related_conference_version_not_identical_to_Rodriguez2022",
+      "cited_by": [],
+      "archive_recommendation": "PDF and extract with attribution",
+      "bytes": 790335,
+      "sha256": "bd9ac6f91664fa9cb7e7ed372b9485e48042b8ca0354a9c9846d6093717fe141"
+    },
+    {
+      "id": "Rodriguez2022",
+      "title": "Impact of weather conditions on airport arrival delay and throughput",
+      "authors": [
+        "Álvaro Rodríguez-Sanz",
+        "Javier Cano",
+        "Beatriz Rubio Fernández"
+      ],
+      "year": 2022,
+      "doi": "10.1108/AEAT-12-2020-0318",
+      "landing_url": "https://portalcientifico.upm.es/cat/ipublic/item/9342722",
+      "download_url": null,
+      "local_file": null,
+      "access_status": "abstract_and_metadata_only; no accessible original journal PDF located",
+      "read_status": "not_full_text_read; 2021 conference version read separately",
+      "license": "not_verified",
+      "role": "core_access_gap",
+      "cited_by": [],
+      "archive_recommendation": "link and access-status note only"
+    },
+    {
+      "id": "Stevens2019",
+      "title": "Trends in Instrument Flight Rules (IFR) Conditions at Major Airports in the United States",
+      "authors": [
+        "Scott E. Stevens"
+      ],
+      "year": 2019,
+      "doi": "10.1175/JAMC-D-18-0301.1",
+      "landing_url": "https://repository.library.noaa.gov/view/noaa/45302",
+      "download_url": "https://repository.library.noaa.gov/view/noaa/45302/noaa_45302_DS1.pdf",
+      "local_file": null,
+      "access_status": "repository_web_pdf_readable; local download Access Denied; empty publisher download removed",
+      "read_status": "complete_6_pages_via_web_including_table_and_all_24_references",
+      "license": "Copyright American Meteorological Society 2019; no open redistribution license verified",
+      "role": "core",
+      "cited_by": [],
+      "archive_recommendation": "link, bibliography and own notes; original PDF unavailable locally"
+    },
+    {
+      "id": "Allan2000",
+      "title": "Delay Reduction at Newark International Airport Using Terminal Weather Information Systems",
+      "authors": [
+        "Shawn S. Allan",
+        "Stephen G. Gaddy"
+      ],
+      "year": 2000,
+      "doi": null,
+      "landing_url": "https://archive.ll.mit.edu/mission/aviation/publications/publications-by-name/allan-s.html",
+      "download_url": "https://archive.ll.mit.edu/mission/aviation/publications/publication-files/ms-papers/Allan_2000_ARAM_MS-14148_WW-10159.pdf",
+      "local_file": "Allan2000.pdf",
+      "access_status": "downloaded_original_pdf_local_review_only",
+      "read_status": "complete_7_pdf_pages_including_references",
+      "license": "AMS copyright 2000; cover explicitly requires permission or license for electronic server posting beyond stated exceptions",
+      "role": "followed_reference",
+      "cited_by": [
+        "Sasse2003"
+      ],
+      "archive_recommendation": "DO NOT UPLOAD PDF OR FULL-TEXT EXTRACT; link, bibliography and own notes only",
+      "bytes": 72809,
+      "sha256": "44e16f821cfbf6988294ed08d23be57081d1ceae024e253c7264eca4eac59d39"
+    },
+    {
+      "id": "Buxi2013",
+      "title": "Generating day-of-operation probabilistic capacity scenarios from weather forecasts",
+      "authors": [
+        "Gurkaran Buxi",
+        "Mark Hansen"
+      ],
+      "year": 2013,
+      "doi": "10.1016/j.trc.2012.12.006",
+      "landing_url": "https://its.berkeley.edu/publications/generating-day-operation-probabilistic-capacity-scenarios-weather-forecasts",
+      "download_url": null,
+      "local_file": null,
+      "access_status": "author-institution abstract and metadata verified; journal full text not obtained",
+      "read_status": "abstract_only; same-titled 2012 dissertation is different and not substituted",
+      "license": "not_verified",
+      "role": "followed_reference_access_gap",
+      "cited_by": [
+        "Schultz2018"
+      ],
+      "archive_recommendation": "link and gap note only"
+    }
+  ]
+}
