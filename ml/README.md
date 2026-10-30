@@ -126,3 +126,9 @@ In-sample aggregates repeat rows across expanding fits; out-of-sample folds do
 not overlap. Timing scores count missed actual changes as misses and report
 false alarms on no-change windows separately. Half-hour clock ambiguities and
 incomplete truth windows are excluded.
+
+In `backtest.json`, `train_period` describes the last fold's training issues,
+while `test_period` spans all six held-out months. Those summary periods overlap
+because earlier test months become training data in later folds. Each individual
+fold remains separated in time. Inferred runway 18 targets require a METAR no
+more than one hour old, matching the CLI's observed overlay.

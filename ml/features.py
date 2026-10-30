@@ -31,8 +31,10 @@ def normalize_obs(obs):
     obs["time"] = pd.to_datetime(obs.time, utc=True)
     if "gust_kt" not in obs:
         obs["gust_kt"] = obs.wind_kt
+    for column in ("wind_dir_deg", "wind_kt", "gust_kt"):
+        obs[column] = pd.to_numeric(obs[column], errors="coerce")
     obs["gust_kt"] = obs.gust_kt.fillna(obs.wind_kt)
-    return obs.sort_values("time").drop_duplicates("time", keep="last")
+    return obs.dropna(subset=["wind_kt"]).sort_values("time").drop_duplicates("time", keep="last")
 
 
 def components(speed, direction, heading):
