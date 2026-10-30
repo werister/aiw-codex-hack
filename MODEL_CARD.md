@@ -62,10 +62,21 @@ Operating direction, all recorded hours (accuracy [95% CI], Brier):
 - lead time
 - observed tailwind on 25
 
+## Data verification (independent, Kai Detmers)
+Kai rebuilt and re-checked our data offline with the Python standard library only; every check exits 0 ([`resources/ml-depth/verification.md`](resources/ml-depth/verification.md)):
+- All 76,588 hourly DFLD labels are reconstructed exactly from 154,752 half-hour values. The 788 excluded hours and 2,880 raw HTML samples match.
+- 46 of 46 raw METAR file hashes match, with 32,156 main wind groups and zero normalisation deviations.
+- 144,072 forecast wind values from 22 monthly responses re-checked.
+- 72 hourly ICON vectors (216 wind values) match the single model runs they were assigned to. The 6 h publication buffer itself is still an assumption.
+- TAF is not used: the IEM archive returned only a header and zero rows for EDDF ([`resources/ml-support/taf/findings.md`](resources/ml-support/taf/findings.md)).
+- **Wind bias:** ICON's forecast surface wind runs about 3.3 kt below the airport sensor, stable across 22 months (7-day-block interval −3.49 to −3.15 kt; against the DWD station −3.07 kt). That is why forecast wind is scaled to airport level ([`resources/ml-depth/comparability/audit.md`](resources/ml-depth/comparability/audit.md)).
+
 ## Limitations
 - **Runway 18 is weak.** No public record of weather closures exists, so its label is inferred from METAR with the official 15 kt rule, which applies to about 0.2% of hours. In the 12 test months the model catches 3 of 24 closure events at 24 h with no false alarms. The rules on raw forecast wind catch none. DFLD's runway-18 "not in use" row is operational, not weather: only 1 of 2,251 such hours had a tailwind of 15 kt or more.
 - **Wind bias:** the forecast 10 m wind averages 0.59× the METAR wind at the airport. It is corrected by one fixed factor per weather model, fitted once on 2024, before all test months (Nov 2025 – Oct 2026), so there is no leakage. The correction is not conditional on direction or regime.
 - **Threshold:** Fraport's public page describes a lower tailwind threshold for direction changes than the official brief's 10 kt or more. We use the brief's threshold.
+- **Change hours:** 770 of the 1,681 detectable direction changes fall in transition hours that the hourly labels exclude, so change detection is scored on the half-hour data instead.
+- **Variable wind and runway 18:** 4,289 METAR reports give variable direction (VRB), and 24 direction ranges make the 15 kt rule ambiguous. Our label policy: VRB hours with non-zero wind stay unlabelled for runway 18 (2,067 DFLD hours in the 2024-12 to 2026-10 overlap), so runway-18 scores cover labelled hours only.
 - **Label quality:** DFLD is a public proxy, not a certified movement log. Hours containing a change are excluded from the stable-hour accuracy, and the summer clock offset is unverified.
 
 **Prior work:**
