@@ -133,7 +133,8 @@ def export_glb(s,r,name,animated=False):
     for o in descendants(r):o.select_set(True)
     bpy.context.view_layer.objects.active=r
     bpy.ops.export_scene.gltf(filepath=str(EXPORT/name),export_format='GLB',
-        use_selection=True,export_yup=True,export_apply=True,export_texcoords=False,
+        use_selection=True,use_active_scene=True,export_yup=True,
+        export_apply=True,export_texcoords=False,
         export_animations=animated,export_extras=True,export_cameras=False,
         export_lights=False,export_frame_range=True,export_force_sampling=True)
     bpy.ops.object.select_all(action='DESELECT')
