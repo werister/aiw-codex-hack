@@ -43,7 +43,7 @@ def dataset(stride=6):
     times = pd.date_range(max(truth.available_at.min(), nwp.time.min()),
                           min(truth.time.max(), nwp.time.max()) - pd.Timedelta(hours=48), freq=f"{stride}h")
     target_obs = pd.merge_asof(truth[["time"]], obs[["time", "wind_kt", "wind_dir_deg", "gust_kt"]],
-                               on="time", tolerance=pd.Timedelta(hours=2))
+                               on="time", tolerance=pd.Timedelta(hours=1))
     truth["y_r18"] = [r18_usable(s, d, g) for s, d, g in target_obs[["wind_kt", "wind_dir_deg", "gust_kt"]].itertuples(index=False, name=None)]
     truth["y_od"] = truth.od.eq("25").astype(int)
     truth["change_count"] = truth.od.ne(truth.od.shift()).cumsum()
@@ -223,6 +223,7 @@ def main():
     dump(MODELS / "metadata.json", {"version": models["version"], "features": FEATURES,
         "trained_through": models["trained_through"], "n": len(frame), "r18_label_type": "inferred"})
     print("Outputs written to web/public/data/; final models saved to ml/models/", flush=True)
+    print("Observed base rates, runway 18 inferred:", json.dumps(backtest["base_rates"]), flush=True)
     print(pd.DataFrame(backtest["od"]).to_string(index=False), flush=True)
 
 
