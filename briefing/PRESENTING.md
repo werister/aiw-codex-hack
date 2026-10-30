@@ -13,7 +13,7 @@ Site: https://fraalliance-runway-forecast.statworx-par-2884.chatgpt.site (Jayden
 - **Spoken pitch and demo:** `PITCH.md` and `DEMO_SCRIPT.md`. The demo clicks get updated after the dashboard is final at 15:45.
 - **Numbers:** `MODEL_CARD.md`, from `web/public/data/quality.json`. Quote the margins with their 95% ranges, not p-values. On money, use only pitch line 2 of "Economic value (illustrative estimate)" in `RESULTS.md`, word for word.
 - **Kai's pitch strategy (German):** `resources/hackathon-pitch-strategy.md`.
-- **Backup video if the site fails:** `assets/airport/airport-demo.mp4` (60 s airport scene).
+- **Backup video if the site fails:** `assets/airport/previews/airport-demo.mp4` (60 s airport scene).
 
 ## Hard questions, short answers
 - **Runway 18?** Closures are rare (about 0.2% of hours) and have no public record. Our label is inferred from the official 15 kt rule. In 12 test months the model caught 3 of 24 closure events a day ahead, with no false alarms. That is honest but weak. A pilot with DFS wind-sensor data is the fix.
