@@ -6,9 +6,17 @@ Main at 14:00 runs: `python -m pytest ml/tests -q` gives 52 passed, `python -m m
 
 ## STOP
 
-- None open.
+- 12:17 | STOP | Rule baseline drops the mild-tailwind timer known at issue time: 5 kt tailwind at T-20m and T with OD25 still predicts OD25 at T+1h instead of OD07; reproduced against the same state machine with the known timer | `ml/features.py:129-132`; the fallback in `ml/forecast.py` also starts with forecast rows only | model and cli owners: carry the observed hysteresis state into the forecast
 
 ## FIX
+
+- 13:22 | FIX | The consolidated airport environment GLB is 16,306,028 bytes and fails the verifier's 15,000,000-byte limit; the saved scene report also contains terminal/runway and aircraft/terminal overlaps. The user explicitly requested consolidation and publication; these checks remain failed | `tools/blender/verify_assets.py`, `assets/airport/verification.json` | airport asset owner: repair and rerun checks
+
+- 12:17 | FIX | Archived offset inputs bypass explicit `issued_at`/`retrieved_at` filtering: a fixture issued at T+2h is accepted for all 48 forecast rows at T despite the function contract | `ml/features.py:43-58` | model owner: enforce explicit availability metadata on archived inputs too
+
+- 12:41 | FIX | Quality timing metrics can be null when there are no actual-change windows, but the UI types them as numbers and renders Math.round(null * 100) as 0%, falsely implying measured failure instead of unavailable data | `ml/quality.py:88-90`, `web/src/lib/forecast-types.ts:99`, `web/src/components/QualityPanel.tsx:50-51` | web owner: type nullable rates and display unavailable explicitly
+
+- 12:41 | FIX | Future-day output now contains only the requested calendar day, while ForecastResponse and the UI still require 48 hours: with issue 2026-10-30T11:00Z and requested 2026-10-31, reproduced 24 rows with leads 12-35. The new day-view brief and the shared contract need coordinated handling | `ml/forecast.py:209-218`, `web/src/lib/forecast-types.ts:49`, `web/src/components/Timeline.tsx` | cli and web owners: preserve a full response with a separate day filter, or update the partial-day contract and UI together
 
 - 14:00 | FIX | Jury test days are pending from FraAlliance (README "Jury test days", ea7a492), with 2026-10-31 and 2026-11-01 as the fallback at 15:30. No jury-day forecast files exist yet | README, `web/public/forecasts/` | Jayden or Hugo: dates; cli lane: generate and add to `index.json` by 15:30
 - 13:10 | FIX | `ml.labels` does not exist. I removed it from the README run block; `ml/README.md:8` still lists it | `ml/README.md` | model lane, when committing
@@ -18,6 +26,8 @@ Main at 14:00 runs: `python -m pytest ml/tests -q` gives 52 passed, `python -m m
 - 13:30 | FIX | Kai's `origin/codex/blender-airport-assets` branched from 9558d79 (about 11:20) and carries 11 duplicate copies of early main commits, 51 MB of 3D files (`airport-environment.glb` is 16 MB, plus a 3 MB `.blend`), a 71-line README rewrite, AGENTS.md edits, and old file versions that name an AI model as head agent. Merging it as is would conflict and bring that back | branch `codex/blender-airport-assets` | Kai and head lane: take only the needed assets, no merge
 
 ## FYI
+
+- 13:15 | FYI | Blender lane owns `tools/blender/` and `assets/airport/` through final spatial/playback checks; source scripts are already copied identically, replacing only stale intermediate media with the completed render. Preserved prior main media in `/tmp/fra-main-preserved-1315`. Do not stage these paths until verification is passed. OpenSpec CLI is unavailable; no spec artifacts changed | shared main | Blender lane
 
 - 13:20 | FYI | `weather database/` is down to 5.7 MB on main after dfc3c5e moved the PDFs and the BTS zip to Luca's branch. It is still outside the runway forecast and has a space in its name | `weather database/` | cleanup agent at the end
 - 14:00 | FYI | October midnight issues: persistence still beats the model at 1-6 h (now 83.0% for the model; at lead 1 it is 86.2% vs 100%, n=29). The model card states it | `web/public/data/october.json` | model lane
