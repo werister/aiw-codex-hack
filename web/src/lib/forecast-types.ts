@@ -19,6 +19,43 @@ export interface HourForecast {
   od: OD; // model call: 25 if p_od25 >= 0.5
   p_18_usable: number; // model probability that runway 18 is usable for departures, 0..1
   certainty: number; // 0..100, how sure the model is about this hour (both calls combined)
+  inputs?: HourInputs; // evidence: the values this hour's probability was computed from (absent in older files)
+}
+
+// Per-hour evidence, written by ml/predict.py. Missing values are null, never filled from another source.
+export interface HourInputs {
+  nwp_offset_days: number;
+  wind_kt_metar_scaled: number;
+  ens_tailwind_25_mean: number | null;
+  ens_tailwind_25_std: number | null;
+  ens_tailwind_18_mean: number | null;
+  ens_dir_spread: number | null;
+  ens_votes_25: number | null;
+  rule_od25_ens: 0 | 1;
+  dp_ns_hpa: number | null;
+  dp_ew_hpa: number | null;
+  blend_key: string; // e.g. "6:night"
+  blend_weight: number;
+  p_od25_raw: number;
+}
+
+// Run-level evidence: which artifact and inputs produced this file.
+export interface ForecastEvidence {
+  run_id: string; // 12 hex of sha256(issued_at + artifact sha + input values)
+  model_artifact: { version: string; file: string; sha256: string; trained_through: string };
+  feature_set: string;
+  rules_version: string;
+  publication_lag_h: number;
+  issue_inputs: {
+    metar_time: string;
+    metar_wind_dir_deg: number | null;
+    metar_wind_kt: number;
+    metar_gust_kt: number;
+    od_at_issue: OD;
+    od_source: string;
+    hours_since_change: number | null;
+  };
+  sources: { name: string; issued_at?: string; available_at: string; missing?: boolean }[];
 }
 
 export interface NextChange {
@@ -51,6 +88,8 @@ export interface ForecastResponse {
   next_change: NextChange | null;
   closures_18: Closure18[];
   observed?: { time: string; od: OD; r18_usable: boolean }[]; // hindcast only: what the rules say happened
+  evidence?: ForecastEvidence; // absent in files written before evidence capture
+  briefing?: string | null; // optional plain-language summary for tower staff
 }
 
 export interface SkillAtLead {

@@ -29,7 +29,7 @@ Please identify:
   - the raw model probability before the persistence blend, and the blend weight;
   - hashes of the input snapshots (METAR, forecast runs, recorded history up to issue time).
 - **One real run:** `web/public/forecasts/2026-10-28.json`, issued `2026-10-27T23:00Z` (00:00 local), model `walk-forward-v4`, rules `fraalliance-brief-2026-10-30`.
-- **Smallest missing change:** in `predict_48h()`, keep the feature frame and the raw and blended probabilities in `frame.attrs`. In `build_forecast()`, write a sibling file `web/public/forecasts/<day>.evidence.json` with `run_id`, the input snapshot hashes and, per UTC hour, the ordered features, raw probability, blend weight and published probability. Then add `run_id` to the forecast JSON. No blocker, but it comes after the model work that lands by 15:30.
+- **Smallest missing change:** in `predict_48h()`, keep the feature frame and the raw and blended probabilities in `frame.attrs`. In `build_forecast()`, write them into the forecast JSON as `evidence` and per-hour `inputs`. The agreed shape is inline in the forecast file (see Jayden's section). No blocker, but it comes after the model work that lands by 15:30.
 
 
 ## Jayden Bruck — UI connection and coordination
@@ -44,7 +44,7 @@ Please confirm:
 
 **Answer / owner / code or artifact link:**
 - **UI integration owner:** Jayden's head agent (it owns `web/` and `web/src/lib/forecast-types.ts`), with its design worker for layout. Hugo owns the evidence contract and the demo story. No other worker owns this, so it doesn't duplicate anything.
-- **Record format and location:** a per-run evidence file next to the forecast, `web/public/forecasts/<day>.evidence.json`, written by the same CLI run. Shape: `{ run_id, issued_at, model_version, rules_version, inputs: { sources: [...snapshot hashes] }, hours: { "<UTC hour>": { features: [[name, value], ...], p_raw, blend_weight, p_published } } }`.
+- **Record format and location:** inline in the forecast file itself (`web/public/forecasts/<day>.json`), so the evidence can't come from a different run. There's a top-level `evidence` block (run ID, model artifact with its SHA-256 and training cut-off, feature set, rules version, publication lag, issue-time inputs, sources with availability times), and each hour carries an `inputs` block (ensemble tailwinds and spread, pressure differences, blend key and weight, raw probability). The types are `ForecastEvidence` and `HourInputs` in [`web/src/lib/forecast-types.ts`](../web/src/lib/forecast-types.ts). Missing values are `null`, never filled from another source.
 - **Join key:** `run_id` = issue time + a short hash of (model artifact, rules version, input snapshots), then the UTC hour (`time`, e.g. `2026-10-28T06:00Z`). A rerun with the same issue time but different inputs or model gets a different `run_id`. The UI only shows evidence whose `run_id` equals the forecast file's `run_id`.
 - **Missing capture:** the evidence chain already says "not recorded in this forecast file" for anything absent (see [`web/src/components/EvidenceChain.tsx`](../web/src/components/EvidenceChain.tsx)). The same applies to an absent or mismatched evidence file. Nothing is inferred from the final score.
 - **Alignment with the recommendation:** the recommendation is computed from the forecast file's `next_change` or `closures_18`. Opening its evidence selects that event's UTC hour in the timeline. Choosing any other hour updates only the drill-down and evidence, never the recommendation, so the two can't drift apart.
