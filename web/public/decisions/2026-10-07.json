@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "policy_version": "planning-priorities-v1",
-  "generated_at": "2026-10-30T13:35:18.462769+00:00",
+  "generated_at": "2026-10-30T13:47:02.925155+00:00",
   "forecast_basis": {
     "issued_at": "2026-10-06T22:00Z",
     "current_od": "07",
@@ -455,11 +455,11 @@
     },
     "closures_18": [],
     "evidence": {
-      "run_id": "2953c2ac1fdf",
+      "run_id": "d266fde1ad76",
       "model_artifact": {
         "version": "walk-forward-v5",
         "file": "fold-2026-10.joblib",
-        "sha256": "faebe52aefa624b9406505b728e454ea553b4f2e9ee6d5a6562fedcac690ffe5",
+        "sha256": "0bf9cfd452f17bb76041248bd7bae718c46706e9bea3b8b8285f1a4a2c03220c",
         "trained_through": "2026-09-30T23:00:00+00:00"
       },
       "feature_set": "base+ensemble+synoptic",

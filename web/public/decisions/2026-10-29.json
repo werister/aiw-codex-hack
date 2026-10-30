@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "policy_version": "planning-priorities-v1",
-  "generated_at": "2026-10-30T13:33:35.694142+00:00",
+  "generated_at": "2026-10-30T13:48:38.429515+00:00",
   "forecast_basis": {
     "issued_at": "2026-10-28T23:00Z",
     "current_od": "25",
@@ -455,11 +455,11 @@
     },
     "closures_18": [],
     "evidence": {
-      "run_id": "a9551a35697c",
+      "run_id": "6b8b4f983008",
       "model_artifact": {
         "version": "walk-forward-v5",
         "file": "fold-2026-10.joblib",
-        "sha256": "faebe52aefa624b9406505b728e454ea553b4f2e9ee6d5a6562fedcac690ffe5",
+        "sha256": "0bf9cfd452f17bb76041248bd7bae718c46706e9bea3b8b8285f1a4a2c03220c",
         "trained_through": "2026-09-30T23:00:00+00:00"
       },
       "feature_set": "base+ensemble+synoptic",
@@ -552,7 +552,7 @@
   "selections": {
     "ground_operations": {
       "candidate_id": "disagreement-1",
-      "selection_confidence": 0.91
+      "selection_confidence": 0.3
     },
     "forecast_review": {
       "candidate_id": "disagreement-1",
@@ -563,5 +563,5 @@
   "status_reason": null,
   "decision_model": "gpt-6-luna",
   "response_id": null,
-  "request_sha256": "18f7a31395f5c88c7db061681d0871a170ffb0cb6d66bae523ddc9175ed3e903"
+  "request_sha256": "a08d767f01ae24bba99ae211fa96d5c0efacf884a858bd9660f3b17a82bbf8c2"
 }

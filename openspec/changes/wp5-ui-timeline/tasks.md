@@ -60,6 +60,6 @@
 
 ## 9. Approved planning-priority selection
 
-- [ ] 9.1 Produce fixed planning candidates and two perspective selections from pre-outcome forecast evidence; provide validated API answers, deterministic fallback, single-candidate bypass and exact artifact binding.
-- [ ] 9.2 Integrate the saved review into the cockpit with perspective selection, source-hour navigation, preparation-time scenarios and explicit unavailable/fallback/provenance states.
+- [x] 9.1 Produce fixed planning candidates and two perspective selections from pre-outcome forecast evidence; provide validated API answers, deterministic fallback, single-candidate bypass and exact artifact binding.
+- [x] 9.2 Integrate the saved review into the cockpit with perspective selection, source-hour navigation, preparation-time scenarios and explicit unavailable/fallback/provenance states.
 - [ ] 9.3 Verify producer/browser contracts, failure cases, the two approved live-test forecasts, rendered interaction and build compatibility; document measured results and operational-evaluation limits.

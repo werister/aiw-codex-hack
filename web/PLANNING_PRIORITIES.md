@@ -71,12 +71,17 @@ Provider error bodies and credentials are never written to public artifacts.
 
 ## Demo and observed result — 30 October 2026
 
-Open the cockpit for **29 October** and the Planning priorities panel. The real
+Open the cockpit for **29 October**, expand **For experts**, and find the
+Planning priorities panel. The real
 API selected `disagreement-1` for both perspectives, from three candidates.
 The deterministic operations fallback would select `direction-6` instead:
 the difference is reviewing conflicting evidence before the predicted switch.
-Selection confidence was 0.91 for operations and 1.0 for forecast review. These
-are neither measured accuracy nor a probability of switching.
+The first call returned selection confidence 0.91 for operations and 1.0 for
+forecast review. After upstream source-metadata changes, the explicitly
+approved rerun selected the same issue with confidence 0.30 and 1.0 respectively.
+The low operations confidence remains in the saved JSON review artifact. These values are
+neither measured accuracy nor a probability of switching; this small test does
+not establish stable confidence or superior decisions.
 
 The saved latest forecast has only the monitoring candidate. Its initial API
 attempt returned HTTP 400; the producer now bypasses unnecessary single-option
@@ -102,6 +107,15 @@ establishes integration, not better operational decisions. A follow-up evaluatio
 needs shift-lead labels, comparison with the deterministic policy, disagreement
 and rejection cases, and measured review/preparation outcomes.
 
+## Aircraft-specific scope
+
+The current target is airport-level direction and weather-derived runway-18
+usability under the challenge rules. It does not require a detailed aircraft
+geometry model. Eligibility for an individual departure or landing would need
+aircraft-specific performance and operating limits, weight, configuration and
+runway conditions. Those are an additional data/validation layer. Decisions
+must not infer certified limits from an aircraft's shape or a 3D illustration.
+
 ## Verification
 
 ```sh
@@ -115,4 +129,18 @@ npx tsc --noEmit
 Tests cover competing events, source gaps, outcome exclusion, invalid probability
 and time alignment, invalid/refused API answers, authentication/network fallback,
 exact Python-to-browser artifact matching and UTC/DST preparation arithmetic.
-Browser/build evidence is recorded after the shared UI integration is complete.
+Observed checks on 30 October:
+
+- Producer tests: **10 passed**; cross-language/browser-contract tests: **5 passed**.
+- Full web typecheck and targeted lint: **passed**, including the integrated panel.
+- Desktop browser: real October-29 review, role switching, source-hour selection,
+  offline October-2 review, 60-minute preparation giving 07:00, and 600-minute
+  preparation reporting insufficient lead all **passed**. The panel is under
+  **For experts** in the integrated layout.
+- All eight saved reviews match their current forecast basis. The source-metadata
+  changes introduced during integration were caught and the reviews regenerated.
+- A shared production build passed before subsequent parallel UI edits. The final
+  isolated `STATIC_EXPORT=1 npm run build` remains **unverified**: after resolving
+  the font download restriction, Turbopack failed to bind its local CSS-worker
+  port (`EPERM`). No deployment or device/practitioner validation was performed
+  by this feature lane. WP5 task 9.3 remains open for final build verification.
