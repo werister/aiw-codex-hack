@@ -13,13 +13,13 @@
   --accent: #3c36da;
   --accent-ink: #ffffff;
   --select: #e3e4fd;
-  /* Signal colours: one per direction, green/red only for runway 18. */
+  /* Three colours: indigo = OD 25, berry = OD 07, red = runway 18 closed. Open is neutral on purpose. */
   --west: #3c36da; /* OD 25 */
   --west-soft: #e3e2fa;
   --east: #9d2f7f; /* OD 07 */
   --east-soft: #f4e0ee;
-  --ok: #15803d;
-  --ok-soft: #e1f1e6;
+  --ok: #c9cae0;
+  --ok-soft: #eeeeee;
   --bad: #d9381e;
   --bad-soft: #fbe4df;
   --on-signal: #ffffff;
@@ -42,8 +42,8 @@
   --west-soft: #27246f;
   --east: #c24fae;
   --east-soft: #3a1a55;
-  --ok: #22a463;
-  --ok-soft: #123e3f;
+  --ok: #4a47a0;
+  --ok-soft: #1d1a78;
   --bad: #e8642c;
   --bad-soft: #4a2140;
   --on-signal: #ffffff;
