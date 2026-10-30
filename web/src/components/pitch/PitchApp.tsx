@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { BrandLogo } from "../BrandLogo";
 import { useEffect, useState } from "react";
 import type { ForecastResponse, QualityResult } from "@/lib/forecast-types";
 import { firstRecordedOpposite, formatPitchTime, planningEvent, scoreReplay } from "@/lib/pitch-replay";
@@ -32,8 +33,11 @@ export function PitchApp() {
     <main className="mx-auto w-full max-w-[1200px] space-y-6 px-4 py-6 sm:px-8">
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <p className="text-xs uppercase tracking-widest text-muted">Runway Outlook · Frankfurt</p>
-          <h1 className="mt-1 text-2xl font-bold tracking-tight sm:text-3xl">Make the next change visible.</h1>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <BrandLogo />
+            <span className="text-xs uppercase tracking-widest text-muted">Frankfurt · Runway Outlook</span>
+          </div>
+          <h1 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">Make the next change visible.</h1>
         </div>
         <Link href="/" className={BUTTON}>Open cockpit</Link>
       </header>

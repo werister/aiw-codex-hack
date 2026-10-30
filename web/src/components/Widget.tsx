@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Brand } from "./Brand";
+import { BrandLogo } from "./BrandLogo";
 import { useState } from "react";
 import { useForecast } from "./ForecastApp";
 import { Hero } from "./Hero";
@@ -18,8 +18,10 @@ export function Widget() {
   const [sel, setSel] = useState(0);
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-[1180px] flex-col gap-2.5 px-4 pb-5 sm:px-5">
-      <header className="flex h-[56px] items-center gap-3">
-        <Brand subtitle="Frankfurt" />
+      <header className="flex min-h-[56px] flex-wrap items-center gap-3 py-2">
+        <div className="flex min-w-0 items-center gap-3">
+          <h1 className="shrink-0"><BrandLogo /><span className="sr-only"> · Runway Outlook</span></h1>
+        </div>
         <nav className="ml-auto flex items-center gap-2">
           <ThemeToggle />
           <Link href="/" className="pill-btn bg-accent text-accent-ink [--btn-ring:var(--accent)]">
