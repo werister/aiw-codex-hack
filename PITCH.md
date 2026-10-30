@@ -32,6 +32,9 @@ See `DEMO_SCRIPT.md`.
 ## 5. Built with Codex (15 s)
 Spec-driven with OpenSpec in nine work packages. Codex workers built the data pipeline, the official rule engine with its tests, the model, the forecast CLI and the design scrape in parallel, each on its own branch and landing on main.
 
+## Value (10 s)
+Estimated value: about €0.4M a year at Frankfurt (range €0.13M to €3.2M), plus a similar amount in passengers' time. Based on EUROCONTROL delay costs and published studies of runway direction changes.
+
 ## 6. What's next (15 s)
 - **Pilot:** feed it DFS's runway wind sensors and the airport's own direction log, and run it beside the shift supervisor for a month.
 - **Portable:** one config file (runway headings and limits) plus a direction history, and it runs for Munich, Düsseldorf or Zurich.
