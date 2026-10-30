@@ -2,11 +2,11 @@
 
 Open problems across main, branches and worktrees. One line each: time (Berlin) | severity | what is wrong | where | who acts. `STOP` breaks main or makes the submission wrong, `FIX` should be fixed before 16:00, `FYI` is worth knowing. Delete a line once it is fixed. Rules: "Cross-checking" in `AGENTS.md`.
 
-Main at 14:32 runs: `python -m pytest ml/tests -q` gives 54 passed. Lint ignores the vendored bundles since 2d0d773. No web build check this round because the disk is nearly full.
+Main at 14:50 runs: `python -m pytest ml/tests -q` gives 54 passed (14:37). Lint passes since 2d0d773. The last web build check was cut short by low memory on the build PC.
 
 ## STOP
 
-- 14:32 | STOP | Drive C: on the build PC ran out of space at 14:17 (20 MB free). Git commits and fetches failed in the worktrees. The guardian deleted its own scratch build copies; 4.3 GB is free now, which is about eight `npm ci` runs or one large render | drive C: | head lane: check temp folders, node_modules copies and render output before more installs or renders
+- 14:50 | STOP | Drive C: on the build PC is at 100% (6.0 GB free after it hit 20 MB at 14:17 and git writes failed), and memory is short enough that background builds get killed. Every re-render or `npm ci` eats into it | drive C: | head lane: clear temp folders, node_modules copies and render output before more installs or renders
 - 12:17 | STOP | Rule baseline drops the mild-tailwind timer known at issue time: 5 kt tailwind at T-20m and T with OD25 still predicts OD25 at T+1h instead of OD07; reproduced against the same state machine with the known timer | `ml/features.py:129-132`; the fallback in `ml/forecast.py` also starts with forecast rows only | model and cli owners: carry the observed hysteresis state into the forecast
 
 ## FIX
@@ -25,9 +25,12 @@ Main at 14:32 runs: `python -m pytest ml/tests -q` gives 54 passed. Lint ignores
 - 14:15 | FIX | `weather database/` is back to 76 MB with 29 third-party PDFs (76184d1 "consolidate weather research archives"), which undoes dfc3c5e. Copyright risk in the submission repo, and none of it feeds the model | `weather database/` | Luca and head lane: keep it on `luca/weather-database`
 - 14:15 | FIX | Kai's 14:04 push added `assets/` (42 MB of 3D files) and `resources/` (21.6 MB): a second data pipeline (`resources/ml-support/forecast/fetch_forecast_data.py`, `observations/fetch_verify.py`, a 6 MB METAR CSV, Kaggle checks) that duplicates `ml/fetch.py` and `data/`, old copies of `forecast-types.ts` and `hk-model.md` in `resources/ml-support/reference/`, and Condor research for a different challenge | `resources/`, `assets/` | Kai: drop the duplicates, keep only what the app loads
 - 14:32 | FIX | AI model names in files: `resources/ml-support/reference/forecast-types.ts:1`, `resources/ml-support/reference/hk-model.md:3`, `shared-skills/better/SKILL.md:6`, and new `briefing/experiments/v4-colab-october.md:30,32` and `briefing/reviews/kai-data-round2.md:50` ("Opus" as a reviewer). `resources/condor-challenge-research.md:69` cites Anthropic as a source | `resources/`, `shared-skills/`, `briefing/` | Kai, Hugo
+- 14:50 | FIX | Two spellings of the product name: the app says "Lift-off" (`web/src/app/layout.tsx`, `widget/page.tsx`, `approach/page.tsx`, `BrandLogo.tsx`, from 1355f91), while the deck, `PITCH.md` and `SUBMISSION.md` say "Liftoff" | `web/src/`, `web/public/deck/index.html`, `PITCH.md`, `SUBMISSION.md` | head lane and Kai: pick one
+- 14:50 | FIX | The 12 MB `airport-environment.glb` is committed twice (`assets/airport/exports/` and `web/public/models/airport/`), and the re-rendered preview PNGs doubled to about 4 MB each. Tracked files are now 197 MB | `assets/airport/`, `web/public/models/airport/` | Kai: keep one copy, stop committing re-renders
 
 ## FYI
 
+- 14:50 | FYI | `aiw-wt-ml` has an uncommitted change to `ml/rules.py` and `ml/features.py` since 14:33 (variable-direction wind counts runway 18 as usable when the mean wind is under 15 kt and the peak at most 40 kt). It matches the official limits. Land it or drop it before the final forecasts | `aiw-wt-ml` | model lane
 - 14:16 | FYI | User-approved shift-planning implementation in progress: event overview owns Hero/Recommendation/ForecastEvents and forecast-events; handover owns ForecastAssistant/forecast-explanation; demo owns pitch components/pitch-replay/runway18-demo; head lane owns ForecastApp/Widget and WP5/docs. Preserve these edits; staging and commits are serialized by this head lane | shared main, `web/`, WP5 | shift-planning lane
 
 
