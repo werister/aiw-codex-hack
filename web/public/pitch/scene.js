@@ -6,7 +6,7 @@
 //
 // Options: od "25" | "07", r18Open, wind { dir, kt } (optional, derived from od/r18 when left out),
 // story (true: keyframed 12 s loop 25 -> 07 -> 25, ignores setState), intro (tiles settle into runways),
-// labels, view (name in VIEWS or { position: [x,y,z], target: [x,y,z] }), pixelRatio (number or function),
+// labels, view (name in VIEWS or { position: [x,y,z], target: [x,y,z] }), aircraftScale, pixelRatio (number or function),
 // onChange({ od, r18Open, wind }).
 // The canvas is transparent, so the host page owns the background. Three.js loads from ./vendor.
 import * as THREE from "./vendor/three.module.min.js";
@@ -161,7 +161,7 @@ function labelSprite(text) {
 }
 
 export function mount(container, options = {}) {
-  const opts = { od: "25", r18Open: true, story: false, intro: true, labels: true, view: "hero", ...options };
+  const opts = { od: "25", r18Open: true, story: false, intro: true, labels: true, view: "hero", aircraftScale: 1.5, ...options };
   if (opts.story) Object.assign(opts, STORY[0]);
 
   const renderer = new T.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
@@ -311,7 +311,7 @@ export function mount(container, options = {}) {
       m.castShadow = true;
       g.add(m);
     }
-    g.scale.setScalar(1.5);
+    g.scale.setScalar(opts.aircraftScale);
     g.visible = false;
     scene.add(g);
     return { obj: g, mats: [body, tail], busy: false };

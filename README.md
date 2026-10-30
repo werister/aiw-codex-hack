@@ -2,6 +2,8 @@
 
 **Live app:** https://fraalliance-runway-forecast.statworx-par-2884.chatgpt.site (private until sharing is switched on; the pitch deck will be at `/pitch` after the next redeploy)
 
+**Finals deck:** [/pitch](https://fraalliance-runway-forecast.statworx-par-2884.chatgpt.site/pitch) (`web/public/pitch/index.html`, notes in `web/public/pitch/NOTES.md`); its 3D scene `web/public/pitch/scene.js` is shared with the dashboard hero.
+
 ## Work packages (OpenSpec: `openspec/changes/`)
 
 Pick yours, read its `proposal.md` and `tasks.md`, and tick tasks off as you go. `openspec list` shows progress.
