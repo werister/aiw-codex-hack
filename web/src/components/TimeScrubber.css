@@ -1,0 +1,180 @@
+.forecast-scrubber-root {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 1.35fr);
+  align-items: center;
+  gap: 14px 24px;
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.forecast-scrubber-selection,
+.forecast-scrubber-metrics,
+.forecast-scrubber-controls,
+.forecast-scrubber-direction,
+.forecast-scrubber-usable,
+.forecast-scrubber-closed,
+.forecast-scrubber-step-button,
+.forecast-scrubber-change-button {
+  display: flex;
+  align-items: center;
+}
+
+.forecast-scrubber-selection { min-width: 0; gap: 20px; }
+.forecast-scrubber-when { display: grid; flex: 0 0 auto; gap: 1px; }
+.forecast-scrubber-date { color: var(--muted); font-size: 12px; line-height: 1.35; }
+.forecast-scrubber-time {
+  color: var(--ink);
+  font-size: 25px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+.forecast-scrubber-metrics {
+  min-width: 0;
+  flex-wrap: wrap;
+  gap: 7px 14px;
+  color: var(--ink-2);
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.forecast-scrubber-direction,
+.forecast-scrubber-usable,
+.forecast-scrubber-closed { gap: 6px; white-space: nowrap; }
+.forecast-scrubber-direction { color: var(--ink); font-weight: 600; }
+.forecast-scrubber-west-dot,
+.forecast-scrubber-east-dot,
+.forecast-scrubber-status-dot { width: 8px; height: 8px; flex: 0 0 auto; border-radius: 50%; }
+.forecast-scrubber-west-dot { background: var(--west); }
+.forecast-scrubber-east-dot { background: var(--east); }
+.forecast-scrubber-usable { color: var(--ok); }
+.forecast-scrubber-closed { color: var(--bad); }
+.forecast-scrubber-usable .forecast-scrubber-status-dot { background: var(--ok); }
+.forecast-scrubber-closed .forecast-scrubber-status-dot { background: var(--bad); }
+.forecast-scrubber-certainty { color: var(--muted); white-space: nowrap; }
+
+.forecast-scrubber-controls { min-width: 0; gap: 10px; }
+.forecast-scrubber-step-button {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color 0.15s ease-out, box-shadow 0.15s ease-out;
+}
+
+.forecast-scrubber-step-button:hover:not(:disabled),
+.forecast-scrubber-change-button:hover:not(:disabled) {
+  background: var(--select);
+  box-shadow: 0 0 0 2px var(--select);
+}
+
+.forecast-scrubber-step-button:disabled { color: var(--muted); cursor: not-allowed; opacity: 0.48; }
+.forecast-scrubber-chevron { width: 8px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.25; }
+.forecast-scrubber-range-column { display: grid; grid-template-columns: minmax(0, 1fr); min-width: 0; flex: 1 1 auto; gap: 1px; }
+.forecast-scrubber-range {
+  min-width: 0;
+  width: 100%;
+  height: 44px;
+  margin: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  accent-color: var(--accent);
+  background: transparent;
+  cursor: pointer;
+  touch-action: pan-y;
+}
+
+.forecast-scrubber-range:focus-visible,
+.forecast-scrubber-step-button:focus-visible,
+.forecast-scrubber-change-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.forecast-scrubber-range:focus-visible { border-radius: 999px; }
+.forecast-scrubber-range:disabled { cursor: not-allowed; opacity: 0.5; }
+.forecast-scrubber-range::-webkit-slider-runnable-track { height: 4px; border-radius: 999px; background: var(--line); }
+.forecast-scrubber-range::-moz-range-track { height: 4px; border-radius: 999px; background: var(--line); }
+.forecast-scrubber-range::-webkit-slider-thumb {
+  width: 16px;
+  height: 16px;
+  margin-top: -6px;
+  -webkit-appearance: none;
+  appearance: none;
+  border: 3px solid var(--panel);
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.forecast-scrubber-range::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  border: 3px solid var(--panel);
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.forecast-scrubber-range-labels {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.25;
+}
+
+.forecast-scrubber-range-labels span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.forecast-scrubber-range-labels span:last-child { text-align: right; }
+
+.forecast-scrubber-change-button {
+  min-height: 44px;
+  flex: 0 0 auto;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 11px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition: background-color 0.15s ease-out, box-shadow 0.15s ease-out;
+}
+
+.forecast-scrubber-change-button:disabled { color: var(--muted); cursor: not-allowed; opacity: 0.65; }
+.forecast-scrubber-change-time { font-variant-numeric: tabular-nums; font-weight: 600; }
+.forecast-scrubber-change-mobile-label { display: none; }
+.forecast-scrubber-empty { margin: 0; color: var(--muted); font-size: 13px; }
+
+@media (max-width: 850px) {
+  .forecast-scrubber-root { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .forecast-scrubber-controls { width: 100%; }
+}
+
+@media (max-width: 520px) {
+  .forecast-scrubber-selection { align-items: flex-start; flex-direction: column; gap: 8px; }
+  .forecast-scrubber-metrics { gap: 6px 12px; }
+  .forecast-scrubber-controls { display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; gap: 7px; }
+  .forecast-scrubber-change-button { grid-column: 1 / -1; justify-self: end; gap: 4px; padding: 0 12px; font-size: 13px; }
+  .forecast-scrubber-change-full-label { display: none; }
+  .forecast-scrubber-change-mobile-label { display: inline; }
+  .forecast-scrubber-range-labels { font-size: 9px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .forecast-scrubber-step-button,
+  .forecast-scrubber-change-button { transition: none; }
+}
