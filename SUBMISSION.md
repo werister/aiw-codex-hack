@@ -2,7 +2,7 @@
 
 **Team:** Jayden Bruck, Kai Detmers, Hugo Hader, Luca Schultz
 **Repo:** https://github.com/werister/aiw-codex-hack
-**Live demo:** LIVE_URL
+**Live demo:** https://fraalliance-runway-forecast.statworx-par-2884.chatgpt.site
 **Model card:** `MODEL_CARD.md` · **Experiments:** `EXPERIMENTS.md`
 
 ## One line
