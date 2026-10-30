@@ -56,7 +56,7 @@ Some of these commands land during the day. Each work package says when its part
 ## Demo path
 
 1. Open the web app: the next 48 h, with OD per hour, runway 18, certainty and the next change.
-2. Switch to a jury test day and show the forecast against what the rules say happened.
+2. Switch to a jury test day and show the forecast against the directions actually flown (DFLD records).
 3. Open the backtest: skill at 1, 6 and 24 h against the rule baseline and persistence.
 4. Show `MODEL_CARD.md`.
 
@@ -67,6 +67,7 @@ All sources are public and cited. The details are in `data/README.md` (files) an
 - Open-Meteo Previous Runs and Historical Forecast APIs: archived model forecasts, for an honest 48 h backtest.
 - The Open-Meteo Forecast API for the live forecast.
 - DWD Open Data, station 01420 Frankfurt/Main.
+- DFLD recorded operating directions, the ground truth for scoring. Source and limits: `data/ground_truth/README.md`.
 
 ## Team
 
