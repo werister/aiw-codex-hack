@@ -42,6 +42,8 @@ The full product helps the tower controller / shift supervisor plan across airpo
 
 **Model-trace handoff (reviewable research on Hugo's branch):** [Visual trace design](https://github.com/werister/aiw-codex-hack/blob/6667e52545003f4ad4c5944875eb821334a3ae73/briefing/2026-10-30-trace-patterns.md) and [evidence, confidence and required producer outputs](https://github.com/werister/aiw-codex-hack/blob/6667e52545003f4ad4c5944875eb821334a3ae73/briefing/2026-10-30-forecast-evidence.md). The intended UI starts with one planning recommendation and expands into a visual source/feature/model/rules trail. The inference pipeline must retain the actual inputs, versions and intermediate results: a single prediction score cannot reconstruct that trail. These notes distinguish inspected snapshots from proposed contracts; they do not claim a trace integration is implemented.
 
+**Questions awaiting Kai and Jayden:** [Inference capture owner, required outputs and UI join contract](briefing/forecast-trace-questions.md). Please answer in the handoff with an owner and code/artifact link so Hugo can progress one real, traceable forecast run.
+
 ## Stack
 
 - `ml/`: Python 3.13, pandas, scikit-learn. Data download, labels, model, backtest and the forecast CLI.
