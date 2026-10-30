@@ -1,5 +1,7 @@
 # Data, model and experiments
 
+**Counts:** 18 experiments (E1–E17 plus E9b), including negative results · 12 walk-forward folds = 12 test months (Nov 2025 – Oct 2026) · 194,352 training rows (issue time × lead, `quality.json` coverage.feature_rows) · 76,588 labelled hours of recorded direction (2018-01 to 2026-10) · 54 tests pass (30 Oct 2026, commit b2c48f1).
+
 What we train on, which model we use, and every experiment so far with its result. The one-page summary for the jury is `MODEL_CARD.md`. The live numbers are in `web/public/data/quality.json` and `backtest.json`.
 
 ## 1. Data we train on
