@@ -51,18 +51,22 @@ export function PlayApp() {
         </p>
       </header>
 
-      <section aria-label="Airport and result" className="flex flex-col gap-4">
+      <div className="flex flex-col gap-8">
+      {/* On phones the airport and the result stay in view while the controls below are used. */}
+      <section aria-label="Airport and result" className="sticky top-0 z-10 -mx-4 flex flex-col gap-3 bg-bg px-4 pb-3 pt-2 md:static md:mx-0 md:px-0">
         <SceneBox od={r.od} r18Open={r.r18Open} dir={dir} kt={kt} />
-        <div aria-live="polite">
-          <p className="text-[28px] font-light leading-tight">
+        <div aria-live="polite" className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+          <p key={r.od} className="pop text-[24px] font-light leading-tight sm:text-[28px]">
             Planes land toward the <span className={r.od === "25" ? "text-west" : "text-east"}>{WAY[r.od]}</span>.
           </p>
-          <div className="mt-3 flex flex-wrap gap-2">
-            <span className={cx("rounded-full px-4 py-2 text-[15px]", r.r18Open ? "bg-panel-2 text-ink" : "bg-bad text-on-signal")}>
-              Runway 18 {r.r18Open ? "open" : "closed"}
-            </span>
-          </div>
-          <p className="mt-3 text-[15px] leading-snug text-ink-2">
+          <span key={String(r.r18Open)} className={cx("pop rounded-full px-4 py-2 text-[15px]", r.r18Open ? "bg-panel-2 text-ink" : "bg-bad text-on-signal")}>
+            Runway 18 {r.r18Open ? "open" : "closed"}
+          </span>
+        </div>
+      </section>
+
+      <section aria-label="Wind controls" className="flex flex-col gap-6">
+          <p className="text-[15px] leading-snug text-ink-2">
             {flipNote ??
               (kt === 0
                 ? "No wind: planes keep their direction."
@@ -74,10 +78,6 @@ export function PlayApp() {
                 ? ` Runway 18 closes at ${R18_TAILWIND_LIMIT_KT} kt tailwind; it has ${r.r18TailwindKt.toFixed(0)} kt.`
                 : " Runway 18 closes in very strong crosswind.")}
           </p>
-        </div>
-      </section>
-
-      <section aria-label="Wind controls" className="flex flex-col gap-6">
         <Dial dir={dir} onChange={(d) => setWind(d, kt)} />
         <div>
           <label htmlFor="wind-speed" className="flex items-baseline justify-between text-[17px]">
@@ -116,6 +116,7 @@ export function PlayApp() {
           {R18_TAILWIND_LIMIT_KT} kt tailwind.
         </p>
       </section>
+      </div>
 
       <Facts />
 
@@ -226,7 +227,9 @@ function SceneBox({ od, r18Open, dir, kt }: { od: OD; r18Open: boolean; dir: num
     import(/* webpackIgnore: true */ /* turbopackIgnore: true */ SCENE_URL)
       .then((m: { mount: (el: HTMLElement, o: object) => Scene }) => {
         if (!alive || !box.current) return;
-        scene.current = m.mount(box.current, { ...latest.current, intro: true, labels: false, drift: 0 });
+        // The wider camera keeps all four runways in frame on a phone.
+        const view = window.innerWidth < 600 ? "wide" : "hero";
+        scene.current = m.mount(box.current, { ...latest.current, intro: true, labels: false, drift: 0, view });
       })
       .catch(() => alive && setFailed(true));
     return () => {
@@ -242,7 +245,7 @@ function SceneBox({ od, r18Open, dir, kt }: { od: OD; r18Open: boolean; dir: num
   }, [od, r18Open, dir, kt]);
 
   return (
-    <div className="relative h-[44svh] max-h-[420px] min-h-[260px] overflow-hidden rounded-card bg-panel-2">
+    <div className="relative h-[34svh] max-h-[420px] min-h-[220px] overflow-hidden rounded-card bg-panel-2 md:h-[44svh]">
       {failed ? (
         <p className="absolute inset-0 flex items-center justify-center p-6 text-center text-[15px] text-muted">
           The 3D airport could not load on this device. The rules below still work.

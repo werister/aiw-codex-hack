@@ -134,9 +134,28 @@ body {
   outline-offset: 2px;
 }
 
+/* A short pop when a result changes, e.g. planes turning around on /play. */
+@keyframes pop {
+  from {
+    opacity: 0.2;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.pop {
+  animation: pop 0.45s var(--ease) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   body,
   .pill-btn {
     transition: none;
+  }
+  .pop {
+    animation: none;
   }
 }
