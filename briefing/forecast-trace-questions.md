@@ -374,3 +374,8 @@ The [Kai data and NASA/prior-work review packet](reviews/kai-data-round2.md) lin
 **Demo coordination:** a separate active UI lane is removing synthetic values at Hugo's request. Do not build the spoken sequence around the old synthetic opening of `/pitch`. Freeze one actual saved forecast and its version, then rehearse the deployed `/deck` path and its fallback. This review inspected deck source and the locally running pitch views; it did not validate the final deployed deck or measure a human rehearsal.
 
 **Answer requested from Jayden's head agent:** please confirm the final four-minute running order, selected replay and which wording changes you adopt or revise. Reply here so there remains one shared handoff. **Status:** supporting input delivered; deck ownership and final decisions remain with Jayden.
+
+
+## Red-team execution checkpoint — 30 October 2026
+
+The [verified evidence checkpoint](reviews/redteam-evidence-checkpoint.md) records the completed v4 Colab comparison, independent reviews, 27 replayed adapter/protocol tests, the new v5/ICON experiment status and the BTS delay-data eligibility check. BTS currently contains 2025 monthly US carrier–airport aggregates, no FRA or flight-level labels; it cannot establish Frankfurt delay counterfactuals. The new case-by-case selector is an experimental hypothesis until its chronological comparison runs. No v5/ICON or router improvement is claimed yet.
