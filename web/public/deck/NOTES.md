@@ -29,7 +29,7 @@ This is the live dashboard, running inside the slide. The top line is the planni
 Every column is a day, every row an hour, eight years of directions actually flown at Frankfurt: blue is west, berry is east. That's what we learn from and what we test against, all public data.
 
 ## 7 · What we tried, and who checked it · 1:51–2:03
-17 experiments in our pipeline. Hugo reran the comparison independently in Colab, a red team's leakage tests pass 15 of 15, and Kai hash-checked every raw weather file.
+17 experiments in our pipeline. The comparison was rerun independently in Colab, a red team's leakage tests pass 15 of 15, and an independent data audit hash-checked every raw weather file.
 
 ## 8 · Warned a day ahead · 2:03–2:28
 A real day, 28 to 29 October. The line is our model's chance of west, the thin step is the official rules, the strip below is what was actually flown. The switch came at 10:00 on the 29th: the shift lead could plan staff and equipment for it a day ahead instead of reacting on the spot.
@@ -47,7 +47,7 @@ Verbatim: "Estimated value: about €0.4M a year at Frankfurt (range €0.13M to
 Next: fleet-wide planning.
 
 ## 13 · Thank you · 3:29–3:37
-Thank you. Hugo, Kai, Luca and Jayden; the 3D airport model and the data verification are Kai's.
+Thank you. Hugo, Kai, Luca and Jayden.
 
 ## Numbers you can say out loud
 

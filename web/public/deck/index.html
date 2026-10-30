@@ -358,7 +358,7 @@
   <section class="slide s-team" data-name="team" data-veil="left" data-time="8">
     <p class="thanks rise">Thank you.</p>
     <p class="team rise d1">Hugo Hader<span>·</span>Kai Detmers<span>·</span>Luca Schultz<span>·</span>Jayden Bruck</p>
-    <p class="credits rise d2">3D airport model and data verification: Kai Detmers · Built with Codex</p>
+    <p class="credits rise d2">Built with Codex</p>
   </section>
 
   <div id="hud" aria-hidden="true">
@@ -484,14 +484,14 @@
     if (r24 && r24.model_change_acc != null) tiles.push(["bell", num(Math.round(r24.model_change_acc * 100), 0, "%"), "of changes flagged a day ahead", "instead of " + Math.round(r24.persistence_change_acc * 100) + "% when assuming nothing changes"]);
     tiles.push(["clock", "~" + num(SNAPSHOT.people.more_right_hours), "more hours a year planned right", "than with the official rules"]);
     tiles.push(["calendar", num(24) + " h", "to set rosters, equipment, stands", "instead of reshuffling on the spot"]);
-    // What we tried. Hugo's, red-team and Kai's numbers are copied from briefing/experiments/v4-colab-october.md,
+    // What we tried. Colab, red-team and audit numbers are copied from briefing/experiments/v4-colab-october.md,
     // briefing/reviews/kai-data-round2.md and resources/ml-depth (via snapshot.py); E-count from EXPERIMENTS.md.
     var d = SNAPSHOT.did;
     var tried = [
       ["Our pipeline", num(d.experiments), "experiments logged", "from the first model to the final one"],
-      ["Hugo's independent Colab", "72/72", "metric rows recomputed outside our pipeline", "two other models did not beat ours"],
+      ["Independent Colab rerun", "72/72", "metric rows recomputed outside our pipeline", "two other models did not beat ours"],
       ["Red team", "15/15", "leakage tests pass", "flagged data crosses no test-month boundary"],
-      ["Kai's data audit", d.raw_files_ok + "/" + d.raw_files, "raw weather files hash-checked", fmt(d.hours_verified, 0) + " hours of directions rebuilt exactly"]
+      ["Independent data audit", d.raw_files_ok + "/" + d.raw_files, "raw weather files hash-checked", fmt(d.hours_verified, 0) + " hours of directions rebuilt exactly"]
     ];
     document.getElementById("tried").innerHTML = tried.map(function (t, i) {
       return '<div class="wtile rise d' + (i + 1) + '"><div class="who">' + t[0] + '</div><div class="n">' + t[1] + '</div><div class="t">' + t[2] + '</div><div class="s">' + t[3] + '</div></div>';

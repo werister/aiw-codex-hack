@@ -7,7 +7,8 @@
 // Options: od "25" | "07", r18Open, wind { dir, kt } (optional, derived from od/r18 when left out),
 // story (true: keyframed 12 s loop 25 -> 07 -> 25, ignores setState), intro (tiles settle into runways),
 // labels, view (name in VIEWS or { position: [x,y,z], target: [x,y,z] }), aircraftScale, pixelRatio (number or function),
-// skyline (Frankfurt towers on the horizon, default true), aircraft "narrowbody" | "widebody", mood "day" | "golden", theme "light" | "tower" (the app's dark mode), drift (radians of slow camera sway, 0 = still), onChange({ od, r18Open, wind }).
+// skyline (Frankfurt towers on the horizon, default true), aircraft "narrowbody" | "widebody", mood "day" | "golden",
+// livery (FraAlliance mark on the fin, glossy airframe, landing lights, wingtip vapour; default true), theme "light" | "tower" (the app's dark mode), drift (radians of slow camera sway, 0 = still), onChange({ od, r18Open, wind }).
 // fog: a CSS colour (the host background) to fade the far field; leave it out on a transparent hero.
 // The canvas is transparent, so the host page owns the background. Three.js loads from ./vendor,
 // aircraft and runway models (exported from the team's Blender kit) from ./models; primitives stand in until they load.
@@ -176,7 +177,7 @@ function labelSprite(text) {
 }
 
 export function mount(container, options = {}) {
-  const opts = { od: "25", r18Open: true, story: false, intro: true, labels: true, view: "hero", aircraftScale: 1.5, theme: "light", drift: 0, skyline: true, aircraft: "narrowbody", mood: "day", ...options };
+  const opts = { od: "25", r18Open: true, story: false, intro: true, labels: true, view: "hero", aircraftScale: 1.5, theme: "light", drift: 0, skyline: true, aircraft: "narrowbody", mood: "day", livery: true, ...options };
   let pal = PALETTE[opts.theme] || PALETTE.light;
   if (opts.story) Object.assign(opts, STORY[0]);
 
@@ -379,8 +380,105 @@ export function mount(container, options = {}) {
     return { obj: g, mats: [body, tail], busy: false };
   }
   const pool = [makeAircraft(), makeAircraft(), makeAircraft(), makeAircraft()];
+  const TRAIL = 46;
+  const TIPS = [new T.Vector3(31, 7.3, 10.2), new T.Vector3(-31, 7.3, 10.2)]; // widebody winglets, model space
+  for (const ac of pool) {
+    ac.trails = TIPS.map(() => {
+      const geo = new T.BufferGeometry();
+      geo.setAttribute("position", new T.BufferAttribute(new Float32Array(TRAIL * 3), 3));
+      geo.setAttribute("color", new T.BufferAttribute(new Float32Array(TRAIL * 4), 4));
+      const line = new T.Line(geo, new T.LineBasicMaterial({ vertexColors: true, transparent: true, depthWrite: false, blending: T.AdditiveBlending }));
+      line.frustumCulled = false;
+      line.visible = false;
+      scene.add(line);
+      return line;
+    });
+  }
+  const tipV = new T.Vector3();
+  function updateTrails(f, op) {
+    const model = f.ac.obj.children[0];
+    const on = opts.livery && opts.aircraft === "widebody" && model && model.isObject3D && f.ac.mats.length > 4;
+    f.ac.trails.forEach((line, i) => {
+      line.visible = !!on;
+      if (!on) return;
+      const pos = line.geometry.attributes.position.array, col = line.geometry.attributes.color.array;
+      model.updateMatrixWorld(true);
+      tipV.copy(TIPS[i]).applyMatrix4(model.matrixWorld);
+      if (!f.trailInit) for (let j = 0; j < TRAIL; j++) pos.set([tipV.x, tipV.y, tipV.z], j * 3);
+      pos.copyWithin(3, 0, (TRAIL - 1) * 3);
+      pos[0] = tipV.x; pos[1] = tipV.y; pos[2] = tipV.z;
+      const air = clamp01((tipV.y - groundY - 0.6) / 1.2);
+      for (let j = 0; j < TRAIL; j++) {
+        const a = (1 - j / TRAIL) * 0.55 * air * op;
+        col.set([a, a, a, a], j * 4);
+      }
+      line.geometry.attributes.position.needsUpdate = true;
+      line.geometry.attributes.color.needsUpdate = true;
+    });
+    f.trailInit = true;
+  }
   const flights = [];
   let groundY = Y0;
+
+  // FraAlliance mark (their logo symbol: a rounded square turned 45 degrees, outline only), white for the ink fin.
+  function markTexture() {
+    const cv = document.createElement("canvas");
+    cv.width = cv.height = 512;
+    const g = cv.getContext("2d");
+    g.translate(256, 256);
+    g.rotate(Math.PI / 4);
+    g.beginPath();
+    g.roundRect(-160, -160, 320, 320, 82);
+    g.lineWidth = 42;
+    g.strokeStyle = "#ffffff";
+    g.stroke();
+    const tex = new T.CanvasTexture(cv);
+    tex.colorSpace = T.SRGBColorSpace;
+    tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    return tex;
+  }
+  function glowTexture() {
+    const cv = document.createElement("canvas");
+    cv.width = cv.height = 128;
+    const g = cv.getContext("2d");
+    const gr = g.createRadialGradient(64, 64, 0, 64, 64, 62);
+    gr.addColorStop(0, "rgba(255,250,235,1)");
+    gr.addColorStop(0.18, "rgba(255,236,200,0.85)");
+    gr.addColorStop(1, "rgba(255,220,170,0)");
+    g.fillStyle = gr;
+    g.fillRect(0, 0, 128, 128);
+    return new T.CanvasTexture(cv);
+  }
+  // Where the fin is, measured from the livery mesh (model space). The fin is low-poly: vertices sit at its
+  // root and tip only, so the decal goes between the two, 45% of the way up.
+  function measureFin(model) {
+    model.updateMatrixWorld(true);
+    const v = new T.Vector3();
+    const pts = [];
+    model.traverse((m) => {
+      if (!m.isMesh || !/^Livery/.test(m.material.name || "")) return;
+      const pos = m.geometry.attributes.position;
+      for (let i = 0; i < pos.count; i++) {
+        v.fromBufferAttribute(pos, i).applyMatrix4(m.matrixWorld);
+        if (Math.abs(v.x) < 3 && v.y > 8) pts.push(v.clone());
+      }
+    });
+    // The widebody's livery is only a cap at the fin tip; then use the fin's side as read off the model (metres).
+    const FALLBACK = { y: 14.2, z: 28.4, half: 0.75, size: 3.0 };
+    if (pts.length < 4) return FALLBACK;
+    const yMin = Math.min(...pts.map((p) => p.y)), yMax = Math.max(...pts.map((p) => p.y)), span = yMax - yMin;
+    if (span < 3) return FALLBACK;
+    const root = pts.filter((p) => p.y < yMin + span * 0.3), tip = pts.filter((p) => p.y > yMax - span * 0.3);
+    const meanZ = (a) => a.reduce((t, p) => t + p.z, 0) / a.length;
+    const chord = (a) => Math.max(...a.map((p) => p.z)) - Math.min(...a.map((p) => p.z));
+    const k = 0.45;
+    return {
+      y: yMin + span * k,
+      z: meanZ(root) + (meanZ(tip) - meanZ(root)) * k,
+      half: Math.max(...pts.map((p) => Math.abs(p.x))),
+      size: Math.min((chord(root) + (chord(tip) - chord(root)) * k) * 0.5, span * 0.42),
+    };
+  }
 
   // Team Blender kit: real aircraft and runway models replace the primitives once loaded.
   const runwayModels = [];
@@ -391,6 +489,9 @@ export function mount(container, options = {}) {
       const box = new T.Box3().setFromObject(aircraft);
       const k = 1.75 / (box.max.z - box.min.z);
       groundY = DEPTH + 0.03;
+      const fin = opts.livery ? measureFin(aircraft) : null;
+      const mark = fin ? markTexture() : null;
+      const glow = opts.livery ? glowTexture() : null;
       for (const ac of pool) {
         const model = aircraft.clone(true);
         const mats = [];
@@ -400,11 +501,37 @@ export function mount(container, options = {}) {
           const name = m.material.name || "";
           if (name.startsWith("Livery")) m.material.color.set(TAIL);
           if (name.startsWith("Flow")) m.material.color.set("#3c36da");
+          if (opts.livery && name.startsWith("Airframe")) {
+            m.material.color.set("#fbfbff");
+            m.material.roughness = 0.22;
+            m.material.metalness = 0.12;
+          }
           m.material.transparent = true;
           m.material.envMapIntensity = 0.7;
           m.castShadow = true;
           mats.push(m.material);
         });
+        if (fin) {
+          for (const side of [1, -1]) {
+            const mat = new T.MeshBasicMaterial({ map: mark, transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -4 });
+            const decal = new T.Mesh(new T.PlaneGeometry(fin.size, fin.size), mat);
+            decal.position.set(side * (fin.half + 0.06), fin.y, fin.z);
+            decal.rotation.y = side * Math.PI / 2;
+            model.add(decal);
+            mats.push(mat);
+          }
+        }
+        if (glow) {
+          // Landing lights: nose gear and both wing roots, always on below 10,000 ft.
+          for (const at of [[0, 3.2, -24.5, 5], [4.6, 4.6, -6.5, 4], [-4.6, 4.6, -6.5, 4]]) {
+            const mat = new T.SpriteMaterial({ map: glow, color: 0xfff1d6, transparent: true, depthWrite: false, blending: T.AdditiveBlending });
+            const sp = new T.Sprite(mat);
+            sp.position.set(at[0], at[1], at[2]);
+            sp.scale.setScalar(at[3]);
+            model.add(sp);
+            mats.push(mat);
+          }
+        }
         model.scale.setScalar(k);
         model.rotation.y = Math.PI; // GLB faces -Z, ours +Z
         ac.obj.clear();
@@ -474,7 +601,9 @@ export function mount(container, options = {}) {
         : Math.min(clamp01(f.age / 0.4), clamp01((life - f.age) / 0.7));
       if (f.fade !== null) { f.fade += dt; op = Math.min(op, 1 - clamp01(f.fade / 0.6)); }
       if (f.age >= life || (f.fade !== null && f.fade >= 0.6)) {
-        f.ac.busy = false; f.ac.obj.visible = false; flights.splice(i, 1); continue;
+        f.ac.busy = false; f.ac.obj.visible = false; flights.splice(i, 1);
+        for (const line of f.ac.trails) line.visible = false;
+        continue;
       }
       const o = f.ac.obj;
       o.visible = true;
@@ -493,6 +622,7 @@ export function mount(container, options = {}) {
       const easeOp = easeInOut(clamp01(op));
       for (const m of f.ac.mats) { m.opacity = easeOp; m.depthWrite = easeOp > 0.98; }
       o.traverse((m) => { m.castShadow = easeOp > 0.4; });
+      updateTrails(f, easeOp);
     }
   }
 
