@@ -6,9 +6,9 @@ import type { OD } from "@/lib/forecast-types";
 type SceneState = { od: OD; r18Open: boolean; wind?: { dir: number; kt: number } };
 type Scene = { setState: (s: SceneState) => void; destroy: () => void };
 
-// The shared FRA 3D scene lives at /pitch/scene.js (also used by the pitch deck).
+// The shared FRA 3D scene lives at /deck/scene.js (also used by the finals deck).
 // Loaded at runtime so the app builds without it; until it is there, or without WebGL, the fallback shows.
-const SCENE_URL = "/pitch/scene.js";
+const SCENE_URL = "/deck/scene.js";
 
 export function SceneHero({
   od,
