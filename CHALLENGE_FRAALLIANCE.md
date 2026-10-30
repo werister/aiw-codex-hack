@@ -19,16 +19,62 @@ Source: FraAlliance's pitch at the kick-off on 30 Oct 2026, transcribed from a r
    - protecting transfer passengers' connections
    - fewer reschedules and delays for all airport partners
 
-**What we show at 17:00:**
-- the live 48 h forecast for FRA, starting from now
-- a backtest that proves accuracy against persistence ("same as now") and against the plain rule-on-forecast baseline
+**What we show at 17:00 (matching the official deliverables):**
+- the live 48 h hourly forecast: P(18 usable), OD 25/07, certainty and next change time
+- the backtest at 1, 6 and 24 h against persistence and the rule baseline, with no leakage
+- the one-page model card
+- forecasts for the jury test days
 - the ops view: what changes, when, and how sure we are
 
-## WAITING FOR: the FraAlliance slides and one-pager
+## OFFICIAL BRIEF RECEIVED (werister, 11:18): `frankfurt-airport-operating-direction-forecast.md`
 
-werister commits them to this repo. As soon as they land:
-- Copy the **exact thresholds** into the "Rules" section below: tailwind limit for 18, crosswind and tailwind limits for 07/25, any hysteresis or minimum duration, and gust handling.
-- Check everything above against them. If anything differs, **the slides win**.
+**The official brief wins over everything else in this file.** Here are its exact rules and deliverables.
+
+### Exact deliverables (from the official brief)
+
+1. **Forecast model.**
+   - For **each hour up to 48 hours ahead**, predict:
+     - the **probability that Runway 18 is usable**
+     - the **operating direction (25 or 07)**
+     - a **certainty score**
+     - the **next likely change time**
+   - "The rules above are a baseline; teams are expected to **improve on them**."
+2. **Self-sourced data.**
+   - No dataset is provided. Find and combine public data, for example EDDF METAR, weather model forecasts and historical operating directions.
+   - **Cite every source.**
+3. **Model evaluation.**
+   - Test on data **not used for training**, using **only information available at each forecast time**, with no leakage.
+   - Report quality at **1 h, 6 h and 24 h ahead**.
+4. **Submission.**
+   - a **code repository**
+   - a **one-page model card**: data sources, model quality, key forecast drivers
+   - **forecasts for the jury test days**
+   
+   The jury compares the forecasts with **the operating directions actually flown**, so we need a command that outputs forecasts for any given day.
+
+### Exact decision rules (from the official brief)
+
+**Runways**
+- 07L/25R (northwest) and 07R/25L (south) are mainly for landings.
+- 07C/25C (centre) is for departures.
+- 18 (west) is for departures only, toward 180°T, and can be used in **either** operating direction.
+- The direction is **airport wide**: all 07/25 runways switch together, and mixed directions are never used.
+- OD 25 means toward 250°T. OD 07 means toward 070°T.
+
+**Wind limits**
+- Only the wind component **directly from behind** counts as tailwind: tailwind = wind speed × cos(wind direction − runway heading − 180°).
+- Tailwind must be **< 15 kt for departures** and **< 10 kt for landings**.
+- A crosswind **> 40 kt including gusts** closes the runway.
+
+**Operating direction**
+- Landings decide the direction, and headwind is preferred.
+- Tailwind **≥ 10 kt** on the landing runways means an **immediate** direction change.
+- Tailwind **< 10 kt** may be accepted for **up to 30 minutes**. If it persists longer, the direction switches to the headwind direction. This hysteresis is why a naive rule flips too often.
+- Example: wind 090° at 20 kt gives about 19 kt tailwind on 25, so OD 07.
+
+**Runway 18**
+- Tailwind **≥ 15 kt** from the north closes 18, and departures then use only 07C/25C.
+- Example: wind 330° at 20 kt gives about 17.3 kt tailwind, so 18 is closed.
 
 ## The task
 
