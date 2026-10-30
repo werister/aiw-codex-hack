@@ -1,6 +1,6 @@
 # FRA operating direction forecast (FraAlliance challenge, AI Week Codex Hackathon, 30 Oct 2026)
 
-**Live app:** https://fraalliance-runway-forecast.statworx-par-2884.chatgpt.site (private until sharing is switched on; the pitch deck will be at `/pitch` after the next redeploy)
+**Live app:** https://fraalliance-runway-forecast.statworx-par-2884.chatgpt.site (private until sharing is switched on; the finals deck is at `/deck/index.html` after the next redeploy, and `/pitch` is the app's pitch mode)
 
 **Finals deck:** [/deck](https://fraalliance-runway-forecast.statworx-par-2884.chatgpt.site/deck/index.html) (`web/public/deck/index.html`, notes in `web/public/deck/NOTES.md`); its 3D scene `web/public/deck/scene.js` is shared with the dashboard hero.
 
