@@ -1,3 +1,5 @@
+> **Aktualisiert:** Die vollständige Daten-Zuarbeit ist jetzt im [ausgeführten Datenpaket](ml-support/README.md) dokumentiert: 32.156 METAR-Meldungen, 16.008 Prognosestunden, DWD-Vergleich, geprüfte Quellen und reproduzierbare Qualitätsberichte. Die folgende Notiz hält den früheren Stichprobenstand fest.
+
 # ML-Zuarbeit: Daten für Frankfurt in fünf Stunden
 
 Stand: 30.10.2026. Empfehlung: EDDF-METAR + archivierte Wetterprognosen verwenden. Kaggle ist für die geprüften Treffer kein schnellerer Weg. Training, Modellwahl und Integration bleiben beim ML-Kollegen; diese Übergabe liefert Quellen und geprüfte Stichproben.

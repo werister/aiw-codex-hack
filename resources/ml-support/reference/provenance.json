@@ -1,0 +1,25 @@
+{
+  "source_commit": "d4930826aecc1e84d69c09e067d6ee4ae13b37ea",
+  "reference_files": [
+    {
+      "original_path": "ml/rules.json",
+      "file": "rules.json",
+      "sha256": "03fff024a8d9eeea39f0c0c353d17605e27c4282bd157f47e7475a953b20f922"
+    },
+    {
+      "original_path": "web/src/lib/forecast-types.ts",
+      "file": "forecast-types.ts",
+      "sha256": "118ead28cd8416ded0584db38ac6f36b6e95bdd52503ac02b9832c6ee2acdb84"
+    },
+    {
+      "original_path": "frankfurt-airport-operating-direction-forecast.md",
+      "file": "frankfurt-airport-operating-direction-forecast.md",
+      "sha256": "c16c53b6952afa01f95f93113fce97b8012655969db4968511246c419485e3d6"
+    },
+    {
+      "original_path": "resources/sources.json",
+      "file": "project-sources.json",
+      "sha256": "7cc49bfdeeac1d5eed1f4f6b056676dcad049e8f964c3db1810b0f6cf223efa2"
+    }
+  ]
+}

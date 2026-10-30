@@ -1,0 +1,358 @@
+{
+  "checked_at_utc": "2026-10-30T10:56:06.573152+00:00",
+  "scope": "First result page for four public queries; no credentials or accounts accessed",
+  "queries": [
+    {
+      "query": "EDDF",
+      "url": "https://www.kaggle.com/api/v1/datasets/list?search=EDDF&page=1",
+      "retrieved_at_utc": "2026-10-30T10:56:01.533867+00:00",
+      "http_status": 200,
+      "content_type": "application/json",
+      "file": "raw/search-1.response",
+      "bytes": 11473,
+      "sha256": "00aa53821cd54a55e1b555e2f1e35a2b96fb95540c507476f8d829d82eabff58",
+      "outcome": "json_response",
+      "count_this_page": 7,
+      "datasets": [
+        {
+          "ref": "chabhinaya/eddfs-dataset",
+          "title": "EDDFS_Dataset",
+          "subtitle": "",
+          "totalBytes": 2980126547,
+          "licenseName": "Unknown",
+          "lastUpdated": "2026-04-18T01:47:29.18Z",
+          "url": "https://www.kaggle.com/datasets/chabhinaya/eddfs-dataset"
+        },
+        {
+          "ref": "mnideepreddy/feddfa-code2",
+          "title": "feddfa-code2",
+          "subtitle": "",
+          "totalBytes": 23661,
+          "licenseName": "Apache 2.0",
+          "lastUpdated": "2026-03-24T13:49:54.96Z",
+          "url": "https://www.kaggle.com/datasets/mnideepreddy/feddfa-code2"
+        },
+        {
+          "ref": "pronoma/output-cleaneddf-amazonml",
+          "title": "Output_cleaneddf_AmazonML",
+          "subtitle": "",
+          "totalBytes": 115206450,
+          "licenseName": "Unknown",
+          "lastUpdated": "2021-07-31T06:40:21.82Z",
+          "url": "https://www.kaggle.com/datasets/pronoma/output-cleaneddf-amazonml"
+        },
+        {
+          "ref": "mnideepreddy/feddfa-code",
+          "title": "feddfa-code",
+          "subtitle": "",
+          "totalBytes": 23430,
+          "licenseName": "Apache 2.0",
+          "lastUpdated": "2026-03-24T04:33:29.19Z",
+          "url": "https://www.kaggle.com/datasets/mnideepreddy/feddfa-code"
+        },
+        {
+          "ref": "mubashiryasin/kvasirrrr",
+          "title": "kvasirrrr",
+          "subtitle": "polyps segmentation datasetttttttttttttttttt",
+          "totalBytes": 119248161,
+          "licenseName": "Unknown",
+          "lastUpdated": "2021-10-27T16:04:04.733Z",
+          "url": "https://www.kaggle.com/datasets/mubashiryasin/kvasirrrr"
+        },
+        {
+          "ref": "v1olet1nor1/endotect",
+          "title": "endotect",
+          "subtitle": "",
+          "totalBytes": 43810155,
+          "licenseName": "Unknown",
+          "lastUpdated": "2022-06-06T02:04:56.04Z",
+          "url": "https://www.kaggle.com/datasets/v1olet1nor1/endotect"
+        },
+        {
+          "ref": "v1olet1nor1/endotectver2",
+          "title": "endotectver2",
+          "subtitle": "",
+          "totalBytes": 43810155,
+          "licenseName": "Unknown",
+          "lastUpdated": "2022-06-19T09:31:40.393Z",
+          "url": "https://www.kaggle.com/datasets/v1olet1nor1/endotectver2"
+        }
+      ]
+    },
+    {
+      "query": "Frankfurt weather",
+      "url": "https://www.kaggle.com/api/v1/datasets/list?search=Frankfurt+weather&page=1",
+      "retrieved_at_utc": "2026-10-30T10:56:02.927031+00:00",
+      "http_status": 200,
+      "content_type": "application/json",
+      "file": "raw/search-2.response",
+      "bytes": 20648,
+      "sha256": "9c56d52dda9a200d071fc202e94e0fa7f8a1c8a3985572ed98faf40c2dffa8c3",
+      "outcome": "json_response",
+      "count_this_page": 6,
+      "datasets": [
+        {
+          "ref": "avibagul80/air-quality-dataset",
+          "title": "Air Quality Dataset",
+          "subtitle": "",
+          "totalBytes": 9315468,
+          "licenseName": "Unknown",
+          "lastUpdated": "2020-09-15T10:36:35.987Z",
+          "url": "https://www.kaggle.com/datasets/avibagul80/air-quality-dataset"
+        },
+        {
+          "ref": "mexwell/rohlik-order-forecast-weather-data-for-test",
+          "title": "\ud83c\udf24\ufe0f Rohlik Order Forecast Weather Data for Test",
+          "subtitle": "Data for Brno, Prague, Munich, Frankfurt and Budapest for Testing Data",
+          "totalBytes": 3668,
+          "licenseName": "Attribution 4.0 International (CC BY 4.0)",
+          "lastUpdated": "2024-07-26T10:22:52.403Z",
+          "url": "https://www.kaggle.com/datasets/mexwell/rohlik-order-forecast-weather-data-for-test"
+        },
+        {
+          "ref": "blamerx/cityscapes-high-resolution-segmentation",
+          "title": "\ud83c\udfd9\ufe0f Cityscapes High-Resolution Segmentation",
+          "subtitle": "3,475 street scene images (2048\u00d71024) with 35-class pixel annotations",
+          "totalBytes": 8192108723,
+          "licenseName": "CC0: Public Domain",
+          "lastUpdated": "2026-03-10T11:08:44.923Z",
+          "url": "https://www.kaggle.com/datasets/blamerx/cityscapes-high-resolution-segmentation"
+        },
+        {
+          "ref": "kushalputtyah/smard-load-and-weather-ger",
+          "title": "German Electricity Load Forecasting with Weather",
+          "subtitle": "Hourly German electricity consumption with historical weather and time features",
+          "totalBytes": 3048434,
+          "licenseName": "Unknown",
+          "lastUpdated": "2026-08-15T23:40:38.84Z",
+          "url": "https://www.kaggle.com/datasets/kushalputtyah/smard-load-and-weather-ger"
+        },
+        {
+          "ref": "kennethuchegbu/rossman-store-sales",
+          "title": "Rossman Store Sales",
+          "subtitle": "",
+          "totalBytes": 1872423,
+          "licenseName": "MIT",
+          "lastUpdated": "2026-08-19T10:45:43.243Z",
+          "url": "https://www.kaggle.com/datasets/kennethuchegbu/rossman-store-sales"
+        },
+        {
+          "ref": "patwelch/air-quality-frankfurt-dataset",
+          "title": "Air quality Frankfurt Dataset",
+          "subtitle": "Large and complex Air quality dataset for classification problems.",
+          "totalBytes": 7561890,
+          "licenseName": "Attribution-NoDerivatives 4.0 International (CC BY-ND 4.0)",
+          "lastUpdated": "2022-07-19T14:53:38.623Z",
+          "url": "https://www.kaggle.com/datasets/patwelch/air-quality-frankfurt-dataset"
+        }
+      ]
+    },
+    {
+      "query": "METAR",
+      "url": "https://www.kaggle.com/api/v1/datasets/list?search=METAR&page=1",
+      "retrieved_at_utc": "2026-10-30T10:56:04.138205+00:00",
+      "http_status": 200,
+      "content_type": "application/json",
+      "file": "raw/search-3.response",
+      "bytes": 57718,
+      "sha256": "a52bd2e3142de6265b67dfc9911ede60db8d1637fe487da60d5788ff763e8ae6",
+      "outcome": "json_response",
+      "count_this_page": 20,
+      "datasets": [
+        {
+          "ref": "cabaki/knycmetars2016",
+          "title": "KNYC Metars 2016",
+          "subtitle": "The hourly weather info - KNYC - 2016",
+          "totalBytes": 114385,
+          "licenseName": "CC0: Public Domain",
+          "lastUpdated": "2017-07-21T19:57:19.63Z",
+          "url": "https://www.kaggle.com/datasets/cabaki/knycmetars2016"
+        },
+        {
+          "ref": "fbykov/metar-weather-time-series",
+          "title": "METAR weather time series",
+          "subtitle": "Global weather 30min time series data",
+          "totalBytes": 235544489,
+          "licenseName": "CC0: Public Domain",
+          "lastUpdated": "2018-12-07T11:45:17.977Z",
+          "url": "https://www.kaggle.com/datasets/fbykov/metar-weather-time-series"
+        },
+        {
+          "ref": "rajkumarpandey02/saudi-arabia-hourly-climate-integrated-srfc-data",
+          "title": "Saudi Arabia Hourly Climate Integrated SRFC DATA",
+          "subtitle": "Saudi Arabia Hourly Climate Integrated Surface Data ",
+          "totalBytes": 162047772,
+          "licenseName": "CC0: Public Domain",
+          "lastUpdated": "2023-05-23T09:01:58.717Z",
+          "url": "https://www.kaggle.com/datasets/rajkumarpandey02/saudi-arabia-hourly-climate-integrated-srfc-data"
+        },
+        {
+          "ref": "padmashreejha/polymarket-weather-metar-shadow",
+          "title": "Polymarket weather METAR shadow",
+          "subtitle": "Dublin paper-only METAR arrivals, rule-aware signals and market books",
+          "totalBytes": 1234271,
+          "licenseName": "Unknown",
+          "lastUpdated": "2026-10-23T20:37:28.787Z",
+          "url": "https://www.kaggle.com/datasets/padmashreejha/polymarket-weather-metar-shadow"
+        },
+        {
+          "ref": "sarveshchhetri/commercial-flight-fuel-burn-and-co2-emissions",
+          "title": "Commercial Flight Fuel Burn & CO2 Emissions",
+          "subtitle": "100k Flight Telemetry Logs: Payload Weights, METAR Weather & ICAO Emissions",
+          "totalBytes": 19793555,
+          "licenseName": "Attribution 4.0 International (CC BY 4.0)",
+          "lastUpdated": "2026-09-25T06:57:05.037Z",
+          "url": "https://www.kaggle.com/datasets/sarveshchhetri/commercial-flight-fuel-burn-and-co2-emissions"
+        },
+        {
+          "ref": "misaghmakaremi/isfahan-air-quality-data",
+          "title": "Isfahan Air Quality Data | \u062f\u0627\u062f\u0647 \u0647\u0648\u0627\u0634\u0646\u0627\u0633\u06cc \u0627\u0635\u0641\u0647\u0627\u0646",
+          "subtitle": "METAR and Pollutant concentrations time series | \u062f\u0627\u062f\u0647 \u0633\u0631\u06cc \u0632\u0645\u0627\u0646\u06cc \u06a9\u06cc\u0641\u06cc\u062a \u0647\u0648\u0627 \u0627\u0635\u0641\u0647\u0627\u0646",
+          "totalBytes": 34212019,
+          "licenseName": "Other (specified in description)",
+          "lastUpdated": "2025-01-19T17:08:22.263Z",
+          "url": "https://www.kaggle.com/datasets/misaghmakaremi/isfahan-air-quality-data"
+        },
+        {
+          "ref": "jorgerobinat/meteorological-model-versus-real-data",
+          "title": "Meteorological model versus real data",
+          "subtitle": "How to improve a meteorological model with machine learning",
+          "totalBytes": 21813717,
+          "licenseName": "EU ODP Legal Notice",
+          "lastUpdated": "2020-04-19T16:19:53.247Z",
+          "url": "https://www.kaggle.com/datasets/jorgerobinat/meteorological-model-versus-real-data"
+        },
+        {
+          "ref": "jorgerobinat/airports-temperature",
+          "title": "AIRPORTS TEMPERATURE",
+          "subtitle": "Metar report from ten international airports",
+          "totalBytes": 8363763,
+          "licenseName": "EU ODP Legal Notice",
+          "lastUpdated": "2020-02-12T10:15:34.347Z",
+          "url": "https://www.kaggle.com/datasets/jorgerobinat/airports-temperature"
+        },
+        {
+          "ref": "rngrng/metar-weather-26-global-cities-2024-2026",
+          "title": "METAR Weather \u2014 26 Global Cities, 2024\u20132026",
+          "subtitle": "958K raw METAR + SPECI reports from 26 major-city airports, Jan 2024 \u2013 Aug 2026",
+          "totalBytes": 17145844,
+          "licenseName": "CC0: Public Domain",
+          "lastUpdated": "2026-09-01T00:26:24.037Z",
+          "url": "https://www.kaggle.com/datasets/rngrng/metar-weather-26-global-cities-2024-2026"
+        },
+        {
+          "ref": "basitaliharejo/sada-realmetarfann-paper-rag-v1-1",
+          "title": "Sada-RealMetaRFANN Paper-RAG v1.1",
+          "subtitle": "Real-metadata benchmark for range-filtered neural retrieval in Paper-RAG setting",
+          "totalBytes": 60108054,
+          "licenseName": "CC0: Public Domain",
+          "lastUpdated": "2026-05-14T16:41:20.71Z",
+          "url": "https://www.kaggle.com/datasets/basitaliharejo/sada-realmetarfann-paper-rag-v1-1"
+        },
+        {
+          "ref": "pizzarules6681/wisconsin-weather",
+          "title": "Hourly Wisconsin Weather Data",
+          "subtitle": "Hourly Wisconsin Weather Data",
+          "totalBytes": 120069687,
+          "licenseName": "Unknown",
+          "lastUpdated": "2024-03-17T20:50:28.977Z",
+          "url": "https://www.kaggle.com/datasets/pizzarules6681/wisconsin-weather"
+        },
+        {
+          "ref": "jorgerobinat/llm-metars",
+          "title": "llm-metars",
+          "subtitle": "",
+          "totalBytes": 81525229,
+          "licenseName": "CC BY-NC-SA 4.0",
+          "lastUpdated": "2025-06-28T09:36:43.947Z",
+          "url": "https://www.kaggle.com/datasets/jorgerobinat/llm-metars"
+        },
+        {
+          "ref": "nguyentienjin/metareviewmovies",
+          "title": "MetaReviewMovies",
+          "subtitle": "",
+          "totalBytes": 107228014,
+          "licenseName": "CC0: Public Domain",
+          "lastUpdated": "2026-04-23T11:46:58.617Z",
+          "url": "https://www.kaggle.com/datasets/nguyentienjin/metareviewmovies"
+        },
+        {
+          "ref": "pimentelfn/metar-sbgr-2012-2017",
+          "title": "METAR_SBGR_2012_2017",
+          "subtitle": "",
+          "totalBytes": 1818543,
+          "licenseName": "Unknown",
+          "lastUpdated": "2019-12-26T14:48:32.85Z",
+          "url": "https://www.kaggle.com/datasets/pimentelfn/metar-sbgr-2012-2017"
+        },
+        {
+          "ref": "mbinyahya/metaray-primary-liver-cancer-dataset",
+          "title": "MetaRay | Primary Liver Cancer Dataset",
+          "subtitle": "mmmmmmmmmmmmmmmmmmmmmm",
+          "totalBytes": 13877931534,
+          "licenseName": "Unknown",
+          "lastUpdated": "2026-03-28T13:45:26.767Z",
+          "url": "https://www.kaggle.com/datasets/mbinyahya/metaray-primary-liver-cancer-dataset"
+        },
+        {
+          "ref": "tariqkhan1940/islamic-metarial",
+          "title": "islamic metarial",
+          "subtitle": "",
+          "totalBytes": 47249,
+          "licenseName": "CC0: Public Domain",
+          "lastUpdated": "2026-07-30T18:17:43.9Z",
+          "url": "https://www.kaggle.com/datasets/tariqkhan1940/islamic-metarial"
+        },
+        {
+          "ref": "jorgerobinat/weather-forecasting-at-vigo-airport-using-ai",
+          "title": "Weather forecasting at Vigo airport using AI",
+          "subtitle": "Improving meteorological  models with AI at Vigo Airport",
+          "totalBytes": 1604440217,
+          "licenseName": "EU ODP Legal Notice",
+          "lastUpdated": "2021-03-26T10:37:13.01Z",
+          "url": "https://www.kaggle.com/datasets/jorgerobinat/weather-forecasting-at-vigo-airport-using-ai"
+        },
+        {
+          "ref": "souradiptachoudhuri/metarefixcifarfs",
+          "title": "metarefixcifarfs",
+          "subtitle": "",
+          "totalBytes": 185569250,
+          "licenseName": "MIT",
+          "lastUpdated": "2024-04-03T22:21:29.803Z",
+          "url": "https://www.kaggle.com/datasets/souradiptachoudhuri/metarefixcifarfs"
+        },
+        {
+          "ref": "souradipta0/metarefixcifarfs1",
+          "title": "metarefixcifarfs1",
+          "subtitle": "",
+          "totalBytes": 185515648,
+          "licenseName": "MIT",
+          "lastUpdated": "2024-04-04T09:39:34.51Z",
+          "url": "https://www.kaggle.com/datasets/souradipta0/metarefixcifarfs1"
+        },
+        {
+          "ref": "souradiptachoudhuri/metarefix-checkpoint",
+          "title": "metarefix_checkpoint",
+          "subtitle": "",
+          "totalBytes": 184507389,
+          "licenseName": "MIT",
+          "lastUpdated": "2024-04-02T05:04:34.857Z",
+          "url": "https://www.kaggle.com/datasets/souradiptachoudhuri/metarefix-checkpoint"
+        }
+      ]
+    },
+    {
+      "query": "runway configuration",
+      "url": "https://www.kaggle.com/api/v1/datasets/list?search=runway+configuration&page=1",
+      "retrieved_at_utc": "2026-10-30T10:56:05.387811+00:00",
+      "http_status": 200,
+      "content_type": "application/json",
+      "file": "raw/search-4.response",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "outcome": "json_response",
+      "count_this_page": 0,
+      "datasets": []
+    }
+  ]
+}
