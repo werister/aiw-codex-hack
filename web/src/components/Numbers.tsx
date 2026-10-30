@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { QualityResult, ReliabilityBin, SkillAtLead } from "@/lib/forecast-types";
+import { cx } from "./ui";
 
 // RESULTS.md money line (12363f8), word for word. An estimate, not a number from quality.json.
 const MONEY_LINE =
@@ -30,10 +31,12 @@ export function Numbers() {
   // Share of the rulebook's wrong hours that the forecast gets right, two days ahead.
   const fewer = two && two.rule_acc < 1 ? Math.round((1 - (1 - two.model_acc) / (1 - two.rule_acc)) * 100) : null;
   const sure = q?.certainty_reliability?.find((b) => b.lower >= 0.9 && b.observed_frequency != null);
+  // Hour-level: of the hours whose direction differs 24 h later, the share where the new direction is forecast.
   const caught = day?.model_change_acc;
-  const today = day?.persistence_change_acc;
-  // Extra hours a year with the right direction against the rules, 24 h ahead, rounded to 50.
-  const hours = day ? Math.round(((day.model_acc - day.rule_acc) * 8760) / 50) * 50 : null;
+  // Fewer wrong-direction hours a year, 24 h ahead, rounded to 50.
+  const perYear = (a: number, b: number) => Math.round(((a - b) * 8760) / 50) * 50;
+  const vsNow = day ? perYear(day.model_acc, day.persistence_acc) : null;
+  const vsRules = day ? perYear(day.model_acc, day.rule_acc) : null;
 
   return (
     <>
@@ -51,6 +54,7 @@ export function Numbers() {
             missing={missing}
           />
         </div>
+        {day && <Mistakes model={day.model_acc} rules={day.rule_acc} now={day.persistence_acc} />}
         <p className="mt-10 text-[13px] text-muted">
           Measured on {q ? `${q.folds.length} months` : "past months"} the forecast had never seen.
         </p>
@@ -60,11 +64,12 @@ export function Numbers() {
         <h2 className="text-[28px] font-light sm:text-[36px]">What it means for the people doing the work</h2>
         <div className="mt-10 grid gap-2.5 md:grid-cols-3">
           <Tile icon={ICON.bell} big={caught == null ? null : <><Count to={Math.round(caught * 100)} />%</>} missing={missing}>
-            24-hour heads-up for {caught == null ? "most" : `${Math.round(caught * 5)} of 5`} direction changes
-            {today != null && <span className="text-muted"> (about 1 in {Math.round(1 / today)} today)</span>}
+            When the direction will be different 24 h later, the model predicts the new direction in{" "}
+            {caught == null ? "most" : `${Math.round(caught * 100)}%`} of those hours
           </Tile>
-          <Tile icon={ICON.clock} big={hours == null ? null : <>about <Count to={hours} /> h</>} missing={missing}>
-            more hours a year planned with the right direction than with the official rules
+          <Tile icon={ICON.clock} big={vsNow == null ? null : <>about <Count to={vsNow} /> h</>} missing={missing}>
+            About {vsNow == null ? "…" : vsNow.toLocaleString("en-GB")} fewer hours a year planned for the wrong direction than{" "}
+            &lsquo;same as now&rsquo; (about {vsRules ?? "…"} fewer than the official rules)
           </Tile>
           <Tile icon={ICON.euro} big={<>~€0.4M</>}>
             {MONEY_LINE}
@@ -72,6 +77,32 @@ export function Numbers() {
         </div>
       </section>
     </>
+  );
+}
+
+// Wrong hours per 100, 24 h ahead, bars from zero so the gap is not exaggerated.
+function Mistakes({ model, rules, now }: { model: number; rules: number; now: number }) {
+  const rows = [
+    { k: "Our forecast", v: (1 - model) * 100, cls: "bg-accent" },
+    { k: "Official rulebook", v: (1 - rules) * 100, cls: "bg-ink/40" },
+    { k: "Same as now", v: (1 - now) * 100, cls: "bg-ink/20" },
+  ];
+  const max = Math.max(...rows.map((r) => r.v), 1);
+  return (
+    <figure className="mt-14 max-w-[720px]">
+      <figcaption className="text-[20px] font-light">Wrong hours per 100, one day ahead</figcaption>
+      <div className="mt-5 space-y-3">
+        {rows.map((r) => (
+          <div key={r.k} className="grid grid-cols-[150px_1fr_52px] items-center gap-3 text-[15px]">
+            <span>{r.k}</span>
+            <span className="h-4 rounded-full bg-panel-2">
+              <span className={cx("block h-full rounded-full", r.cls)} style={{ width: `${(r.v / max) * 100}%` }} />
+            </span>
+            <span className="text-right tabular">{r.v.toFixed(1)}</span>
+          </div>
+        ))}
+      </div>
+    </figure>
   );
 }
 
@@ -162,5 +193,5 @@ function Count({ to }: { to: number }) {
     };
   }, [to]);
 
-  return <span ref={ref}>{shown}</span>;
+  return <span ref={ref}>{shown.toLocaleString("en-GB")}</span>;
 }

@@ -109,7 +109,7 @@ function SkillTable({ rows, inSample }: { rows: SkillAtLead[]; inSample: SkillAt
             <th className="pb-1 font-medium">Model</th>
             <th className="pb-1 font-medium">Official rules</th>
             <th className="pb-1 font-medium">Same as now</th>
-            <th className="pb-1 font-medium">Changes caught · model / rules</th>
+            <th className="pb-1 font-medium">Right in hours that change · model / rules</th>
             <th className="pb-1 font-medium text-muted">In-sample</th>
           </tr>
         </thead>
