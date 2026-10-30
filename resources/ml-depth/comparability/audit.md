@@ -30,8 +30,11 @@ aus dem Rohtext als `KT` parsen; Speed und Böen stimmen vollständig mit den
 normalisierten Feldern überein. Das macht einen Einheiten- oder Parserfehler
 als Erklärung für diesen ICON-Global-Befund unwahrscheinlich.
 
-Der Bias bleibt in jedem der 22 Kalendermonate negativ (Offset 1: −2,29 bis
-−4,00 kt) und zu jeder lokalen Stunde negativ (−2,78 bis −3,98 kt). Die
+Der Bias bleibt in jedem der 22 lokalen Kalendermonate negativ (Offset 1:
+−2,29 bis −4,00 kt) und zu jeder lokalen Stunde negativ (−2,78 bis −3,98 kt).
+Januar 2025 beginnt am UTC-Archivrand; Oktober 2025 enthält die doppelte lokale
+Herbststunde. Die beiden `02`-Stunden im Herbst werden in der
+Lokaluhr-Stundenstratifizierung zusammengefasst. Die
 Tagesblock-Bootstrap-Intervalle für Offset 1 bleiben ebenfalls klar negativ:
 1-Tagesblöcke [−3,43; −3,21], 3-Tagesblöcke [−3,47; −3,17],
 7-Tagesblöcke [−3,49; −3,15] kt (je 2.000 Wiederholungen). Das ist deskriptive
@@ -49,29 +52,41 @@ Windverteilungen nicht als eigenständige Korrekturregel behandelt werden.
 
 ## DWD-Gegenprüfung und Grenzen
 
-Die getrennte DWD-Stundenreihe für Station 01420 stimmt im Mittel nahe mit
-einem sparsamen METAR-Vergleich überein: Das Zwei-Punkt-METAR-Mittel minus
-DWD-Stundenmittel (`METAR − DWD`) hat Bias +0,245 kt,
-MAE 1,383 kt und RMSE 1,800 kt über 13.076 Stunden ausgewiesen. Für jedes
-DWD-Stundenlabel `t` werden die METAR-Geschwindigkeiten bei `t−40` und
-`t−10` Minuten gemittelt; die untere Grenze `t−70` ist ausgeschlossen.
-Das orientiert sich an der DWD-SYNOP-Zeitkonvention: Die offizielle DWD-
-Beschreibung des verwandten Stunden-Windprodukts ordnet um UTC 11 den
-Mittelwert der sechs 10-Minutenintervalle UTC 09:51–10:50 zu. Die lokale
-Stationsmetadatei 01420 beschreibt den Bezugszeitraum als `23:51–23:50 UTC`.
-Der Zweipunktwert ist weiterhin **kein Stundenmittel** und nur eine
-Plausibilitätsprüfung. 11 DWD-Zeilen haben ein fehlendes Mittel; drei andere
-Stundenfenster haben nicht genau zwei METAR-Punkte. DWD-Werte wurden mit
-1 m/s = 1,9438444924406 kt geprüft; die gespeicherten Umrechnungen stimmen
-exakt. Die jüngsten DWD-Daten sind nicht final qualitätsgeprüft; QN 1, 3 und
-10 kommen vor.
+Die DWD-Stationsmetadaten belegen `F`/`D` in UTC und stündliche Mittel aus
+10-Minutenmitteln; sie legt die genaue Mittelungsgrenze relativ zu jedem
+`MESS_DATUM`-Stundenlabel nicht zweifelsfrei fest. Als **Arbeitsannahme** wurde
+für DWD-Zeit `t` das METAR-Fenster `(t−70 min, t−10 min]` gewählt, gestützt
+auf die veröffentlichte SYNOP-Zeitkonvention eines verwandten DWD-
+Stundenwindprodukts. Darin liegen die zwei METAR-Berichte bei `t−40` und
+`t−10`; ihr arithmetischer Mittelwert ist ein sparsamer Vergleich, **kein
+Stundenmittel**. Die ±1-h-Sensitivität zeigt, wie der Vergleich ausfällt,
+wenn die Zeilenzuordnung anders interpretiert wird:
 
-Auf denselben DWD-Stundenlabels ist ICON um rund −3,07 kt niedriger als das
-DWD-Stundenmittel (13.079 Paare, Offset 1). Das stützt die Richtung des
-METAR-Befunds unabhängig vom IEM-Parser, beweist aber keine allgemeine
-ICON-Bias-Korrektur: Die zeitlichen Mittelungsintervalle sind nicht sicher
-identisch, DWD-01420 ist eine separate Station rund 3,7 km vom EDDF-Raster
-entfernt, und lokale Exposition bzw. Messhöhen sind nicht gleich.
+| Verschiebung | METAR-Fenster relativ zu DWD-Label `t` | METAR−DWD Bias | MAE | RMSE | n |
+| ---: | --- | ---: | ---: | ---: | ---: |
+| −1 h | `(t−130 min, t−70 min]` | +0,247 kt | 1,632 kt | 2,123 kt | 13.076 |
+| 0 h | `(t−70 min, t−10 min]` | +0,245 kt | 1,383 kt | 1,800 kt | 13.076 |
+| +1 h | `(t−10 min, t+50 min]` | +0,244 kt | 1,725 kt | 2,265 kt | 13.076 |
+
+11 DWD-Zeilen haben ein fehlendes Mittel; drei weitere haben in den jeweiligen
+METAR-Fenstern nicht genau zwei Punkte. Bias-Richtung und Mittelwertdifferenz
+bleiben über alle drei Interpretationen ähnlich, während der Fehlerbetrag im
+zentralen Arbeitsfenster am kleinsten ist. Das belegt die Zeitgrenze nicht. Die
+Umrechnung `1 m/s = 1,9438444924406 kt` stimmt für alle gespeicherten
+DWD-Windmittel exakt. Im DWD-QN-Feld kommen 1, 3 und 10 vor; die jüngsten
+Einträge sind nicht final qualitätsgeprüft.
+
+Gegen DWD-Windmittel ist ICON am selben DWD-Stundenlabel um rund −3,07 kt
+niedriger. Für Offset 1 bleibt der Bias bei −1/0/+1 h Forecast-Zeitversatz
+zwischen −3,071 und −3,072 kt (n=13.078–13.079). Das stützt die Richtung des
+METAR-Befunds zusätzlich, beweist aber keine allgemeine ICON-Bias-Korrektur:
+Die stündlichen Mittelungsintervalle sind nicht sicher identisch. DWD-01420
+ist der DWD-Stationsdatensatz `Frankfurt/Main` mit Koordinaten 50,0259 N,
+8,5213 E, Stationshöhe 99,7 m und Windgeberhöhe 10 m; 2025–2026 ist ein
+Ultraschall-Anemometer 2D compact dokumentiert. Die Position liegt etwa 3,6 km
+von der angefragten EDDF-Koordinate und rund 8 km von der tatsächlich
+gelieferten ICON-Rasterzelle entfernt. Ob dieser DWD-Sensor physisch derselbe
+oder gleichwertig zum METAR/ASOS-Sensor ist, ist nicht belegt.
 
 ## Konsequenz für die Übergabe
 
@@ -89,16 +104,25 @@ entfernt, und lokale Exposition bzw. Messhöhen sind nicht gleich.
 
 ## Reproduktion
 
-Aus dem Repository mit dem Support-Ordner `weather/`:
+Vom exportierten Bündel-Root mit dem Support-Ordner `weather/`:
 
 ```bash
-python3 resources/ml-depth/comparability/analyze_comparability.py --support-package weather
+python3 audit/comparability/analyze_comparability.py --support-package weather
 ```
 
-Das Skript schreibt `report.json` neben sich. Ein exportiertes Paket kann mit
-demselben Argument angegeben werden, etwa `--support-package
-resources/ml-support`. Es liest nur die Eingaben, bildet keine Merkmale oder
-Modelle und verändert keine Dateien im Support-Paket.
+Das Skript schreibt standardmäßig `report.json` neben sich. Für einen
+unveränderten Paketvergleich den Output in `/tmp` legen:
+
+```bash
+python3 audit/comparability/analyze_comparability.py \
+  --support-package weather --output /tmp/comparability-reproduction.json
+```
+
+Der feste Bootstrap-Seed und das Fehlen von Abrufzeitstempeln im Ergebnis
+machen die JSON-Ausgabe mit denselben Eingaben deterministisch. Ein anderer
+Support-Ordner kann über `--support-package PATH` angegeben werden. Das Skript
+liest nur die Eingaben, bildet keine Merkmale oder Modelle und verändert keine
+Dateien im Support-Paket.
 
 ## Quellen
 

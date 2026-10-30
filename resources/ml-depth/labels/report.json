@@ -1,12 +1,13 @@
 {
   "source_files": {
-    "README.md": "75862eb9a5170365a08917e195b084ba8b588b561323d645523815382ebac446",
+    "README.md": "a53cfc502046d93d877925e3c73a8c1bfa8ca6f02bfb2fbfe672499e593e9547",
     "dfld_excluded_hours.csv": "abb614d4e9139d49f746a865ea56055872fcf56c92cfb563fbbfa97bf5a979c3",
     "dfld_half_hourly.csv.gz": "2d6ea521ff1ecd8982a709a234236b7c644d4047d969ffe6c157ac79ddae2b71",
     "dfld_hourly.csv": "4383e3afd68f23c26aeef55df0f036ec2d4c8c7d15673b8991928f2ce5863cd7",
     "dfld_manifest.json": "857d403083097a4e21c82066db6432e7c1d35c0a74dc66f26c93d6593592afd8",
     "dfld_r18_excluded_hours.csv": "cda761415ca3746d0c455447c738a925c8def168dac73a2ff7ee18749c424e0e",
-    "dfld_r18_hourly.csv": "68caa908871be0fce09edd99c4fb652228b073833e1beb1514e07c5c42aa61f3"
+    "dfld_r18_hourly.csv": "68caa908871be0fce09edd99c4fb652228b073833e1beb1514e07c5c42aa61f3",
+    "dfld_r18_tailwind_overlap.json": "51cc2146710dbd3ce1c3b3b5e4d1f6da5ac822f98366f7a636a800cac588fb40"
   },
   "half_hour_rows": 154752,
   "hourly_rows": 76588,

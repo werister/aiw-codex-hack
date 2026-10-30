@@ -1635,18 +1635,47 @@
   "dwd_cross_check": {
     "source": "DWD station 01420 hourly mean versus two METAR speed samples",
     "dwd_rows": 13090,
-    "window_definition_utc": "(t-70min, t-10min], 10-minute report timestamps",
-    "window_interpretation": "SYNOP-style hour label; approximate sampling only, not an interval mean",
-    "metar_minus_dwd_two_point_mean": {
-      "n": 13076,
-      "bias_kn": 0.24508059544898425,
-      "mae_kn": 1.3827525673137329,
-      "rmse_kn": 1.8004372766565768
+    "central_working_window_utc": "(t-70min, t-10min], 10-minute report timestamps",
+    "window_interpretation": "Related DWD SYNOP convention used as a working interpretation; exact 01420 row mapping is not confirmed.",
+    "metar_minus_dwd_two_point_mean_by_hour_shift": {
+      "-1": {
+        "metar_minus_dwd": {
+          "n": 13076,
+          "bias_kn": 0.24650176043428038,
+          "mae_kn": 1.6322187219822035,
+          "rmse_kn": 2.1230836171335645
+        },
+        "window_utc": "(t-1h-70min, t-1h-10min]",
+        "excluded_windows": {
+          "non_two_point_metar_window": 3
+        }
+      },
+      "0": {
+        "metar_minus_dwd": {
+          "n": 13076,
+          "bias_kn": 0.24508059544898425,
+          "mae_kn": 1.3827525673137329,
+          "rmse_kn": 1.8004372766565768
+        },
+        "window_utc": "(t+0h-70min, t+0h-10min]",
+        "excluded_windows": {
+          "non_two_point_metar_window": 3
+        }
+      },
+      "1": {
+        "metar_minus_dwd": {
+          "n": 13076,
+          "bias_kn": 0.24429667529321775,
+          "mae_kn": 1.7246762076103346,
+          "rmse_kn": 2.265313577350327
+        },
+        "window_utc": "(t+1h-70min, t+1h-10min]",
+        "excluded_windows": {
+          "non_two_point_metar_window": 3
+        }
+      }
     },
-    "excluded_dwd_rows": {
-      "missing_dwd_mean": 11,
-      "non_two_point_metar_window": 3
-    },
+    "missing_dwd_mean_rows": 11,
     "dwd_qn3_counts": {
       "10": 8722,
       "3": 2616,
@@ -1655,42 +1684,86 @@
     "conversion_ms_to_kn_max_abs_error": 0.0,
     "limitations": [
       "Two METAR reports are a sparse sample, not six DWD 10-minute means and not a time-weighted METAR hourly mean.",
-      "DWD 01420 is a separate station/product about 3.7 km from the airport; local exposure, sensor history, and recent QC differ.",
-      "DWD interval/timestamp convention is interpreted from official DWD SYNOP timing; this comparison is a cross-check only."
+      "DWD 01420 is a separate DWD data product/station record named Frankfurt/Main; coordinate proximity does not prove METAR sensor identity or equivalence.",
+      "The t-70..t-10 window is a working interpretation only; +/-1h sensitivity exposes timestamp uncertainty."
     ]
   },
   "icon_vs_dwd_same_hour_cross_check": {
     "paired_rows": 13090,
-    "matching_rule": "same UTC timestamp label; ICON forecast speed minus DWD hourly mean",
+    "matching_rule": "ICON forecast at DWD UTC label plus shift; forecast speed minus DWD hourly mean",
     "excluded": {
-      "missing_dwd_mean": 11
+      "missing_dwd_mean": 11,
+      "no_forecast_for_shift_+1h": 1
     },
-    "by_previous_day_offset": {
+    "by_dwd_label_shift_hours": {
+      "-1": {
+        "1": {
+          "n": 13079,
+          "bias_kn": -3.0705867335185246,
+          "mae_kn": 3.1396746833538582,
+          "rmse_kn": 3.9219527936964185
+        },
+        "2": {
+          "n": 13079,
+          "bias_kn": -3.0703879415619526,
+          "mae_kn": 3.158281002784691,
+          "rmse_kn": 3.9866455616303766
+        },
+        "3": {
+          "n": 13079,
+          "bias_kn": -3.081543228663413,
+          "mae_kn": 3.2054583237897747,
+          "rmse_kn": 4.082577907896548
+        }
+      },
+      "0": {
+        "1": {
+          "n": 13079,
+          "bias_kn": -3.071282505366525,
+          "mae_kn": 3.1442257443014774,
+          "rmse_kn": 3.939383661065506
+        },
+        "2": {
+          "n": 13079,
+          "bias_kn": -3.0711754635437556,
+          "mae_kn": 3.159041343211375,
+          "rmse_kn": 3.9999783688296464
+        },
+        "3": {
+          "n": 13079,
+          "bias_kn": -3.082277229733831,
+          "mae_kn": 3.2051012314763585,
+          "rmse_kn": 4.090439304203782
+        }
+      },
       "1": {
-        "n": 13079,
-        "bias_kn": -3.071282505366525,
-        "mae_kn": 3.1442257443014774,
-        "rmse_kn": 3.939383661065506
-      },
-      "2": {
-        "n": 13079,
-        "bias_kn": -3.0711754635437556,
-        "mae_kn": 3.159041343211375,
-        "rmse_kn": 3.9999783688296464
-      },
-      "3": {
-        "n": 13079,
-        "bias_kn": -3.082277229733831,
-        "mae_kn": 3.2051012314763585,
-        "rmse_kn": 4.090439304203782
+        "1": {
+          "n": 13078,
+          "bias_kn": -3.072098989383173,
+          "mae_kn": 3.1618818076752824,
+          "rmse_kn": 4.010753465026783
+        },
+        "2": {
+          "n": 13078,
+          "bias_kn": -3.0721372215287612,
+          "mae_kn": 3.1785169197474916,
+          "rmse_kn": 4.063981558044469
+        },
+        "3": {
+          "n": 13078,
+          "bias_kn": -3.0826663544236994,
+          "mae_kn": 3.2229557362586254,
+          "rmse_kn": 4.139631286451915
+        }
       }
     },
-    "limitation": "Hourly value interval conventions may not be exactly aligned; DWD is a separate nearby station and not airport METAR."
+    "limitation": "Timestamp labels and hourly averaging periods may not exactly align; DWD is a separate data product and sensor equivalence is unverified."
   },
   "limitations": [
     "This is valid-time pairing with the latest METAR at or before the target hour (normally 10 min old), not a forecast issue-time backtest.",
     "Model grid (50.000 N, 8.625 E, 105 m) and EDDF observations differ spatially; sampling methods also differ.",
     "The monthly previous-runs archive does not prove the issue-time availability of each forecast value.",
+    "Direction sectors include only DIRECTIONAL METAR reports; calm, VRB and variable-range reports are excluded. Local-hour bins combine repeated Europe/Berlin DST fold hours.",
     "No calibration, feature selection, or model comparison was performed; the direction-specific and strength-specific strata are diagnostic and selected on observed conditions.",
     "The support archive requested ICON Global. Current ml/fetch.py requests best_match; metrics here do not characterize the model currently trained by the app."
   ]
