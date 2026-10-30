@@ -1,88 +1,106 @@
-# Presenter notes: finals, 17:00
+# Presenter notes — FraAlliance finals
 
-## Hugo's story-first script and speaker cues
+These cues follow the current 13-slide deck and canonical speaker script. The timings total 3:35 (215 seconds) and match autoplay. Lead with the planning task, then show the model and the evidence separately.
 
-Start with the [speaker cue sheet](presenter-cues.html), then use the [full presentation script](presentation-script.md) for the two-minute story/demo opening, five-minute version and three-minute backup. The script includes source-pinned results, illustrative money assumptions, claim corrections and named rehearsal checks. These are review drafts; reconcile the final timing and figures before presenting.
+Use the browser-hosted `/deck/index.html`. Arrow keys or the clicker advance; `A` toggles autoplay; `End` jumps to the last slide. The dashboard is a planning forecast, not an operational clearance.
 
-After deployment, the cue sheet is at `/deck/presenter-cues.html` and the script at `/deck/presentation-script.md`. The notes below match the eleven-slide deck as it is now; where the script differs, these numbers and the money sentence win.
+## Slide cues
 
-Hugo presents. **3:37 in total**, one page: `/deck/index.html` on the site. Opened from the file, the 3D scene shows as a still and the dashboard as a screenshot; the charts need the site.
+### 1 · 0:00–0:15 · 48-hour runway forecast
 
-Keys: arrow keys, a click or the clicker advance; F full screen; 1 to 9 and 0 jump to slides 1 to 10, End to the last (13); **A toggles autoplay**, which uses the times below. A click inside the dashboard frame works the app; click outside it (or press the clicker) to move on. Charts replay each time you enter their slide.
+**Say:** “Lift-off is an hourly runway outlook for ground-handling planning at Frankfurt. It looks forty-eight hours ahead, so teams can examine a possible change before deciding how to prepare.”
 
-## 1 · Title · 0:00–0:15
-At Frankfurt Airport, the wind alone decides which way aircraft land and take off. We built Lift-off: it tells the airport which way it will fly, hour by hour, 48 hours ahead.
+**Keep straight:** The 48-hour horizon is forecast range, not a guaranteed warning lead.
 
-## 2 · 156 direction changes a year · 0:15–0:31
-Frankfurt switches its operating direction about 156 times a year, three times a week, and six in ten departures need runway 18. Watch: an aircraft lands westbound, then the wind turns and the field switches to 07. Every switch moves staff, transfers and flights.
+### 2 · 0:15–0:31 · Why the task matters
 
-## 3 · How it's done today · 0:31–0:46
-Today the switch follows the rulebook: 10 knots of tailwind on landing means switch now, a smaller tailwind is tolerated for 30 minutes, and runway 18 closes at 15 knots of north tailwind or over 40 knots of crosswind. That works live. For planning a day or two ahead, people assume it stays like now.
+**Say:** “When the operating direction changes, people and equipment need to be coordinated. A shift lead needs to know which configuration to prepare for, when it may change, and how uncertain the forecast is.”
 
-## 4 · 80 trees, learned from 8 years · 0:46–1:06
-We replace that with 80 trees learned from eight years of flown directions. This is the first one: its first question is the forecast tailwind on runway 25, averaged over three weather models; then what the official rules would say. Thicker lines carry more hours.
+**Keep straight:** This is the operational problem described by the challenge, not a measured delay or savings result from our model.
 
-## 5 · Every hour, 48 hours ahead · 1:06–1:31
-This is the live dashboard, running inside the slide. The top line is the planning recommendation; below it the next 48 hours, hour by hour: direction, runway 18, how certain we are, and when the next change is likely.
+### 3 · 0:31–0:46 · The official rule baseline
 
-## 6 · Eight years of flown directions · 1:31–1:51
-Every column is a day, every row an hour, eight years of directions actually flown at Frankfurt: blue is west, berry is east. That's what we learn from and what we test against, all public data.
+**Say:** “Our baseline applies the challenge wind limits to forecast weather. We also compare with keeping the current direction. These are reproducible reference methods, not a description of every tool the airport already uses.”
+
+**Keep straight:** This diagram illustrates the rule implementation used as a baseline. It is not a complete description of DFS’s control-room workflow.
+
+### 4 · 0:46–1:06 · The direction model
+
+**Say:** “The model combines forecast wind, the challenge rules and recent recorded conditions. It learns patterns with boosted trees and blends direction forecasts with the current state. We compare it with applying the wind rules directly and simply keeping the current direction.”
+
+### 5 · 1:06–1:31 · Four hourly outputs
+
+**Say:** “There are two forecast targets: the operating direction, west or east, and runway-eighteen weather usability. Each hour also has a certainty score, and we show the next likely direction change. These are planning inputs. DFS retains the operating decision.”
+
+### 6 · 1:31–1:51 · Recorded direction data
+
+**Say:** “We combine public recorded directions from DFLD, airport weather observations from IEM, and archived forecasts from Open-Meteo. The direction archive reaches back to 2018; the joined forecast inputs start in 2024. These public records are proxies for operations, not certified movement logs.”
 
 Sources on this slide: [DFLD](https://www.dfld.de/Mess/StatWetter.php?R=1) supplies the recorded directions shown in the chart. Weather inputs come from [Open-Meteo live forecasts](https://open-meteo.com/en/docs) and [archived Previous Runs](https://open-meteo.com/en/docs/previous-runs-api), plus [EDDF METAR observations via the Iowa Environmental Mesonet](https://mesonet.agron.iastate.edu/request/download.phtml). Open-Meteo data are attributed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
 Windy is only a separate connection test. Its Testing-tier values are excluded from forecasts, training and evaluation.
 
-## 7 · What we tried, and who checked it · 1:51–2:03
-23 experiments in our pipeline. The comparison was rerun independently in Colab, a red team's leakage tests pass 15 of 15, and an independent data audit hash-checked every raw weather file.
+### 7 · 1:51–2:01 · How we tested it
 
+**Say:** “We test on successive months, training each model on earlier data. Those months also informed development; a frozen prospective test is still needed.”
 
-## 8 · Warned a day ahead · 2:03–2:28
-A real day, 28 to 29 October. The line is our model's chance of west, the thin step is the official rules, the strip below is what was actually flown. The switch came at 10:00 on the 29th: the shift lead could plan staff and equipment for it a day ahead instead of reacting on the spot.
+**Show:** 12 monthly folds, three archived weather-model inputs, two baselines and 1-, 6- and 24-hour scores. Do not reuse older audit counts as v6 results.
 
-## 9 · A third fewer mistakes than the rules · 2:28–2:53
-Tested on 12 months the model never saw. The bars are wrong hours per 100. A day ahead we're wrong 8.2 times in 100, the official rules 12.3, assuming it stays like now 24.9; two days ahead 11.1 against 16.0 and 35.8. That's about a third fewer mistakes than the rules. And of 193 direction changes, we caught 115 within plus or minus 3 hours.
+### 8 · 2:01–2:26 · Historical forecast against the record
 
+**Say:** “This October twenty-eighth reconstruction shows the forecast against the later record. Both methods anticipate a change, but neither gets its timing exactly right. The example explains the product; the separate twelve-month evaluation measures its quality.”
 
-## 10 · Value · 2:53–3:08
-Verbatim: "Estimated value: about €0.4M a year at Frankfurt (range €0.13M to €3.2M), plus a similar amount in passengers' time. Based on EUROCONTROL delay costs and published studies of runway direction changes."
+**Demo path:** In the prepared `/pitch` tab choose **2026-10-28**, show the hidden outcome, then click **Reveal recorded outcome**. Read the shared-hour counts shown on screen. If the tab switch is not rehearsed, stay with the chart.
 
-## 11 · For the people doing the work · 3:08–3:23
-Planning a day ahead with this, about 1,450 fewer hours a year are planned for the wrong direction than when you assume it stays like now, and about 350 fewer than with the official rules. That's a day to set rosters, equipment and stands instead of reshuffling on the spot.
+**Keep straight:** The saved file currently has 47 recorded hours: model 41/47, rules 39/47, persistence 33/47. Refresh these figures after forecast regeneration. The first different hourly record is 29 October at 10:00 Europe/Berlin; the previous matching sample is 09:00. Hourly bins cannot establish the exact transition instant or rule out temporary changes. Do not use the earlier 40-hour subset.
 
+### 9 · 2:26–2:51 · Direction accuracy
 
-## 12 · Next · 3:23–3:29
-Next: fleet-wide planning.
+**Say:** “At twenty-four hours, the model gets the direction right in 91.8 percent of scored hours, versus 87.7 for the challenge wind rules and 75.1 for keeping the current direction. At one hour, keeping the current direction is slightly better. These scores measure direction, not exact change timing.”
 
-## 13 · Thank you · 3:29–3:37
-Thank you. Hugo, Kai, Luca and Jayden.
+**Keep straight:** Transition hours are excluded from this accuracy score. The stronger corrected-ensemble rule comparison is 93.3%, 88.8% and 89.2% at 1, 6 and 24 hours; include it if asked about baseline strength.
 
-## Numbers you can say out loud
+### 10 · 2:51–3:06 · Next-change timing
 
-All from `web/public/data/quality.json` (walk-forward-v6, 12-month walk-forward), `RESULTS.md` and Kai's verification reports. They get a final check at 15:40; the deck re-reads `quality.json` on its own.
+**Say:** “Direction accuracy does not guarantee exact change timing. The separate event evaluation matches 115 of 193 recorded changes within three hours, with 138 false-alarm clusters. That limits how warnings should be used.”
 
-| Ahead | Model | 95% range | Official rules | Same as now | Wrong hours per 100 (model / rules / same as now) |
-|---|---|---|---|---|---|
-| 6 h | 92.7% | 90.9–94.4 | 88.1% | 88.8% | 7.3 / 11.9 / 11.2 |
-| 24 h | 91.8% | 89.8–93.6 | 87.7% | 75.1% | 8.2 / 12.3 / 24.9 |
-| 48 h | 88.9% | 86.5–91.0 | 84.0% | 64.2% | 11.1 / 16.0 / 35.8 |
+**Keep straight:** The median lead applies only to matched events. The separate window score is 394 of 750 overlapping change windows within three hours (52.5%); the false-alarm rate is 87 of 593 no-change windows (14.7%). These are different denominators, not independent events.
 
-- Lead over the rules: +4.6, +4.1 and +4.9 points at 6, 24 and 48 h; the 95% range never touches zero, and the chance it's luck is below 1 in 1,000.
-- 1 h ahead: model 95.7%, rules 93.1%, same as now 95.9%. In the first hour, keeping the current direction is hard to beat; say so if asked.
-- Direction changes, event-based: 115 of 193 caught within ±3 h; 14.7% false alarms in quiet windows. Hour-based: when the direction will be different 24 h later, the model predicts the new direction in 82.3% of those hours (rules 80.2%, same as now 28.1%). Never say 82% of changes are known a day ahead.
-- Planning hours: about 1,450 fewer wrong-direction hours a year than "same as now", about 350 fewer than the rules (accuracy gap at 24 h × 8,760 h).
-- Data: 76,588 hours of flown directions since 2018, rebuilt exactly from 154,752 half-hour records; 46 of 46 raw weather files hash-checked; 144,072 forecast wind values re-checked.
-- FraAlliance's own numbers: 156 changes a year, about 3 a week; 6 of 10 departures on runway 18; westbound about 61% of the time.
+### 11 · 3:06–3:21 · Runway 18 and certainty
 
-Terms, if asked: "direction" = operating direction 25 (west) or 07 (east). "Same as now" = persistence, assuming today's direction holds. "Mistakes" = hours with the wrong direction. "95% range" = confidence interval from resampling whole days. Certainty already uses the spread across three weather models.
+**Say:** “Runway eighteen remains weak: no warnings in twelve positive twenty-four-hour windows. The labels are inferred from weather, not actual closures. Our certainty score is not a calibrated chance of being correct.”
 
-## Money
+**Keep straight:** The 12 positive windows overlap and are not twelve independent closures. There were 307 complete windows and 1,125 exclusions.
 
-Only this sentence, verbatim (`RESULTS.md`, pitch line 2), and no other euro figure:
+**Certainty:** “The 0–100 score is the smaller probability margin across the direction and runway-18 calls. It is not a calibrated chance that either forecast is correct.”
 
-"Estimated value: about €0.4M a year at Frankfurt (range €0.13M to €3.2M), plus a similar amount in passengers' time. Based on EUROCONTROL delay costs and published studies of runway direction changes."
+### 12 · 3:21–3:27 · Next step
 
-## Don't say
+**Say:** “Test alongside a shift lead: which warnings change preparation?”
 
-- Any comparison with the NASA study (Puranik et al.): its setup is not comparable to ours.
-- A euro cost per runway switch, or any euro figure without the full sentence above.
-- A runway 18 accuracy figure: its labels are inferred from weather, not recorded.
+### 13 · 3:27–3:35 · Team
+
+**Say:** “Thank you.”
+
+## V6 figures for questions
+
+Stable-hour operating-direction accuracy. All methods use the same scored rows in each lead-time comparison.
+
+| Lead | Model | Official rules | Keep current direction | Corrected-ensemble rules |
+|---|---:|---:|---:|---:|
+| 1 h | 95.7% | 93.1% | 95.9% | 93.3% |
+| 6 h | 92.7% | 88.1% | 88.8% | 88.8% |
+| 24 h | 91.8% | 87.7% | 75.1% | 89.2% |
+| 48 h | 88.9% | 84.0% | 64.2% | 85.8% |
+
+Twelve expanding monthly folds cover November 2025 through October 2026. Forecast archive availability uses a six-hour publication-lag assumption; exact historical publication times are unavailable. The folds informed feature and model choices, so they are not a final independent validation set.
+
+The certainty score is `100 × min(|2p_OD25−1|, |2p_R18−1|)`. Runway 18 targets are inferred weather usability. Stable-hour accuracy excludes transition hours; next-change event scores use separate half-hour data. See `MODEL_CARD.md` and `web/public/data/quality.json` for definitions and exclusions.
+
+## Do not claim
+
+- That the model has demonstrated day-ahead operational benefit, avoided delays, or financial savings.
+- That the 1-hour model beats persistence, or that every lead beats every baseline.
+- That 12 positive runway-18 windows are 12 distinct closure events, or that the model warned on any of them.
+- That the certainty score is calibrated probability, or that the R18 target records actual operational closure.
+- That the challenge-rule diagram describes the full current DFS/FRA operating workflow.
