@@ -1,6 +1,6 @@
 # Lift-off · finals presentation
 
-Hugo presents; Luca is the backup. One thirteen-slide version, **3:35 target duration**, matching the deck's slide times. This is a rehearsal target, not a measured delivery time. The [printable cue sheet](presenter-cues.html) mirrors the spoken text below. No separate two-, three- or five-minute narrative.
+Hugo presents; Luca is the backup. One fourteen-slide version, **3:41 target duration**, matching the deck's slide times. This is a rehearsal target, not a measured delivery time. The [printable cue sheet](presenter-cues.html) mirrors the spoken text below. No separate two-, three- or five-minute narrative.
 
 Core claim: an hourly runway outlook for ground-handling planning, with measured direction accuracy and explicit limits on change timing and runway 18. Model: **walk-forward-v6**. Figures come from the published [quality artifact](../data/quality.json), not an illustrative savings calculation. The historical example explains the product; the twelve-month evaluation supplies the performance evidence.
 
@@ -81,6 +81,12 @@ Core claim: an hourly runway outlook for ground-handling planning, with measured
 **Show:** Team and invitation to questions.
 
 **Say:** “Thank you. We would welcome that operational test.”
+
+## 14 · Model card · 3:35–3:41
+
+**Show:** QR to `/model-card/`, generated from `MODEL_CARD.md`.
+
+**Say:** “The full model card is public on our site. Scan to read it.”
 
 ## Exact demo path and fallback
 

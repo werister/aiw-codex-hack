@@ -108,3 +108,5 @@ Main at 16:00: tests passed at 15:20 (103). `/play` landed (ee5477f) with the of
 
 - 15:48 | FYI | User requests full model-development history and measured progress in the deck. ML/history lane owns only slide7 (tried) in index.html, new history.html/history.data.json, and narrow matching speaker-note text. The released13-slide order and otherdeckcontent stay preserved. Mainpitch retainsitsduration; fullhistory is a linkedappendix. New ML experiment CLIs remain research-only; no servingmodelpromotion | web/public/deck | ML/history lane
 
+
+- 15:58 | FYI | User clarifies the ChatGPT-hosted deck and the 48h gain. Published Site version11 from source54153fe: result heading explicitly6/24/48h; test-month label no longer claims untouched months. Hosting deployment succeeded and authenticated live slide9 verified. Main heading already included in39fa639; preserve it in scheduled deployments. Published48h accuracy88.9% vs84.0% rules/64.2% persistence | web/public/deck/index.html; hosted /deck/#9 | deck lane complete

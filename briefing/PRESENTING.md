@@ -1,6 +1,6 @@
 # Presenting · Hugo, with Luca as backup
 
-Use one **3:35 target** story: planning problem → baseline and model → forecast demonstration → data and evaluation method → historical comparison → aggregate evidence → timing and runway-18 limits → operational pilot. The duration needs a timed human rehearsal.
+Use one **3:41 target** story: planning problem → baseline and model → forecast demonstration → data and evaluation method → historical comparison → aggregate evidence → timing and runway-18 limits → operational pilot. The duration needs a timed human rehearsal.
 
 - **Slides:** `/deck/index.html`.
 - **Canonical spoken text and exact demo clicks:** [presentation-script.md](../web/public/deck/presentation-script.md).

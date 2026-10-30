@@ -267,7 +267,7 @@
 
         <section class="section" id="versions" aria-labelledby="versions-title">
           <h2 id="versions-title">Version history</h2>
-          <p class="section-intro">Read across a row to see what changed and how that version scored at each forecast lead. A lead is how far ahead the forecast is made.</p>
+        <p class="section-intro">Saved on 30 October 2026. Times are Git records in Berlin time, not training completion times. A lead is how far ahead the forecast is made. Different test groups are identified in each row.</p>
           <div id="versions-content"></div>
         </section>
 
@@ -411,7 +411,7 @@
         var counts = node("div", "count-row");
         counts.append(
           node("span", "count-chip", data.versions.length + (data.versions.length === 1 ? " version" : " versions")),
-          node("span", "count-chip", data.experiments.length + (data.experiments.length === 1 ? " experiment" : " experiments")),
+          node("span", "count-chip", data.experiments.length + (data.experiments.length === 1 ? " history entry" : " history entries")),
           node("span", "count-chip", data.sources.length + (data.sources.length === 1 ? " source" : " sources"))
         );
         summary.appendChild(counts);
@@ -440,11 +440,11 @@
         wrap.setAttribute("role", "region");
         wrap.setAttribute("aria-label", "Scrollable version history table");
         var table = node("table", "version-table");
-        var caption = node("caption", "", "Versions are listed oldest to newest. Accuracy is the share of scored direction predictions that matched the recorded direction.");
+        var caption = node("caption", "", "Accuracy: share of correct direction predictions. n: scored hours at that lead. Brier: probability error; lower is better. Different test groups must not be read as one improvement curve.");
         table.appendChild(caption);
         var thead = node("thead");
         var header = node("tr");
-        ["Version", "When", "What changed", "1 h", "6 h", "24 h", "48 h", "Test group / status"].forEach(function (label) {
+        ["Version", "Saved (Berlin)", "What changed", "1 h", "6 h", "24 h", "48 h", "Test group / status"].forEach(function (label) {
           var th = node("th", "", label);
           th.scope = "col";
           header.appendChild(th);
@@ -459,12 +459,22 @@
           titleCell.appendChild(node("strong", "", valueOrUnavailable(item.label || item.id)));
           if (item.id && item.label && item.id !== item.label) titleCell.appendChild(node("span", "secondary-line", item.id));
           row.appendChild(titleCell);
-          appendCell(row, formatTime(item.time), "nowrap");
+          var saved = new Date(item.time);
+          appendCell(row, Number.isNaN(saved.getTime()) ? "Not available" : new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Berlin" }).format(saved), "nowrap");
           var changeCell = node("td", "version-change");
           changeCell.appendChild(node("p", "", valueOrUnavailable(item.change)));
           if (item.source_url) changeCell.appendChild(safeLink("Open source", item.source_url));
+          if (item.metadata_url) {
+            changeCell.appendChild(document.createTextNode(" · "));
+            changeCell.appendChild(safeLink("Version metadata", item.metadata_url));
+          }
           row.appendChild(changeCell);
-          leads.forEach(function (lead) { appendCell(row, formatAccuracy(item.accuracy && item.accuracy[lead]), "accuracy-cell"); });
+          leads.forEach(function (lead) {
+            var cell = appendCell(row, formatAccuracy(item.accuracy && item.accuracy[lead]), "accuracy-cell");
+            cell.appendChild(node("span", "secondary-line", "n = " + formatCount(item.n && item.n[lead])));
+            var brier = item.brier && item.brier[lead];
+            cell.appendChild(node("span", "secondary-line", "Brier " + (fraction(brier) ? brier.toFixed(3) : "unavailable")));
+          });
           var cohortCell = node("td", "");
           cohortCell.appendChild(node("span", "", valueOrUnavailable(item.cohort)));
           if (item.status) cohortCell.appendChild(node("span", statusClass(item.status), String(item.status)));
@@ -520,7 +530,7 @@
       function renderExperiments(data) {
         var host = document.getElementById("experiments-content");
         host.replaceChildren();
-        document.getElementById("experiment-count").textContent = "All " + data.experiments.length + " recorded experiment" + (data.experiments.length === 1 ? " is" : "s are") + " shown, including work that was not adopted.";
+        document.getElementById("experiment-count").textContent = "All " + data.experiments.length + " history entries are shown: the numbered experiments, external comparisons and latest candidates, including work that was not adopted.";
         if (!data.experiments.length) {
           host.appendChild(sectionEmpty("No experiment records are available in the history file."));
           return;
