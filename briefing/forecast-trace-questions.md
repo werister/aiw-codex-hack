@@ -122,3 +122,103 @@ The read-only audit at [b6b3b0](https://github.com/werister/aiw-codex-hack/tree/
 **Requested proof:** one generated file with resolvable evidence; a selected hour whose displayed values match capture; and observed UI behavior for missing/mismatched capture. Explicitly distinguish a new run with the same issue time from the previous run.
 
 **Answer:** Pending.
+
+### F7 — What exactly are we routing between? (Kai + ML implementer; Hugo confirms product scope)
+
+For this next version, do “different models” mean versions of the runway predictor, different weather forecast sources, different classifier/persistence blends, or separate specialists for runway conditions and flight-delay risk? Which candidates can actually run today, with which artifact IDs and input/output contracts?
+
+**Proposed answer:** separate routing by task first, then compare eligible versions of the same task. A delay-risk output cannot replace P(OD 25) or P(runway 18 usable). Keep weather source, fitted model artifact, blend policy and decision-policy version distinct.
+
+**Follow-up:** list two runnable same-task candidates, their differences and their owner. Historical fold artifacts exist to prevent hindsight leakage; what evidence would justify treating them as competing versions rather than simply selecting the eligible fit?
+
+**Answer:** Pending.
+
+### F8 — Which situations should produce different winners? (Kai + Hugo; Luca checks available data)
+
+Which cases should the demo exercise: calm weather, night operations, strong or changing winds, disagreement between weather sources, short versus long horizons, or expected inbound disruption? For each, what observable input defines it at decision time?
+
+**Proposed answer:** start with the existing horizon × night/calm/active regimes. At inspected main [7dc6476](https://github.com/werister/aiw-codex-hack/tree/7dc647604bdb39a71778afef157175bf8b07ccc1), [blend selection](https://github.com/werister/aiw-codex-hack/blob/7dc647604bdb39a71778afef157175bf8b07ccc1/ml/predict.py) already uses these regimes, and [training](https://github.com/werister/aiw-codex-hack/blob/7dc647604bdb39a71778afef157175bf8b07ccc1/ml/train.py) selects weights on earlier validation data. Extend that foundation before adding a second classification of situations.
+
+**Follow-up:** give a small scenario table with definition, input availability time, expected behavior and evidence status: measured / hypothesis / simulated. Should the first demo include deliberately different synthetic specialist profiles? If yes, label the scenario, scores and outputs as simulated throughout; never manufacture a measured winner.
+
+**Answer:** Pending.
+
+### F9 — What proves that routing beats using one model? (Kai + evaluation owner)
+
+Which metric decides “better” for each task and horizon, and on which common examples? What minimum sample coverage and uncertainty reporting are needed before claiming a specialist wins?
+
+**Proposed answer:** select the routing policy on earlier validation data, freeze it, then evaluate the entire routed system on later held-out periods. For runway probabilities, report Brier score plus accuracy, change-event misses and false alarms. Compare with the current served blend, rules, persistence and a fixed candidate selected on validation data. Report per-regime counts and overall results on matched rows; distinguish inferred runway-18 labels from recorded operating directions.
+
+**Follow-up:** what result would reject routing or leave the current policy active? Include a case where the proposed specialist loses, sparse regimes, and a test that prevents choosing a winner using the held-out outcome. How will policy changes remain separate from honest final evaluation?
+
+**Answer:** Pending.
+
+### F10 — When does the decision API select, blend or request another specialist? (ML implementer + Jayden)
+
+Does it decide once per 48-hour run, per target hour, per task, or only when an upstream risk crosses a threshold? Does it select one candidate or blend several? What stops small score changes from causing unstable selections?
+
+**Proposed answer:** make the selection granularity, thresholds, tie-break and policy version explicit. Reuse existing blending where it already serves the need. An “expected delay” trigger must come from an available upstream signal with its own timestamp and provenance; it cannot use the actual later delay or depend circularly on the specialist it is trying to select.
+
+**Follow-up:** walk through one normal-weather request and one disruption request, showing the inputs available before each decision, any additional model call, and the final task outputs. If delay evidence is missing, what exactly does the API return?
+
+**Answer:** Pending.
+
+### F11 — Does the API execute models or select saved predictions? (Jayden + ML implementer)
+
+What is the smallest end-to-end delivery for the hackathon: selecting among precomputed candidate runs, executing inference on demand, or comparing in shadow mode while retaining the current forecast? Where does it run, and who owns that boundary?
+
+**Proposed answer:** choose one explicit execution mode. A saved-run selector is a valid first demo if labelled as such; it must return the selected candidate's actual prediction, not only change the displayed version name. Do not imply live model calls when using saved results.
+
+**Follow-up:** provide one request/response example containing task, issue time, target hour/horizon, input or forecast reference, selection mode, selected artifact, prediction/run reference, policy version, reason and alternatives. State refresh behavior, maximum accepted age and response-time budget. Which consumer will call this API first?
+
+**Answer:** Pending.
+
+### F12 — How do versions become eligible, and how do we roll back? (Kai + ML implementer)
+
+What identifies a candidate independently of its display name? How are artifact hashes, training cutoff, input schema, feature transforms, supported task/horizons and validation evidence registered together?
+
+**Proposed answer:** only compare candidates compatible with the requested task and available inputs. Historical requests must exclude artifacts trained with later labels and policies selected using later evidence. A newly trained version must not become the default merely because its version number is higher.
+
+**Follow-up:** who promotes a candidate, what check must pass, and which previous candidate/policy is retained for rollback? Demonstrate rejection of a future-trained artifact and a candidate with incompatible inputs. Can the exact old result still be reproduced after promotion?
+
+**Answer:** Pending.
+
+### F13 — Can the controller trace why this version was chosen? (Jayden + evidence owner)
+
+Beyond F4–F6's inference trace, can we retain the routing inputs, detected situation, candidate set, eligibility exclusions, metric/sample count used, policy version, selected artifact and resulting forecast/run ID?
+
+**Proposed answer:** show “why selected” beside “how this prediction was produced.” Keep model-validation evidence separate from current prediction confidence. A model's high self-reported confidence is not evidence that it performs best in this situation.
+
+**Follow-up:** open one selection and explain why the runner-up was not selected. Can we replay the decision from retained evidence? If candidate outputs disagree, can the panel show that disagreement without inventing feature contributions or a combined confidence score?
+
+**Answer:** Pending.
+
+### F14 — What can the controller change safely in the panel? (Hugo + Jayden)
+
+Should the user be able to select a scenario, compare versions, pin a version, or change a routing policy? Which action changes only the comparison, and which explicitly changes the active forecast and planning recommendation?
+
+**Proposed answer:** start with Auto and Compare views, plus an explicit action to use an eligible alternative. Show selected task, artifact, situation, selection reason, evidence coverage and simulation status. Switching the active forecast must update its evidence and derived next-change/closure recommendation together; preserve the recommendation-versus-inspected-hour distinction from F3.
+
+**Follow-up:** demonstrate Auto → compare alternative → explicitly apply → return to Auto, including unavailable evidence. Is a manual choice recorded with the resulting run identity? Confirm that the panel supports planning and does not imply an operational runway command.
+
+**Answer:** Pending.
+
+### F15 — What happens when no specialist deserves selection? (ML implementer + Jayden)
+
+What happens with too few comparable validation examples, stale or missing inputs, an unavailable model, timeout, incompatible output, or strong candidate disagreement?
+
+**Proposed answer:** define an explicit fallback for each task and record the reason. For runway prediction, retain a compatible existing baseline/current policy where valid; for unsupported delay prediction, return unavailable. Missing data is not zero delay, and a fallback must not retain the failed specialist's name or evidence.
+
+**Follow-up:** show one deterministic test for each relevant failure path, including the panel state and resulting forecast identity. What is the behavior when the fallback itself lacks required inputs? Can manual override bypass eligibility checks, or only choose among eligible alternatives?
+
+**Answer:** Pending.
+
+### F16 — What is the smallest version we can verify and demonstrate? (Hugo + Kai + Jayden)
+
+Who owns candidate/evaluation export, decision API, panel integration and independent verification? Which work already underway can supply each piece, and which piece must land first without delaying the existing trace capture?
+
+**Proposed answer:** agree on three slices: (1) two eligible runway candidates and comparable evidence, (2) a decision response linked to actual candidate outputs, (3) a panel that demonstrates selection, comparison and fallback. Add a clearly simulated disruption specialist only if that demo scope is accepted. Real flight-delay prediction requires its own data, target and evaluation; the [fleet-planning handoff](fleet-planning.md) records the current data gap.
+
+**Follow-up:** name an owner, reviewer, realistic delivery time and acceptance command for each slice. The demonstration should include two situations with different winners if supported, a case where retaining the current model is correct, and a failure/fallback case. If measured evidence does not justify different winners, show that honestly and keep any scripted routing demonstration separate. Which claim can Hugo make at submission, and which remains a proposed next step?
+
+**Answer:** Pending.
