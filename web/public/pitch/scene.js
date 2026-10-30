@@ -7,7 +7,7 @@
 // Options: od "25" | "07", r18Open, wind { dir, kt } (optional, derived from od/r18 when left out),
 // story (true: keyframed 12 s loop 25 -> 07 -> 25, ignores setState), intro (tiles settle into runways),
 // labels, view (name in VIEWS or { position: [x,y,z], target: [x,y,z] }), aircraftScale, pixelRatio (number or function),
-// onChange({ od, r18Open, wind }).
+// theme "light" | "tower" (the app's dark mode), onChange({ od, r18Open, wind }).
 // The canvas is transparent, so the host page owns the background. Three.js loads from ./vendor.
 import * as THREE from "./vendor/three.module.min.js";
 
@@ -18,15 +18,12 @@ const lerp = (a, b, k) => a + (b - a) * k;
 const easeInOut = (k) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
 const easeOut = (k) => 1 - Math.pow(1 - k, 3);
 
-// FraAlliance tokens (web/DESIGN.md).
-const COLOR = {
-  west: "#3c36da", // OD 25
-  east: "#9d2f7f", // OD 07
-  ink: "#1d1a78",
-  tile: "#e3e4fd",
-  grey: "#d3d4e2",
-  label: "#5d5b94",
+// FraAlliance tokens (web/DESIGN.md, web/src/app/globals.css). west = OD 25, east = OD 07.
+const PALETTE = {
+  light: { west: "#3c36da", east: "#9d2f7f", ink: "#1d1a78", tile: "#e3e4fd", grey: "#d3d4e2", label: "#5d5b94", shadow: 0.1 },
+  tower: { west: "#7a75ff", east: "#c24fae", ink: "#d9dafd", tile: "#2a2790", grey: "#2e2b8a", label: "#adb0f9", shadow: 0.35 },
 };
+const TAIL = "#1d1a78";
 
 // Runway frame: heading 070, x east, z south, 1 unit = 100 m. Positions are schematic, not surveyed.
 const D = new T.Vector3(Math.sin(rad(70)), 0, -Math.cos(rad(70)));
@@ -151,7 +148,7 @@ function labelSprite(text) {
   const g = cv.getContext("2d");
   g.font = '500 72px "Inter Tight", system-ui, sans-serif';
   g.textAlign = "center"; g.textBaseline = "middle";
-  g.fillStyle = COLOR.label;
+  g.fillStyle = "#ffffff"; // tinted per theme through the sprite colour
   g.fillText(text, 128, 66);
   const tex = new T.CanvasTexture(cv);
   tex.colorSpace = T.SRGBColorSpace;
@@ -161,7 +158,8 @@ function labelSprite(text) {
 }
 
 export function mount(container, options = {}) {
-  const opts = { od: "25", r18Open: true, story: false, intro: true, labels: true, view: "hero", aircraftScale: 1.5, ...options };
+  const opts = { od: "25", r18Open: true, story: false, intro: true, labels: true, view: "hero", aircraftScale: 1.5, theme: "light", ...options };
+  let pal = PALETTE[opts.theme] || PALETTE.light;
   if (opts.story) Object.assign(opts, STORY[0]);
 
   const renderer = new T.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
@@ -187,7 +185,7 @@ export function mount(container, options = {}) {
   sun.shadow.radius = 4;
   scene.add(sun, sun.target);
 
-  const catcher = new T.Mesh(new T.PlaneGeometry(500, 500), new T.ShadowMaterial({ opacity: 0.1 }));
+  const catcher = new T.Mesh(new T.PlaneGeometry(500, 500), new T.ShadowMaterial({ opacity: pal.shadow }));
   catcher.rotation.x = -Math.PI / 2;
   catcher.receiveShadow = true;
   scene.add(catcher);
@@ -201,8 +199,8 @@ export function mount(container, options = {}) {
   const colorNow = { par: new T.Color(odColor(state.od)), r18: new T.Color(r18Color(state.r18Open)) };
   let colorTween = null;
 
-  function odColor(od) { return od === "07" ? COLOR.east : COLOR.west; }
-  function r18Color(open) { return open ? COLOR.ink : COLOR.grey; }
+  function odColor(od) { return od === "07" ? pal.east : pal.west; }
+  function r18Color(open) { return open ? pal.ink : pal.grey; }
 
   // ---- runways: FraAlliance tiles that settle into the layout ----
   const DEPTH = 0.08;
@@ -214,7 +212,7 @@ export function mount(container, options = {}) {
   ];
   const slabs = RUNWAYS.map((rw, i) => {
     const st = TILE_START[i];
-    const mat = new T.MeshLambertMaterial({ color: COLOR.tile, transparent: true, opacity: 0.94 });
+    const mat = new T.MeshLambertMaterial({ color: pal.tile, transparent: true, opacity: 0.94 });
     const mesh = new T.Mesh(slabGeometry(1, 1, 0.2, DEPTH), mat);
     mesh.castShadow = true;
     mesh.receiveShadow = true;
@@ -268,6 +266,7 @@ export function mount(container, options = {}) {
         rw.names.forEach((name, i) => {
           if (!name) return;
           const sp = labelSprite(name);
+          sp.material.color.set(pal.label);
           const out = rw.dir.clone().multiplyScalar(i === 0 ? -2.4 : 2.4);
           sp.position.copy(i === 0 ? rw.a : rw.b).add(out).setY(0.8);
           scene.add(sp);
@@ -285,7 +284,7 @@ export function mount(container, options = {}) {
   arrowShape.lineTo(0, 3.2); arrowShape.lineTo(-1.05, 1.2); arrowShape.lineTo(-0.28, 1.2); arrowShape.closePath();
   const arrowGeo = new T.ExtrudeGeometry(arrowShape, { depth: 0.16, bevelEnabled: true, bevelThickness: 0.04, bevelSize: 0.04, bevelSegments: 2 });
   arrowGeo.rotateX(Math.PI / 2);
-  const arrowMat = new T.MeshLambertMaterial({ color: COLOR.ink, transparent: true, opacity: 0 });
+  const arrowMat = new T.MeshLambertMaterial({ color: pal.ink, transparent: true, opacity: 0 });
   const arrow = new T.Mesh(arrowGeo, arrowMat);
   arrow.castShadow = true;
   const ARROW_AT = P(-4, 21).setY(6);
@@ -297,7 +296,7 @@ export function mount(container, options = {}) {
   function makeAircraft() {
     const g = new T.Group();
     const body = new T.MeshStandardMaterial({ color: 0xffffff, roughness: 0.5, metalness: 0.05, transparent: true });
-    const tail = new T.MeshStandardMaterial({ color: COLOR.ink, roughness: 0.6, transparent: true });
+    const tail = new T.MeshStandardMaterial({ color: TAIL, roughness: 0.6, transparent: true });
     const parts = [
       [GEO.body, body], [GEO.nose, body, [0, 0, 0.62]], [GEO.tail, body, [0, 0.03, -0.84]],
       [GEO.wing, body, [0, -0.03, 0]], [GEO.wing, body, [0, -0.03, 0], -1],
@@ -454,7 +453,7 @@ export function mount(container, options = {}) {
       const k = clamp01((t - introStart - sl.delay) / (INTRO - 0.5));
       const e = placeSlab(sl, k);
       const base = sl.rw.id === "R18" ? colorNow.r18 : colorNow.par;
-      sl.mat.color.copy(new T.Color(COLOR.tile)).lerp(base, e);
+      sl.mat.color.set(pal.tile).lerp(base, e);
       sl.mat.opacity = lerp(0.9, 1, e);
       sl.centre.material.opacity = 0.75 * clamp01((ki - 0.85) / 0.25) * (sl.rw.id === "R18" && !state.r18Open ? 0.4 : 1);
     }
@@ -547,6 +546,16 @@ export function mount(container, options = {}) {
       if (!on) beginTransition(target);
     },
     setCamera,
+    setTheme(name) {
+      pal = PALETTE[name] || PALETTE.light;
+      colorTween = null;
+      colorNow.par.set(odColor(state.od));
+      colorNow.r18.set(r18Color(state.r18Open));
+      for (const g of guides) g.mat.color.set(odColor(g.od));
+      for (const sp of labels) sp.material.color.set(pal.label);
+      arrowMat.color.set(pal.ink);
+      catcher.material.opacity = pal.shadow;
+    },
     replayIntro() { introStart = t; halfStart = null; for (const f of flights) f.fade = 0; },
     getState: () => ({ od: state.od, r18Open: state.r18Open, wind: { ...state.wind } }),
     resize,
