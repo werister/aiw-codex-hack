@@ -2,8 +2,8 @@
 
 ## 1. Rules
 
-- [ ] 1.1 `ml/rules.py`: tailwind, crosswind, `r18_usable`, `od_state_machine`
-- [ ] 1.2 Unit tests with the brief's examples and the hysteresis cases
+- [x] 1.1 `ml/rules.py`: tailwind, crosswind, `r18_usable`, `od_state_machine`
+- [x] 1.2 Unit tests with the brief's examples and the hysteresis cases
 
 ## 2. Labels and baseline
 
