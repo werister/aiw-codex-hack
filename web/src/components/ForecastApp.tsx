@@ -109,6 +109,9 @@ export function ForecastApp() {
             </svg>
           </label>
           <ThemeToggle />
+          <Link href="/pitch" className="pill-btn border border-line">
+            Pitch mode
+          </Link>
           <Link href="/approach" className="pill-btn hidden border border-line text-ink [--btn-ring:var(--line)] md:inline-flex">
             How we built it
           </Link>

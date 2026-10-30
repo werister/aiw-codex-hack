@@ -4,6 +4,17 @@ Stand: 30. Oktober 2026. Strategie und Sprechentwurf für Hugo/Luca als Beitrag 
 WP6; keine Änderung der Arbeitspakete oder der laufenden Implementierung. Drei
 Minuten Pitch sind eine Arbeitsannahme, keine bestätigte Veranstaltervorgabe.
 
+**Umsetzung:** Im Cockpit führt „Pitch mode“ zu `/pitch`. Schritt 1 zeigt das
+interaktive, als synthetisch gekennzeichnete Windbeispiel. Schritt 2 lädt gespeicherte
+Fälle und blendet deren DFLD-Richtungslabels erst auf Knopfdruck ein; Tageswechsel
+setzen die Aufdeckung zurück. Modell, Wetterregel und Persistenz werden auf
+denselben vorhandenen Stunden verglichen. Eine eingegebene Vorbereitungszeit
+ergibt eine bedingte Planungsmarke. Schritt 3 zeigt den separaten Qualitätsbericht
+einschließlich Fehlalarmen und Grenzen der Bahn-18-Labels. Die gespeicherten Fälle
+weisen Version v2 aus; sie sind historische Illustrationen und dürfen nicht als
+Nachweis des neueren Modellstands oder einer exakt damaligen Datenverfügbarkeit
+ausgegeben werden. Die Anwendung kennzeichnet diese Trennung.
+
 ## Die Empfehlung
 
 **Eine überraschende Betriebssituation zeigen, dann am historischen Fall belegen,
@@ -86,10 +97,10 @@ Ground-Handling-Planung als angeblich derselben Handlung wechseln.
 | 2:20–2:45 | Eine Planprüfung mit vom Betrieb vorgegebener Vorbereitungszeit | Prognose wird für eine konkrete Vorbereitung relevant |
 | 2:45–3:00 | Model Card und ein klarer nächster Schritt | Das Team kennt Daten, Grenzen und den Weg zu einem Pilotversuch |
 
-**Zielskript für die fertige Demo, derzeit kein Leistungsnachweis:** Im geprüften
-Worktree ist die Timeline noch als im Aufbau beschrieben; ein ausgewerteter
-Modell-Rücktest liegt dieser Strategieprüfung nicht vor. Der folgende Text setzt
-die fertige Ansicht und belastbare Ergebnisse voraus. Bei fehlenden Ergebnissen
+**Zielskript für die Demo, derzeit kein gemeinsamer Leistungsnachweis:** Die
+Ansicht ist inzwischen umgesetzt; gespeicherte Replays und der neuere Qualitätsbericht
+haben getrennte Herkunft. Der folgende Text setzt passend belegte Ergebnisse
+für den jeweils genannten Modellstand voraus. Bei fehlenden Ergebnissen
 auf eine ausdrücklich als Regelillustration bezeichnete Demo kürzen und den
 ML-Nachweis als offen nennen.
 
@@ -209,5 +220,21 @@ nachgerechnete Gegenbeispiele, Rücktest-Entwurf und unabhängige Jury-Kritik.
 Geprüft: Windkomponenten bestätigen den unveränderten 25-Zustand bei verändertem
 Bahn-18-Regelzustand; der synthetische Persistenzfall bestätigt 98,22 % bei null
 Vorwarnungen. Ein unabhängiger Review bevorzugt den Bahn-18-Einstieg gegenüber
-der abstrakten Accuracy-Falle. Offen sind tatsächliche Modellgüte, betrieblicher
-Vorlauf, Nutzenfeedback und ein zeitlich gemessener menschlicher Probelauf.
+der abstrakten Accuracy-Falle. Der inzwischen vorhandene Qualitätsbericht enthält
+Modellgüte nach Horizont. Offen bleiben eine gemeinsame Versionszuordnung mit den
+Replays, tatsächliche Bahn-18-Sperrungen, betrieblicher Vorlauf, Nutzenfeedback und
+ein zeitlich gemessener menschlicher Probelauf.
+
+## Prüfung der eingebauten Ansicht
+
+`cd web && npm run build` baut einschließlich TypeScript-Prüfung erfolgreich;
+`/pitch` wird statisch vorgerendert. Die acht Replay-Tests bestehen mit
+`node --test src/lib/pitch-replay.test.mjs`; ESLint besteht für die geänderten
+Web-Dateien. Die Demo-Konstanten entsprechen den genutzten Feldern in `ml/rules.json`.
+
+Ein lokaler Browserdurchlauf prüft Einstieg aus dem Cockpit, Wind-A/B samt
+Tastaturbedienung, Aufdecken und Zurücksetzen der Ergebnisse, 42/48 bzw. 40/48
+belegte Stunden, Planungsmarke und fehlgeschlagenen Datenabruf ohne alte Ergebnisse.
+Alle drei Schritte passen bei 390 px ohne Seitenüberlauf; Desktop- und mobile
+Screenshots wurden geprüft. Es gab keine Browser-Laufzeitfehler. Diese Checks
+belegen die Ansicht, nicht einen produktiven Einsatz oder gewonnenen Vorlauf.
