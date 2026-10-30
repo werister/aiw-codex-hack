@@ -4,8 +4,8 @@ Worktree `C:\olawt\aiw-wt-ml`, branch `jayden/model`. The head lane merges and t
 
 Read first: `AGENTS.md`, `frankfurt-airport-operating-direction-forecast.md` (official brief: wins), `ml/rules.json`, `ml/README.md`, `web/src/lib/forecast-types.ts`, and `openspec/changes/wp2-*`, `wp3-*`, `wp8-*` (tick tasks off as you finish them).
 
-## PUSH IS PAUSED
-origin/main's history is being rewritten. **Commit locally only, and don't push** until the head lane says PUSH OK. Then: `git fetch && git rebase --onto origin/main <OLD_SHA>` (the head gives you the SHA) and `git push -u origin jayden/model`.
+## Push rule
+After each small commit: `git pull --rebase origin main && git push origin HEAD:main`. Never force, never merge.
 
 ## Data you build on (all in this repo)
 - **Target for OD = recorded flown directions:** `data/ground_truth/dfld_hourly.csv` on `origin/jayden/research` (DFLD, 24,546 hourly rows 2024-01 to 2026-10-29, `od` as string "25"/"07"). Read `data/ground_truth/README.md` first. Get it with `git checkout origin/jayden/research -- data/ground_truth` (don't commit that folder; it lands from its own branch).
@@ -13,7 +13,7 @@ origin/main's history is being rewritten. **Commit locally only, and don't push*
 - **Runway 18 target:** no recorded weather-closure history exists, so it's **INFERRED** from METAR with the official rule (tailwind on 180 of 15 kt or more, or crosswind including gusts over 40 kt). Say "inferred" in every output.
 
 ## You own (create only these)
-`ml/rules.py`, `ml/tests/test_rules.py`, `ml/features.py`, `ml/train.py`, `ml/predict.py`, `ml/quality.py`, `ml/models/`, `ml/tests/test_no_leakage.py`, `web/src/data/backtest.json`, `web/src/data/quality.json`, and `ml/requirements.txt` additions (tzdata, pytest, joblib).
+`ml/rules.py`, `ml/tests/test_rules.py`, `ml/features.py`, `ml/train.py`, `ml/predict.py`, `ml/quality.py`, `ml/models/`, `ml/tests/test_no_leakage.py`, `web/public/data/backtest.json`, `web/public/data/quality.json`, and `ml/requirements.txt` additions (tzdata, pytest, joblib).
 
 1. **`ml/rules.py` + tests (WP2 code; Kai reviews):** pure functions reading `ml/rules.json`. `tailwind(speed, dir, heading)` = speed × cos(dir − heading − 180°). Also `crosswind`, `r18_usable`, and `od_state_machine` over time-ordered (time, dir|None, speed, gust):
    - ≥ 10 kt tailwind on the current OD → switch now;
@@ -29,7 +29,7 @@ origin/main's history is being rewritten. **Commit locally only, and don't push*
    - hour of day (local, Europe/Berlin via zoneinfo + tzdata), season, and the lead h.
 3. **Model and walk-forward (`ml/train.py`):** `HistGradientBoostingClassifier` for P(OD 25) and P(18 usable). Walk-forward with expanding windows and monthly folds over the last 6+ months: each fold trains only on data before the fold. Report out-of-sample per lead (1, 6, 24, 48 h) for model, rules and persistence: accuracy, Brier, and accuracy on hours where the OD changed within the lead window (the hard cases). Also report in-sample next to it. Save the final model trained on everything to `ml/models/`.
 4. **`ml/predict.py`, the interface `hk-cli` calls:** `predict_48h(issue_time_utc, obs: DataFrame, nwp: DataFrame, od_at_issue: str) -> DataFrame`. It has 48 rows with `time`, `lead_h`, `wind_dir_deg`, `wind_kt`, `gust_kt`, `tailwind_25_kt`, `tailwind_18_kt`, `rule_od`, `rule_18_usable`, `p_od25`, `p_18_usable`. Document the expected `obs` and `nwp` columns in its docstring.
-5. **Outputs:** `web/src/data/backtest.json` (`BacktestResult` in `web/src/lib/forecast-types.ts`) and `web/src/data/quality.json`:
+5. **Outputs:** `web/public/data/backtest.json` (`BacktestResult` in `web/src/lib/forecast-types.ts`) and `web/public/data/quality.json`:
    - walk-forward folds (train and test periods, sizes)
    - in- vs out-of-sample per lead
    - a reliability table (predicted-probability bins vs observed frequency)

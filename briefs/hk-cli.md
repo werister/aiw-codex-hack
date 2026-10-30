@@ -4,8 +4,8 @@ Worktree `C:\olawt\aiw-wt-cli`, branch `jayden/cli`. The head lane merges and ta
 
 Read first: `AGENTS.md`, `frankfurt-airport-operating-direction-forecast.md`, `ml/rules.json`, `web/src/lib/forecast-types.ts` (**your JSON must match `ForecastResponse` exactly**), `briefs/hk-model.md`, `openspec/changes/wp4-forecast-cli/` (tick tasks off).
 
-## PUSH IS PAUSED
-**Commit locally only, and don't push** until the head lane says PUSH OK (origin/main is being rewritten). Then rebase as the head lane says and `git push -u origin jayden/cli`.
+## Push rule
+After each small commit: `git pull --rebase origin main && git push origin HEAD:main`. Never force, never merge.
 
 ## You own (create only these)
 `ml/forecast.py`, `ml/live.py`, `ml/tests/test_forecast_cli.py`, `web/public/forecasts/*.json` (except `sample.json`, which belongs to the head lane).
