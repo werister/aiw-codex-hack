@@ -55,6 +55,11 @@ What we train on, which model we use, and every experiment so far with its resul
 | E15 | ICON-D2 ensemble spread (Zinkhan et al. 2023, DWD) | Open-Meteo has no ensemble archive before 29 Jul 2026, so it cannot be backtested. Not used. |
 | E16 | Rules rerun on the corrected ensemble wind as a stronger baseline | 95.6 / 88.8 / 89.2 / 85.8% at 1 / 6 / 24 / 48 h. The model still leads by 4.0 / 2.5 / 3.4 points at 6 / 24 / 48 h. |
 | E17 | Issues every 3 h instead of 6 h (twice the training rows), scored on the same 00/06/12/18 local issues | 6 / 24 / 48 h: 92.7 / 91.5 / 89.1% vs 92.8 / 91.7 / 89.2%, 1 h worse (95.0%). No gain; stride stays 6 h. |
+| E18 | Observation-only training rows 2018–2023 (leads 1–6, 52k rows, forecast features missing) added to every fold | 1 / 6 / 24 / 48 h: 95.1 / 92.7 / 91.9 / 89.3% vs 96.0 / 92.8 / 91.7 / 89.2%. 1 h worse, others within noise. Not adopted. |
+| E19 | Speed-dependent wind correction (quantile mapping of forecast on METAR speed) | Not pursued: the "bias grows in strong wind" pattern came from grouping by observed speed, binned by forecast speed the ratio is about 1.7–1.85 (close to ×1.68), and fitting on 2025–26 would leak into test months. The fixed 2024 ratios stay. |
+| E20 | Forecast error at issue time (METAR tailwind on 25 and 18 at T minus the corrected lead-1 ensemble forecast) plus a 1 h METAR tailwind trend | Coded, not tested: the walk-forward could not finish before the 15:30 freeze because the machine was overloaded. Not in the served model. |
+| E21 | METAR QNH and its 3 h tendency, parsed from the raw reports (99.99% have a Q group, 2018 onward) | Coded, not tested, for the same reason. Not in the served model. |
+| E22 | Runway 18 label for variable wind: under 15 kt mean and at most 40 kt peak it is usable from any direction (tailwind cannot exceed the mean wind, crosswind cannot exceed the peak) | Approved, not applied before the freeze: it needs a retrain. It would add about 2,067 easy usable hours and raise runway 18 accuracy, but would not improve closure detection. The served model leaves those hours unlabelled. |
 
 ### E12 before / after (12 walk-forward test months, all recorded hours)
 
