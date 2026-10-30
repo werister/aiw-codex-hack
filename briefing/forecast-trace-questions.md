@@ -79,7 +79,7 @@ Is the first deliverable inspection of the exact saved inputs, transformations, 
 
 **Proposed answer:** the first deliverable is **Prediction evidence**. Per-feature attribution is optional and shown only if actually computed by an identified method. Input values alone do not establish how much a feature changed the probability. Confirm the scope and the wording the demo may use.
 
-**Answer:** Pending.
+**Answer:** **Decision:** accept. The deliverable is prediction evidence only: inputs, model identity, rules version, and raw-to-published probability with blend key and weight. There is no per-feature attribution, and the demo must not claim one. **Status:** implemented in the data (ccba644); the UI binding is in progress. **Owner:** ML lane of Jayden's agents (data) and the design worker c27 (UI); reviewer Kai. **Evidence:** `web/public/forecasts/2026-10-28.json`, run `77985a9da947`, hour `2026-10-28T05:00Z`: `blend_key 6:active`, `blend_weight 1.0`, `p_od25_raw 0.99392` equals the published `p_od25`.
 
 ### F2 — Who delivers one verified run, and when? (Jayden + named ML implementer; Hugo confirms demo fallback)
 
@@ -87,7 +87,7 @@ The current answer postpones capture until model work lands by 15:30; submission
 
 **Proposed answer:** aim for one captured historical run before 15:00, subject to owner confirmation. Verify that fixed example before deciding whether to regenerate with a newer model. Keep its model version visible. If capture is late, show the existing forecast with evidence explicitly unavailable; do not fabricate a trace. State whether this schedule is feasible and what work it depends on.
 
-**Answer:** Pending.
+**Answer:** **Decision:** accept, and it's done ahead of the proposal. **Status:** implemented and checked on two files. **Owner:** ML lane (c28); reviewer: head agent, then Kai. **Evidence:** every published forecast (latest, sample, six October days) carries `evidence` and `hours[].inputs` (ccba644); tests 52 passed. The historical example is `2026-10-28.json` (run `77985a9da947`, model `walk-forward-v5`). **Fallback:** if a file lacks evidence, the UI says "not recorded in this forecast file".
 
 ### F3 — How do we distinguish the recommendation time from the inspected hour? (Hugo + Jayden)
 
@@ -95,7 +95,7 @@ If the recommendation remains fixed while the user selects a different forecast 
 
 **Proposed answer:** show **Recommendation for [event time]** separately from **Inspecting [selected UTC/local time]**, with a **Return to recommendation evidence** action. If a different design is preferred, describe the interaction. Verify by opening recommendation evidence, selecting another hour, and returning.
 
-**Answer:** Pending.
+**Answer:** **Decision:** accept the proposal: "Recommendation for [event time]" separate from "Inspecting [selected time]", plus a "Return to recommendation evidence" action. **Status:** assigned to the design worker c27 (sole UI owner) for the 15:45 dashboard. **Next step:** c27 implements it and verifies by opening the recommendation evidence, selecting another hour and returning.
 
 ### F4 — Which model actually produced the historical example? (Kai + ML implementer)
 
@@ -103,7 +103,7 @@ For `2026-10-28.json`, issued `2026-10-27T23:00Z`, will capture record the selec
 
 At inspected snapshot [b6b3b0](https://github.com/werister/aiw-codex-hack/tree/b6b3b0a1d4fd0f41489114f4bca4b97efe48e052), [model selection](https://github.com/werister/aiw-codex-hack/blob/b6b3b0a1d4fd0f41489114f4bca4b97efe48e052/ml/predict.py) should reject the final fit trained after this issue time and select an eligible historical fold. The [published example](https://github.com/werister/aiw-codex-hack/blob/b6b3b0a1d4fd0f41489114f4bca4b97efe48e052/web/public/forecasts/2026-10-28.json) does not record the artifact identity, so its actual generation provenance has not been proved by that file. A regenerated example must be identified as a new captured run, not retroactively claimed as original instrumentation.
 
-**Answer:** Pending.
+**Answer:** Hindcasts use the walk-forward fold that was trained only before the issued month, and name it: `2026-10-28.json` uses `fold-2026-10.joblib`, trained through `2026-09-30T23:00Z`. The live file uses `forecast.joblib`, trained through `2026-10-29T18:00Z`. Both are recorded in `evidence.model_artifact` with a SHA-256. **Status:** implemented (ccba644). Kai to confirm.
 
 ### F5 — What exactly makes one run's identity different? (ML implementer + Jayden)
 
@@ -111,7 +111,7 @@ Specify the canonical fields/serialization and hash used for run identity. How a
 
 **Proposed answer:** document one canonical identity contract and bind the serialized forecast and inline evidence consistently. Do not rely only on issue time or a mutable version label, and do not try to hash a payload including its own hash. State whether identical-input repeat executions share a content identity or receive distinct invocation IDs. Explain the choice.
 
-**Answer:** Pending.
+**Answer:** `run_id` = the first 12 hex characters of SHA-256 over issue time + model artifact SHA-256 + the serialized input values (not over the payload itself). Identical inputs and artifact give the same `run_id` (content identity); any changed input or retrained artifact gives a new one. **Status:** implemented (ccba644).
 
 ### F6 — What proves the optional types are actually connected? (Jayden + ML implementer)
 
@@ -121,7 +121,12 @@ The read-only audit at [b6b3b0](https://github.com/werister/aiw-codex-hack/tree/
 
 **Requested proof:** one generated file with resolvable evidence; a selected hour whose displayed values match capture; and observed UI behavior for missing/mismatched capture. Explicitly distinguish a new run with the same issue time from the previous run.
 
-**Answer:** Pending.
+**Answer:** **Evidence:**
+  - the published JSON files contain the fields, with no source missing in any file;
+  - `web/src/lib/forecast-types.ts` declares `ForecastEvidence` and `HourInputs`;
+  - ML tests pass (52).
+
+  The UI rendering of those fields is c27's task due 15:45. Until it is verified on screen, the status is "data implemented, UI pending".
 
 ### F7 — What exactly are we routing between? (Kai + ML implementer; Hugo confirms product scope)
 
@@ -131,7 +136,7 @@ For this next version, do “different models” mean versions of the runway pre
 
 **Follow-up:** list two runnable same-task candidates, their differences and their owner. Historical fold artifacts exist to prevent hindsight leakage; what evidence would justify treating them as competing versions rather than simply selecting the eligible fit?
 
-**Answer:** Pending.
+**Answer:** **Decision:** defer past the 16:00 submission. Today's system is one task-specific model per target (P(OD 25), P(runway 18 usable)) plus a frozen blend policy by horizon × regime (night, calm, active). The policy is selected on earlier validation data and evaluated on later held-out months, so a pre-registered, deterministic choice already exists inside one task. There is no multi-model router and no delay specialist: FRA hourly delay data is not public, and a delay signal must never stand in for the direction or runway probabilities. **Consequence:** the demo shows one model with its blend and evidence; routing appears only as a next step in the pitch. **Owner if picked up later:** Kai, with the ML lane.
 
 ### F8 — Which situations should produce different winners? (Kai + Hugo; Luca checks available data)
 
@@ -141,7 +146,7 @@ Which cases should the demo exercise: calm weather, night operations, strong or 
 
 **Follow-up:** give a small scenario table with definition, input availability time, expected behavior and evidence status: measured / hypothesis / simulated. Should the first demo include deliberately different synthetic specialist profiles? If yes, label the scenario, scores and outputs as simulated throughout; never manufacture a measured winner.
 
-**Answer:** Pending.
+**Answer:** **Decision:** defer past the 16:00 submission. Today's system is one task-specific model per target (P(OD 25), P(runway 18 usable)) plus a frozen blend policy by horizon × regime (night, calm, active). The policy is selected on earlier validation data and evaluated on later held-out months, so a pre-registered, deterministic choice already exists inside one task. There is no multi-model router and no delay specialist: FRA hourly delay data is not public, and a delay signal must never stand in for the direction or runway probabilities. **Consequence:** the demo shows one model with its blend and evidence; routing appears only as a next step in the pitch. **Owner if picked up later:** Kai, with the ML lane.
 
 ### F9 — What proves that routing beats using one model? (Kai + evaluation owner)
 
@@ -151,7 +156,7 @@ Which metric decides “better” for each task and horizon, and on which common
 
 **Follow-up:** what result would reject routing or leave the current policy active? Include a case where the proposed specialist loses, sparse regimes, and a test that prevents choosing a winner using the held-out outcome. How will policy changes remain separate from honest final evaluation?
 
-**Answer:** Pending.
+**Answer:** **Decision:** defer past the 16:00 submission. Today's system is one task-specific model per target (P(OD 25), P(runway 18 usable)) plus a frozen blend policy by horizon × regime (night, calm, active). The policy is selected on earlier validation data and evaluated on later held-out months, so a pre-registered, deterministic choice already exists inside one task. There is no multi-model router and no delay specialist: FRA hourly delay data is not public, and a delay signal must never stand in for the direction or runway probabilities. **Consequence:** the demo shows one model with its blend and evidence; routing appears only as a next step in the pitch. **Owner if picked up later:** Kai, with the ML lane.
 
 ### F10 — When does the decision API select, blend or request another specialist? (ML implementer + Jayden)
 
@@ -161,7 +166,7 @@ Does it decide once per 48-hour run, per target hour, per task, or only when an 
 
 **Follow-up:** walk through one normal-weather request and one disruption request, showing the inputs available before each decision, any additional model call, and the final task outputs. If delay evidence is missing, what exactly does the API return?
 
-**Answer:** Pending.
+**Answer:** **Decision:** defer past the 16:00 submission. Today's system is one task-specific model per target (P(OD 25), P(runway 18 usable)) plus a frozen blend policy by horizon × regime (night, calm, active). The policy is selected on earlier validation data and evaluated on later held-out months, so a pre-registered, deterministic choice already exists inside one task. There is no multi-model router and no delay specialist: FRA hourly delay data is not public, and a delay signal must never stand in for the direction or runway probabilities. **Consequence:** the demo shows one model with its blend and evidence; routing appears only as a next step in the pitch. **Owner if picked up later:** Kai, with the ML lane.
 
 ### F11 — Does the API execute models or select saved predictions? (Jayden + ML implementer)
 
@@ -171,7 +176,7 @@ What is the smallest end-to-end delivery for the hackathon: selecting among prec
 
 **Follow-up:** provide one request/response example containing task, issue time, target hour/horizon, input or forecast reference, selection mode, selected artifact, prediction/run reference, policy version, reason and alternatives. State refresh behavior, maximum accepted age and response-time budget. Which consumer will call this API first?
 
-**Answer:** Pending.
+**Answer:** **Decision:** defer past the 16:00 submission. Today's system is one task-specific model per target (P(OD 25), P(runway 18 usable)) plus a frozen blend policy by horizon × regime (night, calm, active). The policy is selected on earlier validation data and evaluated on later held-out months, so a pre-registered, deterministic choice already exists inside one task. There is no multi-model router and no delay specialist: FRA hourly delay data is not public, and a delay signal must never stand in for the direction or runway probabilities. **Consequence:** the demo shows one model with its blend and evidence; routing appears only as a next step in the pitch. **Owner if picked up later:** Kai, with the ML lane.
 
 ### F12 — How do versions become eligible, and how do we roll back? (Kai + ML implementer)
 
@@ -181,7 +186,7 @@ What identifies a candidate independently of its display name? How are artifact 
 
 **Follow-up:** who promotes a candidate, what check must pass, and which previous candidate/policy is retained for rollback? Demonstrate rejection of a future-trained artifact and a candidate with incompatible inputs. Can the exact old result still be reproduced after promotion?
 
-**Answer:** Pending.
+**Answer:** **Decision:** defer past the 16:00 submission. Today's system is one task-specific model per target (P(OD 25), P(runway 18 usable)) plus a frozen blend policy by horizon × regime (night, calm, active). The policy is selected on earlier validation data and evaluated on later held-out months, so a pre-registered, deterministic choice already exists inside one task. There is no multi-model router and no delay specialist: FRA hourly delay data is not public, and a delay signal must never stand in for the direction or runway probabilities. **Consequence:** the demo shows one model with its blend and evidence; routing appears only as a next step in the pitch. **Owner if picked up later:** Kai, with the ML lane.
 
 ### F13 — Can the controller trace why this version was chosen? (Jayden + evidence owner)
 
@@ -191,7 +196,7 @@ Beyond F4–F6's inference trace, can we retain the routing inputs, detected sit
 
 **Follow-up:** open one selection and explain why the runner-up was not selected. Can we replay the decision from retained evidence? If candidate outputs disagree, can the panel show that disagreement without inventing feature contributions or a combined confidence score?
 
-**Answer:** Pending.
+**Answer:** **Decision:** defer past the 16:00 submission. Today's system is one task-specific model per target (P(OD 25), P(runway 18 usable)) plus a frozen blend policy by horizon × regime (night, calm, active). The policy is selected on earlier validation data and evaluated on later held-out months, so a pre-registered, deterministic choice already exists inside one task. There is no multi-model router and no delay specialist: FRA hourly delay data is not public, and a delay signal must never stand in for the direction or runway probabilities. **Consequence:** the demo shows one model with its blend and evidence; routing appears only as a next step in the pitch. **Owner if picked up later:** Kai, with the ML lane.
 
 ### F14 — What can the controller change safely in the panel? (Hugo + Jayden)
 
@@ -201,7 +206,7 @@ Should the user be able to select a scenario, compare versions, pin a version, o
 
 **Follow-up:** demonstrate Auto → compare alternative → explicitly apply → return to Auto, including unavailable evidence. Is a manual choice recorded with the resulting run identity? Confirm that the panel supports planning and does not imply an operational runway command.
 
-**Answer:** Pending.
+**Answer:** **Decision:** defer past the 16:00 submission. Today's system is one task-specific model per target (P(OD 25), P(runway 18 usable)) plus a frozen blend policy by horizon × regime (night, calm, active). The policy is selected on earlier validation data and evaluated on later held-out months, so a pre-registered, deterministic choice already exists inside one task. There is no multi-model router and no delay specialist: FRA hourly delay data is not public, and a delay signal must never stand in for the direction or runway probabilities. **Consequence:** the demo shows one model with its blend and evidence; routing appears only as a next step in the pitch. **Owner if picked up later:** Kai, with the ML lane.
 
 ### F15 — What happens when no specialist deserves selection? (ML implementer + Jayden)
 
@@ -211,7 +216,7 @@ What happens with too few comparable validation examples, stale or missing input
 
 **Follow-up:** show one deterministic test for each relevant failure path, including the panel state and resulting forecast identity. What is the behavior when the fallback itself lacks required inputs? Can manual override bypass eligibility checks, or only choose among eligible alternatives?
 
-**Answer:** Pending.
+**Answer:** **Decision:** defer past the 16:00 submission. Today's system is one task-specific model per target (P(OD 25), P(runway 18 usable)) plus a frozen blend policy by horizon × regime (night, calm, active). The policy is selected on earlier validation data and evaluated on later held-out months, so a pre-registered, deterministic choice already exists inside one task. There is no multi-model router and no delay specialist: FRA hourly delay data is not public, and a delay signal must never stand in for the direction or runway probabilities. **Consequence:** the demo shows one model with its blend and evidence; routing appears only as a next step in the pitch. **Owner if picked up later:** Kai, with the ML lane.
 
 ### F16 — What is the smallest version we can verify and demonstrate? (Hugo + Kai + Jayden)
 
@@ -221,4 +226,4 @@ Who owns candidate/evaluation export, decision API, panel integration and indepe
 
 **Follow-up:** name an owner, reviewer, realistic delivery time and acceptance command for each slice. The demonstration should include two situations with different winners if supported, a case where retaining the current model is correct, and a failure/fallback case. If measured evidence does not justify different winners, show that honestly and keep any scripted routing demonstration separate. Which claim can Hugo make at submission, and which remains a proposed next step?
 
-**Answer:** Pending.
+**Answer:** **Decision:** defer past the 16:00 submission. Today's system is one task-specific model per target (P(OD 25), P(runway 18 usable)) plus a frozen blend policy by horizon × regime (night, calm, active). The policy is selected on earlier validation data and evaluated on later held-out months, so a pre-registered, deterministic choice already exists inside one task. There is no multi-model router and no delay specialist: FRA hourly delay data is not public, and a delay signal must never stand in for the direction or runway probabilities. **Consequence:** the demo shows one model with its blend and evidence; routing appears only as a next step in the pitch. **Owner if picked up later:** Kai, with the ML lane.
