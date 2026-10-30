@@ -17,7 +17,7 @@ See `DEMO_SCRIPT.md`.
   - Walk-forward: every test month is predicted by a model trained only on earlier months.
   - Forecasts are used as they were published, with a six-hour delay, and no hindsight.
   - The command the jury runs gives exactly the backtest's numbers.
-- **It beats both baselines** on 12 months it never saw, and the margins are statistically significant. Accuracy for model / official rules / keep current:
+- **It beats both baselines** on 12 months it never saw, and the margins hold up statistically. Accuracy for model / official rules / keep current:
 
   | Lead | Model | Official rules | Keep current |
   |---|---|---|---|
@@ -26,7 +26,7 @@ See `DEMO_SCRIPT.md`.
   | 24 h | 91.7% | 87.7% | 75.1% |
   | 48 h | 89.2% | 84.0% | 64.2% |
 
-  1 h is a tie. From 6 h it wins by +4 to +5 points over the rules and up to +25 over keep-current, with p < 10⁻⁵. Its probability error (Brier) is about half the rules'. When it says 85%, it happens about 85% of the time. When it's unsure, the screen says so.
+  1 h is a tie. From 6 h it wins by +4 to +5 points over the rules (95% intervals, resampled by day, all above +2) and up to +25 over keep-current. Its probability error (Brier) is about half the rules'. When it says 85%, it happens about 85% of the time. When it's unsure, the screen says so.
 - **All public data:** DFLD.de recorded directions, EDDF METAR, and archived forecasts from three weather models (ECMWF, GFS, ICON) plus pressure about 200 km around FRA, all through Open-Meteo. Cited in `MODEL_CARD.md`.
 
 ## 5. Built with Codex (15 s)

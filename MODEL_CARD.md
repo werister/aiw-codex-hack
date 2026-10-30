@@ -32,17 +32,18 @@ Inputs at issue time T (only what was known at T):
 
 ## Evaluation
 - **Method:** expanding monthly walk-forward over **12 months the model never trained on** (2025-11 to 2026-10). Forecast runs count as available 6 h after their start (day 1 for leads 1–18 h, day 2 for 19–42 h, day 3 for 43–48 h). No random cross-validation.
-- **Statistics:** 95% confidence intervals by bootstrap over days. McNemar test on accuracy, Diebold-Mariano on Brier.
+- **Statistics:** 95% confidence intervals by bootstrap over whole days, for each score and for each margin. Hourly McNemar and Diebold-Mariano p-values are in `quality.json`, but neighbouring hours are correlated, so the day-bootstrap intervals are the figures to quote.
+- **Caveat:** the feature set (separate weather models and pressure boxes) was chosen while looking at these same 12 folds. A strictly untouched test needs a later period; the live forecasts from today on are that test.
 - **CLI parity:** the CLI and the training path match exactly (`web/public/data/cli-parity.csv`).
 
 Operating direction, all recorded hours (accuracy [95% CI], Brier):
 
-| Lead | Model | Official rules | Persistence | Model − rules | Model − persistence |
+| Lead | Model | Official rules | Persistence | Model − rules [95% CI] | Model − persistence [95% CI] |
 |---|---|---|---|---|---|
-| 1 h | **96.0%** [95.0–97.0], 0.035 | 95.9%, 0.041 | 95.9%, 0.041 | +0.1 (n.s.) | +0.1 (n.s.) |
-| 6 h | **92.8%** [90.9–94.5], 0.053 | 88.1%, 0.119 | 88.8%, 0.112 | +4.7, p < 10⁻⁶ | +4.0, p < 10⁻⁵ |
-| 24 h | **91.7%** [89.7–93.5], 0.063 | 87.7%, 0.123 | 75.1%, 0.249 | +4.0, p < 10⁻⁵ | +16.6, p < 10⁻²⁴ |
-| 48 h | **89.2%** [87.0–91.2], 0.082 | 84.0%, 0.160 | 64.2%, 0.358 | +5.2, p < 10⁻⁷ | +25.0, p < 10⁻³⁰ |
+| 1 h | **96.0%** [95.0–97.0], 0.035 | 95.9%, 0.041 | 95.9%, 0.041 | +0.1 [−0.6, 0.8] | +0.1 [−0.6, 0.8] |
+| 6 h | **92.8%** [90.9–94.5], 0.053 | 88.1%, 0.119 | 88.8%, 0.112 | +4.7 [2.9, 6.4] | +4.0 [2.1, 5.6] |
+| 24 h | **91.7%** [89.7–93.5], 0.063 | 87.7%, 0.123 | 75.1%, 0.249 | +4.0 [2.4, 5.6] | +16.6 [13.4, 19.6] |
+| 48 h | **89.2%** [87.0–91.2], 0.082 | 84.0%, 0.160 | 64.2%, 0.358 | +5.2 [3.2, 7.1] | +25.0 [21.1, 29.0] |
 
 - **Stuck feed:** DFLD shows 07 for 103 h on 8–12 Oct against steady westerlies, confirmed by DWD station data. With those hours excluded, the model scores 96.4 / 94.1 / 93.0 / 90.4% (rules 95.9 / 89.3 / 89.0 / 85.2%).
 - **Direction changes:** at 24 h the model catches 82% of hours with a change (rules 80%, persistence 28%). Next-change timing lands within ±3 h in 53% of cases (28% within ±1 h), with a 13% false-alarm rate.

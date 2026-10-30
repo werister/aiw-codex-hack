@@ -29,7 +29,7 @@ Operating direction at 1 / 6 / 24 / 48 h:
 - **official rules:** 95.9 / 88.1 / 87.7 / 84.0%
 - **keep-current:** 95.9 / 88.8 / 75.1 / 64.2%
 
-From 6 h the model is significantly better than both baselines (McNemar and Diebold-Mariano, p < 10⁻⁵), with a Brier score about half the rules'. Runway 18 is inferred from METAR and still weak: 3 of 24 closure events caught at 24 h, with no false alarms.
+From 6 h the model beats both baselines by margins whose 95% day-bootstrap intervals stay above +2 points (vs rules: +4.7 / +4.0 / +5.2 at 6 / 24 / 48 h), with a Brier score about half the rules'. The feature set was chosen on these months; today's live forecasts are the untouched test. Runway 18 is inferred from METAR and still weak: 3 of 24 closure events caught at 24 h, with no false alarms.
 
 ## Jury test days
 `python -m pip install -r ml/requirements.txt`, then `python -m ml.forecast --day YYYY-MM-DD` (add `--json` for machine-readable output). Forecasts for the jury days: `web/public/forecasts/<day>.json`.
