@@ -1,0 +1,7 @@
+﻿Zugriffsprotokoll 2026-10-30
+Kim/Park: Invoke-WebRequest erhielt Client-Challenge HTML. Keine dieser Antworten als PDF behalten. curl konnte anschließend das öffentliche CC-BY Original-PDF regulär laden.
+NASA Puranik: erster Download nach Teilübertragung abgebrochen, curl-Wiederholung erfolgreich; komplette 9 Seiten extrahiert.
+AlKheder 2026: Verlagsseite zeigt Abonnementvorschau. Abstract/Metadaten/47 Referenzen gelesen. Kein PDF beschafft und keine Zugangskontrolle umgangen.
+Carvalho2021 Journal: kein Volltext beschafft. Gesichertes Sternberg-arXiv-PDF ist eine verwandte, bibliographisch verschiedene Fassung.
+DWD: zitierter dynamischer URL liefert nun 2026 Version2.5.6 (198 Seiten), nicht 2023 Fassung. Vollständige Datei gesichert, nur relevante Abschnitte gelesen.
+Referenzen sind bibliographische Vollauszüge, nicht Volltextprüfungen sämtlicher zitierten Werke. Kein Modell lokal repliziert.

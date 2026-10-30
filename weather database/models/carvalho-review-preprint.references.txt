@@ -1,0 +1,655 @@
+﻿Bibliographischer Extrakt aus carvalho-review-preprint.pdf; Seitenmarker erhalten; Extraktion 2026-10-30. Vollständige Referenzliste des PDFs, keine Prüfung aller zitierten Werke.
+
+References 
+
+[1] M. Abdel-Aty, C. Lee, Y. Bai, X. Li, and M. Michalak. Detecting periodic patterns of arrival delay.   Journal of
+
+Air Transport Management , 13(6):355–361, Nov. 2007. ISSN 0969-6997.
+
+11 
+
+===== PDF PAGE 12 / 17 =====
+
+preprint 
+
+[2] K. F. Abdelghany, S. S. Shah, S. Raina, and A. F. Abdelghany.   A model for projecting flight delays during
+
+irregular operation conditions.   Journal of Air Transport Management , 10(6):385–394, Nov. 2004. ISSN 0969-
+
+6997.
+
+[3] S. AhmadBeygi, A. Cohn, Y. Guan, and P. Belobaba. Analysis of the potential for delay propagation in passen-
+
+ger airline networks.   Journal of Air Transport Management , 14(5):221–236, Sept. 2008. ISSN 0969-6997.
+
+[4] S. Ahmadbeygi, A. Cohn, and M. Lapp. Decreasing airline delay propagation by re-allocating scheduled slack. 
+
+IIE Transactions (Institute of Industrial Engineers) , 42(7):478–489, 2010.
+
+[5] ANAC. Agˆ encia Nacional de Aviac ¸ ˜ ao Civil. Technical report, http: // www.anac.gov.br / , 2017.
+
+[6] C. Ariyawansa and A. Aponso. Review on state of art data mining and machine learning techniques for intel-
+
+ligent Airport systems. In   Proceedings of 2016 International Conference on Information Management, ICIM
+
+2016 , pages 134–138, 2016.
+
+[7] F. Azadian, A. E. Murat, and R. B. Chinnam.   Dynamic routing of time-sensitive air cargo using real-time
+
+information.   Transportation Research Part E: Logistics and Transportation Review , 48(1):355–372, Jan. 2012.
+
+ISSN 1366-5545.
+
+[8] E. Balaban, I. Roychoudhury, L. Spirkovska, S. Sankararaman, C. Kulkarni, and T. Arnon. Dynamic routing
+
+of aircraft in the presence of adverse weather using a POMDP framework. In   17th AIAA Aviation Technology,
+
+Integration, and Operations Conference, 2017 , 2017.
+
+[9] P. Balakrishna, R. Ganesan, and L. Sherry. Airport taxi-out prediction using approximate dynamic program-
+
+ming: Intelligence-based paradigm.   Transportation Research Record , (2052):54–61, 2008.
+
+[10] P. Balakrishna, R. Ganesan, L. Sherry, and B. S. Levy. Estimating Taxi-out times with a reinforcement learning
+
+algorithm. In   2008 IEEE / AIAA 27th Digital Avionics Systems Conference , pages 3.D.3–1–3.D.3–12, Oct. 2008.
+
+[11] P. Balakrishna, R. Ganesan, and L. Sherry. Accuracy of reinforcement learning algorithms for predicting aircraft
+
+taxi-out times: A case-study of Tampa Bay departures.   Transportation Research Part C: Emerging Technolo-
+
+gies , 18(6):950–962, Dec. 2010. ISSN 0968-090X.
+
+[12] H. Balakrishnan. Control and optimization algorithms for air transportation systems.   Annual Reviews in Control ,
+
+41:39–46, 2016.
+
+[13] M. Baluch, T. Bergstra, and M. El-Hajj.   Complex analysis of united states flight data using a data mining
+
+approach. In   2017 IEEE 7th Annual Computing and Communication Workshop and Conference, CCWC 2017 ,
+
+2017.
+
+[14] B. Baspinar and E. Koyuncu.   A Data-Driven Air Transportation Delay Propagation Model Using Epidemic
+
+Process Models.   International Journal of Aerospace Engineering , 2016, 2016.
+
+[15] P. Baumgarten, R. Malina, and A. Lange. The impact of hubbing concentration on flight delays within airline
+
+networks: An empirical analysis of the US domestic market.   Transportation Research Part E: Logistics and
+
+Transportation Review , 66(Supplement C):103–114, June 2014. ISSN 1366-5545.
+
+[16] R. Beatty, R. Hsu, L. Berry, and J. Rome. Preliminary evaluation of flight delay propagation through an airline
+
+schedule.   2nd USA / Europe Air Tra ffi c Management R & D Seminar , 7(4):259–270, 1998.
+
+[17] L. Belcastro, F. Marozzo, D. Talia, and P. Trunfio. Using scalable data mining for predicting flight delays.   ACM
+
+Transactions on Intelligent Systems and Technology , 8(1), 2016.
+
+[18] S. Belkoura, J. Pe˜ na, and M. Zanin.   Beyond linear delay multipliers in air transport.   Journal of Advanced
+
+Transportation , 2017, 2017.
+
+[19] M. Ben Ahmed, W. Ghroubi, M. Haouari, and H. Sherali. A hybrid optimization-simulation approach for robust
+
+weekly aircraft routing and retiming.   Transportation Research Part C: Emerging Technologies , 84:1–20, 2017.
+
+[20] D. Bertsimas and M. Frankovich. Unified optimization of tra ffi c flows through airports.   Transportation Science ,
+
+50(1):77–93, 2016.
+
+[21] D. Bhadra. You (expect to) get what you pay for: A system approach to delay, fare, and complaints.   Trans-
+
+portation Research Part A: Policy and Practice , 43(9):829–843, Nov. 2009. ISSN 0965-8564.
+
+[22] M. Biesiada and A. Pi´ orkowska. Gamma-ray burst neutrinos, Lorenz invariance violation and the influence of
+
+background cosmology.   Journal of Cosmology and Astroparticle Physics , (5), 2007.
+
+[23] M. Bloem and N. Bambos. Ground delay program analytics with behavioral cloning and inverse reinforcement
+
+learning.   Journal of Aerospace Information Systems , 12(3):299–313, 2015.
+
+[24] S. B. Boswell and J. E. Evans.   Analysis of downstream impacts of air tra ffi c delay .   Lincoln Laboratory,
+
+Massachusetts Institute of Technology, 1997.
+
+12 
+
+===== PDF PAGE 13 / 17 =====
+
+preprint 
+
+[25] R. Britto, M. Dresner, and A. Voltes. The impact of flight delays on passenger demand and societal welfare. 
+
+Transportation Research Part E: Logistics and Transportation Review , 48(2):460–469, Mar. 2012. ISSN 1366-
+
+5545.
+
+[26] BTS. The Bureau of Transportation Statistics databases. Technical report, http: // www.rita.dot.gov / bts / home,
+
+2017.
+
+[27] B. Bubalo and J. Daduna.   Airport capacity and demand calculations by simulation-the case of Berlin-
+
+Brandenburg International Airport.   NETNOMICS: Economic Research and Electronic Networking , 12(3):161–
+
+181, 2011.
+
+[28] K. Cai, Y. Jia, Y. Zhu, and M. Xiao. A novel biobjective risk-based model for stochastic air tra ffi c network flow
+
+optimization problem.   Scientific World Journal , 2015, 2015.
+
+[29] B. Campanelli, P. Fleurquin, V. Egu´ ıluz, J. Ramasco, A. Arranz, I. Extebarria, and C. Ciruelos.   Modeling
+
+reactionary delays in the European air transport network. In   SIDs 2014 - Proceedings of the SESAR Innovation
+
+Days , 2014.
+
+[30] F. Carr, G. Theis, J.-P. Clarke, and E. Feron. Evaluation of improved pushback forecasts derived from airline
+
+ground operations data.   Journal of Aerospace Computing, Information and Communication , (JAN.):25–43,
+
+2005.
+
+[31] J. Castaing, I. Mukherjee, A. Cohn, L. Hurwitz, A. Nguyen, and J. M¨ uller. Reducing airport gate blockage in
+
+passenger aviation: Models and analysis.   Computers and Operations Research , 65:189–199, 2016.
+
+[32] F. Cheng, B. Baszczewski, and J. Gulding. A hybrid optimization-simulation approach for itinerary generation.
+
+In   Proceedings - Winter Simulation Conference , volume 2015-January, pages 1885–1896, 2015.
+
+[33] J. Cheng, C. Rong, H. Ye, and X. Zheng. Risk management using big real time data. In   Proceedings - IEEE
+
+7th International Conference on Cloud Computing Technology and Science, CloudCom 2015 , pages 542–547,
+
+2016.
+
+[34] S. Choi, Y. Kim, S. Briceno, and D. Mavris.   Prediction of weather-induced airline delays based on ma-
+
+chine learning algorithms. In   AIAA / IEEE Digital Avionics Systems Conference - Proceedings , volume 2016-
+
+December, 2016.
+
+[35] C. Ciruelos, A. Arranz, I. Etxebarria, S. Peces, B. Campanelli, P. Fleurquin, V. Eguiluz, and J. Ramasco.
+
+Modelling delay propagation trees for scheduled flights.   In   Proceedings of the 11th USA / Europe Air Tra ffi c
+
+Management Research and Development Seminar, ATM 2015 , 2015.
+
+[36] W. Cong, M. Hu, B. Dong, Y. Wang, and C. Feng. Empirical analysis of airport network and critical airports. 
+
+Chinese Journal of Aeronautics , 29(2):512–519, 2016.
+
+[37] J. Cox and M. Kochenderfer.   Ground delay program planning using markov decision processes.   Journal of
+
+Aerospace Information Systems , 13(3):134–142, 2016.
+
+[38] L. Cruciol, L. Weigang, J.-P. Clarke, and L. Li.   Air tra ffi c flow management data mining and analysis for
+
+in-flight cost optimization.   Computational Methods in Applied Sciences , 38:73–86, 2015.
+
+[39] J. I. Daniel and K. T. Harback.   (When) Do hub airlines internalize their self-imposed congestion delays? 
+
+Journal of Urban Economics , 63(2):583–612, Mar. 2008. ISSN 0094-1190.
+
+[40] A. D’Ariano, M. Pistelli, and D. Pacciarelli. Aircraft retiming and rerouting in vicinity of airports.   IET Intelli-
+
+gent Transport Systems , 6(4):433–443, 2012.
+
+[41] V. D¨ uck, L. Ionescu, N. Kliewer, and L. Suhl. Increasing stability of crew and aircraft schedules.   Transportation
+
+Research Part C: Emerging Technologies , 20(1):47–61, Feb. 2012. ISSN 0968-090X.
+
+[42] T. Diana. Validating delay constructs: An application of confirmatory factor analysis.   Journal of Air Transport
+
+Management , 35(Supplement C):87–91, Mar. 2014. ISSN 0969-6997.
+
+[43] Y. Ding.   Predicting flight delay based on multiple linear regression.   In   IOP Conference Series: Earth and
+
+Environmental Science , volume 81, 2017.
+
+[44] DOT. The United States Department of Transportation. Technical report, http: // www.dot.gov / , 2017.
+
+[45] EUROCONTROL.   CODA   Digest   -   Delays   to   Air   Transport   in   Europe.   Technical   report,
+
+https: // www.eurocontrol.int / articles / coda-publications, 2017.
+
+[46] EUROCONTROL.   European   Organisation   for   the   Safety   of   Air   Navigation.   Technical   report,
+
+https: // www.eurocontrol.int / , 2017.
+
+[47] A. Evans and A. Sch¨ afer. The impact of airport capacity constraints on future growth in the US air transportation
+
+system.   Journal of Air Transport Management , 17(5):288–295, 2011.
+
+13 
+
+===== PDF PAGE 14 / 17 =====
+
+preprint 
+
+[48] A. Evans and A. Sch¨ afer. The rebound e ff ect in the aviation sector.   Energy Economics , 36:158–165, 2013.
+
+[49] A. Evans, A. Sch¨ afer, and L. Dray. Modelling airline network routing and scheduling under airport capacity
+
+constraints. In   8th AIAA Aviation Technology, Integration and Operations (ATIO) Conference , 2008.
+
+[50] A. Evans, B. Sridhar, and D. McNally. Improving operational acceptability of dynamic weather routes through
+
+analysis of commonly used routings. In   16th AIAA Aviation Technology, Integration, and Operations Confer-
+
+ence , 2016.
+
+[51] J. Evans, S. Allan, and M. Robinson.   Quantifying delay reduction benefits for aviation convective weather
+
+decision support systems. In   Conference on Aviation, Range, and Aerospace Meteorology , pages 39–70, 2004.
+
+[52] FAA. Federal Aviation Administration. Technical report, http: // www.faa.gov / , 2017.
+
+[53] P. Fleurquin, J. Ramasco, and V. Eguiluz. Data-driven modeling of systemic delay propagation under severe
+
+meteorological conditions.   In   Proceedings of the 10th USA / Europe Air Tra ffi c Management Research and
+
+Development Seminar, ATM 2013 , 2013.
+
+[54] P. Fleurquin, J. Ramasco, and V. Eguiluz.   Systemic delay propagation in the US airport network.   Scientific
+
+Reports , 3, 2013.
+
+[55] P. Fleurquin, B. Campanelli, V. Eguiluz, and J. Ramasco. Trees of reactionary delay: Addressing the dynamical
+
+robustness of the US air transportation network. In   SIDs 2014 - Proceedings of the SESAR Innovation Days ,
+
+2014.
+
+[56] R. Ganesan, P. Balakrishna, and L. Sherry. Improving quality of prediction in highly dynamic environments
+
+using approximate dynamic programming.   Quality and Reliability Engineering International , 26(7):717–732,
+
+2010.
+
+[57] E. George and S. Khan. Reinforcement learning for taxi-out time prediction: An improved Q-learning approach.
+
+In   2015 International Conference on Computing and Network Communications, CoCoNet 2015 , pages 757–
+
+764, 2016.
+
+[58] F. G¨ urb¨ uz, L. ¨ Ozbakir, and H. Yapici. Data mining and preprocessing application on component reports of an
+
+airline company in Turkey.   Expert Systems with Applications , 38(6):6618–6626, 2011.
+
+[59] M. Hansen. Micro-level analysis of airport delay externalities using deterministic queuing models: a case study. 
+
+Journal of Air Transport Management , 8(2):73–87, Mar. 2002. ISSN 0969-6997.
+
+[60] M. Hansen and Y. Zhang. Operational consequences of alternative airport demand management policies case
+
+of LaGuardia Airport, New York.   Transportation Research Record , (1915):95–104, 2005.
+
+[61] L. Hao, M. Hansen, Y. Zhang, and J. Post. New York, New York: Two ways of estimating the delay impact of
+
+New York airports.   Transportation Research Part E: Logistics and Transportation Review , 70(Supplement C):
+
+245–260, Oct. 2014. ISSN 1366-5545.
+
+[62] C.-Y. Hsiao and M. Hansen. Air transportation network flows: Equilibrium model.   Transportation Research
+
+Record , (1915):12–19, 2005.
+
+[63] G. Hunter, B. Boisvert, and K. Ramamoorthy. Advanced national airspace tra ffi c flow management simulation
+
+experiments and vlidation. In   2007 Winter Simulation Conference , pages 1261–1267, Dec. 2007.
+
+[64] L. Ionescu, C. Gwiggner, and N. Kliewer. Data Analysis of Delays in Airline Networks.   Business and Infor-
+
+mation Systems Engineering , 58(2):119–133, 2016.
+
+[65] A. Jacquillat and A. Odoni. Endogenous control of service rates in stochastic and dynamic queuing models of
+
+airport congestion.   Transportation Research Part E: Logistics and Transportation Review , 73:133–151, 2015.
+
+[66] A. Jacquillat, A. Odoni, and M. Webster. Dynamic control of runway configurations and of arrival and departure
+
+service rates at jfk airport under stochastic queue conditions.   Transportation Science , 51(1):155–176, 2017.
+
+[67] H. Jayam and L. Nozick.   Understanding the trade-o ff   between maximum passenger throughput and airline
+
+equity in allocating capacity under severe weather conditions.   Transportation Research Record , 2626:18–24,
+
+2017.
+
+[68] B. Karakostas. Event Prediction in an IoT Environment Using Na¨ ıve Bayesian Models. In   Procedia Computer
+
+Science , volume 83, pages 11–17, 2016.
+
+[69] S. Khanmohammadi, C. A. Chou, H. W. Lewis, and D. Elias.   A systems approach for scheduling aircraft
+
+landings in JFK airport. In   2014 IEEE International Conference on Fuzzy Systems (FUZZ-IEEE) , pages 1578–
+
+1585, July 2014.
+
+[70] S. Khanmohammadi, S. Tutun, and Y. Kucuk.   A New Multilevel Input Layer Artificial Neural Network for
+
+Predicting Flight Delays at JFK Airport. In   Procedia Computer Science , volume 95, pages 237–244, 2016.
+
+14 
+
+===== PDF PAGE 15 / 17 =====
+
+preprint 
+
+[71] A. Kim. The impacts of changing flight demands and throughput performance on airport delays through the
+
+Great Recession.   Transportation Research Part A: Policy and Practice , 86:19–34, 2016.
+
+[72] A. Kim and M. Hansen. Deconstructing delay: A non-parametric approach to analyzing delay changes in single
+
+server queuing systems.   Transportation Research Part B: Methodological , 58(Supplement C):119–133, Dec.
+
+2013. ISSN 0191-2615.
+
+[73] A. Klein. Airport delay prediction using weather-impacted tra ffi c index (WITI) model. In   29th Digital Avionics
+
+Systems Conference , pages 2.B.1–1–2.B.1–13, Oct. 2010.
+
+[74] T. Kotegawa, D. De Laurentis, K. Noonan, and J. Post. Impact of commercial airline network evolution on the
+
+U.S. air transportation system. In   Proceedings of the 9th USA / Europe Air Tra ffi c Management Research and
+
+Development Seminar, ATM 2011 , pages 572–580, 2011.
+
+[75] T. Krsti´ c Simi´ c and O. Babi´ c. Airport tra ffi c complexity and environment e ffi ciency metrics for evaluation of
+
+ATM measures.   Journal of Air Transport Management , 42(Supplement C):260–271, Jan. 2015. ISSN 0969-
+
+6997.
+
+[76] D. Kulkarni, Y. Wang, and B. Sridhar. Data mining for understanding and improving decision-making a ff ecting
+
+ground delay programs. In   AIAA / IEEE Digital Avionics Systems Conference - Proceedings , pages 5B11–5B18,
+
+2013.
+
+[77] D. Kulkarni, Y. Wang, and B. Sridhar. Analysis of airport ground delay program decisions using data mining
+
+techniques. In   AIAA AVIATION 2014 -14th AIAA Aviation Technology, Integration, and Operations Conference ,
+
+2014.
+
+[78] S. Lan, J.-P. Clarke, and C. Barnhart. Planning for robust airline operations: Optimizing aircraft routings and
+
+flight departure times to minimize passenger disruptions.   Transportation Science , 40(1):15–28, 2006.
+
+[79] M. Lapp, S. AhmadBeygi, A. Cohn, and O. Tsimhoni.   A Recursion-based Approach to Simulating Airline
+
+Schedule Robustness.   In   Proceedings of the 40th Conference on Winter Simulation , WSC ’08, pages 2661–
+
+2667, Miami, Florida, 2008. Winter Simulation Conference. ISBN 978-1-4244-2708-6.
+
+[80] L. Le, G. Donohue, K. Ho ff man, and C.-H. Chen.   Optimum airport capacity utilization under congestion
+
+management: A case study of New York LaGuardia airport.   Transportation Planning and Technology , 31(1):
+
+93–112, 2008.
+
+[81] T. Lehouillier, F. Soumis, J. Omer, and C. Allignol. Measuring the interactions between air tra ffi c control and
+
+flow management using a simulation-based framework.   Computers and Industrial Engineering , 99:269–279,
+
+2016.
+
+[82] L. Lin, Q. Wang, and A. Sadek. Border crossing delay prediction using transient multi-server queueing models. 
+
+Transportation Research Part A: Policy and Practice , 64:65–91, 2014.
+
+[83] B. Manley and L. Sherry.   Impact of ground delay program rationing rules on passenger and airline equity.
+
+In   IMETI 2008 - International Multi-Conference on Engineering and Technological Innovation, Proceedings ,
+
+volume 1, pages 325–330, 2008.
+
+[84] D. Markovic, T. Hauf, P. R¨ ohner, and U. Spehr.   A statistical study of the weather impact on punctuality at
+
+Frankfurt airport.   Meteorological Applications , 15(2):293–303, 2008.
+
+[85] M. V. McCrea, H. D. Sherali, and A. A. Trani. A probabilistic framework for weather-based rerouting and delay
+
+estimations within an Airspace Planning model.   Transportation Research Part C: Emerging Technologies , 16
+
+(4):410–431, Aug. 2008. ISSN 0968-090X.
+
+[86] M. Mellat-Parast, D. Golmohammadi, K. McFadden, and J. Miller. Linking business strategy to service failures
+
+and financial performance: Empirical evidence from the U.S. domestic airline industry.   Journal of Operations
+
+Management , 38:14–24, 2015.
+
+[87] T. Mofokeng and A. Marnewick. Factors contributing to delays regarding aircraft during A-check maintenance.
+
+In   2017 IEEE Technology and Engineering Management Society Conference, TEMSCON 2017 , pages 185–190,
+
+2017.
+
+[88] S. A. Morrison and C. Winston.   The e ff ect of FAA expenditures on air travel delays.   Journal of Urban
+
+Economics , 63(2):669–678, Mar. 2008. ISSN 0094-1190.
+
+[89] J. Mou, C. Liu, S. Chen, G. Huang, and X. Lu. Temporal Characteristics of the Chinese Aviation Network and
+
+their E ff ects on the Spread of Infectious Diseases.   Scientific Reports , 7(1), 2017.
+
+[90] E. R. Mueller and G. B. Chatterji.   Analysis of aircraft arrival and departure delay characteristics.   In   AIAA
+
+aircraft technology, integration and operations (ATIO) conference , 2002.
+
+15 
+
+===== PDF PAGE 16 / 17 =====
+
+preprint 
+
+[91] N. Nayak and Y. Zhang.   Estimation and comparison of impact of single airport delay on national airspace
+
+system with multivariate simultaneous models.   Transportation Research Record , (2206):52–60, 2011.
+
+[92] NOAA. National Oceanic and Atmospheric Administration. Technical report, http: // www.noaa.gov / , 2017.
+
+[93] V. Pai. On the factors that a ff ect airline flight frequency and aircraft size.   Journal of Air Transport Management ,
+
+16(4):169–177, July 2010. ISSN 0969-6997.
+
+[94] S. Pathomsiri, A. Haghani, M. Dresner, and R. J. Windle. Impact of undesirable outputs on the productivity of
+
+US airports.   Transportation Research Part E: Logistics and Transportation Review , 44(2):235–259, Mar. 2008.
+
+ISSN 1366-5545.
+
+[95] T. Pejovic, R. B. Noland, V. Williams, and R. Toumi. A tentative analysis of the impacts of an airport closure. 
+
+Journal of Air Transport Management , 15(5):241–248, Sept. 2009. ISSN 0969-6997.
+
+[96] T. Pejovic, V. Williams, R. Noland, and R. Toumi.   Factors a ff ecting the frequency and severity of airport
+
+weather delays and the implications of climate change for future delays.   Transportation Research Record ,
+
+(2139):97–106, 2009.
+
+[97] E. Peterson, K. Neels, N. Barczi, and T. Graham. The economic cost of airline flight delay.   Journal of Transport
+
+Economics and Policy , 47(1):107–121, 2013.
+
+[98] D. Pfeil and H. Balakrishnan. Identification of robust terminal-area routes in convective weather.   Transportation
+
+Science , 46(1):56–73, 2012.
+
+[99] J. P´ erez–Rodr´ ıguez, J. P´ erez–S´ anchez, and E. G´ omez–D´ eniz. Modelling the asymmetric probabilistic delay of
+
+aircraft arrival.   Journal of Air Transport Management , 62:90–98, 2017.
+
+[100] N. Pyrgiotis, K. M. Malone, and A. Odoni.   Modelling delay propagation within an airport network.   Trans-
+
+portation Research Part C: Emerging Technologies , 27(Supplement C):60–75, Feb. 2013. ISSN 0968-090X.
+
+[101] Q. Qin and H. Yu. A statistical analysis on the periodicity of flight delay rate of the airports in the US.   Advances
+
+in Transportation Studies , 3:93–104, 2014.
+
+[102] J. J. Rebollo and H. Balakrishnan. Characterization and prediction of air tra ffi c delays.   Transportation Research
+
+Part C: Emerging Technologies , 44(Supplement C):231–241, July 2014. ISSN 0968-090X.
+
+[103] A. J. Reynolds-Feighan and K. J. Button.   An assessment of the capacity and congestion levels at European
+
+airports.   Journal of Air Transport Management , 5(3):113–134, July 1999. ISSN 0969-6997.
+
+[104] F. Rong, L. Qianya, H. Bo, Z. Jing, and Y. Dongdong.   The prediction of flight delays based the analysis of
+
+Random flight points. In   Chinese Control Conference, CCC , volume 2015-September, pages 3992–3997, 2015.
+
+[105] M. S. Ryerson, M. Hansen, and J. Bonn. Time to burn: Flight delay, terminal e ffi ciency, and fuel consumption
+
+in the National Airspace System.   Transportation Research Part A: Policy and Practice , 69(Supplement C):
+
+286–298, Nov. 2014. ISSN 0965-8564.
+
+[106] L. Schaefer and D. Millner. Flight delay propagation analysis with the Detailed Policy Assessment Tool. In 
+
+2001 IEEE International Conference on Systems, Man and Cybernetics. e-Systems and e-Man for Cybernetics
+
+in Cyberspace (Cat.No.01CH37236) , volume 2, pages 1299–1303 vol.2, 2001.
+
+[107] K. Sim, H. Koh, and S. Shetty. Some potential issues of service quality reporting for airlines.   Journal of Air
+
+Transport Management , 12(6):293–299, 2006.
+
+[108] I. Simaiakis and H. Balakrishnan. A queuing model of the airport departure process.   Transportation Science ,
+
+50(1):94–109, 2016.
+
+[109] M. J. Soomer and G. J. Franx. Scheduling aircraft landings using airlines’ preferences.   European Journal of
+
+Operational Research , 190(1):277 – 291, 2008. ISSN 0377-2217.
+
+[110] A. Sternberg, D. Carvalho, L. Murta, J. Soares, and E. Ogasawara. An analysis of Brazilian flight delays based
+
+on frequent patterns.   Transportation Research Part E: Logistics and Transportation Review , 95:282–298, 2016.
+
+[111] N. Takeichi, R. Kaida, A. Shimomura, and T. Yamauchi. Prediction of delay due to air tra ffi c control by machine
+
+learning. In   AIAA Modeling and Simulation Technologies Conference, 2017 , 2017.
+
+[112] Y. Tu, M. O. Ball, and W. S. Jank. Estimating flight departure delay distributions—a statistical approach with
+
+long-term trend and short-term pattern.   Journal of the American Statistical Association , 103(481):112–125,
+
+2008.
+
+[113] TWC. The Weather Company. Technical report, http: // www.theweathercompany.com / , 2017.
+
+[114] Y. Wan and S. Roy. A scalable methodology for evaluating and designing coordinated air tra ffi c flow manage-
+
+ment strategies under uncertainty. In   Collection of Technical Papers - AIAA Guidance, Navigation, and Control
+
+Conference 2007 , volume 1, pages 674–698, 2007.
+
+16 
+
+===== PDF PAGE 17 / 17 =====
+
+preprint 
+
+[115] P. Wang, L. Schaefer, and L. Wojcik. Flight connections and their impacts on delay propagation. In   Digital
+
+Avionics Systems Conference, 2003. DASC ’03. The 22nd , volume 1, pages 5.B.4–5.1–9 vol.1, Oct. 2003.
+
+[116] Y. Wang. Prediction of weather impacted airport capacity using RUC-2 forecast. In   AIAA / IEEE Digital Avionics
+
+Systems Conference - Proceedings , pages 3C31–3C312, 2012.
+
+[117] F. Wieland. Limits to growth: results from the detailed policy assessment tool [air tra ffi c congestion]. In   16th
+
+DASC. AIAA / IEEE Digital Avionics Systems Conference. Reflections to the Future. Proceedings , volume 2,
+
+pages 9.2–1–9.2–8 vol.2, Oct. 1997.
+
+[118] J.-T. Wong and S.-C. Tsai. A survival model for flight delay propagation.   Journal of Air Transport Management ,
+
+23(Supplement C):5–11, Aug. 2012. ISSN 0969-6997.
+
+[119] C.-L. Wu. Inherent delays and operational reliability of airline schedules.   Journal of Air Transport Management ,
+
+11(4):273–282, July 2005. ISSN 0969-6997.
+
+[120] W.-W. Wu, T.-T. Meng, and H.-Y. Zhang. Flight plan optimization based on airport delay prediction.   Jiaotong
+
+Yunshu Xitong Gongcheng Yu Xinxi / Journal of Transportation Systems Engineering and Information Technol-
+
+ogy , 16(6):189–195, 2016.
+
+[121] G. Xiangmin and M. Li. Departure capacity prediction for hub airport in thunderstorm based on data mining
+
+method. In   Proceedings of the 29th Chinese Control and Decision Conference, CCDC 2017 , pages 6004–6009,
+
+2017.
+
+[122] J. Xiong and M. Hansen.   Modelling airline flight cancellation decisions.   Transportation Research Part E:
+
+Logistics and Transportation Review , 56(Supplement C):64–80, Sept. 2013. ISSN 1366-5545.
+
+[123] N. Xu, G. Donohue, K. B. Laskey, and C.-H. Chen. Estimation of delay propagation in the national aviation sys-
+
+tem using Bayesian networks. In   6th USA / Europe Air Tra ffi c Management Research and Development Seminar .
+
+Citeseer, 2005.
+
+[124] N. Xu, L. Sherry, and K. Laskey.   Multifactor model for predicting delays at U.S. airports.   Transportation
+
+Research Record , (2052):62–71, 2008.
+
+[125] Y. Xu, R. Dalmau, and X. Prats. Maximizing airborne delay at no extra fuel cost by means of linear holding. 
+
+Transportation Research Part C: Emerging Technologies , 81:137–152, 2017.
+
+[126] R. Yao, W. Jiandong, and D. Jianli. RIA-based visualization platform of flight delay intelligent prediction. In 
+
+2009 ISECS International Colloquium on Computing, Communication, Control, and Management , volume 2,
+
+pages 94–97, Aug. 2009.
+
+[127] J. Zhang, X.-H. Xu, F. Wang, and D.-X. Wei.   Airport delay performance evaluation based on fuzzy linear
+
+regression model.   Jiaotong Yunshu Gongcheng Xuebao / Journal of Tra ffi c and Transportation Engineering , 10
+
+(4):109–114, 2010.
+
+[128] W. Zhang, M. Kamgarpour, D. Sun, and C. Tomlin.   A hierarchical flight planning framework for air tra ffi c
+
+management.   Proceedings of the IEEE , 100(1):179–194, 2012.
+
+[129] Z. Zhong, D. Varun, and Y. Lin. Studies for air tra ffi c management R&D in the ASEAN-region context.   Journal
+
+of Air Transport Management , 64:15–20, 2017.
+
+[130] L. Zonglei, W. Jiandong, and Z. Guansheng. A New Method to Alarm Large Scale of Flights Delay Based on
+
+Machine Learning. In   2008 International Symposium on Knowledge Acquisition and Modeling , pages 589–592,
+
+Dec. 2008.
+
+[131] B. Zou and M. Hansen. Flight delays, capacity investment and social welfare under air transport supply-demand
+
+equilibrium.   Transportation Research Part A: Policy and Practice , 46(6):965–980, July 2012. ISSN 0965-8564.
+
+[132] B. Zou and M. Hansen.   Impact of operational performance on air carrier cost structure: Evidence from US
+
+airlines.   Transportation Research Part E: Logistics and Transportation Review , 48(5):1032–1048, 2012.
+
+[133] B. Zou and M. Hansen.   Flight delay impact on airfare and flight frequency: A comprehensive assessment. 
+
+Transportation Research Part E: Logistics and Transportation Review , 69(0):54 – 74, 2014. ISSN 1366-5545.
+
+17 

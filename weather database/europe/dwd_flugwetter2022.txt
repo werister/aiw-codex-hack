@@ -1,0 +1,7726 @@
+
+
+===== PDF PAGE 1 / 84 =====
+
+Jahresbericht 2022 
+
+Flugwetterdienst 
+
+===== PDF PAGE 2 / 84 =====
+
+Satellitenmeteorologie ─ MetOp 
+
+Zur Vervollständigung der globalen Wetterbe - 
+
+obachtung aus dem All betreibt EUMETSAT drei 
+
+polarumlaufende Wettersatelliten namens MetOp 
+
+(Meteorological Operational Satellite), die sowohl 
+
+der operationellen Wettervorhersage und der Um - 
+
+weltmeteorologie als auch der Klimabeobachtung 
+
+dienen. 
+
+Wegen der Erdnähe der Umlaufbahnen mit Höhen 
+
+von ca. 820 km über der Erdoberfläche wird die 
+
+Auflösung der abbildenden Spektroradiometer 
+
+wesentlich besser als bei geostationären Orbits 
+
+von knapp 35.800 km Höhe, was die MetOp-Sa - 
+
+telliten zu einer idealen Ergänzung der Meteosat- 
+
+Reihe macht. Nachteilig erweist sich allerdings der 
+
+verkleinerte Blickwinkel der Instrumente auf die 
+
+Erdoberfläche. MetOp-Satelliten mit polaren Um - 
+
+laufbahnen können innerhalb eines Tages nahezu 
+
+die gesamte Erdoberfläche fernerkunden, eine 
+
+bestimmte Region jedoch nur einmal pro Orbit für 
+
+ca. 15 Minuten. Ein Vorteil erdnah polarumlaufen - 
+
+der Satelliten ist die bessere Beobachtungsgeome - 
+
+trie über den für unser Wetter und Klima wichtigen 
+
+Polarregionen. Die Meteosat-Satelliten dagegen 
+
+beobachten zwar kontinuierlich, aber ausschließlich 
+
+den Teil der Erdkugel, der von ihrer scheinbar fes - 
+
+ten Position über dem Äquator sichtbar ist. Gebiete 
+
+in hohen geographischen Breiten werden so unter 
+
+einem flachen Beobachtungswinkel sondiert, wo - 
+
+runter die räumliche Auflösung leidet. 
+
+▲   Modell des polarumlaufenden Wettersatelliten MetOp vor dem 
+
+EUMETSAT-Gebäude in Darmstadt 
+
+© By Ysangkok, Public Domain,   https://commons.wikimedia.org/w/ 
+
+index.php?curid=1312994 
+
+Die vier Satelliten der zweiten Generation wurden 
+
+nach der Jahrtausendwende gestartet und sind 
+
+dank erweiterter und verbesserter Sensorik (An - 
+
+zahl der Spektralkanäle und Auflösung der abbil - 
+
+denden Spektroradiometer, rotierender Scanner) 
+
+deutlich leistungsfähiger als die erste Generation. 
+
+Seit Dezember 2022 geht mit Meteosat Third 
+
+Generation (MTG) die dritte europäische Genera - 
+
+tion geosynchroner Wettersatelliten an den Start. 
+
+Aufgrund des anspruchsvollen Missionsprofils hat 
+
+man sich entschlossen, die umfangreiche und 
+
+entsprechend gewichtige Messgeräteausstattung 
+
+auf zwei Satellitenplattformen zu verteilen (MTG-I 
+
+und MTG-S). 
+
+Erneut wurden die Anzahl der Spektralkanäle, die 
+
+radiometrische und räumliche Auflösung sowie die 
+
+Bildfrequenz der abbildenden Spektroradiometer 
+
+erhöht, die Telemetrie verbessert sowie ein Blitz- 
+
+Scanner ergänzt. Die neue Instrumenten-Suite wird 
+
+gegenüber der Vorgängergeneration verbesserte 
+
+meteorologische Informationen für Wettervorher - 
+
+sagen, zur Katastrophenvorsorge und zur Klima - 
+
+überwachung liefern. Daneben erfasst sie auch 
+
+Daten für die Detektion und Überwachung von 
+
+Waldbränden sowie Blitzentladungen. 
+
+Durch die Vielzahl von Sensoren, die höhere Auf - 
+
+lösung der Satellitenbilder, die bessere Beobach - 
+
+tung der Polar- und Nordatlantikregion und durch 
+
+Messung der Temperatur- und Feuchtigkeitsver - 
+
+teilung in bislang unerreichter Genauigkeit trägt 
+
+MetOp dazu bei, die Wettervorhersagen deutlich zu 
+
+verbessern. 
+
+===== PDF PAGE 3 / 84 =====
+
+Im Fokus 2022 
+
+Satellitenmeteorologie ─ Meteosat 
+
+Meteosat ist eine Konstellation europäischer geo- 
+
+synchroner Wettersatelliten, die von der Europä - 
+
+ischen Organisation für die Nutzung meteorolo - 
+
+gischer Satelliten (EUMETSAT) betrieben werden. 
+
+Seit dem ersten Start im Jahre 1977 lieferten die 
+
+Meteosat-Raumflugkörper, zu Missionsbeginn stets 
+
+aus einer geosynchronen Position von ca. 35.800 km 
+
+über dem Äquator und 0° geographischer Länge, 
+
+anfangs in drei Spektralbereichen Wetterinfor- 
+
+mationen für den europäischen Kontinent und 
+
+die angrenzenden Gebiete. Im Laufe der Zeit 
+
+gingen insgesamt 7 Satelliten der ersten Meteosat- 
+
+Generation ins All, wobei jeweils der jüngste auf 
+
+die »Pole Position« über dem Nullmeridian gesetzt 
+
+wurde, während seine zunächst noch aktiven Vor - 
+
+gänger der Reihe nach ostwärts über dem Äquator 
+
+platziert und nach Beendigung ihres operationel - 
+
+len Betriebes auf einem »Friedhofsorbit« geparkt 
+
+wurden. 
+
+Wirbelschleppen 
+
+... sind an den Tragflächen von Luftfahrzeugen 
+
+paarweise entstehende und gegenläufig rotierende 
+
+Luftverwirbelungen mit horizontaler Rotations - 
+
+achse. Intensität und Dimension dieser zopfartigen 
+
+Gebilde sind vor allem vom Gewicht und damit 
+
+von der Größe des Flugzeuges abhängig, die 
+
+Lebensdauer der Wirbel wird stark vom Zustand 
+
+der bodennahen Atmosphäre beeinflusst. Wirbel - 
+
+schleppen sind an bewegten Luftfahrzeugen un - 
+
+vermeidlich, denn der an den laminar umströmten 
+
+Tragflächen erzeugte Auftrieb verursacht entspre - 
+
+chend dem Newtonschen Gegenwirkungsprinzip 
+
+einen abwärts gerichteten Impuls, der an den 
+
+Trag flügelenden in der unbeschleunigten Umge - 
+
+bungsluft ein Drehmoment bzw. einen Drehimpuls 
+
+indu ziert. Wirbelschleppen können insbesondere 
+
+bei Start und Landung, aber auch im Reiseflug 
+
+nachfolgende Flugzeuge gefährden oder gar zum 
+
+Absturz bringen; und zwar ist die Gefahr umso 
+
+größer, je schwerer das vorausfliegende und je 
+
+leichter das folgende Flugzeug ist. Diese Tatsache 
+
+erzwingt an Flugplätzen Wartezeiten im Start- bzw. 
+
+Landebetrieb und begrenzt somit deren maximale 
+
+Verkehrskapazität. 
+
+▲   Mit farbigem Rauch sichtbar gemachte Wirbelschleppe hinter 
+
+einem Flugzeug 
+
+© Von NASA Langley Research Center (NASA-LaRC), Edited 
+
+by Fir0002 – Diese Mediendatei wurde vom Langley Research 
+
+Center der US-amerikanischen National Aeronautics and Space 
+
+Administration (NASA) unter der Datei-ID EL-1996-00130 UND 
+
+der Alter nativen Datei-ID L90-5919 kategorisiert, Gemeinfrei, 
+
+https://commons.wikimedia.org/w/index.php?curid=494937 
+
+▲   Fiktive Darstellung eines MTG-I Satelliten (im Vordergrund) 
+
+und eines MTG-S Satellit (im Hintergrund) 
+
+© ESA/Mlabspace, CC BY-SA IGO 3.0, CC BY-SA 3.0 igo,   https:// 
+
+commons.wikimedia.org/w/index.php?curid=121428133 
+
+===== PDF PAGE 4 / 84 =====
+
+Der Flugwetterdienst auf einen Blick 
+
+Kennzahlen für den Flugwetterdienst 
+
+2022 1 
+
+Leistungsdaten IFR 
+
+TAFs für deutsche Flughäfen   68.923 
+
+TREND-Vorhersagen (internationale Verkehrsflughäfen)   237.533 
+
+SIGMETs, Flughafenwarnungen, Windscherungswarnungen   10.725 
+
+Leistungsdaten VFR 
+
+Vorhersagen für Low-Level-Flüge (GAFOR)   10.507 
+
+Flugwetterübersichten / 3-Tage-Prognosen   14.334 
+
+Mündliche Flugwetterberatungen   19.580 
+
+Leistungsdaten Spezialdienste 
+
+Spezialvorhersagen für Such- und Rettungsoperationen   11.285 
+
+Spezialvorhersagen für die Flugsicherung (Höhenwindprognose)   5.846 
+
+Spezialvorhersagen für Flughäfen und Air Traffic Management 
+
+(Flughafenvorhersagen, Winterdienst, ATM-Beratungen)   
+156.084 
+
+Kostendaten   2021   2022 
+
+Gesamtkosten FWD (Tsd. EUR)   21.377   16.180 
+
+Gesamtkosten IFR (Tsd. EUR)   19.624   14.853 
+
+An-, Abflug (Tsd. EUR)   5.709   4.790 
+
+Strecke (Tsd. EUR)   13.915   10.063 
+
+Gesamtkosten VFR (Tsd. EUR)   1.753   1.327 
+
+Anteil Direct Costs an DWD Direct Costs (%)   21,0   17,0 
+
+Kennzahlen für Produktivität/Wirtschaftlichkeit für FWD/IFR   2021   2022 
+
+Service Units (Tsd.) 2   8.383   13.586 
+
+Mitarbeiterproduktivität (Stunden IFR/Service Unit)   0,02   0,01 
+
+Wirtschaftlichkeit (Service Unit Costs) (Vollkosten IFR/Service Unit)   2,3   1,1 
+
+Vollzeitäquivalent 
+
+des Flugwetterdienstes (abrechenbarer Anteil nach Direct Costs)   100   79 
+
+Kennzahlen zu Umsatz und Jahresabschluss DWD gesamt   2021   2022 
+
+Umsatz (Tsd. EUR)   20.116   28.519 
+
+Bilanzsumme (Tsd. EUR)   1.063.260   1.134.893 
+
+Cash-Flow (Finanzmittelsaldo, in Tsd. EUR)   -385.561   -344.608 
+
+Investitionen (Tsd. EUR)   136.916   124.170 
+
+Abschreibungen auf Anlagevermögen (Tsd. EUR)   37.701   41.073 
+
+Kostendaten   2021   2022 
+
+Gesamtkosten DWD (Tsd. EUR)   383.219   353.936 
+
+Anteil Core Costs (%)   75   76 
+
+Anteil Direct Costs (%)   25   24 
+
+1) wetterabhängige Leistungsdaten, daher kein Vorjahresvergleich sinnvoll 
+
+2) nach Angaben der Deutschen Flugsicherung 
+
+===== PDF PAGE 5 / 84 =====
+
+
+
+===== PDF PAGE 6 / 84 =====
+
+
+
+===== PDF PAGE 7 / 84 =====
+
+Jahresbericht 2022 
+
+Flugwetterdienst 
+
+===== PDF PAGE 8 / 84 =====
+
+
+
+===== PDF PAGE 9 / 84 =====
+
+Der Deutsche Wetterdienst (DWD) ist eine Bundes 
+
+oberbehörde mit Sitz in Offenbach am Main, der 
+
+als teilrechtsfähigen Anstalt des öffentlichen 
+
+Rechts im Geschäftsbereich des Bundesministerium 
+
+für Digitales und Verkehr (BMDV) die Funktion 
+
+des nationalen Dienstleisters der Bundesrepublik 
+
+Deutschland für Wetter und Klima obliegt. Laut 
+
+Wetterdienstgesetz (DWDG) gehört zu den Auf 
+
+gaben des DWD u. a. die meteorologische Sicher 
+
+stellung der zivilen Luftfahrt, wobei weitere 
+
+Gesetze (z. B. LuftVG) zu beachten und internatio 
+
+nale Standards (ICAO, WMO) einzuhalten sind. Zur 
+
+Erfüllung der vom Gesetzgeber gestellten Aufgaben 
+
+hat der DWD innerhalb seiner Strukturen einen 
+
+leistungsfähigen Flugwetterdienst etabliert, der 
+
+seinen Kunden ein umfangreiches   Produktportfolio 
+
+anbietet. 
+
+Seit 2022 nähert sich der Weltluftverkehr wie 
+
+der dem Niveau vor der Covid   19   Pandemie an. 
+
+Unabhängig davon wurde und wird beim DWD 
+
+konti  nuierlich an der Verbesserung unserer wissen 
+
+schaftlich   technischen Basis sowie unserer Produkte 
+
+und Dienstleistungen gearbeitet. 
+
+Im Bereich der Informationsgewinnung ist mit 
+
+dem erfolgreichen Abschluss des Projektes Auto 
+
+METAR ein wichtiger Schritt zur Erhöhung der 
+
+Arbeitsproduktivität und zur Kostensenkung gelun 
+
+gen. Weiterhin modernisiert der DWD sein In   Situ 
+
+Mess   und Beobachtungsnetz an den Flugplätzen, 
+
+entwickelt und raffiniert innovative Verfahren zur 
+
+Nutzung neuester radar   und satellitenbasierter 
+
+Fernerkundungsmethoden und forciert die Prozes 
+
+sierung und Verteilung georeferenzierter Daten 
+
+und Produkte. 
+
+In der numerischen Wetterprognose wird das 
+
+Vorhersagesystem des DWD stetig verbessert, und 
+
+zwar durch Verfeinerung der Modellgitter, Verbes 
+
+serung der Modellorographie sowie quantitative 
+
+und qualitative Erweiterungen bei der Datenassi 
+
+milation. Technische Fortschritte in der Hard   und 
+
+Software führen zu erhöhter Performanz meteoro 
+
+Vorwort 
+
+Gerhard Adrian 
+
+▲   Prof. Gerhard Adrian, Präsident des DWD 
+
+logischer Anschlussverfahren, Auswertealgorithmen 
+
+und visueller Darstellungsmöglichkeiten. Einen 
+
+Schwerpunkt im DWD bilden die Arbeiten im Projekt 
+
+SINFONY, welches die methodische Lücke zwischen 
+
+dem Nowcasting und der Kürzestfristvorhersage 
+
+schließen soll. 
+
+Um den hohen Anforderungen mit einer konti 
+
+nuierlichen bzw. verbesserten Produktqualität 
+
+begegnen zu können und die sicherheitstech 
+
+nischen Ansprüche (Safety und Security) zu er 
+
+füllen, hat der DWD schon vor geraumer Zeit 
+
+Management  systeme für Qualität und Sicherheit 
+
+etabliert. Unser Qualitätsmanagementsystem nach 
+
+ISO 9000:2015 wurde im Berichtszeitraum erneut 
+
+rezertifiziert. 
+
+Weiterhin engagiert sich der DWD innerhalb 
+
+der europäischen Luftrauminitiative Single 
+
+European Sky (SES) sowie bei der Harmonisierung 
+
+flug  meteorologischer Produkte innerhalb des 
+
+EU   Forschungsvorhabens SESAR. 
+
+Nur in der Kombination von wissenschaftlich 
+
+technischem Fortschritt und Qualitätsbewusstsein 
+
+wird es gelingen, die Leistung, Pünktlichkeit und 
+
+Wirtschaftlichkeit des Luftverkehrssystems unter 
+
+Beachtung höchster Sicherheits   und Umwelt 
+
+standards zu erhalten. Wie sich der Deutsche Wetter 
+
+dienst den Herausforderungen unserer Zeit stellt, 
+
+erfahren Sie in dieser Publikation. 
+
+Mit freundlichen Grüßen, Ihr 
+
+===== PDF PAGE 10 / 84 =====
+
+Wellen und Wirbel 
+
+Wenn man sich die atmosphärischen Bewegungen anschaut, 
+
+ihre Luftdruck- und Stromfelder sowie deren raum-zeitliche 
+
+Veränderungen studiert, so zeigen sich bei aller Vielgestaltig - 
+
+keit zwei Grundformen, und zwar Wellen und Wirbel. Das 
+
+Spektrum wetterwirksamer atmosphärischer Wellen reicht von 
+
+den Leewellen im Gebirge über die Steuerung von Hoch- und 
+
+Tiefdruckgebieten der mittleren Breiten durch Rossby-Wellen 
+
+bis hin zu langperiodischen internen Schwingungen des Klima - 
+
+systems (z. B. El Niño-Southern Oscillation). Zu den atmo - 
+
+sphärischen Wirbeln mit vertikaler Rotationsachse gehören 
+
+Staubteufel, Tornados sowie tropische und außertropische 
+
+Tiefdruckgebiete. Mit horizontaler Achse rotieren kleinskalige 
+
+Böenfrontwirbel oder die großräumige Hadley-Zirkulation 
+
+zwischen äquatorialer Tiefdruckrinne und subtropischem 
+
+Hochdruckgürtel. 
+
+===== PDF PAGE 11 / 84 =====
+
+Inhalt 
+
+1   Rahmenbedingungen   8 
+
+2   DWD-Flugwetterdienst   14 
+
+3   Kundendienstleistungen   22 
+
+4   Innovation und Entwicklung   40 
+
+5   Managementsysteme für Qualität und Sicherheit   54 
+
+6   Finanzergebnisse   64 
+
+7   Was bringt die Zukunft?   72 
+
+Abkürzungsverzeichnis und Glossar   74 
+
+Impressum   77 
+
+===== PDF PAGE 12 / 84 =====
+
+6 
+
+Kleintrombe (»Heuteufel«) auf dem Flugplatz Bruchsal am 11. Juli 2013 
+
+© Wolkenkratzer – Eigenes Werk, CC BY-SA 3.0, 
+
+https://commons.wikimedia.org/w/index.php?curid=28819537 
+
+===== PDF PAGE 13 / 84 =====
+
+7 
+
+… sind kleinräumige Luftwirbel mit vertikaler Achse, die sich 
+
+auf die bodennahe Schicht der Atmosphäre beschränken. Je 
+
+nach Erscheinungsbild und aufgewirbeltem Material finden sich 
+
+Bezeichnungen wie beispielsweise Sand-, Staub- oder ─ im Falle 
+
+gemähten Grases ─ »Heuteufel«. Sie entstehen bei Überhitzung 
+
+der bodennahen Atmosphäre, wenn sich Thermik blasen bilden 
+
+und rasch aufsteigen. Manchmal treten Kleintromben in Gruppen 
+
+auf, etwa im Zusammenhang mit Böenlinien. Eine mögliche, 
+
+anfangs schwache Rotation der auf steigenden Thermikblase 
+
+kann durch Erhaltung des Drehimpulses (»Pirouetten-Effekt«) bei 
+
+vertikaler   Streckung, einen beschleunigt rotierenden Wirbel mit 
+
+beträchtlichen Windgeschwindigkeiten hervorbringen. Die räum - 
+
+liche Ausdehnung von Kleintromben erstreckt sich von wenigen 
+
+Dezimetern bis ca. 250 m Breite und von wenigen bis mehreren 
+
+hundert Metern Höhe. Ihre Lebensdauern variieren zwischen 
+
+wenigen Sekunden und ca. 30 Minuten. 
+
+Kleintromben 
+
+===== PDF PAGE 14 / 84 =====
+
+8 
+
+1   Rahmenbedingungen 
+
+1.1   Nationale und internationale Regelwerke 
+
+2)   Verordnung (EG) Nr. 550/2004 des Europäischen Parlaments und des 
+
+Rates vom 10. März 2004 über die Erbringung von Flugsicherungs - 
+
+diensten im einheitlichen europäischen Luftraum (»Flugsicherungs - 
+
+dienste-Verordnung«) i.V. m. Verordnung (EG) Nr. 1070/2009 des 
+
+Europäischen Parlaments und des Rates vom 21. Oktober 2009 zur 
+
+Änderung der Verordnungen (EG) Nr. 549/2004, (EG) Nr. 550/2004, (EG) 
+
+Nr. 551/2004 und (EG) 552/2004 im Hinblick auf die Verbesserung der 
+
+Leistung und Nachhaltigkeit des europäischen Luftverkehrssystems 
+
+1)   Durchführungsverordnung (EU) 2017/373 der Kommission vom 
+
+1. März 2017 zur Festlegung gemeinsamer Anforderungen an Flug - 
+
+verkehrsmanagementanbieter und Anbieter von Flugsicherungsdiensten 
+
+sowie sonstiger Funktionen des Flugverkehrsmanagementnetzes und 
+
+die Aufsicht hierüber sowie zur Aufhebung der Verordnung (EG) Nr. 
+
+482/2008, der Durchführungsverordnungen (EU) Nr. 1034/2011, (EU) 
+
+Nr. 1035/2011 und (EU) 2016/1377 und zur Änderung der Verordnung 
+
+(EU) Nr. 677/2011 
+
+Die nationale Gesetzgebung für die Luftfahrt 
+
+ist über das   Grundgesetz der Bundesrepublik 
+
+Deutschland   (Artikel 73) geregelt, wodurch der 
+
+Bund zuständig ist für die Luftverkehrsgesetz 
+
+gebung und deren Verwaltung. Die spezifischen 
+
+Aufgaben für den Flugwetterdienst resultieren aus 
+
+dem   Luftverkehrsgesetz (LuftVG),   mit dem sowohl 
+
+die Grundlagen des Luftrechts als auch die Durch 
+
+führung der Luftverkehrsverwaltung geregelt 
+
+sind. 
+
+Der Deutsche Wetterdienst erfüllt in seiner 
+
+Funktion als nationaler meteorologischer Dienst 
+
+der Bundesrepublik Deutschland seit 1952 die 
+
+ihm übertragenen Aufgaben aus den Bereichen 
+
+Wetterüberwachung/   vorhersage, Klima über 
+
+wachung/   projektion sowie darauf basierend 
+
+Daseinsvorsorge und Katastrophenschutz. Recht 
+
+liche Grundlage seiner Geschäftstätigkeit ist das 
+
+vom 10. September 1998 stammende   Gesetz über 
+
+den Deutschen Wetterdienst (DWDG),   das 2017 
+
+novelliert wurde. 
+
+Die Weltorganisation für Meteorologie (World 
+
+Meteorological Organization –   WMO ) als Sonder 
+
+organisation der Vereinten Nationen (UN) hat 
+
+technische Ausführungsbestimmungen (Technical 
+
+Regulations) erstellt, deren nationale Anwendung 
+
+weltweit die fachliche Einheitlichkeit der meteoro 
+
+logischen Praxis sichern soll. Die für den Flug 
+
+wetterdienst relevanten Richtlinien und Empfeh 
+
+lungen der WMO sind in Band II der Technical 
+
+Regulations for International Air Navigation Teil 
+
+C.3 enthalten, der identisch mit dem Annex 3 
+
+der ICAO ist. 
+
+Im Abkommen über die Internationale Zivilluft 
+
+fahrt (Chicagoer Konvention 1944) und der damit 
+
+verbundenen Gründung der Internationalen 
+
+Zivilluftfahrtorganisation   (ICAO),   einer Sonder 
+
+organisation der   UNO,   wurde ein umfangreiches 
+
+Regelwerk mit Standards und Empfehlungen für 
+
+die Durchführung der zivilen Luftfahrt geschaffen, 
+
+anhand derer die Sicherheit, Wirtschaftlichkeit, 
+
+Pünktlichkeit und Umweltverträglichkeit des 
+
+Luftverkehrs gewährleistet und weiterentwickelt 
+
+werden sollen. 
+
+Für den DWD als Flugwetterdienst sind der 
+
+Anhang 3 (Annex 3 »Meteorological Service for 
+
+International Air Navigation«) sowie Teile der 
+
+Anhänge 11 (»Air Traffic Services«) und 14 (»Aero 
+
+dromes«) dieses ICAO   Abkommens relevant. 
+
+Weitere Regelungen sind in einer Reihe von 
+
+Verfahrensvorschriften (Procedures for Air 
+
+Navigation Services –   PANS ) und Handbüchern 
+
+(Manuals) enthalten. 
+
+Die o. g. Anhänge des ICAO-Abkommens wurden 
+
+im Rahmen der europäischen Luftrauminitiative 
+
+Single European Sky (SES) in die Durchführungs 
+
+verordnung (EU) 2017/373 1   übertragen und sind 
+
+geltendes EU   Recht. Damit sind die SES   Basis 
+
+verordnungen für sämtliche Flugsicherungsdienst 
+
+leister in Europa verbindlich und werden laufend 
+
+überarbeitet bzw. ergänzt. Der Deutsche Wetter 
+
+dienst ist laut Verordnung (EG) Nr. 550/2004 2   als 
+
+Flugwetterdienst für Deutschland zertifiziert und 
+
+benannt. 
+
+===== PDF PAGE 15 / 84 =====
+
+9 
+
+5)   Verordnung (EG) Nr. 216/2008 des europäischen Parlamentes und des 
+
+Rates vom 20. Februar 2008 zur Festlegung gemeinsamer Vorschriften 
+
+für die Zivilluftfahrt und zur Errichtung einer Europäischen Agentur für 
+
+Flugsicherheit, zur Aufhebung der Richtlinie 91/670/EWG des Rates, 
+
+der Verordnung (EG) Nr. 1592/2002 und der Richtlinie 2004/36/EG 
+
+Anmerkung: wird 2018 ersetzt durch (EU) 2018/1139. 
+
+4)   Durchführungsverordnung (EU) Nr. 1034/2011 der Kommission vom 
+
+17. Oktober 2011 über die Sicherheitsaufsicht im Bereich des Flugver - 
+
+kehrsmanagements und der Flugsicherungsdienste und zur Änderung 
+
+der Verordnung (EU) Nr. 691/2010 BAF Sicherheitsaufsicht auf Grund - 
+
+lage 1034. 
+
+3)   Verordnung (EG) Nr. 549/2004 des europäischen Parlaments und des 
+
+Rates vom 10. März 2004 zur Festlegung des Rahmens für die Schaf - 
+
+fung eines einheitlichen europäischen Luftraums, geändert durch 
+
+Verordnung (EG) Nr. 1070/2009 des Europäischen Parlaments und des 
+
+Rates vom 21. Oktober 2009. 
+
+1   Rahmenbedingungen 
+
+Die Sicherheitsaufsicht über die Vorgaben und 
+
+Anforderungen an die Erbringung von Flugsiche 
+
+rungsdiensten obliegt auf nationaler Ebene dem 
+
+Bundesaufsichtsamt für Flugsicherung ( BAF ) in 
+
+Langen 3 . In dieser Funktion überwacht das BAF 
+
+auch die Dienstleistungen und Finanzen des DWD 
+
+im Bereich des Flugwetterdienstes 4 . Die European 
+
+Union Aviation Safety Agency ( EASA ) erstellt und 
+
+überwacht die auf europäischer Ebene einheit 
+
+lichen, hohen Sicherheits   und Umweltstandards. 
+
+Die EASA ist berechtigt, verschiedene exekutive 
+
+Aufgaben, z. B. im Bereich der Flugsicherheit, zu 
+
+übernehmen 5 . 
+
+Sowohl die internationalen als auch die nationalen 
+
+Regelungen und Vorschriften zur Erbringung von 
+
+Flugsicherungsdiensten finden Eingang in die 
+
+Vorschriften und Betriebsunterlagen (VuB) des 
+
+DWD. Von besonderer Bedeutung sind das Be 
+
+triebshandbuch für den Flugwetterdienst (VuB 
+
+Nr. 7) sowie das Handbuch zur Richtlinie Flug - 
+
+wetterdienste. Die Dokumentation folgt dabei den 
+
+Vorgaben des zertifizierten Qualitätsmanagement 
+
+systems des DWD. 
+
+▲   Messfeld nach WMO-Standards an der Flugwetterzentrale (FWZ) Frankfurt 
+
+===== PDF PAGE 16 / 84 =====
+
+Auf nationaler Ebene unterhält der DWD   Flug 
+
+wetterdienst bilaterale Kooperationen mit mehreren 
+
+Forschungseinrichtungen, etwa dem Deutschen 
+
+Zentrum für Luft   und Raumfahrt ( DLR ) sowie 
+
+verschiedenen meteorologischen Universitätsinsti 
+
+tuten. Diverse Struktureinheiten des Flugwetter 
+
+dienstes sind DWD   intern aktiv in die Fortentwick 
+
+lungen des meteorologischen Arbeitsplatz   und 
+
+Visualisierungssystems NinJo eingebunden, einem 
+
+Gemeinschaftsprojekt von Deutschem Wetter 
+
+dienst ( DWD ), Geoinformationsdienst der Bundes 
+
+wehr ( GeoInfoDBw ) sowie den meteorologischen 
+
+Diensten Dänemarks ( DMI ), Kanadas ( MSC ) und 
+
+der Schweiz ( MeteoSchweiz ). 
+
+Die Kongruenz nationaler und internationaler 
+
+Vorgaben und Standards verbunden mit innova 
+
+tiven Lösungsansätzen werden immer wichtiger, 
+
+weshalb DWD   Vertreter kontinuierlich und aktiv 
+
+in flugmeteorologisch relevanten, internationalen 
+
+Arbeitsgruppen und Gremien vertreten sind. Nur 
+
+so können wir an der Gestaltung zukünftiger 
+
+Standards und Verfahren für Flugwetterdienstleis 
+
+tungen nachhaltig und prägend Einfluss nehmen. 
+
+Auf globaler Ebene nimmt der DWD Aufgaben in 
+
+der   ICAO   und der   WMO   wahr; auf europäischer 
+
+Ebene im Rahmen von   EUMETNET   (dem Netzwerk 
+
+europäischer Wetterdienste), SES   Projekten ( SESAR ), 
+
+der EASA, der   DACH-Kooperation   (Deutschland – 
+
+Österreich – Schweiz) sowie in der   MET Alliance. 
+
+In der ICAO wirkt der Deutsche Wetterdienst vor 
+
+allem über das   MET Panel   und seine Arbeitsgrup 
+
+pen sowie über die Meteorology Group ( METG ) der 
+
+European Air Navigation Planning Group ( EANPG ) 
+
+bei der internationalen Gestaltung flugmeteoro 
+
+logischer Dienstleistungen mit. 
+
+10 
+
+1   Rahmenbedingungen 
+
+1.2   Nationale und internationale Zusammenarbeit 
+
+Die WMO übernimmt in den o. g. ICAO-Gremien 
+
+meist die Rolle der wissenschaftlichen Beratung. 
+
+Die europäische Regionalgruppe der ICAO, die 
+
+ICAO EUR/NAT   (Europa/Nordatlantik), führt norma 
+
+lerweise alljährlich unter dem Akronym   VOLCEX 
+
+ein Planspiel zur Ausbreitung von Vulkanasche 
+
+nach einer fiktiven Eruption durch, um anhand 
+
+wechselnder Szenarien Flugsicherungsorganisa 
+
+tionen und Flugwetterdienste technisch und 
+
+organisatorisch möglichst praxisnah auf Vulkan 
+
+ausbrüche vorzubereiten. Das Volcanic Ash 
+
+Advisory Center (VAAC) London initiiert und 
+
+koordiniert diese Übungen, sodass gemeinsam mit 
+
+den Nachbarländern Vorhersagen und Warnungen 
+
+für die im Szenario betroffenen Lufträume ausge 
+
+geben werden können. Der Deutsche Wetterdienst 
+
+hat auch im Berichtsjahr mit seiner Vulkanasche 
+
+Task   Force an der VOLCEX22 teilgenommen, dabei 
+
+wurde am 17. November 2022 eine luftfahrtgefähr 
+
+dende Eruption des Vulkans Pico del Teide (3715 m 
+
+MSL, Teneriffa, Kanarische Inseln) trainiert. 
+
+Im Rahmen des Zusammenschlusses von 31 euro 
+
+päischen Wetterdiensten (EUMETNET) ist der 
+
+DWD in der   AVIMET   Arbeitsgruppe von EUMET 
+
+NET sowie im EUMETNET   Leitungsgremium, der 
+
+AVAC   vertreten. Weiterhin arbeitet der DWD über 
+
+EUMETNET aktiv in SES   Projekten mit. Hier gilt 
+
+es, den DWD adäquat im Wettbewerb zur Gestal 
+
+tung des europäischen Luftraums mit standardi 
+
+sierten MET   Produkten zu positionieren, wozu 
+
+auch die meteorologische Versorgung von   EURO - 
+
+CONTROL   in Kooperation mit mehreren europä 
+
+ischen Flugwetterdiensten gehört. In einer flug 
+
+meteorologischen Fachgruppe der EASA bringt 
+
+sich der DWD bei der Erstellung von europäischen 
+
+Regularien ein. 
+
+===== PDF PAGE 17 / 84 =====
+
+11 
+
+1   Rahmenbedingungen 
+
+Überblick über die wichtigsten internationalen Aktivitäten der Flugsicherungsorganisation DWD als 
+
+National Meteorological   Authority im Auftrag des Bundesministeriums für Verkehr und digitale Infrastruktur (BMVI) 
+
+Gremium/Projekt   DWD-Beteiligung 
+
+ICAO 
+
+Abgesandter (Member) im MET Panel 
+
+Experten (Advisors) in den MET-Panel-Arbeitsgruppen MIE, MISD, 
+
+MRI, MOG, MCRGG 
+
+Chair EANPG METG (EUR/NAT-Region) 
+
+Experts EANPG, METATM und METG (EUR/NAT-Region) 
+
+WMO   
+Task Teams/Expert Teams (ET/TT): TT-XML (Formats); 
+
+TT-AvCI (Aviation Coding Issues), ET-ASC (Aviation, Science and Climate) 
+
+EUMETNET 
+
+SES 
+
+EASA 
+
+AVAC, AVIMET 
+
+SESAR Projekte 
+
+Advisory Group ATM/ANS.TEC 
+
+DACH-Kooperation   Steuerungsgruppe, DACH Operations Group, DACH-MWO 
+
+MET Alliance 
+
+Steering Committee und Board 
+
+Projekte: TAF- und Trend-Verifikation, AutoMETAR, 
+
+MOS/TAF-Guidance, KPI, Common Regulations 
+
+Seit vielen Jahren arbeitet der DWD   Flugwetter 
+
+dienst sehr eng mit den Flugwetterdiensten 
+
+Österreichs (A) und der Schweiz (CH) in der 
+
+sogenannten DACH   Kooperation zusammen. Ziel 
+
+ist hier insbesondere, den operationellen Flug 
+
+wetterdienstbetrieb aller drei Länder zu harmoni 
+
+sieren und zu optimieren. Diese Zusammenarbeit 
+
+wurde im Rahmen des Projektes   DACH-MWO   im 
+
+Berichtsjahr fortgeführt. 
+
+Neben der DACH   Kooperation haben sich die 
+
+Flugwetterdienste von neun europäischen Ländern 
+
+(Belgien, Deutschland, Frankreich, Irland, Kroatien, 
+
+Luxemburg, Niederlande, Österreich und Schweiz) 
+
+zur MET Alliance zusammengefunden, um die 
+
+weitere grenzüberschreitende Zusammenarbeit 
+
+zu fördern und die Qualität flugmeteorologischer 
+
+Dienstleistungen zu verbessern. Auch diese 
+
+Kooperation wurde im Berichtsjahr fortgeführt. 
+
+===== PDF PAGE 18 / 84 =====
+
+12 
+
+Lenticularis-Wolken als Anzeichen für Leewellen (Pyrenäen, 28.04.2015), 
+
+© Tobias Kemmerer – Eigenes Werk, CC BY-SA 4.0, 
+
+https://commons.wikimedia.org/w/index.php?curid=39833560 
+
+===== PDF PAGE 19 / 84 =====
+
+13 
+
+Leewellen entstehen, wenn eine stabil geschichtete Luftmasse 
+
+einen Gebirgskamm überquert, dabei auf der Luvseite zum Auf - 
+
+steigen mit adiabatischer Abkühlung, auf der Leeseite zum Ab - 
+
+sinken bei adiabatischer Erwärmung gezwungen und dann durch 
+
+den archimedischen Auftrieb in der kälteren Umgebungsluft 
+
+vertikal beschleunigt wird. So bilden sich bei zeitlich konstanter 
+
+Anströmung stationäre, vertikale Transversalwellen und mit hori - 
+
+zontaler Achse rotierende Wirbel (Leewalzen oder Rotoren). Bei 
+
+feuchter Luft kondensiert der Wasserdampf in den aufsteigenden 
+
+Abschnitten der Welle und verdunstet in den absteigenden wieder. 
+
+Folglich entstehen im Lee in den Wellenscheiteln, senkrecht zur 
+
+Windrichtung, bandförmige Wolken mit linsenförmigen Quer - 
+
+schnitten (Lenticularis-Wolken oder »Föhnfische«). Insbesondere 
+
+die Rotoren ver ursachen schwere Turbulenzen und sind für kleine 
+
+Luftfahrzeuge generell, für Verkehrsflugzeuge unter Umständen 
+
+gefährlich. 
+
+Leewellen 
+
+===== PDF PAGE 20 / 84 =====
+
+14 14 
+
+2   DWD-Flugwetterdienst 
+
+2.1   Organisation DWD gesamt und Flugwetterdienst 
+
+Leitung GB PB 
+
+Personal und Betriebswirtschaft 
+
+Abteilung PB 1 
+
+Personal und 
+
+Organisation 
+
+Abteilung PB 2 
+
+Finanzen und 
+
+Service 
+
+Referat PB JU 
+
+Justitiariat 
+
+Referat PB MB 
+
+Deutsche Met. 
+
+Bibliothek 
+
+Ltd. Fachkraft für 
+
+Arbeitssicherheit 
+
+Innenrevision (IR) 
+
+Beauftragte für 
+
+Datenschutz 
+
+Bund-Länder-Beirat 
+
+Gleichstellungs- 
+
+beauftragte 
+
+Qualitäts- 
+
+management 
+
+Stabstelle STB 
+
+Strategie und Büro 
+
+des Präsidenten 
+
+Stabstelle INT 
+
+Internationale 
+
+Angelegenheiten 
+
+Stabstelle PÖ 
+
+Presse und 
+
+Öffentlichkeitsarbeit 
+
+Leitung GB TI 
+
+Technische Infrastruktur und Betrieb 
+
+Abteilung TI 1 
+
+Systeme und Betrieb 
+
+Abteilung TI 2 
+
+Messnetze und Daten 
+
+Abteilung TI 3 
+
+Service und Logistik 
+
+Referat TI PK 
+
+Planung, Koordinierung und 
+
+Qualitätssicherung 
+
+IT-Sicherheits beauftragte 
+
+===== PDF PAGE 21 / 84 =====
+
+15 
+
+Leitung GB FE 
+
+Forschung und Entwicklung 
+
+Präsident 
+
+Vorsitzender des 
+
+Vorstandes 
+
+Vorstand 
+
+Gruppe Meteorologie 
+
+der Bundeswehr 
+
+beim DWD 
+
+Wissenschaftlicher Beirat 
+
+Leitung GB WV 
+
+Wettervorhersage 
+
+Abteilung FE 1 
+
+Met. Analyse und 
+
+Modellierung 
+
+Abteilung WV 1 
+
+Beratungs- und 
+
+Warndienste 
+
+Abteilung KU 1 
+
+Klima- und 
+
+Umweltberatung 
+
+Abteilung FE 2 
+
+Zentrale 
+
+Met. Fachverfahren 
+
+Abteilung WV 2 
+
+Kundenservices und 
+
+Entwicklung 
+
+Abteilung KU 2 
+
+Klimaüberwachung 
+
+Referat FE PK 
+
+Planung und 
+
+Koordinierung 
+
+Abteilung KU 3 
+
+Agrarmeteorologie 
+
+Referat FE HP 
+
+Met. Observatorium 
+
+Hohenpeißenberg 
+
+Abteilung KU 4 
+
+Hydrometeorologie 
+
+Referat FE LG 
+
+Met. Observatorium 
+
+Lindenberg 
+
+Referat KU PK 
+
+Planung und 
+
+Koordinierung 
+
+Leitung GB KU 
+
+Klima und Umwelt 
+
+===== PDF PAGE 22 / 84 =====
+
+16   Der Deutsche Wetterdienst (DWD) ist im Auftrag 
+
+des Bundesministeriums für Digitales und Verkehr 
+
+(BMDV) als nationaler Wetterdienst verantwortlich 
+
+für die meteorologische Sicherstellung der zivilen 
+
+Luftfahrt in der Bundesrepublik Deutschland. Der 
+
+Flugwetterdienst wird zertifiziert und überwacht 
+
+durch das Bundesaufsichtsamt für Flugsicherung 
+
+(BAF). Die regulierten und qualitätsgesicherten 
+
+Leistungen des Flugwetterdienstes werden nach 
+
+gesetzlichem Auftrag und nach EU   Vorgaben der 
+
+Luftrauminitiative Single European Sky (SES) als 
+
+Flugsicherungsdienste erbracht, und nach den 
+
+SES   Leistungszielen Sicherheit, Kapazität, Kosten 
+
+effizienz und Umwelt optimiert. Die fachlichen 
+
+und technischen Vorgaben des Flugwetterdienstes 
+
+erfolgen nach den internationalen Standards der 
+
+ICAO (International Civil Aviation Organisation) 
+
+und der WMO (World Meteorological Organization). 
+
+Die Vorhersage   , Warn   und Beratungsdienste 
+
+für die Luftfahrt werden innerhalb des Geschäfts 
+
+bereiches Wettervorhersage (WV) erbracht. Dazu 
+
+gehören in der Abteilung Beratungs   und Warn 
+
+dienste die Flugwetterzentrale Frankfurt und vier 
+
+weitere Luftfahrtberatungszentralen in Hamburg, 
+
+Essen, Berlin und München, sowie die Fachleitung 
+
+in Offenbach. In der Abteilung Kundenservice und 
+
+Entwicklung sind vor allem der Kundenservice 
+
+Luftfahrt und die Entwicklungsreferate für den 
+
+Betrieb und Entwicklung der flugmeteorologischen 
+
+Kundenportale tätig. 
+
+Im Geschäftsbereich Technische Infrastruktur 
+
+und Betrieb (TI) werden alle für den Flugwetter 
+
+dienst nötigen technischen Systeme betrieben und 
+
+gewartet. Hierzu gehören neben der EDV   Infra 
+
+struktur und dem Rechenzentrum vor allem die 
+
+Messtechnik und die Kommunikationssysteme. 
+
+Der Geschäftsbereich Forschung und Entwick 
+
+lung (FE) liefert die wissenschaftlichen Grund 
+
+lagen der numerischen Wettervorhersage mit 
+
+Datenassimilation, Analyse, Betrieb, Verifikation 
+
+sowie Innovationen auf diesen Gebieten. Hier 
+
+werden auch zentrale meteorologische Fachver 
+
+fahren (z. B. für Turbulenz, Vereisung, Thermik) 
+
+und die Softwareentwicklung für meteorologische 
+
+Arbeitsplatzsysteme durchgeführt sowie Fern 
+
+erkundungsverfahren mittels Satelliten und Wetter 
+
+radaren fachlich betreut. 
+
+Im Geschäftsbereich Klima und Umwelt (KU) 
+
+werden flugklimatologische Daten ausgewertet 
+
+und Statistiken erstellt sowie Fragestellungen zum 
+
+Themenkreis Klima und Klimawandel in Zusam 
+
+menhang mit dem Luftverkehr bearbeitet. 
+
+Der Geschäftsbereich Personal und Betriebs 
+
+wirtschaft (PB) unterstützt die Prozesse des Flug 
+
+wetterdienstes unter anderem in den Bereichen 
+
+Personalmanagement, Beschaffung, Rechnungs 
+
+wesen und Luftfahrtkostenrechnung, Liegen 
+
+schaften und Haushalt. 
+
+Nicht zuletzt sind die Stabsstellen des Präsiden 
+
+ten des DWD aktiv für den Flugwetterdienst, und 
+
+zwar in den Bereichen Qualitätsmanagement (QM), 
+
+Internationale Angelegenheiten sowie Presse   und 
+
+Öffentlichkeitsarbeit. 
+
+Die Zusammenarbeit des zivilen Flugwetter 
+
+dienstes mit entsprechenden militärischen Dienst 
+
+stellen erfolgt über die Gruppe Meteorologie des 
+
+Geoinformationsdienstes der Bundeswehr beim 
+
+Deutschen Wetterdienst (MetBw). 
+
+===== PDF PAGE 23 / 84 =====
+
+17 Personalkosten und Mitarbeiterproduktivität 
+
+Die Leistungen des DWD, die im Jahr 2022 den 
+
+Luftfahrtnutzern angeboten wurden, sind in 
+
+nachstehender Tabelle nach Leistungskategorien 
+
+aufgeteilt dargestellt. Hierbei sind unter »Interne 
+
+Leistungen« alle internen Unterstützungs   und 
+
+Vorarbeiten subsummiert, die zur Erstellung der 
+
+externen FWD   Leistungen erforderlich sind. Mit 
+
+»Spezialdienstleistungen« ist die Weiterverarbei 
+
+tung von Daten und Standardprodukten gemeint, 
+
+die speziellen Kunden   und Nutzeranforderungen 
+
+gerecht wird. 
+
+Das im Flugwetterdienst des DWD tätige Perso 
+
+nal bestand im Jahr 2022 aus 238 Vollzeitäquiva 
+
+lenten (VZÄ). Der abrechenbare Anteil nach 
+
+2   DWD-Flugwetterdienst 
+
+2.2   Personal und Personalentwicklungen 
+
+Direct Costs betrug für das Jahr 2022 79 VZÄ. 
+
+Diese lagen für das Abrechnungsjahr 2022 bei 
+
+137.531 Stunden und damit niedriger als im 
+
+Vor   jahr. Die Reduzierung des Personalaufwandes 
+
+konnte durch die im Jahr 2022 erfolgte Einführung 
+
+von AutoMETAR an den Flugwetterwarten und des 
+
+daraus resultierenden geringeren Personaleinsatzes 
+
+erzielt werden. Davon sind im Jahr 2022 gegen 
+
+über den Luftfahrtkunden 126.254 mit dem 
+
+Instrumentenfluganteil (IFR) zusammenhängende 
+
+Stunden abrechnungsfähig. Werden diese abrechen 
+
+baren Stunden den entsprechenden, von der DFS 
+
+erhobenen Dienstleistungseinheiten bzw. Service 
+
+Units 1   gegenübergestellt, so ergibt sich ein durch 
+
+schnittlicher Zeitaufwand pro Service Unit als 
+
+▲   Flugwetterberaterinnen bei der Arbeit 
+
+1) Quelle: DFS 
+
+===== PDF PAGE 24 / 84 =====
+
+18 
+
+Maß für die Mitarbeiterproduktivität. Aufgrund 
+
+der in 2022 wieder leicht steigenden Wirtschafts 
+
+leistung und der insgesamt rückläufigen COVID 
+
+19   Pandemie, stieg die Anzahl der Service Units 
+
+im Jahr 2022 wieder auf 13.585.772 an. Der durch 
+
+Ermittlung der Mitarbeiterproduktivität für den Bereich FWD IFR 
+
+2021   2022 
+
+Direkte Arbeitsstunden auf FWD-Kostenträger des DWD   162.077   137.531 
+
+davon für IFR   (ca. 92 %)   148.787   126.254 
+
+Service Units *   (in Tsd.) 1   8.383   13.586 
+
+Mitarbeiterproduktivität für FWD-IFR   (in Stunden/Service Unit)   0,02   0,01 
+
+* direkte   und verrechnete   Arbeitsstunden (siehe Text) 
+
+schnittliche Betriebsaufwand sank dadurch wieder 
+
+leicht auf ca. 0,01 Stunden Zeitaufwand pro 
+
+Service Unit. Damit ergibt sich für 2022 ein fast 
+
+auf Vorkrisenniveau liegender durchschnittlicher 
+
+Betriebsaufwand des Flugwetterdienstes von 
+
+0,01 Stunden pro Service Unit. 
+
+Unsere Kolleginnen und Kollegen in der opera 
+
+tionellen Wettervorhersage arbeiten im Wechsel 
+
+schichtdienst, sind größtenteils Beamte des 
+
+gehobenen naturwissenschaftlichen Dienstes des 
+
+Bundes und seit geraumer Zeit für die Vorher 
+
+sage   und Beratungstätigkeit im gemeinsamen 
+
+Betrieb sowohl im Land   See   Wetterdienst als auch 
+
+im Flugwetterdienst qualifiziert und zertifiziert. 
+
+Gerade im Flugwetterdienst erfordern altersbe 
+
+dingte Abgänge sowie Bewerbungen von Kollegin 
+
+nen und Kollegen auf andere Dienstposten inner 
+
+halb des DWD eine kontinuierliche Zuführung 
+
+neuen Personals. Dank aufmerksamen Monitorings 
+
+der Personalsituation durch die WV   Führungsebene 
+
+im engen Zusammenwirken mit dem Personal 
+
+management des DWD können sich abzeichnende, 
+
+negative Entwicklungen in diesem Sektor recht 
+
+zeitig erkannt und so Personalengpässe und die 
+
+damit einhergehenden übermäßigen Belastungen 
+
+der verbleibenden Kolleginnen und Kollegen stark 
+
+reduziert oder vermieden werden. 
+
+Leistungen des DWD für Luftfahrtnutzer 2022 
+
+Art der Leistung   Anteil 
+
+(in % der geleisteten Arbeitszeiten) 
+
+Interne Leistungen für den FWD   52,4 
+
+Spezialdienstleistungen 
+
+(auf Kundenanforderung)   
+4,2 
+
+Leistungen des Flugwetterdienstes   43,4 
+
+davon 
+
+FWD Daten und Produkte   0,4 
+
+FWD Vorhersagen   26,8 
+
+FWD Warnungen   0,6 
+
+FWD Bereitstellung/Vertrieb   0,3 
+
+FWD Beratung/Information   3,6 
+
+Andere LF-Leistungen   11,7 
+
+1) Quelle: DFS 
+
+===== PDF PAGE 25 / 84 =====
+
+19 
+
+2   DWD-Flugwetterdienst 
+
+▲   Niederlassung Essen mit der LBZ West und weiteren Dienststellen 
+
+Prinzipiell werden alljährlich Stellen für die 
+
+Laufbahnausbildung des gehobenen Dienstes 
+
+ausgeschrieben, zum einen über das Studium an 
+
+der Hochschule des Bundes (Fachbereich Wetter 
+
+dienst, Abschluss als Dipl.   Met. FH), zum anderen 
+
+für »fertige« Absolventen und Absolventinnen des 
+
+an verschiedenen deutschen Universitäten ange 
+
+botenen Bachelorstudienganges der Meteorologie 
+
+(Abschluss als B. Sc. Met.). Im Berichtsjahr 2022 
+
+konnten dem Vorhersagedienst (Land   See   sowie 
+
+Flugwetterdienst) fünf Absolventinnen und Absol 
+
+venten zugeführt werden. 
+
+===== PDF PAGE 26 / 84 =====
+
+20 
+
+Kármánsche Wirbelstraßen im Nordostpassat im Bereich der Kapverdischen Inseln 
+
+am 20.12.2020, 
+
+©   https://earthobservatory.nasa.gov/images/147743/the-stability-of-von-karmans-vortices 
+
+===== PDF PAGE 27 / 84 =====
+
+21 
+
+Darunter versteht man ein hydrodynamisches Phänomen, bei 
+
+dem sich im Lee eines umströmten Körpers gegenläufige Wirbel 
+
+mit vertikaler Rotationsachse bilden. Dabei hängt die Wirbel - 
+
+bildung vereinfacht gesagt von der   Dimension des Körpers, von 
+
+der Strömungsgeschwindigkeit und von der Viskosität des fluiden 
+
+Mediums ab, was sich durch die „Reynolds-Zahl“ aus drücken 
+
+lässt. Bei kleinem Durchmesser des Hindernisses, kleinen 
+
+Strömungsgeschwindigkeiten oder großer Zähigkeit des Fluids, 
+
+mithin bei kleinen Reynolds-Zahlen, bleibt die Umströmung 
+
+laminar. Mit zunehmender Geschwindigkeit löst sich die Strömung 
+
+ab und im Lee bilden sich zunächst zwei statio näre Wirbel, die 
+
+bei weiterer Geschwindigkeitserhöhung davondriften. So bildet 
+
+sich eine periodische Schleppe, in der jeweils gegenläufig rotie - 
+
+rende Wirbel, mit einer wiederum von Form und Dimension 
+
+des umströmten Körpers bestimmten, sog. Ablösefrequenz, auf - 
+
+einander folgen. 
+
+Kármánsche 
+
+Wirbelstraße 
+
+===== PDF PAGE 28 / 84 =====
+
+22   Dem Flugwetterdienst im DWD obliegt laut Gesetz 
+
+über den deutschen Wetterdienst die Aufgabe der 
+
+meteorologischen Sicherstellung des Luftverkehrs. 
+
+Gemäß LuftVG sind Flugwetter beratungs   und 
+
+Flugwetterbetriebsdienste und die dafür erforder 
+
+lichen technischen Einrichtungen bereitzustellen 
+
+sowie Forschung und Entwicklung auf dem Gebiet 
+
+der Flugmeteorologie zu betreiben. Zu den Auf 
+
+gaben des Flugwetterdienstes gehören: 
+
+Wetterüberwachung:   Ohne Wetterbeobachtungen 
+
+ist jegliche Wettervorhersage unmöglich! Der 
+
+Deutsche Wetterdienst führt kontinuierlich mete 
+
+orologische Beobachtungen durch, z. B. des aktu 
+
+ellen Wetters, der Bewölkungsverhältnisse, der 
+
+Sichtweite, der Niederschläge (Art und Menge), 
+
+des Windes (Geschwindigkeit, Richtung, Böigkeit 
+
+und an ausgewählten Flugplätzen auch Scherwind 
+
+parameter), Temperatur und Luftfeuchtigkeit; und 
+
+zwar an Bodenstationen sowie mittels Radioson 
+
+den und durch das euro päische Flugzeug   Mess 
+
+system E   AMDAR (EUMETNET Aircraft Meteoro 
+
+logical Data Relay). Diese   In   situ   Beobachtungen 
+
+werden in zunehmend höherer raum   zeitlicher 
+
+Auflösung ergänzt durch Fernerkundungsinfor 
+
+mationen aus dem DWD   Radarverbund sowie von 
+
+verschiedenen Wetter   satelliten. 
+
+Wettervorhersage:   Moderne Wetterprognosen 
+
+basieren auf Modellen der numerischen Wetter 
+
+vorhersage (NWV), wobei die im Deutschen 
+
+Wetterdienst entwickelten Prognosemodelle 
+
+einem kontinuierlichen Verbesserungsprozess 
+
+unterliegen und die verwendete Rechentech 
+
+nik (Netzwerke, Supercomputer zur Integration 
+
+der Modellgleichungen, Datenbankserver sowie 
+
+Workstations und Personalcomputer) stets dem 
+
+steigenden Datenvolumen angepasst wird. Neben 
+
+dem gerade für den Flugwetterdienst so wichtigen 
+
+Nowcasting, abgeleitet aus aktuellen Wetterbeob 
+
+achtungen, bilden die Resultate der NWV in Form 
+
+von raum   zeitlichen Darstellungen physikalischer 
+
+3   Kundendienstleistungen 
+
+3.1   Kunden und Leistungen 
+
+Größen und meteorologischer Parameter sowie 
+
+der Output verschiedener Anschlussverfahren die 
+
+Grundlage automatischer Vorhersagen und dienen 
+
+den Prognostikern als Fundament zur Erstellung 
+
+einer Vielzahl flugmeteorologischer Produkte und 
+
+Dienstleistungen. 
+
+Wetterwarnung:   Der Flugwetterdienst warnt vor 
+
+beobachteten und vorhergesagten fluggefährdenden 
+
+Wettererscheinungen en   Route sowie vor Wetter 
+
+ereignissen mit Auswirkungen auf den An   und 
+
+Abflug, den Rollverkehr sowie auf Vorfeldaktivi 
+
+täten an den Flugplätzen. Zu den potentiell gefähr 
+
+lichen meteorologischen Erscheinungen während 
+
+des Streckenfluges zählen Gewitter, Turbulenzen, 
+
+Vereisung von Luftfahrzeugen und ggf. schlechte 
+
+Sichtverhältnisse. Start und Landung sowie der 
+
+Flughafenbetrieb im Allgemeinen werden durch 
+
+Gewitter, heftige Niederschläge, Glättephänomene, 
+
+schlechte Sichten sowie starke Winde, Böen und 
+
+Scherwinde in unterschiedlichem Maße beein 
+
+trächtigt. Der DWD bietet eine Reihe spezifischer 
+
+Warnprodukte für die Flugzeugbesatzungen im 
+
+Cockpit, für die Flugsicherungsorganisationen 
+
+zum Zwecke der Flugplanung, Flugführung und 
+
+Luftraumüberwachung sowie für die Flughafen 
+
+betreiber zur Steuerung der Bodenverkehrs 
+
+dienste an. 
+
+Flugwetterberatung:   Zuverlässige und aktuelle 
+
+Wetterinformationen sowie präzise Prognosen 
+
+tragen wesentlich zur Sicherheit und Wirtschaft 
+
+lichkeit des Luftverkehrs bei. Nach § 3a Abs. 2 
+
+LuftVO ist jeder Flugzeugführer verpflichtet, 
+
+für Flüge, die über die Umgebung des Startflug 
+
+platzes hinausführen (Überlandflüge), und vor 
+
+Flügen nach Instrumentenflugregeln (IFR) eine 
+
+qualifizierte Flugwetterberatung einzuholen. 
+
+Die Beratung kann mündlich, telefonisch oder im 
+
+Self   Briefing über das Internet erfolgen. Inhalt des 
+
+»Wetter   Briefings« sind insbesondere Informatio 
+
+nen über die meteorologischen Bedingungen am 
+
+===== PDF PAGE 29 / 84 =====
+
+23 Start   und Zielflugplatz, auf möglichen Ausweich 
+
+flugplätzen, sowie über die Wetterlage und die 
+
+Wetterentwicklung auf der geplanten Flugstrecke. 
+
+Das Leistungsprogramm des Flugwetterdienstes 
+
+im DWD genügt nationalen und internationalen 
+
+Richtlinien und Verordnungen (LuftVG, EU, ICAO, 
+
+WMO). Sicherheit, Wirtschaftlichkeit und Umwelt 
+
+verträglichkeit sind oberstes Ziel im Luftverkehr. 
+
+Die Optimierung von Flugrouten im flugklimato 
+
+logischen Sinne zu wirtschaftlicher Flugdurch 
+
+führung, zur Vermeidung fluggefährdender Wet 
+
+tererscheinungen, zur Schonung von Umwelt und 
+
+Klima, aber auch die fortschreitende Automatisie 
+
+rung und Digitalisierung in der Luftfahrtbranche 
+
+und nicht zuletzt die rasch zunehmende Anzahl 
+
+Unbemannter Luftfahrzeuge   (engl.   Unmanned 
+
+Aerial Vehicles   bzw. umfassender   Unmanned Air- 
+
+craft System –   UAS,   umgangssprachlich   Drohnen) 
+
+verschiedener Klassen als neue Luftverkehrsteil 
+
+nehmer stellen große fachliche und technische 
+
+Herausforderungen dar, denen sich auch der DWD 
+
+als größter flugmeteorologischer Dienstleister in 
+
+Deutschland stellen muss und denen er mit einem 
+
+modernen, sich laufend weiterentwickelnden Pro 
+
+dukt   und Leistungsportfolio begegnet. 
+
+So helfen wir unseren Kunden erfolgreich zu 
+
+sein, unterstützen die Allgemeine Luftfahrt sowie 
+
+die Luftverkehrswirtschaft in Deutschland und 
+
+leisten auf europäischer Ebene einen wichtigen 
+
+Beitrag zur Erreichung der SES   Leistungsziele 
+
+Sicherheit, Kapazität, Kosteneffizienz und Umwelt 
+
+verträglichkeit des Luftverkehrs. 
+
+Die nachfolgend aufgeführten Kundengruppen 
+
+der Allgemeinen Luftfahrt und der Verkehrsluft 
+
+fahrt nutzen die Produkte und Dienstleistungen 
+
+des DWD   Flugwetterdienstes zur Wahrnehmung 
+
+ihrer Aufgaben: 
+
+▶   Flugsicherungen (DFS Deutsche Flugsicherung 
+
+GmbH, EUROCONTROL, etc.) 
+
+▶   Internationale Verkehrsflughäfen und regionale 
+
+Flugplätze in Deutschland sowie deren Dienst 
+
+leister 
+
+▶   Linien   und Charterverkehr inkl. der Luftfracht 
+
+branche 
+
+▶   Geschäftsreiseflugverkehr 
+
+▶   Private Luftfahrt inkl. Luftsport 
+
+▶   Fliegende Einheiten von Polizei, Rettungs 
+
+diensten und des Katastrophenschutzes 
+
+▶   Luftfahrtbehörden 
+
+▶   IT   Systemhäuser (aeronautischen Daten 
+
+verarbeitung und Navigation) 
+
+▶   Luftfahrtverbände und Vereine 
+
+▶   Flugschulen 
+
+▶   Flugmodelle und unbemannte Luftfahrtsysteme 
+
+(UAS) 
+
+Alle Dienstleistungen des DWD für die Luftfahrt 
+
+werden in Abstimmung mit dem BMDV in einem 
+
+Leistungskatalog Flugwetterdienst aufgeführt. 
+
+Dabei wird zwischen regulierten Flugwetter 
+
+dienst   Leistungen, die im Auftrag des Staates 
+
+zur Versorgung der Luftfahrt erbracht und in der 
+
+Regel über Gebühren und den Bundeshaushalt 
+
+gedeckt sind und solchen, die im Auftrag eines 
+
+Kunden erfolgen und individuell abgerechnet wer 
+
+den, unterschieden. 
+
+Die Systematik zur Luftfahrtkostenrechnung 
+
+mit der Verteilung der Kosten auf An   /Abflug und 
+
+Streckenflug sowie die Abgrenzung zwischen 
+
+Instrumentenflug (IFR) und Sichtflug (VFR) ist 
+
+dem Kapitel 6 zu entnehmen. 
+
+===== PDF PAGE 30 / 84 =====
+
+24   Die folgenden Tabellen zeigen die Anzahl ver 
+
+schiedener Produkte und Leistungen, getrennt 
+
+nach Luftfahrtkundengruppen und die Umsätze 
+
+für die entgeltpflichtigen Leistungen für das 
+
+Berichtsjahr 2022. 
+
+Anzahl erstellter Produkte und Leistungen des DWD zur meteorologischen Sicherung der Luftfahrt im Jahr 2022 
+
+Leistungen   Anzahl in 2022 
+
+Meteorologische Dienstleistungen für die IFR-Luftfahrt 
+
+Mündliche Flugwetterberatungen   1.492 
+
+TAFs für deutsche Flughäfen   68.923 
+
+Trend-Vorhersagen (internationale Verkehrsflughäfen)   237.533 
+
+METAR (internationale Verkehrsflughäfen)   266.821 
+
+SPECI (internationale Verkehrsflughäfen)   82.778 
+
+SIGMETs, Flughafenwarnungen, Windscherungswarnungen   10.725 
+
+GAFOR-Gebietewarnungen   23.532 
+
+Flugzeugwettermeldungen (ARS/PIREP)   844 
+
+Low-Level Significant Weather Charts   4.996 
+
+Flugwetterübersichten/3-Tage-Prognosen   14.334 
+
+Meteorologische Dienstleistungen ausschließlich für die VFR-Luftfahrt 
+
+Vorhersagen für Low-Level-Flüge (GAFOR)   10.507 
+
+Mündliche Flugwetterberatungen (nur VFR)   19.580 
+
+Meteorologische Dienstleistungen für Rettungsdienste, Flugsicherung und Flughäfen 
+
+Spezialvorhersagen für Such- und Rettungsoperationen   11.285 
+
+Spezialvorhersagen für die Flugsicherung (Höhenwindprognose)   5.846 
+
+Spezialvorhersagen für Flughäfen und Air Traffic Management (Flughafenvorhersagen, Winterdienst, ATM-Beratungen)   156.084 
+
+Selfbriefingdienste für die zivile Luftfahrt (IFR / VFR), Flughäfen und Luftfahrtdienstleister 
+
+Kunden der Selfbriefingsysteme pc_met Internet Service   15.292 
+
+===== PDF PAGE 31 / 84 =====
+
+25 
+
+Umsätze aus meteorologischen Spezialdienstleistungen zur Sicherung der Luftfahrt 2022 
+
+Produktgruppe   (EUR) 
+
+Selfbriefingsysteme (pc_met u. a.)   932.316 
+
+Flugmeteorologische Gutachten und Auskünfte (inkl. Sachverständigenleistungen nach JVEG)   3.545 
+
+Meteorologische Betreuung der Regionalflugplätze einschließlich Ausbildung des Personals   220.587 
+
+Mehrwertdienste (individuelle mündliche Flugwetterberatungen, TAF-Guidance und abgeleitete Produkte)   59.183 
+
+Erstellung/Bereitstellung flugmeteorologischer Informationen für Flughäfen und Service Provider   124.999 
+
+Sonstiges (Lehrfilme für die Pilotenaus-/-fortbildung, Flugwetterseminare für Piloten etc.)   9.561 
+
+Umsatz Spezialdienstleistungen gesamt   1.350.191 
+
+3   Kundendienstleistungen 
+
+Auch das Jahr 2022 brachte der Luftfahrtbranche 
+
+einige Herausforderungen. Nachdem die Beschrän 
+
+kungen durch die COVID   19   Pandemie aufgehoben 
+
+wurden, zeigte auch der Flugverkehr wieder deut 
+
+lich steigende Verkehrszahlen. Laut »Performance 
+
+Review Report 2022« von   EUROCONTROL   konnten 
+
+2022 insgesamt 9,2 Millionen Flüge verzeichnet 
+
+werden. Dieser Wert lag ca. 17 % unter dem Niveau 
+
+von 2019, war jedoch ein Plus von 48 % im Ver 
+
+gleich zum Vorjahr. Der Höchststand an täglichen 
+
+Flugbewegungen wurde am 8. Juli 2022 verzeich 
+
+net, an dem 32.115 Flüge abgewickelt wurden. 
+
+Wie EUROCONTROL in seinem »Annual Network 
+
+Operations Report 2022« berichtet, gab es im Jahr 
+
+2022 fast 5 Millionen Minuten wetterbedingter 
+
+ATFM-Verspätungen. Dies entspricht 77 % des 
+
+Niveaus von 2019. Im Sommer 2022 erreichte das 
+
+Verkehrsaufkommen knapp 90 % des Niveaus von 
+
+2019, die Pünktlichkeit der Flüge war im Sommer 
+
+2022 jedoch so schlecht wie nie zuvor. Die mittlere 
+
+Abflugverspätung betrug 22,1 min pro Flug, was 
+
+6,2 Minuten pro Flug höher ist als 2019. Darüber 
+
+hinaus betrug die ATFM   Verspätung im Strecken 
+
+flug im Sommer 2022 3,0 Minuten pro Flug, was 
+
+deutlich über dem SES Kapazitätsziel von 0,5 
+
+Minuten pro Flug für 2022 liegt. Dabei ist aber zu 
+
+beachten, dass wegen des Krieges in der Ukraine 
+
+auch weniger Luftraum zur Verfügung stand und 
+
+in den wichtigsten Teilen des europäischen Luft 
+
+verkehrsnetzes das Verkehrsaufkommen bis zu 
+
+30 % über dem von 2019 lag. 
+
+Ab Mitte Mai 2022 verschlechterte sich die 
+
+Pünktlichkeit im europäischen Luftverkehr deut 
+
+lich. Die Sperrung des ukrainischen Luftraums 
+
+infolge des Krieges zwang die Flugsicherungsorga 
+
+nisationen, Flüge über den mittelosteuropäischen 
+
+Luftraum umzuleiten. Die Luftverkehrskontroll 
+
+stelle in Budapest (Budapest Air Control Center) 
+
+verzeichnete ein deutlich höheres Verkehrsauf 
+
+kommen als 2019, was zu unerwarteten Engpässen 
+
+in der Streckenkapazität führte. Darüber hinaus 
+
+gab es vermehrt militärische Flugbewegungen, 
+
+die zusätzlichen Luftraum in Deutschland und 
+
+Polen beanspruchten und den zivilen Luftverkehr 
+
+in vielen Sektoren beeinträchtigte. An einigen 
+
+internationalen Flughäfen, vor allem im Vereinig 
+
+ten Königreich, in Deutschland und den Nieder 
+
+landen, traten verschiedene Probleme auf, die die 
+
+Abfertigung verzögerten. Die Ursache für diese 
+
+Probleme ist der Personalmangel nach der COVID 
+
+Pandemie. Betriebliche Schwierigkeiten in Teilen 
+
+des deutschen, französischen und tschechischen 
+
+===== PDF PAGE 32 / 84 =====
+
+26 
+
+Vergleicht man den Umfang der flugmeteorolo 
+
+gischen Produkte und Leistungen aus den Jahren 
+
+der COVID   19   Pandemie mit denen aus 2022 wird 
+
+man kaum eine Veränderung feststellen, denn die 
+
+Leistungen des Flugwetterdienstes werden unab 
+
+hängig von der Verkehrsdichte erbracht. Allein bei 
+
+den Flugzeugwettermeldungen, die von den Besat 
+
+zungen über die DFS an den DWD gemeldet wer 
+
+den und dann in die Produkte Special Air Report 
+
+bzw. PIREP münden, zeigt sich eine Abhängigkeit 
+
+von der Anzahl der durchgeführten Flüge. Im Jahr 
+
+2019 (vor Corona) lag die Anzahl registrierter 
+
+Flugzeugwettermeldungen bei 1284, 2020 bei 611 
+
+und 2021 bei 663. 2022 hat sich die Anzahl der 
+
+Flugzeugwettermeldungen wieder leicht erhöht 
+
+und erreichte einen Wert von 844. 
+
+◀   Die Auswirkungen des 
+
+Ukraine-Krieges auf die 
+
+Flugrouten im europäischen 
+
+Luftverkehrsraum 
+
+Luftraums führten zu Einschränkungen und Flug 
+
+verspätungen. 
+
+Zwischen Mai und Juli 2022 meldete vor allem 
+
+das Upper Air Control Center Karlsruhe der DFS 
+
+meteorologisch bedingte Kapazitätseinbußen. 
+
+Jedoch erreichten die durch schlechtes Wetter 
+
+ver   ursachten Störungen im Luftverkehr laut 
+
+EUROCONTROL bei weitem nicht die Werte des 
+
+Jahres 2019, denn der Sommer 2022 war der 
+
+sonnigste und einer der wärmsten und trockens 
+
+ten in Deutschland seit Beginn flächendeckender 
+
+Wetteraufzeichnungen 1881 und damit weniger 
+
+von konvektiven Ereignissen geprägt. Es liegt auf 
+
+der Hand, dass kapazitiv ausgelastete Lufträume 
+
+sensibler gegenüber Wettereinflüssen sind als 
+
+Sektoren, in denen die Verkehrsströme noch aus 
+
+reichend Platz finden. 
+
+===== PDF PAGE 33 / 84 =====
+
+27 
+
+3   Kundendienstleistungen 
+
+3.2   Kundenversorgung 
+
+Die Versorgung der Kunden mit flugmeteoro 
+
+logischen Informationen und Produkten erfolgt 
+
+über verschiedene Vertriebswege. Dabei werden 
+
+die Richtlinien des BSI beachtet, d. h. die über 
+
+mittelten Daten werden in ihren Grundwerten 
+
+Vertraulichkeit, Integrität und Verfügbarkeit 
+
+angemessen geschützt. Ein vom DWD betriebener, 
+
+gesicherter Server ( data.dwd.de ) bietet nach Authen 
+
+tifizierung den Datenabruf über die Protokolle 
+
+HTTPS und SFTP an. Flugwetterinformationen 
+
+werden außerdem über die Briefing   Portale, via 
+
+E   Mail, per Push   Service oder über einen Geo 
+
+server zur Verfügung gestellt. 
+
+Der konkrete Übertragungsweg richtet sich in 
+
+Abstimmung mit dem Kunden nach der Art der 
+
+Daten und Produkte. So muss z.B. die Versendung 
+
+bzw. Übermittlung von Warnungen aktiv durch 
+
+den DWD erfolgen, etwa telefonisch oder über 
+
+E   Mail, während die Lieferung regelmäßig erstell 
+
+ter Produkte, wie beispielsweise Modellvorher 
+
+sagedaten oder Radarbilder, auf passivem Modus 
+
+über Server (Datenserver, Geoserver) oder Brie 
+
+fing   Portale erfolgen kann. Über den Geoserver 
+
+des DWD werden z.B. die Produkte NowcastMIX 
+
+Aviation, NowcastMIX   Winterwetter, NowCastSAT 
+
+Aviation, Turbulenz, Vereisung und einige Modell 
+
+Layer, aber auch Radar   und Satellitendaten 
+
+angeboten. 
+
+Der DWD bietet eine SWIM   konforme Daten 
+
+abgabeschnittstelle an. Der Aufbau erfolgte 
+
+im Rahmen eines EU   geförderten Projektes im 
+
+Rahmen des Single European Sky ATM Research 
+
+Programms (SESAR) gemäß den gesetzlichen 
+
+Vorgaben und vorgeschriebenen Formaten und 
+
+Protokollen. Deren aktuelle Nutzer sind Vertreter 
+
+verschiedener Kundengruppen, wie etwa Flug 
+
+gesellschaften, Flugsicherungsorganisationen, 
+
+Systemhäuser sowie der EUROCONTROL   Netz 
+
+werkmanager. Grundsätzlich ist diese Schnittstel 
+
+le eine reine Maschine   Maschine   Schnittstelle und 
+
+unterstützt die im Global Air Navigation Plan 
+
+(GANP) der ICAO und im ATM   Masterplan beschrie 
+
+bene Vollautomatisierung der Verkehrsluftfahrt. 
+
+Die Leistungen des DWD werden je nach Anwen 
+
+dungszweck oder Kundengruppe gebündelt bereit 
+
+gestellt. Als erste Daten bzw. Produkte stehen 
+
+METAR, TAF, SIGMET (im IWXXM   Format) sowie 
+
+das harmonisierte Turbulenz   und Vereisungs 
+
+produkt aus dem SESAR Implementierungspro 
+
+jekt European Harmonised Forecasts of Adverse 
+
+Weather zur Verfügung. Eine Servicebeschreibung 
+
+wurde in der zentralen europäischen SWIM 
+
+Registry veröffentlicht. Die SWIM Registry ist 
+
+dabei nicht die Datenquelle selbst, sondern eher 
+
+ein Verzeichnis, in dem die Services einheitlich 
+
+beschrieben sind. Diesen Beschreibungen kann 
+
+entnommen werden, was die Services liefern und 
+
+wie sie genutzt werden können. Zusätzlich erhält 
+
+der potenzielle Kunde die Kontaktdaten des An 
+
+bieters. Ein Vertragsabschluss zur Nutzung eines 
+
+SWIM   Service erfolgt dann direkt zwischen Kunde 
+
+und Anbieter. 
+
+Die Tower   Lotsen der DFS Deutsche Flugsiche 
+
+rung GmbH an den internationalen Verkehrsflug 
+
+häfen in Deutschland benötigen zeitnah Messwerte 
+
+der dort aktuellen meteorologischen Parameter 
+
+und erhalten diese über direkte Modemstrecken. 
+
+Dazu wird das Automatische System zur Daten 
+
+erfassung und   Verbreitung (ASDUV) eingesetzt, 
+
+bestehend aus verschiedenen Sensoren in unmit 
+
+telbarer Nähe des Start-Landebahnsystems (u. a. 
+
+Wind, Sichtweite, Luftdruck, Temperatur, Feuchte, 
+
+Ceiling) und entsprechender Rechentechnik zur 
+
+Auswertung und visuellen Darstellung der gemes 
+
+senen Parameter sowie zur Erstellung von Wet 
+
+termeldungen und Datentelegrammen. Auch die 
+
+Center   Lotsen an der DFS   Zentrale in Langen er 
+
+halten meteorologische Daten vom DWD, und zwar 
+
+von einem speziellen Server über eine abgesicherte 
+
+und redundant ausgelegte Verbindung. 
+
+===== PDF PAGE 34 / 84 =====
+
+28   Auch die Regionalflugplätze werden mit qualitäts 
+
+gesicherten meteorologischen Daten versorgt. 
+
+Die Durchführung des Wetterbeobachtungs   und 
+
+Wettermeldedienstes erfolgt im Gegensatz zu den 
+
+internationalen Verkehrsflughäfen mit flugplatz 
+
+eigener Mess   und Datenverarbeitungstechnik 
+
+(AWOS) und mit dem Personal des Flugverkehrs 
+
+dienstes oder des Flugplatzunternehmers. Die 
+
+Technik ist vom DWD musterzugelassen und wird 
+
+nach einer technischen Abnahme am Flugplatz in 
+
+Betrieb genommen. Die Fluglotsen im Tower haben 
+
+direkten Zugriff auf die Messwerte. Die verschlüs 
+
+selten Flugplatzwettermeldungen werden an die 
+
+entsprechenden Kunden verteilt und auch in den 
+
+Briefing   Portalen des DWD angeboten. 
+
+Der DWD kooperiert zur Versorgung der Ver 
+
+kehrsluftfahrt mit externen Dienstleistern für 
+
+Wetter   und Navigationsdaten, in deren Software 
+
+die Prozesse der Flugplanung und der meteoro 
+
+logischen Navigation dynamisch miteinander ver 
+
+bunden sind. In jüngster Zeit haben diese digitalen 
+
+Systeme und Applikationen die klassischen »Papier 
+
+karten« und Übertragungswege weitgehend abge 
+
+löst. Zukünftig werden alle Wetter   , Luftraum   und 
+
+Verkehrsinformationen digital dargestellt und 
+
+übermittelt. Eine optimale und zuverlässige Navi 
+
+gation setzt hochwertige, aktuelle und jederzeit 
+
+verfügbare flugmeteorologische Daten voraus, 
+
+die der Deutsche Wetterdienst hauptsächlich über 
+
+Geoserver bereitstellt. 
+
+Auch im digitalen Zeitalter ist die Kommunika 
+
+tion zwischen Prognostikern und Kunden in Form 
+
+der regelmäßigen und situativen Wetter   Briefings 
+
+für die Verkehrsluftfahrt (telefonisch oder persön 
+
+lich) sowie die individuelle telefonische Flugwetter 
+
+beratung für die Allgemeine Luftfahrt oder die 
+
+fliegenden Einheiten der Polizei, der Rettungs 
+
+dienste und des Katastrophenschutzes durch die 
+
+Flugwetterzentrale Frankfurt (FWZ) und die 
+
+Luftfahrtberatungszentralen (LBZn) von besonde 
+
+rer Bedeutung. 
+
+Nicht zuletzt bietet der DWD Selfbriefing   Systeme 
+
+zum individuellen Flugwetter   Briefing an. Neben 
+
+den Schlüsselkunden der Verkehrsluftfahrt haben 
+
+alle Flugzeugführer der Allgemeinen Luftfahrt die 
+
+Möglichkeit, sich auf diese Art und Weise alter 
+
+nativ oder ergänzend zur individuellen Flugwetter 
+
+beratung zu informieren. Nachfolgend werden 
+
+die drei inhaltlich auf die jeweilige Nutzergruppe 
+
+zugeschnittenen Flugwetter   Selfbriefing   Systeme 
+
+des Deutschen Wetterdienstes kurz beschrieben. 
+
+Selfbriefing-Systeme 
+
+▶   Meteorological Airport Briefing (MAB) 
+
+Meteorological Airport Briefing ist ein web 
+
+basiertes Portal mit meteorologischen Produkten 
+
+für das Air Traffic Management (ATM) und 
+
+Airport Collaborative Decision   Making (A   CDM). 
+
+Das MAB unterstützt die Prozesssteuerung auf 
+
+Flughäfen, die dort ansässigen Flughafendienst 
+
+leister (z. B. Winter- und Verkehrsdienste), aber 
+
+auch Fluggesellschaften und Flugsicherungs 
+
+organisationen. MAB beinhaltet die von der 
+
+jeweiligen Luftfahrberatungszentrale bzw. der 
+
+Flugwetterzentrale Frankfurt speziell für die 
+
+Verkehrsflughäfen erstellten Airport   Briefing   , 
+
+Nowcast   und Winterdienstberichte sowie die 
+
+kundenspezifischen Radar   , Gewitter   und 
+
+Blitzinformationen. Hierzu gehören auch die 
+
+Produkte NowCastMIX   Aviation und Now 
+
+CastMIX   Winterwetter sowie die Anwendung 
+
+WarnELEC. Über MAB werden außerdem die 
+
+Flugverkehrsdienste für das Upper Air Control 
+
+Center Karlsruhe der DFS und von EUROCON 
+
+TROL in Maastricht versorgt. Darüber hinaus 
+
+steht ein eigener Bereich spezieller Produkte für 
+
+den Network Manager von EUROCONTROL und 
+
+die Fluggesellschaften zur Verfügung, der u. a. 
+
+die   Cross Border Convection Forecast   anbietet 
+
+(siehe weiter unten, Absatz   Effiziente und flexible 
+
+Produkterstellung durch neue Paradigmen). 
+
+===== PDF PAGE 35 / 84 =====
+
+29 ▶   Heliportal 
+
+Eigens für Hubschrauberbesatzungen bietet der 
+
+DWD das Flugwetter   Briefing   System   Heliportal 
+
+zur meteorologischen Flugvorbereitung an. 
+
+Spezialprodukte wie Nachtflugvorhersage mit 
+
+Bildverstärkerbrillen (BIV), Marinogramme und 
+
+Seegangsvorhersagen für Einsätze im Offshore 
+
+Bereich ergänzen die Standardprodukte des 
+
+Flugwetter   Briefings. 
+
+▶   pc_met Internet Service ( www.flugwetter.de ) 
+
+und DWD FlugWetter-App 
+
+Für die Piloten der Verkehrsluftfahrt und der 
+
+Allgemeinen Luftfahrt bietet der DWD das 
+
+Selfbriefing   System   pc_met Internet Service   zur 
+
+meteorologischen Flugvorbereitung an. Neben 
+
+Warnungen, Vorhersageberichten und Wetter 
+
+karten, werden räumlich hoch aufgelöste Radar   , 
+
+Blitz- und Satelliteninformationen in z. T. fünf 
+
+minütiger Aktualisierungsfrequenz angeboten. 
+
+pc_met   ist seit über 20 Jahren etabliert und wird 
+
+derzeit von über 15.000 Kunden genutzt. 
+
+pc_met Kunden in den Jahren 2007 bis 2022 
+
+3.000
+
+1.500
+
+4.500
+
+0
+
+6.000
+
+7.500
+
+9.000
+
+10.500
+
+12.000
+
+13.500
+
+15.000
+
+10.459
+
+11.994   
+12.459
+
+13.525
+
+14.372
+
+13.805
+
+9.740
+
+11.595
+
+12.958
+
+10.980
+
+2007
+2008
+2009
+2010
+2011
+2012
+2013
+2014
+2015
+
+14.613
+
+2018
+
+14.777   14.746
+
+2019
+
+15.070
+
+2020
+
+15.292
+
+2021
+
+14.571
+
+2017
+2016
+2022 
+
+Die Briefing   Systeme im DWD werden konti 
+
+nuierlich dem raschen wissenschaftlich   tech 
+
+nischen Fortschritt angepasst, beispielsweise 
+
+werden unsere meteorologischen Informationen 
+
+zunehmend in Geowebdienste eingebunden. Erste 
+
+Anwendungen stehen bereit, so basiert etwa die 
+
+Visualisierungssoftware der NowCastMIX   Pro 
+
+dukte im Meteorological Airport Briefing und im 
+
+Heliportal auf Geowebdiensten. 
+
+Für Kunden des Flugwetter   Briefing   Systems 
+
+pc_met Internet Service   bietet der Deutsche 
+
+Wetterdienst mit der   DWD FlugWetter-App   eine 
+
+mobile Ergänzung an. Diese App ermöglicht 
+
+es den Piloten, z. B. kurz vor dem Abflug das 
+
+aktuelle Wetter für Start, Ziel und die geplante 
+
+Strecke mit aktuellen Radar   und Blitzinforma 
+
+tionen, der GAFOR und geltenden Warnungen 
+
+zu überprüfen. 
+
+3   Kundendienstleistungen 
+
+===== PDF PAGE 36 / 84 =====
+
+30   Die   DWD FlugWetter-App   wird kontinuierlich 
+
+mit zusätzlichen Wetterinformationen und 
+
+Funktionalitäten erweitert. So wurden 2022 die 
+
+Vorhersagedaten aus dem WAWFOR   Luftfahrt 
+
+datensatz für die Region Europa implementiert. 
+
+Wichtige Parameter wie Signifikantes Wetter, 
+
+Sichtweite, Bewölkung, Niederschlag, Wind, 
+
+Temperatur, Vereisung, Turbulenz und Konvek 
+
+tion werden nun in einstündigen Intervallen für 
+
+einen Vorhersagezeitraum von bis zu 48 Stunden 
+
+interaktiv visualisiert. 
+
+Innovationen in der Kundenversorgung 
+
+▶   Effiziente und flexible Produkterstellung durch 
+
+neue Paradigmen 
+
+In seiner Rolle als zertifizierter »MET   Provider« 
+
+in Deutschland erstellt der DWD eine Vielzahl 
+
+von Produkten und Dienstleistungen. Diese sind 
+
+teilweise durch internationale Gesetzgebungen 
+
+reglementiert, teilweise werden Anforderungen 
+
+von Schlüsselkunden in Routineprodukten um 
+
+gesetzt. Dabei wird oftmals gefordert, dass die 
+
+meteorologischen Produkte nicht nur in Text 
+
+form, sondern auch in grafischer oder alpha 
+
+numerischer Form bereitgestellt werden, um 
+
+unseren Kunden eine hohe Flexibilität bei der 
+
+Datennutzung zu erhalten. 
+
+Dazu nutzt der DWD moderne Paradigmen der 
+
+meteorologischen Produkterstellung, die einen 
+
+am Phänomen orientierten und harmonisierten 
+
+Ansatz realisieren. So führt das gemeinsame 
+
+Erstellen von Vorhersagekarten mittels »Colla 
+
+borative Editing«, wobei mehrere Prognostiker 
+
+simultan in einer virtuellen Arbeitsumgebung 
+
+agieren, zu einer zwangsläufig konsistenten 
+
+Wettervorhersage, wie beispielsweise im   Falle 
+
+des   Cross Border Convection Forecasts   mit 
+
+24 beteiligten Flugwetterdiensten. Dadurch 
+
+werden nationale Diskrepanzen im Produkt 
+
+a priori verhindert und den europäischen Luft 
+
+fahrtkunden eine solide Entscheidungsgrund 
+
+lage geboten. 
+
+Des Weiteren werden auch Prinzipen des 
+
+Datenbasierten Arbeitens   umgesetzt, d. h., statt 
+
+für jedes einzelne flugmeteorologische Produkt 
+
+einen spezifischen Workflow mit mehr oder 
+
+weniger großem Aufwand abzuhandeln, wird ein 
+
+zentraler Datensatz (ggf. kollaborativ) erzeugt 
+
+und gepflegt, aus dem »On Demand« und relativ 
+
+einfach verschiedene Kundenprodukte   abgeleitet 
+
+werden können. Dieser Ansatz ermöglicht auch 
+
+die Bereitstellung von »Rohdaten« für eine 
+
+Verarbeitung und Visualisierung auf Nutzerseite 
+
+(SWIM   Kompatibilität). 
+
+Auf diese Art und Weise werden derzeit die 
+
+Upper Air Significant Weather Chart (UA   SWC) 
+
+und die Significant Weather Chart für die Flight 
+
+Information Region (FIR   SWC) erzeugt. Genutzt 
+
+wurde 2022 diese Arbeitsweise auch bei der 
+
+Bereitstellung von Vorhersagen für Verlegungs 
+
+flüge der Luftwaffe nach dem »Kleeblattmodell« 
+
+und für Flüge im Zusammenhang mit dem G7 
+
+Gipfel. Die Luftfahrtberatungszentralen können 
+
+mit diesem Verfahren zeitnah auf Kundenanfor 
+
+derungen reagieren und spezifische Kunden 
+
+wünsche erfüllen. 
+
+▶   Blitzwarntool WarnELEC 
+
+Für die Erkennung von Gewitteraktivität wird 
+
+den Flughafenbetreibern, Bodenverkehrs 
+
+diensten und Flugsicherungsorganisationen das 
+
+Blitzwarntool WarnELEC angeboten. WarnELEC 
+
+ist eine geowebbasierte Browser   Anwendung, 
+
+die aktuelle RADAR   und Blitzdaten in vordefi 
+
+nierten Warnbereichen mit unterschiedlichen 
+
+Radien um den Flughafenbezugspunkt in hoher 
+
+raum   zeitlicher Auflösung darstellt und die 
+
+zeitliche Verlagerung der Blitzaktivität ─ von der 
+
+Vergangenheit bis zum aktuellen Zeitpunkt 
+
+beobachtet und bis zu zwei Stunden in die 
+
+Zukunft extrapoliert ─ in Form von Vorhersage 
+
+===== PDF PAGE 37 / 84 =====
+
+31 polygonen visualisiert. Wenn erforderlich, kann 
+
+eine automatisierte Blitzschlagwarnung per 
+
+E   Mail versendet werden. Seit Jahresbeginn 
+
+2021 wird WarnELEC operationell genutzt und 
+
+im Berichtsjahr mit den in der Praxis gewonne 
+
+nen Erfahrungen fortentwickelt. 
+
+▶   Kundenversorgung durch externe 
+
+IT-Dienstleister 
+
+Der Deutsche Wetterdienst stellt seinen Kunden 
+
+fortwährend ein umfangreiches Portfolio an 
+
+flugmeteorologischen Daten, Produkten, Ver 
+
+fahren und Dienstleistungen zur Verfügung. 
+
+Doch gerade in der Luftfahrt sind die Anforde 
+
+rungen häufig sehr individuell, sei es bei spezi 
+
+ellen Wünschen in der grafischen Darstellung 
+
+oder bei der Datenhaltung im kundeneigenen 
+
+IT   System. Folglich bietet der DWD seine   Daten 
+
+und Produkte nicht ausschließlich über die 
+
+hauseigenen Briefing   Systemen an, sondern 
+
+liefert zusätzlich auch direkt an Abnehmer, 
+
+die z. B. die Rohdaten selbst alphanumerisch 
+
+oder/und visuell darstellen möchten. Auf die 
+
+sem Wege kann der Kunde speziell auf seine 
+
+Bedürfnisse abgestimmte Flugwetterdaten in 
+
+seine Prozessabläufe integrieren und so den 
+
+Nutzwert der Daten gegenüber dem »Briefing 
+
+Pauschalangebot« erhöhen. Viele Kunden beauf 
+
+tragen zur Systemintegration im IT   Bereich auch 
+
+Drittanbieter, denen der DWD die bereits von 
+
+der Luftfahrt finanzierten flugmeteorologischen 
+
+Daten zur Verfügung stellt. Dabei wird lediglich 
+
+ein Bereitstellungsentgelt berechnet, um die 
+
+Luftfahrtbranche nicht mehr als nötig finanziell 
+
+zu belasten. Diese Lieferprozesse unterliegen 
+
+speziellen Nutzungsbedingungen und sind ver 
+
+traglich geregelt, beispielsweise muss bei der 
+
+digitalen Verarbeitung meteorologischer Daten 
+
+deren Aussagekraft erhalten bleiben. Der Sicher 
+
+stellung der Integrität von Flugwetterinforma 
+
+tionen bei der Implementierung und Darstellung 
+
+3   Kundendienstleistungen 
+
+in Fremdsystemen liegt das Dokument AMC 
+
+DWD   01 Display of Meteorological Information 
+
+zugrunde. 
+
+Unbemannte Luftfahrt 
+
+▶   Neuer Rechtsrahmen 
+
+Mit der DVO 2021/664 wurde 2021 der Rechts 
+
+rahmen für die unbemannte Luftfahrt (Unman 
+
+ned Aircraft Systems) erneut erweitert und er 
+
+laubt nun den EU Mitgliedsstaaten, mittels eines 
+
+U   Space genannten Regelwerkes, den Betrieb 
+
+von Drohnen in das Luftraummanagement auf 
+
+zunehmen. Um auch dieser Klasse von Luftfahr 
+
+zeugen einen flugmeteorologisch abgesicherten 
+
+Betrieb, inklusive Flugvorbereitung, Navigation 
+
+und Flugdurchführung zu ermöglichen, müssen 
+
+sich die Flugwetterdienste völlig neuen Heraus 
+
+forderungen stellen. Der Kundenservice Luft 
+
+fahrt des DWD unterstützte in diesem Zusam 
+
+menhang das Bundesministerium für Digitales 
+
+und Verkehr (BMDV), das Luftfahrt   Bundesamt 
+
+(LBA), das Bundesaufsichtsamt für Flugsiche 
+
+rung (BAF) und die DFS Deutsche Flugsicherung 
+
+GmbH bei der Umsetzung der EU   Durchfüh 
+
+rungsverordnungen in nationales Recht und ist 
+
+in der Arbeitsgruppe für Luftverkehrssicherheit 
+
+und Luftraum im nationalen Beirat unbemannte 
+
+Luftfahrt vertreten. Auf internationaler Ebene 
+
+hat der Kundenservice Luftfahrt eine Arbeits 
+
+gruppe mit den Europäischen Flugwetter 
+
+diensten (AVIMET) und EUMETNET ins Leben 
+
+gerufen, die den fachlichen Austausch zwischen 
+
+den beteiligten Flugwetterdiensten koordiniert, 
+
+die fachlichen Herausforderungen adressiert 
+
+und seit Frühjahr 2021 auch am »Rule   Making 
+
+Prozess« der EASA mitwirkt. 
+
+===== PDF PAGE 38 / 84 =====
+
+32   ▶   Wetterinformationen für Drohnenflüge 
+
+Für kommerzielle UAS   Nutzer wird   pc_met 
+
+Internet Service   angeboten, außerdem steht 
+
+allen Piloten ferngesteuerter Luftfahrzeuge die 
+
+kostenpflichtige individuelle Flugwetterbera 
+
+tung zur Verfügung. Weiterhin stellt der DWD 
+
+für Flugmodelle und Drohnen eine kostenfreie 
+
+Grundversorgung mit   Flugwetterinformationen 
+
+unter   www.dwd.de/luftsport   zur Verfügung. 
+
+Dazu gehören Windprognosen für die Erd 
+
+oberfläche, eine Niederschlagsradar   und 
+
+Blitzkarte, sowie ein Windprofilrechner für die 
+
+untere Grenzschicht. Für die meteorologische 
+
+Unterstützung der Flugplanung im bodennahen 
+
+Luftraum bietet der DWD – nicht nur für unbe 
+
+manntes Fliegen – einen Vorhersagedatensatz 
+
+mit hochaufgelösten ICON   D2   Daten und zusätz 
+
+liche Wetterradar   und Blitzdaten an. Dieser 
+
+Datensatz wurde 2022 für die »Digitale Platt 
+
+form Unbemannte Luftfahrt« (DIPUL) des BMDV 
+
+bereitgestellt. 
+
+▶   OBeLiSk 
+
+Im Projekt OBeLiSk (Operationelles Betriebs 
+
+konzept zur sicheren und effizienten Luftraum 
+
+integration von Stratosphärenplattformen) be 
+
+teiligt sich der DWD unter der Projektleitung der 
+
+Leichtwerk Research GmbH, gemeinsam mit der 
+
+Unisphere GmbH, der DFS Deutsche Flugsiche 
+
+rung GmbH und dem Institut für Flugführung 
+
+der TU Braunschweig an der Entwicklung eines 
+
+operationellen Betriebskonzepts zur sicheren 
+
+und effizienten Luftraumintegration von soge 
+
+nannten Pseudo   Satelliten (High Altitude Pseudo 
+
+Satellites, kurz HAPS), die für verschiedene 
+
+wissenschaftliche und technische Anwendungen 
+
+in der Stratosphäre unterwegs sind. Der DWD 
+
+entwickelt zur Unterstützung der Start   und 
+
+Landephase der HAPS kritische meteorologi 
+
+sche Vorhersageparameter auf probabilistischer 
+
+Basis. Daraus können Statistiken über saisonale 
+
+Häufigkeiten meteorologisch bedingter Betriebs 
+
+einschränkungen an verschiedenen   Standorten 
+
+mit ausreichendem Beobachtungsmaterial er 
+
+stellt werden. Das Projekt OBeLiSk wird im Rah 
+
+men des Luftfahrtforschungsprogramms vom 
+
+Bundesministerium für Wirtschaft und Klima 
+
+schutz (BMWK) gefördert. 
+
+Weitere Projekte 
+
+▶   Met4Airports 
+
+Im Projekt Met4Airports werden mittels Künst 
+
+licher Intelligenz (KI) Vorhersagen wetterbe 
+
+dingter Betriebseinschränkungen für die großen 
+
+internationalen Verkehrsflughäfen in Deutsch 
+
+land entwickelt. Der DWD leitet das im Rahmen 
+
+des mFUND   Förderprogramms des Bundesmi 
+
+nisteriums für Digitales und Verkehr geförderte 
+
+Vorhaben. Zusammen mit den Projektpartnern 
+
+DFS Deutsche Flugsicherung GmbH und ask ─ 
+
+Innovative Visualisierungslösungen GmbH sowie 
+
+den begleitenden Partnern Flughafen München 
+
+GmbH (FMG) und Fraport AG (Flughafen Frank 
+
+furt) werden prototypisch Entscheidungspro 
+
+zesse in der Verkehrssteuerung von Flughäfen 
+
+und der Flugsicherung durch Berücksichtigung 
+
+meteorologischer Parameter optimiert. 
+
+Mit der Entwicklung und dem Einsatz von 
+
+Verfahren der Künstlichen Intelligenz konnten 
+
+Zusammenhänge wetterbedingter Betriebs 
+
+einschränkungen mit meteorologischen Para 
+
+metern exemplarisch an den Flughäfen München 
+
+und Frankfurt sowie den zugehörigen Flug 
+
+sicherungssektoren hergestellt werden. Daraus 
+
+ließen sich Entscheidungsempfehlungen zu 
+
+Impaktvorhersagen von Landebahnkapazitäten, 
+
+Sektorkapazitäten, mittleren Flugverspätungen 
+
+und Einzelflugverspätungen ableiten und proto 
+
+typisch umsetzen. 2022 wurde mit der Erprobung 
+
+eines Prototyps für Gewitter zur möglichen 
+
+Anwendung im Ground   Coordination   Prozess 
+
+begonnen. 
+
+===== PDF PAGE 39 / 84 =====
+
+33 
+
+3   Kundendienstleistungen 
+
+▶   D-KULT 
+
+Im Juni 2022 startete die Förderung des Pro 
+
+jektes   Demonstrator Klima- und Umwelt- 
+
+freundlicher Lufttransport   (D   KULT) im Rahmen 
+
+des Luftfahrtforschungsprogramms VI   2 des 
+
+Bundesministeriums für Wirtschaft und Klima 
+
+schutz. Die Resultate des Projektes tragen 
+
+unmittelbar zu den europäischen und auch den 
+
+Zielen der Bundesregierung zur Klimaneutrali 
+
+tät bei und bilden eine wichtige Grundlage 
+
+für den Fortschritt des Arbeitskreises Klima 
+
+neutrale Luftfahrt der Bundesregierung. 
+
+Unter der Leitung des Deutschen Zentrums für 
+
+Luft und Raumfahrt e.V. (DLR) und in interdis 
+
+ziplinärer Zusammenarbeit mit dem Deutschen 
+
+Wetterdienst, Partnern der Luftfahrtindustrie 
+
+sowie dem Bundesverband der Deutschen Luft 
+
+verkehrswirtschaft (BDL) soll die Machbarkeit 
+
+des klimaoptimierten Fliegens erprobt werden. 
+
+Dabei tritt die Vermeidung sogenannter Nicht 
+
+CO 2   Effekte in den Vordergrund. Innerhalb die 
+
+ser Gruppe von atmosphärischen Phänomenen 
+
+haben langlebige, nächtliche Kondensstreifen 
+
+den größten Einfluss auf den Strahlungshaus 
+
+halt der Atmosphäre und damit auf das Klima. 
+
+Eines der Projektziele des Deutschen Wetter 
+
+dienstes ist daher, die Vorhersage höhertropo 
+
+sphärischer Bereiche mit stark eisübersättigter 
+
+Luft zu verbessern und diese Prognosen den 
+
+Flugsicherungsorganisationen probehalber für 
+
+die Flugplanung und die Luftraumüberwachung 
+
+zur Verfügung zu stellen. 
+
+===== PDF PAGE 40 / 84 =====
+
+34 
+
+3   Kundendienstleistungen 
+
+3.3   Kundenkonsultationen 
+
+Kontinuierliche wissenschaftlich   technische 
+
+Entwicklung, Erstellung und Verteilung innova 
+
+tiver flugmeteorologischer Vorhersageprodukte 
+
+und Beratungsdienstleistungen sind nur der erste 
+
+Schritt einer umfassenden meteorologischen 
+
+Sicherstellung der Luftfahrt; der zweite, ebenso 
+
+wichtige, ist die serviceorientiere Betreuung 
+
+unserer Kunden. 
+
+Nachdem in den Vorjahren infolge der COVID   19 
+
+Pandemie persönliche Kontakte fast zum Erliegen 
+
+kamen, konnten 2022 wieder Messeauftritte und 
+
+Präsenzveranstaltungen durchgeführt werden. 
+
+Dennoch waren auch im Berichtsjahr die Veran 
+
+staltungsplanungen von Unsicherheiten geprägt. 
+
+Da für den Herbst 2022 erneut mit einer Erkran 
+
+kungswelle gerechnet wurde, fand das alljährliche 
+
+DWD   Luftfahrtkundenforum sicherheitshalber in 
+
+digitaler Form als Videokonferenz statt. Glück 
+
+licherweise konnten die terminlich früher im 
+
+Jahresverlauf angesiedelten Messeauftritte des 
+
+Deutschen Wetterdienstes bei der AERO in Fried 
+
+richshafen, auf der Internationalen Luft   und 
+
+Raumfahrtausstellung Berlin (ILA) sowie beim 
+
+DFS   Pilotentag vor Ort stattfinden. 
+
+Kundenforum 
+
+Das Luftfahrtkundenforum des Deutschen Wetter 
+
+dienstes fand am 10. Dezember 2022 erneut in 
+
+virtueller Form als Webkonferenz statt. Unseren 
+
+Kunden, Partnern und mit der Luftfahrt verbunde 
+
+▲   Online-Präsentation des Luftfahrt-Kundenforums 2022 
+
+Der Flugwetterdienst im DWD – 
+
+Organisation und Leistungen 
+
+Luftfahrtkostenrechnung 2021   Jahresbericht 2021 Flugwetterdienst 
+
+Swim Services – gemeinsam 
+
+in die Zukunft 
+
+Beiträge des DWD zur klima neutralen 
+
+Luftfahrt 
+
+Met4Airports 
+
+Effiziente und flexible Produkt - 
+
+erstellung durch moderne IT-Techniken 
+
+an aktuellen Beispielen 
+
+===== PDF PAGE 41 / 84 =====
+
+35 nen Behörden wurde ein Überblick über das 
+
+aktuelle Leistungsprogramm, die neuesten Ent 
+
+wicklungen, Projekte und Produkte sowie über 
+
+die Kosten des Flugwetterdienstes gegeben 
+
+und der Jahresbericht 2021 Flugwetterdienst 
+
+vorgestellt. 
+
+Es wurden vier Fachvorträge angeboten: 
+
+▶   SWIM Services – gemeinsam in die Zukunft 
+
+▶   Beiträge des DWD zur klimaneutralen Luftfahrt 
+
+▶   Met4Airports – Vorhersage wetterbedingter 
+
+Betriebseinschränkungen an großen deutschen 
+
+internationalen Verkehrsflughäfen mit Hilfe 
+
+Künstlicher Intelligenz 
+
+▶   Effiziente und flexible Produkterstellung durch 
+
+moderne IT   Techniken an aktuellen Beispielen 
+
+Alle Informationen (Präsentationen) wurden im 
+
+Internet barrierefrei zum Nachlesen und Down 
+
+load zur Verfügung gestellt. 
+
+Die auf dem Forum präsentierten Fachvorträge 
+
+fanden regen Anklang bei Vertretern des Bundes 
+
+ministeriums für Digitales und Verkehr (BMDV), 
+
+Behörden wie dem Luftfahrt   Bundesamt (LBA) und 
+
+dem Bundesaufsichtsamt für Flugsicherung (BAF), 
+
+der DFS Deutsche Flugsicherung GmbH, EURO 
+
+CONTROL, Flughafenbetreibern, Fluggesellschaf 
+
+ten, Luftfahrt   und Luftsportverbänden und vielen 
+
+weiteren Interessierten. Zu den Vortragsinhalten 
+
+konnten in verschiedenen Themenräumen Fragen 
+
+erörtert und persönliche Kontakte zu den Fach 
+
+leuten des DWD geknüpft werden. 
+
+Messe- und Ausstellungspräsenz 
+
+▶   AERO Friedrichshafen 
+
+Nach zweijähriger pandemiebedingter Unter 
+
+brechung präsentierte sich der Deutsche Wetter 
+
+dienst wieder auf der größten Messe der Allge 
+
+meinen Luftfahrt, der AERO in Friedrichshafen. 
+
+Über 33.000 Besucher und 600 Medienschaffende 
+
+aus aller Welt kamen, um sich bei rund 600 
+
+Ausstellern aus 35 Nationen über neue Produkte, 
+
+Dienstleistungen und Innovationen in der Luft 
+
+fahrtbranche zu informieren. 
+
+Der Deutsche Wetterdienst, der sich gemein 
+
+sam mit dem Bundesministerium für Digitales 
+
+und Verkehr (BMDV), dem Bundesaufsichtsamt 
+
+für Flugsicherung (BAF), dem Luftfahrtbundes 
+
+amt (LBA) und der Bundesstelle für Flugunfall 
+
+untersuchung (BFU) in Halle 5 auf einem neuen 
+
+Messestand präsentierte, stand dem Fachpubli 
+
+kum Rede und Antwort zu Fragen übers Wetter 
+
+im Allgemeinen und zu flugmeteorologischen 
+
+Briefing   Systemen im Besonderen. 
+
+Die Leistungsfähigkeit der verbesserten DWD 
+
+FlugWetter   App wurde täglich im Konferenz 
+
+bereich der AERO unter Beweis gestellt, wo auf 
+
+Basis der App ein stets gut besuchter Vortrag 
+
+»Meteorologische Flugvorbereitung auf mobilen 
+
+Endgeräten« gehalten wurde, der schließlich 
+
+auch viele Interessenten zum DWD   Stand lockte. 
+
+Dort wurden den zahlreichen Messebesuchern 
+
+die Innovationen der DWD FlugWetter   App 
+
+durch praktische Vorführungen mittels Tablet 
+
+computer präsentiert, Fragen beantwortet und 
+
+Gedanken ausgetauscht. 
+
+Nicht zuletzt ist der DWD zusätzlich zum Messe 
+
+stand seit Jahren mit einer »Mobilen LBZ« am 
+
+Zeppelin   Hangar vertreten und bietet während 
+
+der AERO individuelle Flugwetterberatung 
+
+gratis an. 
+
+===== PDF PAGE 42 / 84 =====
+
+36   ▶   ILA – Internationale Luft- und Raumfahrt - 
+
+ausstellung Berlin 
+
+Die Internationale Luft   und Raumfahrtausstel 
+
+lung Berlin (ILA) ─ Leitmesse für Nachhaltig 
+
+keit, neue Technologien und Innovation in der 
+
+Luftfahrt ─ fand vom 22. bis 26. Juni 2022 am 
+
+Flughafen Berlin Brandenburg »Willy Brandt« 
+
+(BER bzw. EDDB) statt. Auf dieser ersten euro 
+
+päischen Luft   und Raumfahrtmesse seit Pande 
+
+miebeginn gab es trotz stark eingeschränktem 
+
+Live   Programm tägliche Flugvorführungen und 
+
+vielerlei digitale Angebote. 
+
+Am gemeinsamen Stand des Bundesministe 
+
+riums für Digitales und Verkehr (BMDV) mit 
+
+den deutschen Luftfahrtbehörden ─ Bundes 
+
+aufsichtsamt für Flugsicherung (BAF), Luft 
+
+fahrtbundesamt (LBA) und Bundesstelle für 
+
+Flug   unfalluntersuchung (BFU) ─ sowie dem 
+
+Deutschen Wetterdienst wartete der DWD auf 
+
+Wunsch des BMDV mit zwei Schlüsselthemen 
+
+auf, und zwar mit den »Speziellen Leistungen 
+
+des Flugwetterdienstes für die unbemannte 
+
+Luftfahrt« und den »Wechselwirkungen von 
+
+Klima und Luftfahrt«. 
+
+Die intensiven Fachgespräche von DWD 
+
+Kollegen mit den Vertretern aus Wirtschaft, 
+
+Politik und mit unterschiedlichsten Kundengrup 
+
+pen reichten vom Blitzschutz an Verkehrsflug 
+
+häfen in Brasilien über Thermikprognosen für 
+
+die Sportfliegerei bis hin zur klimaoptimierten 
+
+Flugplanung. 
+
+An den für das allgemeine Publikum geöffneten 
+
+Messetagen war das Themenspektrum noch 
+
+breiter: allgemeine Fragen rund um Atmosphäre 
+
+und Wetter, das aktuelle Wetter und die Apps 
+
+des DWD, Klima und Klimawandel, aber auch 
+
+über den Deutschen Wetterdienst als interessanten 
+
+und potentiellen Arbeitgeber. Auf der Space 
+
+Stage des Deutschen Zentrums für Luft   und 
+
+Raumfahrt (DLR) stellte sich unser Kollege 
+
+Dr. Thomas Wetter den Fragen zur Unwettersitu 
+
+ation im Ahrtal im Juli 2021 und zur Bedeutung 
+
+von Satellitendaten für die Wettervorhersage. 
+
+▶   DFS-Pilotentag 
+
+Am 12. November 2022 fand nach zweijähriger 
+
+Corona   Pause letztmalig der VFR   Pilotentag in 
+
+der DFS   Zentrale in Langen statt. Der DWD war 
+
+dort erneut mit einem Informationsstand und 
+
+einem Vortrag zum Thema »Meteorologische 
+
+Flugvorbereitung auf mobilen Endgeräten« von 
+
+Dr. Thomas Wetter vertreten. 
+
+===== PDF PAGE 43 / 84 =====
+
+37 
+
+▲   DWD-Repräsentanz auf der ILA 2022 
+
+3   Kundendienstleistungen 
+
+===== PDF PAGE 44 / 84 =====
+
+38 
+
+Vom ECMW modellierte Rossby-Wellen zwischen 105° West und 120° Ost, © ECMW 
+
+===== PDF PAGE 45 / 84 =====
+
+39 
+
+Aufgrund der in der mittleren und höheren Troposphäre herrschenden 
+
+Luftdruckunterschiede zwischen dem sub tropischen Hochdruck - 
+
+gürtel und den Polargebieten sowie dem Trägheitseffekt der 
+
+Corioliskraft, herrscht in den mittleren Breiten in der freien Atmo - 
+
+sphäre eine generell von West nach Ost gerichtete, die Erde 
+
+ringförmig um spannende, kräftige Luftströmung. Diese West - 
+
+winddrift verläuft entlang der in der unteren Troposphäre als 
+
+Grenz fläche ausgeprägten Polarfront, die arktische Kaltluft von 
+
+subtropischer Warmluft trennt. Wegen der Land-Meer-Verteilung 
+
+und dadurch verursachter, unterschiedlicher meridionaler 
+
+Temperaturverteilungen sowie wegen oro graphischer Einflüsse, 
+
+verläuft die Polarfront nicht zonal, sondern die Strömung schwingt 
+
+horizontal-transversal. Die so entstehenden, langen und stabilen 
+
+Mäander werden Rossby-Wellen genannt und verlagern sich mit 
+
+geringerer Geschwindigkeit als die westliche Grundströmung. 
+
+Rossby-Wellen 
+
+===== PDF PAGE 46 / 84 =====
+
+40   Modernisierung der Datenformate für OPMET-Daten 
+
+OPMET   Daten sind codierte meteorologische 
+
+Informationen (z. B. METAR, SPECI, TAF und 
+
+SIGMET), deren aktuelles Format (TAC – Traditio 
+
+nal Alphanumeric Code) auf das durch ICAO und 
+
+WMO definierte Austauschformat IWXXM (ICAO 
+
+Meteorological Information Exchange Model) 
+
+umgestellt wird. Seit November 2021 werden die 
+
+OPMET Daten des DWD auch in IWXXM inter 
+
+national verbreitet und können von den Nutzern 
+
+operationell verwendet werden. Beide Datenformate 
+
+(IWXXM und TAC) werden in den nächsten Jahren 
+
+parallel operationell angeboten, um den Nutzern 
+
+eine reibungslose Migration auf das neue Daten 
+
+format zu ermöglichen. Ein Termin für die Abschal 
+
+tung wird derzeit auf ICAO   Ebene koordiniert. 
+
+Eine Einstellung der Meldungen im TAC Format 
+
+vor 2030 wird angestrebt. Nach der initialen 
+
+Bereitstellung der OPMET Daten im IWXXM   For 
+
+mat werden die Systeme zur Konvertierung bzw. 
+
+Erzeugung des Datenformates operationell betrie 
+
+ben. Weiterhin werden die Routinen kontinuierlich 
+
+an neue Versionen des Datenformates angepasst. 
+
+Zusätzlich werden neue Produkte entwickelt, die 
+
+den wachsenden Informationsbedarf der Nutzer 
+
+erfüllen. 
+
+Bereitstellung von Geo-Webdiensten 
+
+Durch die georeferenzierte Bereitstellung von 
+
+Karten und Daten können unsere Kunden die 
+
+Produkte des DWD in ihre eigenen Anwendungen 
+
+und Visualisierungstools integrieren. Auch modell 
+
+basierte Turbulenz   und Vereisungspolygone 
+
+werden als Geo   Web   Dienst angeboten und flug 
+
+meteorologische Verfahren und Produkte zum 
+
+satellitenbasierten Konvektions   Nowcasting sowie 
+
+zur Turbulenz   und Vulkanaschevorhersage stehen 
+
+im Routinebetrieb zur Verfügung. Zur Verbesse 
+
+rung der Software für die Geo   Webdienste erfolg 
+
+ten umfangreiche Arbeiten an der Datenbereitstel 
+
+4   Innovation und Entwicklung 
+
+4.1   Informationstechnik, Messtechnik und Arbeitsplatzsysteme 
+
+lung, so dass nun für die interne Speicherung 
+
+mehrerer Datenarten Schnittstellen zu den exter 
+
+nen Abgabesystemen existieren. In Kooperation 
+
+mit einem externen Auftragnehmer wurde bis 
+
+Anfang 2023 ein neues Client   System zur Visuali 
+
+sierung von Geodaten realisiert. In 2024 soll der 
+
+Testbetrieb mit externen Nutzern beginnen. 
+
+Messtechnik 
+
+Die Ausschreibung zum Ersatz der konventionellen 
+
+Windmessgeräte (Schalensternanemometer und 
+
+Windfahne) hatte die Firma Adolf Thies GmbH & Co. 
+
+KG gewonnen, an sie wurde der Auftrag für die 
+
+Lieferung von Ultraschall   Anemometern des Typs 
+
+Ultrasonic Anemometer 2D   compact   vergeben. 
+
+Zum Ersatz der konventionellen Windmessgeräte 
+
+ist ebenso wie für die Installation der Kamera 
+
+systeme zur Wetterüberwachung an den end 
+
+gültigen Standorten eine Anpassung der ASDUV 
+
+Software notwendig, erst danach können die 
+
+Umrüstungen beginnen. Im Jahr 2023 wird der 
+
+Einsatz von neu entwickelten Freezing   Rain 
+
+Detektoren zur Erkennung von unterkühlten, 
+
+flüssigen Niederschlägen (FZDZ und FZRA) sowie 
+
+von verbesserten Druckeinlässen für die Luft 
+
+druckmessung vorbereitet. 
+
+===== PDF PAGE 47 / 84 =====
+
+41 
+
+▲   Ultraschall-Anemometer vom Typ Ultrasonic Anemometer 2D compact 
+
+===== PDF PAGE 48 / 84 =====
+
+42 
+
+4   Innovation und Entwicklung 
+
+4.2   Flugwettervorhersage und -warnung 
+
+Numerische Wettervorhersage 
+
+Die Modellkette des Deutschen Wetterdienstes 
+
+basiert derzeit auf dem globalen ICON   Modell 
+
+(ICOsahedral Nonhydrostatic), darin eingebettet 
+
+sind der höher aufgelöste Europaausschnitt 
+
+ICON   EU und das Mitteleuropa umfassende lokale 
+
+Modell ICON   D2. Um die Unsicherheiten bei der 
+
+Bestimmung des Anfangszustandes im Rahmen 
+
+der Datenassimilation sowie bei der numerischen 
+
+Beschreibung der physikalischen Prozesse zu 
+
+quantifizieren, stützen sich moderne Wettervor 
+
+hersagesysteme auf eine Vielzahl von Modell 
+
+prognosen (sog. Ensembles) mit leicht variierten 
+
+Anfangszuständen (Analysen) und unterschied 
+
+lichen Modellformulierungen (Parameterstörungen), 
+
+um aus der Menge der so gewonnenen Lösungen 
+
+probabilistische Aussagen für verschiedene 
+
+Wetterszenarien ableiten zu können. Mit den 
+
+40 Vorhersagen (»Ensemble-Members«) des 
+
+ICON   EPS (Ensemble Prediction System) lassen 
+
+sich neben der wahrscheinlichsten Wetterentwick 
+
+lung bereits zwei bis vier Tage im Voraus mögliche 
+
+alternative Szenarien, etwa hinsichtlich Zugbah 
+
+nen und Intensitäten von Sturmzyklonen, erkennen. 
+
+Modelländerungen 
+
+Im November 2022 wurden die horizontale und 
+
+vertikale Auflösung des globalen ICON   Modells 
+
+mit seinem zwei   Wege gekoppelten europäischen 
+
+Nest ICON   EU und des Ensemble   Vorhersage 
+
+systems ICON   EPS mit seinem Ensemble   Vorher 
+
+sagesystem ICON   EU   EPS signifikant erhöht. 
+
+Gerechnet wird sowohl deterministisch als auch 
+
+bei den 40 Ensemble   Members mit 120 vertikalen 
+
+Schichten im Globalsystem und 74 vertikalen 
+
+Schichten im EU   Nest. Das globale ICON   EPS 
+
+nutzt jetzt 26 km horizontale Auflösung und das 
+
+ICON   EU   EPS eine Auflösung von 13 km. Auch 
+
+wurde im November 2022 eine verbesserte Oro 
+
+graphie eingeführt. 
+
+Im Bereich der Datenassimilation wurden im 
+
+Jahr 2022 eine Reihe neuer Beobachtungssysteme 
+
+bzw. verbesserte Verarbeitungsalgorithmen für 
+
+existierende Beobachtungen in den operationellen 
+
+Betrieb eingeführt. Darunter fallen die Nutzung 
+
+von hochaufgelösten MODE   S Flugzeugbeobach 
+
+tungen im März 2022, von CAMS Ozon   Profilen in 
+
+der Satelliten   Assimilation seit Mai 2022, die 
+
+Assimilation von Synop   T2m Beobachtungen in 
+
+globalem Maßstab im Mai 2022 und die Nutzung 
+
+von SPIRE Radio   Okkultationen seit Juli 2022. 
+
+Basierend auf der Assimilation von T2m   Daten 
+
+wurde im Mai und Juli 2022 eine Model   Daten 
+
+assimilationskopplung operationell eingeführt, 
+
+welche verschiedene physikalische Flüsse bzw. 
+
+Parameter zur Reduzierung des gemittelten 
+
+Modell   Bias adaptiert, um eine bessere Darstel 
+
+lung und Vorhersage atmosphärischer Grenz 
+
+schichtphänomene zu erreichen. 
+
+Die dargestellten Maßnahmen führen zu einer 
+
+deutlich verbesserten Qualität sowohl der globalen 
+
+als auch der regionalen ICON   und ICON   EPS 
+
+Vorhersagen. 
+
+Integriertes Vorhersagesystem SINFONY 
+
+Zur Schließung der »methodischen Lücke« zwi 
+
+schen dem speziell für die Flugmeteorologie sowie 
+
+dem Warnmanagement konvektiver Ereignisse 
+
+interessanten, auf Beobachtungen beruhenden 
+
+Nowcasting (0 bis 2 Stunden im Voraus) und der 
+
+durch die mathematisch begründete Einschwing 
+
+zeit numerischer Wettervorhersagemodelle 
+
+»später einsetzende« Kürzestfristvorhersage (2 bis 
+
+12 Stunden im Voraus) werden zurzeit im DWD 
+
+struktur   und modellbasierte Lösungsansätze 
+
+verfolgt. Die Kombination beider Paradigmen wird 
+
+eine aus Nutzersicht »nahtlose« Produktion von 
+
+Vorhersagen im Zeitraum von 0 bis 12 Stunden im 
+
+Voraus liefern, welche darüber hinaus hohe 
+
+Aktualisierungsraten (für NWV   Produkte stünd 
+
+===== PDF PAGE 49 / 84 =====
+
+43 lich, für detektierte Niederschlagsfelder oder kon 
+
+vektive Zellen 5-minütlich) plus Abschätzungen 
+
+der Unsicherheiten ermöglicht. Entsprechende 
+
+Basisverfahren für Flächen   und Objekt   Ensemble 
+
+Nowcasting für Niederschlag, Reflektivität und 
+
+Zellobjekte (STEPS   DWD, KONRAD3D[   EPS]) sowie 
+
+ein neues NWV ICON Rapid Update Cycle (RUC) 
+
+Ensemble sowie Verfahren zu deren bruchfreier 
+
+Kombination wurden im Rahmen der Projekte 
+
+SINFONY   Pilot (bis 2021) bzw. SINFONY   Forschung 
+
+(seit 2021) entwickelt und zur Echtzeitreife ge 
+
+bracht und bilden das neue SINFONY (Seamless 
+
+INtegrated FOrecastiNg sYstem). Alle Verfahren 
+
+befinden sich seit 2021 im täglichen Echtzeit   Test 
+
+betrieb, der diverse Evaluierungsserien verschie 
+
+dener Kooperationspartner beliefert und zu 
+
+weiteren Verbesserungen und Konsolidierungen 
+
+führt. Diese Phase mündet in eine schrittweise 
+
+Operationalisierung der Verfahren ab 2024. 
+
+Radarbasierte Detektion von Niederschlägen 
+
+und Konvektion 
+
+Im Berichtsjahr wurde die durchgehende Referen 
+
+zierung der Radarprodukte auf das World Geo 
+
+detic System 1984 (WGS 84, geodätisches Refe 
+
+renzsystem) in den Routinebetrieb überführt. 
+
+Fort   schritte gab es auch bei der Kompositierung 
+
+der Radardaten, wobei nun zwischen Datenpunk 
+
+ten ohne Radarecho in der Messung und Daten 
+
+punkten ohne Radarecho aufgrund einer Filterung 
+
+in der Radardatenqualitätssicherung unterschie 
+
+den wird. Durch diese Differenzierung kann nun 
+
+in sich überlappenden Bereichen von Radarstand 
+
+orten auf den bodennächsten Datenpunkt zurück 
+
+gegriffen werden, auch wenn dieser kein (ge 
+
+messenes) Radarecho aufweist. Bisher wurden 
+
+Datenpunkte mit Radarecho bevorzugt, auch wenn 
+
+diese aus größeren Höhen stammen und der Nieder 
+
+schlag beispielsweise verdunstet. Außerdem 
+
+werden bei der Kompositierung nun alle Radar 
+
+daten des Niederschlagsscans berücksichtigt, die 
+
+innerhalb einer Zelle des Zielgitters liegen. Bisher 
+
+wurde nur der Datenpunkt mit dem geringsten 
+
+Abstand zum Mittelpunkt der Gitterzelle verwen 
+
+det. Das neue Vorgehen ermöglicht eine gewisse 
+
+Robustheit gegenüber Fehl   und Ausfallwerten in 
+
+Radarstandortnähe sowie ein Hervorheben von 
+
+Graupel und Hagel im Komposit. 
+
+Die auf Radarmessungen basierenden Verfahren 
+
+zur Niederschlagsklassifikation (Hydrometeor klassi 
+
+fikation) bieten insbesondere für die meteorologi 
+
+sche Sicherstellung der Luftfahrt ein enormes Stei 
+
+gerungspotential. Zur Niederschlagsklassifikation 
+
+auf Radarstrahlhöhe werden im Verfahren Hymec 
+
+dual   polarimetrische Radardaten mit Daten der 
+
+numerischen Wettervorhersage kombiniert. Phasen 
+
+übergänge unterhalb des Radarstrahls im Bereich 
+
+der atmosphärischen Grenzschicht haben besonders 
+
+im Winter großen Einfluss auf die Niederschlagsbil 
+
+dung. Um eine möglichst korrekte Niederschlags 
+
+klassifikation zu erreichen, verfeinert das Anschluss 
+
+verfahren HymecNG Vertikalprofile von Temperatur 
+
+und Feuchte aus der NWV mit In   situ   Messungen 
+
+am Boden und schätzt Phasenübergänge aufgrund 
+
+empirisch bestimmter Schwellwerte ab. 
+
+Dazu wurde das Verfahren HymecNG um die 
+
+Klassen »gefrierender Regen« und »gefrierender 
+
+Sprühregen« erweitert und es wird untersucht, 
+
+inwieweit flüssige bzw. bereits geschmolzene 
+
+Hydrometeore beim Fallen durch die untere Tropo 
+
+sphäre einem Temperaturregime unter 0 °C unter 
+
+liegen und so die Entstehung unterkühlter Tropfen 
+
+möglich ist. Zusätzlich wird die gemessene Tempe 
+
+ratur in Bodennähe berücksichtigt. Die Verifikation 
+
+und die Feinabstimmung des erweiterten Ansatzes 
+
+anhand ausgewählter Falltage erfolgte in Koope 
+
+ration mit dem Geschäftsbereich Forschung und 
+
+Entwicklung sowie der Vorhersage   und Bera 
+
+tungszentrale des DWD im Rahmen der AG Nieder 
+
+schlagsklassifikation. 
+
+===== PDF PAGE 50 / 84 =====
+
+44   Alle Weiterentwicklungen wurden im Winter 
+
+2022/2023 erfolgreich im Geschäftsbereich 
+
+Wettervorhersage evaluiert. Die Einführung in den 
+
+Routinebetrieb ist für den Herbst 2023 vorgesehen. 
+
+3D   Radar   Volumendaten verbessern die Detektion 
+
+und Analyse konvektiver Systeme (Schauer und 
+
+Gewitter), die oftmals für den Luftverkehr gefähr 
+
+liche Wettererscheinungen wie Turbulenzen, Sturm 
+
+böen, Starkregen und Hagel hervorbringen. 
+
+Wesentliche Ziele der KONRAD3D   Entwicklung 
+
+(KONRAD steht für   KON vektive Entwicklung in 
+
+RAD arprodukten) sind die Erhöhung der Vorwarn 
+
+zeiten für konvektive Ereignisse, die Erhöhung der 
+
+Trefferquote bei Verringerung der Fehlalarmrate 
+
+in der Analyse und Vorhersage konvektiver Sys 
+
+teme, eine verlässlichere Intensitätsklassifikation 
+
+konvektiver Zellen sowie deren zeitlicher Entwick 
+
+lung. Die durch KONRAD3D ermittelten Schauer 
+
+und Gewitterzellen mit ihren diversen Attributen, 
+
+Tracks und Nowcast   Informationen werden in 
+
+XML   Dateien bereitgestellt und stehen dem Auto 
+
+METAR   Teilprojekt AutoKON, dem integrierten 
+
+Vorhersagesystem SINFONY sowie im meteoro 
+
+logischen Visualisierungs   und Produktionssystem 
+
+NinJo zwecks Evaluierung zur Verfügung. 
+
+Im Berichtsjahr wurden folgende Arbeiten im 
+
+Umfeld des KONRAD3D-Systems durchgeführt: 
+
+▶   Weitere Evaluierung innerhalb des DWD wäh 
+
+rend der konvektiven Saison 2022 inklusive der 
+
+Möglichkeit, Rückmeldung in Form von Online 
+
+Fragebögen zu geben. 
+
+▶   Konsolidierung von Zellschweregrad und Warn 
+
+Flags für Hagel, Starkregen und Windböen. 
+
+▶   Einführung von Vetos gegen die Anwendung der 
+
+KONRAD3D   Vertikalchecks im Fall von blitzenden 
+
+Zellen oder Zellen in der näheren Umgebung von 
+
+bereits als definitiv echt markierten Zellen aus 
+
+dem Vorgängerzeitschritt. Ziel ist hier stets, eine 
+
+frühe, lückenlose Erkennung von Zelltracks zu 
+
+erreichen, auch in Bereichen schlechterer 
+
+Vertikalabdeckung der Atmosphäre durch den 
+
+DWD   Radarverbund oder für den Fall von 
+
+flacher Konvektion in Frühjahr, Herbst und 
+
+Winter. 
+
+▶   Vorbereitung der Operationalisierung von 
+
+KONRAD3D unterstützt durch eine Migrations 
+
+gruppe mit Mitgliedern der Geschäftsbereiche 
+
+des DWD. 
+
+▶   Integration von KONRAD3D in Folgesysteme als Er 
+
+satz für KONRAD(2D), insbesondere NowCastMIX. 
+
+NowCastMIX-Aviation 
+
+Im Jahr 2021 wurde begonnen, das Verfahren 
+
+durch Informationen über die vertikale Mächtig 
+
+keit der detektierten Gewitterzellen sowohl aus 
+
+Satellitenmessungen als auch aus zusätzlichen 
+
+Radar   Volumendaten zu ergänzen. Diese Entwick 
+
+lung führte 2022 zu einem Prototyp, der den Flug 
+
+sicherungsorganisationen DFS Deutsche Flug 
+
+sicherung GmbH und Eurocontrol MUAC während 
+
+der Gewittersaison 2022 zum Test übergeben 
+
+wurde. Nach erfolgreicher Evaluierung wurde die 
+
+Software bei Eurocontrol MUAC in den Routine 
+
+betrieb überführt und steht den Fluglotsen an 
+
+ihren Arbeitsplätzen zur Verfügung. 
+
+NowCastSAT-Aviation: Satellitenbasiertes 
+
+Nowcasting für Konvektion 
+
+Der Deutsche Wetterdienst entwickelt Nowcasting 
+
+Produkte, um die Entstehung konvektiver Ereig 
+
+nisse wie Schauer und Gewitter bereits frühzeitig 
+
+zu erkennen und deren Entwicklung präzise 
+
+vorhersagen zu können. Neben dem Produkt 
+
+NowCastMix   Aviation (auf der Grundlage von 
+
+RADAR   Daten) bietet der DWD, basierend auf 
+
+Satellitendaten, das globale Konvektionsprodukt 
+
+NowCastSat und zusätzlich auch eine europäische 
+
+Version mit einer höheren Aktualisierungsrate an. 
+
+NowCastSat leistet die Erkennung und Vorhersage 
+
+von konvektiven Zellen verschiedener Schwere 
+
+===== PDF PAGE 51 / 84 =====
+
+45 
+
+4   Innovation und Entwicklung 
+
+stufen im Kürzestfristbereich. Dafür werden 
+
+zeitlich und räumlich hoch aufgelöste Satelliten 
+
+daten und Blitzinformationen mit numerischen 
+
+Modellinformationen kombiniert. Der Erkennungs 
+
+algorithmus kategorisiert die erkannten Zellen in 
+
+drei Schwerestufen. Aus verschiedenen Satelliten 
+
+messungen können Höheninformationen der 
+
+Wolkenobergrenzen der einzelnen Zellen bestimmt 
+
+werden. Die zeitliche Vorhersage erfolgt mithilfe 
+
+der Methodik des   Optischen Flusses (optical flow). 
+
+Nachdem das Verfahren im DWD bereits über 
+
+einen längeren Zeitraum im Routinebetrieb läuft, 
+
+kommen die NCS   A   Produkte seit 2022 auch im 
+
+24/7   Betrieb in den Electronic   Flight   Bags der 
+
+Langstreckenflotte der Lufthansa zum Einsatz. 
+
+Mit weiteren Providern bzw. Airlines wird an einer 
+
+operationellen Einführung gearbeitet. 
+
+Gewitter: Modellbasierte Vorhersage und 
+
+Satellitenbasiertes Nowcasting 
+
+In der Flugmeteorologie gibt es viele Anwendungs 
+
+bereiche in denen ein 0   bis   2   Stunden   Vorhersage 
+
+horizont nicht ausreichend ist. Daher wurde u. a. 
+
+auf Anfrage des Maastricht Upper Area Control 
+
+Centre (MUAC) ein Prototyp einer 0   bis   8   Stun 
+
+den   Vorhersage von Gewittern entwickelt, welcher 
+
+das auf Beobachtungen basierende Nowcasting 
+
+mit Modellvorhersagen kombiniert. Zur Ableitung 
+
+der Gewitter   Kenngröße aus dem numerischen 
+
+Wettervorhersagemodell ICON wird eine Ensemble 
+
+Analyse des Gewitter   Potential   Index (»Lightning 
+
+Potential Index«) durchgeführt. Diese wird dann 
+
+so kalibriert, dass bzgl. der Stärke der Gewitter 
+
+ein relativ kontinuierlicher Übergang vom beob 
+
+achtungbasierten Nowcasting zur NWV möglich 
+
+ist. Dieser Übergang wird mittels des in der 
+
+Klimaforschung etablierten Kommandozeilen 
+
+programms   Climate Data Operators   (CDO) durch 
+
+geführt. Das Verfahren soll 2023 evaluiert werden. 
+
+Turbulenz: Modellbasierte Vorhersage und 
+
+Satellitenbasiertes Nowcasting 
+
+Atmosphärische Turbulenz gehört zu den meteoro 
+
+logischen Phänomenen, die wesentlichen Einfluss 
+
+auf die Sicherheit, Pünktlichkeit und Effizienz des 
+
+Luftverkehrs haben. Wegen steigender Kunden 
+
+anforderungen einerseits und optimierter aero 
+
+dynamischer Flugzeugeigenschaften andererseits 
+
+fordert die ICAO (siehe Annex 3) neue Methoden 
+
+zur Vorhersage der   Eddy Dissipation Rate   (EDR), 
+
+also der reibungsbedingten Dämpfungsrate 
+
+Turbulenter Kinetischer Energie   (TKE) durch 
+
+Umwandlung in Wärme. Die Eddy Dissipation Rate 
+
+kann sowohl aus numerischen Vorhersagemodellen 
+
+als auch aus Flugzeugmessungen in situ abgeleitet 
+
+werden. Seit einigen Jahren wird im Deutschen 
+
+Wetterdienst ein auf dem eigenen Modellsystem 
+
+ICON basierendes, numerisches Prognoseverfah 
+
+ren verwendet, dass die Turbulenzgröße   Eddy 
+
+Dissipation Parameter   (EDP) ermittelt, wobei dank 
+
+Ensemble   Technologien für die Resultate auch 
+
+Wahrscheinlichkeitsaussagen möglich sind   (EDP 
+
+Probability).   Die EDP Probability wird für drei 
+
+Wahrscheinlichkeitsstufen (möglich, wahrschein 
+
+lich, sehr wahrscheinlich) für Vorhersagepolygone 
+
+bereitgestellt und soll in einer ersten Testphase 
+
+von Kundenseite evaluiert werden. 
+
+Die Vorhersagbarkeit von Turbulenzen wird 
+
+durch energieintensive Strömungsmuster beein 
+
+flusst, die deutlich kleiner sind als die horizontale 
+
+Rasterskala der aktuellen numerischen Wetter 
+
+vorhersagemodelle. Die Arbeiten zu einem Turbu 
+
+lenz   Nowcasting auf Satellitenbasis wurden im 
+
+Berichtsjahr fortgesetzt mit dem Resultat eines 
+
+prototypischen Algorithmus, der die vollständige 
+
+»Meteosat   Scheibe« (zweidimensionaler, kreis 
+
+förmiger Abbildungsbereich der Erdoberfläche mit 
+
+dem Subsatellitenpunkt im Zentrum) umfasst und 
+
+dessen präoperationelle Version zur Evaluierung 
+
+bereit steht. Zukünftige Arbeiten sollten darauf 
+
+===== PDF PAGE 52 / 84 =====
+
+46 
+
+1   https://www.eol.ucar.edu/field_projects/icicle 
+
+hinauslaufen, alle Turbulenzdatenarten (Messwerte, 
+
+EDP, EDDP und Nowcasting   Informationen) an 
+
+einem Punkt zusammengefasst anbieten zu können. 
+
+TAF-Guidance/AutoTAF: Statistisch optimierte 
+
+Vorhersagen 
+
+Auch in der Flugwettervorhersage des Deutschen 
+
+Wetterdienstes werden »Modelloutput   Statistiken« 
+
+(Model Output Statistics, abgekürzt MOS) in Form 
+
+eines im Programmablauf den Wetterprognose 
+
+modellen nachgeschalteten Anschlussverfahrens 
+
+genutzt, etwa für die sogenannte TAF   Guidance, 
+
+aus der die Vorhersageprodukte AutoTAF und 
+
+AutoGAFOR abgeleitet werden. 
+
+Die TAF   Guidance beruht auf der statistischen 
+
+Interpretation (MOS) des EZMW   Modells IFS 
+
+HRES und berechnet stündlich Punkt   Termin 
+
+vorhersagen bis 41 Stunden im Voraus für alle 
+
+deutschen Verkehrs   und Regionalflughäfen sowie 
+
+weitere Flugplätze weltweit. Alle Vorhersage 
+
+größen werden als automatisch erzeugte MOS/ 
+
+TAF   Guidance und in kodierter Form (AutoTAF 
+
+gemäß ICAO   /WMO   Richtlinien) herausgegeben. 
+
+Im Rahmen eines Projektes TAF   und Trendverifi 
+
+kation der MET Alliance werden die Verifikations 
+
+ergebnisse von 57 europäischen Flughäfen der 
+
+Jahre 2017–2021 verwendet, um optimierte Wahr 
+
+scheinlichkeitsschwellenwerte der TAF   Guidance 
+
+für die AutoTAF   Kodierung zu finden. Diese 
+
+Schwellen basieren auf dem KPI und dem BIAS 
+
+und werden seit 2022 als Mittelwerte für alle 
+
+Vorhersageorte und als individuelle Werte für die 
+
+57 Flughäfen verwendet. Diese Anpassung soll 
+
+jährlich mit entsprechend längerer Referenz 
+
+periode wiederholt werden, um die Qualität der 
+
+AutoTAFs weiter zu verbessern. 
+
+ADWICE: Weiterentwicklungen in der Vereisungs - 
+
+vorhersage 
+
+Der DWD stellt mit ADWICE (Advanced Diagnosis 
+
+and Warning system for aircraft ICing Environ 
+
+ments) Vorhersagen (basierend auf deterministi 
+
+schen Daten des ICON   EU und des ICON   Global 
+
+Modells) und Diagnosen (zusätzlich basierend auf 
+
+RADAR   , SYNOP   , METAR   und Satelliten   Daten) 
+
+von vereisungsgefährdeten Gebieten für die 
+
+Luftfahrt bereit. 
+
+Während einer 2019 über den USA durchgeführ 
+
+ten Flugmesskampagne ICICLE (In   Cloud ICing 
+
+and Large   drop Experiment 1 ), an der der DWD als 
+
+Projektpartner teilnahm, zeigten sich Schwächen 
+
+in der Vorhersage von Flugzeugvereisung mit 
+
+ADWICE. Unter anderem wurden sogenannte 
+
+»kalte Events«, also Situationen, in denen Flug 
+
+zeugvereisung durch unterkühltes Wasser bei 
+
+Temperaturen unter –20 °C (bis hin zu –30 °C) 
+
+stattfand, von ADWICE nicht erkannt. Dies lag 
+
+maßgeblich daran, dass ADWICE statisch bei 
+
+Temperaturen unter –20 °C kein Flüssigwasser 
+
+mehr zugelassen hat (mit Ausnahme von stark 
+
+konvektiven Ereignissen) und somit im Postproces 
+
+sing keine Flugzeugvereisung mehr prognostiziert 
+
+wurde. Um diese seltenen Ereignisse zu berück 
+
+sichtigen, wurde folgende Änderung in ADWICE 
+
+eingeführt: 
+
+▶   Herabsetzen des Temperaturschwellwerts auf 
+
+T ≥ –30 °C (statt vorher –20 °C) 
+
+▶   Zulassung von Wolkenwassergehalten 
+
+(QC > 0 g/m³) im ICON   Vorhersagemodell. 
+
+===== PDF PAGE 53 / 84 =====
+
+47 
+
+4   Innovation und Entwicklung 
+
+2   https://www.dwd.de/DE/fachnutzer/forschung_lehre/numerische_wettervorhersage/nwv_aenderungen/_functions/ 
+
+DownloadBox_modellaenderungen/icon/pdf_2022/pdf_icon_23_11_2022.pdf?__blob=publicationFile&v=2 
+
+3   https://www.icao.int/airnavigation/METP/Seventh%20Meeting%20of%20the%20MOG/ 
+
+METPWGMOG7%20IP15%20Pressure%20level%20changes.pdf 
+
+Die zusätzliche Bedingung QC > 0 g/m³ ist 
+
+wichtig, da eine alleinige Anpassung der Tempera 
+
+turschwelle auf –30 °C zu einem »Overforecasting« 
+
+in »Glaciated Icing Conditions« (also T < 0 °C, 
+
+Flüssigwassergehalt = 0, Eiswassergehalt > 0) 
+
+sowie unter vereisungsfreien Bedingungen führte. 
+
+Erst durch beide Änderungen ergeben sich besse 
+
+re Ergebnisse für die Erkennung von vereisungs 
+
+gefährdeten Gebieten, unabhängig vom Grad der 
+
+Vereisung. 
+
+Darüber hinaus wurde ADWICE im Zuge der 
+
+ICON   Migration 2   technisch und fachlich um 
+
+folgende Punkte erweitert: 
+
+▶   Erhöhung der vertikalen Druckflächen von 
+
+31 auf 41 von FL005 bis FL360 gemäß ICAO 
+
+METPWGMOG/7/IP/15 3 
+
+▶   Einführung von geometrischen Höhen über MSL 
+
+von 500ft bis 10.000ft AMSL in (500ft-Schritten 
+
+bis 5.000ft AMSL und 1.000ft-Schritten bis 
+
+10.000ft AMSL) 
+
+▶   Einführung einer Fläche »10 m AGL« als unterste, 
+
+modellfolgende Fläche 
+
+▶   Einführung der Information »keine Vereisung« 
+
+zur Separierung zwischen »unter Modell 
+
+orografie« = »NA« und »No Icing« = »0« 
+
+2023 soll die Entwicklung eines Verfahrens 
+
+zur Vorhersage von Gebieten mit einer erhöhten 
+
+Anzahl an Eiskristallen („Ice Crystal Icing“) 
+
+begonnen werden. 
+
+Lightning Potential Index für europaweites 
+
+Modellgebiet 
+
+Der   Lightning Potential Index   (LPI) ist ein Para 
+
+meter im Vorhersagemodell ICON   EU, der Rück 
+
+schlüsse auf Konvektion und Blitzaktivität ermög 
+
+licht   (Proxy).   Er basiert auf dem   Updraft   in der 
+
+Wolke; und zwar insbesondere auf dem Vertikal 
+
+wind und der Verteilung der Hydrometeore im 
+
+vertikalen Bereich der Ladungstrennung. Der LPI 
+
+war bisher nur für konvektionsabbildende Modelle 
+
+verfügbar, da bei gröberer Auflösung der Updraft 
+
+subskalig ist und seine Eigenschaften nicht dar 
+
+stellbar sind. Seit vielen Jahren wird der LPI in 
+
+den deutschen Vorhersagemodellen COSMO   D2 
+
+bzw. ICON   D2 berechnet. Im Jahre 2022 wurden 
+
+verschiedene prototypische Gewittervorhersage 
+
+produkte auf Basis des LPI aus der Modellkette 
+
+des DWD generiert. Weiterhin wird an einer 
+
+inhaltlichen Verbesserung ebenso wie an der 
+
+konkreten Gestaltung der resultierenden Produkte 
+
+gearbeitet, mit dem Ziel, ab 2023 operationell 
+
+verwendbare Ergebnisse zu präsentieren. 
+
+System zur Unterstützung von Flugmeteorologischen 
+
+Gutachten (und Auskünften) 
+
+Die flugmeteorologischen Gutachten des DWD 
+
+leisten u. a. einen wichtigen Beitrag zur Unter - 
+
+suchung und Aufklärung von Flugunfällen. Zur 
+
+Erstellung dieser Gutachten müssen die meteoro 
+
+logischen Mess   und Beobachtungsdaten sowie die 
+
+flugmeteorologischen Produkte in dem fraglichen 
+
+Zeitraum rund um den Unfall   bzw. Ereignisort 
+
+gesichtet und ausgewertet werden. Das hierzu 
+
+verwendete Softwaresystem wurde grundlegend 
+
+überarbeitet und 2022 in einer stark verbesserten 
+
+===== PDF PAGE 54 / 84 =====
+
+48   Version in den Betrieb überführt. Die neue Version 
+
+ermöglicht, schrittweise auf eine große Anzahl von 
+
+neuen, besser aufgelösten meteorologischen Daten 
+
+zugreifen zu können. 
+
+Als erster Erweiterungsschritt wurde der Zugriff 
+
+auf die von Verkehrsflugzeugen im kommerziellen 
+
+Linienbetrieb gewonnenen, sogenannten AMDAR 
+
+Profile ermöglicht. Die AMDAR   Profile von Tempe 
+
+ratur, Druck und teilweise auch der Feuchte werden 
+
+aus Daten der bordeigenen Sensoren erstellt, die 
+
+weltweit bei Start und Landung aufgezeichnet 
+
+werden. Sie erlauben einen Blick auf den vertikalen 
+
+Zustand der Atmosphäre zu einem bestimmten 
+
+Ort und Zeitpunkt an bzw. in der Nähe eines 
+
+Flug hafens. 
+
+Diese AMDAR   Profile verdichten signifikant 
+
+die räumliche und zeitliche Auflösung der Radio 
+
+sonden   Profile, welche nur an wenigen Ortspunk 
+
+ten im 6   oder 12   Stundentakt verfügbar sind. 
+
+Derzeit sind etwa 10 Radiosonden   Stationen in 
+
+Deutschland in Betrieb. Aus Benutzersicht kann 
+
+auf die AMDAR   Profile einfach zugegriffen wer 
+
+den, obwohl die Profile mit einer speziellen Soft 
+
+warekomponente zunächst aus Rohdaten erstellt 
+
+werden müssen. Aus diesem Grund werden die 
+
+AMDAR   Profile derzeit noch einer sorgfältigen 
+
+Evaluierung unterzogen. 
+
+Die neue Systembasis erlaubt es, weitere aktuelle 
+
+meteorologische Daten, wie Fernerkundungspro 
+
+dukte aus Radar   und Satellitenmessungen mit 
+
+aktuellen Datenformaten einfacher ins System zu 
+
+integrieren. Für die flugmeteorologischen Gutach 
+
+ten steht so eine immer präzisere Datengrundlage 
+
+zur Verfügung. 
+
+Projekt AutoMETAR 
+
+Im Projekt AutoMETAR wurden von April 2014 bis 
+
+Mai 2022 die technischen, regulatorischen und 
+
+operativen Voraussetzungen für eine Einführung 
+
+vollautomatischer Flugwetterbeobachtungen 
+
+(METAR, MET REPORT und SPECIAL), gemäß 
+
+ICAO Annex 3 und Doc 9837 AN/454, geschaffen 
+
+und an den internationalen Verkehrsflughäfen in 
+
+Deutschland umgesetzt. Dabei wurden die Produkte 
+
+MET REPORT und SPECIAL eingeführt und im 
+
+Gegenzug auf SPECI   Meldungen verzichtet. Um 
+
+die erforderliche Evaluierungsphase zu ermög 
+
+lichen, wurde parallel zum operativen Betrieb ein 
+
+quasi   operationeller Testbetrieb eingerichtet, 
+
+welcher in Echtzeit die Ergebnisse des vollauto 
+
+matischen Systems ermittelt. 
+
+Die vollautomatischen Flugwetterbeobachtungen 
+
+und   meldungen werden an den internationalen 
+
+Verkehrsflughäfen durch das neu entwickelte 
+
+Aerodrome Weather System (ADWX_System) 
+
+erzeugt, das aus den drei Komponenten ASDUV, 
+
+LBZ   Client und autoOBS besteht. ASDUV (Auto 
+
+matisches System zur Datenerhebung und   ver 
+
+breitung), das lokale Datenerfassungssystem an 
+
+den Flughäfen, erfasst Sensormesswerte und 
+
+erzeugt und verbreitet Flughafenwettermeldun 
+
+gen. Der LBZ   Client stellt ein Terminal zur Anzeige 
+
+von Messwerten und Meldungen aus ASDUV und 
+
+autoOBS dar und ermöglicht die Erstellung von 
+
+TREND   und COMMENT   Meldungen durch das 
+
+Flugwetterberatungspersonal. Das autoOBS   System 
+
+fusioniert Fernerkundungsdaten und durch ASDUV 
+
+erfasste Messwerte zu Beobachtungen der Bewöl 
+
+kung und des gegenwärtigen Wetters. In autoOBS 
+
+kommen die Teilverfahren autoKON zur Erken 
+
+nung konvektiver Wetterelemente, autoCLD zur 
+
+Ableitung von Bewölkungsinformationen und 
+
+autoPWX zur Bestimmung des aktuellen Wetters 
+
+zum Einsatz. Nach mehrjähriger Entwicklungszeit 
+
+wurde der für den Routinebetrieb benötigte 
+
+Qualitätsstand erreicht. 
+
+===== PDF PAGE 55 / 84 =====
+
+49 
+
+4   Innovation und Entwicklung 
+
+Alle Bestandteile des ADWX   Systems sind 
+
+redundant ausgelegt und bereits seit Mitte 2019 
+
+läuft das vollautomatische ADWX   System nebst 
+
+prozessorientiertem Monitoring mit kontinuier 
+
+licher Überwachung im Probebetrieb stabil. Die 
+
+operationelle Einführung des ADWX   Systems 
+
+erfolgt stufenweise seit Anfang 2022. Die Abbil 
+
+dung unten zeigt schematisch das Aerodrome 
+
+Weather System mit seinen Komponenten und 
+
+deren Funktionen. 
+
+Schließlich wurde im Berichtsjahr auf dem 
+
+Gebiet der meteorologischen Messtechnik die 
+
+2020 begonnene Installation von Laser   Wolken 
+
+höhenmessern (Ceilometer vom Typ Lufft CHM8k) 
+
+und Hageldetektoren mit der Überführung der 
+
+Geräte in den Routinebetrieb vollendet. 
+
+SESAR-Projekte 
+
+▶   Implementierungsprojekt System Wide 
+
+Information Management (SWIM) Governance 
+
+SWIM besteht aus der Definition von Standards, 
+
+Infrastrukturen und Unternehmensführung 
+
+(Governance), die das Management von ATM   Infor 
+
+mationen und deren Austausch zwischen qualifi 
+
+zierten Parteien über interoperable Dienste unter 
+
+stützen. Der DWD beteiligt sich in diesem Projekt 
+
+als Partner im Namen von EUMETNET bei der 
+
+Definition von Regelwerken, der zukünftigen 
+
+Organisation und den Entscheidungsprozessen, 
+
+rechtlichen und finanziellen Aspekten sowie den 
+
+gemeinsamen Komponenten, etwa dem SWIM 
+
+Aerodrome Weather System 
+
+(ADWX _ System) 
+
+Flugwetterberater 
+
+LBZ-Client   autoOBS 
+
+Sensoren 
+
+ASDUV 
+
+autoPWX 
+
+n   Wettergruppe 
+
+autoCLD 
+
+n   Wolkengruppe 
+
+autoKON 
+
+n   TCU/CB 
+
+n   SH/TS 
+
+n   Wolkenbedeckung 
+
+Kundenversorgung   Fernerkundungsdaten 
+
+ASDUV-Client 
+
+n   Produktanzeige 
+
+n   Produktüberwachung 
+
+n   TREND-Erstellung 
+
+n   COMMENT-Erstellung 
+
+ASDUV-Server 
+
+n   Datenerfassung 
+
+n   Datenverarbeitung 
+
+n   Datenübernahme 
+
+n   Meldungsgenerator 
+
+n   Techn. Monitoring 
+
+S1   S2   S3   S4   Sn 
+
+▲   Das Aerodrome Weather System (AWDX-System) besteht aus den 
+
+drei Komponenten LBZ-Client, ASDUV und autoOBS und dient zur voll - 
+
+automatischen Erzeugung von Wettermeldungen für die Luftfahrt. 
+
+▲   Das CHM8k (G. Lufft Mess- und Regeltechnik GmbH) ist ein modernes 
+
+Ceilometer, das auf Lidar-Basis Rückstreuprofile misst, aus denen 
+
+bis in eine Höhe von 8 Kilometern Wolkenuntergrenzen für bis zu drei 
+
+Wolkenschichten bestimmt werden können. 
+
+===== PDF PAGE 56 / 84 =====
+
+50   Register. Das Projekt wurde bereits im Sommer 
+
+2020 abgeschlossen. Eine Überführung in die 
+
+Praxis konnte bislang nicht abschließend durch 
+
+geführt werden, da es zwischen den Beteiligten 
+
+Unstimmigkeit über die Struktur der Einbettung 
+
+gibt. Derzeit wird die Thematik im Rahmen von 
+
+Veranstaltungen weiterverfolgt, die vom SESAR 
+
+Deployment Manager, EUROCONTROL und der 
+
+A6 Alliance durchgeführt werden. Zu diesem 
+
+Zweck wurde insbesondere die Arbeitsgruppe 
+
+MET3SG (Meteorological SWIM Services Support 
+
+Group) etabliert, in der auch der DWD maßgeblich 
+
+beteiligt ist. Darüber hinaus rückt die Operationa 
+
+lisierung des SWIM auf globaler und regionaler 
+
+Ebene auch in den Fokus der bestehenden Gremien 
+
+(ICAO METP, ICAO EUR   DMG). Begleitet werden 
+
+diese Aktivitäten durch eine enge Abstimmung 
+
+unter EUMETNET/AVAC. 
+
+▶   Operationelle Bereitstellung von SWIM Service- 
+
+Schnittstellen im DWD (früher: Projekt MET-GATE) 
+
+Das Projekt MET   GATE wurde bereits 2021 erfolg 
+
+reich abgeschlossen. Ziel war die operationelle 
+
+und vereinheitlichte Bereitstellung von MET 
+
+SWIM   Services, vor allem für die harmonisierten 
+
+Produkte aus den beiden anderen Implementie 
+
+rungsprojekten (Adverse Weather und 3D Radar). 
+
+Dabei wurden SWIM Services im Schema Publish 
+
+Subscribe (Push) und Request   Reply (Pull) reali 
+
+siert. Die über diese Schnittstellen verfügbaren 
+
+Daten umfassen unterschiedliche Datenarten, z. B. 
+
+OPMET   Daten im IWXXM   Format, Rasterdaten 
+
+wie z. B. harmonisierte Modellvorhersagen in 
+
+GRIB2   oder NetCDF   Format oder Fernerkundungs 
+
+daten. Besonderes Augenmerk lag dabei auf der 
+
+Integration der entwickelten Lösung in die vorhan 
+
+dene operationelle Infrastruktur des DWD. Im 
+
+Rahmen von MET   GATE wurde die Interoperabi 
+
+lität der implementierten SWIM Services mit der 
+
+DFS Deutsche Flugsicherung GmbH getestet, 
+
+darüber hinaus fand eine Validierung auf Stan 
+
+dardkonformität auch gemeinsam mit EUROCON 
+
+TROL statt. Die durch den DWD bereitgestellten 
+
+Dienste sind in der EUR   SWIM Registry 4   beschrie 
+
+ben und veröffentlicht. Hier finden Nutzer die 
+
+notwendigen Informationen, um sich für diese 
+
+Services zu registrieren und sie in ihre Prozesse 
+
+und Schnittstellen integrieren zu können. 
+
+▶   Implementierungsprojekt SESAR European 
+
+Harmonized Forecasts of Adverse Weather (Icing, 
+
+Turbulence, Convection and Winter Weather) 
+
+Der prä   operationelle Betrieb der harmonisierten 
+
+Vorhersageprodukte für signifikante Wetter 
+
+erscheinungen, wie Vereisung, Turbulenz, starke 
+
+Konvektion und Winterwetterereignisse wurde 
+
+sukzessive in den Quasi   Routinebetrieb überführt 
+
+Im Jahre 2022 wurde an der Operationalisierung 
+
+gearbeitet, diese wird 2023 abgeschlossen. 
+
+▶   Met4Airports: Meteorologische Impaktvorher - 
+
+sagen für kollaborative Entscheidungsprozesse 
+
+Das Projekt Met4Airports hat zum Ziel, Entschei 
+
+dungen und Abläufe in Prozessen des   Airport 
+
+Collaborative Decision Making (A-CDM, kollabora - 
+
+tive Entscheidungsfindung)   im Bereich der Flug 
+
+sicherung und am Beispiel der internationalen 
+
+Verkehrsflughäfen München und Frankfurt durch 
+
+Integration meteorologischer Daten zu optimieren. 
+
+Dazu wird ein auf Künstlicher Intelligenz basieren 
+
+der Algorithmus zur Verknüpfung von Daten über 
+
+Betriebseinschränkungen in Flugsektoren und an 
+
+den Flughäfen mit meteorologischen Daten ent 
+
+wickelt. Mit diesem Verfahren sollen Zusammen 
+
+hänge erkannt, quantifiziert und in wetterbedingte 
+
+Impact   Vorhersagen von Kapazitätsengpässen oder 
+
+4   EUR-SWIM Registry, betrieben von EUROCONTROL: 
+
+https://eur-registry.swim.aero/home 
+
+===== PDF PAGE 57 / 84 =====
+
+51 Verspätungen umgesetzt werden. Bislang werden 
+
+im A   CDM meteorologische Daten und Verkehrs 
+
+fluss   Informationen meist rein kognitiv verknüpft 
+
+um daraus Entscheidungen abzuleiten. Diese 
+
+Impakt   Vorhersagen können dazu beitragen, 
+
+Entscheidungsprozesse beim operativen Personal 
+
+effektiver und effizienter zu gestalten. Basierend 
+
+auf den Datenbereitstellungen konnten 2022 die 
+
+KI   Modelle für die identifizierten Anwendungs 
+
+fälle erstellt und trainiert werden. Dafür konnte 
+
+die im Rahmen des Projektes beschaffte und in 
+
+den HPC des DWD integrierte KI   Spezialhardware 
+
+erfolgreich genutzt werden. Erste Ergebnisse 
+
+sehen vielversprechend aus, für 2023 ist eine 
+
+Evaluierung durch die Nutzer (Flughäfen Frank 
+
+furt und München sowie die DFS) vorgesehen. Das 
+
+Projekt Met4Airports wird vom mFUND   Förder 
+
+programm des Bundesministeriums für Digitales 
+
+und Verkehr (BMDV) getragen. 
+
+4   Innovation und Entwicklung 
+
+▲   Digitales   Cockpit   eines   modernen   Sportflugzeuges 
+
+===== PDF PAGE 58 / 84 =====
+
+52 
+
+Tornado nahe der Kleinstadt McCook, Nebraska, USA, am 17. Mai 2019, ©Jens Winninghoff 
+
+===== PDF PAGE 59 / 84 =====
+
+53 
+
+Tornados sind kleinräumige und kurzlebige Wirbel mit vertikaler 
+
+Rotationsachse und einem schlauchartigen oder trichterförmigen 
+
+Rüssel. Die enorme Rotationsbewegung mit bis zu 150 m·s 
+-1 
+
+Bahngeschwindigkeit ist von einer Vertikalbewegung mit maximal 
+
+70 m·s 
+-1   
+überlagert und kann Druckfall um 100 hPa bewirken, 
+
+sodass der Rüssel von kondensiertem Wasserdampf umhüllt ist. 
+
+Druckfall und Rotationsenergie bilden das Zerstörungspotenzial 
+
+dieser Großtromben, 780 hPa gelten als tiefster registrierter 
+
+Innendruck. Der Durchmesser liegt meist bei 100 m. Tornados 
+
+können rechts- oder linksherum rotieren. Die Verlagerungs - 
+
+geschwindigkeit beträgt bis 120 km·h 
+-1 
+. In Mitteleuropa gelten 
+
+Schauer- bzw. Gewitterlagen mit bodennah feucht-labiler Warm - 
+
+luftadvektion bei starker vertikaler Wind scherung sowie Kalt - 
+
+luftadvektion in der Höhe als tornadogenetisch. 
+
+Tornados 
+
+===== PDF PAGE 60 / 84 =====
+
+54   Qualitätsmanagement 
+
+Die gesamte Geschäftstätigkeit des Deutschen 
+
+Wetterdienstes ist prozessorientiert, dabei wurden 
+
+drei Strategische Prozesse (SP) mit Schnittstellen 
+
+nach außen etabliert, und zwar Datengewinnung 
+
+(DG), Wettervorhersage (WS) sowie Klima   und 
+
+Umweltservices (KS). Infolge der Neuorganisation 
+
+des DWD   Vorhersagedienstes mit dem Ziel der 
+
+Nutzung von Synergien im wissenschaftlich   tech 
+
+nischen und im kaufmännischen Bereich sowie der 
+
+Personaleinsparung durch den gemeinsamen 
+
+Betrieb der Bereiche Land   See   Wetterdienst und 
+
+Flugwetterdienst wird der Flugwetterdienst inner 
+
+halb des Strategischen Prozesses Wettervorher 
+
+sage nicht mehr durch einen thematisch abge 
+
+grenzten Management   Prozess beschrieben. 
+
+Stattdessen werden die Flugwettervorhersage und 
+
+beratung als Teilprozess FVH im neuen Prozess 
+
+Vorhersage   und Beratungsdienst (VBD) dargestellt, 
+
+wogegen Flugwetterüberwachung und   warndienst 
+
+5   Managementsysteme für Qualität und Sicherheit 
+
+als Teilprozess FÜW im neuen Prozess Warndienst 
+
+(WWD) abgebildet sind. Die Alt   Teilprozesse Kunden 
+
+betreuung und Vertrieb im Flugwetterdienst sowie 
+
+Automatische Systeme und Self   briefing gingen im 
+
+neuen Prozess Kundenversorgung (KUV) auf. Flug 
+
+wetterbeobachtung und Meldedienst (FBM) sowie 
+
+Flugmeteorologische Gutachten und Auskünfte 
+
+(FGA) blieben inhaltlich unverändert und sind nun 
+
+direkt dem Strategischen Prozess Wettervorher 
+
+sage untergeordnet. 
+
+Die Definition der Prozesse, also deren Zweck, 
+
+Ziele, Randbedingungen, Wechselwirkungen, 
+
+Chancen und Risiken, ist in Prozessbeschreibun 
+
+gen hinterlegt, weitere Details finden sich in 
+
+mitgeltenden Dokumenten, wie z. B. in den Verord 
+
+nungen und Betriebsvorschriften Nr. 7 (VuB 7) 
+
+oder Notfallplänen. Die prozessorientierte Arbeits 
+
+weise im alltäglichen Dienstbetrieb unterliegt der 
+
+Supervision von Führungskräften und Prozessver 
+
+antwortlichen, letztere kümmern sich um Bestand, 
+
+▲   Komponenten des Flugwetterdienstes (hellblau) innerhalb des Strategischen Prozesses Wettervorhersage 
+
+===== PDF PAGE 61 / 84 =====
+
+55 Pflege und Weiterentwicklung der Prozessdoku 
+
+mente. Die Gewinnung von Beobachtungsdaten 
+
+und die Bereitstellung von numerischen Vorher 
+
+sageprodukten sowie die Abgabe der Flugwetter 
+
+produkte an unsere Kunden erfolgt über verschie 
+
+dene Schnittstellen, die durch verbundene Prozesse 
+
+definiert sind. Außerdem stellen Havarie   und 
+
+Ausfallregelungen als Mitgeltende Unterlagen eine 
+
+weitgehend kontinuierliche Diensterbringung bei 
+
+Störfällen sicher. 
+
+Zur regelmäßigen Überprüfung der Zielerreichungs 
+
+grade und Steuerung der Prozessabläufe dienen 
+
+die gemäß der ISO   Normen definierten Werkzeuge, 
+
+wie etwa interne und externe Audits, kontinuier 
+
+liche Verbesserungsprozesse (KVP) und die 
+
+Definition von Kennzahlen, die den im QM   System 
+
+definierten Zielgrößen zugeordnet werden. Für 
+
+Flugwetterdienstleister deckt ein gemäß der 
+
+DIN EN ISO 9001 zertifiziertes Qualitätsmanage 
+
+mentsystem einen Großteil der Anforderungen der 
+
+DVO (EU) Nr. 373/2017 1   an integrierte Manage 
+
+mentsysteme ab. Aus dem Guidance Material und 
+
+den Acceptable Means of Compliance der EASA 
+
+zur DVO (EU) Nr. 373/2017 ergibt sich, dass die 
+
+Sicherheitsziele eines meteorologischen Dienst 
+
+leisters weitgehend mit den Qualitätszielen über 
+
+einstimmen. Für den Deutschen Wetterdienst 
+
+bedeutet dies, dass die Dokumentation und Nach 
+
+weiserbringung dementsprechend erweitert 
+
+werden mussten. Die Zertifizierung gemäß der 
+
+DIN   EN   ISO   9001   Qualitätsstandards wurde 
+
+vom DWD auch 2022 wieder erbracht. Die Mess 
+
+instrumente zur Erfassung grundlegender flug 
+
+meteorologischer Planungsparameter, wie Luft 
+
+druck, Temperatur und Wind, werden regelmäßig 
+
+in einem nach DIN EN ISO 17025 akkreditieren 
+
+Labor kalibriert, um die Güte der erhobenen Mess 
+
+werte zu sichern. Die Verantwortung für das 
+
+Qualitätsmanagement trägt der Vorstand des 
+
+Deutschen Wetterdienstes. 
+
+Sicherheits- bzw. Risikomanagement 
+
+Der DWD hat für alle Bereiche, die für die Sicher 
+
+heit der Luftfahrt von Bedeutung sind, ein Sicher 
+
+heits   bzw. Risikomanagement nach den Vorgaben 
+
+der Verordnungen (EG) Nr. 550/2004 2   i. V. m. (EG) 
+
+Nr. 1070/2009 3 , (EU) Nr. 2018/1139 4   sowie der DVO 
+
+(EU) Nr. 2017/373 definiert. Die fachliche Umset 
+
+zung des Sicherheits   und Risikomanagements 
+
+erfolgt über Regelungen in der jeweiligen Prozess 
+
+dokumentation und ist im Handbuch für das 
+
+Sicherheitsmanagement dokumentiert, d. h., das 
+
+Sicherheits   und Risikomanagement ist in das 
+
+Qualitätsmanagement integriert. Ein IT   Sicher 
+
+heitsmanagement ist gemäß den Vorgaben des 
+
+Bundesamtes für Sicherheit in der Informations 
+
+1   Durchführungsverordnung (EU) 2017/373 der Kommission vom 1. März 2017 zur Festlegung gemeinsamer Anforderungen an Flug 
+
+verkehrsmanagementanbieter und Anbieter von Flugsicherungsdiensten sowie sonstiger Funktionen des Flugverkehrsmanagement 
+
+netzes und die Aufsicht hierüber sowie zur Aufhebung der Verordnung (EG) Nr. 482/2008, der Durchführungsverordnungen (EU) 
+
+Nr. 1034/2011, (EU) Nr. 1035/2011 und (EU) 2016/1377 und zur Änderung der Verordnung (EU) Nr. 677/2011 
+
+2   Verordnung (EG) Nr. 550/2004 des Europäischen Parlaments und des Europäischen Rates vom 10. März 2004 über die Erbringung von 
+
+Flugsicherungsdiensten im einheitlichen europäischen Luftraum (Flugsicherungsdienste   Verordnung) 
+
+3   Verordnung (EG) Nr. 1070/2009 des Europäischen Parlaments und des Rates vom 21. Oktober 2009 zur Änderung der Verordnungen 
+
+(EG) Nr. 549/2004, (EG) Nr. 550/2004, (EG) Nr. 551/2004 und (EG) 552/2004 im Hinblick auf die Verbesserung der Leistung und 
+
+Nachhaltigkeit des europäischen Luftverkehrssystems 
+
+4   Verordnung (EU) 2018/1139 des Europäischen Parlaments und des Rates vom 4. Juli 2018 zur Festlegung gemeinsamer Vorschriften für 
+
+die Zivilluftfahrt und zur Errichtung einer Agentur der Europäischen Union für Flugsicherheit sowie zur Änderung der Verordnungen 
+
+(EG) Nr. 2111/2005, (EG) Nr. 1008/2008, (EU) Nr. 996/2010, (EU) Nr. 376/2014 und der Richtlinien 2014/30/EU und 2014/53/EU des 
+
+Europäischen Parlaments und des Rates, und zur Aufhebung der Verordnungen (EG) Nr. 552/2004 und (EG) Nr. 216/2008 des Europäischen 
+
+Parlaments und des Rates und der Verordnung (EWG) Nr. 3922/91 des Rates 
+
+===== PDF PAGE 62 / 84 =====
+
+56 
+
+Kriterien für flugmeteorologische Parameter 
+
+Parameter   Sommerhalbjahr   (April–September)   Winterhalbjahr   (Oktober–März) 
+
+Sichtweite   800, 1.500, 3.000/3.500, 5.000 m   350, 600, 800, 1.500, 3.000/3.500, 5.000 m 
+
+Hauptwolkenuntergrenze (Ceiling)   500, 1.000, 1.500 ft   200, 500, 1.000, 1.500 ft 
+
+Signifikantes Wetter   mäßiger/starker Regen, 
+
+Gewitter, Squall Lines, Tornados 
+
+mäßiger/starker Regen, 
+
+mäßiger/starker Schneefall, 
+
+gefrierender Nebel 
+
+Windrichtung   zulässige Richtungsabweichung ± 50 Grad bei Windgeschwindigkeit ≥ 10 Knoten 
+
+Windgeschwindigkeit (Böen)   zulässige Geschwindigkeitsabweichung ± 10 Knoten 
+
+technologie im DWD eingeführt worden. Die 
+
+Verantwortung für das Sicherheitsmanagement 
+
+trägt der Vorstand des Deutschen Wetterdienstes. 
+
+Gefahrenabwehrmanagement 
+
+Der DWD betreibt ein Gefahrenabwehrmanage 
+
+ment nach den Vorgaben der DVO (EU) Nr. 2017/373. 
+
+Die Verantwortung für das Gefahrenabwehr 
+
+management trägt der Vorstand des Deutschen 
+
+Wetterdienstes. Die fachliche Umsetzung des 
+
+Gefahrenabwehrmanagements erfolgt über Rege 
+
+lungen in den Prozessdokumentationen. Dazu 
+
+gehören Regelungen der Zugangssicherung 
+
+(Prozess Service und Liegenschaften, Gesund 
+
+heits   und Arbeitsschutz), die Regelungen des 
+
+Verbesserungs   und Beschwerdemanagements, 
+
+die Regelungen zur IT   Sicherheit meteorologischer 
+
+Fachanwendungen und das Sicherheitskonzept des 
+
+DWD. Die Wirksamkeit der im Deutschen Wetter 
+
+dienstes getroffenen Maßnahmen zur Gefahrenab 
+
+wehr wird regelmäßig durch interne und externe 
+
+Audits geprüft. Bei auftretenden Problemen der 
+
+Gefahrenabwehr stehen erprobte Systeme zur 
+
+Information, Aufklärung oder der Schulung von 
+
+Mitarbeitern zur Verfügung. 
+
+Verifikationsverfahren für TAF 
+
+Für die Messung der Qualität von Prozessen kann 
+
+man zunächst einfache, rein »technische« Kenn 
+
+zahlen definieren, etwa ganz allgemein die Ter 
+
+mintreue oder die Systemverfügbarkeit im EDV 
+
+Bereich. Qualität und Kundenzufriedenheit sind 
+
+dagegen bereits komplexe Größen, die auf der 
+
+Abnehmerseite auch subjektive Komponenten 
+
+beinhalten. Zur Qualitätssicherung in der Wetter 
+
+vorhersage ist es sinnvoll, die schiere statistische 
+
+Prognoseverifikation (qualitativ und quantitativ) 
+
+in eine aussagekräftige, vergleichbare und prak 
+
+tisch handhabbare Kennzahl zu transformieren. 
+
+Eines der wichtigsten Flugwetterprodukte ist 
+
+der Terminal Aerodrome Forecast (TAF), eine 
+
+codierte Wettervorhersage für größere Flugplätze, 
+
+deren Form und Inhalt in ICAO   Richtlinien fest 
+
+gelegt sind. Der TAF enthält Windrichtung und 
+
+geschwindigkeit, Sichtweite am Boden, Signifi 
+
+kante Wettererscheinungen, Wolkenhöhe und 
+
+bedeckungsgrad sowie prognostizierte Änderun 
+
+gen dieser Wetterbedingungen innerhalb seines 
+
+Gültigkeitszeitraumes. TAFs werden in Deutsch 
+
+land vom DWD planmäßig vier Mal am Tag alle 
+
+sechs Stunden herausgegeben und bei deutlichen 
+
+===== PDF PAGE 63 / 84 =====
+
+57 
+TAF-KPI-Mittelwerte der 15 internationalen Verkehrsflughäfen in Deutschland für das Sommer - 
+
+halbjahr 2022 und das Winterhalbjahr 2022/23 
+
+Parameter (Kennung)   Soll-Wert   KPI Sommer 2022 
+
+(Sommer 2021) 
+
+KPI Winter 2022/23 
+
+(Winter 2021/22) 
+
+Sichtweite (VIS)   ≥ 0,30   0,40   (0,42)   0,43   (0,46) 
+
+Ceiling (CLD)   ≥ 0,30   0,52   (0,52)   0,55   (0,57) 
+
+Signifikantes Wetter (WX)   ≥ 0,30   0,52   (0,50)   0,46   (0,46) 
+
+Windrichtung (DD)   ≥ 0,80   0,99   (0,99)   1,00   (1,00) 
+
+Windgeschwindigkeit (FFD)   ≥ 0,90   0,99   (0,92)   1,00   (1,00) 
+
+Böen (FFXD)   ≥ 0,90   0,94   (0,94)   0,96   (0,96) 
+
+Abweichungen der Wetterentwicklung von den 
+
+Prognosen amendiert. Verifikationen dieser 
+
+Flughafenvorhersagen ─ kurz TAF-Verifikationen ─ 
+
+sind Kernbestandteil der Qualitätsmanagement 
+
+systeme moderner Flugwetterdienste. 
+
+Dabei ist ein Vergleich der Qualität von Flughafen 
+
+vorhersagen unterschiedlicher Standorte nicht 
+
+ganz trivial, denn die erreichbare Prognosegüte 
+
+hängt von einer Reihe komplexer Einflussfaktoren 
+
+ab, etwa von der Flughafen   Klimatologie, der Qualität 
+
+der Modellvorhersagen, der Qualität von Anschluss 
+
+verfahren sowie lokaler Vorhersagemethoden, dem 
+
+Training und der Erfahrung des Vorhersageperso 
+
+nals, dem Arbeitsumfeld inklusive Personalausstat 
+
+tung und Zeitmanagement, sowie nicht zuletzt von 
+
+der Qualität der meteorologischen Beobachtungen. 
+
+Daher erlauben statistische Verifikationsergebnisse 
+
+keine unmittelbaren Rückschlüsse auf die persön 
+
+liche Leistungsfähigkeit einzelner Prognostiker, 
+
+was auch nicht ihr Zweck ist, denn es sollen syste 
+
+matische Schwächen in den Arbeitsprozessen 
+
+detektiert werden. 
+
+5   Managementsysteme für Qualität und Sicherheit 
+
+Um innerhalb des Deutschen Wetterdienstes 
+
+die Qualität bzw. Qualitätsänderungen des Teil 
+
+prozesses Flugwettervorhersage (FVH) messen zu 
+
+können, werden für die internationalen Flughäfen 
+
+Deutschlands im Rahmen eines MET   Alliance 
+
+Projektes (siehe auch Kapitel 1.2) halbjährlich 
+
+TAF   Verifikationen durchgeführt. Die Tabelle auf 
+
+Seite 56 zeigt die Kriterien, die für die wichtigsten 
+
+flugmeteorologischen Parameter zugrunde gelegt 
+
+werden. 
+
+Mittels dieser Kriterien werden aus den TAF 
+
+Prognosen parameterbezogene Kennzahlen 
+
+ermittelt. Bei Sichtweite, Ceiling und Signifi 
+
+kantem Wetter wird für jeden Schwellenwert bzw. 
+
+jedes Ereignis der Key Performance Indicator 
+
+(KPI) als Mittelwert aus Pierce Skill Score (PSS) 
+
+und Heidke Skill Score (HSS) berechnet und das 
+
+Mittel gebildet (Wertebereich zwischen   1 und +1). 
+
+Der Wert von ≥ 0,30 wurde als Mindestanforde 
+
+rung, der Wert ≥ 0,45 als Zielgröße definiert. 
+
+===== PDF PAGE 64 / 84 =====
+
+58   
+TAF-Verifikation deutscher internationaler Verkehrsflughäfen für den Zeitraum April bis September 2022
+
+(Sommerhalbjahr), d.h. MET-Alliance-KPI der ersten 9 Stunden für alle meteorologischen Parameter
+
+(zulässige Abweichungen: Windrichtung 50°, Windgeschw. 4 kn, Böen 9 kn)
+
+KPI 
+
+0
+
+0,5
+
+0,4
+
+0,1
+
+0,2
+
+0,3
+
+0,6
+
+0,7
+
+0,8
+
+0,9
+
+1,0
+
+EDDB
+EDDC
+EDDE
+EDDF
+EDDG
+EDDH
+EDDK
+EDDL
+EDDM
+EDDN
+EDDP
+EDDR
+EDDS
+EDDV
+EDDW
+
+Sichtweite
+
+Ceiling
+
+Signifikantes Wetter
+
+Windrichtung
+
+Windgeschwindigkeit
+
+Böen
+
+Berlin-
+
+Brandenburg   EDDB
+
+Dresden   EDDC
+
+Erfurt   EDDE
+
+Frankfurt   EDDF
+
+Münster   EDDG
+
+Hamburg   EDDH
+
+Köln   EDDK
+
+Düsseldorf   EDDL
+
+München   EDDM
+
+Nürnberg   EDDN
+
+Leipzig   EDDP
+
+Saarbrücken   EDDR
+
+Stuttgart   EDDS
+
+Hannover   EDDV
+
+Bremen   EDDW 
+
+Mittel 
+
+Diese Werte sind gleichbedeutend mit folgenden 
+
+Bedingungen: 
+
+▶   KPI = 0,30: Eines von zwei beobachteten Ereig 
+
+nissen wird korrekt vorhergesagt. Ein Ereignis 
+
+wird innerhalb eines 6   stündigen Vorhersage 
+
+intervalls mindestens einmal beobachtet. 
+
+▶   KPI = 0,45: Zwei von drei beobachteten Ereignis 
+
+sen werden korrekt vorhergesagt; ein Ereignis 
+
+wird innerhalb eines 4   stündigen Vorhersage 
+
+intervalls mindestens einmal beobachtet. 
+
+Bei den Windvorhersagen (Windrichtung,   geschwin 
+
+digkeit und   böen) wird überprüft, ob die zulässi 
+
+gen Abweichungen eingehalten wurden und die 
+
+Trefferquote wird ermittelt. Die Sollwerte liegen 
+
+hier bei 0,80 für die Windrichtung und bei 0,90 für 
+
+Windgeschwindigkeit und Böen, die Zielwerte bei 
+
+0,85 bzw. 0,95. 
+
+Die in der obigen Tabelle dargestellten KPI 
+
+Mittelwerte über alle 15 Verkehrsflughäfen mit 
+
+internationalem Betrieb in Deutschland für das 
+
+===== PDF PAGE 65 / 84 =====
+
+59 
+TAF-Verifikation deutscher internationaler Verkehrsflughäfen für den Zeitraum Oktober 2022 bis März 2023
+
+(Winterhalbjahr), d.h. MET-Alliance-KPI der ersten 9 Stunden für alle meteorologischen Parameter
+
+(zulässige Abweichungen: Windrichtung 50°, Windgeschw. 4 kn, Böen 9 kn)
+
+KPI 
+
+0
+
+0,5
+
+0,4
+
+0,1
+
+0,2
+
+0,3
+
+0,6
+
+0,7
+
+0,8
+
+0,9
+
+1,0
+
+EDDB
+EDDC
+EDDE
+EDDF
+EDDG
+EDDH
+EDDK
+EDDL
+EDDM
+EDDN
+EDDP
+EDDR
+EDDS
+EDDV
+EDDW
+
+Sichtweite
+
+Ceiling
+
+Signifikantes Wetter
+
+Windrichtung
+
+Windgeschwindigkeit
+
+Böen
+
+Berlin-
+
+Brandenburg   EDDB
+
+Dresden   EDDC
+
+Erfurt   EDDE
+
+Frankfurt   EDDF
+
+Münster   EDDG
+
+Hamburg   EDDH
+
+Köln   EDDK
+
+Düsseldorf   EDDL
+
+München   EDDM
+
+Nürnberg   EDDN
+
+Leipzig   EDDP
+
+Saarbrücken   EDDR
+
+Stuttgart   EDDS
+
+Hannover   EDDV
+
+Bremen   EDDW 
+
+Mittel 
+
+5   Managementsysteme für Qualität und Sicherheit 
+
+Sommerhalbjahr 2022 liegen bis auf die Sichtweite 
+
+im Zielbereich. Gegenüber dem Vorjahr hat sich 
+
+der gemittelte KPI für die Sichtweite geringfügig 
+
+verschlechtert. 
+
+Im Winterhalbjahr 2022/23 liegt der KPI   Mittel 
+
+wert für die Sichtweite im Sollbereich, alle weite 
+
+ren KPI sind im Zielbereich. Allerdings war im 
+
+Vorjahreszeitraum der gemittelte KPI für die Sicht 
+
+weite noch im Zielbereich anzutreffen. 
+
+Die beiden Streudiagramme bieten einen Über 
+
+blick über die TAF   Verifikationsergebnisse an den 
+
+einzelnen in Deutschland gelegenen inter 
+
+nationalen Verkehrsflughäfen für die Sommer 
+
+saison 2022 (Seite 58) und die Wintersaison 
+
+2022/23 (Seite 59). 
+
+Im Sommerhalbjahr 2022 waren die KPIs der 
+
+Windprognosen (Richtung, Geschwindigkeit und 
+
+Böen) an allen Plätzen ausgezeichnet, diejenigen 
+
+===== PDF PAGE 66 / 84 =====
+
+60   für Signifikantes Wetter und Ceiling (Untergrenze 
+
+der tiefsten Wolken) fast alle im Zielbereich. Bei 
+
+der Sichtweite gibt es Verbesserungspotential für 
+
+die Standorte Düsseldorf (EDDL), Leipzig (EDDP), 
+
+Dresden (EDDC) und Köln (EDDK). Wegen der 
+
+Seltenheit von Sichtweiten unterhalb 3000 m bei 
+
+insgesamt zu vielen pessimistischen Sichtweite 
+
+prognosen gab es wenige Treffer, viele Fehlalarme 
+
+aber auch einige verpasste Ereignisse. 
+
+Auch die Auswertung des Winterhalbjahres 
+
+2022/23 an den einzelnen Flugplätzen zeigt die 
+
+KPIs der Windprognosen (Richtung, Geschwindig 
+
+keit und Böen) im Zielbereich der Prognosegüte. 
+
+Während die Key Performance Indicators für die 
+
+Untergrenze der tiefsten Wolken (Ceiling) bis auf 
+
+eine Ausnahme Zielbereich liegen, sind die Resul 
+
+tate beim Signifikanten Wetter im Normbereich 
+
+oder besser. Die KPIs der Sichtweiten variieren 
+
+größtenteils im Normbereich oder darüber, jedoch 
+
+zeigen sich Schwierigkeiten in Köln (EDDK) und 
+
+Düsseldorf (EDDL). Erneut traten Sichtweiten 
+
+unter 3000 m selten auf und durch die geringe 
+
+Fallzahl sowie die gleichzeitige »Übervorhersage« 
+
+geringer Sichten gab es wenige Treffer, viele 
+
+Fehlalarme, aber auch einige verpasste Ereignisse. 
+
+===== PDF PAGE 67 / 84 =====
+
+61 
+
+5   Managementsysteme für Qualität und Sicherheit 
+
+▲   Cirrostratus-Bewölkung mit Sonnenhalo 
+
+===== PDF PAGE 68 / 84 =====
+
+62 
+
+Zyklon FREDDY am 19.02.2023, 01:00 MUT (UTC+04:00), nahe Rodrigues, 
+
+südwestlicher Indischer Ozean, 
+
+© By NASA/Suomi-NPP – EOSDIS Worldview, Public Domain, 
+
+https://commons.wikimedia.org/w/index.php?curid=128877993 
+
+===== PDF PAGE 69 / 84 =====
+
+63 
+
+… war ein außergewöhnlich langlebiger tropischer Wirbelsturm, 
+
+und einer von nur 4 beobachteten Sturmsystemen, die den Indi - 
+
+schen Ozean in ost-westlicher Richtung komplett überquerten. Mit 
+
+einer Andauer von 5 Wochen und zwei Tagen war FREDDY nicht 
+
+nur der langlebigste, jemals auf der Welt beobachtete tropische 
+
+Wirbelsturm, sondern auch derjenige mit dem größten Energie - 
+
+umsatz (sog. Accumulated Cyclone Energy – ACE ≈ 87 10 
+−4 
+·kn 
+2 
+). 
+
+Außerdem war FREDDY der drittverheerendste Zyklon auf der 
+
+südlichen Halbkugel. Auf seiner langen Reise von der Timorsee 
+
+bis in den Süd osten Afrikas, von Anfang Februar bis Mitte März 
+
+2023, verstärkte sich FREDDY über dem Indischen Ozean wieder - 
+
+holt und brachte es bei Luftdruckminima von 918 hPa zu Wind - 
+
+geschwindigkeiten von bis zu 270 km·h 
+-1 
+. Nach 15 Tagen erreichte 
+
+FREDDY Madagaskar, pendelte zweimal über die Straße von 
+
+Mosambik und löste sich schließlich mit sintflutartigen Regen - 
+
+fällen über Mosambik auf. 
+
+Zyklon FREDDY 
+
+===== PDF PAGE 70 / 84 =====
+
+64 
+
+6   Finanzergebnisse 
+
+Direct Costs und Core Costs 
+
+Die Systematik der Kostenermittlung zur meteo 
+
+rologischen Sicherstellung der Luftfahrt basiert 
+
+auf einer Vollkostenrechnung für den gesamten 
+
+DWD unter Berücksichtigung der nationalen und 
+
+internationalen Vorgaben (SES   II   Verordnungen) 
+
+und Rahmenbedingungen. Das zugrunde gelegte 
+
+Verfahren der Kostenaufstellung findet für die 
+
+Erfassung/Ermittlung sowohl der Ist   als auch der 
+
+Plan   Kosten des Flugwetterdienstes (FWD) Anwen 
+
+dung. In die Met   Komponente des Gebührensatzes 
+
+werden nur die Direct Costs als abrechnungsfähige 
+
+Kostenbestandteile für den Instrumentenflug (IFR) 
+
+angesetzt und in Rechnung gestellt. 
+
+Die Tabelle »Kennzahlenauswertungen zu Direct 
+
+Costs und Core Costs« zeigt die absoluten und 
+
+relativen Angaben zu den Direct und Core Costs 
+
+des DWD und des IFR   Bereichs des Flugwetter 
+
+dienstes. Im Jahr 2022 betrugen die Gesamtkosten 
+
+für den DWD 353.936 Tsd. EUR, wovon 24,1 % den 
+
+Direct Costs und 75,9 % den Core Costs zugerech 
+
+net werden konnten. Der prozentuale Anteil der 
+
+Direct Costs an den Gesamtkosten DWD für das 
+
+Abrechnungsjahr 2022 zum Vorjahr 2021 blieb 
+
+damit etwa auf gleichbleibendem Niveau. Der 
+
+Kennzahlenauswertungen zu Direct Costs und Core Costs 
+
+Ist 2021   Plan 2022   Ist 2022 
+
+Tsd. EUR   Anteil   Tsd. EUR   Anteil   Tsd. EUR   Anteil 
+
+Direct Costs und Core Costs des Deutschen 
+
+Wetterdienstes   (absolut und relativ) 
+
+Direct Costs DWD   94.021   24,5 %   96.331   25,3 %   85.460   24,1 % 
+
+Core Costs DWD   289.199   75,5 %   284.730   74,7 %   268.476   75,9 % 
+
+Summe: 
+
+(Gesamtkosten DWD)   
+383.219   100 %   381.061   100 %   353.936   100 % 
+
+Direct Costs des Instrumentenflugs (IFR) 
+
+an den o. g. Direct Costs des DWD   (absolut und relativ) 
+
+Direct Costs IFR aus den Direct Costs des DWD (s. o.)   19.624   20,9 %   18.024   18,7 %   14.853   17,4 % 
+
+prozentuale Anteil der IFR Direct Costs an den 
+
+DWD Direct Costs ist von 20,9 % in 2021 auf 17,4 % 
+
+in 2022 wieder leicht gesunken auch aufgrund der 
+
+geringen Gesamtkostenbasis. 
+
+Plan- und Ist-Kosten 
+
+Die Gesamtkosten des Flugwetterdienstes redu 
+
+zierten sich in 2022 um ca. 24 % gegenüber der 
+
+Vorjahressumme. In absoluten Zahlen formuliert 
+
+sanken die Gesamtkosten von ca. 21,4 Mio. EUR 
+
+im Jahr 2021 auf ca. 16,2 Mio. EUR im Jahr 2022, 
+
+dementsprechend um etwa 5,2 Mio. EUR. Zurück 
+
+zuführen ist dies hauptsächlich auf die rückläu 
+
+figen Personalkosten bzw. Personaleinsatz im 
+
+Rahmen der AutoMETAR Umsetzung an den Flug 
+
+wetterwarten. 
+
+In nachstehender Zusammenstellung der Finanz 
+
+ergebnisse 2022 sind die Plan   und Ist   Zahlen des 
+
+Flugwetterdienstes nach Kostenarten, IFR und 
+
+VFR sowie nach den Anteilen des An   /Abfluges und 
+
+der Strecke untergliedert dargestellt. 
+
+Der Vergleich zwischen den direkten Plan   und 
+
+Ist   Kosten für das Berichtsjahr 2022 zeigt, dass 
+
+insbesondere bei den Personalkosten durch die 
+
+Umsetzung von AutoMETAR weniger   Personal 
+
+===== PDF PAGE 71 / 84 =====
+
+65 
+FWD-Kosten »Ist« für 2021 sowie »Plan« und »Ist« für 2022 in Tsd. EUR 
+
+Alle Kostenangaben 
+
+in Tsd. EUR 
+
+2021 
+
+Ist 
+
+2022 
+
+Plan 
+
+2022 
+
+Ist 
+
+I. Summe IFR-Kosten   19.624   18.124   14.853 
+
+davon 
+
+IFR An-/Abflug   5.709   5.374   4.790 
+
+IFR Strecke   13.915   12.750   10.063 
+
+Personalkosten IFR   14.358   12.610   9.456 
+
+davon 
+
+An-/Abflug   4.177   3.739   3.049 
+
+Strecke   10.181   8.871   6.407 
+
+davon Kosten der Altersversorgung IFR   4.857   4.185   2.678 
+
+An-/Abflug   1.413   1.241   864 
+
+Strecke   3.444   2.944   1.814 
+
+Betriebskosten IFR   2.646   2.944   2.696 
+
+davon 
+
+An-/Abflug   770   873   869 
+
+Strecke   1.876   2.071   1.826 
+
+Abschreibungen IFR   2.620   2.569   2.701 
+
+davon 
+
+An-/Abflug   762   762   871 
+
+Strecke   1.858   1.808   1.830 
+
+Kapitalkosten IFR   0   0   0 
+
+davon 
+
+An-/Abflug   0   0   0 
+
+Strecke   0   0   0 
+
+II. Summe VFR-Kosten   1.753   1.619   1.327 
+
+FWD-Kosten gesamt   21.377   19.743   16.180 
+
+Anteil IFR an FWD   91,80 %   91,80 %   91,80 % 
+
+Anteil VFR an FWD   8,20 %   8,20 %   8,20 % 
+
+Anteil An-/Abflug an IFR   29,09 %   29,65 %   32,25 % 
+
+Anteil Strecke an IFR   70,91 %   70,35 %   67,75 % 
+
+DWD-Kosten gesamt   383.219   381.061   353.936 
+
+Anteil FWD an DWD gesamt   5,57 %   5,18 %   4,57 % 
+
+Anteil FWD-IFR an DWD gesamt   5,12 %   4,75 %   4,20 % 
+
+Anteil FWD-VFR an DWD gesamt   0,46 %   0,42 %   0,37 % 
+
+===== PDF PAGE 72 / 84 =====
+
+66 
+
+kosten durch den reduzierten Personaleinsatz an 
+
+den Flugwetterwarten anfielen. Dementsprechend 
+
+sanken auch dadurch die anteiligen Pensionsrück 
+
+stellungen für diese Personalkosten. Darüber 
+
+hinaus wurden die in 2021 berücksichtigten 
+
+Urlaubsrückstellungen in 2022 weitestgehend 
+
+aufgelöst, was insgesamt zu einer Reduzierung der 
+
+Personalkosten um mehr als 3 Mio. EUR führte. 
+
+Bei den Betriebskosten sind geringere direkte 
+
+Ist-Kosten von ca. 250 Tsd. EUR durch zu hoch 
+
+geplante, direkte Vorleistungen für FWD   Produkte 
+
+angefallen. Im Bereich der Abschreibungen wurde 
+
+auch im Jahr 2022 ein Anstieg der Kosten um ca. 
+
+132 Tsd. EUR verzeichnet. Grund hierfür sind, wie 
+
+bereits im Jahr 2021, die zeitlichen Verschiebungen 
+
+im Rahmen der Beschaffungsmaßnahme zur 
+
+Flughafen   Sensorik und die daraus auch gegen 
+
+über dem Planansatz für das Jahr 2022 entstan 
+
+denen höheren Kosten. 
+
+Die direkten Kapitalkosten sind durch die Ent 
+
+scheidung des Bundesministeriums für Digitales 
+
+und Verkehr (BMDV) innerhalb der Referenz 
+
+periode 3 nicht in Ansatz zu bringen, sodass auch 
+
+für 2022 keine Kapitalkosten ausgewiesen werden. 
+
+Insgesamt wird für den Bereich der meteorologi 
+
+schen Kosten gegenüber dem Planansatz ein um 
+
+ca. 3,3 Mio. EUR niedrigeres FWD   IFR   Ist   Kosten 
+
+ergebnis für das Abrechnungsjahr 2022 ausge 
+
+wiesen, welches hauptsächlich durch die geringe 
+
+ren Personalkosten begründet ist. 
+
+Für das Jahr 2022 wurden für den FWD direkte 
+
+Ist-Kosten (Direct Costs) in Höhe von 14.853 Tsd. EUR 
+
+ermittelt. Als Basis für die Ermittlung der IFR   / 
+
+VFR   Anteile am Leistungsspektrum der flugmeteoro 
+
+logischen Sicherstellung der Luftfahrt durch den 
+
+DWD dienen die erfassten Personalaktivitätsdaten. 
+
+Diese mit dem BMDV abgestimmte Kostenbemes 
+
+sungsgrundlage für Flugsicherungsgebühren 
+
+wurde zum Zeitpunkt der Anmeldung der Determi 
+
+ned Costs für den Performance Plan zur Referenz 
+
+periode 3 (SES   II   Verordnungen) neu berechnet. 
+
+Daraus ergibt sich für die Referenzperiode 3 eine 
+
+Verteilung der IFR-/VFR-Anteile zu 91,80 % vs. 
+
+8,20 %. 
+
+Ist-Kosten 2022   Plan-Kosten 2022   Ist-Kosten 2021 
+
+Summe FWD-IFR 
+
+Personalkosten 
+
+Betriebskosten 
+
+Abschreibungen 
+
+Kapitalkosten 
+
+20.000 15.000 10.000 5.000 0 
+
+Vergleich der IFR-Plan- und Ist-Kosten für die Jahre 2021 bis 2022 in Tsd. EUR 
+
+===== PDF PAGE 73 / 84 =====
+
+67 
+
+6   Finanzergebnisse 
+
+Ein Blick auf das Verhältnis von An   /Abflug zu 
+
+Strecke zeigt, dass sich dieses in 2022 aufgrund 
+
+stärkerer Inanspruchnahme der genutzten Kosten 
+
+trägerleistungen im DWD in Richtung An   /Abflug 
+
+entwickelte und damit eine Verteilung auf An   / 
+
+Abflug mit 32,25 % und auf Strecke mit 67,75 % 
+
+erfolgte. 
+
+Kostenentwicklung 
+
+Betrachtet man die Entwicklung der IFR   Ist   Kosten 
+
+des Flugwetterdienstes im Vergleich zu den DWD 
+
+Kosten insgesamt für den Zeitraum beginnend ab 
+
+der Referenzperiode 1 im Jahr 2012, wird die 
+
+vorgenommene Kostensenkung im Bereich Flug 
+
+wetterdienst aufgrund der Umstellung der Abrech 
+
+nungssystematik auf Direct Costs ab dem Jahr 
+
+2017 sichtbar. Wie in der nachstehenden Grafik 
+
+veranschaulicht, ist der Kostenanteil des FWD an 
+
+der Gesamtkostenbasis des DWD seit 2017 deutlich 
+
+gesunken und beträgt im Jahr 2022 ca. 4,57 % 
+
+(2021: 5,58 %) bzw. 16.180 Tsd. EUR. 
+
+Verteilung der FWD-Kosten auf IFR und VFR 
+
+Anteil VFR an FWD 
+
+8,20 % 
+
+Anteil IFR an FWD 
+
+91,80 % 
+
+IFR An-/Abflug 
+
+32,25 % 
+
+IFR Strecke 
+
+67,75 % 
+
+Verteilung der IFR-Kosten auf An-/Abflug und Strecke 
+
+===== PDF PAGE 74 / 84 =====
+
+68 
+
+Costs stellen die Personalkosten dar. Die Kosten 
+
+kategorie der angefallenen Kapitalkosten wird für 
+
+die gesamte Referenzperiode 3 wie schon zuvor 
+
+beschrieben ab dem Abrechnungsjahr 2020 nicht 
+
+mehr in der Flugwetterdienstabrechnung aufge 
+
+führt bzw. ausgewiesen. 
+
+Auch bei der Entwicklung der einzelnen IFR 
+
+Kostenarten zeigt sich diese Tendenz, der deutliche 
+
+Rückgang der Kosten in allen Kategorien ist im 
+
+untenstehenden Diagramm zur Kostenentwick 
+
+lung der FWD   IFR   Kosten über den Zeitraum 
+
+2012–2022 in seinen Einzelpositionen ablesbar. 
+
+Den größten Block bei Abrechnung nach Direct 
+
+!"#$%&   !"#'%&
+
+!"#()&
+
+!*#!*&   !*#)(& 
+
+FWD   DWD   Verhältnis 
+
+2012 
+2013 
+2014 
+2015 
+2016 
+2017 
+2018 
+2019 
+2020 
+2021 
+2022 
+
+450.000   18,00 % 
+
+400.000   16,00 % 
+
+350.000   14,00 % 
+
+300.000   12,00 % 
+
+250.000   10,00 % 
+
+200.000   8,00 % 
+
+150.000   6,00 % 
+
+100.000   4,00 % 
+
+50.000   2,00 % 
+
+0   0,00 % 
+
+!"#$%&   !"#'%&
+
+!"#()&
+!*#!*&   !*#)(& 
+15,47 %   15,37 %   
+15,90 %   16,16 %   16,09 % 
+
+4,77 %   4,55 %   
+5,11 %   
+5,50 %   5,58 %   4,57 % 
+
+Entwicklung der Ist-Kosten für DWD und FWD seit dem Jahr 2012 in Tsd. EUR und deren Verhältnis 
+
+Ist 
+
+2012 
+
+Ist 
+
+2013 
+
+Ist 
+
+2014 
+
+Ist 
+
+2015 
+
+Ist 
+
+2016 
+
+Ist 
+
+2017 
+
+Personalkosten   Betriebskosten   Abschreibungen   Kapitalkosten 
+
+Ist 
+
+2018 
+
+Ist 
+
+2019 
+
+Ist 
+
+2020 
+
+Ist 
+
+2021 
+
+Ist 
+
+2022 
+
+50.000 
+
+40.000 
+
+30.000 
+
+20.000 
+
+10.000 
+
+0 
+
+Entwicklung der FWD-Ist-Kosten für den Bereich IFR von 2012 bis 2022 in Tsd. EUR (ab 2017 Direct Costs) 
+
+1.895   1.601   
+1.728 
+
+1.398   1.361 
+
+0 
+
+0 
+
+0 
+
+336 
+
+351 389 
+
+5.106   5.327   
+4.362 
+
+4.902   6.020 
+
+2.620 
+
+2.428 
+
+1.661 
+
+1.676 1.630 
+
+11.909   11.491   
+13.037 
+
+13.485   
+15.097 
+
+2.646 
+
+2.696 
+
+2.701 2.620 
+
+2.815 
+
+2.619 
+
+2.406 22.653   23.065   23.357   
+26.396 
+
+23.672 
+
+14.358 
+
+9.456 
+
+12.766 11.670 
+
+9.452 10.987 
+
+===== PDF PAGE 75 / 84 =====
+
+69 
+
+6   Finanzergebnisse 
+
+Wirtschaftlichkeit 
+
+Die Entwicklung der sog. Service Unit Costs kann 
+
+als Maß für die Wirtschaftlichkeit herangezogen 
+
+werden. In den Jahren 2012–2016 war eine relativ 
+
+gleichbleibende Entwicklung der Kosten für eine 
+
+Service Unit von ca. 3 EUR für die beiden IFR 
+
+Bereiche An   /Abflug und Strecke zu verzeichnen. 
+
+Ab dem Abrechnungsjahr 2017 sind die abrechen 
+
+baren Kosten für eine Service Unit bedingt durch 
+
+die beschriebenen Maßnahmen zur Kostensenkung 
+
+stark zurück gegangen. 
+
+Seit 2020 hatte sich die Wirtschaftlichkeit 
+
+aufgrund der weltweit herrschenden COVID   19 
+
+Pandemie und der damit deutlich zurückgegange 
+
+nen Anzahl der Service Units bei etwa gleichblei 
+
+bendem Kostenniveau zunächst enorm verringert. 
+
+Im Verlaufe des Berichtsjahres konnten wegen der 
+
+sich entspannenden Pandemielage, der wieder 
+
+steigenden Wirtschaftsleistung und der zuneh 
+
+menden Anzahl von Service Units die Kosten pro 
+
+Service Unit wieder deutlich reduziert werden und 
+
+lagen schließlich mit 1,09 EUR nur geringfügig 
+
+höher als vor dem Ausbruch von   COVID   19. 
+
+Ist 
+
+2012 
+
+Ist 
+
+2013 
+
+Ist 
+
+2014 
+
+Ist 
+
+2015 
+
+Ist 
+
+2016 
+
+Ist 
+
+2017 
+
+Ist 
+
+2018 
+
+Ist 
+
+2019 
+
+Ist 
+
+2020 
+
+Ist 
+
+2021 
+
+Ist 
+
+2022 
+
+Entwicklung der Service Unit Costs in EUR / Service Unit (ab 2017 Direct Costs) – Erhöhung der Wirtschaftlichkeit 
+
+3,50 
+
+3,00 
+
+2,50 
+
+2,00 
+
+1,50 
+
+1,00 
+
+0,50 
+
+0 
+
+3,02   3,01   3,01 
+
+3,24 
+
+3,10 
+
+0,98   
+0,86 
+
+0,99 
+
+2,40   
+2,34 
+
+1,09 
+
+===== PDF PAGE 76 / 84 =====
+
+70 
+
+Satellitenbild des Wolkenbandes der ITCZ über dem Atlantik zwischen Südamerika und Westafrika, 
+
+von NOAA –   http://www.nnvl.noaa.gov/MediaDetail.php?MediaID=493&MediaTypeID=1   , gemeinfrei, 
+
+https://commons.wikimedia.org/w/index.php?curid=11241604 , aufgenommen am 20.08.2010. 
+
+===== PDF PAGE 77 / 84 =====
+
+71 
+
+Monsune sind großräumige, mit beständigen Winden einher gehen - 
+
+de Strömungen in den Tropen mit halbjähr lichem Richtungswechsel, 
+
+die man auch als gigantische Schwingungen auffassen kann. Im 
+
+Kontext der planetaren Zirkulation sind es Passate mit jahreszeitlich 
+
+wechselnden Hauptwindrichtungen. Ursache der Monsune ist die 
+
+Ver lagerung der innertropischen Konvergenzzone (engl. Abk. ITCZ) 
+
+mit dem Sonnenstand im Verlaufe des Jahres. Unter der ITCZ kann 
+
+man sich einen durch Erwärmung und aufsteigende Luftbewegung 
+
+verursachten, weltumspannenden und durch die Land-Meer-Vertei - 
+
+lung stark beeinflussten Tiefdruckgürtel vorstellen, in dem die nörd - 
+
+lichen und südlichen Passatwinde zusammentreffen. Die ITCZ ist auf 
+
+Satellitenbildern meist als mächtiges Band hoch reichender Quell - 
+
+wolken erkennbar und oft mit wolkenbruchartigen Regenfällen ver - 
+
+bunden. Wetter und Klima der Tropen werden neben dem Tages - 
+
+gang der Sonne wesentlich durch die Monsun-/Passatzirkulation und 
+
+die damit verbundenen Regen- und Trockenzeiten bestimmt. 
+
+Innertropische 
+
+Konvergenz, Monsune 
+
+und Passate 
+
+===== PDF PAGE 78 / 84 =====
+
+72 
+
+7   Ausblick 
+
+Was bringt die Zukunft? 
+
+Das Covid   Virus scheint auf dem Rückzug und die 
+
+internationale Luftverkehrswirtschaft hat trotz 
+
+großer Einbußen während der Corona   Jahre in 
+
+vielen Bereichen wieder den Stand vor der Pande 
+
+mie erreicht. Doch weiterhin stehen neue und 
+
+nicht minder anspruchsvolle Herausforderungen 
+
+vor der Tür. Aktuelle weltpolitische Entwicklungen 
+
+mit großem Einfluss auf den Energie   und Roh 
+
+stoffsektor einerseits und der globale Wandel 
+
+andererseits lenken den Blick verstärkt auf Nach 
+
+haltigkeit und Klimaschutz. Fortschreitende 
+
+Digitalisierung in Wirtschaft und Gesellschaft mit 
+
+allen Chancen und Risiken geht einher mit dem 
+
+Zwang zur Kostenreduzierung. Es gibt sogar 
+
+Stimmen, die das Ende der Globalisierung postu 
+
+lieren. 
+
+Wie entwickelt sich unter diesen Bedingungen 
+
+der Luftverkehr? Welche Möglichkeiten bieten 
+
+etwa neue Antriebstechnologien bei Luftfahr 
+
+zeugen? Bleibt das Fliegen generell für jedermann 
+
+bezahlbar, oder ist es angesichts zu erwartender 
+
+Klimaveränderungen nicht sogar wünschenswert, 
+
+die Fluggastzahlen über den Ticketpreis zu be 
+
+grenzen? Möglicherweise sieht die Zivilluftfahrt 
+
+der Zukunft ganz anders aus, aber es wird sie 
+
+geben und sie muss flugmeteorologisch betreut 
+
+werden. Und zwar auf dem neuesten Stand von 
+
+Wissenschaft und Technik. 
+
+Der Deutsche Wetterdienst entwickelt und 
+
+verbessert innovative Vorhersageverfahren und 
+
+darauf basierende flugmeteorologische Produkte 
+
+zur Beratung und Versorgung unserer Kunden. 
+
+Keine Wettervorhersage funktioniert ohne 
+
+meteorologische Daten, folglich gehört die Erhal 
+
+tung und Fortentwicklung eines modernen und 
+
+leistungsfähigen Mess   und Beobachtungsnetzes, 
+
+sowohl In   situ   als auch via Fernerkundung, 
+
+gerade nach der Automatisierung der Flugwetter 
+
+beobachtung (Projekt AutoMETAR) zu unseren 
+
+Prioritäten. Ebenso herausfordernd ist es, die 
+
+Haltung, Übertragung und Verarbeitung immer 
+
+größerer Datenvolumina, z. T. in neuen Formaten, 
+
+zu bewältigen. 
+
+In der Flugwettervorhersage spielen räumlich 
+
+und zeitlich kleinskalige meteorologische Erschei 
+
+nungen für die sichere und wirtschaftliche Flug 
+
+durchführung eine besondere Rolle. Daher werden 
+
+numerischen Vorhersagemodellen nachgeschaltete, 
+
+erfolgversprechende Anschlussverfahren etwa für 
+
+Vereisung, Turbulenz, konvektive Phänomene, 
+
+Luftbeimengungen (Aerosole, Stäube, Vulkan 
+
+asche) sowie Modell   Output   Statistiken weiter 
+
+entwickelt und verbessert. 
+
+Auf dem Gebiet der numerischen Prognose 
+
+werden in näherer Zukunft zusätzliche Satelliten 
+
+daten in die Assimilation der DWD   Modellkette 
+
+einfließen. Geplant sind außerdem Verbesserun 
+
+gen in der räumlichen Auflösung der Modelle, d. h. 
+
+Verringerung der Maschenweiten der Modellgitter 
+
+sowie Erhöhung der Anzahl der Schichten in der 
+
+Vertikalen. Eine besonders für den Flugwetter 
+
+dienst interessante Perspektive ist die auf der 
+
+Kombination von Radarmessungen und numeri 
+
+schen Modellergebnissen beruhende »nahtlose« 
+
+Wettervorhersage (Seamless Prediction – DWD 
+
+Projekt SINFONY), die den Nowcasting   Bereich 
+
+(0 bis 2 Stunden im Voraus) mit der Kürzestfrist 
+
+vorhersage (2 bis 12 Stunden im Voraus) verbinden 
+
+und methodische Diskontinuitäten vermeiden soll. 
+
+===== PDF PAGE 79 / 84 =====
+
+73 
+
+▲   Im Airbus A340 über der Karibik 
+
+Nicht zuletzt müssen Dienstleistungen und Pro 
+
+dukte auch beim Kunden ankommen, sei es nun im 
+
+Cockpit, beim Air Traffic Management oder für 
+
+den Flughafenbetreiber. Auf verschiedenen Ebenen 
+
+leistet der DWD Betriebsunterstützung, so im 
+
+großen Rahmen der europäischen Luftrauminitia 
+
+tive Single European Sky (SES) oder konkret vor 
+
+Ort, etwa bei der Systemintegration flugmeteoro 
+
+logischer Informationen ─ und zwar sowohl unter 
+
+technisch   organisatorischen als auch unter kom 
+
+merziellen Aspekten. 
+
+Was die Zukunft auch bringen möge, der Deut 
+
+sche Wetterdienst wird als Partner der Luftfahrt 
+
+bereitstehen und die meteorologische Sicher 
+
+stellung der Fliegerei qualitativ und quantitativ 
+
+kontinuierlich verbessern. 
+
+===== PDF PAGE 80 / 84 =====
+
+74   A6 Alliance   Konsortium europäischer Flugsicherungs - 
+
+dienstleister 
+
+AAK2P+   ASDUV_Auto-Klasse 2P+ im Projekt AutoMETAR 
+
+ADWICE   Advanced Diagnosis and Warning system for 
+
+Aircraft Icing Environments 
+
+AERO   Luftfahrtmesse in Friedrichshafen 
+
+BAF   Bundesaufsichtsamt für Flugsicherung 
+
+AIREP   Air Report, Bericht des Luftfahrzeugführers, 
+
+enthält Flugdaten und meteorologische 
+
+Informationen 
+
+AIRMET   Flugwetterwarnung vor weniger gefährlichen 
+
+Wettererscheinungen für den unteren Luftraum 
+
+Airport CDM   Airport Collaborative Decision Making 
+
+AMC   Acceptable Means of Compliance 
+
+ANS   Air Navigation Services (Flugsicherungsdienste) 
+
+ARS   Special Air Report 
+
+ASDUV   Automatisches System zur Datenerfassung und 
+
+-verbreitung an Verkehrsflughäfen (DWD) 
+
+ATC   Air Traffic Control Service (Flugverkehrskontroll - 
+
+dienst) 
+
+ATFM   Air Traffic Flow Management (Verkehrsfluss - 
+
+regelung) 
+
+ATIS   Automatic Terminal Information Service 
+
+ATM   Air Traffic Management (Flugverkehrsmanage - 
+
+ment) 
+
+AUTO   Code-Zusatz automatisch erstellter Flugplatz- 
+
+wettermeldungen 
+
+autoCLD   Verfahren zur Bestimmung der Bewölkung 
+
+autoKON   Verfahren zur Bestimmung der Konvektion 
+
+AutoMETAR   DWD-Projekt zur Automatisierung der Flugplatz- 
+
+wettermeldungen 
+
+autoOBS   Verfahren zur Erstellung konsistenter Wetter - 
+
+meldungen 
+
+autoPWX   Verfahren zur Bestimmung des gegenwärtigen 
+
+und des vergangenen signifikanten Wetters 
+
+AutoTAF   Projekt zur automatisierten TAF-Generierung 
+
+AVAC   Aviation Advisory Committee 
+
+AVIMET   Aviation Meteorology (Arbeitsgruppe der 
+
+EUMETNET) 
+
+ADWX_System   Aerodrome Weather System 
+
+AWEM   Aviation Weather Event Manager 
+
+AWO   Automatischer (DWD-)Wolkenalgorithmus 
+
+BAF   Bundesaufsichtsamt für Flugsicherung 
+
+BFU   Bundesstelle für Flugunfalluntersuchung 
+
+BIV-Brille   Bildverstärkerbrille 
+
+BMDV   Bundesministerium für Digitales und Verkehr 
+
+BSI   Bundesamt für Sicherheit in der Informations - 
+
+technik 
+
+BUFR   Binary Universal Form for the Representation of 
+
+meteorological data 
+
+CAVOK   Wetterbeschreibung in der Luftfahrt – 
+
+„clouds and visibility okay“ 
+
+CB oder Cb   Cumulonimbus 
+
+CBS   Commission for Basic Systems (WMO) 
+
+CBH   Cloud Base Height 
+
+COSMO   COnsortium for Small-scale MOdeling 
+
+DACH   Kunstwort für Deutschland – Österreich – Schweiz 
+
+DACH-MWO   gemeinsames MWO für Deutschland, Österreich 
+
+und die Schweiz 
+
+DFS   DFS Deutsche Flugsicherung GmbH 
+
+DIN ISO/IEC EN   Deutsche Industrie Norm e.V., Internationale 
+
+Organisation für Normung der Internationalen 
+
+elektrotechnischen Kommission 
+
+DIN EN   Deutsche Industrie Norm e.V., Europäische Norm 
+
+DLR   Deutsches Zentrum für Luft- und Raumfahrt e.V. 
+
+DMI   Dänischer Wetterdienst 
+
+DVO   Durchführungsverordnung, hier in der 
+
+EU-Gesetzgebung 
+
+DWD   Deutscher Wetterdienst 
+
+DWDG   Wetterdienstgesetz 
+
+EANPG   European Air Navigation Planning Group 
+
+EASA   European Aviation Safety Agency 
+
+EDP   Eddy Dissipation Parameter 
+
+EDPP   Eddy Dissipation Parameter Probability 
+
+EDR   Eddy Dissipation Rate 
+
+EPS   Ensemble Prediction System 
+
+EU   Europäische Union 
+
+EUMETNET   European Meteorological Services Network 
+
+EUR/NAT- 
+
+Region 
+
+ICAO-Region Europa und Nordatlantik 
+
+(u. a. inkl. Russland) 
+
+EUR   ISO-4217-Code für die europäische Gemein - 
+
+schaftswährung 
+
+EUROCAE   European Organisation for Civil Aviation 
+
+Equipment 
+
+EUROCONTROL   European Organisation for the Safety of 
+
+Air Navigation 
+
+EZMW   Europäisches Zentrum für mittelfristige 
+
+Vorhersagen 
+
+FAA   Federal Aviation Administration 
+
+(Luftfahrtbehörde der USA) 
+
+FAB   Functional Airspace Block (EC = Europe Central, 
+
+IR = UK-Ireland) 
+
+===== PDF PAGE 81 / 84 =====
+
+75 FE   Geschäftsbereich Forschung und Entwicklung 
+
+des DWD 
+
+FWD   Flugwetterdienst 
+
+FTP   File Transfer Protocol 
+
+GAFOR   General Aviation Forecast 
+
+GAMET   General Aviation Meteorological Forecast, 
+
+Area forecast for low level flights 
+
+GeoInfoDBw   Geoinformationsdienst der Bundeswehr 
+
+GG   Grundgesetz (der Bundesrepublik Deutschland) 
+
+GML   Geographic Markup Language 
+
+GNSS   Global Navigation Satellite System 
+
+HTTPS   Hypertext Transfer Protocol Secure 
+
+HYMEC   DWD-Algorithmus zur Klassifizierung von 
+
+Hydrometeoren, d. h. von Niederschlägen 
+
+IASI   Infrared Atmospheric Sounding Interferometer 
+
+ICAO   International Civil Aviation Organization 
+
+ICAO EUR/NAT   europäische Regionalgruppe der ICAO 
+
+ICICLE   In-Cloud ICing and Large-drop Experiment 
+
+ICON   ICOsahedral Nonhydrostatic (aktuelle Modell - 
+
+familie des DWD) 
+
+ICON-ART   Version des ICON-Modells zur Prognose atmo - 
+
+sphärischer Schwebstoffkonzentrationen 
+
+ICON-D2   auf Deutschland und die nähere Umgebung 
+
+genestetes ICON-NWV-System für den 
+
+kurzfristigen Vorhersagebereich 
+
+ICON-D2-EPS   auf Deutschland und die nähere Umgebung ge - 
+
+nestetes ICON-NWV-Ensemble-Vorhersage system 
+
+für den kurzfristigen Vorhersagebereich 
+
+ICON-EPS   Ensemble-basierte Version von ICON mit globaler 
+
+Abdeckung 
+
+ICON-LAM   Local Area Model, ICON mit hoher räumlicher 
+
+Auflösung 
+
+IFR   Instrument Flight Rules 
+
+ISO   einheitliche Kurzbezeichnung für die Internationale 
+
+Organisation für Normung/Standardisierung 
+
+INT   Stabsstelle Internationale Angelegenheiten 
+
+des DWD 
+
+IT   Informationstechnologie 
+
+IWXXM   ICAO Meteorological Information Exchange Model 
+
+JVEG   Justizvergütungs- und Entschädigungsgesetz 
+
+KNMI   Koninklijk Nederlands Meteorologisch Institut 
+
+KONRAD   KONvektionsentwicklung in RADarprodukten 
+
+KONRAD3D   Weiterentwicklung von KONRAD unter Ausnutzung 
+
+von dreidimensionalen Radarkomposit-Daten 
+
+KPI   Key Performance Indicator – Leistungskennzahl 
+
+KU   Geschäftsbereich Klima und Umwelt des DWD 
+
+KVP   Kontinuierlicher Verbesserungsprozess, 
+
+Strategie im QM 
+
+L/m²   Liter pro Quadratmeter (= mm) Niederschlags - 
+
+menge 
+
+LBA   Luftfahrtbundesamt 
+
+LBZ   Luftfahrtberatungszentrale 
+
+LINET   Blitzortungssystem der Firma nowcast 
+
+LIZ   Lageinformationszentrum der DFS 
+
+LLWAS   Low Level Wind-Shear Alert System 
+
+LuftVG   Luftverkehrsgesetz 
+
+LuftVO   Luftverkehrsordnung 
+
+MAB   Meteorological Airport Briefing 
+
+MET   Meteorological Services im jeweiligen 
+
+Zusammenhang 
+
+MET-GATE   European MET Information Exchange 
+
+(SESAR-Projekt) 
+
+MET Alliance   Verbund aus neun europäischen Flugwetter - 
+
+diensten 
+
+METAR   Flugplatzwettermeldung; 
+
+frz. – Météorologique Aviation Régulière, 
+
+engl. – Aviation Routine Weather Report 
+
+METG   Meteorology Group der EANPG 
+
+Meteo France   Nationaler Wetterdienst Frankreichs 
+
+Met Office   Nationaler Wetterdienst des Vereinigten 
+
+Königreichs 
+
+MET Panel   Meteorologischer Fachausschuss der ICAO 
+
+MetReport/- 
+
+Special   
+Meldungsart innerhalb ASDUV-E 
+
+Meteo Schweiz   Nationaler Wetterdienst der Schweiz 
+
+MEZ   Mitteleuropäische Zeit 
+
+MHS   Microwave Humidity Sounder 
+
+Mode-S   Betriebsart von Transpondern 
+
+MOG   Meteorological Operations Group, 
+
+Arbeitsgruppe innerhalb der ICAO 
+
+MOS   Model Output Statistics 
+
+MSC   Meteorological Service of Canada 
+
+MTG   METEOSAT Third Generation 
+
+MTSAT   japanisches satellitengestütztes Fernerkundungs - 
+
+system 
+
+MUAC   Maastricht Upper Air Control Centre 
+
+MWO   Meteorological Watch Office 
+
+NCM-Ww   NowcastMIX-Winterwetter 
+
+NinJo   Arbeitsplatzsystem in Client-Server-Architektur 
+
+zur Visualisierung meteorologischer Daten 
+
+NVF   Night Vision Forecast 
+
+===== PDF PAGE 82 / 84 =====
+
+76   NWV   Numerische Wettervorhersage 
+
+Obs oder OBS   Observation (Beobachtung) 
+
+OPMET   Operationelle meteorologische Informationen 
+
+OPERA   Operational Programm for the Exchange of 
+
+Weather Radar Information 
+
+PANS   Procedures for Air Navigation Services 
+
+PB   Geschäftsbereich Personal und Betriebswirtschaft 
+
+des DWD 
+
+pc_met   Selfbriefing-System für Flugwetterinformationen 
+
+des DWD 
+
+PIREP   Pilot Report 
+
+POLARA   Polarimetrisches Radar Software Framework 
+
+PRR   Performance Review Report (EUROCONTROL) 
+
+QNH   mittels ICAO-Standardatmosphäre auf Meeres - 
+
+niveau reduzierter Luftdruck 
+
+QFF   unter Berücksichtigung der aktuellen Temperatur 
+
+auf Meeresniveau reduzierter Luftdruck 
+
+QM(S)   Qualitätsmanagement(system) 
+
+RADAR   Radio Detection and Ranging 
+
+RHWAC   Regional Hazardous Weather Advisory Center 
+
+RUC   Rapid Update Cycle 
+
+SADIS   Secure Aviation Data Information Service 
+
+SAR   Search and Rescue 
+
+SES   Single European Sky 
+
+SESAR   Single European Sky ATM Research (Programme) 
+
+SFTP   Secure File Transfer Protocol 
+
+SIGMET   Significant Meteorological Phenomena – 
+
+Flugwetterwarnung vor gefährlichen Wetter - 
+
+erscheinungen 
+
+SINFONY   Integriertes Vorhersagesystem des DWD 
+
+SPECI   Sonderwettermeldung 
+
+SWIM   System Wide Information Management 
+
+TAC   Traditional Alphanumeric Code 
+
+TAF   Terminal Aerodrome Forecast 
+
+TI   Geschäftsbereich Technische Infrastruktur und 
+
+Betrieb des DWD 
+
+TP   Teilprozess im QMS des DWD 
+
+TREND   TREND-Meldung: 2-h-Vorhersage wichtiger 
+
+Änderungen des Wetters, wird weiteren codierten 
+
+Vorhersageprodukten angefügt 
+
+UAC   Upper Air Control Center 
+
+UAS   Unmanned Aircraft System (Unbemannte Luft - 
+
+fahrtsysteme – Drohnen) 
+
+VAAC   Volcanic Ash Advisory Center 
+
+VADUGS   Volcanic Ash Detection Utilizing Geostationary 
+
+Satellites 
+
+VCTS   Code für in der Nähe befindliche Gewitter in 
+
+Flugwetterprodukten 
+
+VFR   Visual Flight Rules 
+
+VIL   Vertically Integrated Liquid 
+
+VuB   Vorschriften und Betriebsunterlagen 
+
+VZÄ   Vollzeitäquivalent 
+
+WAFS   World Area Forecast System 
+
+WAWFOR   World Aviation Weather Forecast 
+
+WIGOS   WMO Integrated Global Observing System 
+
+WMO   World Meteorological Organization 
+
+WMS   (NinJo-)WebMapServices(-Layer) 
+
+WS   Strategischer Prozess Wettervorhersage im 
+
+QMS des DWD 
+
+WV   Geschäftsbereich Wettervorhersage 
+
+WxVis4ATC   Weather Visualisation for ATC 
+
+XML   eXtensible Markup Language 
+
+===== PDF PAGE 83 / 84 =====
+
+77 
+
+Impressum 
+
+Herausgeber 
+
+Deutscher Wetterdienst (DWD) 
+
+Konzeption und Redaktion 
+
+Thomas Ruppert, DWD 
+
+Gestaltung und Satz 
+
+Studio Schmidt – Grafisches Atelier 
+
+Frankfurt am Main 
+
+Druck 
+
+Druckerei BMDV 
+
+Fotos 
+
+Titelblatt: NASA Langley Research Center 
+
+Im Fokus: NASA Langley Research Center, andere 
+
+Fotos siehe Bildunterschrift 
+
+Seite 3: Kirsten Bucher, Frankfurt am Main 
+
+Seite 4 (v. l. n. r. und v. o. n. u.): 
+
+NASA Langley Research Center, 
+
+andere Fotos siehe Vorsatzseiten der Kapitel 1–7 
+
+Seite 9: Karsten Friedrich, DWD 
+
+Seite 17: Sabine Bork, DWD 
+
+Seite 19: DWD 
+
+Seite 37: Nicole Ihling, DWD 
+
+Seite 41: Karsten Schubotz, DWD 
+
+Seite 49: Dr. Eckhard Lanzinger, DWD 
+
+Seite 51: Martin Wieczorrek, DWD 
+
+Seite 61: Gertrud Nöth, DWD 
+
+Seite 73: Thomas Ruppert, DWD 
+
+Deutscher Wetterdienst 
+
+Frankfurter Straße 135 
+
+63067 Offenbach am Main 
+
+Tel.:   +49 (0) 69 / 80 62 - 0 
+
+E-Mail:   luftfahrt@dwd.de 
+
+http://www.dwd.de/luftfahrt 
+
+ISSN der Druck-Ausgabe: 1865-4487 
+
+ISSN der Online-Ausgabe: 2194-8291 
+
+Selbstverlag des Deutschen Wetterdienstes 
+
+Offenbach am Main 2023 
+
+===== PDF PAGE 84 / 84 =====
+
+Deutscher Wetterdienst 
+
+Frankfurter Straße 135 
+
+63067 Offenbach am Main 
+
+Tel.:   +49 (0) 69 / 80 62 - 0 
+
+E-Mail:   luftfahrt@dwd.de 
+
+www.dwd.de/luftfahrt 
+
+Über   www.dwd.de   gelangen Sie 
+
+auch zu unseren Auftritten in: 
