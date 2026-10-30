@@ -16,6 +16,7 @@ import requests
 
 from ml import live
 from ml.features import nwp_offset_days
+from ml.quality import suspect_od_runs
 from ml.rules import RULES, crosswind, od_state_machine, r18_usable, tailwind
 
 BERLIN = ZoneInfo("Europe/Berlin")
@@ -225,44 +226,66 @@ def build_forecast(day=None, *, now=None, include_observed=True):
 
 
 def score_forecasts(start, end):
-    """Score midnight local issues on matched DFLD hours, without future inputs."""
+    """Score midnight local issues on matched DFLD hours, without future inputs.
+
+    Recorded runs that break the 10 kt landing limit for three or more METAR hours
+    are a stuck feed (ml.quality.suspect_od_runs); scores are given with and without them.
+    """
     if start > end:
         raise ValueError("--from must be on or before --to")
     today = datetime.now(tz=BERLIN).date()
     if end >= today:
         raise ValueError("Scoring requires past issue days")
-    truth = live.recorded_history().set_index("time").od
-    totals = {label: {"model": 0, "rules": 0, "persistence": 0, "n": 0}
-              for label in ("1", "1-6", "7-24", "25-48")}
-    days = 0
+    history = live.recorded_history()
+    suspect = suspect_od_runs(history, live.normalize_metar(pd.read_parquet(live.DATA / "eddf_metar.parquet")))
+    truth = history.set_index("time").od
+    suspect_times = set(history.loc[suspect, "time"])
+    labels_all = ("1", "1-6", "7-24", "25-48")
+    totals = {scope: {label: {"model": 0, "rules": 0, "persistence": 0, "n": 0} for label in labels_all}
+              for scope in ("clean", "all")}
+    days = excluded = 0
     for day in pd.date_range(start, end, freq="D"):
         result = build_forecast(day.date(), include_observed=False)
         if "fallback" in result["model_version"]:
             raise ValueError(f"Cannot score {day.date()}: trained model unavailable")
         matched = 0
+        issue = pd.Timestamp(result["issued_at"])
+        known = history.loc[history.available_at <= issue]
+        stuck_input = len(known) and known.time.iloc[-1] in suspect_times
         for hour in result["hours"]:
-            observed = truth.get(pd.Timestamp(hour["time"]))
+            time = pd.Timestamp(hour["time"])
+            observed = truth.get(time)
             if observed not in ("25", "07"):
                 continue
             label = "1-6" if hour["lead_h"] <= 6 else "7-24" if hour["lead_h"] <= 24 else "25-48"
             labels = ("1", label) if hour["lead_h"] == 1 else (label,)
-            for key in labels:
-                bucket = totals[key]
-                bucket["model"] += int(hour["od"] == observed)
-                bucket["rules"] += int(hour["rule_od"] == observed)
-                bucket["persistence"] += int(result["current_od"] == observed)
-                bucket["n"] += 1
+            stuck = stuck_input or time in suspect_times
+            scopes = ("all",) if stuck else ("clean", "all")
+            excluded += stuck
+            for scope in scopes:
+                for key in labels:
+                    bucket = totals[scope][key]
+                    bucket["model"] += int(hour["od"] == observed)
+                    bucket["rules"] += int(hour["rule_od"] == observed)
+                    bucket["persistence"] += int(result["current_od"] == observed)
+                    bucket["n"] += 1
             matched += 1
         if not matched:
             raise ValueError(f"No recorded DFLD hours for issue day {day.date()}")
         days += 1
-    rows = []
-    for lead, counts in totals.items():
-        if not counts["n"]:
-            raise ValueError(f"No recorded DFLD hours for leads {lead}")
-        rows.append({"lead": lead, **{name: counts[name] / counts["n"]
-                                     for name in ("model", "rules", "persistence")}, "n": counts["n"]})
-    return {"days": days, "rows": rows[1:], "lead_1": rows[0]}
+
+    def rows(scope):
+        output = []
+        for lead, counts in totals[scope].items():
+            if not counts["n"]:
+                raise ValueError(f"No recorded DFLD hours for leads {lead}")
+            output.append({"lead": lead, **{name: counts[name] / counts["n"]
+                                           for name in ("model", "rules", "persistence")}, "n": counts["n"]})
+        return output
+
+    clean, everything = rows("clean"), rows("all")
+    return {"days": days, "rows": everything[1:], "lead_1": everything[0], "stuck_feed_hours": excluded,
+            "rows_stuck_feed_excluded": clean[1:], "lead_1_stuck_feed_excluded": clean[0]}
 
 
 def print_score(result):
@@ -275,6 +298,12 @@ def print_score(result):
     print(f"Lead 1 only | model {first['model']:.1%} | rules {first['rules']:.1%} | "
           f"persistence {first['persistence']:.1%} | {first['n']} matched hours")
     print("The 1-6 band combines six leads; compare backtest lead 1 with 'Lead 1 only'.")
+    if result["stuck_feed_hours"]:
+        print(f"Without {result['stuck_feed_hours']} matched hours from recorded runs that break the "
+              "10 kt landing limit (stuck feed):")
+        for row in result["rows_stuck_feed_excluded"] + [result["lead_1_stuck_feed_excluded"]]:
+            print(f"{row['lead']:>5} | {row['model']:6.1%} | {row['rules']:6.1%} | "
+                  f"{row['persistence']:11.1%} | {row['n']}")
     print("Only recorded target hours are scored; overlapping daily forecast windows count separately.")
 
 
