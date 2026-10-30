@@ -1,0 +1,240 @@
+[
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.01.2024",
+    "retrieved_at": "2026-10-30T10:52:40.090299+00:00",
+    "sha256": "9e3ba6ab509b8897ae873c8be3a9cddee158f49c7312e7c73649121b78dd820b",
+    "bytes": 330390,
+    "half_hour_records": 1488
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.02.2024",
+    "retrieved_at": "2026-10-30T10:52:40.103241+00:00",
+    "sha256": "610934184c395a7b9d3f4fee4e541671aadda542446aba4ec0890de69e0172f3",
+    "bytes": 310394,
+    "half_hour_records": 1392
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.03.2024",
+    "retrieved_at": "2026-10-30T10:52:40.097071+00:00",
+    "sha256": "32c58a622eff7109fc3b4ff0c76012ce0980220e45a454c5e00510055eaeda66",
+    "bytes": 330078,
+    "half_hour_records": 1488
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.04.2024",
+    "retrieved_at": "2026-10-30T10:52:40.311809+00:00",
+    "sha256": "0e531c618c58ebc2ea25f3cb40b6bc818fae8a547f811493c6457195a5a499cb",
+    "bytes": 320371,
+    "half_hour_records": 1440
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.05.2024",
+    "retrieved_at": "2026-10-30T10:52:40.353288+00:00",
+    "sha256": "63b143b857923066a420359e95b0f56be53dd975c41855ce1dbd5c0a15a7072d",
+    "bytes": 330110,
+    "half_hour_records": 1488
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.06.2024",
+    "retrieved_at": "2026-10-30T10:52:40.318635+00:00",
+    "sha256": "9cddff71cba16f78e56bdb4c7d07e0180b0da7a128dc02802bdc9cee34cea447",
+    "bytes": 320228,
+    "half_hour_records": 1440
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.07.2024",
+    "retrieved_at": "2026-10-30T10:52:40.551888+00:00",
+    "sha256": "ce26cf1cf1b5825a44071092358d95f2a0fa967b7d2943641102f42e5065c83a",
+    "bytes": 330338,
+    "half_hour_records": 1488
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.08.2024",
+    "retrieved_at": "2026-10-30T10:52:40.538883+00:00",
+    "sha256": "3b72c60411d7d3bfb75ac57749e00032bf649eeb08d7792a01dc683def1ff605",
+    "bytes": 330211,
+    "half_hour_records": 1488
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.09.2024",
+    "retrieved_at": "2026-10-30T10:52:40.577182+00:00",
+    "sha256": "0f63776fde56fbcd5ad3eaa28a8fcf1007cfbeb1e306d9b8f5901945e73c3c5d",
+    "bytes": 320145,
+    "half_hour_records": 1440
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.10.2024",
+    "retrieved_at": "2026-10-30T10:52:40.719291+00:00",
+    "sha256": "192b6b742c996769912cc482a0b7df9829ec2933b4ba392cf6547c5a47ffd18b",
+    "bytes": 329974,
+    "half_hour_records": 1488
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.11.2024",
+    "retrieved_at": "2026-10-30T10:52:40.748328+00:00",
+    "sha256": "6d918f7fc7964fa2e174e564d6f2460f484615828539a8b71835a3c542a9a8f3",
+    "bytes": 320264,
+    "half_hour_records": 1440
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.12.2024",
+    "retrieved_at": "2026-10-30T10:52:40.779604+00:00",
+    "sha256": "e96a2d9ceaaaa880a3316090c85d8fa6bfc1b2a7fabfe1c119a31e69d1fbd853",
+    "bytes": 330458,
+    "half_hour_records": 1488
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.01.2025",
+    "retrieved_at": "2026-10-30T10:52:40.901483+00:00",
+    "sha256": "85f76ae9dcfe864515f35624136154906a89c52d439ca9dc33760d459083192a",
+    "bytes": 330430,
+    "half_hour_records": 1488
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.02.2025",
+    "retrieved_at": "2026-10-30T10:52:40.956083+00:00",
+    "sha256": "edefd040920d059d028496ff2fbe2c9fb3d84fc00b58449375cda72e3ef1a50e",
+    "bytes": 299675,
+    "half_hour_records": 1344
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.03.2025",
+    "retrieved_at": "2026-10-30T10:52:40.963831+00:00",
+    "sha256": "2ca5672276d77d15fe44832e0dcfba528a8911d23f65120fa4d2fd71beca0179",
+    "bytes": 329575,
+    "half_hour_records": 1488
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.04.2025",
+    "retrieved_at": "2026-10-30T10:52:41.097398+00:00",
+    "sha256": "56d5f20c8597f7193e76e180164f08537815ccf51f73e8e8df43615df592d75e",
+    "bytes": 319708,
+    "half_hour_records": 1440
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.05.2025",
+    "retrieved_at": "2026-10-30T10:52:41.164613+00:00",
+    "sha256": "588a15de61a6e0709184cd50a9dacc9f9101ff322aeb1ab21efe32ea7201512c",
+    "bytes": 330065,
+    "half_hour_records": 1488
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.06.2025",
+    "retrieved_at": "2026-10-30T10:52:41.156507+00:00",
+    "sha256": "740c1a839397aa30d4385a66de139655a3827e3988441a7bccaa47005d7a8e23",
+    "bytes": 320235,
+    "half_hour_records": 1440
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.07.2025",
+    "retrieved_at": "2026-10-30T10:52:41.291708+00:00",
+    "sha256": "e43d38dbe570bb90d8bbac571ba8d0cfc5f5af4d4365e849f3aac1418a88d33d",
+    "bytes": 330270,
+    "half_hour_records": 1488
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.08.2025",
+    "retrieved_at": "2026-10-30T10:52:41.343601+00:00",
+    "sha256": "5620393b812086bc5c27c2f2ed77e1178d5d4656e0882f4501c00a9934fd5121",
+    "bytes": 330044,
+    "half_hour_records": 1488
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.09.2025",
+    "retrieved_at": "2026-10-30T10:52:41.349853+00:00",
+    "sha256": "fc8279088074facef299f8a083ee2ee779f6eeeaf4f8ebe9ac6f46c1ad3eeb45",
+    "bytes": 320086,
+    "half_hour_records": 1440
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.10.2025",
+    "retrieved_at": "2026-10-30T10:52:41.489820+00:00",
+    "sha256": "f252f3c45e69302958f793d64846477d5633e06322c025aca2aa6608ea587ab7",
+    "bytes": 330251,
+    "half_hour_records": 1488
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.11.2025",
+    "retrieved_at": "2026-10-30T10:52:41.555631+00:00",
+    "sha256": "5a3fbe7eb1f9e2c36dbfa3d0b0364c944c1194e0054e98947bb00c57fc57a20d",
+    "bytes": 320143,
+    "half_hour_records": 1440
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.12.2025",
+    "retrieved_at": "2026-10-30T10:52:41.520542+00:00",
+    "sha256": "3923a7b7ba78ac431cc5f366f37b81b88d43d5ab4cce298e90c2ebd3913c868f",
+    "bytes": 329925,
+    "half_hour_records": 1488
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.01.2026",
+    "retrieved_at": "2026-10-30T10:52:41.669374+00:00",
+    "sha256": "cb9b81fab4dc5749f220beead2ce594fafcef89552edf606e97d6f5832ce2c91",
+    "bytes": 329883,
+    "half_hour_records": 1488
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.02.2026",
+    "retrieved_at": "2026-10-30T10:52:41.695188+00:00",
+    "sha256": "5cf65ae041d64bccc23eaada0cf42a4decae57d5731b5e5d56a3571c6cad5ee6",
+    "bytes": 299665,
+    "half_hour_records": 1344
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.03.2026",
+    "retrieved_at": "2026-10-30T10:52:41.728120+00:00",
+    "sha256": "ccc6b334e2e72f521579f63a694d7c28f3f720e233a12f8d2472af2135c669ef",
+    "bytes": 329828,
+    "half_hour_records": 1488
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.04.2026",
+    "retrieved_at": "2026-10-30T10:52:41.921342+00:00",
+    "sha256": "a1b5354a6fd08d1a4b141d40d9ca40ab5b3b9af5682be0b3bb0b3c8b155d79ca",
+    "bytes": 319477,
+    "half_hour_records": 1440
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.05.2026",
+    "retrieved_at": "2026-10-30T10:52:41.891300+00:00",
+    "sha256": "6b5db61b73b8774440185fb87f6de7d64c292a9c0912bb6b26101f24433e9a56",
+    "bytes": 329862,
+    "half_hour_records": 1488
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.06.2026",
+    "retrieved_at": "2026-10-30T10:52:41.939657+00:00",
+    "sha256": "43edc073d0e43f53ab18843c22e73abcb79fca3b6872030311c7510e4700bbf1",
+    "bytes": 319810,
+    "half_hour_records": 1440
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.07.2026",
+    "retrieved_at": "2026-10-30T10:52:42.090194+00:00",
+    "sha256": "34c426ef60f8fa7747a0042fe1fbe553766b8825964a5111423213ffeb9d242f",
+    "bytes": 329816,
+    "half_hour_records": 1488
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.08.2026",
+    "retrieved_at": "2026-10-30T10:52:42.114886+00:00",
+    "sha256": "1a2727a55a5a2b27907fd108cb2f64ace6ecbfe593e497aa425f4fcd9bef0e0f",
+    "bytes": 329762,
+    "half_hour_records": 1488
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.09.2026",
+    "retrieved_at": "2026-10-30T10:52:42.141679+00:00",
+    "sha256": "f8a06e32f81904d3b49243581fd4c7cb09c5aa5ebd39f446a4e6408d58ae2bfb",
+    "bytes": 319862,
+    "half_hour_records": 1440
+  },
+  {
+    "url": "https://www.dfld.de/Mess/StatWetter.php?R=1&D=01.10.2026",
+    "retrieved_at": "2026-10-30T10:52:42.257053+00:00",
+    "sha256": "a170ca58178e68b50a35d4140db29cbe304a9f103a5a9ae971bb74dc04acab31",
+    "bytes": 314316,
+    "half_hour_records": 1392
+  }
+]
