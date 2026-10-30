@@ -1,49 +1,39 @@
-# Starttest: Zeitauflösung und Modell-Laufzeit abstimmen
+# Starttest: Fehler reproduziert, Integrationskorrektur bestätigt
 
-Der dokumentierte Startbefehl wurde auf Projektstand `33a7847` mit Python
-3.13.13, pandas 3.1.0 und den vorhandenen Projektdateien ausgeführt:
+**Abgeschlossen:** Nach den Änderungen der zentralen Integration laufen beide
+Aufrufe auf Basis `658acdf` erfolgreich. Die Datenprüfung hat weder ML-Code
+geändert noch Abhängigkeiten installiert oder Modelle neu trainiert.
 
 ```bash
-python -m ml.forecast --day 2026-10-31 --out /tmp/forecast-smoke.json
+python -m ml.forecast --day 2026-10-31 --out /tmp/forecast-day.json
+python -m ml.forecast --now --out /tmp/forecast-48h.json
 ```
 
-Er endet mit Exit-Code 1 vor der Prognose. `ml/forecast.py::build_forecast`
-verbindet METAR-Zeitstempel mit der DFLD-Verfügbarkeit per `merge_asof`.
-Beide Spalten sind UTC, haben aber unterschiedliche Auflösung:
-`datetime64[ns, UTC]` gegenüber `datetime64[us, UTC]`. pandas verlangt für
-diesen Join identische Typen. Die aktuelle Anforderung `pandas>=2.2` schließt
-die geprüfte Version ein.
+Der erste liefert die 24 Stunden des gewählten Tages, der zweite alle 48
+Prognosestunden. Beide enden mit Exit 0, verwenden `walk-forward-v3` und
+liefern Wahrscheinlichkeiten im gültigen Bereich. Geprüfte Laufzeit: Python
+3.13.13, pandas 3.1.0, NumPy 2.5.4, scikit-learn 1.7.2. Zeitpunkte,
+Code-Hashes und Ausgabe-Hashes stehen im [Messprotokoll](runtime-check.json).
+Das ist eine Start-/Schnittstellenprüfung, kein neuer Güte- oder Kalibrierungstest.
 
-Der Fehler wurde mit den tatsächlichen Eingabedateien isoliert reproduziert.
-Nach ausschließlich speicherinterner Umstellung beider Join-Spalten auf
-Nanosekunden gelingt der Join mit allen 67.119 METAR-Zeilen. Die Anwendung,
-Quelldaten und Modellartefakte wurden dabei nicht verändert.
-[Messprotokoll](runtime-check.json).
+## Gefundene Ursachen
 
-**An den ML/CLI-Verantwortlichen:** Zeitauflösung an den gemeinsamen
-Eingabegrenzen vereinheitlichen, etwa über `Series.dt.as_unit("ns")`, und
-danach Live-/historischen CLI-Pfad sowie den Trainings-Join erneut prüfen.
-Die erfolgreiche isolierte Verbindung beweist noch keinen vollständigen
-CLI-Lauf. [pandas-Referenz](https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.as_unit.html).
+Auf `33a7847` scheiterte der Start vor der Prognose: METAR-Zeitstempel lagen als
+`datetime64[ns, UTC]`, die aus CSV gelesene DFLD-Verfügbarkeit als
+`datetime64[us, UTC]` vor. Der gemeinsame `merge_asof` benötigt identische Typen.
+Ein unabhängiger Versuch mit speicherintern vereinheitlichten Spalten verband
+alle 67.119 METAR-Zeilen erfolgreich. Die Integration vereinheitlichte danach
+die Join-Spalten. [pandas-Referenz](https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.as_unit.html).
 
-## Nachprüfung im gemeinsamen Hauptzweig
+Der folgende Start erreichte das Modellladen, scheiterte aber mit
+`ModuleNotFoundError: No module named '_loss'`. Die Laufzeit nutzte scikit-learn
+1.9.1, während die Warnung 1.7.2 als Erzeugerversion eines gespeicherten
+Estimators nannte. Nach Abstimmung der Laufzeit und der Integrationskorrektur
+ist der vollständige Start bestätigt. Die genaue Aufteilung der Ursache
+zwischen Versionsunterschied und Modulauflösung wurde von dieser Datenprüfung
+nicht abschließend untersucht.
 
-Die Integration enthält inzwischen eine noch uncommittete Vereinheitlichung
-der Join-Spalten. Der erneute Starttest gelangt damit bis zum Modellladen,
-endet aber erneut mit Exit-Code 1: `ModuleNotFoundError: No module named '_loss'`.
-Die Laufzeit verwendet scikit-learn 1.9.1; die vorgeschaltete Warnung nennt
-1.7.2 als Erzeugerversion eines gespeicherten Estimators. Commit-Basis,
-Hash der geprüften Forecast-Datei und Zeitpunkt stehen im Messprotokoll.
-
-Für den Kollegen ist deshalb auch die **exakte Trainingsumgebung** Teil der
-Übergabe: Abhängigkeiten mit dem vorhandenen Artefakt abstimmen oder das
-Artefakt in der festgelegten Zielumgebung neu erzeugen und prüfen. Der genaue
-Ursprung des fehlenden Moduls ist hier nicht abschließend diagnostiziert.
-Versionsübergreifendes Laden wird von scikit-learn nicht unterstützt; ein
-einfaches Unterdrücken der Warnung ist kein Nachweis der Kompatibilität.
-[Offizielle Hinweise zur Modellpersistenz](https://scikit-learn.org/stable/model_persistence.html).
-
-Die Integration bearbeitet diese Laufzeitprobleme. Diese Datenprüfung hat weder
-deren Quellcodeänderung übernommen noch die gemeinsame Umgebung verändert.
-Ein vollständiger erfolgreicher CLI-Lauf liegt aus diesen beiden Starttests
-nicht vor.
+**Für die Übergabe beibehalten:** Trainings- und Laufzeitabhängigkeiten zusammen
+mit dem Modellartefakt festhalten. Versionsübergreifendes Laden wird von
+scikit-learn nicht unterstützt; Warnungen zu unterdrücken beweist keine
+Kompatibilität. [Offizielle Hinweise zur Modellpersistenz](https://scikit-learn.org/stable/model_persistence.html).
