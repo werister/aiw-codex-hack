@@ -4,7 +4,7 @@
 
 Open problems across main, branches and worktrees. One line each: time (Berlin) | severity | what is wrong | where | who acts. `STOP` breaks main or makes the submission wrong, `FIX` should be fixed before 16:00, `FYI` is worth knowing. Delete a line once it is fixed. Rules: "Cross-checking" in `AGENTS.md`.
 
-Main at 16:08: `python -m pytest ml/tests -q` gives 110 passed, 1 failed (see FIX). `python -m ml.forecast --day 2026-10-31` gives `walk-forward-v6`.
+Main at 16:18 runs: `python -m pytest ml/tests -q` passes again after 3d1f11d (the symlink check now skips on Windows). `python -m ml.forecast --day 2026-10-31` gives `walk-forward-v6`.
 
 ## STOP
 
@@ -17,7 +17,6 @@ Main at 16:08: `python -m pytest ml/tests -q` gives 110 passed, 1 failed (see FI
 - 15:20 | FIX | `weather database/` is still 76 MB with 29 third-party PDFs. 1a78f00 dropped only the text extracts | `weather database/` | Luca and head agent: keep the PDFs on `luca/weather-database`
 - 14:15 | FIX | Kai's 14:04 push added `assets/` (42 MB of 3D files) and `resources/` (21.6 MB): a second data pipeline (`resources/ml-support/forecast/fetch_forecast_data.py`, `observations/fetch_verify.py`, a 6 MB METAR CSV, Kaggle checks) that duplicates `ml/fetch.py` and `data/`, old copies of `forecast-types.ts` and `hk-model.md` in `resources/ml-support/reference/`, and Condor research for a different challenge | `resources/`, `assets/` | Kai: drop the duplicates, keep only what the app loads
 - 15:15 | FIX | Seven 3D files are committed two or three times with identical content: `assets/airport/exports/*.glb` again in `web/public/deck/models/` and `web/public/models/airport/` (`aircraft-widebody.glb` three times, `airport-environment.glb` 12 MB twice). Tracked files are now 207 MB on a disk with about 6 GB free | `assets/airport/exports/`, `web/public/deck/models/`, `web/public/models/airport/` | Kai and head agent: serve one copy
-- 16:08 | FIX | `ml/tests/test_challengers.py::test_output_path_cannot_target_production_artifacts` fails on Windows: it creates a symlink, which needs an extra privilege there (`WinError 1314`). The code is fine; the test needs a skip when symlinks can't be created | `ml/tests/test_challengers.py` | Kai
 
 ## FYI
 
