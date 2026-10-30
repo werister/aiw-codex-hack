@@ -4,14 +4,13 @@ import Link from "next/link";
 import { Brand } from "./Brand";
 import { useState } from "react";
 import { useForecast } from "./ForecastApp";
-import { NowPanel } from "./NowPanel";
-import { Provenance } from "./Provenance";
-import { Recommendation } from "./Recommendation";
+import { Hero } from "./Hero";
+import { RunwayMap } from "./RunwayMap";
 import { ThemeToggle } from "./ThemeToggle";
 import { Timeline } from "./Timeline";
-import { Arrow, Panel } from "./ui";
+import { Arrow, Panel, hhmm } from "./ui";
 
-// iPad widget for ops staff and pilots: the three answers and a two-row timeline.
+// iPad widget for ops staff and pilots: now, next, and the 48 h strip.
 export function Widget() {
   const { f } = useForecast();
   const [sel, setSel] = useState(0);
@@ -27,11 +26,21 @@ export function Widget() {
           </Link>
         </nav>
       </header>
-      <Provenance f={f} compact />
-      <Recommendation f={f} compact />
-      <NowPanel f={f} compact />
+      <Hero
+        f={f}
+        compact
+        scene={
+          <RunwayMap
+            od={f.hours[0].od}
+            r18Open={f.hours[0].p_18_usable >= 0.5}
+            windDir={f.hours[0].wind_dir_deg}
+            windKt={f.hours[0].wind_kt}
+            label={`Forecast for ${hhmm(f.hours[0].local)} (+1 h)`}
+          />
+        }
+      />
       <Panel title="Next 48 hours">
-        <Timeline f={f} selected={sel} onSelect={setSel} rows={["od", "r18", "conf"]} />
+        <Timeline f={f} selected={sel} onSelect={setSel} rows={["od", "unsure", "r18", "conf"]} />
       </Panel>
     </div>
   );

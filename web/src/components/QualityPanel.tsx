@@ -30,40 +30,21 @@ export function QualityPanel() {
   }
 
   const months = q.folds.map((f) => f.month);
-  const bin80 = q.reliability.od.find((b) => b.lower >= 0.8 && b.lower < 0.9 && b.n > 0);
 
   return (
     <Panel
       title="Model quality · held out, walk-forward"
       aside={<span className="text-[13px] text-muted">{q.evaluation}</span>}
     >
-      <p className="-mt-1 mb-5 max-w-[110ch] text-[15px] leading-snug text-ink-2">
-        Evidence about the model on months it never saw. It is measured separately and does not change the forecast
-        probabilities above. Direction is scored against DFLD-recorded directions, with transition hours left out;
-        runway 18 against {q.r18_label_type} labels from METAR and the official rules.
+      <p className="-mt-1 max-w-[90ch] text-[15px] leading-snug text-ink-2">
+        Measured on months the model never saw. It does not change the forecast above. Direction is scored against DFLD
+        records (change hours left out), runway 18 against {q.r18_label_type} labels.
       </p>
-      <div className="grid grid-cols-2 gap-2.5 lg:grid-cols-4">
-        <Stat
-          value={`${months.length} months`}
-          label={`tested one month at a time, never trained on (${months[0]} to ${months[months.length - 1]})`}
-        />
-        <Stat
-          value={`${Math.round(q.rule_label_comparison.agreement * 100)}%`}
-          label="of recorded hours match the official rules on observed wind. The rules alone are not the truth."
-        />
-        <Stat
-          value={`${Math.round(q.next_change.within_3h * 100)}%`}
-          label={`of direction changes timed within ±3 h (${Math.round(q.next_change.within_1h * 100)}% within ±1 h)`}
-        />
-        <Stat
-          value={bin80?.observed_frequency != null ? `${Math.round(bin80.observed_frequency * 100)}%` : "unavailable"}
-          label={
-            bin80?.mean_predicted != null
-              ? `of hours forecast at about ${Math.round(bin80.mean_predicted * 100)}% west were recorded west. The probability is calibrated.`
-              : "calibration check"
-          }
-        />
-      </div>
+      <dl className="mt-5 flex flex-wrap gap-x-10 gap-y-3 text-[15px]">
+        <Fact k="Held-out months" v={`${months.length} · ${months[0]} to ${months[months.length - 1]}`} />
+        <Fact k="Changes timed within ±3 h" v={`${Math.round(q.next_change.within_3h * 100)}% (±1 h: ${Math.round(q.next_change.within_1h * 100)}%)`} />
+        <Fact k="Recorded hours matching the rules" v={`${Math.round(q.rule_label_comparison.agreement * 100)}%`} />
+      </dl>
 
       <div className="mt-8 grid gap-8 xl:grid-cols-[3fr_2fr]">
         <SkillTable rows={q.out_of_sample.od} inSample={q.in_sample.od} />
@@ -93,11 +74,11 @@ export function QualityPanel() {
   );
 }
 
-function Stat({ value, label }: { value: string; label: string }) {
+function Fact({ k, v }: { k: string; v: string }) {
   return (
-    <div className="flex flex-col justify-between gap-4 rounded-card bg-panel-2 p-4 sm:p-5">
-      <div className="text-[26px] font-light leading-none tracking-[-0.02em] tabular sm:text-[40px]">{value}</div>
-      <div className="text-[13px] leading-snug text-ink-2">{label}</div>
+    <div>
+      <dt className="text-[12px] text-muted">{k}</dt>
+      <dd className="tabular">{v}</dd>
     </div>
   );
 }
