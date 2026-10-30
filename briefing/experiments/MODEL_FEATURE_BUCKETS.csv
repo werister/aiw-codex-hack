@@ -1,0 +1,53 @@
+bucket,feature,first_version,status
+Airport state,od_at_issue,v4,also_in_v6
+Airport state,hours_since_change,v4,also_in_v6
+Observed wind,obs_wind_kt,v4,also_in_v6
+Observed wind,obs_gust_kt,v4,also_in_v6
+Observed wind,obs_tailwind_25,v4,also_in_v6
+Observed wind,obs_tailwind_18,v4,also_in_v6
+Observed wind,wind_trend_3h,v4,also_in_v6
+Observed wind,tailwind_trend_3h,v4,also_in_v6
+Forecast wind,wind_kt,v4,also_in_v6
+Forecast wind,gust_kt,v4,also_in_v6
+Forecast wind,wind_sin,v4,also_in_v6
+Forecast wind,wind_cos,v4,also_in_v6
+Forecast wind,tailwind_25_kt,v4,also_in_v6
+Forecast wind,tailwind_07_kt,v4,also_in_v6
+Forecast wind,tailwind_18_kt,v4,also_in_v6
+Official rule answers,rule_od25,v4,also_in_v6
+Official rule answers,rule_18_usable,v4,also_in_v6
+Time and horizon,hour_sin,v4,also_in_v6
+Time and horizon,hour_cos,v4,also_in_v6
+Time and horizon,season_sin,v4,also_in_v6
+Time and horizon,season_cos,v4,also_in_v6
+Time and horizon,lead_h,v4,also_in_v6
+Other forecast weather,pressure_msl,v4,also_in_v6
+Other forecast weather,temperature_2m,v4,also_in_v6
+Other forecast weather,wind_speed_80m,v4,also_in_v6
+Individual weather-model tailwind,ecmwf_ifs025_tailwind_25,v5,also_in_v6
+Individual weather-model tailwind,ecmwf_ifs025_tailwind_18,v5,also_in_v6
+Individual weather-model tailwind,gfs_seamless_tailwind_25,v5,also_in_v6
+Individual weather-model tailwind,gfs_seamless_tailwind_18,v5,also_in_v6
+Individual weather-model tailwind,icon_seamless_tailwind_25,v5,also_in_v6
+Individual weather-model tailwind,icon_seamless_tailwind_18,v5,also_in_v6
+Weather-model agreement,ens_tailwind_25_mean,v5,also_in_v6
+Weather-model agreement,ens_tailwind_25_std,v5,also_in_v6
+Weather-model agreement,ens_tailwind_18_mean,v5,also_in_v6
+Weather-model agreement,ens_tailwind_18_std,v5,also_in_v6
+Weather-model agreement,ens_dir_spread,v5,also_in_v6
+Weather-model agreement,ens_votes_25,v5,also_in_v6
+Higher altitude tailwind,tailwind_25_80m,v5,also_in_v6
+Higher altitude tailwind,tailwind_18_80m,v5,also_in_v6
+Combined-weather rule answers,rule_od25_ens,v5,also_in_v6
+Combined-weather rule answers,rule_18_ens,v5,also_in_v6
+Regional pressure,dp_ns,v5,also_in_v6
+Regional pressure,dp_ew,v5,also_in_v6
+Regional pressure,geo_tailwind_25,v5,also_in_v6
+Regional pressure,geo_tailwind_18,v5,also_in_v6
+Experimental supplemental ICON,icon_wind_kt,v5_ICON_experiment,not_promoted
+Experimental supplemental ICON,icon_gust_kt,v5_ICON_experiment,not_promoted
+Experimental supplemental ICON,icon_wind_dir_deg,v5_ICON_experiment,not_promoted
+Experimental supplemental ICON,icon_tailwind_25_kt,v5_ICON_experiment,not_promoted
+Experimental supplemental ICON,icon_tailwind_07_kt,v5_ICON_experiment,not_promoted
+Experimental supplemental ICON,icon_tailwind_18_kt,v5_ICON_experiment,not_promoted
+Experimental supplemental ICON,supplemental_missing,v5_ICON_experiment,not_promoted
