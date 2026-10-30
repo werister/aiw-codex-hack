@@ -1,0 +1,33 @@
+{
+  "version": "walk-forward-v1",
+  "features": [
+    "od_at_issue",
+    "hours_since_change",
+    "obs_wind_kt",
+    "obs_gust_kt",
+    "obs_tailwind_25",
+    "obs_tailwind_18",
+    "wind_trend_3h",
+    "tailwind_trend_3h",
+    "wind_kt",
+    "gust_kt",
+    "wind_sin",
+    "wind_cos",
+    "tailwind_25_kt",
+    "tailwind_07_kt",
+    "tailwind_18_kt",
+    "rule_od25",
+    "rule_18_usable",
+    "hour_sin",
+    "hour_cos",
+    "season_sin",
+    "season_cos",
+    "lead_h",
+    "pressure_msl",
+    "temperature_2m",
+    "wind_speed_80m"
+  ],
+  "trained_through": "2026-10-29T19:00:00+00:00",
+  "n": 194400,
+  "r18_label_type": "inferred"
+}

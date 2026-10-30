@@ -8,6 +8,6 @@
 ## 2. Labels and baseline
 
 - [ ] 2.1 `python -m ml.labels` writes `data/labels.parquet`
-- [ ] 2.2 Print the base rates (west share, changes per year, 18 closed share)
+- [x] 2.2 Print the base rates (west share, changes per year, 18 closed share)
 - [x] 2.3 Rule baseline on forecast wind, starting from the state at issue time
-- [ ] 2.4 Compare labels with any public flown-OD history from WP7
+- [x] 2.4 Compare labels with any public flown-OD history from WP7
