@@ -6,7 +6,7 @@ from ml.features import FEATURES
 from ml.predict import probability
 
 p=argparse.ArgumentParser();p.add_argument('--version',required=True);a=p.parse_args()
-root=pathlib.Path.cwd();out=pathlib.Path('/content/fra-seasonal-results')/a.version;out.mkdir(parents=True,exist_ok=True)
+root=pathlib.Path.cwd();out=pathlib.Path('/content/fra-seasonal24-results')/a.version;out.mkdir(parents=True,exist_ok=True)
 started=time.time(); frame,truth,obs,skipped=train.dataset(24)
 keys=['issue_time','time','lead_h']
 manifest={'version':a.version,'issue_stride_h':24,'months':['2026-01','2026-04','2026-07'],'feature_rows':len(frame),'skipped':skipped,'runs':{},'source_sha256':{str(f.relative_to(root)):hashlib.sha256(f.read_bytes()).hexdigest() for f in (root/'ml').rglob('*.py')},'data_sha256':{name:hashlib.sha256((root/name).read_bytes()).hexdigest() for name in ['data/ground_truth/dfld_hourly.csv','data/eddf_metar.parquet','data/openmeteo_previous_runs.parquet','data/openmeteo_previous_runs_multimodel.parquet','data/openmeteo_previous_runs_pressure.parquet']}}
