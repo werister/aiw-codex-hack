@@ -38,6 +38,8 @@ The full product helps the tower controller / shift supervisor plan across airpo
 
 **Team handoff: [Fleet-wide planning, required data and model outputs](briefing/fleet-planning.md).** This records the intended recommendation view, expandable visual evidence, model-validation handoff, and the additional flight data needed. It is product direction, not a claim that fleet-impact prediction is implemented or that the weather database contains Frankfurt flight schedules.
 
+**Model-trace handoff (reviewable research on Hugo's branch):** [Visual trace design](https://github.com/werister/aiw-codex-hack/blob/6667e52545003f4ad4c5944875eb821334a3ae73/briefing/2026-10-30-trace-patterns.md) and [evidence, confidence and required producer outputs](https://github.com/werister/aiw-codex-hack/blob/6667e52545003f4ad4c5944875eb821334a3ae73/briefing/2026-10-30-forecast-evidence.md). The intended UI starts with one planning recommendation and expands into a visual source/feature/model/rules trail. The inference pipeline must retain the actual inputs, versions and intermediate results: a single prediction score cannot reconstruct that trail. These notes distinguish inspected snapshots from proposed contracts; they do not claim a trace integration is implemented.
+
 ## Stack
 
 - `ml/`: Python 3.13, pandas, scikit-learn. Data download, labels, model, backtest and the forecast CLI.
