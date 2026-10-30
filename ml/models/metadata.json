@@ -1,5 +1,5 @@
 {
-  "version": "walk-forward-v3",
+  "version": "walk-forward-v4",
   "features": [
     "od_at_issue",
     "hours_since_change",
@@ -27,18 +27,26 @@
     "temperature_2m",
     "wind_speed_80m"
   ],
-  "trained_through": "2026-10-29T19:00:00+00:00",
+  "trained_through": "2026-10-29T18:00:00+00:00",
   "n": 194352,
   "r18_label_type": "inferred",
   "od_model_weight": {
-    "1": 0.25,
-    "6": 0.5,
-    "24": 0.75,
-    "48": 0.75
+    "1:night": 0.0,
+    "1:calm": 0.5,
+    "1:active": 0.8,
+    "6:night": 0.5,
+    "6:calm": 0.8,
+    "6:active": 0.9,
+    "24:night": 0.9,
+    "24:calm": 1.0,
+    "24:active": 1.0,
+    "48:night": 0.9,
+    "48:calm": 0.9,
+    "48:active": 1.0
   },
   "od_blend_validation_period": {
-    "start": "2026-08-28T18:00:00+00:00",
-    "end": "2026-10-27T18:00:00+00:00"
+    "start": "2026-08-28T22:00:00+00:00",
+    "end": "2026-10-27T17:00:00+00:00"
   },
   "publication_lag_h": 6
 }

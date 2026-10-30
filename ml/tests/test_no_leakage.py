@@ -102,6 +102,7 @@ def test_blend_validation_purges_crossing_labels(monkeypatch):
 
     issues = pd.date_range("2025-01-01", periods=100, freq="D", tz="UTC")
     frame = pd.DataFrame([{**{feature: 0 for feature in FEATURES}, "issue_time": issue,
+                            "time": issue + pd.Timedelta(hours=lead),
                             "label_available_at": issue + pd.Timedelta(hours=lead + 1),
                             "lead_h": lead, "y_od": 1} for issue in issues for lead in (1, 6, 24, 48)])
     fits = []
@@ -116,3 +117,19 @@ def test_blend_validation_purges_crossing_labels(monkeypatch):
     assert fits[0].label_available_at.max() < validation_start
     assert fits[1] is frame
     assert pd.Timestamp(models["od_blend_validation_period"]["start"]) >= validation_start
+
+
+def test_blend_regimes_and_stuck_runs():
+    from ml.predict import blend_keys
+    from ml.quality import suspect_od_runs
+
+    # 22:00Z is 23:00 local in winter: night; 12:00Z with 1 kt forecast wind: calm.
+    frame = pd.DataFrame({"time": pd.to_datetime(["2026-11-02T22:00Z", "2026-11-02T12:00Z", "2026-11-02T12:00Z"]),
+                          "lead_h": [1, 6, 30], "wind_kt": [5.0, 1.0, 5.0]})
+    assert list(blend_keys(frame)) == ["1:night", "6:calm", "48:active"]
+    times = pd.date_range("2026-01-01", periods=8, freq="h", tz="UTC")
+    truth = pd.DataFrame({"time": times, "od": ["25"] * 2 + ["07"] * 4 + ["25"] * 2})
+    # Westerly 12 kt is a 12 kt landing tailwind for 07: three such hours flag that run only.
+    obs = pd.DataFrame({"time": times, "wind_kt": 12.0, "wind_dir_deg": 250.0})
+    assert suspect_od_runs(truth, obs).tolist() == [False] * 2 + [True] * 4 + [False] * 2
+    assert not suspect_od_runs(truth, obs.assign(wind_kt=8.0)).any()

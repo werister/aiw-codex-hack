@@ -49,17 +49,33 @@ remains a conservative availability assumption. Day 3 is required for leads
 Live forecasts with explicit issuance or retrieval metadata are rejected if
 that timestamp exceeds T.
 
-Training uses 6-hourly issues by default, each with all 48 hourly leads, and the
+Training uses 6-hourly issues on the Europe/Berlin clock (00:00, 06:00, 12:00,
+18:00 local, like the jury days), each with all 48 hourly leads, and the
 last six calendar months as expanding walk-forward folds. Change this with
 `--issue-stride` and `--months`. Training labels must end before the fold starts.
 Early stopping is disabled to avoid a random internal validation split.
 OD probabilities blend the classifier with persistence. For each fold, a separate
 fit and the final 60 days of its training period select the blend by Brier score.
 The inner fit excludes labels crossing that validation boundary. Weights are
-selected for lead buckets 1, 2–6, 7–24 and 25–48 hours, then the classifier is
-refitted on the full pre-test history. The held-out month never selects weights.
+selected per lead bucket (1, 2–6, 7–24, 25–48 h) and target regime: `night`
+(23:00–05:00 local, the night-flight restriction), `calm` (forecast 10 m wind
+below 2.5 kt, about 4 kt METAR) or `active`. A regime with fewer than 50
+validation rows uses its lead bucket's weight. Keys look like `6:night` in
+`od_model_weight`. The classifier is then refitted on the full pre-test history. The held-out month never selects weights.
 Saved monthly fits allow hindcasts to select a model trained before issue time;
 the final fit uses all available targets for future forecasts.
+
+### Stuck recorded OD
+
+A tailwind of 10 kt or more on the landing runways forces an immediate change.
+`ml.quality.suspect_od_runs` flags a recorded OD run with three or more METAR
+hours at or above that limit as a stuck feed. In 2018–2026 it flags one run:
+OD 07 from 8 Oct 2026 12:00 to 12 Oct 18:00 local (103 hours), against 8–17 kt
+westerlies that DWD station 01420 also measured. Fitting and blend selection
+leave out OD rows whose target or issue-time state comes from that run.
+Headline scores (`od`, `out_of_sample`, `rows` in `october.json`) still count
+those hours as recorded. The `*_stuck_feed_excluded` fields drop them, which
+favours both the model and the rules; report both.
 
 ## Prediction interface
 
