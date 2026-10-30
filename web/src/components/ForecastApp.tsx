@@ -6,12 +6,13 @@ import type { ForecastResponse } from "@/lib/forecast-types";
 import { EvidenceChain } from "./EvidenceChain";
 import { HourDetail } from "./HourDetail";
 import { NowPanel } from "./NowPanel";
+import { Provenance } from "./Provenance";
 import { QualityPanel } from "./QualityPanel";
 import { Recommendation, planFrom } from "./Recommendation";
 import { RunwayMap } from "./RunwayMap";
 import { Timeline } from "./Timeline";
 import { ThemeToggle } from "./ThemeToggle";
-import { Arrow, Panel, cx, dayLabel, hhmm } from "./ui";
+import { Arrow, Panel, dayLabel, hhmm } from "./ui";
 
 type Option = { label: string; file: string };
 
@@ -89,15 +90,9 @@ export function ForecastApp() {
         </nav>
       </header>
 
-      <section className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 pb-3">
-        <p className="eyebrow text-ink">Operating direction and runway 18 · next 48 hours</p>
+      <section className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 pb-3" aria-label="Forecast provenance">
+        {f ? <Provenance f={f} /> : <span />}
         <div className="flex flex-wrap items-center gap-2">
-          {f && (
-            <span className="eyebrow inline-flex items-center gap-2 rounded-full border border-ink px-3.5 py-2.5 tabular">
-              <span className={cx("size-2 rounded-full", f.mode === "live" ? "bg-accent" : "border border-ink")} />
-              {f.mode === "live" ? "Live" : "Hindcast"} · issued {dayLabel(f.issued_local)} {hhmm(f.issued_local)}
-            </span>
-          )}
           <label className="relative">
             <span className="sr-only">Forecast day</span>
             <select
@@ -122,7 +117,9 @@ export function ForecastApp() {
       </section>
 
       {error && (
-        <p className="rounded-card border border-line bg-panel-2 px-4 py-3 text-[15px]">This forecast file could not be loaded.</p>
+        <p className="rounded-card border border-line bg-panel-2 px-4 py-3 text-[15px]">
+          Forecast unavailable: this day&apos;s file could not be loaded. Pick another day or reload the page.
+        </p>
       )}
 
       {f && h && (
@@ -143,7 +140,7 @@ export function ForecastApp() {
             title="Next 48 hours"
             aside={
               <span className="text-[13px] text-muted">
-                {hits ? `Flown vs forecast: ${hits.ok}/${hits.n} hours right · ` : ""}click an hour for details
+                {hits ? `Recorded vs forecast: ${hits.ok} of ${hits.n} recorded hours match · ` : ""}select an hour for details
               </span>
             }
           >
@@ -155,13 +152,13 @@ export function ForecastApp() {
           </div>
 
           <div className="grid gap-2.5 lg:grid-cols-[3fr_2fr]">
-            <Panel title={`Ops view at ${dayLabel(h.local)} ${hhmm(h.local)}`}>
+            <Panel title={`Ops view · simulation · ${dayLabel(h.local)} ${hhmm(h.local)}`}>
               <RunwayMap
                 od={h.od}
                 r18Open={h.p_18_usable >= 0.5}
                 windDir={h.wind_dir_deg}
                 windKt={h.wind_kt}
-                label={`Forecast for +${h.lead_h} h · confidence ${h.certainty}%`}
+                label={`Forecast for +${h.lead_h} h · certainty score ${h.certainty}/100`}
               />
             </Panel>
             <HourDetail h={h} />
