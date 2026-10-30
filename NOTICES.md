@@ -10,7 +10,8 @@ Main at 14:00 runs: `python -m pytest ml/tests -q` gives 52 passed, `python -m m
 
 ## FIX
 
-- 13:22 | FIX | The consolidated airport environment GLB is 16,306,028 bytes and fails the verifier's 15,000,000-byte limit; the saved scene report also contains terminal/runway and aircraft/terminal overlaps. The user explicitly requested consolidation and publication; these checks remain failed | `tools/blender/verify_assets.py`, `assets/airport/verification.json` | airport asset owner: repair and rerun checks
+- 13:25 | FIX | The refreshed airport exports fail the independent verifier: aircraft-narrowbody.glb measures 5,000 x 5,000 m instead of a 37.6 m aircraft. The saved scene report also records terminal/runway and aircraft/terminal overlaps. Publication is explicitly requested; these checks remain failed | `tools/blender/verify_assets.py`, `assets/airport/verification.json` | airport asset owner: repair exported scene selection and rerun checks
+
 
 - 12:17 | FIX | Archived offset inputs bypass explicit `issued_at`/`retrieved_at` filtering: a fixture issued at T+2h is accepted for all 48 forecast rows at T despite the function contract | `ml/features.py:43-58` | model owner: enforce explicit availability metadata on archived inputs too
 
