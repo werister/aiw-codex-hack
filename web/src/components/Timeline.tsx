@@ -178,9 +178,8 @@ export function Timeline({
     </div>
     {show("observed") && (
       <p className="mt-3 max-w-[110ch] text-[13px] leading-snug text-muted">
-        Recorded is the operating direction logged by DFLD.de, a public proxy rather than a certified movement log.
-        Hours without a record, including the direction-change hours DFLD leaves out, show as no record. Runway 18 has
-        no public record, so its reference is inferred from METAR and the official rules.
+        Recorded: the DFLD.de log, a public proxy, not a certified record. It leaves out change hours. Runway 18 has
+        no public record; it is inferred from METAR and the rules.
       </p>
     )}
     </>

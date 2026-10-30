@@ -165,8 +165,7 @@ export function EvidenceChain({
         ))}
       </ol>
       <p className="mt-4 text-[13px] text-muted">
-        Every value comes from this forecast file, for the selected hour. Click any hour in the timeline to follow it
-        here.
+        Every value comes from this forecast file. Tap an hour in the timeline to follow it here.
       </p>
     </Panel>
   );
