@@ -105,7 +105,7 @@ function ForecastAssistantSession({
           </ThreadPrimitive.Viewport>
 
           <p className="text-[13px] text-muted">
-            The brief covers up to six consecutive hours, starting at your selection.
+            The summary covers up to six consecutive hours, starting at your selection.
           </p>
 
           <div className="flex flex-wrap gap-2" aria-label="Suggested questions">

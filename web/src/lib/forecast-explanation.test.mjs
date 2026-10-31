@@ -1,5 +1,4 @@
 import assert from "node:assert/strict";
-import fs from "node:fs";
 import test from "node:test";
 import {
   explainForecastQuestion,
@@ -182,18 +181,23 @@ test("repeated Berlin 02:00 hours remain distinct through their UTC offsets", ()
   assert.match(answer, /its repeated Berlin time is ambiguous/);
 });
 
-test("real Oct 2 forecast selects the first later transition, not the issue-time change", () => {
-  const realForecast = JSON.parse(
-    fs.readFileSync(new URL("../../public/forecasts/2026-10-02.json", import.meta.url), "utf8"),
-  );
-  const selected = realForecast.hours.find((item) => item.local === "2026-10-02T09:00");
-  const change = nextDirectionChangeAfter(realForecast, selected);
+test("a later transition is selected after an earlier issue-time change", () => {
+  // Synthetic regression case; no restricted historical outcomes are required.
+  const hours = [
+    makeHour("2026-10-02T06:00Z", "2026-10-02T08:00", "25"),
+    makeHour("2026-10-02T07:00Z", "2026-10-02T09:00", "07"),
+    makeHour("2026-10-03T19:00Z", "2026-10-03T21:00", "07"),
+    makeHour("2026-10-03T20:00Z", "2026-10-03T22:00", "25"),
+  ];
+  const response = withHours(hours);
+  const selected = hours[1];
+  const change = nextDirectionChangeAfter(response, selected);
   assert.ok(change);
   assert.equal(selected.time, "2026-10-02T07:00Z");
   assert.equal(change.hour.time, "2026-10-03T20:00Z");
   assert.equal(change.hour.local, "2026-10-03T22:00");
   assert.match(
-    explainForecastQuestion(realForecast, selected, "When is the next direction change?"),
+    explainForecastQuestion(response, selected, "When is the next direction change?"),
     /2026-10-03 at 22:00 Europe\/Berlin \(UTC\+2\)/,
   );
 });

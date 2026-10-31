@@ -11,7 +11,7 @@ const STEPS = [
   },
   {
     title: "Direction forecast",
-    line: "A runway direction, runway 18 probability and certainty score for each hour.",
+    line: "Direction, runway 18 weather usability and uncertainty for each hour.",
     icon: (
       <>
         <circle cx="24" cy="24" r="14" stroke="currentColor" strokeWidth="1.5" />
@@ -53,8 +53,8 @@ export function HowItWorks() {
           </li>
         ))}
       </ol>
-      <Link href="/pitch" className="pill-btn mt-12 bg-accent text-accent-ink [--btn-ring:var(--accent)]">
-        View a historical forecast <Arrow />
+      <Link href="/approach" className="pill-btn mt-12 bg-accent text-accent-ink [--btn-ring:var(--accent)]">
+        Read the method <Arrow />
       </Link>
     </section>
   );

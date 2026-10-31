@@ -1,12 +1,5 @@
 import type { Metadata } from "next";
-import { Inter_Tight } from "next/font/google";
 import "./globals.css";
-
-// Closest free match to FraAlliance's Söhne (web/DESIGN.md).
-const brand = Inter_Tight({
-  variable: "--font-brand",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Lift-off · Frankfurt Runway Outlook",
@@ -19,7 +12,7 @@ const THEME_SCRIPT = `(function(){try{var q=new URLSearchParams(location.search)
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" data-theme="light" className={`${brand.variable} h-full antialiased`} suppressHydrationWarning>
+    <html lang="en" data-theme="light" className="h-full antialiased" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
       </head>

@@ -41,7 +41,7 @@ export function QualityPanel() {
       aside={<span className="text-[13px] text-muted">{q.evaluation}</span>}
     >
       <p className="-mt-1 max-w-[90ch] text-[15px] leading-snug text-ink-2">
-        Test months are excluded from training. Direction is compared with DFLD records, excluding change hours.
+        Each test month was excluded from its fit, but results informed development. Direction uses a public DFLD proxy, excluding change hours.
         Runway 18 uses {q.r18_label_type} labels.
       </p>
       <dl className="mt-5 flex flex-wrap gap-x-10 gap-y-3 text-[15px]">
@@ -100,7 +100,7 @@ function SkillTable({ rows, inSample }: { rows: SkillAtLead[]; inSample: SkillAt
   const ins = new Map(inSample.map((r) => [r.lead_h, r]));
   return (
     <div>
-      <div className="mb-3 text-[20px] font-light leading-tight">Operating direction: accuracy on unseen months</div>
+      <div className="mb-3 text-[20px] font-light leading-tight">Operating direction: chronological test accuracy</div>
       <div className="overflow-x-auto">
       <table className="w-full min-w-[520px] text-[15px]">
         <thead>

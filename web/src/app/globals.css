@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
-/* FraAlliance tokens, sources in web/DESIGN.md. Light is their brand;
-   "tower" is a dim-room mode built from their blue-blue scheme. */
+/* Indigo runway palette; tower mode supports dim-room viewing. */
 :root {
+  --font-brand: Arial, Helvetica, sans-serif;
   --bg: #ffffff;
   --panel: #ffffff;
   --panel-2: #eeeeee;
@@ -70,15 +70,15 @@
   --color-bad: var(--bad);
   --color-bad-soft: var(--bad-soft);
   --color-on-signal: var(--on-signal);
-  --font-sans: var(--font-brand), system-ui, sans-serif;
-  --font-mono: var(--font-brand), ui-monospace, monospace;
+  --font-sans: var(--font-brand, system-ui), system-ui, sans-serif;
+  --font-mono: var(--font-brand, system-ui), ui-monospace, monospace;
   --radius-card: 10px;
 }
 
 body {
   background: var(--bg);
   color: var(--ink);
-  font-family: var(--font-brand), system-ui, sans-serif;
+  font-family: var(--font-brand, system-ui), system-ui, sans-serif;
   letter-spacing: 0.005em;
   transition:
     background-color 0.3s var(--ease),
