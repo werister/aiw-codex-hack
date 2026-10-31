@@ -6,6 +6,16 @@ import pytest
 from ml.dfld import hourly, parse_month, retain_existing
 
 
+def test_downloader_requires_processing_permission(monkeypatch):
+    from ml import dfld
+
+    monkeypatch.setattr("sys.argv", ["dfld"])
+    monkeypatch.setattr(dfld, "extract", lambda *args: pytest.fail("Unauthorized download"))
+    with pytest.raises(SystemExit) as error:
+        dfld.main()
+    assert error.value.code == 2
+
+
 def test_display_symbols_do_not_turn_missing_data_into_nonuse():
     directions = ('<img title="00:00 - 00:30: BR07">'
                   '<img title="00:30 - 01:00: BR07">')

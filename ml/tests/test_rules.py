@@ -11,7 +11,7 @@ def winds(minutes, direction=70, speed=5):
     return [(T + timedelta(minutes=m), direction, speed, speed) for m in minutes]
 
 
-def test_brief_examples():
+def test_documented_wind_examples():
     assert tailwind(20, 30, 180) == pytest.approx(17.3205, abs=0.001)
     assert tailwind(20, 45, 180) == pytest.approx(14.1421, abs=0.001)
     assert od_state_machine(winds([0], 90, 20)) == ["07"]

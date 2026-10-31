@@ -37,7 +37,7 @@ export function HourDetail({ h }: { h: HourForecast }) {
         </Field>
       </Group>
 
-      <Group title="Model" narrow>
+      <Group title="Forecast scores" narrow>
         <Field k="Direction">
           <span className={cx("font-medium", odText(h.od))}>
             {h.od} {OD_LABEL[h.od]}
@@ -57,14 +57,14 @@ export function HourDetail({ h }: { h: HourForecast }) {
         </div>
         <p className="mt-2 text-[13px] leading-snug text-ink-2">
           The smaller of the two probability margins: 100 × min(|2·P(25) − 1|, |2·P(18 usable) − 1|). 0 is a coin
-          toss, 100 is a sure call. It is not a calibrated chance that both calls are right; the quality panel shows
-          measured accuracy.
+          toss, 100 is the largest margin. It is not a calibrated chance that both calls are right. Rules-demo scores
+          are uncalibrated; historical fitted-model accuracy is shown separately.
         </p>
       </div>
       </div>
 
       <p className={cx("text-[13px] leading-snug", agree ? "text-muted" : "rounded-[8px] border-[0.5px] border-ink px-3 py-2 text-ink")}>
-        {agree ? "Model and official rules agree for this hour." : "Model and official rules disagree here. The model has learned from recorded directions."}
+        {agree ? "Forecast and rule baseline agree for this hour." : "Forecast and rule baseline disagree here. Review the inputs and method."}
       </p>
     </Panel>
   );

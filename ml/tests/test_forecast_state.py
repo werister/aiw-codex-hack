@@ -239,7 +239,7 @@ def test_future_requested_day_keeps_full_horizon_and_change_timing(monkeypatch):
     monkeypatch.setattr(live, "live_weather", lambda at, current: (nwp.copy(), "fixture live data"))
     monkeypatch.setattr(forecast, "predict", lambda *args: (prediction.copy(), "fixture-model"))
 
-    result = forecast.build_forecast(date(2026, 10, 31), now=now, include_briefing=False)
+    result = forecast.build_forecast(date(2026, 10, 31), now=now)
 
     assert len(result["hours"]) == 48
     assert [hour["time"] for hour in result["hours"]] == [forecast.utc_text(t) for t in target_times]
@@ -249,7 +249,7 @@ def test_future_requested_day_keeps_full_horizon_and_change_timing(monkeypatch):
     assert pd.Timestamp(result["next_change"]["time"]).tz_convert(forecast.BERLIN).date() < date(2026, 10, 31)
 
     with pytest.raises(ValueError, match="does not intersect"):
-        forecast.build_forecast(date(2026, 11, 2), now=now, include_briefing=False)
+        forecast.build_forecast(date(2026, 11, 2), now=now)
 
 
 @pytest.mark.parametrize("has_metar", [True, False])
@@ -270,3 +270,4 @@ def test_observed_overlay_keeps_od_when_r18_weather_label_is_unavailable(tmp_pat
         assert [row["r18_usable"] for row in observed] == [True, None, None]
     else:
         assert [row["r18_usable"] for row in observed] == [None, None, None]
+

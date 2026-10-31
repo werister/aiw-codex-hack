@@ -29,7 +29,10 @@ MODEL_VERSION = "walk-forward-v6"
 
 
 def load_truth():
-    truth = pd.read_csv(DATA / "ground_truth" / "dfld_hourly.csv", dtype={"od": str})
+    path = DATA / "ground_truth" / "dfld_hourly.csv"
+    if not path.exists():
+        raise ValueError("Training needs permission-cleared local direction labels; see docs/DATA_SOURCES.md")
+    truth = pd.read_csv(path, dtype={"od": str})
     truth["time"] = pd.to_datetime(truth.time, utc=True).astype("datetime64[ns, UTC]")
     truth = truth.sort_values("time")
     truth["available_at"] = truth.time + pd.Timedelta(hours=1)
@@ -37,7 +40,7 @@ def load_truth():
 
 
 def issue_times(start, end, stride):
-    """Issues on the local clock from 00:00, so jury-style midnight issues are trained and tested."""
+    """Schedule issue times on the local clock, including midnight."""
     days = pd.date_range(start.tz_convert(BERLIN).date(), end.tz_convert(BERLIN).date(), freq="D")
     local = (days.to_numpy()[:, None] + pd.to_timedelta(np.arange(0, 24, stride), unit="h").to_numpy()).ravel()
     times = pd.DatetimeIndex(local).tz_localize(BERLIN, ambiguous="NaT", nonexistent="NaT").dropna().tz_convert("UTC")
@@ -353,7 +356,7 @@ def evaluate(frame, truth, obs, months, stride, skipped, compare_label_policy=Fa
             "Runway 18 targets are inferred weather usability; missing or variable METAR directions are unlabelled, not assumed open.",
             "In-sample aggregates repeat rows across expanding folds. OOS monthly folds do not overlap; overlapping 48-hour forecast windows are correlated.",
             "Timing metrics use 6-hourly issue windows; od_change_events separately deduplicates events and matches warnings. OD and R18 persistence weights minimize Brier score on a preceding 60-day validation block; held-out data never selects weights. Sparse or closure-free R18 validation retains the raw model.",
-            "Issues run every six hours on the Europe/Berlin clock from 00:00, matching jury-day issues. Blend weights are chosen per lead bucket (1, 2-6, 7-24, 25-48 h) and target regime: night (23:00-05:00 local), calm (forecast 10 m wind below 2.5 kt) or active.",
+            "Issues run every six hours on the Europe/Berlin clock from 00:00. Blend weights are chosen per lead bucket (1, 2-6, 7-24, 25-48 h) and target regime: night (23:00-05:00 local), calm (forecast 10 m wind below 2.5 kt) or active.",
             "Inputs add ECMWF IFS, GFS and ICON previous runs and forecast pressure about 200 km N/S/W/E of FRA, under the same day1/day2/day3 offsets and six-hour lag. Wind speeds are scaled to METAR level with ratios fitted on 2024 only, before every test month. ICON-D2 ensemble spread has no archive before 29 Jul 2026 and is not used.",
             "Runway 18 events require complete labelled issue windows and comparable available predictions. Counts describe overlapping positive issue windows, not unique closure episodes; unknown or missing windows are excluded explicitly.",
             "OD runs with repeated 10 kt landing-tailwind contradictions are flagged for sensitivity, not proven feed failure. Primary training and scoring retain all recorded labels. Additional exclusion scores and optional excluded-label refits are explicitly separate and do not choose the primary model."]}
@@ -371,6 +374,8 @@ def main():
     args = parser.parse_args()
     if args.issue_stride < 1 or 24 % args.issue_stride or args.months < 6:
         parser.error("issue-stride must divide 24 hours and months must be at least six")
+    if not (DATA / "ground_truth/dfld_hourly.csv").exists():
+        parser.exit(1, "Training unavailable: direction labels are withheld pending permission; see docs/DATA_SOURCES.md\n")
     warnings.filterwarnings("ignore", category=DeprecationWarning, message=".*generic.*")
     frame, truth, obs, skipped = cached_dataset(args.issue_stride)
     backtest, quality = evaluate(frame, truth, obs, args.months, args.issue_stride, skipped, args.compare_label_policy)
