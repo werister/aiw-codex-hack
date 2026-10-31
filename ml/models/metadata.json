@@ -1,0 +1,82 @@
+{
+  "version": "walk-forward-v6",
+  "features": [
+    "od_at_issue",
+    "hours_since_change",
+    "obs_wind_kt",
+    "obs_gust_kt",
+    "obs_tailwind_25",
+    "obs_tailwind_18",
+    "wind_trend_3h",
+    "tailwind_trend_3h",
+    "wind_kt",
+    "gust_kt",
+    "wind_sin",
+    "wind_cos",
+    "tailwind_25_kt",
+    "tailwind_07_kt",
+    "tailwind_18_kt",
+    "rule_od25",
+    "rule_18_usable",
+    "hour_sin",
+    "hour_cos",
+    "season_sin",
+    "season_cos",
+    "lead_h",
+    "pressure_msl",
+    "temperature_2m",
+    "wind_speed_80m",
+    "ecmwf_ifs025_tailwind_25",
+    "ecmwf_ifs025_tailwind_18",
+    "gfs_seamless_tailwind_25",
+    "gfs_seamless_tailwind_18",
+    "icon_seamless_tailwind_25",
+    "icon_seamless_tailwind_18",
+    "ens_tailwind_25_mean",
+    "ens_tailwind_25_std",
+    "ens_tailwind_18_mean",
+    "ens_tailwind_18_std",
+    "ens_dir_spread",
+    "ens_votes_25",
+    "tailwind_25_80m",
+    "tailwind_18_80m",
+    "rule_od25_ens",
+    "rule_18_ens",
+    "dp_ns",
+    "dp_ew",
+    "geo_tailwind_25",
+    "geo_tailwind_18"
+  ],
+  "trained_through": "2026-10-29T18:00:00+00:00",
+  "n": 194352,
+  "r18_label_type": "inferred",
+  "od_blend_validation_period": {
+    "start": "2026-08-28T22:00:00+00:00",
+    "end": "2026-10-27T17:00:00+00:00"
+  },
+  "od_training_label_policy": "all-recorded",
+  "r18_blend_validation_period": {
+    "start": "2026-08-28T22:00:00+00:00",
+    "end": "2026-10-27T11:00:00+00:00"
+  },
+  "r18_blend_validation_support": {
+    "1": {
+      "n": 179,
+      "closed_rows": 0
+    },
+    "6": {
+      "n": 860,
+      "closed_rows": 0
+    },
+    "24": {
+      "n": 3100,
+      "closed_rows": 0
+    },
+    "48": {
+      "n": 4094,
+      "closed_rows": 0
+    }
+  },
+  "publication_lag_h": 6,
+  "distribution_note": "Schema and aggregate metadata only; fitted estimators and learned blend weights withheld pending source permission."
+}

@@ -1,0 +1,889 @@
+{
+  "source": "recomputed from saved monthly fits; no fitting performed",
+  "model_version": "walk-forward-v6",
+  "folds": 12,
+  "n_prediction_rows": 66856,
+  "model_sha256": {
+    "fold-2025-11.joblib": "3f0ad2f24f7f9a15279f87d2f2bd30087bd73b328d95da340139daac9fdb2183",
+    "fold-2025-12.joblib": "2e437ee82dfa3d9761aa82cb62a6ec19b6631526d54acdb79fa7a3be67dfcad0",
+    "fold-2026-01.joblib": "a1a3a42bd3c799a1ad1a0cf0ab4fbe559b9f63eabf7d5669e416bb64080661c0",
+    "fold-2026-02.joblib": "8ad246a8cc45dd4a4573da858ddeaa498e1aafba2d185c087b54893fce7e47f4",
+    "fold-2026-03.joblib": "201ebb70135b6d7ae653f97ee85af7f48795947009978278efe36e8d924f93fc",
+    "fold-2026-04.joblib": "2401b8498857672618c4b2c2d104f8d1b297f460efb34d334a0b5118c6a78fc5",
+    "fold-2026-05.joblib": "33fbe6ba92d4d203d3c11d3ba9280bc9f70633c2462e0bb221a571fd1c75362f",
+    "fold-2026-06.joblib": "2334d749cfdfdc7aaeb473fdafaa84784a0f5d93a011253ade9c68f77bb28c12",
+    "fold-2026-07.joblib": "41221b65c2f68bf015e254659a5c34da8befa50d03248ffb80fefb347f7cd6aa",
+    "fold-2026-08.joblib": "fa09abb3b5ea1586c6d5f93f110e39d337c2fe481b8e4aa914abe83d34b620f8",
+    "fold-2026-09.joblib": "99a5e4b99af5eb3a32d92975363e7887f49faf855c6339d7ae8e76e3bb1e8fbc",
+    "fold-2026-10.joblib": "6fea8da8a2256beff0ddc3e4ccd20ec50e2a6ac16439c639fa33a04d4c02d495"
+  },
+  "od": [
+    {
+      "lead_h": 1,
+      "n": 1416,
+      "n_days": 361,
+      "model_acc": 0.9569209039548022,
+      "model_acc_ci": [
+        0.9470263747110941,
+        0.9674693241115879
+      ],
+      "model_brier": 0.0341372052289132,
+      "model_brier_ci": [
+        0.0265220317110269,
+        0.042293646379312114
+      ],
+      "model_acc_ci_3d": [
+        0.9449152542372882,
+        0.967021001140167
+      ],
+      "model_brier_ci_3d": [
+        0.02565319903695176,
+        0.04414220593354278
+      ],
+      "model_acc_ci_7d": [
+        0.9438454263039026,
+        0.9682875264270613
+      ],
+      "model_brier_ci_7d": [
+        0.02560779753754257,
+        0.04493359364370983
+      ],
+      "rule_acc": 0.9307909604519774,
+      "rule_acc_ci": [
+        0.9149513024985649,
+        0.9449977797755392
+      ],
+      "rule_brier": 0.0692090395480226,
+      "rule_brier_ci": [
+        0.055002220224460725,
+        0.08504869750143514
+      ],
+      "rule_acc_ci_3d": [
+        0.9085073893858802,
+        0.948265473533951
+      ],
+      "rule_brier_ci_3d": [
+        0.05173452646604903,
+        0.09149261061411991
+      ],
+      "rule_acc_ci_7d": [
+        0.904759382566586,
+        0.9492251540895225
+      ],
+      "rule_brier_ci_7d": [
+        0.05077484591047749,
+        0.09524061743341404
+      ],
+      "persistence_acc": 0.9590395480225988,
+      "persistence_acc_ci": [
+        0.9489655492707882,
+        0.9689922480620154
+      ],
+      "persistence_brier": 0.04096045197740113,
+      "persistence_brier_ci": [
+        0.031007751937984496,
+        0.05103445072921174
+      ],
+      "persistence_acc_ci_3d": [
+        0.9476606198566285,
+        0.9695262378350671
+      ],
+      "persistence_brier_ci_3d": [
+        0.030473762164932992,
+        0.05233938014337148
+      ],
+      "persistence_acc_ci_7d": [
+        0.9468829115830092,
+        0.9683104166873161
+      ],
+      "persistence_brier_ci_7d": [
+        0.03168958331268398,
+        0.05311708841699074
+      ],
+      "acc_diff_vs_rule": 0.026129943502824826,
+      "acc_diff_vs_rule_ci": [
+        0.01406469760900142,
+        0.04022582921665485
+      ],
+      "acc_diff_vs_rule_ci_3d": [
+        0.012013710347097709,
+        0.04108903948237896
+      ],
+      "acc_diff_vs_rule_ci_7d": [
+        0.012720399191044701,
+        0.04311106609749442
+      ],
+      "mcnemar_p_vs_rule": 1.9336816600800142e-05,
+      "dm_p_vs_rule": 4.3378798566780704e-07,
+      "acc_diff_vs_persistence": -0.0021186440677966045,
+      "acc_diff_vs_persistence_ci": [
+        -0.009832153030542804,
+        0.004940101332089305
+      ],
+      "acc_diff_vs_persistence_ci_3d": [
+        -0.010624173245468268,
+        0.004947083931007998
+      ],
+      "acc_diff_vs_persistence_ci_7d": [
+        -0.011252750655839739,
+        0.0063605364827245825
+      ],
+      "mcnemar_p_vs_persistence": 0.6891565167793516,
+      "dm_p_vs_persistence": 0.06068522809622222,
+      "inference_notes": {
+        "accuracy_ci": "paired bootstrap resampling issue-days; 3d and 7d intervals resample contiguous calendar blocks",
+        "row_mcnemar": "nominal row-level p-value; within-day dependence is not modeled",
+        "diebold_mariano": "daily mean loss differences with Newey-West lag 1",
+        "multiple_comparisons": "not adjusted across leads and baselines"
+      },
+      "change_n": 58,
+      "model_change_acc": 0.1896551724137931,
+      "rule_change_acc": 0.29310344827586204,
+      "persistence_change_acc": 0.0,
+      "rule_ensemble_n": 1416,
+      "rule_ensemble_coverage": 1.0,
+      "model_acc_on_rule_ensemble_cohort": 0.9569209039548022,
+      "rule_ensemble_acc": 0.932909604519774,
+      "model_brier_on_rule_ensemble_cohort": 0.0341372052289132,
+      "rule_ensemble_brier": 0.067090395480226,
+      "acc_diff_model_vs_rule_ensemble": 0.02401129943502822,
+      "brier_diff_model_vs_rule_ensemble": -0.0329531902513128,
+      "acc_diff_model_vs_rule_ensemble_ci": [
+        0.011291460832745237,
+        0.036751721080956604
+      ],
+      "brier_diff_model_vs_rule_ensemble_ci": [
+        -0.04507978508356011,
+        -0.021326045514949318
+      ],
+      "acc_diff_model_vs_rule_ensemble_ci_3d": [
+        0.011236610338001947,
+        0.04020030403201506
+      ],
+      "brier_diff_model_vs_rule_ensemble_ci_3d": [
+        -0.04833024810593243,
+        -0.02045233842466821
+      ],
+      "acc_diff_model_vs_rule_ensemble_ci_7d": [
+        0.009866102889358741,
+        0.041911418515290094
+      ],
+      "brier_diff_model_vs_rule_ensemble_ci_7d": [
+        -0.05160282645372204,
+        -0.018557968998175096
+      ],
+      "mcnemar_p_vs_rule_ensemble": 0.00010062192211963679,
+      "dm_p_vs_rule_ensemble": 1.5966366763024491e-06,
+      "rule_ensemble_change_n": 58,
+      "model_change_acc_on_rule_ensemble_cohort": 0.1896551724137931,
+      "rule_ensemble_change_acc_on_rule_ensemble_cohort": 0.3275862068965517,
+      "rule_ensemble_inference_notes": {
+        "accuracy_ci": "paired bootstrap resampling issue-days; 3d and 7d intervals resample contiguous calendar blocks",
+        "row_mcnemar": "nominal row-level p-value; within-day dependence is not modeled",
+        "diebold_mariano": "daily mean loss differences with Newey-West lag 1",
+        "multiple_comparisons": "not adjusted across leads and baselines",
+        "cohort": "model and ensemble-rule metrics use only rows with a labelled target and non-null ensemble rule"
+      }
+    },
+    {
+      "lead_h": 6,
+      "n": 1416,
+      "n_days": 361,
+      "model_acc": 0.9272598870056498,
+      "model_acc_ci": [
+        0.9090219764063255,
+        0.9435446851704585
+      ],
+      "model_brier": 0.05304825181877525,
+      "model_brier_ci": [
+        0.04198226267728293,
+        0.06586766273925791
+      ],
+      "model_acc_ci_3d": [
+        0.9043506281097887,
+        0.9469233193040895
+      ],
+      "model_brier_ci_3d": [
+        0.03768162252916265,
+        0.07172575873399303
+      ],
+      "model_acc_ci_7d": [
+        0.8988615355499333,
+        0.9470722105045225
+      ],
+      "model_brier_ci_7d": [
+        0.037833494843082995,
+        0.07867014532567553
+      ],
+      "rule_acc": 0.8813559322033898,
+      "rule_acc_ci": [
+        0.8598623780992479,
+        0.9001451741187878
+      ],
+      "rule_brier": 0.11864406779661017,
+      "rule_brier_ci": [
+        0.09985482588121217,
+        0.14013762190075207
+      ],
+      "rule_acc_ci_3d": [
+        0.8549163311383723,
+        0.9040351725211839
+      ],
+      "rule_brier_ci_3d": [
+        0.09596482747881604,
+        0.14508366886162766
+      ],
+      "rule_acc_ci_7d": [
+        0.8476659098708785,
+        0.9062781115057286
+      ],
+      "rule_brier_ci_7d": [
+        0.09372188849427139,
+        0.15233409012912147
+      ],
+      "persistence_acc": 0.8884180790960452,
+      "persistence_acc_ci": [
+        0.8688849892687144,
+        0.9069639133572708
+      ],
+      "persistence_brier": 0.1115819209039548,
+      "persistence_brier_ci": [
+        0.09303608664272918,
+        0.1311150107312856
+      ],
+      "persistence_acc_ci_3d": [
+        0.8691016510125228,
+        0.9062797655117311
+      ],
+      "persistence_brier_ci_3d": [
+        0.09372023448826886,
+        0.13089834898747718
+      ],
+      "persistence_acc_ci_7d": [
+        0.8684941572819127,
+        0.9068068651888385
+      ],
+      "persistence_brier_ci_7d": [
+        0.09319313481116148,
+        0.13150584271808738
+      ],
+      "acc_diff_vs_rule": 0.04590395480225995,
+      "acc_diff_vs_rule_ci": [
+        0.028665277508561127,
+        0.06365260526255113
+      ],
+      "acc_diff_vs_rule_ci_3d": [
+        0.028897828026334765,
+        0.06506480038358707
+      ],
+      "acc_diff_vs_rule_ci_7d": [
+        0.026817219477769938,
+        0.06483439041578576
+      ],
+      "mcnemar_p_vs_rule": 2.738571197473617e-07,
+      "dm_p_vs_rule": 7.505462153357463e-16,
+      "acc_diff_vs_persistence": 0.038841807909604564,
+      "acc_diff_vs_persistence_ci": [
+        0.019884955253669852,
+        0.0565800935667121
+      ],
+      "acc_diff_vs_persistence_ci_3d": [
+        0.01556888517039123,
+        0.05916093058698515
+      ],
+      "acc_diff_vs_persistence_ci_7d": [
+        0.013434933368851357,
+        0.05969732551782068
+      ],
+      "mcnemar_p_vs_persistence": 1.6535332124342004e-06,
+      "dm_p_vs_persistence": 6.873324619839172e-10,
+      "inference_notes": {
+        "accuracy_ci": "paired bootstrap resampling issue-days; 3d and 7d intervals resample contiguous calendar blocks",
+        "row_mcnemar": "nominal row-level p-value; within-day dependence is not modeled",
+        "diebold_mariano": "daily mean loss differences with Newey-West lag 1",
+        "multiple_comparisons": "not adjusted across leads and baselines"
+      },
+      "change_n": 178,
+      "model_change_acc": 0.6235955056179775,
+      "rule_change_acc": 0.7640449438202247,
+      "persistence_change_acc": 0.11235955056179775,
+      "rule_ensemble_n": 1416,
+      "rule_ensemble_coverage": 1.0,
+      "model_acc_on_rule_ensemble_cohort": 0.9272598870056498,
+      "rule_ensemble_acc": 0.8884180790960452,
+      "model_brier_on_rule_ensemble_cohort": 0.05304825181877525,
+      "rule_ensemble_brier": 0.1115819209039548,
+      "acc_diff_model_vs_rule_ensemble": 0.038841807909604564,
+      "brier_diff_model_vs_rule_ensemble": -0.058533669085179554,
+      "acc_diff_model_vs_rule_ensemble_ci": [
+        0.022471284134886547,
+        0.054495915471552775
+      ],
+      "brier_diff_model_vs_rule_ensemble_ci": [
+        -0.07247594478385506,
+        -0.043258328509460056
+      ],
+      "acc_diff_model_vs_rule_ensemble_ci_3d": [
+        0.021789082090784864,
+        0.0575065370653825
+      ],
+      "brier_diff_model_vs_rule_ensemble_ci_3d": [
+        -0.07795783514269503,
+        -0.04220300908118185
+      ],
+      "acc_diff_model_vs_rule_ensemble_ci_7d": [
+        0.022430591993041243,
+        0.056747216637157594
+      ],
+      "brier_diff_model_vs_rule_ensemble_ci_7d": [
+        -0.07745813099681947,
+        -0.03994512035027098
+      ],
+      "mcnemar_p_vs_rule_ensemble": 5.425588897465593e-06,
+      "dm_p_vs_rule_ensemble": 1.2811454265609607e-12,
+      "rule_ensemble_change_n": 178,
+      "model_change_acc_on_rule_ensemble_cohort": 0.6235955056179775,
+      "rule_ensemble_change_acc_on_rule_ensemble_cohort": 0.7584269662921348,
+      "rule_ensemble_inference_notes": {
+        "accuracy_ci": "paired bootstrap resampling issue-days; 3d and 7d intervals resample contiguous calendar blocks",
+        "row_mcnemar": "nominal row-level p-value; within-day dependence is not modeled",
+        "diebold_mariano": "daily mean loss differences with Newey-West lag 1",
+        "multiple_comparisons": "not adjusted across leads and baselines",
+        "cohort": "model and ensemble-rule metrics use only rows with a labelled target and non-null ensemble rule"
+      }
+    },
+    {
+      "lead_h": 24,
+      "n": 1383,
+      "n_days": 357,
+      "model_acc": 0.918293564714389,
+      "model_acc_ci": [
+        0.8982783276895024,
+        0.9364989271966175
+      ],
+      "model_brier": 0.06367889328194021,
+      "model_brier_ci": [
+        0.05059753109458989,
+        0.07810743901975259
+      ],
+      "model_acc_ci_3d": [
+        0.8908234447186887,
+        0.9412212879409352
+      ],
+      "model_brier_ci_3d": [
+        0.046321952381342464,
+        0.08686326076887915
+      ],
+      "model_acc_ci_7d": [
+        0.8866505866866624,
+        0.9421568243576591
+      ],
+      "model_brier_ci_7d": [
+        0.04504795196000295,
+        0.09197728638551608
+      ],
+      "rule_acc": 0.8770788141720897,
+      "rule_acc_ci": [
+        0.8549459978796713,
+        0.8970324193059213
+      ],
+      "rule_brier": 0.12292118582791034,
+      "rule_brier_ci": [
+        0.10296758069407876,
+        0.14505400212032865
+      ],
+      "rule_acc_ci_3d": [
+        0.8485392603374339,
+        0.8995773121387283
+      ],
+      "rule_brier_ci_3d": [
+        0.10042268786127168,
+        0.1514607396625661
+      ],
+      "rule_acc_ci_7d": [
+        0.8385609000825763,
+        0.9001493018810311
+      ],
+      "rule_brier_ci_7d": [
+        0.09985069811896884,
+        0.1614390999174236
+      ],
+      "persistence_acc": 0.7505422993492408,
+      "persistence_acc_ci": [
+        0.7157280862797877,
+        0.7834580786890024
+      ],
+      "persistence_brier": 0.24945770065075923,
+      "persistence_brier_ci": [
+        0.2165419213109975,
+        0.28427191372021243
+      ],
+      "persistence_acc_ci_3d": [
+        0.709925994972617,
+        0.7829359728906539
+      ],
+      "persistence_brier_ci_3d": [
+        0.21706402710934608,
+        0.29007400502738295
+      ],
+      "persistence_acc_ci_7d": [
+        0.7102577583548308,
+        0.7841584107614974
+      ],
+      "persistence_brier_ci_7d": [
+        0.2158415892385026,
+        0.2897422416451692
+      ],
+      "acc_diff_vs_rule": 0.041214750542299394,
+      "acc_diff_vs_rule_ci": [
+        0.025598401784548273,
+        0.056791037027571
+      ],
+      "acc_diff_vs_rule_ci_3d": [
+        0.026675799259904185,
+        0.05835381795447434
+      ],
+      "acc_diff_vs_rule_ci_7d": [
+        0.0310239718224578,
+        0.06276755222903586
+      ],
+      "mcnemar_p_vs_rule": 5.477265099378209e-07,
+      "dm_p_vs_rule": 4.727604408053543e-13,
+      "acc_diff_vs_persistence": 0.16775126536514828,
+      "acc_diff_vs_persistence_ci": [
+        0.13616396545070897,
+        0.19956470357176723
+      ],
+      "acc_diff_vs_persistence_ci_3d": [
+        0.132269453656249,
+        0.2036037607682095
+      ],
+      "acc_diff_vs_persistence_ci_7d": [
+        0.13187737140013678,
+        0.20610067493892423
+      ],
+      "mcnemar_p_vs_persistence": 4.810948373324798e-37,
+      "dm_p_vs_persistence": 6.070871709271146e-25,
+      "inference_notes": {
+        "accuracy_ci": "paired bootstrap resampling issue-days; 3d and 7d intervals resample contiguous calendar blocks",
+        "row_mcnemar": "nominal row-level p-value; within-day dependence is not modeled",
+        "diebold_mariano": "daily mean loss differences with Newey-West lag 1",
+        "multiple_comparisons": "not adjusted across leads and baselines"
+      },
+      "change_n": 480,
+      "model_change_acc": 0.8229166666666666,
+      "rule_change_acc": 0.8020833333333334,
+      "persistence_change_acc": 0.28125,
+      "rule_ensemble_n": 1383,
+      "rule_ensemble_coverage": 1.0,
+      "model_acc_on_rule_ensemble_cohort": 0.918293564714389,
+      "rule_ensemble_acc": 0.8915401301518439,
+      "model_brier_on_rule_ensemble_cohort": 0.06367889328194021,
+      "rule_ensemble_brier": 0.10845986984815618,
+      "acc_diff_model_vs_rule_ensemble": 0.026753434562545197,
+      "brier_diff_model_vs_rule_ensemble": -0.04478097656621598,
+      "acc_diff_model_vs_rule_ensemble_ci": [
+        0.011459685385186796,
+        0.042338523341910315
+      ],
+      "brier_diff_model_vs_rule_ensemble_ci": [
+        -0.060373372110620126,
+        -0.03083399307323546
+      ],
+      "acc_diff_model_vs_rule_ensemble_ci_3d": [
+        0.010822315752020173,
+        0.044929166403735725
+      ],
+      "brier_diff_model_vs_rule_ensemble_ci_3d": [
+        -0.06247826699105182,
+        -0.030623736692546772
+      ],
+      "acc_diff_model_vs_rule_ensemble_ci_7d": [
+        0.01376786670024871,
+        0.04762162999690109
+      ],
+      "brier_diff_model_vs_rule_ensemble_ci_7d": [
+        -0.06655466091234491,
+        -0.03040026863986198
+      ],
+      "mcnemar_p_vs_rule_ensemble": 0.0003893704746372224,
+      "dm_p_vs_rule_ensemble": 5.878138642734367e-08,
+      "rule_ensemble_change_n": 480,
+      "model_change_acc_on_rule_ensemble_cohort": 0.8229166666666666,
+      "rule_ensemble_change_acc_on_rule_ensemble_cohort": 0.825,
+      "rule_ensemble_inference_notes": {
+        "accuracy_ci": "paired bootstrap resampling issue-days; 3d and 7d intervals resample contiguous calendar blocks",
+        "row_mcnemar": "nominal row-level p-value; within-day dependence is not modeled",
+        "diebold_mariano": "daily mean loss differences with Newey-West lag 1",
+        "multiple_comparisons": "not adjusted across leads and baselines",
+        "cohort": "model and ensemble-rule metrics use only rows with a labelled target and non-null ensemble rule"
+      }
+    },
+    {
+      "lead_h": 48,
+      "n": 1338,
+      "n_days": 346,
+      "model_acc": 0.8886397608370703,
+      "model_acc_ci": [
+        0.865167918326116,
+        0.9102581009796533
+      ],
+      "model_brier": 0.08181590532820252,
+      "model_brier_ci": [
+        0.0665882857945516,
+        0.09860567635474615
+      ],
+      "model_acc_ci_3d": [
+        0.8589270311002831,
+        0.9116352763409223
+      ],
+      "model_brier_ci_3d": [
+        0.06372020616726919,
+        0.10502273559848667
+      ],
+      "model_acc_ci_7d": [
+        0.850357658921153,
+        0.9179408258467168
+      ],
+      "model_brier_ci_7d": [
+        0.05895177320842526,
+        0.1130044454239675
+      ],
+      "rule_acc": 0.8400597907324364,
+      "rule_acc_ci": [
+        0.8141407312832681,
+        0.8644266358228685
+      ],
+      "rule_brier": 0.15994020926756353,
+      "rule_brier_ci": [
+        0.13557336417713153,
+        0.18585926871673192
+      ],
+      "rule_acc_ci_3d": [
+        0.806047197640118,
+        0.8658855535004227
+      ],
+      "rule_brier_ci_3d": [
+        0.13411444649957732,
+        0.193952802359882
+      ],
+      "rule_acc_ci_7d": [
+        0.7972110029977744,
+        0.8694065387577173
+      ],
+      "rule_brier_ci_7d": [
+        0.1305934612422826,
+        0.20278899700222558
+      ],
+      "persistence_acc": 0.6420029895366218,
+      "persistence_acc_ci": [
+        0.6004315281413612,
+        0.6832378432909971
+      ],
+      "persistence_brier": 0.3579970104633782,
+      "persistence_brier_ci": [
+        0.31676215670900276,
+        0.39956847185863875
+      ],
+      "persistence_acc_ci_3d": [
+        0.5926131108993209,
+        0.6897071557067926
+      ],
+      "persistence_brier_ci_3d": [
+        0.31029284429320736,
+        0.40738688910067905
+      ],
+      "persistence_acc_ci_7d": [
+        0.5834476744374791,
+        0.6861313868613139
+      ],
+      "persistence_brier_ci_7d": [
+        0.31386861313868614,
+        0.4165523255625209
+      ],
+      "acc_diff_vs_rule": 0.048579970104633885,
+      "acc_diff_vs_rule_ci": [
+        0.028714550095075383,
+        0.06867996392689567
+      ],
+      "acc_diff_vs_rule_ci_3d": [
+        0.02897312906924617,
+        0.06876623498423057
+      ],
+      "acc_diff_vs_rule_ci_7d": [
+        0.03508771929824561,
+        0.07174875549048318
+      ],
+      "mcnemar_p_vs_rule": 1.906339399931524e-07,
+      "dm_p_vs_rule": 3.2385367132877715e-14,
+      "acc_diff_vs_persistence": 0.24663677130044848,
+      "acc_diff_vs_persistence_ci": [
+        0.20660648963555073,
+        0.2906134242767157
+      ],
+      "acc_diff_vs_persistence_ci_3d": [
+        0.19793956974926602,
+        0.2927741840396999
+      ],
+      "acc_diff_vs_persistence_ci_7d": [
+        0.19635183085439875,
+        0.30336648531151933
+      ],
+      "mcnemar_p_vs_persistence": 1.7530517024696397e-54,
+      "dm_p_vs_persistence": 7.5302698909991715e-31,
+      "inference_notes": {
+        "accuracy_ci": "paired bootstrap resampling issue-days; 3d and 7d intervals resample contiguous calendar blocks",
+        "row_mcnemar": "nominal row-level p-value; within-day dependence is not modeled",
+        "diebold_mariano": "daily mean loss differences with Newey-West lag 1",
+        "multiple_comparisons": "not adjusted across leads and baselines"
+      },
+      "change_n": 727,
+      "model_change_acc": 0.8294360385144429,
+      "rule_change_acc": 0.796423658872077,
+      "persistence_change_acc": 0.34112792297111416,
+      "rule_ensemble_n": 1338,
+      "rule_ensemble_coverage": 1.0,
+      "model_acc_on_rule_ensemble_cohort": 0.8886397608370703,
+      "rule_ensemble_acc": 0.8579970104633782,
+      "model_brier_on_rule_ensemble_cohort": 0.08181590532820252,
+      "rule_ensemble_brier": 0.14200298953662183,
+      "acc_diff_model_vs_rule_ensemble": 0.03064275037369213,
+      "brier_diff_model_vs_rule_ensemble": -0.06018708420841931,
+      "acc_diff_model_vs_rule_ensemble_ci": [
+        0.012130172077101561,
+        0.04865451817504425
+      ],
+      "brier_diff_model_vs_rule_ensemble_ci": [
+        -0.0777053811222405,
+        -0.043506790689667334
+      ],
+      "acc_diff_model_vs_rule_ensemble_ci_3d": [
+        0.011045046687710202,
+        0.05139595140914133
+      ],
+      "brier_diff_model_vs_rule_ensemble_ci_3d": [
+        -0.0804830146089918,
+        -0.0431440645981711
+      ],
+      "acc_diff_model_vs_rule_ensemble_ci_7d": [
+        0.01618807622386704,
+        0.053251657168506224
+      ],
+      "brier_diff_model_vs_rule_ensemble_ci_7d": [
+        -0.08477405391453274,
+        -0.047622770819581994
+      ],
+      "mcnemar_p_vs_rule_ensemble": 0.000346619351134667,
+      "dm_p_vs_rule_ensemble": 1.498123261921356e-10,
+      "rule_ensemble_change_n": 727,
+      "model_change_acc_on_rule_ensemble_cohort": 0.8294360385144429,
+      "rule_ensemble_change_acc_on_rule_ensemble_cohort": 0.8170563961485557,
+      "rule_ensemble_inference_notes": {
+        "accuracy_ci": "paired bootstrap resampling issue-days; 3d and 7d intervals resample contiguous calendar blocks",
+        "row_mcnemar": "nominal row-level p-value; within-day dependence is not modeled",
+        "diebold_mariano": "daily mean loss differences with Newey-West lag 1",
+        "multiple_comparisons": "not adjusted across leads and baselines",
+        "cohort": "model and ensemble-rule metrics use only rows with a labelled target and non-null ensemble rule"
+      }
+    }
+  ],
+  "next_change": {
+    "n_actual_change_windows": 750,
+    "within_1h": 0.272,
+    "within_3h": 0.5253333333333333,
+    "n_wrong_direction": 14,
+    "n_no_change_windows": 593,
+    "false_alarm_rate": 0.1467116357504216,
+    "n_predicted_changes": 729,
+    "excluded_incomplete_windows": 89,
+    "excluded_windows_by_reason": {
+      "incomplete_forecast_grid": 81,
+      "incomplete_truth_coverage": 8
+    },
+    "mean_absolute_error_h_when_predicted": 5.435358255451713,
+    "truth": "DFLD half-hour bins, including observed state at issue time; overlapping issue windows are not independent"
+  },
+  "od_change_events": {
+    "n_actual_events": 193,
+    "n_matched_events": 115,
+    "event_recall": 0.5958549222797928,
+    "n_forecast_warnings": 729,
+    "n_false_alarm_clusters": 138,
+    "precision": 0.45454545454545453,
+    "false_alarms_per_exposure_day": 0.3849819830291759,
+    "n_exposure_days": 358.4583333333333,
+    "false_alarms_per_issue_day": 0.4,
+    "n_issue_days": 345,
+    "n_duplicate_warnings_suppressed": 476,
+    "mean_event_time_error_h": 0.991304347826087,
+    "median_event_time_error_h": 1.0,
+    "median_warning_lead_h": 12.0,
+    "tolerance_h": 3,
+    "excluded_incomplete_windows": 89,
+    "excluded_windows_by_reason": {
+      "incomplete_forecast_grid": 81,
+      "incomplete_truth_coverage": 8
+    },
+    "truth": "Unique transitions in complete half-hour DFLD windows; overlapping forecast warnings matched one to one"
+  },
+  "r18_events": [
+    {
+      "horizon_h": 1,
+      "n_issues": 1073,
+      "n_actual": 5,
+      "n_positive_issue_windows": 5,
+      "excluded_issues": 359,
+      "excluded_issues_by_reason": {
+        "unknown_prediction_window": 139,
+        "unknown_truth_window": 220
+      },
+      "model": {
+        "hits": 0,
+        "misses": 5,
+        "false_alarms": 0,
+        "recall": 0.0,
+        "precision": null,
+        "false_alarm_rate": 0.0
+      },
+      "rule": {
+        "hits": 0,
+        "misses": 5,
+        "false_alarms": 0,
+        "recall": 0.0,
+        "precision": null,
+        "false_alarm_rate": 0.0
+      },
+      "persistence": {
+        "hits": 3,
+        "misses": 2,
+        "false_alarms": 0,
+        "recall": 0.6,
+        "precision": 1.0,
+        "false_alarm_rate": 0.0
+      },
+      "rule_ensemble": {
+        "hits": 0,
+        "misses": 5,
+        "false_alarms": 5,
+        "recall": 0.0,
+        "precision": 0.0,
+        "false_alarm_rate": 0.0046816479400749065
+      },
+      "rule_corrected": {
+        "hits": 0,
+        "misses": 5,
+        "false_alarms": 5,
+        "recall": 0.0,
+        "precision": 0.0,
+        "false_alarm_rate": 0.0046816479400749065
+      },
+      "model_brier": 0.004587614964826214
+    },
+    {
+      "horizon_h": 6,
+      "n_issues": 760,
+      "n_actual": 10,
+      "n_positive_issue_windows": 10,
+      "excluded_issues": 672,
+      "excluded_issues_by_reason": {
+        "incomplete_lead_window": 4,
+        "unknown_prediction_window": 64,
+        "unknown_truth_window": 604
+      },
+      "model": {
+        "hits": 0,
+        "misses": 10,
+        "false_alarms": 0,
+        "recall": 0.0,
+        "precision": null,
+        "false_alarm_rate": 0.0
+      },
+      "rule": {
+        "hits": 0,
+        "misses": 10,
+        "false_alarms": 0,
+        "recall": 0.0,
+        "precision": null,
+        "false_alarm_rate": 0.0
+      },
+      "persistence": {
+        "hits": 3,
+        "misses": 7,
+        "false_alarms": 0,
+        "recall": 0.3,
+        "precision": 1.0,
+        "false_alarm_rate": 0.0
+      },
+      "rule_ensemble": {
+        "hits": 0,
+        "misses": 10,
+        "false_alarms": 16,
+        "recall": 0.0,
+        "precision": 0.0,
+        "false_alarm_rate": 0.021333333333333333
+      },
+      "rule_corrected": {
+        "hits": 0,
+        "misses": 10,
+        "false_alarms": 16,
+        "recall": 0.0,
+        "precision": 0.0,
+        "false_alarm_rate": 0.021333333333333333
+      },
+      "model_brier": 0.0038807617890530095
+    },
+    {
+      "horizon_h": 24,
+      "n_issues": 307,
+      "n_actual": 12,
+      "n_positive_issue_windows": 12,
+      "excluded_issues": 1125,
+      "excluded_issues_by_reason": {
+        "incomplete_lead_window": 37,
+        "unknown_prediction_window": 20,
+        "unknown_truth_window": 1068
+      },
+      "model": {
+        "hits": 0,
+        "misses": 12,
+        "false_alarms": 0,
+        "recall": 0.0,
+        "precision": null,
+        "false_alarm_rate": 0.0
+      },
+      "rule": {
+        "hits": 0,
+        "misses": 12,
+        "false_alarms": 0,
+        "recall": 0.0,
+        "precision": null,
+        "false_alarm_rate": 0.0
+      },
+      "persistence": {
+        "hits": 3,
+        "misses": 9,
+        "false_alarms": 0,
+        "recall": 0.25,
+        "precision": 1.0,
+        "false_alarm_rate": 0.0
+      },
+      "rule_ensemble": {
+        "hits": 0,
+        "misses": 12,
+        "false_alarms": 10,
+        "recall": 0.0,
+        "precision": 0.0,
+        "false_alarm_rate": 0.03389830508474576
+      },
+      "rule_corrected": {
+        "hits": 0,
+        "misses": 12,
+        "false_alarms": 10,
+        "recall": 0.0,
+        "precision": 0.0,
+        "false_alarm_rate": 0.03389830508474576
+      },
+      "model_brier": 0.0078113816149693515
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <style>
+    svg { color: #191918; }
+    @media (prefers-color-scheme: dark) { svg { color: #fff; } }
+  </style>
+  <circle cx="32" cy="32" r="25" fill="none" stroke="currentColor" stroke-width="4.5" />
+  <g transform="rotate(35 32 32)" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round">
+    <path d="M32 18 36 32H28Z" fill="currentColor" />
+    <path d="M28 32H36L32 46Z" fill="none" />
+  </g>
+</svg>

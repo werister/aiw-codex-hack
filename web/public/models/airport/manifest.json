@@ -1,0 +1,494 @@
+{
+  "version": 2,
+  "blender_version": "5.2.3 LTS",
+  "coordinate_system": {
+    "blend": {
+      "up": "+Z",
+      "north": "+Y",
+      "east": "+X",
+      "aircraft_forward": "+Y"
+    },
+    "glb": {
+      "up": "+Y",
+      "north": "-Z",
+      "east": "+X",
+      "aircraft_forward": "-Z"
+    },
+    "point_conversion": "[x, y, z] in Blender -> [x, z, -y] in glTF"
+  },
+  "asset_units": "metres",
+  "airport_layout": "illustrative compressed diagram, not georeferenced",
+  "display_scale": {
+    "runway_length": 0.12,
+    "runway_width": 0.3,
+    "tower": 0.7,
+    "moving_narrowbody": 0.6,
+    "moving_widebody": 0.42,
+    "parked_narrowbody": 0.42
+  },
+  "surface_levels": {
+    "landscape": 0.7,
+    "movement_surface": 1.85,
+    "taxi_paint": 1.895,
+    "route_highlight": 1.98
+  },
+  "runway_obstacle_clearance": 12,
+  "runways": {
+    "north": {
+      "center": [
+        -95,
+        174
+      ],
+      "heading": 70,
+      "length": 336,
+      "width": 13.5,
+      "asset": "07L-25R",
+      "role": "landing",
+      "root": "Runway.north"
+    },
+    "center": {
+      "center": [
+        62,
+        21
+      ],
+      "heading": 70,
+      "length": 480,
+      "width": 18,
+      "asset": "07C-25C",
+      "role": "departure",
+      "root": "Runway.center"
+    },
+    "south": {
+      "center": [
+        70,
+        -64
+      ],
+      "heading": 70,
+      "length": 480,
+      "width": 13.5,
+      "asset": "07R-25L",
+      "role": "landing",
+      "root": "Runway.south"
+    },
+    "west": {
+      "center": [
+        -320,
+        -125
+      ],
+      "heading": 180,
+      "length": 480,
+      "width": 13.5,
+      "asset": "18",
+      "role": "departure",
+      "root": "Runway.west"
+    }
+  },
+  "fps": 60,
+  "demonstration_phases": [
+    {
+      "wind_fixture": {
+        "from_degrees": 250,
+        "speed_kt": 12,
+        "runway18_tailwind_kt": 0
+      },
+      "start_frame": 1,
+      "end_frame": 1200,
+      "od": "25",
+      "runway_18_usable": true,
+      "paths": {
+        "arrive_north": [
+          [
+            142.7422330588348,
+            260.5310962613942,
+            32
+          ],
+          [
+            36.55696691002717,
+            221.88282006559365,
+            1.85
+          ],
+          [
+            -196.48680304487812,
+            137.06182452082777,
+            1.85
+          ]
+        ],
+        "arrive_south": [
+          [
+            375.4001017554202,
+            47.156546580842374,
+            32
+          ],
+          [
+            269.21483560661255,
+            8.508270385041797,
+            1.85
+          ],
+          [
+            -99.1446717414635,
+            -125.5636257986204,
+            1.85
+          ]
+        ],
+        "depart_center": [
+          [
+            42.26891326904297,
+            73.9144058227539,
+            1.85
+          ],
+          [
+            47.902565002441406,
+            58.436065673828125,
+            1.85
+          ],
+          [
+            256.9309387207031,
+            134.51617431640625,
+            1.850000023841858
+          ],
+          [
+            270.6117618144716,
+            96.92847181829848,
+            1.85
+          ],
+          [
+            -41.36618828644991,
+            -16.62221576582357,
+            1.85
+          ],
+          [
+            -304.48012210650427,
+            -112.38785589701084,
+            58
+          ]
+        ],
+        "depart_flex": [
+          [
+            -164.89529418945312,
+            14.475456237792969,
+            1.85
+          ],
+          [
+            -230,
+            14.475456237792969,
+            1.85
+          ],
+          [
+            -285,
+            60,
+            1.85
+          ],
+          [
+            -320.0,
+            98.0,
+            1.85
+          ],
+          [
+            -320.0,
+            -235.0,
+            1.85
+          ],
+          [
+            -319.99999999999994,
+            -440.0,
+            40
+          ]
+        ]
+      },
+      "timing": {
+        "arrive_north": {
+          "start": 0.08,
+          "finish": 0.92
+        },
+        "arrive_south": {
+          "start": 0.18,
+          "finish": 0.94
+        },
+        "depart_center": {
+          "start": 0.08,
+          "finish": 0.92
+        },
+        "depart_flex": {
+          "start": 0.08,
+          "finish": 0.92
+        }
+      }
+    },
+    {
+      "wind_fixture": {
+        "from_degrees": 70,
+        "speed_kt": 12,
+        "runway18_tailwind_kt": 4.1
+      },
+      "start_frame": 1201,
+      "end_frame": 2400,
+      "od": "07",
+      "runway_18_usable": true,
+      "paths": {
+        "arrive_north": [
+          [
+            -332.7422330588348,
+            87.46890373860579,
+            32
+          ],
+          [
+            -226.55696691002717,
+            126.11717993440637,
+            1.85
+          ],
+          [
+            6.486803044878101,
+            210.93817547917223,
+            1.85
+          ]
+        ],
+        "arrive_south": [
+          [
+            -235.40010175542022,
+            -175.15654658084236,
+            32
+          ],
+          [
+            -129.21483560661255,
+            -136.50827038504178,
+            1.85
+          ],
+          [
+            239.1446717414635,
+            -2.436374201379614,
+            1.85
+          ]
+        ],
+        "depart_center": [
+          [
+            42.26891326904297,
+            73.9144058227539,
+            1.85
+          ],
+          [
+            47.902565002441406,
+            58.436065673828125,
+            1.85
+          ],
+          [
+            -160.2925567626953,
+            -17.34076690673828,
+            1.850000023841858
+          ],
+          [
+            -146.61176181447163,
+            -54.928471818298476,
+            1.85
+          ],
+          [
+            165.36618828644993,
+            58.62221576582357,
+            1.85
+          ],
+          [
+            428.48012210650427,
+            154.38785589701084,
+            58
+          ]
+        ],
+        "depart_flex": [
+          [
+            -164.89529418945312,
+            14.475456237792969,
+            1.85
+          ],
+          [
+            -230,
+            14.475456237792969,
+            1.85
+          ],
+          [
+            -285,
+            60,
+            1.85
+          ],
+          [
+            -320.0,
+            98.0,
+            1.85
+          ],
+          [
+            -320.0,
+            -235.0,
+            1.85
+          ],
+          [
+            -319.99999999999994,
+            -440.0,
+            40
+          ]
+        ]
+      },
+      "timing": {
+        "arrive_north": {
+          "start": 0.08,
+          "finish": 0.92
+        },
+        "arrive_south": {
+          "start": 0.18,
+          "finish": 0.94
+        },
+        "depart_center": {
+          "start": 0.08,
+          "finish": 0.92
+        },
+        "depart_flex": {
+          "start": 0.08,
+          "finish": 0.92
+        }
+      }
+    },
+    {
+      "wind_fixture": {
+        "from_degrees": 20,
+        "speed_kt": 20,
+        "runway18_tailwind_kt": 18.79
+      },
+      "start_frame": 2401,
+      "end_frame": 3600,
+      "od": "07",
+      "runway_18_usable": false,
+      "paths": {
+        "arrive_north": [
+          [
+            -332.7422330588348,
+            87.46890373860579,
+            32
+          ],
+          [
+            -226.55696691002717,
+            126.11717993440637,
+            1.85
+          ],
+          [
+            6.486803044878101,
+            210.93817547917223,
+            1.85
+          ]
+        ],
+        "arrive_south": [
+          [
+            -235.40010175542022,
+            -175.15654658084236,
+            32
+          ],
+          [
+            -129.21483560661255,
+            -136.50827038504178,
+            1.85
+          ],
+          [
+            239.1446717414635,
+            -2.436374201379614,
+            1.85
+          ]
+        ],
+        "depart_center": [
+          [
+            42.26891326904297,
+            73.9144058227539,
+            1.85
+          ],
+          [
+            47.902565002441406,
+            58.436065673828125,
+            1.85
+          ],
+          [
+            -160.2925567626953,
+            -17.34076690673828,
+            1.850000023841858
+          ],
+          [
+            -146.61176181447163,
+            -54.928471818298476,
+            1.85
+          ],
+          [
+            165.36618828644993,
+            58.62221576582357,
+            1.85
+          ],
+          [
+            428.48012210650427,
+            154.38785589701084,
+            58
+          ]
+        ],
+        "depart_flex": [
+          [
+            -164.89529418945312,
+            14.475456237792969,
+            1.85
+          ],
+          [
+            -154.13134765625,
+            -15.0982666015625,
+            1.85
+          ],
+          [
+            -160.2925567626953,
+            -17.34076690673828,
+            1.850000023841858
+          ],
+          [
+            -146.61176181447163,
+            -54.928471818298476,
+            1.85
+          ],
+          [
+            165.36618828644993,
+            58.62221576582357,
+            1.85
+          ],
+          [
+            386.1939541711384,
+            138.99694944735575,
+            38
+          ]
+        ]
+      },
+      "timing": {
+        "arrive_north": {
+          "start": 0.08,
+          "finish": 0.92
+        },
+        "arrive_south": {
+          "start": 0.18,
+          "finish": 0.94
+        },
+        "depart_center": {
+          "start": 0.02,
+          "finish": 0.46
+        },
+        "depart_flex": {
+          "start": 0.5,
+          "finish": 0.96
+        }
+      }
+    }
+  ],
+  "rendering": {
+    "still_pixels": [
+      2400,
+      1650
+    ],
+    "cycles_samples": 128,
+    "pixel_filter": "Blackman-Harris",
+    "filter_width": 1.5,
+    "eevee_taa_samples": 64,
+    "native_fps": 60,
+    "motion": "60 Hz samples with short eased starts and stops"
+  },
+  "integration": {
+    "od": "HourForecast.od (one shared value for all parallel runways)",
+    "runway18": "HourForecast.p_18_usable (show probability; a binary display threshold is a UI policy)",
+    "certainty": "HourForecast.certainty; not aircraft-assignment confidence",
+    "no_model_inference": "Paths are illustrative fixtures, not ATC decisions or forecast outputs."
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "version": "fraalliance-brief-2026-10-30",
+  "source": "docs/OPERATING_RULES.md (versioned experimental baseline)",
+  "tailwind_formula": "speed_kt * cos(radians(wind_dir_deg - runway_heading_deg - 180))",
+  "runway_heading_deg": { "25": 250, "07": 70, "18": 180 },
+  "landing_tailwind_change_now_kt": 10,
+  "landing_tailwind_tolerance_minutes": 30,
+  "departure_tailwind_limit_kt": 15,
+  "crosswind_limit_kt_incl_gusts": 40,
+  "notes": [
+    "Operating direction (OD) is airport-wide: 25 or 07, never mixed. Landings decide it, headwind preferred.",
+    "Tailwind >= 10 kt on the landing direction: change immediately.",
+    "0 < tailwind < 10 kt: tolerated up to 30 minutes, then switch to the headwind direction.",
+    "Calm or variable wind (no direction): keep the current OD.",
+    "Runway 18 (departures only, toward 180) is closed when its tailwind >= 15 kt or its crosswind incl. gusts > 40 kt. Usable in either OD."
+  ]
+}

@@ -1,0 +1,3 @@
+# Geometry authoring only; delivered .blend / GLB files need no dependencies.
+shapely==2.1.2
+numpy==2.5.4

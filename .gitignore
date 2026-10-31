@@ -1,0 +1,22 @@
+.env
+.venv/
+venv/
+__pycache__/
+node_modules/
+.DS_Store
+Thumbs.db
+dist/
+build/
+data/raw/
+.env.local
+.env*.local
+
+# design scrape (never committed)
+.design-scrape/
+resources/raw/
+
+assets/
+.pytest_cache/
+# Restricted inputs and fitted artifacts remain local-only pending permission.
+data/ground_truth/dfld_*
+ml/models/*.joblib
