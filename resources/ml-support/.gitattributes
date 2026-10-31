@@ -1,5 +1,0 @@
-# Preserve original bytes so the handoff SHA-256 checks survive a Git checkout.
-* -text whitespace=cr-at-eol
-# Unmodified source snapshots retain their original Markdown and HTTP formatting.
-reference/** whitespace=cr-at-eol,-blank-at-eol,-blank-at-eof
-ground-truth/*.headers whitespace=cr-at-eol,-blank-at-eol,-blank-at-eof
