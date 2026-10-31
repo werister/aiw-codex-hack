@@ -88,7 +88,7 @@ export function mount(host: HTMLElement, options: Options) {
   renderer.toneMapping = THREE.AgXToneMapping;
   renderer.toneMappingExposure = 1.25;
   renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.shadowMap.type = THREE.PCFShadowMap;
   const canvas = renderer.domElement;
   canvas.style.cssText = "display:block;width:100%;height:100%;touch-action:pan-y";
   canvas.setAttribute("aria-hidden", "true");
