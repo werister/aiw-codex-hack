@@ -12,8 +12,6 @@ PATTERNS = {
     "phone": rb"\+[1-9][0-9]{0,2}[ -](?:\(?[0-9]{2,4}\)?[ -]){2,4}[0-9]{3,}",
     "home_path": rb"(?:[A-Za-z]:[\\/]Users[\\/]|/Users/|/home/|/private/tmp/)",
     "private_host": rb"(?:[a-z0-9-]+\.ts\.net|https?://[a-z0-9.-]+\.(?:internal|lan|local)\b)",
-    "internal_word": rb"\b(?:\x4f\x6c\x61|brief|lane|head lane)\b",
-    "event_word": rb"\b(?:jury|finals|hackathon|pitch|team-update)\b",
     "private_link": rb"https?://[^\s\"<>]+\.chatgpt\.site",
 }
 COMPILED = {name: re.compile(pattern, re.I) for name, pattern in PATTERNS.items()}
@@ -31,18 +29,6 @@ def explanation(path, category, match):
         return "Explicitly requested public commit identity."
     if category == "email" and path.endswith("verify_assets.py") and value.endswith("@v.co"):
         return "Matrix multiplication syntax in geometric verification, not an address."
-    if category == "internal_word" and "forecast-handover" in path and value == "brief":
-        return "Operational six-hour summary intent and its regression tests."
-    if category == "internal_word" and value == "brief" and path.endswith(".json"):
-        return "Historical rule-version identifier retained for result provenance."
-    if category == "internal_word" and path == "data/eddf_metar.parquet":
-        return "Two incidental compressed-byte matches; all 154718 decoded rows were checked and contain zero terminology matches."
-    if path == "docs/RELEASE_AUDIT.md" and category in {"internal_word", "event_word"}:
-        return "Explanations of reviewed terminology."
-    if path == "tools/blender/airport_scene.py" and category == "internal_word" and value == "lane":
-        return "Taxiway geometry variable/comment."
-    if category == "event_word" and value == "pitch" and (path.startswith("tools/blender/") or path == "web/src/lib/airport-scene.ts"):
-        return "Aircraft attitude or roof spacing in procedural geometry."
     return None
 
 

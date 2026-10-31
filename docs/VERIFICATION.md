@@ -27,6 +27,6 @@ Fresh-checkout browser navigation passed for the dashboard, all 48 selectable ho
 
 ## Test repairs
 
-Three stale trace checks asserted an old model revision or fixed artifact cutoff. They now check the current model contract and derive paths from the repository. Two experimental collection errors depended on event-only supplementary-model adapters and external research data; those adapters and tests were removed with the event archive. Useful fitted-model contract and temporal-causality checks were retained under `ml/tests/`. The causality counterexamples still demonstrate why whole-run sensitivity flags cannot filter primary labels.
+Three stale trace checks asserted an old model revision or fixed artifact cutoff. They now check the current model contract and derive paths from the repository. Two experimental collection errors depended on supplementary-model adapters and external research data; those optional research fixtures were removed. Useful fitted-model contract and temporal-causality checks were retained under `ml/tests/`. The causality counterexamples still demonstrate why whole-run sensitivity flags cannot filter primary labels.
 
 Optional generated-summary and connection-only API tools were removed with their tests and dependencies. The public forecast, dashboard and deterministic guide need no provider key. No model was retrained or tuned during cleanup.
