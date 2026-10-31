@@ -5,6 +5,7 @@ import type { QualityResult, ReliabilityBin, SkillAtLead } from "@/lib/forecast-
 import { Panel, cx } from "./ui";
 
 type Quality = QualityResult & {
+  significance?: { od: SkillAtLead[] };
   next_change: QualityResult["next_change"] & { n_no_change_windows?: number };
 };
 
@@ -34,10 +35,11 @@ export function QualityPanel() {
   }
 
   const months = q.folds.map((f) => f.month);
+  const r18Report = q.r18_events?.find((r) => r.horizon_h === 24);
 
   return (
     <Panel
-      title="Model quality · held out, walk-forward"
+      title="Historical model quality · walk-forward"
       aside={<span className="text-[13px] text-muted">{q.evaluation}</span>}
     >
       <p className="-mt-1 max-w-[90ch] text-[15px] leading-snug text-ink-2">
@@ -46,15 +48,18 @@ export function QualityPanel() {
       </p>
       <dl className="mt-5 flex flex-wrap gap-x-10 gap-y-3 text-[15px]">
         <Fact k="Held-out months" v={months.length ? `${months.length} · ${months[0]} to ${months[months.length - 1]}` : "Unavailable"} />
-        <Fact k="Changes timed within ±3 h" v={`${measuredRate(q.next_change.within_3h, q.next_change.n_actual_change_windows)} (±1 h: ${measuredRate(q.next_change.within_1h, q.next_change.n_actual_change_windows)})`} />
+        <Fact k="Unique changes matched within ±3 h" v={q.od_change_events ? `${q.od_change_events.n_matched_events} / ${q.od_change_events.n_actual_events}` : "Unavailable"} />
+        <Fact k="False-warning clusters" v={q.od_change_events ? `${q.od_change_events.n_false_alarm_clusters}` : "Unavailable"} />
         <Fact k="False alarms in no-change windows" v={measuredRate(q.next_change.false_alarm_rate, q.next_change.n_no_change_windows)} />
         <Fact k="Recorded hours matching the rules" v={measuredRate(q.rule_label_comparison.agreement, q.rule_label_comparison.n)} />
       </dl>
 
       <div className="mt-8 grid gap-8 xl:grid-cols-[3fr_2fr]">
-        <SkillTable rows={q.out_of_sample?.od ?? []} inSample={q.in_sample?.od ?? []} />
+        <SkillTable rows={q.significance?.od ?? q.out_of_sample?.od ?? []} inSample={q.in_sample?.od ?? []} />
         <Reliability bins={q.reliability?.od ?? []} />
       </div>
+
+      <p className="mt-5 text-[13px] leading-relaxed text-muted">Intervals below accuracy values are 95% seven-day block-bootstrap intervals. Historical fitted artifacts are withheld; these scores do not describe the rules demo. Runway-18 event detection remains weak: {r18Report ? `${r18Report.model.hits} of ${r18Report.n_positive_issue_windows} positive 24-hour windows detected; ${r18Report.excluded_issues} windows excluded.` : "Unavailable."} Labels are inferred from wind, not observed closures.</p>
 
       <details className="mt-6 border-t border-line pt-4 text-[13px] leading-relaxed text-muted">
         <summary className="cursor-pointer text-[15px] text-ink">Data sources and limitations</summary>
@@ -118,11 +123,12 @@ function SkillTable({ rows, inSample }: { rows: SkillAtLead[]; inSample: SkillAt
           {rows.map((r) => {
             const scores = [r.model_acc, r.rule_acc, r.persistence_acc].filter((value) => hasMeasuredRate(value, r.n));
             const best = scores.length ? Math.max(...scores) : null;
-            const cell = (v: number) => {
+            const cell = (v: number, interval?: [number, number] | null) => {
               const available = hasMeasuredRate(v, r.n);
               return (
                 <td className={cx("py-2 tabular", available && v === best ? "font-semibold text-ink" : "text-muted")}>
                   {available ? `${(v * 100).toFixed(1)}%` : "Unavailable"}
+                  {available && interval && interval.every((x) => hasProbability(x)) && <span className="block text-[10px] font-normal text-muted">[{(interval[0] * 100).toFixed(1)}–{(interval[1] * 100).toFixed(1)}]</span>}
                 </td>
               );
             };
@@ -131,9 +137,9 @@ function SkillTable({ rows, inSample }: { rows: SkillAtLead[]; inSample: SkillAt
             return (
               <tr key={r.lead_h} className="border-t border-line">
                 <td className="py-2 tabular">{r.lead_h} h</td>
-                {cell(r.model_acc)}
-                {cell(r.rule_acc)}
-                {cell(r.persistence_acc)}
+                {cell(r.model_acc, r.model_acc_ci_7d)}
+                {cell(r.rule_acc, r.rule_acc_ci_7d)}
+                {cell(r.persistence_acc, r.persistence_acc_ci_7d)}
                 <td className="py-2 tabular text-ink-2">
                   {changeN
                     ? `${measuredRate(r.model_change_acc, changeN)} / ${measuredRate(r.rule_change_acc, changeN)} of ${changeN}`

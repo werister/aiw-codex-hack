@@ -2,7 +2,6 @@
 
 
 
-import Link from "next/link";
 
 import { BrandLogo } from "./BrandLogo";
 
@@ -220,7 +219,7 @@ export function ForecastApp() {
 
           <h1 className="shrink-0"><BrandLogo /><span className="sr-only"> · Runway Outlook</span></h1>
 
-          <span className="hidden truncate text-[15px] text-muted sm:inline">FraAlliance · Frankfurt Airport</span>
+          <span className="hidden truncate text-[15px] text-muted sm:inline">Frankfurt Airport · independent project</span>
 
         </div>
 
@@ -268,17 +267,17 @@ export function ForecastApp() {
 
           <ThemeToggle />
 
-          <Link href="/quality" className="pill-btn border border-line">
+          <a href="/quality" className="pill-btn border border-line">
 
             Model quality
 
-          </Link>
+          </a>
 
-          <Link href="/widget" className="pill-btn hidden bg-accent text-accent-ink [--btn-ring:var(--accent)] sm:inline-flex">
+          <a href="/widget" className="pill-btn hidden bg-accent text-accent-ink [--btn-ring:var(--accent)] sm:inline-flex">
 
             iPad <Arrow />
 
-          </Link>
+          </a>
 
         </nav>
 
@@ -426,11 +425,11 @@ export function ForecastApp() {
 
               <QualityPanel />
 
-              <Link href="/approach" className="pill-btn mt-2 self-start border border-line text-ink [--btn-ring:var(--line)]">
+              <a href="/approach" className="pill-btn mt-2 self-start border border-line text-ink [--btn-ring:var(--line)]">
 
                 Method and evaluation <Arrow />
 
-              </Link>
+              </a>
 
             </div>
 

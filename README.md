@@ -6,6 +6,8 @@ A 48-hour hourly outlook for Frankfurt Airport runway direction, runway-18 weath
 
 For airport and airline operations staff exploring how advance weather information could support preparation and handovers, and engineers evaluating runway-direction forecasting. Select an hour, inspect its wind and uncertainty, and compare direction changes with runway-18 restrictions.
 
+[Timeline, tablet, model-quality and 3D screenshots](docs/images/README.md)
+
 **Deutsch:** Ein stündlicher 48-Stunden-Ausblick auf die Betriebsrichtung am Flughafen Frankfurt und die wetterbedingte Nutzbarkeit der Startbahn 18. Die Zeitleiste und Tabletansicht helfen beim Prüfen möglicher Änderungen. Die öffentliche Ausgabe zeigt eine offline berechnete Regelprognose; trainiertes Modell und Betriebsrichtungsdaten bleiben bis zur Klärung der Datenrechte ausgeschlossen. Unabhängige Demonstration, nicht für den operativen Einsatz.
 
 **Independent decision-support demo, not for operational use. Not affiliated with Fraport or any airline.** This is a release candidate: all four authors must approve the proposed code licence. Source permission is needed before distributing the historical fitted model or direction records. The working public example uses licensed weather and the rule baseline; its scores are uncalibrated and are distinct from the measured model results below.

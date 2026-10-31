@@ -165,7 +165,7 @@ export function SceneHero({
           <span className="block">{forecastLabel} · planes toward the {od === "25" ? "west" : "east"}</span>
           <span className="block" title="The illustration shows Runway 18 open when its forecast probability of usability is at least 50%.">
             Runway 18 {r18Open ? "likely open" : "likely closed"}
-            {r18Probability != null ? ` · ${r18Probability}% chance usable` : ""} · aircraft shown for illustration
+            {r18Probability != null ? ` · ${r18Probability}% usability support` : ""} · aircraft shown for illustration
           </span>
         </p>
 

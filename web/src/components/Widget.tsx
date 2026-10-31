@@ -2,7 +2,6 @@
 
 
 
-import Link from "next/link";
 
 import { BrandLogo } from "./BrandLogo";
 
@@ -44,11 +43,11 @@ export function Widget() {
 
           <ThemeToggle />
 
-          <Link href="/" className="pill-btn bg-accent text-accent-ink [--btn-ring:var(--accent)]">
+          <a href="/" className="pill-btn bg-accent text-accent-ink [--btn-ring:var(--accent)]">
 
             Full view <Arrow />
 
-          </Link>
+          </a>
 
         </nav>
 

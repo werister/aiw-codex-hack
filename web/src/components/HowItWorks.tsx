@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Arrow } from "./ui";
 
 const STEPS = [
@@ -53,9 +52,9 @@ export function HowItWorks() {
           </li>
         ))}
       </ol>
-      <Link href="/approach" className="pill-btn mt-12 bg-accent text-accent-ink [--btn-ring:var(--accent)]">
+      <a href="/approach" className="pill-btn mt-12 bg-accent text-accent-ink [--btn-ring:var(--accent)]">
         Read the method <Arrow />
-      </Link>
+      </a>
     </section>
   );
 }

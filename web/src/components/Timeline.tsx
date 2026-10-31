@@ -33,7 +33,7 @@ export function Timeline({
             return (
               <div key={h.time} className="relative h-9 text-[11px] text-muted">
                 {newDay && (
-                  <span className="absolute -top-0.5 left-0 whitespace-nowrap font-medium text-ink">
+                  <span className={cx("absolute -top-0.5 whitespace-nowrap font-medium text-ink", i >= H.length - 3 ? "right-0" : "left-0")}>
                     {dayLabel(h.local)}
                   </span>
                 )}

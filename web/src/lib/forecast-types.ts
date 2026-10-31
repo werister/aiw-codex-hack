@@ -93,6 +93,9 @@ export interface ForecastResponse {
 }
 
 export interface SkillAtLead {
+  model_acc_ci_7d?: [number, number] | null;
+  rule_acc_ci_7d?: [number, number] | null;
+  persistence_acc_ci_7d?: [number, number] | null;
   lead_h: 1 | 6 | 24 | 48;
   n: number;
   model_acc: number;
