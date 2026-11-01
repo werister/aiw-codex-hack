@@ -1,10 +1,10 @@
-# Verified release candidate
+# Verification
 
 Verified on 31 October 2026 using Python 3.12.10, Node.js 24.21.0 and npm 11.19.0. Python 3.13 is configured in the proposed CI workflow but was not available for local execution. The workflow file has not been triggered from this environment.
 
 ## Fresh checkout
 
-A new single-branch clone was created in an empty directory. Because the cleaned repository is not yet published, only the README's clone transport was substituted with a local repository path; the destination remains `https://github.com/werister/aiw-codex-hack`. The clone used the pinned package lock and a newly created Python environment, with no existing project environment or API credentials.
+A new single-branch clone was created in an empty directory. The cleaned repository was not published yet, so only the README's clone transport was substituted with a local repository path. The clone used the pinned package lock and a newly created Python environment, with no existing project environment or API credentials.
 
 The README commands `npm ci`, `npm run dev`, `python -m venv .venv`, environment activation, `python -m pip install -r ml/requirements.txt`, `python -m ml.forecast --demo`, and the JSON-output variant all completed successfully. The generated JSON matched the committed forecast: 48 hours, `rules-demo`, no recorded outcomes.
 

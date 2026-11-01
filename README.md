@@ -10,11 +10,11 @@ For airport and airline operations staff exploring how advance weather informati
 
 **Deutsch:** Ein stündlicher 48-Stunden-Ausblick auf die Betriebsrichtung am Flughafen Frankfurt und die wetterbedingte Nutzbarkeit der Startbahn 18. Die Zeitleiste und Tabletansicht helfen beim Prüfen möglicher Änderungen. Die öffentliche Ausgabe zeigt eine offline berechnete Regelprognose; trainiertes Modell und Betriebsrichtungsdaten bleiben bis zur Klärung der Datenrechte ausgeschlossen. Unabhängige Demonstration, nicht für den operativen Einsatz.
 
-**Independent decision-support demo, not for operational use. Not affiliated with Fraport or any airline.** This is a release candidate: all four authors must approve the proposed code licence. Source permission is needed before distributing the historical fitted model or direction records. The working public example uses licensed weather and the rule baseline; its scores are uncalibrated and are distinct from the measured model results below.
+**Independent decision-support demo, not for operational use. Not affiliated with Fraport or any airline.** The historical fitted model and the direction records are not in this repository, because we have no permission to redistribute them. The public example runs on licensed weather and the rule baseline. Its scores are uncalibrated and separate from the measured model results below.
 
 ## Quickstart
 
-Requires Node.js 22.18+ (24 tested). The project lives at [werister/aiw-codex-hack](https://github.com/werister/aiw-codex-hack). After its owner publishes the clean release history:
+Requires Node.js 22.18+ (24 tested).
 
 ```sh
 git clone https://github.com/werister/aiw-codex-hack.git

@@ -1,6 +1,6 @@
 # Release boundary and verification
 
-This source distribution is a release candidate for the existing project repository. Publication still requires all four authors to approve the proposed MIT licence. Recorded direction data and fitted weights remain withheld pending source permission. The historical evaluation cannot be independently reproduced from the weather-only distribution.
+This is the public source release. The proposed MIT licence still needs approval from all four authors. Recorded direction data and fitted weights stay out until the source gives permission, so you can't reproduce the historical evaluation from this weather-only release.
 
 The public source tree contains no event deck, personal contacts, research-PDF archive or working-process instructions. Historical aggregates and their limits remain, together with a real offline rule computation and a separate model-quality view. The chart was generated from the replayed historical aggregate, not estimated from prose.
 
