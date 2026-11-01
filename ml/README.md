@@ -1,128 +1,111 @@
-# ML pipeline
+# Forecast pipeline
 
-Python 3.13 data, training, evaluation, and 48-hour forecast CLI for the
-Frankfurt Airport runway-direction challenge.
+Python 3.12 or 3.13. Install from the repository root:
 
-```bash
+```sh
 python -m pip install -r ml/requirements.txt
-python -m ml.fetch
-python -m ml.train                         # monthly walk-forward; default 12 months
-python -m ml.train --compare-label-policy # optional OD label-policy sensitivity
-python -m ml.forecast --day 2026-10-31
-python -m ml.forecast --now               # issue at the current floored hour
-python -m ml.forecast --day 2026-10-31 --json
+python -m ml.forecast --demo
+python -m ml.forecast --demo --json --out web/public/forecasts/sample.json
 python -m pytest ml/tests -q
 ```
 
-`ml/rules.json` is the source for official operating limits. Training writes
-model artifacts under `ml/models/` and evaluation JSON under
-`web/public/data/`. The UI contract is `web/src/lib/forecast-types.ts`.
+The offline example computes a 48-hour weather-rule forecast for 28 October
+2026 using bundled, licensed IEM and Open-Meteo snapshots. It needs no network
+or API key. Its `rules-demo` version and output note distinguish it from the
+historically evaluated trained model. Its probability margins and certainty
+are heuristic and uncalibrated. No recorded operating-direction outcomes enter
+this example.
 
-The optional `python -m ml.windy` command checks the Windy connection only;
-see [setup and Testing-tier limitations](WINDY.md).
+The original fitted artifacts and DFLD direction labels are withheld pending
+permission. Their absence is deliberate; see [data rights](../docs/DATA_SOURCES.md).
+The dashboard's historical quality results describe the earlier classifier,
+not the bundled rule demonstration.
 
-## Data and issue-time inputs
+## Modules and commands
 
-- **Observed wind:** EDDF METAR from the Iowa Environmental Mesonet ASOS archive.
-- **Archived forecasts:** Open-Meteo Previous Runs at EDDF, with day 1, 2, and
-  3 offsets.
-- **Live forecasts:** Open-Meteo Forecast API.
-- **OD reference:** recorded DFLD stable-hour directions; see
-  `data/ground_truth/README.md` for source and clock assumptions.
+| Module | Purpose |
+|---|---|
+| `forecast` | 48-hour JSON/table CLI, evidence serialization and offline demo |
+| `rules` / `rules.json` | Wind components and the documented rule state machine |
+| `fetch` / `live` / `synoptic` | Public weather downloads, caching and issue-time availability |
+| `dfld` | Direction-history parser and opt-in downloader; processing permission required |
+| `features` | Shared ordered feature construction |
+| `predict` | Eligible fitted-artifact selection and persistence blending |
+| `train` | Expanding monthly evaluation and fitting, with local authorized labels |
+| `quality` / `significance` | Metrics, complete-window event scoring and intervals |
+| `evaluate` | Display historical aggregates or replay saved monthly fits without fitting |
+| `challengers` / `first_event_experiment` | Separate research experiments, never automatic model promotion |
 
-Every forecast has an issue time T. Any explicit `issued_at` and `retrieved_at`
-timestamp supplied with archive or live forecasts must each be no later than T;
-observation availability is also bounded by T. Archived forecasts use day 1 for
-leads 1–18, day 2 for 19–42, and day 3 for 43–48. Their exact publication time
-is unavailable, so the conservative six-hour availability proxy must be no
-later than T. Future observations and newer runs are excluded.
+```sh
+python -m ml.evaluate                    # historical aggregate report only
+python -m ml.forecast --day 2026-10-28   # trained artifact if supplied; otherwise explicit rules fallback
+python -m ml.forecast --now              # current public weather; network required
+```
 
-`ml.features.FEATURES` has 45 columns across three groups: base, model
-ensemble, and synoptic pressure features. There is no separate state-feature
-group. The ensemble combines ECMWF IFS, GFS, and ICON forecasts after wind-speed
-scaling constants fitted on 2024 data and held fixed across walk-forward folds;
-the synoptic group derives pressure differences and geostrophic tailwinds.
-Missing model inputs remain missing.
+The full research pipeline needs source permission and local labels first:
 
-For OD rule updates, `tailwind_since_issue()` carries the duration of the
-observed positive landing-tailwind run into both the base-wind and ensemble-wind
-state machines. The forecast fallback uses the same timer logic. It is
-operational state, not an additional learned feature or an R18 timer.
+```sh
+python -m ml.fetch --since 2024-01-01 --sources metar previous multimodel
+python -m ml.synoptic
+python -m ml.dfld --permission-confirmed --since 2018-01-01 --until 2026-10-29
+python -m ml.train --months 12 --compare-label-policy
+python -m ml.evaluate --replay --out verification/replay.json
+```
 
-## Labels and fitting
+Do not run the DFLD command unless you have authorization for your processing.
+Downloading a publicly readable page does not grant redistribution rights.
+`train` and `evaluate --replay` fail with a clear explanation when required
+labels or artifacts are absent. Training writes `ml/models/` and
+`web/public/data/`; back up any research outputs you want to retain first.
 
-OD targets use all recorded DFLD stable-hour labels in the primary fit. A
-rule-derived suspected-run flag is a review signal, not independent proof of a
-bad recording; `--compare-label-policy` reports the flagged-row sensitivity
-separately. It does not remove those labels from the primary fit.
+## Issue-time inputs
 
-Runway 18 targets are inferred from METAR using the official wind limits.
-Unknown or variable wind remains unlabelled rather than being treated as usable.
+All supplied `issued_at` and `retrieved_at` timestamps, observed wind and
+recorded direction availability must be no later than issue time T. Archived
+weather uses previous-day 1 for leads 1–18 h, day 2 for 19–42 h and day 3 for
+43–48 h. A six-hour publication proxy must also be no later than T. Actual
+historical publication timestamps remain unverified.
 
-Training uses time-ordered monthly walk-forward folds, with the most recent
-12 months by default. Labels that extend across a test boundary are purged from
-training. Held-out months never select blend weights.
+`ml.features.FEATURES` contains the ordered base, multimodel and pressure-gradient
+columns. ECMWF, GFS and ICON wind speeds use fixed scaling ratios fitted on
+2024 data, before the evaluation months. Missing optional inputs remain missing.
+The rule state machine carries the observed continuous tailwind duration at
+issue time into the forecast. It never backdates forecast wind to issue time.
 
-The OD classifier blends with persistence using lead and weather-regime weights
-selected on the preceding 60-day validation block. R18 similarly blends its raw
-classifier with the issue-time persistence state, with weights selected on the
-preceding 60 days by horizon only. Sparse or closure-free validation horizons,
-unknown current R18 state, and artifacts without saved R18 weights use the raw
-R18 probability.
+For a past `--day`, issue time is midnight Europe/Berlin. Today and future
+requests use live weather; a future date must intersect the current 48-hour
+horizon. `--now` uses the current floored hour. Future observations are excluded.
+The UI contract is [forecast-types.ts](../web/src/lib/forecast-types.ts).
 
-## Evaluation and denominators
+## Training and evaluation design
 
-Lead scores report accuracy and Brier score at 1, 6, 24, and 48 hours against
-persistence and the official rule forecast. The corrected multimodel-weather
-rule (`rule_od25_ens` / `rule_18_ens`) is a separate comparator on the same
-eligible rows. Accuracy, Brier, and difference confidence intervals use 1-day,
-3-day, and 7-day block resampling. A block-length interval is null unless all
-scored days are covered by complete contiguous blocks of that length. The
-significance output also reports paired McNemar and Diebold–Mariano comparisons.
-McNemar p-values are nominal despite dependence in the data and are not adjusted
-for multiple comparisons. Undefined rates, scores, and intervals are JSON
-`null`.
+OD targets use all recorded stable-hour labels. Transition hours are excluded
+from the stable-hour accuracy score. A whole-run rule-disagreement flag is
+sensitivity-only: it can use later weather and is not proof of a faulty feed.
+It must never silently filter the primary labels. The retained counterexample
+tests document that temporal limitation.
 
-OD change timing requires a complete 48-hour hourly forecast and 97 half-hour
-DFLD bins including the issue-time state. Actual changes are counted strictly
-after issue time. `within_1h` and `within_3h` divide direction-correct timing
-hits by issue windows that contain an actual change; missing predictions and
-wrong-direction predictions are misses. The no-change false-alarm rate divides
-warned no-change windows by all complete no-change windows. These issue windows
-overlap and are not independent events.
+Runway-18 targets are inferred from METAR wind limits, not observed closures.
+Unknown or variable wind remains unlabelled. Monthly training purges any target
+whose label availability crosses the test boundary. Persistence weights use an
+earlier 60-day validation block; test months never select those weights.
+OD weights depend on horizon and weather regime; runway-18 weights depend on
+horizon. Sparse or closure-free runway-18 validation retains the raw classifier.
+The test months nevertheless informed feature selection and repeated review;
+they are not an untouched final test.
 
-The separate OD event metric deduplicates actual half-hour transitions across
-complete overlapping windows and uses only the first forecast change per issue.
-Directional warnings match unique actual events one to one within three hours.
-Event recall is matched unique events / unique actual events; precision is
-matched warnings / matched warnings plus false-alert clusters. False alerts per
-exposure day use the union of valid 48-hour issue windows, so overlapping
-forecasts do not inflate exposure. Timing error and warning lead are summarized
-over matched pairs.
+Accuracy and Brier scores compare identical eligible rows. Paired bootstrap
+intervals resample issue days, or contiguous three/seven-day blocks. A block
+interval is unavailable if any scored day lacks a complete block. Overlapping
+forecast windows remain dependent. Nominal row-level McNemar and daily-loss
+Diebold–Mariano p-values are not adjusted for multiple comparisons.
 
-R18 event scores are issue-window outcomes, not unique closure episodes. For
-each horizon (1, 6, or 24 hours), only issues with every target hour labelled
-and every compared prediction valid enter the shared cohort. A positive window
-means any target hour is inferred closed. Counts and recall/precision therefore
-use complete issue windows as their denominator.
+Change timing requires all 48 forecast hours and 97 half-hour truth bins,
+including state at issue. Missed or wrong-direction forecasts count as misses.
+The unique-event report separately matches directional first-change warnings
+one to one within three hours and clusters false warnings. Its exposure is the
+union of valid forecast windows. Runway-18 reports complete overlapping positive
+issue windows, not unique closure episodes.
 
-## Runtime outputs
+See [measured evaluation](../docs/EVALUATION.md) for reproduced numbers and limits.
 
-`web/public/data/backtest.json` and `quality.json` include out-of-sample skill,
-significance, reliability, event metrics, and coverage/exclusion counts.
-`p_18_usable` is the served R18 probability; raw scores remain separately
-available when blending applies. `next_change` preserves its existing UI fields
-and adds direction-error and per-reason exclusion counts. `quality.json` is typed
-by `web/src/lib/forecast-types.ts`.
-
-For CLI inputs, `ml.predict.predict_48h(issue_time_utc, obs, nwp, od_at_issue)`
-returns 48 hourly rows. Supply observed direction history through
-`obs.attrs['od_history']` with `time`, `od`, and `available_at`; otherwise a
-recorded `od` column may be used with its availability time. Saved hindcast
-models must have training labels ending before the requested issue time.
-
-For a past or today's `--day`, the issue is that date's 00:00 Europe/Berlin;
-today runs in live mode. A future `--day` and `--now` use the current floored
-hour as issue time. A future requested date must intersect that 48-hour horizon;
-the CLI returns the complete 48-hour trajectory and identifies the requested
-date in the response. It never fetches future observations.

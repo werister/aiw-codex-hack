@@ -38,7 +38,7 @@ export function Provenance({ f, compact }: { f: ForecastResponse; compact?: bool
   const issued = utcMs(f.issued_at);
   const last = f.hours[f.hours.length - 1];
   const elapsed = now != null && now >= utcMs(last.time) + 3_600_000;
-  const fallback = f.model_version === "rules-fallback";
+  const fallback = f.model_version.startsWith("rules");
 
   const items: [string, string][] = [
     ["Issued", `${dayLabel(f.issued_local)} ${hhmm(f.issued_local)} ${utcOffset(f.issued_at, f.issued_local)}`],

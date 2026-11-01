@@ -16,7 +16,6 @@ NOW = pd.Timestamp("2026-10-30T11:23Z")
 
 @pytest.fixture
 def hindcast_inputs(monkeypatch):
-    monkeypatch.setattr(forecast, "briefing_settings", lambda: ("", ""))
     issue, _, _ = forecast.issue_time(DAY, now=NOW)
     observations = pd.DataFrame({
         "time": pd.date_range(issue - pd.Timedelta(hours=4), issue, freq="30min"),
@@ -58,8 +57,7 @@ def test_fixed_hindcast_contract_and_no_future_inputs(hindcast_inputs):
     result = forecast.build_forecast(DAY, now=NOW)
     assert set(result) == {"issued_at", "issued_local", "mode", "current_od", "nwp",
                            "model_version", "rules_version", "hours", "next_change",
-                           "closures_18", "observed", "briefing"}
-    assert result["briefing"] is None
+                           "closures_18", "observed"}
     assert result["issued_at"] == "2026-10-01T22:00Z"
     assert result["issued_local"] == "2026-10-02T00:00"
     assert result["mode"] == "hindcast"
@@ -164,19 +162,6 @@ def test_now_and_table_output(hindcast_inputs, monkeypatch, capsys):
     assert sum(line.startswith("2026-") for line in captured.out.splitlines()) == 48
     assert "Next change:" in captured.out
     assert "Runway 18 closures (inferred weather usability):" in captured.out
-
-
-def test_optional_briefing_json_and_table(hindcast_inputs, monkeypatch, capsys):
-    before = forecast.build_forecast(DAY, now=NOW, include_briefing=False)
-    text = "The direction may change within the forecast window. Weather usability remains uncertain."
-    monkeypatch.setattr(forecast, "tower_briefing", lambda result: text)
-    result = forecast.build_forecast(DAY, now=NOW)
-    assert result == {**before, "briefing": text}
-    assert json.loads(json.dumps(result))["briefing"] == text
-    forecast.print_table(result)
-    assert capsys.readouterr().out.splitlines()[-1] == text
-    forecast.print_table(before)
-    assert text not in capsys.readouterr().out
 
 
 @pytest.mark.parametrize(("day", "expected"), [
@@ -320,3 +305,4 @@ def test_predict_adapter_stale_metar_fallback_requires_future_issue(monkeypatch,
     else:
         with pytest.raises(ValueError, match="No METAR within two hours before issue"):
             forecast.predict(issue, obs, nwp, "25")
+

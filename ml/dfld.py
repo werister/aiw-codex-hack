@@ -188,12 +188,17 @@ def main():
     parser.add_argument("--until", type=date.fromisoformat,
                         default=datetime.now(tz=BERLIN).date() - timedelta(days=1))
     parser.add_argument("--refresh", action="store_true")
+    parser.add_argument("--permission-confirmed", action="store_true",
+                        help="Confirm you have permission for this processing; see docs/DATA_SOURCES.md")
     parser.add_argument("--compare-metar", action="store_true",
                         help="Compare saved runway-18 display hours with METAR tailwind, without downloading")
     args = parser.parse_args()
     if args.compare_metar:
         compare_metar()
         return
+    if not args.permission_confirmed:
+        parser.error("DFLD processing requires permission; see https://www.dfld.de/DFLDimprint.php?L=G "
+                     "and docs/DATA_SOURCES.md. Only pass --permission-confirmed when authorized.")
     if args.since > args.until or args.until >= datetime.now(tz=BERLIN).date():
         parser.error("Use a nonempty range of completed local days")
     extract(args.since, args.until + timedelta(days=1), args.refresh)

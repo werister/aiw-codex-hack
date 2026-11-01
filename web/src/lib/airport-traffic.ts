@@ -162,7 +162,7 @@ function routesFor(
     y: axes.across[1],
     z: 0,
   });
-  const lane = add(vector(entry), {
+  const taxiPoint = add(vector(entry), {
     x: axes.across[0] * 40,
     y: axes.across[1] * 40,
     z: 0,
@@ -170,7 +170,7 @@ function routesFor(
   routes.depart_center = [
     airportPoint(65, 55, 1.85, axes),
     airportPoint(65, 40 + centerAcross, 1.85, axes),
-    tuple(lane),
+    tuple(taxiPoint),
     entry,
     runwayPoint(center, direction * 110),
     runwayPoint(center, direction * (half + 150), 58),
@@ -192,7 +192,7 @@ function routesFor(
     routes.depart_flex = [
       airportPoint(-150, 70, 1.85, axes),
       airportPoint(-150, 40 + centerAcross, 1.85, axes),
-      tuple(lane),
+      tuple(taxiPoint),
       entry,
       runwayPoint(center, direction * 110),
       runwayPoint(center, direction * (half + 105), 38),

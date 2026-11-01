@@ -19,7 +19,7 @@ export function odSoft(od: OD) {
   return od === "25" ? "bg-west-soft" : "bg-east-soft";
 }
 
-// FraAlliance card: flat, 10 px radius, hairline edge, short title on top.
+// Flat card with a quiet border and a short title.
 export function Panel({
   title,
   aside,
@@ -44,7 +44,7 @@ export function Panel({
   );
 }
 
-// Thin outline arrow in the style of their link arrows.
+// Thin outline link arrow.
 export function Arrow({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 17 8" className={cx("h-2 w-[17px] shrink-0", className)} fill="none" aria-hidden>

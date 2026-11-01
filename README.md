@@ -1,109 +1,98 @@
-# FRA operating direction forecast (FraAlliance challenge, AI Week Codex Hackathon, 30 Oct 2026)
+# Lift-off · Frankfurt Runway Outlook
 
-**Team-Update: Unsere Prognose wurde verbessert.** Sie berücksichtigt jetzt, wie lange der Wind schon aus der kritischen Richtung kommt. Historische Tests prüfen vorhandene Zeitstempel strenger, zählen Richtungswechsel ohne Mehrfachtreffer und zeigen Datenlücken ausdrücklich. Bei 6 Stunden Vorlauf trifft das Modell die Betriebsrichtung in 92,7 % der Teststunden; die offiziellen Regeln erreichen 88,1 %. Das ist der Vergleich mit der Regelmethode, kein belegter Genauigkeitssprung gegenüber unserer vorherigen Modellversion. **[Die Änderungen einfach erklärt](ML_VERBESSERUNGEN.md)** – mit Beispielen, Ergebnissen und den noch offenen Schwächen bei Bahn 18.
+A 48-hour hourly outlook for Frankfurt Airport runway direction, runway-18 weather usability and the next likely direction change.
 
-> ## 🎤 FINALS PITCH: one page, everyone use this
-> - **Open it:** use the live link below, or locally: pull `main`, run `python -m http.server 8000 -d web/public`, open http://localhost:8000/deck/ (the charts need a server; a double-clicked file only shows the poster). Arrow keys or click to advance, **A** = autoplay.
-> - **Live (THE place to review):** https://fraalliance-runway-forecast.statworx-par-2884.chatgpt.site: `/` dashboard, `/deck/` slides, `/pitch` Kai's real-day replay, `/approach` how we built it, `/widget` iPad view. Republished from main every 15 min, 15:02 to 16:47. Visible to others once Jayden turns sharing on.
-> - **Presenter:** Hugo. The script and timings are in `web/public/deck/NOTES.md`. 4 minutes max.
-> - **Freeze:** final version 15:50, no changes after 16:30 except fixes. Finals at 17:00.
+![Running dashboard with archived weather and the rules-only forecast](docs/images/dashboard.png)
 
-**Live app:** https://fraalliance-runway-forecast.statworx-par-2884.chatgpt.site (private until sharing is switched on; the finals deck is at `/deck/index.html` after the next redeploy, and `/pitch` is the app's pitch mode)
+For airport and airline operations staff exploring how advance weather information could support preparation and handovers, and engineers evaluating runway-direction forecasting. Select an hour, inspect its wind and uncertainty, and compare direction changes with runway-18 restrictions.
 
-**Finals deck:** [/deck](https://fraalliance-runway-forecast.statworx-par-2884.chatgpt.site/deck/index.html) (`web/public/deck/index.html`, notes in `web/public/deck/NOTES.md`); its 3D scene `web/public/deck/scene.js` is shared with the dashboard hero.
+[Timeline, tablet, model-quality and 3D screenshots](docs/images/README.md)
 
-## Work packages (OpenSpec: `openspec/changes/`)
+**Deutsch:** Ein stündlicher 48-Stunden-Ausblick auf die Betriebsrichtung am Flughafen Frankfurt und die wetterbedingte Nutzbarkeit der Startbahn 18. Die Zeitleiste und Tabletansicht helfen beim Prüfen möglicher Änderungen. Die öffentliche Ausgabe zeigt eine offline berechnete Regelprognose; trainiertes Modell und Betriebsrichtungsdaten bleiben bis zur Klärung der Datenrechte ausgeschlossen. Unabhängige Demonstration, nicht für den operativen Einsatz.
 
-Pick yours, read its `proposal.md` and `tasks.md`, and tick tasks off as you go. `openspec list` shows progress.
+**Independent decision-support demo, not for operational use. Not affiliated with Fraport or any airline.** The historical fitted model and the direction records are not in this repository, because we have no permission to redistribute them. The public example runs on licensed weather and the rule baseline. Its scores are uncalibrated and separate from the measured model results below.
 
-| # | Package | Owner | Change |
-|---|---|---|---|
-| 1 | Data sources and download | our agents; Luca checks the data | `wp1-data-sources` |
-| 2 | Labels and rule baseline, with the 30-min hysteresis | Kai | `wp2-labels-rule-baseline` |
-| 3 | Model and walk-forward backtest at 1/6/24 h | Kai, with our agents | `wp3-model-backtest` |
-| 4 | CLI `forecast --day` and the jury-day forecasts | our agents | `wp4-forecast-cli` |
-| 5 | UI: tower-staff view, 48 h timeline, simulated ops screen, quality panel, iPad widget | Jayden | `wp5-ui-timeline` |
-| 6 | Model card, business case, pitch | Hugo, Luca | `wp6-model-card-pitch` |
-| 7 | How the decision is made, which data exists, ground truth of flown ODs (`DATA_AND_DECISIONS.md`) | our agents | `wp7-data-decisions-research` |
-| 8 | Model quality numbers: walk-forward, in- vs out-of-sample, confidence calibration | our agents | `wp8-model-quality` |
-| 9 | Optional 3D demo scene (drop at 15:00 if not ready) | a separate agent | `wp9-3d-demo` |
+## Quickstart
 
-Deadline: submissions at 16:00, finals at 17:00. Hugo presents; Jayden leaves at 16:45.
+Requires Node.js 22.18+ (24 tested).
 
-**Cross-checking.** Open problems are in `NOTICES.md`. Every agent reads it and pulls main before each task and at least every 15 minutes, checks the other branches and worktrees before building, and adds a line when it sees something wrong. Details: "Cross-checking" in `AGENTS.md`.
-
-## What we are building
-
-A 48 h hourly forecast for Frankfurt Airport. For each hour it gives:
-- the operating direction (OD 25 west or OD 07 east)
-- the probability that runway 18 is usable for departures
-- a certainty score
-- the next likely direction change
-
-The model learns from public data: EDDF METAR, archived weather-model forecasts and DWD observations. It must beat the official rule baseline (`ml/rules.json`), measured on held-out days at 1, 6 and 24 h ahead. The jury compares our forecasts for their test days with the directions actually flown.
-
-Official brief: `frankfurt-airport-operating-direction-forecast.md`. Background: `CHALLENGE_FRAALLIANCE.md`, `briefing/`.
-
-### Product direction: fleet-wide planning
-
-The full product helps the tower controller / shift supervisor plan across airport traffic: anticipate direction changes and runway-18 restrictions, identify exposed arrival/departure periods, and make uncertainty visible early enough to prepare. The current model already predicts airport-wide runway conditions; the next layer connects those predictions to flight demand and downstream disruption. A single-flight example is only a demo entry point.
-
-**Team handoff: [Fleet-wide planning, required data and model outputs](briefing/fleet-planning.md).** This records the intended recommendation view, expandable visual evidence, model-validation handoff, and the additional flight data needed. It is product direction, not a claim that fleet-impact prediction is implemented or that the weather database contains Frankfurt flight schedules.
-
-**Recommendation and model traces: [First-MVP evidence contract and trace wishlist](briefing/forecast-trace-wishlist.md).** Follow the clickable source → features → model/rules → forecast flow, with separate validation links. The wishlist points to committed data-loading and calculation code, distinguishes existing outputs from proposed capture, and invites team comments on what is useful or challenging. Planning actions, buffer minutes and flight-impact counts need their own policy and evidence; forecast probabilities alone do not establish them.
-
-**Model-trace handoff (reviewable research):** [Visual trace design](briefing/2026-10-30-trace-patterns.md) and [evidence, confidence and required producer outputs](briefing/2026-10-30-forecast-evidence.md). The intended UI starts with one planning recommendation and expands into a visual source/feature/model/rules trail. The inference pipeline must retain the actual inputs, versions and intermediate results: a single prediction score cannot reconstruct that trail. These notes distinguish inspected snapshots from proposed contracts; they do not claim a trace integration is implemented.
-
-**Questions awaiting Kai and Jayden:** [Inference capture owner, required outputs and UI join contract](briefing/forecast-trace-questions.md). Please answer in the handoff with an owner and code/artifact link so Hugo can progress one real, traceable forecast run.
-
-## Stack
-
-- `ml/`: Python 3.13, pandas, scikit-learn. Data download, labels, model, backtest and the forecast CLI.
-- `web/`: Next.js 16, TypeScript, Tailwind 4 (npm). The ops timeline, deployed on Vercel with `web/` as the root.
-- Contracts: `ml/rules.json` holds the official limits. `web/src/lib/forecast-types.ts` defines the JSON the CLI writes and the UI reads.
-
-## Run
-
-```bash
-python -m pip install -r ml/requirements.txt
-python -m ml.fetch                              # data into data/ (cached)
-python -m ml.train                              # model + backtest
-python -m ml.forecast --day 2026-10-31          # 48 h hourly table for any day
-python -m ml.forecast --day 2026-10-31 --json   # same as JSON for the UI
-
-cd web && npm install && npm run dev            # http://localhost:3000
+```sh
+git clone https://github.com/werister/aiw-codex-hack.git
+cd aiw-codex-hack
+cd web
+npm ci
+npm run dev
 ```
 
-Some of these commands land during the day. Each work package says when its part is ready.
+Open **http://127.0.0.1:3000**. No Python setup, account or API key is needed for the saved dashboard. Select hours on the overview, expand **Hourly forecast** for the full timeline, or open `/widget` for the tablet view. `/quality` contains historical model evaluation and `/model-card/` explains its limits. The bundled data are a fixed historical example, not a live airport feed.
 
-## Jury test days
+For a newly computed offline forecast, use Python 3.12 or 3.13 (3.12 tested locally), from the repository root:
 
-**Dates: pending from FraAlliance** (asked on the floor, 30 Oct). Each day is produced by one command, using only the information available at 00:00 local time on that day:
-
-```bash
-python -m pip install -r ml/requirements.txt
-python -m ml.forecast --day YYYY-MM-DD                 # readable 48 h table
-python -m ml.forecast --day YYYY-MM-DD --json --out web/public/forecasts/YYYY-MM-DD.json
+```sh
+python -m venv .venv
 ```
 
-Published so far: `web/public/forecasts/index.json`. Fallback if no dates arrive by 15:30: 2026-10-31 and 2026-11-01.
+Activate it with `.venv\Scripts\Activate.ps1` in PowerShell, or `source .venv/bin/activate` on macOS/Linux, then:
 
-## Demo path
+```sh
+python -m pip install -r ml/requirements.txt
+python -m ml.forecast --demo
+python -m ml.forecast --demo --json --out web/public/forecasts/latest.json
+```
 
-1. Open the web app: the next 48 h, with OD per hour, runway 18, certainty and the next change.
-2. Switch to a jury test day and show the forecast against the directions actually flown (DFLD records).
-3. Open the backtest: skill at 1, 6 and 24 h against the rule baseline and persistence.
-4. Show the one-page model card (`MODEL_CARD_ONE_PAGE.md`, PDF in `output/pdf/liftoff-model-card.pdf`); the technical detail is in `MODEL_CARD.md`.
+This computes 48 hours from the committed IEM METAR and archived Open-Meteo weather for 28 October 2026. It uses no network, recorded direction labels or fitted weights. [Usage and research commands](docs/USAGE.md) cover date-based forecasts, downloads and local inputs.
 
-## Data
+## How the model works
 
-All sources are public and cited. The details are in `data/README.md` (files) and `DATA_AND_DECISIONS.md` (how FRA decides and which data exists).
-- EDDF METAR and TAF from the Iowa Environmental Mesonet archive.
-- Open-Meteo Previous Runs and Historical Forecast APIs: archived model forecasts, for an honest 48 h backtest.
-- The Open-Meteo Forecast API for the live forecast.
-- DWD Open Data, station 01420 Frankfurt/Main.
-- DFLD recorded operating directions, the ground truth for scoring. Source and limits: `data/ground_truth/README.md`.
+The historical model learned how runway direction relates to airport wind, archived weather-model forecasts and the current direction. Gradient-boosted trees combine runway tailwinds, forecast disagreement, pressure differences and rule-state features. At short leads, a blend with persistence helps when the current direction is informative; blend weights are selected using earlier validation data.
 
-## Team
+Direction labels came from a public operating-direction proxy. Runway-18 targets were inferred from wind limits, not observed operational closures. The public offline example runs the rule state machine directly because source rights for the fitted model remain unresolved. [Operating rules](docs/OPERATING_RULES.md) and [model card](MODEL_CARD.md) explain the distinction.
 
-Kai Detmers (ML co-lead), Jayden Bruck (agents and UI), Hugo Hader (pitch), Luca Schultz (data, numbers, backup presenter). Rules for everyone, humans and agents: `AGENTS.md`.
+## Measured model results
+
+Historical `walk-forward-v6`, monthly expanding walk-forward evaluation, November 2025–October 2026. Each test month was excluded from its fit, **but test results informed development; this is not an untouched final test**.
+
+![Historical direction accuracy against rules and persistence, with seven-day block-bootstrap intervals](docs/images/model-comparison.svg)
+
+| Lead | Fitted model | Rule baseline | Persistence |
+|---|---:|---:|---:|
+| 1 h | 95.7% | 93.1% | 95.9% |
+| 6 h | 92.7% | 88.1% | 88.8% |
+| 24 h | 91.8% | 87.7% | 75.1% |
+
+The 1-hour model does not beat persistence in accuracy. The chart and [evaluation report](docs/EVALUATION.md) include 95% intervals, counts, Brier scores and exact reproduction commands. `python -m ml.evaluate` reads the retained historical aggregate; it does not recompute predictions. The cleanup audit also attempted replay of the original monthly fits before restricted files were withheld; its result and any discrepancies are recorded in the evaluation report. Independent replay from the public package requires permission-cleared labels and fitted artifacts.
+
+Change-event scoring is separate from hourly accuracy. The historical report matched 115 of 193 unique direction changes within ±3 hours, with 138 false-alarm clusters. Runway-18 rare-event performance remains weak: 0 of 12 positive 24-hour issue windows detected, with only 307 complete windows and 1,125 excluded. These are wind-inferred closure labels, not verified runway closures. **None of these fitted-model metrics describe the rules demo.**
+
+## Limits
+
+- Public direction records are a proxy, not a certified operations log. Stable-hour scoring excludes change hours; a suspect source interval remains in the primary results and has separate sensitivity analysis.
+- Archived forecast availability is approximate. A six-hour publication buffer is an assumption, not verified publication metadata.
+- Certainty is a probability-margin score, not calibrated joint correctness. Next-change support is an hourly direction probability; its timing window is heuristic.
+- No certified traffic, capacity, aircraft eligibility, clearance or financial-benefit prediction is included. The 3D traffic is illustrative.
+
+See [data rights and full inventory](docs/DATA_SOURCES.md), [evaluation](docs/EVALUATION.md) and [model card](MODEL_CARD.md).
+
+## Data sources
+
+Normalized weather comes from [Iowa Environmental Mesonet](https://mesonet.agron.iastate.edu/disclaimer.php) (public domain), [Open-Meteo](https://open-meteo.com/en/licence) and [DWD CDC](https://opendata.dwd.de/climate_environment/CDC/Nutzungsbedingungen_German.pdf) (CC BY 4.0), plus NOAA/NWS snapshots. Units, timestamps and missing values are normalized; original provider attribution remains required. Open-Meteo's data licence and free-API noncommercial service terms are separate; business use needs suitable service access.
+
+Restricted direction tables, fitted weights, third-party research PDFs and copied source archives are excluded. [DATA_SOURCES.md](docs/DATA_SOURCES.md) lists each original dataset, size, licence and removal decision. The source parser remains available for research with lawfully supplied inputs.
+
+## Project layout
+
+```text
+ml/                    Weather, rules, features, forecast CLI, training and tests
+web/                   Next.js dashboard, tablet view and public weather snapshots
+data/                  Licensed normalized weather and retrieval metadata
+docs/                  Usage, evaluation, source rights and real screenshots
+tools/blender/         Optional procedural source for the airport illustration
+```
+
+The Python/web interface is `web/src/lib/forecast-types.ts`. Rules are versioned in `ml/rules.json`. The optional 3D assets are original unbranded geometry; [rebuilding instructions](docs/3D.md) are separate from the dashboard quickstart.
+
+## Contributing and licence
+
+[Contributing](CONTRIBUTING.md) describes checks and evidence requirements. Proposed code licence: [MIT](LICENSE), **pending approval by all four original authors**. Data retain their own terms; the code licence does not license third-party datasets.
+
+Created by **Kai Detmers, Jayden Bruck, Hugo Hader and Luca Schultz**.

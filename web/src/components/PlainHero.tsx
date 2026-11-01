@@ -31,7 +31,7 @@ export function PlainHero({
   const directionProbability = hour && (hour.od === "25" ? hour.p_od25 : 1 - hour.p_od25);
   const coverage = forecastCoverage(f.hours);
   // Plain bar title; the exact coverage text stays for incomplete files.
-  const barTitle = coverage.count === 48 && !coverage.hasTimestampGaps ? "Next 2 days" : coverage.label;
+  const barTitle = coverage.count === 48 && !coverage.hasTimestampGaps ? "48-hour outlook" : coverage.label;
   const wind = hour?.wind_dir_deg == null ? undefined : { dir: hour.wind_dir_deg, kt: hour.wind_kt };
 
   return (
@@ -78,7 +78,7 @@ export function PlainHero({
               compact ? "text-[40px]" : "text-[40px] sm:text-[56px] xl:text-[68px]",
             )}
           >
-            {f.mode === "live" ? "Planes land toward the " : "Planes landed toward the "}
+            {"Issue-time direction: "}
             <span className={f.current_od === "25" ? "text-west" : "text-east"}>{WAY[f.current_od]}</span>.
           </h2>
 
@@ -86,10 +86,10 @@ export function PlainHero({
             <div className="mt-6 space-y-3">
               <p className={cx("font-light leading-tight", compact ? "text-[24px]" : "text-[24px] sm:text-[32px]")}>
                 {when(hour.local)}:{" "}
-                <span className={hour.od === "25" ? "text-west" : "text-east"}>{WAY[hour.od]}</span>, {pct(directionProbability!)} sure
+                <span className={hour.od === "25" ? "text-west" : "text-east"}>{WAY[hour.od]}</span>, {pct(directionProbability!)} support
               </p>
               <div className="flex flex-wrap gap-2.5">
-                <Chip tone={r18Open ? "plain" : "alarm"}>Runway 18 {r18Open ? "open" : "closed"}</Chip>
+                <Chip tone={r18Open ? "plain" : "alarm"}>Runway 18 {r18Open ? "likely usable" : "likely restricted"}</Chip>
                 {isUnsure(hour) && <Chip tone="outline">Unsure: {unsureReason(hour)}</Chip>}
               </div>
             </div>
@@ -101,7 +101,7 @@ export function PlainHero({
             {nc ? (
               <>
                 Next change: <span className={nc.to === "25" ? "text-west" : "text-east"}>{WAY[nc.to]}</span> from{" "}
-                {when(nc.local)}, {pct(nc.p)} sure
+                {when(nc.local)}, {pct(nc.p)} direction support
               </>
             ) : (
               <span className="text-muted">No change expected in this forecast.</span>

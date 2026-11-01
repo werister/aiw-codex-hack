@@ -14,3 +14,9 @@ data/raw/
 # design scrape (never committed)
 .design-scrape/
 resources/raw/
+
+assets/
+.pytest_cache/
+# Restricted inputs and fitted artifacts remain local-only pending permission.
+data/ground_truth/dfld_*
+ml/models/*.joblib

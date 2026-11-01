@@ -50,31 +50,11 @@
   "trained_through": "2026-10-29T18:00:00+00:00",
   "n": 194352,
   "r18_label_type": "inferred",
-  "od_model_weight": {
-    "1:night": 0.0,
-    "1:calm": 0.2,
-    "1:active": 0.2,
-    "6:night": 0.3,
-    "6:calm": 0.7,
-    "6:active": 0.4,
-    "24:night": 0.7,
-    "24:calm": 1.0,
-    "24:active": 0.7,
-    "48:night": 0.8,
-    "48:calm": 0.9,
-    "48:active": 0.8
-  },
   "od_blend_validation_period": {
     "start": "2026-08-28T22:00:00+00:00",
     "end": "2026-10-27T17:00:00+00:00"
   },
   "od_training_label_policy": "all-recorded",
-  "r18_model_weight": {
-    "1": 1.0,
-    "6": 1.0,
-    "24": 1.0,
-    "48": 1.0
-  },
   "r18_blend_validation_period": {
     "start": "2026-08-28T22:00:00+00:00",
     "end": "2026-10-27T11:00:00+00:00"
@@ -97,5 +77,6 @@
       "closed_rows": 0
     }
   },
-  "publication_lag_h": 6
+  "publication_lag_h": 6,
+  "distribution_note": "Schema and aggregate metadata only; fitted estimators and learned blend weights withheld pending source permission."
 }

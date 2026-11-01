@@ -4,7 +4,7 @@ import test from "node:test";
 import { buildTrafficPlan, sampleFlight } from "./airport-traffic.ts";
 
 const manifest = JSON.parse(readFileSync(
-  new URL("../../../assets/airport/manifest.json", import.meta.url),
+  new URL("../../public/models/airport/manifest.json", import.meta.url),
   "utf8",
 ));
 const roles = ["arrive_north", "arrive_south", "depart_center", "depart_flex"];

@@ -3,12 +3,9 @@
 from __future__ import annotations
 
 import argparse
-import asyncio
 import importlib
 import json
 import math
-import os
-import re
 import sys
 from datetime import date, datetime
 from pathlib import Path
@@ -24,6 +21,7 @@ from ml.quality import suspect_od_runs
 from ml.rules import RULES, crosswind, od_state_machine, r18_usable, tailwind
 
 BERLIN = ZoneInfo("Europe/Berlin")
+DEMO_DAY = date(2026, 10, 28)
 
 
 def utc_text(value):
@@ -65,7 +63,7 @@ def logistic(value):
 
 
 def fallback_predict(issue, obs, nwp, current_od):
-    """Temporary until fitted probabilities are available from predict_48h."""
+    """Wind-rule trajectory with heuristic, uncalibrated probabilities."""
     frame = selected_wind(issue, nwp)
     rows = wind_rows(frame)
     available_obs = observations_available_at(obs, issue)
@@ -258,68 +256,7 @@ def observed_overlay(issue, history):
     return output
 
 
-def briefing_settings():
-    values = {}
-    for path in (live.ROOT / "web/.env.local", live.ROOT / ".env.local"):
-        try:
-            lines = path.read_text(encoding="utf-8").splitlines()
-        except OSError:
-            continue
-        for line in lines:
-            name, separator, value = line.strip().removeprefix("export ").partition("=")
-            name = name.strip()
-            if separator and name in ("OPENAI_API_KEY", "OPENAI_MODEL"):
-                value = value.strip()
-                if value.startswith(("'", '"')):
-                    end = value.find(value[0], 1)
-                    if end < 0:
-                        continue
-                    value = value[1:end]
-                else:
-                    value = value.split(" #", 1)[0].strip()
-                values.setdefault(name, value)
-    return tuple(os.environ.get(name, values.get(name, "")).strip()
-                 for name in ("OPENAI_API_KEY", "OPENAI_MODEL"))
-
-
-def tower_briefing(result):
-    """Optional narration; failures never affect the computed forecast."""
-    try:
-        key, model = briefing_settings()
-        if not key or not model:
-            return None
-        from openai import AsyncOpenAI
-
-        certainties = [hour["certainty"] for hour in result["hours"]]
-        summary = {"current_od": result["current_od"], "next_change": result["next_change"],
-                   "runway": "18", "closures_18": result["closures_18"],
-                   "certainty_percent_range": [min(certainties), max(certainties)]}
-        prompt = json.dumps(summary, separators=(",", ":"), allow_nan=False)
-
-        async def request():
-            async with asyncio.timeout(8):
-                async with AsyncOpenAI(api_key=key, timeout=8.0, max_retries=0) as client:
-                    return await client.responses.create(
-                        model=model, store=False, input=prompt,
-                        instructions="Brief tower staff in at most 2 sentences of plain English. "
-                        "Use only the given values. Never invent numbers, times, probabilities or facts; "
-                        "do not convert or calculate new numbers or spell out new quantities. "
-                        "Summarize current OD, the next change and its window/probability if present, "
-                        "runway 18 inferred weather closures, and certainty. Preserve uncertainty. "
-                        "Do not give operational clearance or instructions. Return only the briefing.")
-
-        response = asyncio.run(request())
-        text = response.output_text.strip()
-        numbers = lambda value: set(re.findall(r"\d+(?:\.\d+)?", value))
-        if (not text or key in text or not numbers(text).issubset(numbers(prompt))
-                or len(re.split(r"(?<=[.!?])\s+", text)) > 2):
-            return None
-        return text
-    except Exception:
-        return None
-
-
-def build_forecast(day=None, *, now=None, include_observed=True, include_briefing=True):
+def build_forecast(day=None, *, now=None, include_observed=True):
     issue, mode, now = issue_time(day, now=now)
     cutoff = min(issue, now.floor("h"))
     obs = live.metar_until(cutoff)
@@ -360,8 +297,42 @@ def build_forecast(day=None, *, now=None, include_observed=True, include_briefin
         result["observed"] = observed_overlay(issue, history)
     if "model_sha256" in frame.attrs:
         result["evidence"] = evidence(frame, hours, issue, obs, known, nwp, current_od, provenance)
-    result["briefing"] = tower_briefing(result) if include_briefing else None
     return result
+
+
+def build_demo(day=DEMO_DAY):
+    """Compute a reproducible offline forecast from licensed weather snapshots.
+
+    This deliberately never loads a fitted model or recorded direction labels.
+    Its probabilities are heuristic rule margins, not the evaluated classifier.
+    """
+    issue = pd.Timestamp(datetime.combine(day, datetime.min.time(), tzinfo=BERLIN)).tz_convert("UTC")
+    metar_path = live.DATA / "eddf_metar.parquet"
+    wind_path = live.DATA / "openmeteo_previous_runs.parquet"
+    if not metar_path.exists() or not wind_path.exists():
+        raise ValueError("Offline demo needs the bundled IEM METAR and Open-Meteo previous-run snapshots")
+    obs = live.normalize_metar(pd.read_parquet(metar_path))
+    obs = obs.loc[obs.time.between(issue - pd.Timedelta(hours=48), issue)].copy()
+    if obs.empty or issue - obs.time.iloc[-1] > pd.Timedelta(hours=2):
+        raise ValueError("Offline demo has no recent METAR for this date; use --demo without --day")
+    nwp = pd.read_parquet(wind_path)
+    nwp["time"] = pd.to_datetime(nwp.time, utc=True)
+    nwp = nwp.loc[nwp.time.isin(live.target_hours(issue))].copy().sort_values("time")
+    if not live.covers(nwp, live.target_hours(issue), archived=True):
+        raise ValueError("Offline demo has no complete archived forecast for this date")
+    current_od = od_state_machine(wind_rows(obs))[-1]
+    frame = fallback_predict(issue, obs, nwp, current_od)
+    hours = format_hours(frame, issue)
+    return {
+        "issued_at": utc_text(issue), "issued_local": local_text(issue), "mode": "hindcast",
+        "current_od": current_od,
+        "nwp": "Open-Meteo archived previous runs; IEM EDDF METAR; issue direction inferred from wind rules",
+        "model_version": "rules-demo", "rules_version": RULES["version"], "hours": hours,
+        "next_change": next_change(hours, current_od), "closures_18": closures(hours),
+        "note": "Offline rules demonstration. Probabilities and certainty are uncalibrated heuristics. "
+                "The evaluated trained model and recorded direction labels are withheld pending data permission. "
+                "Independent decision-support demo; not for operational use.",
+    }
 
 
 def score_forecasts(start, end):
@@ -377,6 +348,8 @@ def score_forecasts(start, end):
     if end >= today:
         raise ValueError("Scoring requires past issue days")
     history = live.recorded_history()
+    if history.empty:
+        raise ValueError("Scoring requires permission-cleared local direction labels; see docs/DATA_SOURCES.md")
     suspect = suspect_od_runs(history, live.normalize_metar(pd.read_parquet(live.DATA / "eddf_metar.parquet")))
     truth = history.set_index("time").od
     suspect_times = set(history.loc[suspect, "time"])
@@ -385,7 +358,7 @@ def score_forecasts(start, end):
               for scope in ("clean", "all")}
     days = excluded = 0
     for day in pd.date_range(start, end, freq="D"):
-        result = build_forecast(day.date(), include_observed=False, include_briefing=False)
+        result = build_forecast(day.date(), include_observed=False)
         if "fallback" in result["model_version"]:
             raise ValueError(f"Cannot score {day.date()}: trained model unavailable")
         matched = 0
@@ -466,14 +439,13 @@ def print_table(result):
         print(f"  {closure['local_start']} to {closure['local_end']}; minimum P(usable) {closure['min_p_usable']:.1%}")
     if not result["closures_18"]:
         print("  None in 48 hours")
-    if result.get("briefing"):
-        print(result["briefing"])
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--day", type=date.fromisoformat)
+    group.add_argument("--demo", action="store_true", help="Offline weather-rule example; no fitted model or API keys")
     group.add_argument("--now", action="store_true")
     group.add_argument("--score", action="store_true")
     parser.add_argument("--from", type=date.fromisoformat, dest="start")
@@ -486,7 +458,8 @@ def main(argv=None):
     if not args.score and (args.start is not None or args.end is not None):
         parser.error("--from and --to require --score")
     try:
-        result = score_forecasts(args.start, args.end) if args.score else build_forecast(args.day)
+        result = (score_forecasts(args.start, args.end) if args.score else
+                  build_demo() if args.demo else build_forecast(args.day))
         payload = json.dumps(result, indent=2, allow_nan=False) + "\n"
         destination = args.out or (live.ROOT / "web/public/data/october.json" if args.score else None)
         if destination:
@@ -506,3 +479,4 @@ def main(argv=None):
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

@@ -1,7 +1,0 @@
-# Full data are delivered in the local handoff ZIP and reproduced by the scripts.
-observations/raw/
-observations/eddf_metar_observations.csv
-observations/dwd_01420_hourly_wind_gust_overlap.csv
-forecast/raw/
-forecast/normalized/
-__pycache__/
